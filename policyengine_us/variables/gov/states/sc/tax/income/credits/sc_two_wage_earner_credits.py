@@ -21,19 +21,18 @@ class sc_two_wage_earner_credits(Variable):
         income_head = tax_unit("income_head", period)
         ira_deduction_head = tax_unit("ira_deduction_head", period)
 
-        # head's income - ira_dudction 
-        head_eligible = (income_head - ira_deduction_head)
+        # head's income - ira_dudction
+        head_eligible = income_head - ira_deduction_head
 
         # Get the spouse income and ira_dudction
         income_spouse = tax_unit("income_spouse", period)
         ira_deduction_spouse = tax_unit("ira_deduction_spouse", period)
 
-        # spouse's income - ira_dudction 
-        spouse_eligible = (income_spouse - ira_deduction_spouse)
+        # spouse's income - ira_dudction
+        spouse_eligible = income_spouse - ira_deduction_spouse
 
         # Determine the filing status
         joint = filing_status == filing_status.possible_values.JOINT
-        
 
         # Calculate two wage earner credits
-        return min(head_eligible,spouse_eligible)* p.rates*joint
+        return min(head_eligible, spouse_eligible) * p.rates * joint
