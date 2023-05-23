@@ -4,10 +4,10 @@
   input:
     state_code: SC
     filing_status: JOINT
-    income_head: 40_000
-    income_spouse: 17_000
-    ira_deduction_head: 0
-    ira_deduction_spouse: 1_000
+    sc_income_head: 40_000
+    sc_income_spouse: 17_000
+    sc_ira_deduction_head: 0
+    sc_ira_deduction_spouse: 1_000
   output:
     sc_two_wage_earner_credits: 112
     # less of (head or spouse income - ira deduction)*0.007 
@@ -20,10 +20,10 @@
   input:
     state_code: SC
     filing_status: JOINT
-    income_head: 65_000
-    income_spouse: 20_000
-    ira_deduction_head: 3_500
-    ira_deduction_spouse: 2_000
+    sc_income_head: 65_000
+    sc_income_spouse: 20_000
+    sc_ira_deduction_head: 3_500
+    sc_ira_deduction_spouse: 2_000
   output:
     sc_two_wage_earner_credits: 126
     # less of (head or spouse income - ira deduction)*0.007 
@@ -35,8 +35,8 @@
   input:
     state_code: SC
     filing_status: SEPARATE
-    income: 65_000
-    ira_deduction: 5_000
+    sc_income_head: 65_000
+    sc_ira_deduction_head: 5_000
   output:
     sc_two_wage_earner_credits: 0
 
@@ -46,10 +46,10 @@
   input:
     state_code: SC
     filing_status: JOINT
-    income_head: 50_000
-    income_spouse: 47_000
-    ira_deduction_head: 0
-    ira_deduction_spouse: 0
+    sc_income_head: 50_000
+    sc_income_spouse: 47_000
+    sc_ira_deduction_head: 0
+    sc_ira_deduction_spouse: 0
   output:
     sc_two_wage_earner_credits: 327 
     # $47,000*0.007 = $329, the amount cannot be greater than $327.
@@ -61,10 +61,10 @@
   input:
     state_code: SC
     filing_status: JOINT
-    income_head: 20_000
-    income_spouse: 17_000
-    ira_deduction_head: 20_000
-    ira_deduction_spouse: 18_000
+    sc_income_head: 20_000
+    sc_income_spouse: 17_000
+    sc_ira_deduction_head: 20_000
+    sc_ira_deduction_spouse: 18_000
   output:
     sc_two_wage_earner_credits: 0 
     # the less of (head or spouse income - ira deduction) is -$1000, not qualify for this credit. 
