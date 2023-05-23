@@ -1,0 +1,26 @@
+description: 
+# threshold value is bottom of the tax bracket; thresholds are <=
+brackets:
+ - threshold:
+     2022-01-01: 0
+   rate:
+     2022-01-01: 0.007
+ - threshold:
+     2022-01-01: 46_667
+   rate:
+     2022-01-01: 0.00
+     
+
+ 
+
+metadata:
+  reference:
+    - title: SC 1040 tax form instructions
+      href: https://dor.sc.gov/forms-site/Forms/IITPacket_2022.pdf#page=23
+    - title: SC Legal Code |  Section 12-6-3330
+      href: https://www.scstatehouse.gov/code/t12c006.php
+  label: 
+  type: marginal_rate
+  threshold_unit: currency-USD
+  rate_unit: /1
+  period: year
