@@ -18,15 +18,15 @@ class sc_two_wage_earner_credits(Variable):
         p = parameters(period).gov.states.sc.tax.income.credits.two_wage_earner
 
         # Get the individual filer's income and ira_dudction
-        income_head = tax_unit("income_head", period)
-        ira_deduction_head = tax_unit("ira_deduction_head", period)
+        income_head = tax_unit("sc_income_head", period)
+        ira_deduction_head = tax_unit("sc_ira_deduction_head", period)
 
         # head's income - ira_dudction
         head_eligible = income_head - ira_deduction_head
 
         # Get the spouse income and ira_dudction
-        income_spouse = tax_unit("income_spouse", period)
-        ira_deduction_spouse = tax_unit("ira_deduction_spouse", period)
+        income_spouse = tax_unit("sc_income_spouse", period)
+        ira_deduction_spouse = tax_unit("sc_ira_deduction_spouse", period)
 
         # spouse's income - ira_dudction
         spouse_eligible = income_spouse - ira_deduction_spouse
