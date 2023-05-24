@@ -15,7 +15,7 @@ class sc_two_wage_earner_credits(Variable):
         filing_status = tax_unit("filing_status", period)
 
         # Then get the SC two wage earner credits part of the parameter tree
-        p = parameters(period).gov.states.sc.tax.income.credits.two_wage_earner
+        p = parameters(period).gov.states.sc.tax.income.credits.two_wage_earner.rates
 
         # Get the individual filer's income and ira_dudction
         income_head = tax_unit("sc_income_head", period)
@@ -34,5 +34,8 @@ class sc_two_wage_earner_credits(Variable):
         # Determine the filing status
         joint = filing_status == filing_status.possible_values.JOINT
 
+        # Determine the lesser value
+        less_income = min(head_eligible, spouse_eligible)
+
         # Calculate two wage earner credits
-        return min(head_eligible, spouse_eligible) * p.rates * joint
+        return p.calc(less_income) * joint
