@@ -1,4 +1,5 @@
 from policyengine_us.model_api import *
+import numpy as np
 
 
 class sc_two_wage_earner_credits(Variable):
@@ -38,4 +39,4 @@ class sc_two_wage_earner_credits(Variable):
         less_income = min(head_eligible, spouse_eligible)
 
         # Calculate two wage earner credits
-        return p.calc(less_income) * joint
+        return np.round(p.calc(less_income) * joint)
