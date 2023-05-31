@@ -16,7 +16,9 @@ class sc_two_wage_earner_credits(Variable):
         filing_status = tax_unit("filing_status", period)
 
         # Then get the SC two wage earner credits part of the parameter tree
-        p = parameters(period).gov.states.sc.tax.income.credits.two_wage_earner.rates
+        p = parameters(
+            period
+        ).gov.states.sc.tax.income.credits.two_wage_earner.rates
 
         # Get the individual filer's income and ira_dudction
         income_head = tax_unit("sc_income_head", period)
