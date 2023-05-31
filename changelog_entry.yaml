@@ -1,2 +1,4 @@
-fix check version problem 
-
+- bump: minor
+  changes:
+    fixed:
+    - South Carolina two wage eraner credits.
