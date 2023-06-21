@@ -1,11 +1,10 @@
 description: South Carolina counts these income sources as earned income.
 values:
   2021-01-01:
-    - wages #not sure
+    - employment_income
     - state_or_federal_salary  
-    - tips #not found
-    - commisions #not found
-    - sub_pay #not found
+    # - commisions
+    # - sub_pay 
     - self_employment_income  
     - qualified_business_income  
     - partnership_s_corp_income 

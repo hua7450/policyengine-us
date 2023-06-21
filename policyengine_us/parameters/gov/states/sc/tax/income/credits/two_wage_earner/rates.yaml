@@ -1,4 +1,4 @@
-description: The tax rate of two wage earner credits in South Carolina.
+description: South Carolina provides these rates under the two wage earner credit.
 # threshold value is bottom of the tax bracket; thresholds are <=
 brackets:
  - threshold:

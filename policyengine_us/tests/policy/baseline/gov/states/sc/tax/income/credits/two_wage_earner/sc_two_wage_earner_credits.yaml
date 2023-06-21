@@ -1,6 +1,5 @@
 - name: If filing jointly, head income is  $40,000, spouse income is $17,000 and a IRA dedcution of $1,000, the credit is $112 
   period: 2022
-  absolute_error_margin: 0
   input:
     state_code: SC
     filing_status: JOINT
