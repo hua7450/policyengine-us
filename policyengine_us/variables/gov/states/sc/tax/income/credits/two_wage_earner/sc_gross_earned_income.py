@@ -3,7 +3,7 @@ from policyengine_us.model_api import *
 
 class sc_gross_earned_income(Variable):
     value_type = float
-    entity = SPMUnit
+    entity = Person
     label = "South Carolina gross earned income"
     unit = USD
     definition_period = YEAR

@@ -9,4 +9,8 @@ class sc_gross_earned_income_spouse(Variable):
     definition_period = YEAR
     defined_for = StateCode.SC
 
-    adds = "gov.states.sc.tax.income.credits.two_wage_earner.earned_income_spouse"
+    def formula(spm_unit, period, parameters):
+        person = spm_unit.members
+        is_spouse = person("is_tax_unit_spouse", period)
+        earned_income = person("sc_gross_earned_income", period)
+        return spm_unit.any(is_spouse * earned_income)
