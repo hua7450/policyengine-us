@@ -14,4 +14,3 @@ class sc_gross_earned_income_head(Variable):
         is_head = person("is_tax_unit_head", period)
         earned_income = person("sc_gross_earned_income", period)
         return spm_unit.any(is_head * earned_income)
-    

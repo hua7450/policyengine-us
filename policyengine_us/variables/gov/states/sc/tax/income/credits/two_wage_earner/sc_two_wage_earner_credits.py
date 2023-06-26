@@ -22,10 +22,12 @@ class sc_two_wage_earner_credits(Variable):
 
         # Determine the filing status
         joint = filing_status == filing_status.possible_values.JOINT
-        
+
         # get head eligible amount and spouse eligible amount
-        head_eligible = person.spm_unit("sc_gross_earned_income_head",period)
-        spouse_eligible = person.spm_unit("sc_gross_earned_income_spouse", period)
+        head_eligible = person.spm_unit("sc_gross_earned_income_head", period)
+        spouse_eligible = person.spm_unit(
+            "sc_gross_earned_income_spouse", period
+        )
 
         # Determine the lesser value
         less_income = min(head_eligible, spouse_eligible)
