@@ -67,3 +67,27 @@
         state_code: SC
   output:
     sc_two_wage_earner_credits: 0
+    # only filling joint is eligible
+
+- name: If filing jointly, head income is 18_000, spouse income is 18_000, credit is 126
+  period: 2021
+  input:
+    people:
+      person1:
+        is_tax_unit_head: true
+        sc_gross_earned_income: 18_000
+      person2:
+        is_tax_unit_spouse: true
+        sc_gross_earned_income: 18_000
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+        filing_status: JOINT
+    households:
+      household:
+        members: [person1, person2]
+        state_code: SC
+  output:
+    sc_two_wage_earner_credits: 126
+    # less of (head or spouse income)*0.007 
+    # 18_000* 0.007 = $126
