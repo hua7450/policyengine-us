@@ -3,14 +3,13 @@ description: South Carolina provides these rates under the two wage earner credi
 brackets:
  - threshold:
      2021-01-01: 0
-     2022-01-01: 0
    rate:
      2021-01-01: 0.007
  - threshold:
      2021-01-01: 43_333
      2022-01-01: 46_667
    rate:
-     2021-01-01: 0.00
+     2021-01-01: 0
      
 
  

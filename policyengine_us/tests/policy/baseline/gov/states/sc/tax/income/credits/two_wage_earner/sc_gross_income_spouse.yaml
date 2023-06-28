@@ -1,0 +1,17 @@
+- name: Ineligible
+  period: 2023
+  input:
+    is_tax_unit_spouse: false
+    state_code: SC
+    sc_gross_earned_income: 1_000
+  output:
+    sc_gross_earned_income_spouse: 0
+
+- name: Eligible
+  period: 2023
+  input:
+    is_tax_unit_spouse: true
+    state_code: SC
+    sc_gross_earned_income: 1_000
+  output:
+    sc_gross_earned_income_spouse: 1_000
