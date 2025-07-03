@@ -30,9 +30,9 @@ def create_reconciled_snap_abawd_work_requirement() -> Reform:
             has_child = person.spm_unit.any(is_dependent & is_qualifying_child)
             exempted_parent = is_parent & has_child
             # Exempted from the general work requirements (D)
-            meets_snap_general_work_requirements = person(
-                "meets_snap_general_work_requirements", period
-            )
+            #meets_snap_general_work_requirements = person(
+            #    "meets_snap_general_work_requirements", period
+            #)
             # Pregnant (E)
             is_pregnant = person("is_pregnant", period)
             # Homeless (remove in 2030) (F)
@@ -66,7 +66,6 @@ def create_reconciled_snap_abawd_work_requirement() -> Reform:
                 | worked_exempted_age
                 | is_disabled
                 | exempted_parent
-                | meets_snap_general_work_requirements
                 | is_pregnant
                 | exempted_married_person
             )
