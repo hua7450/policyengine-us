@@ -7,7 +7,6 @@ class ca_riv_general_relief_immigration_status_eligible(Variable):
     label = "Eligible for the Riverside County General Relief due to immigration status"
     definition_period = MONTH
     defined_for = "in_riv"
-    # p.16
 
     def formula(person, period, parameters):
         p = parameters(period).gov.local.ca.riv.general_relief
