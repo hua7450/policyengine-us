@@ -50,9 +50,8 @@
         housing_cost: 300 * 12
   output:
     state_withheld_income_tax: 0.38
-    employee_social_security_tax: [31, 0]
-    ca_riv_general_relief_earned_income_deductions: [31.38, 0.38]
-    ca_riv_general_relief_countable_income: 468.62 # 500 - 31.38
+    ca_riv_general_relief_earned_income_deductions: [38.63, 0.38]
+    ca_riv_general_relief_countable_income: 461.37 # 500 - 38.63
     ca_riv_general_relief_needs_standards: 436
     ca_riv_general_relief_income_eligible: false 
 
@@ -79,11 +78,11 @@
         ca_tanf: 0
         housing_cost: 300 * 12
   output:
-    employee_social_security_tax: [27.9, 0]
-    ca_riv_general_relief_earned_income_deductions: [27.9, 0]
-    ca_riv_general_relief_countable_income: 422.1 # 450 - 27.9
+    ca_riv_general_relief_earned_income_deductions: [34.43, 0]
+    ca_riv_general_relief_countable_income: 415.57 # 450 - 34.43
     ca_riv_general_relief_needs_standards: 436
     ca_riv_general_relief_income_eligible: true
     ca_riv_general_relief_eligible: true
-    ca_riv_general_relief: 16.4 
-    # 436 + 2.5 - 422.1 
+    ca_riv_general_relief_special_needs_amount: 2.5
+    ca_riv_general_relief: 22.93
+    # 436 + 2.5 - 415.57

@@ -4,7 +4,7 @@ from policyengine_us.model_api import *
 class ca_riv_general_relief_property_eligible(Variable):
     value_type = bool
     entity = SPMUnit
-    label = "Eligible for the Riverside County General Relief due to property"
+    label = "Meets property limit for Riverside County General Relief"
     definition_period = YEAR
     defined_for = "in_riv"
 
