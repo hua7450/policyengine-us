@@ -233,6 +233,55 @@ Before creating any variable, check if it exists:
 
 ## TANF-Specific Implementation Patterns
 
+### **CRITICAL: Simplified TANF Implementation Rules**
+
+**For simplified TANF implementations, ALWAYS:**
+
+1. **Use federal demographic eligibility directly** - Do NOT create state-specific demographic variables:
+   ```python
+   # ✅ CORRECT - Use federal variable directly
+   demographic_eligible = spm_unit("is_demographic_tanf_eligible", period)
+
+   # ❌ WRONG - Don't create wrapper variables
+   # demographic_eligible = spm_unit.any(
+   #     spm_unit.members("ct_tanf_demographic_eligible_person", period)
+   # )
+   ```
+
+2. **Use federal immigration eligibility directly** - Do NOT create state-specific immigration variables:
+   ```python
+   # ✅ CORRECT - Use federal variable directly
+   immigration_eligible = spm_unit.any(
+       spm_unit.members("is_citizen_or_legal_immigrant", period)
+   )
+
+   # ❌ WRONG - Don't create wrapper variables
+   # immigration_eligible = spm_unit.any(
+   #     spm_unit.members("ct_tanf_immigration_status_eligible_person", period)
+   # )
+   ```
+
+3. **Use federal income sources directly** - Do NOT create state-specific income source parameters or gross income variables:
+   ```python
+   # ✅ CORRECT - Use federal baseline directly
+   gross_earned = person("tanf_gross_earned_income", period)
+   gross_unearned = person("tanf_gross_unearned_income", period)
+
+   # ❌ WRONG - Don't create state-specific gross income variables
+   # gross_earned = person("ct_tanf_gross_earned_income", period)
+   ```
+
+4. **Do NOT create these files for simplified implementations:**
+   - ❌ `[state]_tanf_demographic_eligible_person.py`
+   - ❌ `[state]_tanf_immigration_status_eligible_person.py`
+   - ❌ `[state]_tanf_gross_earned_income.py`
+   - ❌ `[state]_tanf_gross_unearned_income.py`
+   - ❌ `parameters/.../income/sources/earned.yaml`
+   - ❌ `parameters/.../income/sources/unearned.yaml`
+   - ❌ `parameters/.../age_threshold/minor_child.yaml`
+
+5. **Only create state-specific variables when state rules genuinely differ from federal baseline**
+
 ### Standard TANF Variable Structure
 
 **Before implementing a new state TANF program:**

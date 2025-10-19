@@ -13,7 +13,8 @@ class ct_tanf_earned_income_after_disregard(Variable):
 
     def formula(person, period, parameters):
         p = parameters(period).gov.states.ct.dss.tanf
-        gross_earned = person("ct_tanf_gross_earned_income", period)
+        # Use federal TANF gross earned income baseline
+        gross_earned = person("tanf_gross_earned_income", period)
         # Apply $90 disregard per person (initial application)
         disregard = p.income.disregards.initial_disregard
         return max_(gross_earned - disregard, 0)

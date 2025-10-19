@@ -253,17 +253,27 @@ After you commit documentation:
 - Most states follow federal rules for immigration eligibility
 
 **When documenting state TANF programs:**
-1. **ALWAYS research the state's own income definitions** from:
+
+**For simplified implementations (DEFAULT approach):**
+1. **Check if state matches federal baseline** for:
+   - Age thresholds: Federal is age 18 (age 19 for students)
+   - Immigration eligibility: Most states follow federal rules
+   - Income sources: Federal baseline covers standard employment and self-employment
+
+2. **If state matches federal baseline, document this explicitly:**
+   ```markdown
+   ## Implementation approach:
+   - [x] Use federal demographic eligibility (age thresholds match)
+   - [x] Use federal immigration eligibility (follows federal rules)
+   - [x] Use federal income sources (standard definitions)
+   ```
+
+3. **Only research state-specific details if state genuinely differs from federal:**
    - State legal code (e.g., ARM §103 (14) for earned income)
    - State policy manual definitions section
    - State exclusions section (what's NOT counted)
 
-2. **Document if state differs from federal baseline:**
-   - List all state-specific income sources
-   - Note which sources are excluded
-   - Identify state-specific income categories
-
-3. **Include in working_references.md:**
+4. **Include in working_references.md:**
 ```markdown
 ## Demographic Eligibility
 
