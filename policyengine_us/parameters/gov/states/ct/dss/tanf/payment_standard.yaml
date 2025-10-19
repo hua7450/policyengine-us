@@ -1,0 +1,29 @@
+description: Connecticut provides monthly cash assistance at this payment standard amount, which varies by household size and geographic region based on housing costs. These amounts represent the highest-cost region standard.
+
+metadata:
+  unit: currency-USD
+  period: month
+  label: Connecticut TFA payment standard by household size
+  reference:
+    - title: "Connecticut TANF State Plan 2024-2026"
+      href: "https://portal.ct.gov/-/media/departments-and-agencies/dss/economic-security/ct-tanf-state-plan-2024---2026---41524-amendment.pdf"
+    - title: "Connecticut DSS UPM Section 6000 - Calculation of Benefits"
+      href: "https://portal.ct.gov/dss/lists/uniform-policy-manual/upm6---calculation-of-benefits-benefit-issuance"
+  note: "Complete payment standard table by household size and geographic region requires manual extraction from TANF State Plan PDF. Currently using example value of $833 for family of 3. Geographic variation exists but is not yet implemented."
+
+1:
+  2024-01-01: 833  # Placeholder - actual value needs extraction from State Plan
+2:
+  2024-01-01: 833  # Placeholder - actual value needs extraction from State Plan
+3:
+  2024-01-01: 833  # Based on documentation example
+4:
+  2024-01-01: 833  # Placeholder - actual value needs extraction from State Plan
+5:
+  2024-01-01: 833  # Placeholder - actual value needs extraction from State Plan
+6:
+  2024-01-01: 833  # Placeholder - actual value needs extraction from State Plan
+7:
+  2024-01-01: 833  # Placeholder - actual value needs extraction from State Plan
+8:
+  2024-01-01: 833  # Placeholder - actual value needs extraction from State Plan

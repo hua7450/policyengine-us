@@ -1,0 +1,14 @@
+description: Connecticut limits extended eligibility to families with earnings below this percentage of the Federal Poverty Level during the six-month extension period.
+
+values:
+  2024-04-01: 2.30
+
+metadata:
+  unit: /1
+  period: year
+  label: Connecticut TFA extended eligibility upper threshold (% of FPL)
+  reference:
+    - title: "Connecticut General Statutes § 17b-112 - Temporary family assistance program (as amended effective April 1, 2024)"
+      href: "https://law.justia.com/codes/connecticut/title-17b/chapter-319s/section-17b-112/"
+    - title: "Connecticut TANF Information"
+      href: "https://singlemotherguide.com/state/connecticut/TANF"

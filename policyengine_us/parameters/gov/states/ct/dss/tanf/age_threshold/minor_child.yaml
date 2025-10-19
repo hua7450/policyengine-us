@@ -1,0 +1,14 @@
+description: Connecticut defines a dependent child as a person under this age, or a person this age or older if enrolled full-time in high school or equivalent vocational/technical schooling.
+
+values:
+  2010-01-01: 18
+
+metadata:
+  unit: year
+  period: year
+  label: Connecticut TFA minor child age limit
+  reference:
+    - title: "Connecticut General Statutes § 17b-112 - Temporary family assistance program"
+      href: "https://law.justia.com/codes/connecticut/title-17b/chapter-319s/section-17b-112/"
+    - title: "Connecticut DSS - What is Temporary Family Assistance (TFA)?"
+      href: "https://portal.ct.gov/dss/knowledge-base/articles/cash-assistance/temporary-family-assistance"

@@ -1,0 +1,14 @@
+description: Connecticut reduces TFA benefits by this percentage when families have earnings between 171% and 230% of the Federal Poverty Level during the six-month extension period.
+
+values:
+  2024-04-01: 0.20
+
+metadata:
+  unit: /1
+  period: year
+  label: Connecticut TFA extended eligibility benefit reduction percentage
+  reference:
+    - title: "Connecticut General Statutes § 17b-112 - Temporary family assistance program (as amended effective April 1, 2024)"
+      href: "https://law.justia.com/codes/connecticut/title-17b/chapter-319s/section-17b-112/"
+    - title: "Connecticut DSS - What is Temporary Family Assistance (TFA)?"
+      href: "https://portal.ct.gov/dss/knowledge-base/articles/cash-assistance/temporary-family-assistance"

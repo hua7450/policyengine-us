@@ -1,0 +1,14 @@
+description: Connecticut excludes one vehicle from countable resources if the total vehicle value minus the amount owed is under this dollar amount, or if the vehicle is used to transport a household member with a disability.
+
+values:
+  2010-01-01: 9_500
+
+metadata:
+  unit: currency-USD
+  period: year
+  label: Connecticut TFA vehicle exclusion limit
+  reference:
+    - title: "Connecticut General Statutes § 17b-112 - Temporary family assistance program"
+      href: "https://law.justia.com/codes/connecticut/title-17b/chapter-319s/section-17b-112/"
+    - title: "Connecticut DSS - What is Temporary Family Assistance (TFA)?"
+      href: "https://portal.ct.gov/dss/knowledge-base/articles/cash-assistance/temporary-family-assistance"

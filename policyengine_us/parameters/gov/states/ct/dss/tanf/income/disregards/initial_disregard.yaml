@@ -1,0 +1,14 @@
+description: Connecticut deducts this amount from each person's gross earnings at the time of initial TFA application to determine countable earned income.
+
+values:
+  2010-01-01: 90
+
+metadata:
+  unit: currency-USD
+  period: month
+  label: Connecticut TFA initial application earned income disregard
+  reference:
+    - title: "Connecticut General Statutes § 17b-112 - Temporary family assistance program"
+      href: "https://law.justia.com/codes/connecticut/title-17b/chapter-319s/section-17b-112/"
+    - title: "Connecticut TANF Information"
+      href: "https://singlemotherguide.com/state/connecticut/TANF"

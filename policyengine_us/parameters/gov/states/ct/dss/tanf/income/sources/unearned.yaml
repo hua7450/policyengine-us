@@ -1,0 +1,24 @@
+description: Connecticut counts these income sources as unearned income for TFA eligibility and benefit calculation purposes. SSI and EITC are specifically excluded from countable unearned income.
+
+values:
+  2020-01-01:
+    - unemployment_compensation
+    - social_security
+    - social_security_retirement
+    - social_security_survivors
+    - social_security_disability
+    - pension_income
+    - rental_income
+    - interest_income
+    - dividend_income
+
+metadata:
+  unit: list
+  period: year
+  label: Connecticut TFA unearned income sources
+  reference:
+    - title: "Connecticut General Statutes § 17b-112 - Temporary family assistance program"
+      href: "https://law.justia.com/codes/connecticut/title-17b/chapter-319s/section-17b-112/"
+    - title: "Connecticut DSS UPM Section 5000 - Treatment of Income"
+      href: "https://portal.ct.gov/dss/lists/uniform-policy-manual/upm5---treatment-of-income-income-eligibility"
+  note: "Supplemental Security Income (SSI) and Earned Income Tax Credit (EITC) are excluded from countable unearned income and do not affect TFA eligibility."
