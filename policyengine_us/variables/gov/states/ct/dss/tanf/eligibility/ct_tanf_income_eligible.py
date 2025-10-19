@@ -12,22 +12,25 @@ class ct_tanf_income_eligible(Variable):
     def formula(spm_unit, period, parameters):
         p = parameters(period).gov.states.ct.dss.tanf
 
-        # Get countable income (this will apply appropriate disregards)
+        # Get countable income (already has appropriate disregards applied)
         countable_income = spm_unit("ct_tanf_countable_income", period)
 
-        # Calculate FPL for household size
-        size = spm_unit.nb_persons()
-        state_group = spm_unit.household("state_group_str", period.this_year)
-        fpg = parameters(period).gov.hhs.fpg
-        # Get annual FPL and convert to monthly
-        annual_fpg = fpg.first_person[state_group] + fpg.additional_person[
-            state_group
-        ] * max_(size - 1, 0)
-        monthly_fpg = annual_fpg / MONTHS_IN_YEAR
+        # Use tanf_fpg variable instead of recalculating
+        fpg = spm_unit("tanf_fpg", period)
 
-        # Initial eligibility: countable income < 55% FPL
-        # (Extended eligibility with 100% and 230% FPL thresholds would be implemented
-        # when modeling ongoing recipients vs new applicants)
-        initial_limit = monthly_fpg * p.income.standards.initial_eligibility
+        # Check enrollment status to apply different eligibility tests
+        is_enrolled = spm_unit("is_tanf_enrolled", period)
 
-        return countable_income <= initial_limit
+        # For applicants: countable income < 55% FPL (Standard of Need)
+        initial_limit = fpg * p.income.standards.initial_eligibility
+        applicant_eligible = countable_income <= initial_limit
+
+        # For recipients: total gross earnings < 230% FPL (extended eligibility)
+        # Recipients can have earnings up to 230% FPL for up to 6 months
+        total_gross_earnings = add(
+            spm_unit, period, ["tanf_gross_earned_income"]
+        )
+        extended_limit = fpg * p.income.standards.extended_eligibility_upper
+        recipient_eligible = total_gross_earnings <= extended_limit
+
+        return where(is_enrolled, recipient_eligible, applicant_eligible)
