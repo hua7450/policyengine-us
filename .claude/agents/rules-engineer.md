@@ -303,14 +303,18 @@ Before creating any variable, check if it exists:
    - ❌ `parameters/.../income/sources/unearned.yaml`
    - ❌ `parameters/.../age_threshold/minor_child.yaml`
 
-5. **Use `adds` pattern for simple summing** - Do NOT use formula with `add()` function:
+5. **Use `adds` pattern for simple summing or passthrough** - Do NOT use formula with `add()` or simple variable return:
    ```python
-   # ✅ CORRECT - Use adds directly
+   # ✅ CORRECT - Use adds for summing multiple variables
    class ct_tanf_countable_income(Variable):
        adds = ["ct_tanf_countable_earned_income", "ct_tanf_countable_unearned_income"]
 
    class ct_tanf_countable_earned_income(Variable):
        adds = ["ct_tanf_earned_income_after_disregard"]
+
+   # ✅ CORRECT - Use adds for passthrough/alias
+   class ct_tanf_countable_resources(Variable):
+       adds = ["spm_unit_assets"]
 
    # ❌ WRONG - Don't use formula for simple summing
    # class ct_tanf_countable_income(Variable):
@@ -319,7 +323,21 @@ Before creating any variable, check if it exists:
    #             "ct_tanf_countable_earned_income",
    #             "ct_tanf_countable_unearned_income"
    #         ])
+
+   # ❌ WRONG - Don't use formula for passthrough
+   # class ct_tanf_countable_resources(Variable):
+   #     def formula(spm_unit, period, parameters):
+   #         return spm_unit("spm_unit_assets", period)
    ```
+
+   **When to use `adds` vs `formula`:**
+   - Use `adds` when: Just summing variables OR passing through a single variable
+   - Use `formula` when: Applying transformations, calculations, conditions, or logic
+
+   **After implementing, review ALL variables systematically:**
+   - Search for patterns like `return add(`, `return variable(`, `return entity(`
+   - Check EVERY folder (eligibility/, income/, resources/, etc.)
+   - Convert simple operations to `adds` pattern
 
 6. **Only create state-specific variables when state rules genuinely differ from federal baseline**
 

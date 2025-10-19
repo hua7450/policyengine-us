@@ -11,8 +11,6 @@ class ct_tanf_countable_resources(Variable):
     reference = "CGS § 17b-112"
     defined_for = StateCode.CT
 
-    def formula(spm_unit, period, parameters):
-        # Simplified implementation - use spm_unit_assets
-        # Full implementation would apply vehicle exclusion based on
-        # vehicle equity (value - loan) < $9,500 or disability transport
-        return spm_unit("spm_unit_assets", period)
+    # Simplified implementation - use spm_unit_assets directly
+    # Full implementation would apply vehicle exclusion
+    adds = ["spm_unit_assets"]
