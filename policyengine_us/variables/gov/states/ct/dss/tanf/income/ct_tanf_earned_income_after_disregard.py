@@ -23,15 +23,20 @@ class ct_tanf_earned_income_after_disregard(Variable):
             gross_earned - p.income.disregards.initial_disregard, 0
         )
 
-        # For recipients: 100% FPL earned income exclusion
-        # Calculate person's share of 100% FPL exclusion
+        # For recipients: Disregard up to 230% FPL from gross earnings
+        # Extended eligibility rule (effective Jan 1, 2024)
+        # Calculate person's share of 230% FPL disregard
         spm_unit = person.spm_unit
         fpg = spm_unit("tanf_fpg", period)
-        # Attribute FPL exclusion equally to each person in unit
+        # Attribute FPL disregard equally to each person in unit
         unit_size = spm_unit("spm_unit_size", period)
-        fpg_per_person = fpg / unit_size
+        extended_disregard_per_person = (
+            fpg * p.income.standards.extended_eligibility_upper / unit_size
+        )
 
-        recipient_income = max_(gross_earned - fpg_per_person, 0)
+        recipient_income = max_(
+            gross_earned - extended_disregard_per_person, 0
+        )
 
         # Return appropriate value based on enrollment status
         return where(is_enrolled, recipient_income, applicant_income)

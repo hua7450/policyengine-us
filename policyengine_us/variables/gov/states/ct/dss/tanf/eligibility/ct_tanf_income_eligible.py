@@ -12,25 +12,19 @@ class ct_tanf_income_eligible(Variable):
     def formula(spm_unit, period, parameters):
         p = parameters(period).gov.states.ct.dss.tanf
 
-        # Get countable income (already has appropriate disregards applied)
+        # Get countable income (earned with disregards + unearned)
+        # Note: Earned income has up to 230% FPL disregard for recipients
+        # Unearned income counted dollar-for-dollar (minus $50 child support)
         countable_income = spm_unit("ct_tanf_countable_income", period)
 
         # Use tanf_fpg variable instead of recalculating
         fpg = spm_unit("tanf_fpg", period)
 
-        # Check enrollment status to apply different eligibility tests
-        is_enrolled = spm_unit("is_tanf_enrolled", period)
-
-        # For applicants: countable income < 55% FPL (Standard of Need)
+        # Income eligibility: countable income < 55% FPL (Standard of Need)
+        # This applies to both applicants and recipients
+        # The difference is in how countable income is calculated:
+        # - Applicants: $90 earned income disregard
+        # - Recipients: Up to 230% FPL earned income disregard
         initial_limit = fpg * p.income.standards.initial_eligibility
-        applicant_eligible = countable_income <= initial_limit
 
-        # For recipients: total gross earnings < 230% FPL (extended eligibility)
-        # Recipients can have earnings up to 230% FPL for up to 6 months
-        total_gross_earnings = add(
-            spm_unit, period, ["tanf_gross_earned_income"]
-        )
-        extended_limit = fpg * p.income.standards.extended_eligibility_upper
-        recipient_eligible = total_gross_earnings <= extended_limit
-
-        return where(is_enrolled, recipient_eligible, applicant_eligible)
+        return countable_income <= initial_limit
