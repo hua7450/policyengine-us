@@ -13,7 +13,8 @@ class ct_tanf_payment_standard(Variable):
 
     def formula(spm_unit, period, parameters):
         p = parameters(period).gov.states.ct.dss.tanf.payment_standard
-        unit_size = spm_unit.nb_persons()
+        # Use spm_unit_size variable (simplified - assumes everyone in unit is eligible)
+        unit_size = spm_unit("spm_unit_size", period)
         # Cap at size 8 (largest defined in parameter)
         capped_unit_size = min_(unit_size, 8)
         # Index directly into parameter using household size

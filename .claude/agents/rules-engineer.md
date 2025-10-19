@@ -551,6 +551,13 @@ If documentation says "Create state-specific income sources", implement state-sp
 
 **Use `adds` pattern** for simple summing. Don't use for conditional logic or transformations.
 
+**Household Size:**
+- ✅ **ALWAYS use `spm_unit("spm_unit_size", period)`** - NOT `spm_unit.nb_persons()`
+- For simplified TANF: Use `spm_unit_size` directly (assumes everyone eligible)
+- For complex TANF: Create `[state]_tanf_assistance_unit_size` variable that counts only eligible members
+- See IL TANF (`il_tanf_assistance_unit_size`) for assistance unit pattern
+- See MD TANF (`md_tanf_maximum_benefit`) for simplified pattern using `spm_unit_size`
+
 ### Resources Are Stocks, Not Flows
 
 Resources/assets are point-in-time values - always use `period.this_year`, never divide by 12:
