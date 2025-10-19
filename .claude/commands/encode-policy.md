@@ -71,8 +71,10 @@ After documentation is ready, invoke BOTH agents IN PARALLEL:
 Invoke @integration-agent to:
 - Merge test and implementation branches
 - Fix basic integration issues (entity mismatches, naming)
-- Verify tests can run with implementation
+- Discard uv.lock changes (always)
 - Prepare unified codebase for validation
+
+**Note:** Test verification happens in Phase 6, not Phase 5. This phase just merges code and fixes basic conflicts.
 
 **Why Critical**: The next phases need to work on integrated code to catch real issues.
 

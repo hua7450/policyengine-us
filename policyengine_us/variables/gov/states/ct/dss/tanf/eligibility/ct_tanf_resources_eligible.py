@@ -11,7 +11,5 @@ class ct_tanf_resources_eligible(Variable):
 
     def formula(spm_unit, period, parameters):
         p = parameters(period).gov.states.ct.dss.tanf
-        countable_resources = spm_unit(
-            "ct_tanf_countable_resources", period.this_year
-        )
+        countable_resources = spm_unit("ct_tanf_countable_resources", period)
         return countable_resources <= p.resources.limit
