@@ -314,9 +314,13 @@ When building a state TANF program, follow this systematic approach:
   - Age requirements
   - Income eligibility (identify if there are MULTIPLE income tests)
   - **Income deductions** (BOTH earned AND unearned):
-    - Earned income disregards (e.g., $90, percentage-based)
-    - **Child support passthrough/exclusion** (commonly $50-$150/month) - CHECK STATE PLAN
-    - Other unearned income deductions
+    - **Earned income disregards:**
+      - Applicants: Often flat amount (e.g., $90)
+      - Recipients: Often percentage of FPL (e.g., 100% FPL, 230% FPL)
+      - **CRITICAL:** Check if disregard is on GROSS EARNINGS vs calculated income
+    - **Unearned income deductions:**
+      - **Child support passthrough/exclusion** (commonly $50-$150/month) - CHECK STATE PLAN page 10
+      - Usually dollar-for-dollar counting otherwise
   - Immigration status requirements
   - Payment standards
   - **NOTE: Skip work requirements** - TANF implementations only model eligibility and benefit calculation, not work participation requirements
@@ -439,6 +443,8 @@ Before finalizing TANF documentation:
 - [ ] Identified if there are multiple income tests
 - [ ] **Checked State Plan for child support passthrough/exclusion** (commonly $50-$150/month)
 - [ ] Documented BOTH earned AND unearned income deductions
+- [ ] **Read State Plan page 10 carefully** - often contains income calculation details
+- [ ] Clarified if disregards apply to gross earnings vs other income measures
 - [ ] Checked existing state TANF implementations for structural guidance
 
 Remember: Your documentation is the single source of truth for all other agents. Accuracy and completeness are paramount.
