@@ -306,6 +306,7 @@ When building a state TANF program, follow this systematic approach:
   - Income deductions
   - Immigration status requirements
   - Payment standards
+  - **NOTE: Skip work requirements** - TANF implementations only model eligibility and benefit calculation, not work participation requirements
 
 #### 2. Legal Code Navigation
 
