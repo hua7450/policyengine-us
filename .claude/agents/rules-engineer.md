@@ -272,12 +272,25 @@ Before creating any variable, check if it exists:
 
 3. **Use federal income sources directly** - Do NOT create state-specific income source parameters or gross income variables:
    ```python
-   # ✅ CORRECT - Use federal baseline directly
-   gross_earned = person("tanf_gross_earned_income", period)
-   gross_unearned = person("tanf_gross_unearned_income", period)
+   # ✅ CORRECT - Use federal baseline directly with adds pattern
+   class ct_tanf_countable_unearned_income(Variable):
+       value_type = float
+       entity = SPMUnit
+       definition_period = MONTH
+       label = "Connecticut TFA countable unearned income"
+       unit = USD
+       defined_for = StateCode.CT
+
+       adds = ["tanf_gross_unearned_income"]
+
+   # ❌ WRONG - Don't use formula with add() for simple summing
+   # class ct_tanf_countable_unearned_income(Variable):
+   #     def formula(spm_unit, period, parameters):
+   #         return add(spm_unit, period, ["tanf_gross_unearned_income"])
 
    # ❌ WRONG - Don't create state-specific gross income variables
-   # gross_earned = person("ct_tanf_gross_earned_income", period)
+   # class ct_tanf_gross_earned_income(Variable):
+   #     adds = "gov.states.ct.dss.tanf.income.sources.earned"
    ```
 
 4. **Do NOT create these files for simplified implementations:**
@@ -290,7 +303,25 @@ Before creating any variable, check if it exists:
    - ❌ `parameters/.../income/sources/unearned.yaml`
    - ❌ `parameters/.../age_threshold/minor_child.yaml`
 
-5. **Only create state-specific variables when state rules genuinely differ from federal baseline**
+5. **Use `adds` pattern for simple summing** - Do NOT use formula with `add()` function:
+   ```python
+   # ✅ CORRECT - Use adds directly
+   class ct_tanf_countable_income(Variable):
+       adds = ["ct_tanf_countable_earned_income", "ct_tanf_countable_unearned_income"]
+
+   class ct_tanf_countable_earned_income(Variable):
+       adds = ["ct_tanf_earned_income_after_disregard"]
+
+   # ❌ WRONG - Don't use formula for simple summing
+   # class ct_tanf_countable_income(Variable):
+   #     def formula(spm_unit, period, parameters):
+   #         return add(spm_unit, period, [
+   #             "ct_tanf_countable_earned_income",
+   #             "ct_tanf_countable_unearned_income"
+   #         ])
+   ```
+
+6. **Only create state-specific variables when state rules genuinely differ from federal baseline**
 
 ### Standard TANF Variable Structure
 

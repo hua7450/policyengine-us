@@ -11,7 +11,5 @@ class ct_tanf_countable_unearned_income(Variable):
     reference = "CGS § 17b-112"
     defined_for = StateCode.CT
 
-    def formula(spm_unit, period, parameters):
-        # Use federal TANF gross unearned income baseline
-        # Sum person-level gross unearned income (no disregards)
-        return add(spm_unit, period, ["tanf_gross_unearned_income"])
+    # Use federal TANF gross unearned income baseline
+    adds = ["tanf_gross_unearned_income"]

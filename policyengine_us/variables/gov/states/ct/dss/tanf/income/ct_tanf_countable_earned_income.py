@@ -11,10 +11,4 @@ class ct_tanf_countable_earned_income(Variable):
     reference = "CGS § 17b-112"
     defined_for = StateCode.CT
 
-    def formula(spm_unit, period, parameters):
-        # Sum person-level earned income after disregards
-        return add(
-            spm_unit,
-            period,
-            ["ct_tanf_earned_income_after_disregard"],
-        )
+    adds = ["ct_tanf_earned_income_after_disregard"]
