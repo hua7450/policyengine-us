@@ -553,10 +553,43 @@ If documentation says "Create state-specific income sources", implement state-sp
 
 **Household Size:**
 - ✅ **ALWAYS use `spm_unit("spm_unit_size", period)`** - NOT `spm_unit.nb_persons()`
-- For simplified TANF: Use `spm_unit_size` directly (assumes everyone eligible)
-- For complex TANF: Create `[state]_tanf_assistance_unit_size` variable that counts only eligible members
-- See IL TANF (`il_tanf_assistance_unit_size`) for assistance unit pattern
-- See MD TANF (`md_tanf_maximum_benefit`) for simplified pattern using `spm_unit_size`
+
+**Learn from existing state TANF implementations:**
+
+**MD TANF (Simplified Pattern):**
+```python
+# md_tanf_maximum_benefit.py
+def formula(spm_unit, period, parameters):
+    people = spm_unit("spm_unit_size", period)
+    p = parameters(period).gov.states.md.tanf.maximum_benefit
+    capped_people = min_(people, 8).astype(int)
+    base = p.main[capped_people]
+    return base + (p.additional * (people - capped_people))
+```
+- Uses `spm_unit_size` variable directly
+- Assumes everyone in SPM unit is eligible
+- Good for simplified TANF implementations
+
+**IL TANF (Complex Pattern):**
+```python
+# il_tanf_assistance_unit_size.py
+class il_tanf_assistance_unit_size(Variable):
+    value_type = int
+    entity = SPMUnit
+    definition_period = MONTH
+
+    adds = [
+        "il_tanf_payment_eligible_child",
+        "il_tanf_payment_eligible_parent",
+    ]
+```
+- Creates separate assistance unit size variable
+- Counts only eligible members (children + parents who meet requirements)
+- Good for complex TANF with exclusion rules
+
+**When to use each:**
+- Simplified TANF (CT, MD): Use `spm_unit_size` directly
+- Complex TANF (IL, TX): Create `[state]_tanf_assistance_unit_size` variable
 
 ### Resources Are Stocks, Not Flows
 
