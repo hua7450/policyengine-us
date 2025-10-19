@@ -239,27 +239,36 @@ Before creating any variable, check if it exists:
 
 1. **Use federal demographic eligibility directly** - Do NOT create state-specific demographic variables:
    ```python
-   # ✅ CORRECT - Use federal variable directly
-   demographic_eligible = spm_unit("is_demographic_tanf_eligible", period)
+   # ✅ CORRECT - Use federal variable directly in ct_tanf_eligible
+   class ct_tanf_eligible(Variable):
+       def formula(spm_unit, period, parameters):
+           demographic_eligible = spm_unit("is_demographic_tanf_eligible", period)
+           immigration_eligible = spm_unit.any(
+               spm_unit.members("is_citizen_or_legal_immigrant", period)
+           )
+           income_eligible = spm_unit("ct_tanf_income_eligible", period)
+           resources_eligible = spm_unit("ct_tanf_resources_eligible", period)
+
+           return (
+               demographic_eligible
+               & immigration_eligible
+               & income_eligible
+               & resources_eligible
+           )
 
    # ❌ WRONG - Don't create wrapper variables
-   # demographic_eligible = spm_unit.any(
-   #     spm_unit.members("ct_tanf_demographic_eligible_person", period)
-   # )
+   # class ct_tanf_non_financial_eligible(Variable):
+   #     def formula(spm_unit, period, parameters):
+   #         demographic = spm_unit.any(
+   #             spm_unit.members("ct_tanf_demographic_eligible_person", period)
+   #         )
+   #         immigration = spm_unit.any(
+   #             spm_unit.members("ct_tanf_immigration_status_eligible_person", period)
+   #         )
+   #         return demographic & immigration
    ```
 
-2. **Use federal immigration eligibility directly** - Do NOT create state-specific immigration variables:
-   ```python
-   # ✅ CORRECT - Use federal variable directly
-   immigration_eligible = spm_unit.any(
-       spm_unit.members("is_citizen_or_legal_immigrant", period)
-   )
-
-   # ❌ WRONG - Don't create wrapper variables
-   # immigration_eligible = spm_unit.any(
-   #     spm_unit.members("ct_tanf_immigration_status_eligible_person", period)
-   # )
-   ```
+2. **Use federal immigration eligibility directly** - No separate immigration variable needed (see example above)
 
 3. **Use federal income sources directly** - Do NOT create state-specific income source parameters or gross income variables:
    ```python
@@ -274,6 +283,7 @@ Before creating any variable, check if it exists:
 4. **Do NOT create these files for simplified implementations:**
    - ❌ `[state]_tanf_demographic_eligible_person.py`
    - ❌ `[state]_tanf_immigration_status_eligible_person.py`
+   - ❌ `[state]_tanf_non_financial_eligible.py` (unnecessary wrapper)
    - ❌ `[state]_tanf_gross_earned_income.py`
    - ❌ `[state]_tanf_gross_unearned_income.py`
    - ❌ `parameters/.../income/sources/earned.yaml`
