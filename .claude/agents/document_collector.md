@@ -313,7 +313,10 @@ When building a state TANF program, follow this systematic approach:
 - **Focus on key eligibility criteria:**
   - Age requirements
   - Income eligibility (identify if there are MULTIPLE income tests)
-  - Income deductions
+  - **Income deductions** (BOTH earned AND unearned):
+    - Earned income disregards (e.g., $90, percentage-based)
+    - **Child support passthrough/exclusion** (commonly $50-$150/month) - CHECK STATE PLAN
+    - Other unearned income deductions
   - Immigration status requirements
   - Payment standards
   - **NOTE: Skip work requirements** - TANF implementations only model eligibility and benefit calculation, not work participation requirements
@@ -434,6 +437,8 @@ Before finalizing TANF documentation:
 - [ ] Numeric values use underscores (`3_000` not `3000`)
 - [ ] Read ALL relevant sections sequentially, not just keyword search
 - [ ] Identified if there are multiple income tests
+- [ ] **Checked State Plan for child support passthrough/exclusion** (commonly $50-$150/month)
+- [ ] Documented BOTH earned AND unearned income deductions
 - [ ] Checked existing state TANF implementations for structural guidance
 
 Remember: Your documentation is the single source of truth for all other agents. Accuracy and completeness are paramount.

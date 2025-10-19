@@ -151,13 +151,15 @@ Connecticut follows standard definitions of earned income:
 
 ## Income Deductions and Disregards
 
-### Initial Application
+### Earned Income Deductions
+
+#### Initial Application
 - **$90 Earned Income Disregard:** Deducted from each person's gross earnings at time of application
 
-### Continuing Recipients
+#### Continuing Recipients
 - **100% FPL Earned Income Exclusion:** All earned income up to 100% FPL is excluded
 
-### Extended Eligibility (Earnings > 100% FPL)
+#### Extended Eligibility (Earnings > 100% FPL)
 - **No disregard for earnings 100-171% FPL:** Full benefit maintained
 - **20% Benefit Reduction:** When earnings are 171-230% FPL
 - **Ineligible:** When earnings exceed 230% FPL
@@ -168,6 +170,17 @@ Connecticut follows standard definitions of earned income:
 - Legal: CGS § 17b-112 (amended effective April 1, 2024)
 - Policy: https://portal.ct.gov/dss/knowledge-base/articles/cash-assistance/temporary-family-assistance
 - Policy: https://singlemotherguide.com/state/connecticut/TANF
+
+### Unearned Income Deductions
+
+#### Child Support Passthrough
+- **$50 per month:** Up to $50 per month of current child support is passed through to the family and excluded as income
+- Applies to current child support (not arrears)
+
+**References:**
+- Legal: CGS § 17b-112
+- Policy: Connecticut TANF State Plan 2024-2026, page 10
+- Policy URL: https://portal.ct.gov/-/media/departments-and-agencies/dss/economic-security/ct-tanf-state-plan-2024---2026---41524-amendment.pdf#page=10
 
 ## Resource Limits
 
