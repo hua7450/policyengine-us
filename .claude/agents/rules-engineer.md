@@ -231,6 +231,31 @@ Before creating any variable, check if it exists:
 - Reuse federal calculations where applicable
 - **ALWAYS check for household_income, spm_unit_income before creating new income vars**
 
+## Variable Metadata Format Standards
+
+**Follow IL TANF pattern for variable metadata:**
+```python
+class ct_tanf_countable_earned_income(Variable):
+    value_type = float
+    entity = SPMUnit
+    definition_period = MONTH
+    label = "Connecticut TFA countable earned income"
+    unit = USD
+    reference = "https://law.justia.com/codes/connecticut/title-17b/chapter-319s/section-17b-112/"
+    defined_for = StateCode.CT
+
+    adds = ["ct_tanf_earned_income_after_disregard"]
+```
+
+**Key formatting rules:**
+- ✅ Use full URL in `reference` field (makes it clickable)
+- ❌ Do NOT use `documentation` field - label is sufficient
+- ❌ Do NOT use statute citations without URLs (e.g., `"CGS § 17b-112"`)
+
+**Examples from existing implementations:**
+- IL TANF: `reference = "https://www.law.cornell.edu/regulations/illinois/Ill-Admin-Code-tit-89-SS-112.250"`
+- MD TANF: No reference field when no specific statute
+
 ## TANF-Specific Implementation Patterns
 
 ### **CRITICAL: Simplified TANF Implementation Rules**
