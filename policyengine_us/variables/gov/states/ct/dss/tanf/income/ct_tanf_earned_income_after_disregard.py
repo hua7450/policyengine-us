@@ -5,7 +5,7 @@ class ct_tanf_earned_income_after_disregard(Variable):
     value_type = float
     entity = Person
     definition_period = MONTH
-    label = "Connecticut TFA earned income after initial disregard"
+    label = "Connecticut TFA earned income after disregard"
     unit = USD
     reference = "https://law.justia.com/codes/connecticut/title-17b/chapter-319s/section-17b-112/"
     defined_for = StateCode.CT
@@ -14,6 +14,24 @@ class ct_tanf_earned_income_after_disregard(Variable):
         p = parameters(period).gov.states.ct.dss.tanf
         # Use federal TANF gross earned income baseline
         gross_earned = person("tanf_gross_earned_income", period)
-        # Apply $90 disregard per person (initial application)
-        disregard = p.income.disregards.initial_disregard
-        return max_(gross_earned - disregard, 0)
+
+        # Check if household is enrolled in TANF
+        is_enrolled = person.spm_unit("is_tanf_enrolled", period)
+
+        # For applicants: $90 disregard per person
+        applicant_income = max_(
+            gross_earned - p.income.disregards.initial_disregard, 0
+        )
+
+        # For recipients: 100% FPL earned income exclusion
+        # Calculate person's share of 100% FPL exclusion
+        spm_unit = person.spm_unit
+        fpg = spm_unit("tanf_fpg", period)
+        # Attribute FPL exclusion equally to each person in unit
+        unit_size = spm_unit("spm_unit_size", period)
+        fpg_per_person = fpg / unit_size
+
+        recipient_income = max_(gross_earned - fpg_per_person, 0)
+
+        # Return appropriate value based on enrollment status
+        return where(is_enrolled, recipient_income, applicant_income)

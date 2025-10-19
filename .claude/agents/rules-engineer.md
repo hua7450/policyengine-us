@@ -616,6 +616,54 @@ class il_tanf_assistance_unit_size(Variable):
 - Simplified TANF (CT, MD): Use `spm_unit_size` directly
 - Complex TANF (IL, TX): Create `[state]_tanf_assistance_unit_size` variable
 
+### Distinguishing Applicants vs Recipients
+
+**Use `is_tanf_enrolled` to apply different rules for applicants vs recipients:**
+
+Many states have different income disregards for new applicants vs continuing recipients.
+
+**Pattern from TX TANF:**
+```python
+# tx_tanf_earned_income_after_disregard_person.py
+def formula(person, period, parameters):
+    gross_earned = person("tx_tanf_gross_earned_income", period)
+    p = parameters(period).gov.states.tx.tanf.income
+
+    # Check enrollment status
+    is_enrolled = person.spm_unit("is_tanf_enrolled", period)
+
+    # Applicants: 1/3 disregard
+    applicant_disregard = after_work_expense * p.disregards.applicant_fraction
+
+    # Recipients: 90% disregard (capped)
+    recipient_disregard = min_(
+        after_work_expense * p.disregards.continuing_recipient_rate,
+        p.disregards.continuing_recipient_cap
+    )
+
+    # Apply appropriate disregard based on status
+    disregard = where(is_enrolled, recipient_disregard, applicant_disregard)
+    return max_(after_work_expense - disregard, 0)
+```
+
+**Pattern from DC TANF:**
+```python
+# dc_tanf_earned_income_after_disregard_person.py
+enrolled = person.spm_unit("is_tanf_enrolled", period)
+return where(
+    enrolled,
+    # Recipients: flat + percentage deduction
+    max_(earnings_after_flat - percentage_disregard, 0),
+    # Applicants: flat deduction only
+    earnings_after_flat
+)
+```
+
+**Key points:**
+- Access from Person entity: `is_enrolled = person.spm_unit("is_tanf_enrolled", period)`
+- Use `where()` to apply different logic for enrolled vs not enrolled
+- Applicants typically have less generous disregards than recipients
+
 ### Resources Are Stocks, Not Flows
 
 Resources/assets are point-in-time values - always use `period.this_year`, never divide by 12:
