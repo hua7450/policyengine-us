@@ -6,9 +6,8 @@ class ct_tanf_countable_resources(Variable):
     entity = SPMUnit
     definition_period = YEAR
     label = "Connecticut TFA countable resources"
-    documentation = "Total countable resources for Connecticut TFA eligibility. Simplified implementation using SPM unit assets. Full implementation would exclude one vehicle under $9,500 equity value and vehicles used to transport household members with disabilities."
     unit = USD
-    reference = "CGS § 17b-112"
+    reference = "https://law.justia.com/codes/connecticut/title-17b/chapter-319s/section-17b-112/"
     defined_for = StateCode.CT
 
     # Simplified implementation - use spm_unit_assets directly

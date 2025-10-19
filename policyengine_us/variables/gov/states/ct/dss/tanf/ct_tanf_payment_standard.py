@@ -6,9 +6,8 @@ class ct_tanf_payment_standard(Variable):
     entity = SPMUnit
     definition_period = MONTH
     label = "Connecticut TFA payment standard"
-    documentation = "Maximum monthly benefit amount for Connecticut TFA by household size. Geographic variation exists but is not currently implemented due to incomplete documentation. Uses highest-cost region standard."
     unit = USD
-    reference = "CGS § 17b-112"
+    reference = "https://law.justia.com/codes/connecticut/title-17b/chapter-319s/section-17b-112/"
     defined_for = StateCode.CT
 
     def formula(spm_unit, period, parameters):

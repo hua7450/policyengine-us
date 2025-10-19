@@ -6,8 +6,7 @@ class ct_tanf_income_eligible(Variable):
     entity = SPMUnit
     definition_period = MONTH
     label = "Connecticut TFA income eligibility"
-    documentation = "Whether the household meets Connecticut TFA income requirements. For initial applicants, gross earnings must be under 55% of FPL. For continuing recipients, earned income is excluded up to 100% of FPL, with extended eligibility up to 230% of FPL."
-    reference = "CGS § 17b-112"
+    reference = "https://law.justia.com/codes/connecticut/title-17b/chapter-319s/section-17b-112/"
     defined_for = StateCode.CT
 
     def formula(spm_unit, period, parameters):

@@ -6,8 +6,7 @@ class ct_tanf_resources_eligible(Variable):
     entity = SPMUnit
     definition_period = MONTH
     label = "Connecticut TFA resources eligibility"
-    documentation = "Whether the household meets Connecticut TFA resource limits. Connecticut limits countable resources to $6,000."
-    reference = "CGS § 17b-112"
+    reference = "https://law.justia.com/codes/connecticut/title-17b/chapter-319s/section-17b-112/"
     defined_for = StateCode.CT
 
     def formula(spm_unit, period, parameters):
