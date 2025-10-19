@@ -11,9 +11,33 @@ class ct_tanf(Variable):
     defined_for = "ct_tanf_eligible"
 
     def formula(spm_unit, period, parameters):
+        p = parameters(period).gov.states.ct.dss.tanf
         payment_standard = spm_unit("ct_tanf_payment_standard", period)
         countable_income = spm_unit("ct_tanf_countable_income", period)
 
-        # Benefit = Payment Standard - Countable Income
-        # Cannot be negative
-        return max_(payment_standard - countable_income, 0)
+        # Standard benefit calculation
+        standard_benefit = max_(payment_standard - countable_income, 0)
+
+        # Extended eligibility: Check if total gross earnings are 171-230% FPL
+        # If yes, reduce benefit by 20%
+        total_gross_earnings = add(
+            spm_unit, period, ["tanf_gross_earned_income"]
+        )
+        fpg = spm_unit("tanf_fpg", period)
+
+        # Check if in extended eligibility reduction tier (171-230% FPL)
+        reduction_threshold = (
+            p.income.standards.extended_eligibility_reduction_threshold * fpg
+        )
+        upper_threshold = p.income.standards.extended_eligibility_upper * fpg
+
+        in_reduction_tier = (
+            total_gross_earnings >= reduction_threshold
+        ) & (total_gross_earnings <= upper_threshold)
+
+        # Apply 20% benefit reduction if in tier
+        # benefit_reduction = 0.20, so multiply by (1 - 0.20) = 0.80
+        reduction_rate = p.extended_eligibility.benefit_reduction
+        reduced_benefit = standard_benefit * (1 - reduction_rate)
+
+        return where(in_reduction_tier, reduced_benefit, standard_benefit)

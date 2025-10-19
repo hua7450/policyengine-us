@@ -664,6 +664,44 @@ return where(
 - Use `where()` to apply different logic for enrolled vs not enrolled
 - Applicants typically have less generous disregards than recipients
 
+### Extended Eligibility with Benefit Reduction
+
+**Connecticut TANF pattern for earnings 171-230% FPL:**
+
+Some states reduce benefits when earnings exceed certain thresholds but are still within extended eligibility limits.
+
+```python
+# ct_tanf.py - Benefit calculation with extended eligibility reduction
+def formula(spm_unit, period, parameters):
+    p = parameters(period).gov.states.ct.dss.tanf
+
+    # Standard benefit
+    standard_benefit = max_(payment_standard - countable_income, 0)
+
+    # Check if total gross earnings are in reduction tier (171-230% FPL)
+    total_gross_earnings = add(spm_unit, period, ["tanf_gross_earned_income"])
+    fpg = spm_unit("tanf_fpg", period)
+
+    reduction_threshold = p.income.standards.extended_eligibility_reduction_threshold * fpg
+    upper_threshold = p.income.standards.extended_eligibility_upper * fpg
+
+    in_reduction_tier = (total_gross_earnings >= reduction_threshold) & (
+        total_gross_earnings <= upper_threshold
+    )
+
+    # Apply 20% reduction if in tier
+    reduction_rate = p.extended_eligibility.benefit_reduction
+    reduced_benefit = standard_benefit * (1 - reduction_rate)
+
+    return where(in_reduction_tier, reduced_benefit, standard_benefit)
+```
+
+**Key points:**
+- Check **total gross earnings** (not countable income) against FPL percentages
+- Use `add(spm_unit, period, ["tanf_gross_earned_income"])` to sum family earnings
+- Apply reduction to the benefit amount (not the income)
+- Extended eligibility typically has 6-month time limit (not yet modeled)
+
 ### Resources Are Stocks, Not Flows
 
 Resources/assets are point-in-time values - always use `period.this_year`, never divide by 12:
