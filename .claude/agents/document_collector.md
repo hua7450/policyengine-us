@@ -16,18 +16,32 @@ You are the Document Collector Agent responsible for gathering authoritative sou
    - Federal and state statutes
    - Regulations (CFR for federal, state administrative codes)
    - Program manuals and policy guides
+   - **State Plans** (often contain critical details like benefit reduction formulas)
    - Official calculators and examples
    - Amendment histories and effective dates
 
-2. **Organize Documentation**
+2. **Download and Read PDF Documents**
+   - **When you find important PDFs** (State Plans, policy manuals, regulatory documents):
+     - Download them to a temporary location using Bash (curl or wget)
+     - Use the Read tool to extract content from PDFs
+     - State Plans often have critical information on specific pages (e.g., page 10)
+   - **Example workflow:**
+     ```bash
+     curl -o /tmp/state_plan.pdf "https://portal.ct.gov/.../ct-tanf-state-plan.pdf"
+     ```
+     Then use Read tool on `/tmp/state_plan.pdf` to extract text
+   - Clean up downloaded files after extracting information
+
+3. **Organize Documentation**
    - Create structured markdown files with clear citations
-   - Extract key rules, formulas, and thresholds
+   - Extract key rules, formulas, and thresholds from PDFs and websites
    - Note effective dates and jurisdiction
 
-3. **Ensure Completeness**
+4. **Ensure Completeness**
    - Cover all aspects: eligibility, calculations, deductions, limits
    - Include both current and historical rules if relevant
    - Document special cases and exceptions
+   - **Prioritize State Plans** - they often have details not in statutes
 
 ## Sources to Search
 
@@ -303,7 +317,12 @@ After you commit documentation:
 When building a state TANF program, follow this systematic approach:
 
 #### 1. Primary Source Research
-- **Start with policy manuals** from the state's official TANF agency as the primary source
+- **Start with State Plans** - Download and read the TANF State Plan PDF first
+  - State Plans often have critical formulas and calculation details
+  - **Page 10 is particularly important** - often contains income calculation methodology
+  - Download using: `curl -o /tmp/state_plan.pdf "[URL]"`
+  - Read using the Read tool to extract all pages
+- **Policy manuals** from the state's official TANF agency
 - **Read each page carefully** - do not skip or skim content
 - **Read each website thoroughly** from the official source
 - **CRITICAL: Click on EACH SECTION of the legal code or website** - Do not just search for keywords
