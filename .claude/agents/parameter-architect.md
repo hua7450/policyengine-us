@@ -292,6 +292,47 @@ brackets:
     amount: {2017-01-01: 175}
 ```
 
+### Parameters Varying by Household Size
+
+**Use breakdown with range() for household size indexing:**
+
+```yaml
+description: Payment standard amount by household size.
+
+amount:
+  metadata:
+    breakdown:
+      - range(1, 9)  # household size (1-8)
+    unit: currency-USD
+    period: month
+    label: Payment standard by household size
+  1:
+    2024-01-01: 500
+  2:
+    2024-01-01: 650
+  3:
+    2024-01-01: 833
+  # ... continue for sizes 4-8
+```
+
+**Variable accesses using direct indexing:**
+```python
+def formula(spm_unit, period, parameters):
+    p = parameters(period).gov.states.ct.dss.tanf.payment_standard
+    unit_size = spm_unit.nb_persons()
+    capped_size = min_(unit_size, 8)
+    return p.amount[capped_size]
+```
+
+**❌ DON'T use verbose select() statements:**
+```python
+# WRONG - Unnecessarily verbose
+return select(
+    [size == 1, size == 2, size == 3, ...],
+    [getattr(p, "1"), getattr(p, "2"), getattr(p, "3"), ...]
+)
+```
+
 ## Common Parameter Patterns
 
 ### 1. Benefit Schedules by Household Size

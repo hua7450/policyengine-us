@@ -12,31 +12,9 @@ class ct_tanf_payment_standard(Variable):
     defined_for = StateCode.CT
 
     def formula(spm_unit, period, parameters):
-        p = parameters(period).gov.states.ct.dss.tanf
-        size = spm_unit.nb_persons()
-        # Payment standard varies by household size
+        p = parameters(period).gov.states.ct.dss.tanf.payment_standard
+        unit_size = spm_unit.nb_persons()
         # Cap at size 8 (largest defined in parameter)
-        # Use getattr to access numeric parameter keys
-        capped_size = min_(size, 8)
-        return select(
-            [
-                capped_size == 1,
-                capped_size == 2,
-                capped_size == 3,
-                capped_size == 4,
-                capped_size == 5,
-                capped_size == 6,
-                capped_size == 7,
-                capped_size == 8,
-            ],
-            [
-                getattr(p.payment_standard, "1"),
-                getattr(p.payment_standard, "2"),
-                getattr(p.payment_standard, "3"),
-                getattr(p.payment_standard, "4"),
-                getattr(p.payment_standard, "5"),
-                getattr(p.payment_standard, "6"),
-                getattr(p.payment_standard, "7"),
-                getattr(p.payment_standard, "8"),
-            ],
-        )
+        capped_unit_size = min_(unit_size, 8)
+        # Index directly into parameter using household size
+        return p.amount[capped_unit_size]
