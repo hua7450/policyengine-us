@@ -20,11 +20,20 @@ class ct_tanf_income_eligible(Variable):
         # Use tanf_fpg variable instead of recalculating
         fpg = spm_unit("tanf_fpg", period)
 
-        # Income eligibility: countable income < 55% FPL (Standard of Need)
+        # Income eligibility: countable income <= 55% FPL (Standard of Need)
         # This applies to both applicants and recipients
         # The difference is in how countable income is calculated:
         # - Applicants: $90 earned income disregard
         # - Recipients: Up to 230% FPL earned income disregard
         standard_of_need = fpg * p.income.standard_of_need.rate
+        meets_standard_of_need = countable_income <= standard_of_need
 
-        return countable_income <= standard_of_need
+        # Additional check: gross earned income cannot exceed 230% FPL
+        # This is the maximum income limit for the extended eligibility policy
+        total_gross_earnings = add(
+            spm_unit, period, ["tanf_gross_earned_income"]
+        )
+        income_limit = fpg * p.income_limit.rate
+        below_income_limit = total_gross_earnings <= income_limit
+
+        return meets_standard_of_need & below_income_limit

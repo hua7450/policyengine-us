@@ -2,7 +2,7 @@
   period: 2024-01
   input:
     state_code: CT
-    tanf_gross_unearned_income: 0
+    social_security: 0
     child_support_received: 0
   output:
     ct_tanf_countable_unearned_income: 0
@@ -11,9 +11,10 @@
   period: 2024-01
   input:
     state_code: CT
-    tanf_gross_unearned_income: 500
+    social_security: 6_000  # $500/month
     child_support_received: 0
   output:
+    # Gross unearned (SS): $500/month
     # No child support deduction
     # max(500 - 0, 0) = 500
     ct_tanf_countable_unearned_income: 500
@@ -22,10 +23,10 @@
   period: 2024-01
   input:
     state_code: CT
-    tanf_gross_unearned_income: 500
-    child_support_received: 360
+    social_security: 6_000  # $500/month
+    child_support_received: 360  # $30/month
   output:
-    # child_support_received is YEAR, so 360/year = 30/month
+    # Gross unearned (SS): $500/month (child support not counted as gross unearned)
     # Child support deduction: min(30, 50) = 30
     # max(500 - 30, 0) = 470
     ct_tanf_countable_unearned_income: 470
@@ -34,10 +35,10 @@
   period: 2024-01
   input:
     state_code: CT
-    tanf_gross_unearned_income: 500
-    child_support_received: 600
+    social_security: 6_000  # $500/month
+    child_support_received: 600  # $50/month
   output:
-    # child_support_received is YEAR, so 600/year = 50/month
+    # Gross unearned (SS): $500/month
     # Child support deduction: min(50, 50) = 50
     # max(500 - 50, 0) = 450
     ct_tanf_countable_unearned_income: 450
@@ -46,10 +47,10 @@
   period: 2024-01
   input:
     state_code: CT
-    tanf_gross_unearned_income: 500
-    child_support_received: 1_200
+    social_security: 6_000  # $500/month
+    child_support_received: 1_200  # $100/month
   output:
-    # child_support_received is YEAR, so 1,200/year = 100/month
+    # Gross unearned (SS): $500/month
     # Child support deduction: min(100, 50) = 50 (capped)
     # max(500 - 50, 0) = 450
     ct_tanf_countable_unearned_income: 450
@@ -58,10 +59,10 @@
   period: 2024-01
   input:
     state_code: CT
-    tanf_gross_unearned_income: 30
-    child_support_received: 1_200
+    social_security: 360  # $30/month
+    child_support_received: 1_200  # $100/month
   output:
-    # child_support_received is YEAR, so 1,200/year = 100/month
+    # Gross unearned (SS): $30/month
     # Child support deduction: min(100, 50) = 50 (capped)
     # max(30 - 50, 0) = 0 (cannot be negative)
     ct_tanf_countable_unearned_income: 0

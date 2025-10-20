@@ -12,14 +12,17 @@ class ct_tanf_countable_unearned_income(Variable):
 
     def formula(spm_unit, period, parameters):
         p = parameters(period).gov.states.ct.dss.tanf.income
-        # Use federal TANF gross unearned income baseline
-        total_unearned_income = add(
-            spm_unit, period, ["tanf_gross_unearned_income"]
+
+        # Use CT-specific gross unearned income (excludes child support)
+        gross_unearned_income = add(
+            spm_unit, period, ["ct_tanf_gross_unearned_income"]
         )
-        # Apply child support passthrough (up to $50/month excluded)
+
+        # Child support passthrough: deduct up to $50/month if child support is received
+        # This is a deduction from countable income, not counting child support as income
         child_support = add(spm_unit, period, ["child_support_received"])
         child_support_deduction = min_(
             child_support, p.deductions.child_support_passthrough
         )
 
-        return max_(0, total_unearned_income - child_support_deduction)
+        return max_(0, gross_unearned_income - child_support_deduction)
