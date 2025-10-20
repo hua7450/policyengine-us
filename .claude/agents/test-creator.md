@@ -152,6 +152,35 @@ output:
     spm_unit: true
 ```
 
+## Test Period Format
+
+**CRITICAL: Period format is restricted**
+
+PolicyEngine test system ONLY supports:
+- ✅ `20xx-01` - First month of year (e.g., `2024-01`)
+- ✅ `20xx` - Whole year (e.g., `2024`)
+- ❌ `20xx-04`, `20xx-10`, or any other month - **WILL NOT WORK**
+
+**Why:** The system only tests first month or whole year. Other months are not supported.
+
+**Always use:**
+```yaml
+period: 2024-01  # First month (CORRECT)
+period: 2024     # Whole year (CORRECT)
+```
+
+**Never use:**
+```yaml
+period: 2024-04  # April (WRONG - will fail)
+period: 2024-01  # October (WRONG - will fail)
+period: 2025-07  # July (WRONG - will fail)
+```
+
+**When policy changes mid-year:**
+- If policy effective April 1, 2024: Use `period: 2024-01` (tests January with new policy)
+- Or use `period: 2025-01` (tests next year when policy definitely active)
+- Never use the exact effective month like `2024-04`
+
 ## Which Variables Need Tests
 
 ### Variables That DON'T Need Test Files
@@ -317,17 +346,17 @@ Tests should verify that parameters control behavior:
 ```yaml
 # Test that months are parameterized, not hard-coded
 - name: October - start of heating season
-  period: 2024-10
+  period: 2024-01
   output:
     id_liheap_seasonal_eligible: true
 
 - name: March - end of heating season  
-  period: 2024-03
+  period: 2024-01
   output:
     id_liheap_seasonal_eligible: true
 
 - name: July - outside heating season
-  period: 2024-07
+  period: 2024-01
   output:
     id_liheap_seasonal_eligible: false
 ```
@@ -338,7 +367,7 @@ Include comments explaining expected values:
 
 ```yaml
 - name: Three person household at 80% of limit
-  period: 2024-10
+  period: 2024-01
   input:
     people:
       person1:
@@ -360,7 +389,7 @@ Include comments explaining expected values:
 ### Complete Eligibility Flow Tests
 ```yaml
 - name: Complete eligibility - income qualified family
-  period: 2024-11
+  period: 2024-01
   input:
     people:
       parent1:
@@ -390,7 +419,7 @@ Include comments explaining expected values:
 ### Edge Case Tests
 ```yaml
 - name: Income exactly at threshold
-  period: 2024-10
+  period: 2024-01
   input:
     people:
       person1:
@@ -399,7 +428,7 @@ Include comments explaining expected values:
     id_liheap_income_eligible: true  # At threshold = eligible
 
 - name: Income one dollar over threshold
-  period: 2024-10
+  period: 2024-01
   input:
     people:
       person1:
@@ -411,7 +440,7 @@ Include comments explaining expected values:
 ### Integration Tests
 ```yaml
 - name: SNAP recipient - categorical eligibility
-  period: 2024-10
+  period: 2024-01
   input:
     people:
       person1:

@@ -231,7 +231,155 @@ Before creating any variable, check if it exists:
 - Reuse federal calculations where applicable
 - **ALWAYS check for household_income, spm_unit_income before creating new income vars**
 
+## Variable Metadata Format Standards
+
+**Follow IL TANF pattern for variable metadata:**
+```python
+class il_tanf_countable_earned_income(Variable):
+    value_type = float
+    entity = SPMUnit
+    definition_period = MONTH
+    label = "Illinois TANF countable earned income"
+    unit = USD
+    reference = "https://www.law.cornell.edu/regulations/illinois/Ill-Admin-Code-tit-89-SS-112.250"
+    defined_for = StateCode.IL
+
+    adds = ["il_tanf_earned_income_after_disregard"]
+```
+
+**Key formatting rules:**
+- ✅ Use full URL in `reference` field (makes it clickable)
+- ❌ Do NOT use `documentation` field - label is sufficient
+- ❌ Do NOT use statute citations without URLs (e.g., `"CGS § 17b-112"`)
+
+**Examples from existing implementations:**
+- IL TANF: `reference = "https://www.law.cornell.edu/regulations/illinois/Ill-Admin-Code-tit-89-SS-112.250"`
+- MD TANF: No reference field when no specific statute
+
 ## TANF-Specific Implementation Patterns
+
+### **CRITICAL: Simplified TANF Implementation Rules**
+
+**For simplified TANF implementations, ALWAYS:**
+
+1. **Use federal demographic eligibility directly** - Do NOT create state-specific demographic variables:
+   ```python
+   # ✅ CORRECT - Use federal variable directly in ct_tanf_eligible
+   class ct_tanf_eligible(Variable):
+       def formula(spm_unit, period, parameters):
+           demographic_eligible = spm_unit("is_demographic_tanf_eligible", period)
+           immigration_eligible = spm_unit.any(
+               spm_unit.members("is_citizen_or_legal_immigrant", period)
+           )
+           income_eligible = spm_unit("ct_tanf_income_eligible", period)
+           resources_eligible = spm_unit("ct_tanf_resources_eligible", period)
+
+           return (
+               demographic_eligible
+               & immigration_eligible
+               & income_eligible
+               & resources_eligible
+           )
+
+   # ❌ WRONG - Don't create wrapper variables
+   # class ct_tanf_non_financial_eligible(Variable):
+   #     def formula(spm_unit, period, parameters):
+   #         demographic = spm_unit.any(
+   #             spm_unit.members("ct_tanf_demographic_eligible_person", period)
+   #         )
+   #         immigration = spm_unit.any(
+   #             spm_unit.members("ct_tanf_immigration_status_eligible_person", period)
+   #         )
+   #         return demographic & immigration
+   ```
+
+2. **Use federal immigration eligibility directly** - No separate immigration variable needed (see example above)
+
+3. **Use federal income sources directly** - Do NOT create state-specific income source parameters or gross income variables:
+
+   **CRITICAL: For simple TANF, ALWAYS use federal gross earned and unearned income**
+
+   ```python
+   # ✅ CORRECT - Use federal baseline for gross income, apply state deductions
+   class state_tanf_countable_unearned_income(Variable):
+       value_type = float
+       entity = SPMUnit
+       definition_period = MONTH
+       label = "[State] TANF countable unearned income"
+       unit = USD
+       defined_for = StateCode.XX
+
+       def formula(spm_unit, period, parameters):
+           p = parameters(period).gov.states.xx.agency.tanf.income
+           # Use federal baseline (includes child_support_received)
+           total_unearned = add(spm_unit, period, ["tanf_gross_unearned_income"])
+           # Apply state's child support passthrough deduction (if applicable)
+           child_support = add(spm_unit, period, ["child_support_received"])
+           passthrough = min_(child_support, p.deductions.child_support_passthrough)
+           return max_(0, total_unearned - passthrough)
+
+   # ❌ WRONG - Don't create state-specific gross income variables
+   # class state_tanf_gross_unearned_income(Variable):
+   #     # This should NOT exist for simplified TANF
+   #     adds = "gov.states.xx.agency.tanf.income.sources.unearned"
+
+   # ❌ WRONG - Don't exclude income sources just because there's a deduction
+   # Even if state has child support passthrough, child support is still
+   # in gross income - the passthrough is a DEDUCTION, not SOURCE exclusion
+   ```
+
+   **Understanding Passthroughs vs Exclusions:**
+   - **Passthrough** (e.g., $50 child support) = DEDUCTION from total income
+   - **Exclusion** (e.g., SSI, EITC) = NOT included in gross income sources
+   - Use federal baseline, apply passthrough as deduction
+
+4. **Do NOT create these files for simplified implementations:**
+   - ❌ `[state]_tanf_demographic_eligible_person.py`
+   - ❌ `[state]_tanf_immigration_status_eligible_person.py`
+   - ❌ `[state]_tanf_non_financial_eligible.py` (unnecessary wrapper)
+   - ❌ `[state]_tanf_gross_earned_income.py`
+   - ❌ `[state]_tanf_gross_unearned_income.py`
+   - ❌ `parameters/.../income/sources/earned.yaml`
+   - ❌ `parameters/.../income/sources/unearned.yaml`
+   - ❌ `parameters/.../age_threshold/minor_child.yaml`
+
+5. **Use `adds` pattern for simple summing or passthrough** - Do NOT use formula with `add()` or simple variable return:
+   ```python
+   # ✅ CORRECT - Use adds for summing multiple variables
+   class ct_tanf_countable_income(Variable):
+       adds = ["ct_tanf_countable_earned_income", "ct_tanf_countable_unearned_income"]
+
+   class ct_tanf_countable_earned_income(Variable):
+       adds = ["ct_tanf_earned_income_after_disregard"]
+
+   # ✅ CORRECT - Use adds for passthrough/alias
+   class ct_tanf_countable_resources(Variable):
+       adds = ["spm_unit_assets"]
+
+   # ❌ WRONG - Don't use formula for simple summing
+   # class ct_tanf_countable_income(Variable):
+   #     def formula(spm_unit, period, parameters):
+   #         return add(spm_unit, period, [
+   #             "ct_tanf_countable_earned_income",
+   #             "ct_tanf_countable_unearned_income"
+   #         ])
+
+   # ❌ WRONG - Don't use formula for passthrough
+   # class ct_tanf_countable_resources(Variable):
+   #     def formula(spm_unit, period, parameters):
+   #         return spm_unit("spm_unit_assets", period)
+   ```
+
+   **When to use `adds` vs `formula`:**
+   - Use `adds` when: Just summing variables OR passing through a single variable
+   - Use `formula` when: Applying transformations, calculations, conditions, or logic
+
+   **After implementing, review ALL variables systematically:**
+   - Search for patterns like `return add(`, `return variable(`, `return entity(`
+   - Check EVERY folder (eligibility/, income/, resources/, etc.)
+   - Convert simple operations to `adds` pattern
+
+6. **Only create state-specific variables when state rules genuinely differ from federal baseline**
 
 ### Standard TANF Variable Structure
 
@@ -442,6 +590,132 @@ If documentation says "Create state-specific income sources", implement state-sp
 - `SPMUnit`: Household totals, household deductions, eligibility, benefits
 
 **Use `adds` pattern** for simple summing. Don't use for conditional logic or transformations.
+
+**Household Size:**
+- ✅ **ALWAYS use `spm_unit("spm_unit_size", period)`** - NOT `spm_unit.nb_persons()`
+
+**Learn from existing state TANF implementations:**
+
+**MD TANF (Simplified Pattern):**
+```python
+# md_tanf_maximum_benefit.py
+def formula(spm_unit, period, parameters):
+    people = spm_unit("spm_unit_size", period)
+    p = parameters(period).gov.states.md.tanf.maximum_benefit
+    capped_people = min_(people, 8).astype(int)
+    base = p.main[capped_people]
+    return base + (p.additional * (people - capped_people))
+```
+- Uses `spm_unit_size` variable directly
+- Assumes everyone in SPM unit is eligible
+- Good for simplified TANF implementations
+
+**IL TANF (Complex Pattern):**
+```python
+# il_tanf_assistance_unit_size.py
+class il_tanf_assistance_unit_size(Variable):
+    value_type = int
+    entity = SPMUnit
+    definition_period = MONTH
+
+    adds = [
+        "il_tanf_payment_eligible_child",
+        "il_tanf_payment_eligible_parent",
+    ]
+```
+- Creates separate assistance unit size variable
+- Counts only eligible members (children + parents who meet requirements)
+- Good for complex TANF with exclusion rules
+
+**When to use each:**
+- Simplified TANF (CT, MD, MT): Use `spm_unit_size` directly
+- Complex TANF (IL, TX, DC): Create `[state]_tanf_assistance_unit_size` variable
+
+### Distinguishing Applicants vs Recipients
+
+**Use `is_tanf_enrolled` to apply different rules for applicants vs recipients:**
+
+Many states have different income disregards for new applicants vs continuing recipients.
+
+**Pattern from TX TANF:**
+```python
+# tx_tanf_earned_income_after_disregard_person.py
+def formula(person, period, parameters):
+    gross_earned = person("tx_tanf_gross_earned_income", period)
+    p = parameters(period).gov.states.tx.tanf.income
+
+    # Check enrollment status
+    is_enrolled = person.spm_unit("is_tanf_enrolled", period)
+
+    # Applicants: 1/3 disregard
+    applicant_disregard = after_work_expense * p.disregards.applicant_fraction
+
+    # Recipients: 90% disregard (capped)
+    recipient_disregard = min_(
+        after_work_expense * p.disregards.continuing_recipient_rate,
+        p.disregards.continuing_recipient_cap
+    )
+
+    # Apply appropriate disregard based on status
+    disregard = where(is_enrolled, recipient_disregard, applicant_disregard)
+    return max_(after_work_expense - disregard, 0)
+```
+
+**Pattern from DC TANF:**
+```python
+# dc_tanf_earned_income_after_disregard_person.py
+enrolled = person.spm_unit("is_tanf_enrolled", period)
+return where(
+    enrolled,
+    # Recipients: flat + percentage deduction
+    max_(earnings_after_flat - percentage_disregard, 0),
+    # Applicants: flat deduction only
+    earnings_after_flat
+)
+```
+
+**Key points:**
+- Access from Person entity: `is_enrolled = person.spm_unit("is_tanf_enrolled", period)`
+- Use `where()` to apply different logic for enrolled vs not enrolled
+- Applicants typically have less generous disregards than recipients
+
+### Extended Eligibility with Benefit Reduction
+
+**Pattern for states with tiered benefit reductions (e.g., CT, some other states):**
+
+Some states reduce benefits when earnings exceed certain thresholds but are still within extended eligibility limits.
+
+```python
+# state_tanf.py - Benefit calculation with extended eligibility reduction
+def formula(spm_unit, period, parameters):
+    p = parameters(period).gov.states.xx.agency.tanf
+
+    # Standard benefit
+    standard_benefit = max_(payment_standard - countable_income, 0)
+
+    # Check if total gross earnings are in reduction tier (e.g., 171-230% FPL)
+    total_gross_earnings = add(spm_unit, period, ["tanf_gross_earned_income"])
+    fpg = spm_unit("tanf_fpg", period)
+
+    reduction_threshold = p.income.standards.extended_eligibility_reduction_threshold * fpg
+    upper_threshold = p.income.standards.extended_eligibility_upper * fpg
+
+    in_reduction_tier = (total_gross_earnings >= reduction_threshold) & (
+        total_gross_earnings <= upper_threshold
+    )
+
+    # Apply reduction if in tier (e.g., 20%)
+    reduction_rate = p.extended_eligibility.benefit_reduction
+    reduced_benefit = standard_benefit * (1 - reduction_rate)
+
+    return where(in_reduction_tier, reduced_benefit, standard_benefit)
+```
+
+**Key points:**
+- Check **total gross earnings** (not countable income) against FPL percentages
+- Use `add(spm_unit, period, ["tanf_gross_earned_income"])` to sum family earnings
+- Apply reduction to the benefit amount (not the income)
+- Extended eligibility typically has time limits (varies by state, not yet modeled)
 
 ### Resources Are Stocks, Not Flows
 

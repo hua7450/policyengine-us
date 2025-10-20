@@ -71,8 +71,10 @@ After documentation is ready, invoke BOTH agents IN PARALLEL:
 Invoke @integration-agent to:
 - Merge test and implementation branches
 - Fix basic integration issues (entity mismatches, naming)
-- Verify tests can run with implementation
+- Discard uv.lock changes (always)
 - Prepare unified codebase for validation
+
+**Note:** Test verification happens in Phase 6, not Phase 5. This phase just merges code and fixes basic conflicts.
 
 **Why Critical**: The next phases need to work on integrated code to catch real issues.
 
@@ -86,39 +88,37 @@ Invoke @pr-pusher agent to:
 
 **Quality Gate**: Branch must be properly formatted and have changelog before continuing.
 
-## Phase 7: Required Fixes and Validations (SEQUENTIAL)
+## Phase 7: Unit Test Creation
 
-**MANDATORY**: These agents fix critical issues. Invoke them SEQUENTIALLY:
+**For simplified TANF implementations:** Create unit tests with edge cases
 
-### Step 1: Edge Case Testing
-
-- @edge-case-generator: Generate comprehensive boundary tests
-- Commit generated tests before proceeding
-
-### Step 2: Cross-Program Validation
-
-- @cross-program-validator: Check interactions with other benefits
-- Fix any cliff effects or integration issues found
-- Commit fixes before proceeding
-
-### Step 3: Documentation Enhancement
-
-- @documentation-enricher: Add examples and regulatory citations
-- Commit documentation improvements
-
-### Step 4: Performance Optimization
-
-- @performance-optimizer: Vectorize and optimize calculations
-- Run tests to ensure no regressions
-- Commit optimizations
-
-**Why Sequential**: Each enhancement builds on the previous work and modifying the same files in parallel would cause conflicts.
+Invoke @test-creator to:
+- Create unit test files for each variable with formula (follow DC TANF pattern)
+- Test file name matches variable name (e.g., `ct_tanf_income_eligible.yaml`)
+- Include edge cases in unit tests (boundary conditions at thresholds)
+- Remove excessive edge cases from integration.yaml (keep integration tests realistic)
+- Organize tests in folder structure matching variables
+- Commit unit tests
 
 **Quality Requirements**:
-- All edge cases covered
-- No benefit cliffs or integration issues
-- Complete documentation with examples
-- Fully vectorized, no performance issues
+- One unit test file per variable with formula
+- Edge cases in unit tests, not integration tests
+- Integration tests only test realistic end-to-end scenarios
+
+---
+
+**OPTIONAL (for production implementations only):**
+
+### Step 2: Cross-Program Validation (SKIP for simplified TANF)
+- @cross-program-validator: Check interactions with other benefits
+
+### Step 3: Documentation Enhancement (SKIP for simplified TANF)
+- @documentation-enricher: Add examples and regulatory citations
+
+### Step 4: Performance Optimization (SKIP for simplified TANF)
+- @performance-optimizer: Vectorize and optimize calculations
+
+**Note:** For experimental/simplified TANF implementations, only edge case testing is required. The other steps are optional enhancements for production implementations.
 
 ## Phase 8: Implementation Validation
 Invoke @implementation-validator agent to check for:
@@ -138,11 +138,10 @@ Invoke @rules-reviewer to validate the complete implementation against documenta
 - Complete coverage of all rules
 - Proper parameter usage
 - Edge case handling
+- **Folder structure optimization:** Review and optimize folder organization for clarity and consistency
 
-## Phase 10: Local Testing & CI Finalization
+## Phase 10: Local Testing & Fixes
 **CRITICAL: ALWAYS invoke @ci-fixer agent - do NOT manually fix issues**
-
-### Step 1: Local Test Execution & Fixes
 
 Invoke @ci-fixer agent to:
 - Run all tests locally: `policyengine-core test policyengine_us/tests/policy/baseline/gov/states/[STATE]/[PROGRAM] -c policyengine_us -v`
@@ -157,26 +156,15 @@ Invoke @ci-fixer agent to:
   - Re-run tests to verify fix
 - Iterate until ALL tests pass locally
 - Run `make format` before committing fixes
-
-### Step 2: PR & CI Monitoring (if PR exists)
-
-If a draft PR was created in Phase 1:
-- Push all local fixes to the PR branch
-- Monitor GitHub Actions CI pipeline for ALL failures
-- Fix any additional environment-specific issues found in CI
-- Address any entity-level issues in tests
-- Fix parameter validation errors
-- Clean up working_references.md and temporary files
-- Iterate until ALL CI checks pass
-- Mark PR as ready for review
+- Push final fixes to PR branch
 
 **Success Metrics**:
 - All tests pass locally (green output)
-- All CI checks passing (tests, lint, format)
-- Test and implementation branches merged
-- No temporary files in commits
-- PR marked ready (not draft) if PR exists
-- Clean commit history showing agent work
+- Code properly formatted
+- Implementation complete and working
+- Clean commit history
+
+**Note:** For experimental implementations, CI monitoring is optional. Focus on local test success.
 
 
 ## Anti-Patterns This Workflow Prevents
