@@ -1,5 +1,5 @@
 - name: Case 1, family of 3 with no income.
-  period: 2024-04
+  period: 2024-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -54,7 +54,7 @@
     # Payment standard - countable income = 833 - 0 = 833
 
 - name: Case 2, applicant with part-time earnings using $90 disregard.
-  period: 2024-04
+  period: 2024-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -111,7 +111,7 @@
     # Payment standard - countable income = 833 - 510 = 323
 
 - name: Case 3, recipient with full-time earnings using 100% FPL exclusion.
-  period: 2024-04
+  period: 2024-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -166,7 +166,7 @@
     # Total monthly income: 1,800 + 833 = 2,633
 
 - name: Case 4, recipient with earnings above 100% FPL.
-  period: 2024-04
+  period: 2024-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -219,7 +219,7 @@
     # Total monthly income: 2,500 + 484.67 = 2,984.67
 
 - name: Case 5, extended eligibility tier 1 with earnings 100-171% FPL.
-  period: 2024-04
+  period: 2024-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -274,7 +274,7 @@
     # Total monthly income: 3,000 + 833 = 3,833
 
 - name: Case 6, extended eligibility tier 2 with earnings 171-230% FPL.
-  period: 2024-04
+  period: 2024-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -329,7 +329,7 @@
     # Total monthly income: 4,000 + 666.40 = 4,666.40
 
 - name: Case 7, family with unearned income.
-  period: 2024-04
+  period: 2024-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -388,7 +388,7 @@
     # Total monthly income: 1,500 + 500 + 333 = 2,333
 
 - name: Case 8, income just below 55% FPL threshold for applicant.
-  period: 2024-04
+  period: 2024-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -437,7 +437,7 @@
     # Eligible but countable income exceeds payment standard
 
 - name: Case 9, income just above 55% FPL threshold for applicant.
-  period: 2024-04
+  period: 2024-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -481,7 +481,7 @@
     ct_tanf: 0
 
 - name: Case 10, pregnant woman eligible for TFA.
-  period: 2024-04
+  period: 2024-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -524,7 +524,7 @@
     # Full payment standard for household size 1
 
 - name: Case 11, earnings exactly at 230% FPL threshold.
-  period: 2024-04
+  period: 2024-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -572,7 +572,7 @@
     # Tier 2: 833 * 0.80 = 666.40
 
 - name: Case 12, earnings above 230% FPL threshold.
-  period: 2024-04
+  period: 2024-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -619,7 +619,7 @@
     ct_tanf: 0
 
 - name: Case 13, age 18 full-time student eligible.
-  period: 2024-04
+  period: 2024-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -663,7 +663,7 @@
     ct_tanf: 580
 
 - name: Case 14, resources just under limit.
-  period: 2024-04
+  period: 2024-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -705,7 +705,7 @@
     ct_tanf: 580
 
 - name: Case 15, resources over limit.
-  period: 2024-04
+  period: 2024-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -743,3 +743,778 @@
     # Not eligible - too many resources
 
     ct_tanf: 0
+
+# ==============================================================================
+# EDGE CASE TESTS - Boundary Conditions
+# ==============================================================================
+# The following tests verify correct behavior at critical thresholds
+
+- name: Edge Case - Income exactly at 55% FPL boundary (applicant).
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 14_201  # Exactly 55% FPL annually
+        is_tax_unit_head_or_spouse: true
+      person2:
+        age: 8
+        is_tax_unit_dependent: true
+      person3:
+        age: 5
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: CT
+  output:
+    # Assistance unit: 3
+    ct_tanf_assistance_unit_size: 3
+
+    # Income calculation (applicant status)
+    ct_tanf_gross_earned_income: [1_183.42, 0, 0]
+    # Person1: 14,201 / 12 = 1,183.42 (exactly 55% FPL)
+
+    ct_tanf_countable_earned_income: 1_093.42
+    # Applicant disregard: 1,183.42 - 90 = 1,093.42
+
+    # Eligibility tests
+    # 55% FPL for family of 3 (2024) = 25,820 * 0.55 / 12 = 1,183.42
+    # Countable income (1,093.42) <= 55% FPL (1,183.42) - eligible
+    ct_tanf_income_eligible: true
+    ct_tanf_eligible: true
+
+    # Payment
+    ct_tanf_payment_standard: 833
+
+    ct_tanf: 0
+    # Payment standard - countable income = 833 - 1,093.42 = -260.42 → 0
+    # Note: The income eligibility test uses countable income vs 55% FPL
+
+- name: Edge Case - Income one dollar below 55% FPL (applicant).
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 13_980  # Just below 55% FPL
+        is_tax_unit_head_or_spouse: true
+      person2:
+        age: 8
+        is_tax_unit_dependent: true
+      person3:
+        age: 5
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: CT
+  output:
+    # Assistance unit: 3
+    ct_tanf_assistance_unit_size: 3
+
+    # Income calculation
+    ct_tanf_gross_earned_income: [1_165, 0, 0]
+    # Person1: 13,980 / 12 = 1,165
+
+    ct_tanf_countable_earned_income: 1_075
+    # Applicant disregard: 1,165 - 90 = 1,075
+
+    # Eligibility tests
+    # 55% FPL for family of 3 (2024) = 1,183.42
+    # Countable income (1,075) < 55% FPL (1,183.42)
+    ct_tanf_income_eligible: true
+    ct_tanf_eligible: true
+
+    # Payment
+    ct_tanf_payment_standard: 833
+    ct_tanf: 0
+    # Payment standard - countable income = 833 - 1,075 = -242 → 0
+
+- name: Edge Case - Earned income exactly at $90 disregard (applicant).
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 1_080  # Exactly $90/month
+        is_tax_unit_head_or_spouse: true
+      person2:
+        age: 8
+        is_tax_unit_dependent: true
+      person3:
+        age: 5
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: CT
+  output:
+    # Assistance unit: 3
+    ct_tanf_assistance_unit_size: 3
+
+    # Income calculation
+    ct_tanf_gross_earned_income: [90, 0, 0]
+    # Person1: 1,080 / 12 = 90
+
+    ct_tanf_countable_earned_income: 0
+    # Applicant disregard: 90 - 90 = 0
+
+    ct_tanf_countable_income: 0
+
+    # Eligibility
+    ct_tanf_income_eligible: true
+    ct_tanf_eligible: true
+
+    # Payment
+    ct_tanf_payment_standard: 833
+    ct_tanf: 833
+    # Full payment standard since countable income is 0
+
+- name: Edge Case - Earned income one dollar above $90 disregard (applicant).
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 1_092  # $91/month
+        is_tax_unit_head_or_spouse: true
+      person2:
+        age: 8
+        is_tax_unit_dependent: true
+      person3:
+        age: 5
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: CT
+  output:
+    # Assistance unit: 3
+    ct_tanf_assistance_unit_size: 3
+
+    # Income calculation
+    ct_tanf_gross_earned_income: [91, 0, 0]
+    # Person1: 1,092 / 12 = 91
+
+    ct_tanf_countable_earned_income: 1
+    # Applicant disregard: 91 - 90 = 1
+
+    ct_tanf_countable_income: 1
+
+    # Eligibility
+    ct_tanf_income_eligible: true
+    ct_tanf_eligible: true
+
+    # Payment
+    ct_tanf_payment_standard: 833
+    ct_tanf: 832
+    # Payment standard - countable income = 833 - 1 = 832
+
+- name: Edge Case - Earnings exactly at 171% FPL boundary (recipient).
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 44_153  # Exactly 171% FPL annually
+        is_tax_unit_head_or_spouse: true
+      person2:
+        age: 8
+        is_tax_unit_dependent: true
+      person3:
+        age: 5
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: CT
+  output:
+    # Assistance unit: 3
+    ct_tanf_assistance_unit_size: 3
+
+    # Income calculation
+    ct_tanf_gross_earned_income: [3_679.42, 0, 0]
+    # Person1: 44,153 / 12 = 3,679.42 (exactly 171% FPL)
+
+    # Extended eligibility thresholds
+    # 171% FPL = 25,820 * 1.71 / 12 = 3,679.52
+    # Earnings (3,679.42) just below 171% FPL threshold
+
+    ct_tanf_extended_eligibility_tier_1: true
+    # Below 171% FPL - still in tier 1
+
+    ct_tanf_extended_eligibility_tier_2: false
+    # Not yet in tier 2
+
+    ct_tanf_eligible: true
+
+    # Payment
+    ct_tanf_payment_standard: 833
+
+    ct_tanf: 833
+    # Tier 1: Full payment standard (no 20% reduction)
+
+- name: Edge Case - Earnings one dollar above 171% FPL (recipient).
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 44_165  # Just above 171% FPL
+        is_tax_unit_head_or_spouse: true
+      person2:
+        age: 8
+        is_tax_unit_dependent: true
+      person3:
+        age: 5
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: CT
+  output:
+    # Assistance unit: 3
+    ct_tanf_assistance_unit_size: 3
+
+    # Income calculation
+    ct_tanf_gross_earned_income: [3_680.42, 0, 0]
+    # Person1: 44,165 / 12 = 3,680.42
+
+    # Extended eligibility thresholds
+    # 171% FPL = 3,679.52
+    # Earnings (3,680.42) just above 171% FPL threshold
+
+    ct_tanf_extended_eligibility_tier_1: false
+    # Above 171% FPL
+
+    ct_tanf_extended_eligibility_tier_2: true
+    # In tier 2 (171-230% FPL)
+
+    ct_tanf_eligible: true
+
+    # Payment
+    ct_tanf_payment_standard: 833
+
+    ct_tanf: 666.40
+    # Tier 2: Base benefit * 0.80 (20% reduction)
+    # 833 * 0.80 = 666.40
+
+- name: Edge Case - Earnings one dollar below 230% FPL (recipient).
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 59_374  # Just below 230% FPL
+        is_tax_unit_head_or_spouse: true
+      person2:
+        age: 8
+        is_tax_unit_dependent: true
+      person3:
+        age: 5
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: CT
+  output:
+    # Assistance unit: 3
+    ct_tanf_assistance_unit_size: 3
+
+    # Income calculation
+    ct_tanf_gross_earned_income: [4_947.83, 0, 0]
+    # Person1: 59,374 / 12 = 4,947.83
+
+    # Extended eligibility thresholds
+    # 230% FPL = 25,820 * 2.30 / 12 = 4,948.83
+    # Earnings (4,947.83) just below 230% FPL
+
+    ct_tanf_extended_eligibility_tier_2: true
+    # Still in tier 2
+
+    ct_tanf_eligible: true
+
+    # Payment
+    ct_tanf_payment_standard: 833
+
+    ct_tanf: 666.40
+    # Tier 2: 833 * 0.80 = 666.40
+
+- name: Edge Case - Earnings one dollar above 230% FPL (ineligible).
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 59_398  # Just above 230% FPL
+        is_tax_unit_head_or_spouse: true
+      person2:
+        age: 8
+        is_tax_unit_dependent: true
+      person3:
+        age: 5
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: CT
+  output:
+    # Assistance unit: 3
+    ct_tanf_assistance_unit_size: 3
+
+    # Income calculation
+    ct_tanf_gross_earned_income: [4_949.83, 0, 0]
+    # Person1: 59,398 / 12 = 4,949.83
+
+    # Extended eligibility thresholds
+    # 230% FPL = 4,948.83
+    # Earnings (4,949.83) exceed 230% FPL
+
+    ct_tanf_extended_eligibility_tier_1: false
+    ct_tanf_extended_eligibility_tier_2: false
+
+    ct_tanf_income_eligible: false
+    # Exceeds extended eligibility limit
+
+    ct_tanf_eligible: false
+
+    ct_tanf: 0
+
+- name: Edge Case - Resources exactly at $6,000 limit.
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 0
+        is_tax_unit_head_or_spouse: true
+      person2:
+        age: 8
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_cash_assets: 6_000  # Exactly at $6,000 limit
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Assistance unit: 2
+    ct_tanf_assistance_unit_size: 2
+
+    # Resources check
+    ct_tanf_countable_resources: 6_000
+    # Exactly at $6,000 limit
+
+    ct_tanf_resources_eligible: true
+    # At limit - still eligible (<=)
+
+    # Eligibility
+    ct_tanf_income_eligible: true
+    ct_tanf_eligible: true
+
+    # Payment
+    ct_tanf_payment_standard: 580
+    ct_tanf: 580
+
+- name: Edge Case - Resources one dollar above $6,000 limit.
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 0
+        is_tax_unit_head_or_spouse: true
+      person2:
+        age: 8
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_cash_assets: 6_001  # One dollar over limit
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Assistance unit: 2
+    ct_tanf_assistance_unit_size: 2
+
+    # Resources check
+    ct_tanf_countable_resources: 6_001
+    # Over $6,000 limit
+
+    ct_tanf_resources_eligible: false
+    # Exceeds resource limit
+
+    # Eligibility
+    ct_tanf_eligible: false
+
+    ct_tanf: 0
+
+- name: Edge Case - Child support exactly at $50 passthrough limit.
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 0
+        child_support_received: 600  # $50/month
+        is_tax_unit_head_or_spouse: true
+      person2:
+        age: 8
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Assistance unit: 2
+    ct_tanf_assistance_unit_size: 2
+
+    # Income calculation
+    ct_tanf_countable_earned_income: 0
+
+    ct_tanf_countable_unearned_income: 0
+    # Child support: $50/month
+    # Passthrough deduction: min(50, 50) = 50
+    # Countable: 50 - 50 = 0
+
+    ct_tanf_countable_income: 0
+
+    # Eligibility
+    ct_tanf_income_eligible: true
+    ct_tanf_eligible: true
+
+    # Payment
+    ct_tanf_payment_standard: 580
+    ct_tanf: 580
+    # Full payment standard
+
+- name: Edge Case - Child support one dollar above $50 passthrough.
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 0
+        child_support_received: 612  # $51/month
+        is_tax_unit_head_or_spouse: true
+      person2:
+        age: 8
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Assistance unit: 2
+    ct_tanf_assistance_unit_size: 2
+
+    # Income calculation
+    ct_tanf_countable_earned_income: 0
+
+    ct_tanf_countable_unearned_income: 1
+    # Child support: $51/month
+    # Passthrough deduction: min(51, 50) = 50
+    # Countable: 51 - 50 = 1
+
+    ct_tanf_countable_income: 1
+
+    # Eligibility
+    ct_tanf_income_eligible: true
+    ct_tanf_eligible: true
+
+    # Payment
+    ct_tanf_payment_standard: 580
+    ct_tanf: 579
+    # Payment standard - countable income = 580 - 1 = 579
+
+- name: Edge Case - Child support $100 (double passthrough limit).
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 0
+        child_support_received: 1_200  # $100/month
+        is_tax_unit_head_or_spouse: true
+      person2:
+        age: 8
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Assistance unit: 2
+    ct_tanf_assistance_unit_size: 2
+
+    # Income calculation
+    ct_tanf_countable_earned_income: 0
+
+    ct_tanf_countable_unearned_income: 50
+    # Child support: $100/month
+    # Passthrough deduction: min(100, 50) = 50
+    # Countable: 100 - 50 = 50
+
+    ct_tanf_countable_income: 50
+
+    # Eligibility
+    ct_tanf_income_eligible: true
+    ct_tanf_eligible: true
+
+    # Payment
+    ct_tanf_payment_standard: 580
+    ct_tanf: 530
+    # Payment standard - countable income = 580 - 50 = 530
+
+- name: Edge Case - Zero child support (boundary test).
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 0
+        child_support_received: 0
+        is_tax_unit_head_or_spouse: true
+      person2:
+        age: 8
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Assistance unit: 2
+    ct_tanf_assistance_unit_size: 2
+
+    # Income calculation
+    ct_tanf_countable_earned_income: 0
+    ct_tanf_countable_unearned_income: 0
+    ct_tanf_countable_income: 0
+
+    # Eligibility
+    ct_tanf_income_eligible: true
+    ct_tanf_eligible: true
+
+    # Payment
+    ct_tanf_payment_standard: 580
+    ct_tanf: 580
+
+- name: Edge Case - Zero earned income (applicant).
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 0
+        is_tax_unit_head_or_spouse: true
+      person2:
+        age: 8
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Assistance unit: 2
+    ct_tanf_assistance_unit_size: 2
+
+    # Income calculation
+    ct_tanf_countable_earned_income: 0
+    ct_tanf_countable_unearned_income: 0
+    ct_tanf_countable_income: 0
+
+    # Eligibility
+    ct_tanf_income_eligible: true
+    ct_tanf_eligible: true
+
+    # Payment
+    ct_tanf_payment_standard: 580
+    ct_tanf: 580
+
+- name: Edge Case - Different household size (family of 1).
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 0
+        is_tax_unit_head_or_spouse: true
+    spm_units:
+      spm_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    # Assistance unit: 1
+    ct_tanf_assistance_unit_size: 1
+
+    # Eligibility
+    ct_tanf_income_eligible: true
+    ct_tanf_eligible: true
+
+    # Payment
+    ct_tanf_payment_standard: 338
+    ct_tanf: 338
+
+- name: Edge Case - Large household size (family of 8).
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 35
+        employment_income: 0
+        is_tax_unit_head_or_spouse: true
+      person2:
+        age: 16
+        is_tax_unit_dependent: true
+      person3:
+        age: 14
+        is_tax_unit_dependent: true
+      person4:
+        age: 12
+        is_tax_unit_dependent: true
+      person5:
+        age: 10
+        is_tax_unit_dependent: true
+      person6:
+        age: 8
+        is_tax_unit_dependent: true
+      person7:
+        age: 6
+        is_tax_unit_dependent: true
+      person8:
+        age: 4
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3, person4, person5, person6, person7, person8]
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3, person4, person5, person6, person7, person8]
+    households:
+      household:
+        members: [person1, person2, person3, person4, person5, person6, person7, person8]
+        state_code: CT
+  output:
+    # Assistance unit: 8
+    ct_tanf_assistance_unit_size: 8
+
+    # Eligibility
+    ct_tanf_income_eligible: true
+    ct_tanf_eligible: true
+
+    # Payment - verify large household calculations
+    ct_tanf_payment_standard: 1_420
+    # Family of 8 payment standard
+    ct_tanf: 1_420
