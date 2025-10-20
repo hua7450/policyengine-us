@@ -10,4 +10,7 @@ class ct_tanf_countable_income(Variable):
     reference = "https://law.justia.com/codes/connecticut/title-17b/chapter-319s/section-17b-112/"
     defined_for = StateCode.CT
 
-    adds = ["ct_tanf_countable_earned_income", "ct_tanf_countable_unearned_income"]
+    adds = [
+        "ct_tanf_countable_earned_income",
+        "ct_tanf_countable_unearned_income",
+    ]

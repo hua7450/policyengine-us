@@ -1,1 +1,8 @@
-
+- bump: minor
+  changes:
+    added:
+    - Connecticut TFA/TANF program implementation with income eligibility, resource limits, and benefit calculation
+    - CT TANF payment standards with household size-based amounts
+    - CT TANF income deductions including earned income disregards and child support passthrough
+    - CT TANF resource eligibility with vehicle and liquid asset limits
+    - Integration tests for CT TANF eligibility and benefit scenarios

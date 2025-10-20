@@ -31,9 +31,9 @@ class ct_tanf(Variable):
         )
         upper_threshold = p.income.standards.extended_eligibility_upper * fpg
 
-        in_reduction_tier = (
-            total_gross_earnings >= reduction_threshold
-        ) & (total_gross_earnings <= upper_threshold)
+        in_reduction_tier = (total_gross_earnings >= reduction_threshold) & (
+            total_gross_earnings <= upper_threshold
+        )
 
         # Apply 20% benefit reduction if in tier
         # benefit_reduction = 0.20, so multiply by (1 - 0.20) = 0.80
