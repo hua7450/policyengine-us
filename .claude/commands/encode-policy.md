@@ -88,19 +88,22 @@ Invoke @pr-pusher agent to:
 
 **Quality Gate**: Branch must be properly formatted and have changelog before continuing.
 
-## Phase 7: Edge Case Testing
+## Phase 7: Unit Test Creation
 
-**For simplified TANF implementations:** Only run edge case testing
+**For simplified TANF implementations:** Create unit tests with edge cases
 
-Invoke @edge-case-generator to:
-- Generate comprehensive boundary tests
-- Examples: income exactly at thresholds (55% FPL, 171% FPL, 230% FPL)
-- Resources exactly at limits ($6,000)
-- Benefit reduction edge cases
-- Commit generated tests
+Invoke @test-creator to:
+- Create unit test files for each variable with formula (follow DC TANF pattern)
+- Test file name matches variable name (e.g., `ct_tanf_income_eligible.yaml`)
+- Include edge cases in unit tests (boundary conditions at thresholds)
+- Remove excessive edge cases from integration.yaml (keep integration tests realistic)
+- Organize tests in folder structure matching variables
+- Commit unit tests
 
-**Quality Requirement**:
-- All edge cases covered for thresholds and limits
+**Quality Requirements**:
+- One unit test file per variable with formula
+- Edge cases in unit tests, not integration tests
+- Integration tests only test realistic end-to-end scenarios
 
 ---
 

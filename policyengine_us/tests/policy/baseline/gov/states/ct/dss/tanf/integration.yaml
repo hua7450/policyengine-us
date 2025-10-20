@@ -23,37 +23,11 @@
         members: [person1, person2, person3]
         state_code: CT
   output:
-    # Assistance unit: 3 (parent + 2 children)
-    ct_tanf_assistance_unit_size: 3
-
-    # Income calculation
-    ct_tanf_countable_earned_income: 0
-    # No earned income
-
-    ct_tanf_countable_unearned_income: 0
-    # No unearned income
-
-    ct_tanf_countable_income: 0
-    # Total: 0 + 0 = 0
-
-    # Eligibility tests
-    ct_tanf_income_eligible: true
-    # No income, eligible
-
-    ct_tanf_resources_eligible: true
-    # Assuming no resources
-
     ct_tanf_eligible: true
-    # Meets all requirements
-
-    # Payment
     ct_tanf_payment_standard: 833
-    # Family of 3 payment standard
-
     ct_tanf: 833
-    # Payment standard - countable income = 833 - 0 = 833
 
-- name: Case 2, applicant with part-time earnings using $90 disregard.
+- name: Case 2, applicant with part-time earnings.
   period: 2024-01
   absolute_error_margin: 0.01
   input:
@@ -71,6 +45,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
+        is_tanf_enrolled: false  # Applicant
     tax_units:
       tax_unit:
         members: [person1, person2, person3]
@@ -79,38 +54,11 @@
         members: [person1, person2, person3]
         state_code: CT
   output:
-    # Assistance unit: 3 (parent + 2 children)
-    ct_tanf_assistance_unit_size: 3
-
-    # Income calculation (applicant status - $90 disregard)
-    ct_tanf_gross_earned_income: [600, 0, 0]
-    # Person1: 7,200 / 12 = 600, Person2 & 3: 0
-
-    ct_tanf_countable_earned_income: 510
-    # Applicant disregard: 600 - 90 = 510
-
-    ct_tanf_countable_unearned_income: 0
-    # No unearned income
-
-    ct_tanf_countable_income: 510
-    # Total: 510 + 0 = 510
-
-    # Eligibility tests
-    # 55% FPL for family of 3 (2024) = 25,820 * 0.55 = 14,201 / 12 = 1,183.42
-    # Gross earnings (600) < 55% FPL (1,183.42)
-    ct_tanf_income_eligible: true
-
     ct_tanf_eligible: true
-    # Meets income requirement
+    ct_tanf_countable_earned_income: 510  # ($600 - $90) = $510
+    ct_tanf: 323  # $833 - $510 = $323
 
-    # Payment
-    ct_tanf_payment_standard: 833
-    # Family of 3 payment standard
-
-    ct_tanf: 323
-    # Payment standard - countable income = 833 - 510 = 323
-
-- name: Case 3, recipient with full-time earnings using 100% FPL exclusion.
+- name: Case 3, recipient with earnings below 100% FPL.
   period: 2024-01
   absolute_error_margin: 0.01
   input:
@@ -128,6 +76,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
+        is_tanf_enrolled: true  # Recipient
     tax_units:
       tax_unit:
         members: [person1, person2, person3]
@@ -136,43 +85,18 @@
         members: [person1, person2, person3]
         state_code: CT
   output:
-    # Assistance unit: 3 (parent + 2 children)
-    ct_tanf_assistance_unit_size: 3
-
-    # Income calculation (recipient status - 100% FPL exclusion)
-    ct_tanf_gross_earned_income: [1_800, 0, 0]
-    # Person1: 21,600 / 12 = 1,800, Person2 & 3: 0
-
-    ct_tanf_countable_earned_income: 0
-    # 100% FPL for family of 3 (2024) = 25,820 / 12 = 2,151.67
-    # Earned income (1,800) < 100% FPL (2,151.67)
-    # Countable = max(0, 1,800 - 2,151.67) = 0
-
-    ct_tanf_countable_unearned_income: 0
-    # No unearned income
-
-    ct_tanf_countable_income: 0
-    # Total: 0 + 0 = 0
-
-    # Eligibility
-    ct_tanf_income_eligible: true
     ct_tanf_eligible: true
+    ct_tanf_countable_earned_income: 0  # Below 230% FPL, fully disregarded
+    ct_tanf: 833  # Full benefit
 
-    # Payment
-    ct_tanf_payment_standard: 833
-
-    ct_tanf: 833
-    # Payment standard - countable income = 833 - 0 = 833
-    # Total monthly income: 1,800 + 833 = 2,633
-
-- name: Case 4, recipient with earnings above 100% FPL.
+- name: Case 4, recipient with earnings 100-171% FPL, full benefit.
   period: 2024-01
   absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 30
-        employment_income: 30_000  # $2,500/month
+        employment_income: 38_700  # ~150% FPL
         is_tax_unit_head_or_spouse: true
       person2:
         age: 8
@@ -183,6 +107,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
+        is_tanf_enrolled: true
     tax_units:
       tax_unit:
         members: [person1, person2, person3]
@@ -191,41 +116,17 @@
         members: [person1, person2, person3]
         state_code: CT
   output:
-    # Assistance unit: 3
-    ct_tanf_assistance_unit_size: 3
-
-    # Income calculation (recipient status)
-    ct_tanf_gross_earned_income: [2_500, 0, 0]
-    # Person1: 30,000 / 12 = 2,500
-
-    ct_tanf_countable_earned_income: 348.33
-    # 100% FPL for family of 3 (2024) = 25,820 / 12 = 2,151.67
-    # Countable = 2,500 - 2,151.67 = 348.33
-
-    ct_tanf_countable_unearned_income: 0
-
-    ct_tanf_countable_income: 348.33
-    # Total: 348.33 + 0 = 348.33
-
-    # Eligibility
-    ct_tanf_income_eligible: true
     ct_tanf_eligible: true
+    ct_tanf: 833  # Full benefit, no 20% reduction
 
-    # Payment
-    ct_tanf_payment_standard: 833
-
-    ct_tanf: 484.67
-    # Payment standard - countable income = 833 - 348.33 = 484.67
-    # Total monthly income: 2,500 + 484.67 = 2,984.67
-
-- name: Case 5, extended eligibility tier 1 with earnings 100-171% FPL.
+- name: Case 5, recipient with earnings 171-230% FPL, 20% reduction.
   period: 2024-01
   absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 30
-        employment_income: 36_000  # $3,000/month (139% FPL)
+        employment_income: 51_600  # ~200% FPL
         is_tax_unit_head_or_spouse: true
       person2:
         age: 8
@@ -236,6 +137,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
+        is_tanf_enrolled: true
     tax_units:
       tax_unit:
         members: [person1, person2, person3]
@@ -244,43 +146,17 @@
         members: [person1, person2, person3]
         state_code: CT
   output:
-    # Assistance unit: 3
-    ct_tanf_assistance_unit_size: 3
-
-    # Income for extended eligibility determination
-    ct_tanf_gross_earned_income: [3_000, 0, 0]
-    # Person1: 36,000 / 12 = 3,000
-
-    # Extended eligibility thresholds
-    # 100% FPL = 2,151.67/month
-    # 171% FPL = 25,820 * 1.71 / 12 = 3,679.52/month
-    # 230% FPL = 25,820 * 2.30 / 12 = 4,948.83/month
-    # Earnings (3,000) are between 100% and 171% FPL → Tier 1
-
-    ct_tanf_extended_eligibility_tier_1: true
-    # 100% FPL < earnings < 171% FPL
-
-    ct_tanf_extended_eligibility_tier_2: false
-    # Not in tier 2 range
-
     ct_tanf_eligible: true
-    # Extended eligibility
+    ct_tanf: 666.40  # $833 × 0.8 (20% reduction)
 
-    # Payment
-    ct_tanf_payment_standard: 833
-
-    ct_tanf: 833
-    # Tier 1: Full payment standard, no reduction
-    # Total monthly income: 3,000 + 833 = 3,833
-
-- name: Case 6, extended eligibility tier 2 with earnings 171-230% FPL.
+- name: Case 6, earnings above 230% FPL, ineligible.
   period: 2024-01
   absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 30
-        employment_income: 48_000  # $4,000/month (186% FPL)
+        employment_income: 64_800  # ~251% FPL
         is_tax_unit_head_or_spouse: true
       person2:
         age: 8
@@ -291,6 +167,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
+        is_tanf_enrolled: true
     tax_units:
       tax_unit:
         members: [person1, person2, person3]
@@ -299,34 +176,8 @@
         members: [person1, person2, person3]
         state_code: CT
   output:
-    # Assistance unit: 3
-    ct_tanf_assistance_unit_size: 3
-
-    # Income for extended eligibility determination
-    ct_tanf_gross_earned_income: [4_000, 0, 0]
-    # Person1: 48,000 / 12 = 4,000
-
-    # Extended eligibility thresholds
-    # 171% FPL = 3,679.52/month
-    # 230% FPL = 4,948.83/month
-    # Earnings (4,000) are between 171% and 230% FPL → Tier 2
-
-    ct_tanf_extended_eligibility_tier_1: false
-    # Not in tier 1 range
-
-    ct_tanf_extended_eligibility_tier_2: true
-    # 171% FPL < earnings < 230% FPL
-
-    ct_tanf_eligible: true
-    # Extended eligibility
-
-    # Payment
-    ct_tanf_payment_standard: 833
-
-    ct_tanf: 666.40
-    # Tier 2: Base benefit * 0.80 (20% reduction)
-    # 833 * 0.80 = 666.40
-    # Total monthly income: 4,000 + 666.40 = 4,666.40
+    ct_tanf_eligible: false
+    ct_tanf: 0
 
 - name: Case 7, family with unearned income.
   period: 2024-01
@@ -335,8 +186,8 @@
     people:
       person1:
         age: 30
-        employment_income: 18_000  # $1,500/month
-        social_security: 6_000  # $500/month unemployment/RSDI
+        social_security: 4_800  # $400/month
+        child_support_received: 600  # $50/month
         is_tax_unit_head_or_spouse: true
       person2:
         age: 8
@@ -355,132 +206,11 @@
         members: [person1, person2, person3]
         state_code: CT
   output:
-    # Assistance unit: 3
-    ct_tanf_assistance_unit_size: 3
-
-    # Income calculation (recipient status)
-    ct_tanf_gross_earned_income: [1_500, 0, 0]
-    # Person1: 18,000 / 12 = 1,500
-
-    ct_tanf_countable_earned_income: 0
-    # 100% FPL for family of 3 = 2,151.67
-    # Earned income (1,500) < 100% FPL
-    # Countable = max(0, 1,500 - 2,151.67) = 0
-
-    ct_tanf_gross_unearned_income: [500, 0, 0]
-    # Person1: 6,000 / 12 = 500 (Social Security/unemployment)
-
-    ct_tanf_countable_unearned_income: 500
-    # Unearned income counted dollar-for-dollar
-
-    ct_tanf_countable_income: 500
-    # Total: 0 + 500 = 500
-
-    # Eligibility
-    ct_tanf_income_eligible: true
     ct_tanf_eligible: true
+    ct_tanf_countable_unearned_income: 350  # $400 - $50 child support
+    ct_tanf: 483  # $833 - $350 = $483
 
-    # Payment
-    ct_tanf_payment_standard: 833
-
-    ct_tanf: 333
-    # Payment standard - countable income = 833 - 500 = 333
-    # Total monthly income: 1,500 + 500 + 333 = 2,333
-
-- name: Case 8, income just below 55% FPL threshold for applicant.
-  period: 2024-01
-  absolute_error_margin: 0.01
-  input:
-    people:
-      person1:
-        age: 30
-        employment_income: 14_000  # ~$1,167/month (just under 55% FPL)
-        is_tax_unit_head_or_spouse: true
-      person2:
-        age: 8
-        is_tax_unit_dependent: true
-      person3:
-        age: 5
-        is_tax_unit_dependent: true
-    spm_units:
-      spm_unit:
-        members: [person1, person2, person3]
-    tax_units:
-      tax_unit:
-        members: [person1, person2, person3]
-    households:
-      household:
-        members: [person1, person2, person3]
-        state_code: CT
-  output:
-    # Assistance unit: 3
-    ct_tanf_assistance_unit_size: 3
-
-    # Income calculation (applicant status)
-    ct_tanf_gross_earned_income: [1_166.67, 0, 0]
-    # Person1: 14,000 / 12 = 1,166.67
-
-    ct_tanf_countable_earned_income: 1_076.67
-    # Applicant disregard: 1,166.67 - 90 = 1,076.67
-
-    # Eligibility tests
-    # 55% FPL for family of 3 (2024) = 25,820 * 0.55 / 12 = 1,183.42
-    # Gross earnings (1,166.67) < 55% FPL (1,183.42)
-    ct_tanf_income_eligible: true
-    ct_tanf_eligible: true
-
-    # Payment
-    ct_tanf_payment_standard: 833
-
-    ct_tanf: 0
-    # Payment standard - countable income = 833 - 1,076.67 = -243.67 → 0
-    # Eligible but countable income exceeds payment standard
-
-- name: Case 9, income just above 55% FPL threshold for applicant.
-  period: 2024-01
-  absolute_error_margin: 0.01
-  input:
-    people:
-      person1:
-        age: 30
-        employment_income: 14_300  # ~$1,192/month (just over 55% FPL)
-        is_tax_unit_head_or_spouse: true
-      person2:
-        age: 8
-        is_tax_unit_dependent: true
-      person3:
-        age: 5
-        is_tax_unit_dependent: true
-    spm_units:
-      spm_unit:
-        members: [person1, person2, person3]
-    tax_units:
-      tax_unit:
-        members: [person1, person2, person3]
-    households:
-      household:
-        members: [person1, person2, person3]
-        state_code: CT
-  output:
-    # Assistance unit: 3
-    ct_tanf_assistance_unit_size: 3
-
-    # Income calculation
-    ct_tanf_gross_earned_income: [1_191.67, 0, 0]
-    # Person1: 14,300 / 12 = 1,191.67
-
-    # Eligibility tests
-    # 55% FPL for family of 3 (2024) = 25,820 * 0.55 / 12 = 1,183.42
-    # Gross earnings (1,191.67) > 55% FPL (1,183.42)
-    ct_tanf_income_eligible: false
-    # Exceeds Standard of Need for applicants
-
-    ct_tanf_eligible: false
-    # Not eligible - income too high for applicant
-
-    ct_tanf: 0
-
-- name: Case 10, pregnant woman eligible for TFA.
+- name: Case 8, pregnant woman eligible.
   period: 2024-01
   absolute_error_margin: 0.01
   input:
@@ -488,7 +218,6 @@
       person1:
         age: 25
         is_pregnant: true
-        employment_income: 0
         is_tax_unit_head_or_spouse: true
     spm_units:
       spm_unit:
@@ -501,247 +230,6 @@
         members: [person1]
         state_code: CT
   output:
-    # Assistance unit: 1 (pregnant woman - categorically eligible)
-    ct_tanf_assistance_unit_size: 1
-
-    # Income calculation
-    ct_tanf_countable_earned_income: 0
-    ct_tanf_countable_unearned_income: 0
-    ct_tanf_countable_income: 0
-
-    # Eligibility
-    ct_tanf_demographic_eligible: true
-    # Pregnant women categorically eligible
-
-    ct_tanf_income_eligible: true
     ct_tanf_eligible: true
-
-    # Payment
-    ct_tanf_payment_standard: 338
-    # Household size 1 payment standard (hypothetical)
-
-    ct_tanf: 338
-    # Full payment standard for household size 1
-
-- name: Case 11, earnings exactly at 230% FPL threshold.
-  period: 2024-01
-  absolute_error_margin: 0.01
-  input:
-    people:
-      person1:
-        age: 30
-        employment_income: 59_386  # Exactly 230% FPL annually
-        is_tax_unit_head_or_spouse: true
-      person2:
-        age: 8
-        is_tax_unit_dependent: true
-      person3:
-        age: 5
-        is_tax_unit_dependent: true
-    spm_units:
-      spm_unit:
-        members: [person1, person2, person3]
-    tax_units:
-      tax_unit:
-        members: [person1, person2, person3]
-    households:
-      household:
-        members: [person1, person2, person3]
-        state_code: CT
-  output:
-    # Assistance unit: 3
-    ct_tanf_assistance_unit_size: 3
-
-    # Income calculation
-    ct_tanf_gross_earned_income: [4_948.83, 0, 0]
-    # Person1: 59,386 / 12 = 4,948.83 (exactly 230% FPL)
-
-    # Extended eligibility thresholds
-    # 230% FPL = 25,820 * 2.30 / 12 = 4,948.83
-    # Earnings exactly at 230% FPL threshold
-
-    ct_tanf_extended_eligibility_tier_2: true
-    # At threshold, still eligible for tier 2
-
-    ct_tanf_eligible: true
-
-    # Payment
-    ct_tanf_payment_standard: 833
-
-    ct_tanf: 666.40
-    # Tier 2: 833 * 0.80 = 666.40
-
-- name: Case 12, earnings above 230% FPL threshold.
-  period: 2024-01
-  absolute_error_margin: 0.01
-  input:
-    people:
-      person1:
-        age: 30
-        employment_income: 60_000  # Above 230% FPL
-        is_tax_unit_head_or_spouse: true
-      person2:
-        age: 8
-        is_tax_unit_dependent: true
-      person3:
-        age: 5
-        is_tax_unit_dependent: true
-    spm_units:
-      spm_unit:
-        members: [person1, person2, person3]
-    tax_units:
-      tax_unit:
-        members: [person1, person2, person3]
-    households:
-      household:
-        members: [person1, person2, person3]
-        state_code: CT
-  output:
-    # Assistance unit: 3
-    ct_tanf_assistance_unit_size: 3
-
-    # Income calculation
-    ct_tanf_gross_earned_income: [5_000, 0, 0]
-    # Person1: 60,000 / 12 = 5,000
-
-    # Extended eligibility thresholds
-    # 230% FPL = 4,948.83
-    # Earnings (5,000) > 230% FPL → Ineligible
-
-    ct_tanf_extended_eligibility_tier_1: false
-    ct_tanf_extended_eligibility_tier_2: false
-
-    ct_tanf_income_eligible: false
-    # Exceeds extended eligibility limit
-
-    ct_tanf_eligible: false
-
-    ct_tanf: 0
-
-- name: Case 13, age 18 full-time student eligible.
-  period: 2024-01
-  absolute_error_margin: 0.01
-  input:
-    people:
-      person1:
-        age: 35
-        employment_income: 0
-        is_tax_unit_head_or_spouse: true
-      person2:
-        age: 18
-        is_full_time_student: true
-        is_tax_unit_dependent: true
-    spm_units:
-      spm_unit:
-        members: [person1, person2]
-    tax_units:
-      tax_unit:
-        members: [person1, person2]
-    households:
-      household:
-        members: [person1, person2]
-        state_code: CT
-  output:
-    # Assistance unit: 2 (parent + age 18 full-time student)
-    ct_tanf_assistance_unit_size: 2
-
-    # Age 18 student eligible for TFA
-    ct_tanf_eligible_child: [false, true]
-    # Person2 is age 18 full-time student - eligible as child
-
-    ct_tanf_eligible_parent: [true, false]
-    # Person1 is parent/caretaker
-
-    # Eligibility
-    ct_tanf_income_eligible: true
-    ct_tanf_eligible: true
-
-    # Payment
-    ct_tanf_payment_standard: 580
-    # Household size 2 payment standard (hypothetical)
-
-    ct_tanf: 580
-
-- name: Case 14, resources just under limit.
-  period: 2024-01
-  absolute_error_margin: 0.01
-  input:
-    people:
-      person1:
-        age: 30
-        employment_income: 0
-        is_tax_unit_head_or_spouse: true
-      person2:
-        age: 8
-        is_tax_unit_dependent: true
-    spm_units:
-      spm_unit:
-        members: [person1, person2]
-        spm_unit_cash_assets: 5_900  # Just under $6,000 limit
-    tax_units:
-      tax_unit:
-        members: [person1, person2]
-    households:
-      household:
-        members: [person1, person2]
-        state_code: CT
-  output:
-    # Assistance unit: 2
-    ct_tanf_assistance_unit_size: 2
-
-    # Resources check
-    ct_tanf_countable_resources: 5_900
-    # Just under $6,000 limit
-
-    ct_tanf_resources_eligible: true
-    # Under resource limit
-
-    # Eligibility
-    ct_tanf_income_eligible: true
-    ct_tanf_eligible: true
-
-    # Payment
-    ct_tanf_payment_standard: 580
-    ct_tanf: 580
-
-- name: Case 15, resources over limit.
-  period: 2024-01
-  absolute_error_margin: 0.01
-  input:
-    people:
-      person1:
-        age: 30
-        employment_income: 0
-        is_tax_unit_head_or_spouse: true
-      person2:
-        age: 8
-        is_tax_unit_dependent: true
-    spm_units:
-      spm_unit:
-        members: [person1, person2]
-        spm_unit_cash_assets: 6_100  # Over $6,000 limit
-    tax_units:
-      tax_unit:
-        members: [person1, person2]
-    households:
-      household:
-        members: [person1, person2]
-        state_code: CT
-  output:
-    # Assistance unit: 2
-    ct_tanf_assistance_unit_size: 2
-
-    # Resources check
-    ct_tanf_countable_resources: 6_100
-    # Over $6,000 limit
-
-    ct_tanf_resources_eligible: false
-    # Exceeds resource limit
-
-    # Eligibility
-    ct_tanf_eligible: false
-    # Not eligible - too many resources
-
-    ct_tanf: 0
-
-# ==============================================================================
+    ct_tanf_payment_standard: 489
+    ct_tanf: 489
