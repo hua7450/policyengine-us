@@ -99,9 +99,14 @@ Invoke @pr-pusher agent to:
 
 ### Step 2: Cross-Program Validation
 
+**For simplified TANF implementations: SKIP this step**
+
+For complex implementations only:
 - @cross-program-validator: Check interactions with other benefits
 - Fix any cliff effects or integration issues found
 - Commit fixes before proceeding
+
+**Note:** Simple TANF implementations (using federal baselines, basic eligibility) don't need cross-program validation. Skip this for experimental/simplified implementations.
 
 ### Step 3: Documentation Enhancement
 
