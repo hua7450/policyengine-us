@@ -235,16 +235,16 @@ Before creating any variable, check if it exists:
 
 **Follow IL TANF pattern for variable metadata:**
 ```python
-class ct_tanf_countable_earned_income(Variable):
+class il_tanf_countable_earned_income(Variable):
     value_type = float
     entity = SPMUnit
     definition_period = MONTH
-    label = "Connecticut TFA countable earned income"
+    label = "Illinois TANF countable earned income"
     unit = USD
-    reference = "https://law.justia.com/codes/connecticut/title-17b/chapter-319s/section-17b-112/"
-    defined_for = StateCode.CT
+    reference = "https://www.law.cornell.edu/regulations/illinois/Ill-Admin-Code-tit-89-SS-112.250"
+    defined_for = StateCode.IL
 
-    adds = ["ct_tanf_earned_income_after_disregard"]
+    adds = ["il_tanf_earned_income_after_disregard"]
 ```
 
 **Key formatting rules:**
@@ -301,36 +301,36 @@ class ct_tanf_countable_earned_income(Variable):
 
    ```python
    # ✅ CORRECT - Use federal baseline for gross income, apply state deductions
-   class ct_tanf_countable_unearned_income(Variable):
+   class state_tanf_countable_unearned_income(Variable):
        value_type = float
        entity = SPMUnit
        definition_period = MONTH
-       label = "Connecticut TFA countable unearned income"
+       label = "[State] TANF countable unearned income"
        unit = USD
-       defined_for = StateCode.CT
+       defined_for = StateCode.XX
 
        def formula(spm_unit, period, parameters):
-           p = parameters(period).gov.states.ct.dss.tanf.income
+           p = parameters(period).gov.states.xx.agency.tanf.income
            # Use federal baseline (includes child_support_received)
            total_unearned = add(spm_unit, period, ["tanf_gross_unearned_income"])
-           # Apply CT's $50 child support passthrough deduction
+           # Apply state's child support passthrough deduction (if applicable)
            child_support = add(spm_unit, period, ["child_support_received"])
            passthrough = min_(child_support, p.deductions.child_support_passthrough)
            return max_(0, total_unearned - passthrough)
 
    # ❌ WRONG - Don't create state-specific gross income variables
-   # class ct_tanf_gross_unearned_income(Variable):
+   # class state_tanf_gross_unearned_income(Variable):
    #     # This should NOT exist for simplified TANF
-   #     adds = "gov.states.ct.dss.tanf.income.sources.unearned"
+   #     adds = "gov.states.xx.agency.tanf.income.sources.unearned"
 
    # ❌ WRONG - Don't exclude income sources just because there's a deduction
-   # Even if state has "$50 child support passthrough," child support is still
+   # Even if state has child support passthrough, child support is still
    # in gross income - the passthrough is a DEDUCTION, not SOURCE exclusion
    ```
 
    **Understanding Passthroughs vs Exclusions:**
-   - **Passthrough** ($50 child support) = DEDUCTION from total income
-   - **Exclusion** (SSI, EITC) = NOT included in gross income sources
+   - **Passthrough** (e.g., $50 child support) = DEDUCTION from total income
+   - **Exclusion** (e.g., SSI, EITC) = NOT included in gross income sources
    - Use federal baseline, apply passthrough as deduction
 
 4. **Do NOT create these files for simplified implementations:**
@@ -628,8 +628,8 @@ class il_tanf_assistance_unit_size(Variable):
 - Good for complex TANF with exclusion rules
 
 **When to use each:**
-- Simplified TANF (CT, MD): Use `spm_unit_size` directly
-- Complex TANF (IL, TX): Create `[state]_tanf_assistance_unit_size` variable
+- Simplified TANF (CT, MD, MT): Use `spm_unit_size` directly
+- Complex TANF (IL, TX, DC): Create `[state]_tanf_assistance_unit_size` variable
 
 ### Distinguishing Applicants vs Recipients
 
@@ -681,19 +681,19 @@ return where(
 
 ### Extended Eligibility with Benefit Reduction
 
-**Connecticut TANF pattern for earnings 171-230% FPL:**
+**Pattern for states with tiered benefit reductions (e.g., CT, some other states):**
 
 Some states reduce benefits when earnings exceed certain thresholds but are still within extended eligibility limits.
 
 ```python
-# ct_tanf.py - Benefit calculation with extended eligibility reduction
+# state_tanf.py - Benefit calculation with extended eligibility reduction
 def formula(spm_unit, period, parameters):
-    p = parameters(period).gov.states.ct.dss.tanf
+    p = parameters(period).gov.states.xx.agency.tanf
 
     # Standard benefit
     standard_benefit = max_(payment_standard - countable_income, 0)
 
-    # Check if total gross earnings are in reduction tier (171-230% FPL)
+    # Check if total gross earnings are in reduction tier (e.g., 171-230% FPL)
     total_gross_earnings = add(spm_unit, period, ["tanf_gross_earned_income"])
     fpg = spm_unit("tanf_fpg", period)
 
@@ -704,7 +704,7 @@ def formula(spm_unit, period, parameters):
         total_gross_earnings <= upper_threshold
     )
 
-    # Apply 20% reduction if in tier
+    # Apply reduction if in tier (e.g., 20%)
     reduction_rate = p.extended_eligibility.benefit_reduction
     reduced_benefit = standard_benefit * (1 - reduction_rate)
 
@@ -715,7 +715,7 @@ def formula(spm_unit, period, parameters):
 - Check **total gross earnings** (not countable income) against FPL percentages
 - Use `add(spm_unit, period, ["tanf_gross_earned_income"])` to sum family earnings
 - Apply reduction to the benefit amount (not the income)
-- Extended eligibility typically has 6-month time limit (not yet modeled)
+- Extended eligibility typically has time limits (varies by state, not yet modeled)
 
 ### Resources Are Stocks, Not Flows
 

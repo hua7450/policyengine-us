@@ -120,7 +120,6 @@ resource_limit/higher/age_threshold.yaml          # 60 (age)
 **Examples from existing implementations:**
 - DC TANF: `income/deductions/earned_income_disregard/percentage.yaml` (0.67)
 - IL TANF: `payment_level/rate.yaml` (0.35), `income/disregard/rate.yaml` (0.75)
-- CT TANF: `income_limit/rate.yaml` (2.3), `benefit_reduction/rate.yaml` (0.2)
 
 **Why this matters:**
 - Consistent naming across state implementations
@@ -360,8 +359,9 @@ amount:
 **Variable accesses using direct indexing:**
 ```python
 def formula(spm_unit, period, parameters):
-    p = parameters(period).gov.states.ct.dss.tanf.payment_standard
-    unit_size = spm_unit.nb_persons()
+    p = parameters(period).gov.states.xx.agency.tanf.payment_standard
+    # For simplified TANF, use spm_unit_size variable
+    unit_size = spm_unit("spm_unit_size", period)
     capped_size = min_(unit_size, 8)
     return p.amount[capped_size]
 ```
