@@ -121,15 +121,42 @@ git push
 - Ensure all new modules are properly installed
 
 #### Test Failures
-- Read test output carefully
-- Fix calculation errors in variables
-- Update test expectations if implementation is correct
-- Add missing test files
+
+**CRITICAL: Do NOT create new files to fix test failures**
+
+When tests fail:
+1. **Read test output carefully** to understand what's failing
+2. **Fix calculation errors in EXISTING variables** (edit, don't create)
+3. **Update test expectations** if implementation is correct and tests are wrong
+4. **Do NOT create new variables** - all variables should already exist from rules-engineer
+5. **Do NOT recreate deleted files** - check git log if a file seems missing
+
+**If a variable appears to be missing:**
+```bash
+# Check if it was deliberately deleted
+git log --all --full-history -- path/to/file.py
+
+# If deleted in Phase 4, there's usually a federal equivalent
+# Fix tests to use the federal variable instead
+```
+
+**Valid fixes:**
+- ✅ Edit existing variable formulas
+- ✅ Edit existing parameter values
+- ✅ Update test expected values
+- ✅ Fix import statements in existing files
+
+**Invalid fixes:**
+- ❌ Create new variable files
+- ❌ Create new parameter files
+- ❌ Recreate files that were deleted
+- ❌ Add new income source lists
 
 #### Parameter Validation
 - Check YAML parameter files for correct structure
-- Verify parameter references in variables
+- Verify parameter references in EXISTING variables
 - Ensure date formats and metadata are correct
+- Do NOT create new parameter files
 
 ### Step 4: Iteration Loop
 ```python
