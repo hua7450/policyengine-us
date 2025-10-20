@@ -25,6 +25,6 @@ class ct_tanf_income_eligible(Variable):
         # The difference is in how countable income is calculated:
         # - Applicants: $90 earned income disregard
         # - Recipients: Up to 230% FPL earned income disregard
-        initial_limit = fpg * p.income.standards.initial_eligibility
+        standard_of_need = fpg * p.income.standard_of_need.rate
 
-        return countable_income <= initial_limit
+        return countable_income <= standard_of_need
