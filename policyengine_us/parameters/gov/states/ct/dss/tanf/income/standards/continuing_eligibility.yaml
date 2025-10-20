@@ -13,4 +13,4 @@ metadata:
       href: "https://law.justia.com/codes/connecticut/title-17b/chapter-319s/section-17b-112/"
     - title: "Connecticut TANF State Plan 2024-2026, page 10"
       href: "https://portal.ct.gov/-/media/departments-and-agencies/dss/economic-security/ct-tanf-state-plan-2024---2026---41524-amendment.pdf#page=10"
-  note: "Increased from 100% to 230% FPL effective January 1, 2024 per State Plan: 'On and after January 1, 2024... the Department shall disregard, for purposes of eligibility, a family's total gross earnings in an amount not to exceed 230% of the FPL.'"
+  note: "Increased from 100% to 230% FPL effective January 1, 2024 per State Plan: 'On and after January 1, 2024... the Department shall disregard, for purposes of eligibility, a family's total gross earnings in an amount not to exceed 230% of the FPL.' The 230% FPL disregard applies for up to 6 consecutive months after earnings first exceed 100% FPL. This simplified implementation does not model the 6-month time limit."

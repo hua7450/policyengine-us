@@ -25,6 +25,7 @@ class ct_tanf_earned_income_after_disregard(Variable):
 
         # For recipients: Disregard earned income up to % of FPL
         # Policy changed Jan 1, 2024: 100% FPL → 230% FPL
+        # The 230% disregard applies for up to 6 consecutive months (not modeled)
         # Parameter handles time-based transition automatically
         spm_unit = person.spm_unit
         fpg = spm_unit("tanf_fpg", period)
