@@ -15,23 +15,6 @@ class ct_tanf_earned_income_after_disregard(Variable):
         # Use federal TANF gross earned income baseline
         gross_earned = person("tanf_gross_earned_income", period)
 
-        # Different disregards for applicants vs recipients
-        spm_unit = person.spm_unit
-        is_recipient = spm_unit("is_tanf_enrolled", period)
-
-        # For applicants: $90 flat disregard
-        applicant_disregard = p.income.disregards.initial_disregard
-
-        # For recipients: 230% FPL per person disregard
-        # Get person's share of FPL based on SPM unit size
-        fpg_monthly = spm_unit("tanf_fpg", period)
-        unit_size = spm_unit("spm_unit_size", period)
-        fpg_per_person = fpg_monthly / unit_size
-        recipient_disregard = fpg_per_person * p.income_limit.rate
-
-        # Use recipient disregard if enrolled, otherwise use applicant disregard
-        disregard = where(
-            is_recipient, recipient_disregard, applicant_disregard
-        )
-
-        return max_(gross_earned - disregard, 0)
+        # Apply $90 disregard per person for applicants
+        # (Recipients have different eligibility test at income_eligible level)
+        return max_(gross_earned - p.income.disregards.initial_disregard, 0)
