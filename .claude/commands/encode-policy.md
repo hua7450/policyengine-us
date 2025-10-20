@@ -140,6 +140,7 @@ Invoke @rules-reviewer to validate the complete implementation against documenta
 - Complete coverage of all rules
 - Proper parameter usage
 - Edge case handling
+- **Folder structure optimization:** Review and optimize folder organization for clarity and consistency
 
 ## Phase 10: Local Testing & CI Finalization
 **CRITICAL: ALWAYS invoke @ci-fixer agent - do NOT manually fix issues**
