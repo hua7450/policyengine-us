@@ -21,12 +21,12 @@
     people:
       person1:
         age: 30
+        child_support_received: 360
       person2:
         age: 5
     spm_units:
       spm_unit:
         members: [person1, person2]
-        child_support_received: 360
     households:
       household:
         members: [person1, person2]
@@ -43,12 +43,12 @@
     people:
       person1:
         age: 30
+        child_support_received: 600
       person2:
         age: 8
     spm_units:
       spm_unit:
         members: [person1, person2]
-        child_support_received: 600
     households:
       household:
         members: [person1, person2]
@@ -65,12 +65,12 @@
     people:
       person1:
         age: 30
+        child_support_received: 1_200
       person2:
         age: 5
     spm_units:
       spm_unit:
         members: [person1, person2]
-        child_support_received: 1_200
     households:
       household:
         members: [person1, person2]
@@ -87,12 +87,12 @@
     people:
       person1:
         age: 30
+        child_support_received: 0
       person2:
         age: 5
     spm_units:
       spm_unit:
         members: [person1, person2]
-        child_support_received: 0
     households:
       household:
         members: [person1, person2]
@@ -107,6 +107,7 @@
     people:
       person1:
         age: 30
+        child_support_received: 3_600
       person2:
         age: 10
       person3:
@@ -114,7 +115,6 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        child_support_received: 3_600
     households:
       household:
         members: [person1, person2, person3]

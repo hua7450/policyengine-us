@@ -12,7 +12,7 @@
       spm_unit:
         members: [person1, person2]
         is_tanf_enrolled: false
-        spm_unit_cash_assets: 2_000
+        spm_unit_assets: 2_000
     households:
       household:
         members: [person1, person2]
@@ -35,7 +35,7 @@
       spm_unit:
         members: [person1, person2]
         is_tanf_enrolled: false
-        spm_unit_cash_assets: 2_000
+        spm_unit_assets: 2_000
     households:
       household:
         members: [person1, person2]
@@ -58,7 +58,7 @@
       spm_unit:
         members: [person1, person2]
         is_tanf_enrolled: false
-        spm_unit_cash_assets: 8_000
+        spm_unit_assets: 8_000
     households:
       household:
         members: [person1, person2]
@@ -81,7 +81,7 @@
       spm_unit:
         members: [person1, person2]
         is_tanf_enrolled: true
-        spm_unit_cash_assets: 2_000
+        spm_unit_assets: 2_000
     households:
       household:
         members: [person1, person2]
@@ -106,7 +106,7 @@
       spm_unit:
         members: [person1, person2]
         is_tanf_enrolled: false
-        spm_unit_cash_assets: 2_000
+        spm_unit_assets: 2_000
     households:
       household:
         members: [person1, person2]
@@ -129,7 +129,7 @@
       spm_unit:
         members: [person1, person2]
         is_tanf_enrolled: false
-        spm_unit_cash_assets: 0
+        spm_unit_assets: 0
     households:
       household:
         members: [person1, person2]

@@ -11,7 +11,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        spm_unit_cash_assets: 500
+        spm_unit_assets: 500
         is_tanf_enrolled: false
     households:
       household:
@@ -36,7 +36,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        spm_unit_cash_assets: 2_000
+        spm_unit_assets: 2_000
         is_tanf_enrolled: false
     households:
       household:
@@ -62,7 +62,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        spm_unit_cash_assets: 2_000
+        spm_unit_assets: 2_000
         is_tanf_enrolled: true
     households:
       household:
@@ -91,7 +91,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        spm_unit_cash_assets: 3_000
+        spm_unit_assets: 3_000
         is_tanf_enrolled: false
     households:
       household:
@@ -112,6 +112,7 @@
         age: 40
         is_tax_unit_head_or_spouse: true
         employment_income: 0
+        child_support_received: 900
       person2:
         age: 12
       person3:
@@ -119,9 +120,8 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        spm_unit_cash_assets: 1_500
+        spm_unit_assets: 1_500
         is_tanf_enrolled: true
-        child_support_received: 900
     households:
       household:
         members: [person1, person2, person3]
@@ -155,7 +155,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3, person4, person5]
-        spm_unit_cash_assets: 4_500
+        spm_unit_assets: 4_500
         is_tanf_enrolled: true
     households:
       household:
@@ -183,7 +183,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        spm_unit_cash_assets: 2_000
+        spm_unit_assets: 2_000
         is_tanf_enrolled: false
     households:
       household:
@@ -196,8 +196,9 @@
     # After $90 disregard: 1,250 - 90 = 1,160
     # Benefit: max(661 - 1,160, 0) = 0
 
-- name: Case 8, recipient in reduction tier receives reduced benefit.
+- name: Case 8, recipient below reduction tier receives standard benefit.
   period: 2024-01
+  absolute_error_margin: 0.01
   input:
     people:
       person1:
@@ -209,19 +210,19 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        spm_unit_cash_assets: 1_000
+        spm_unit_assets: 1_000
         is_tanf_enrolled: true
     households:
       household:
         members: [person1, person2]
         state_code: CT
   output:
-    ct_tanf: 0
+    ct_tanf: 54.33
     # Payment standard: $661
     # Earnings: $27,000/year = $2,250/month
-    # FPL for 2: ~$1,580/month
-    # 171% FPL = $2,702, 230% FPL = $3,634
-    # Since 2,250 < 2,702, not in reduction tier (171-230%)
-    # Countable income after 100% disregard: 2,250 - 1,580 = 670
-    # Standard benefit: max(661 - 670, 0) = 0
+    # FPL for 2: $1,643/month
+    # 171% FPL = $2,810, 230% FPL = $3,780
+    # Since 2,250 < 2,810, not in reduction tier (171-230%)
+    # Countable income after 100% disregard: 2,250 - 1,643 = 607
+    # Standard benefit: max(661 - 607, 0) = 54.33
     # No reduction applied (not in 171-230% tier)

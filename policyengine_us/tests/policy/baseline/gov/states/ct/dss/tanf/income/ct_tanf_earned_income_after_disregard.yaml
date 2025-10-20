@@ -120,13 +120,12 @@
         members: [person1]
         state_code: CT
   output:
-    ct_tanf_earned_income_after_disregard: 0
+    ct_tanf_earned_income_after_disregard: 285
     # Earnings: $18,000/year = $1,500/month
-    # FPL for 1: ~$1,255/month (2024)
-    # 100% FPL disregard: $1,255
-    # Since $1,500 > $1,255, disregard = min(1,500, 1,255) = 1,255
-    # After disregard: max(1,500 - 1,255, 0) = 245
-    # NOTE: This will fail until we have actual FPL values
+    # FPL for 1: $1,215/month (2024)
+    # 100% FPL disregard: $1,215
+    # Since $1,500 > $1,215, disregard = min(1,500, 1,215) = 1,215
+    # After disregard: max(1,500 - 1,215, 0) = 285
 
 - name: Case 7, recipient with no earnings.
   period: 2024-01

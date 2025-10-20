@@ -80,12 +80,12 @@
         members: [person1, person2]
         state_code: CT
   output:
-    ct_tanf_income_eligible: true
+    ct_tanf_income_eligible: false
     # Earnings: ($12,000 + $6,000)/year = $1,500/month
     # Two earners → 2 * $90 = $180 disregard
     # After disregard: 1,500 - 180 = 1,320
-    # FPL for 2: ~$1,580/month (2024), 55% = $869
-    # 1,320 > 869 → Not eligible (may fail if FPL off)
+    # FPL for 2: $1,643/month (2024), 55% = $904
+    # 1,320 > 904 → Not eligible
 
 - name: Case 5, applicant with child support.
   period: 2024-01
@@ -94,13 +94,13 @@
       person1:
         age: 30
         employment_income: 6_000
+        child_support_received: 1_200
       person2:
         age: 5
     spm_units:
       spm_unit:
         members: [person1, person2]
         is_tanf_enrolled: false
-        child_support_received: 1_200
     households:
       household:
         members: [person1, person2]

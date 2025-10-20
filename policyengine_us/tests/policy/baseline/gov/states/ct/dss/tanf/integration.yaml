@@ -12,7 +12,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        spm_unit_cash_assets: 2_000
+        spm_unit_assets: 2_000
         is_tanf_enrolled: false
     households:
       household:
@@ -65,7 +65,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3, person4, person5]
-        spm_unit_cash_assets: 4_500
+        spm_unit_assets: 4_500
         is_tanf_enrolled: true
     households:
       household:
@@ -110,6 +110,7 @@
         age: 40
         is_tax_unit_head_or_spouse: true
         employment_income: 0
+        child_support_received: 900
       person2:
         age: 12
       person3:
@@ -117,9 +118,8 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        spm_unit_cash_assets: 1_500
+        spm_unit_assets: 1_500
         is_tanf_enrolled: true
-        child_support_received: 900
     households:
       household:
         members: [person1, person2, person3]
