@@ -1,0 +1,227 @@
+- name: Case 1, no income receives full benefit.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 25
+        is_tax_unit_head_or_spouse: true
+        employment_income: 0
+      person2:
+        age: 2
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_cash_assets: 500
+        is_tanf_enrolled: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    ct_tanf: 661
+    # Payment standard: $661
+    # Countable income: $0
+    # Benefit: 661 - 0 = 661
+
+- name: Case 2, applicant with partial income.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+        employment_income: 6_000
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_cash_assets: 2_000
+        is_tanf_enrolled: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    ct_tanf: 251
+    # Payment standard: $661
+    # Earnings: $6,000/year = $500/month
+    # After $90 disregard: 500 - 90 = 410
+    # Benefit: max(661 - 410, 0) = 251
+
+- name: Case 3, recipient with earnings fully disregarded.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+        employment_income: 12_000
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_cash_assets: 2_000
+        is_tanf_enrolled: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    ct_tanf: 661
+    # Payment standard: $661
+    # Earnings: $12,000/year = $1,000/month
+    # FPL for 2: ~$1,580, 100% disregard applies
+    # Countable income: $0 (full disregard)
+    # Benefit: max(661 - 0, 0) = 661
+
+- name: Case 4, applicant income exceeds payment standard.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+        employment_income: 12_000
+      person2:
+        age: 8
+      person3:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        spm_unit_cash_assets: 3_000
+        is_tanf_enrolled: false
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: CT
+  output:
+    ct_tanf: 0
+    # Payment standard: $833
+    # Earnings: $12,000/year = $1,000/month
+    # After $90 disregard: 1,000 - 90 = 910
+    # Benefit: max(833 - 910, 0) = 0
+
+- name: Case 5, child support reduces benefit.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 40
+        is_tax_unit_head_or_spouse: true
+        employment_income: 0
+      person2:
+        age: 12
+      person3:
+        age: 9
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        spm_unit_cash_assets: 1_500
+        is_tanf_enrolled: true
+        child_support_received: 900
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: CT
+  output:
+    ct_tanf: 808
+    # Payment standard: $833
+    # Child support: $900/year = $75/month
+    # After $50 passthrough: 75 - 50 = 25
+    # Countable income: $25
+    # Benefit: max(833 - 25, 0) = 808
+
+- name: Case 6, large family with partial earnings.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 35
+        is_tax_unit_head_or_spouse: true
+        employment_income: 18_000
+      person2:
+        age: 33
+        is_tax_unit_head_or_spouse: true
+        employment_income: 0
+      person3:
+        age: 10
+      person4:
+        age: 7
+      person5:
+        age: 3
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3, person4, person5]
+        spm_unit_cash_assets: 4_500
+        is_tanf_enrolled: true
+    households:
+      household:
+        members: [person1, person2, person3, person4, person5]
+        state_code: CT
+  output:
+    ct_tanf: 1_177
+    # Payment standard: $1,177
+    # Earnings: $18,000/year = $1,500/month
+    # As recipient, 100% FPL disregard applies
+    # FPL for 5: ~$3,055, so full disregard
+    # Countable income: $0
+    # Benefit: max(1,177 - 0, 0) = 1,177
+
+- name: Case 7, zero benefit due to countable income.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+        employment_income: 15_000
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_cash_assets: 2_000
+        is_tanf_enrolled: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    ct_tanf: 0
+    # Payment standard: $661
+    # Earnings: $15,000/year = $1,250/month
+    # After $90 disregard: 1,250 - 90 = 1,160
+    # Benefit: max(661 - 1,160, 0) = 0
+
+- name: Case 8, recipient in reduction tier receives reduced benefit.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+        employment_income: 27_000
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_cash_assets: 1_000
+        is_tanf_enrolled: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    ct_tanf: 0
+    # Payment standard: $661
+    # Earnings: $27,000/year = $2,250/month
+    # FPL for 2: ~$1,580/month
+    # 171% FPL = $2,702, 230% FPL = $3,634
+    # Since 2,250 < 2,702, not in reduction tier (171-230%)
+    # Countable income after 100% disregard: 2,250 - 1,580 = 670
+    # Standard benefit: max(661 - 670, 0) = 0
+    # No reduction applied (not in 171-230% tier)

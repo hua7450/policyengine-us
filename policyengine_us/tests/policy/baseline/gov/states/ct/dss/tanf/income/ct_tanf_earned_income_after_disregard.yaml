@@ -1,0 +1,173 @@
+- name: Case 1, applicant with no earnings.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 0
+    spm_units:
+      spm_unit:
+        members: [person1]
+        is_tanf_enrolled: false
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    ct_tanf_earned_income_after_disregard: 0
+    # No earnings → $0
+
+- name: Case 2, applicant with earnings below disregard.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 600
+    spm_units:
+      spm_unit:
+        members: [person1]
+        is_tanf_enrolled: false
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    ct_tanf_earned_income_after_disregard: 0
+    # Earnings: $600/year = $50/month
+    # Applicant disregard: $90/month
+    # After disregard: max(50 - 90, 0) = 0
+
+- name: Case 3, applicant with earnings exactly at disregard.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 1_080
+    spm_units:
+      spm_unit:
+        members: [person1]
+        is_tanf_enrolled: false
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    ct_tanf_earned_income_after_disregard: 0
+    # Earnings: $1,080/year = $90/month
+    # Applicant disregard: $90/month
+    # After disregard: max(90 - 90, 0) = 0
+
+- name: Case 4, applicant with earnings above disregard.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 12_000
+    spm_units:
+      spm_unit:
+        members: [person1]
+        is_tanf_enrolled: false
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    ct_tanf_earned_income_after_disregard: 910
+    # Earnings: $12,000/year = $1,000/month
+    # Applicant disregard: $90/month
+    # After disregard: max(1,000 - 90, 0) = 910
+
+- name: Case 5, applicant with two earners.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 35
+        employment_income: 18_000
+      person2:
+        age: 30
+        employment_income: 6_000
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        is_tanf_enrolled: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    ct_tanf_earned_income_after_disregard: 1_820
+    # Total earnings: ($18,000 + $6,000)/year = $2,000/month
+    # Two earners → 2 * $90 = $180 disregard
+    # After disregard: max(2,000 - 180, 0) = 1,820
+
+- name: Case 6, recipient with earnings below FPL.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 18_000
+    spm_units:
+      spm_unit:
+        members: [person1]
+        is_tanf_enrolled: true
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    ct_tanf_earned_income_after_disregard: 0
+    # Earnings: $18,000/year = $1,500/month
+    # FPL for 1: ~$1,255/month (2024)
+    # 100% FPL disregard: $1,255
+    # Since $1,500 > $1,255, disregard = min(1,500, 1,255) = 1,255
+    # After disregard: max(1,500 - 1,255, 0) = 245
+    # NOTE: This will fail until we have actual FPL values
+
+- name: Case 7, recipient with no earnings.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 0
+    spm_units:
+      spm_unit:
+        members: [person1]
+        is_tanf_enrolled: true
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    ct_tanf_earned_income_after_disregard: 0
+    # No earnings → $0
+
+- name: Case 8, recipient with zero earnings after full disregard.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 12_000
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        is_tanf_enrolled: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    ct_tanf_earned_income_after_disregard: 0
+    # Earnings: $12,000/year = $1,000/month
+    # FPL for 2: ~$1,580/month (2024)
+    # 100% FPL disregard: $1,580
+    # Disregard = min(1,000, 1,580) = 1,000
+    # After disregard: max(1,000 - 1,000, 0) = 0

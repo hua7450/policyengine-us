@@ -1,0 +1,145 @@
+- name: Case 1, single person household.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    ct_tanf_payment_standard: 489
+    # Family size 1 → $489/month
+
+- name: Case 2, two person household.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    ct_tanf_payment_standard: 661
+    # Family size 2 → $661/month
+
+- name: Case 3, three person household.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 8
+      person3:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: CT
+  output:
+    ct_tanf_payment_standard: 833
+    # Family size 3 → $833/month
+
+- name: Case 4, five person household.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 35
+      person2:
+        age: 33
+      person3:
+        age: 10
+      person4:
+        age: 8
+      person5:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3, person4, person5]
+    households:
+      household:
+        members: [person1, person2, person3, person4, person5]
+        state_code: CT
+  output:
+    ct_tanf_payment_standard: 1_177
+    # Family size 5 → $1,177/month
+
+- name: Case 5, eight person household at maximum.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 35
+      person2:
+        age: 33
+      person3:
+        age: 14
+      person4:
+        age: 12
+      person5:
+        age: 10
+      person6:
+        age: 8
+      person7:
+        age: 6
+      person8:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3, person4, person5, person6, person7, person8]
+    households:
+      household:
+        members: [person1, person2, person3, person4, person5, person6, person7, person8]
+        state_code: CT
+  output:
+    ct_tanf_payment_standard: 1_693
+    # Family size 8 → $1,693/month (maximum in parameter table)
+
+- name: Case 6, nine person household capped at eight.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 35
+      person2:
+        age: 33
+      person3:
+        age: 16
+      person4:
+        age: 14
+      person5:
+        age: 12
+      person6:
+        age: 10
+      person7:
+        age: 8
+      person8:
+        age: 6
+      person9:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3, person4, person5, person6, person7, person8, person9]
+    households:
+      household:
+        members: [person1, person2, person3, person4, person5, person6, person7, person8, person9]
+        state_code: CT
+  output:
+    ct_tanf_payment_standard: 1_693
+    # Family size 9 capped at 8 → $1,693/month (same as 8-person)

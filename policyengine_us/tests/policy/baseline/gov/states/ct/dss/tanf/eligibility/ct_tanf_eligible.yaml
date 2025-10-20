@@ -1,0 +1,139 @@
+- name: Case 1, fully eligible applicant.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+        employment_income: 6_000
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        is_tanf_enrolled: false
+        spm_unit_cash_assets: 2_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    ct_tanf_eligible: true
+    # Passes all tests: demographic, immigration, income, resources
+
+- name: Case 2, fails income test.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+        employment_income: 25_000
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        is_tanf_enrolled: false
+        spm_unit_cash_assets: 2_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    ct_tanf_eligible: false
+    # Fails income test (too high for applicant)
+
+- name: Case 3, fails resource test.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+        employment_income: 6_000
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        is_tanf_enrolled: false
+        spm_unit_cash_assets: 8_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    ct_tanf_eligible: false
+    # Fails resource test (assets > $6,000)
+
+- name: Case 4, recipient with transitional benefits.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+        employment_income: 30_000
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        is_tanf_enrolled: true
+        spm_unit_cash_assets: 2_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    ct_tanf_eligible: true
+    # As recipient, eligible up to 230% FPL
+
+- name: Case 5, no children household ineligible.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+        employment_income: 6_000
+      person2:
+        age: 25
+        is_tax_unit_head_or_spouse: true
+        employment_income: 0
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        is_tanf_enrolled: false
+        spm_unit_cash_assets: 2_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    ct_tanf_eligible: false
+    # Fails demographic eligibility (no children)
+
+- name: Case 6, zero income and assets.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 25
+        is_tax_unit_head_or_spouse: true
+        employment_income: 0
+      person2:
+        age: 2
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        is_tanf_enrolled: false
+        spm_unit_cash_assets: 0
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    ct_tanf_eligible: true
+    # Passes all tests with zero income/assets

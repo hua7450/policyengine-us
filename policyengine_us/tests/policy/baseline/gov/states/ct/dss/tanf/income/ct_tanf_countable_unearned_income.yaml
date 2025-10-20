@@ -1,0 +1,126 @@
+- name: Case 1, no unearned income.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    ct_tanf_countable_unearned_income: 0
+    # No unearned income → $0
+
+- name: Case 2, child support under passthrough limit.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        child_support_received: 360
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    ct_tanf_countable_unearned_income: 0
+    # Child support: $360/year = $30/month
+    # Passthrough: $50/month
+    # Countable: max(30 - 50, 0) = 0
+
+- name: Case 3, child support exactly at passthrough limit.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 8
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        child_support_received: 600
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    ct_tanf_countable_unearned_income: 0
+    # Child support: $600/year = $50/month
+    # Passthrough: $50/month
+    # Countable: max(50 - 50, 0) = 0
+
+- name: Case 4, child support above passthrough limit.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        child_support_received: 1_200
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    ct_tanf_countable_unearned_income: 50
+    # Child support: $1,200/year = $100/month
+    # Passthrough: $50/month
+    # Countable: max(100 - 50, 0) = 50
+
+- name: Case 5, zero child support.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        child_support_received: 0
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    ct_tanf_countable_unearned_income: 0
+    # No child support → $0
+
+- name: Case 6, high child support amount.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 10
+      person3:
+        age: 7
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        child_support_received: 3_600
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: CT
+  output:
+    ct_tanf_countable_unearned_income: 250
+    # Child support: $3,600/year = $300/month
+    # Passthrough: $50/month
+    # Countable: max(300 - 50, 0) = 250

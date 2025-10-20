@@ -1,0 +1,199 @@
+- name: Case 1, applicant with no income.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 0
+    spm_units:
+      spm_unit:
+        members: [person1]
+        is_tanf_enrolled: false
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    ct_tanf_income_eligible: true
+    # No income → Eligible
+
+- name: Case 2, applicant below income limit.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 6_000
+    spm_units:
+      spm_unit:
+        members: [person1]
+        is_tanf_enrolled: false
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    ct_tanf_income_eligible: true
+    # Earnings: $6,000/year = $500/month
+    # After $90 disregard: 500 - 90 = 410
+    # FPL for 1: ~$1,255/month (2024), 55% = $690
+    # 410 < 690 → Eligible
+
+- name: Case 3, applicant with earnings above limit.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 15_000
+    spm_units:
+      spm_unit:
+        members: [person1]
+        is_tanf_enrolled: false
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    ct_tanf_income_eligible: false
+    # Earnings: $15,000/year = $1,250/month
+    # After $90 disregard: 1,250 - 90 = 1,160
+    # FPL for 1: ~$1,255/month (2024), 55% = $690
+    # 1,160 > 690 → Not eligible
+
+- name: Case 4, applicant with two earners.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 35
+        employment_income: 12_000
+      person2:
+        age: 30
+        employment_income: 6_000
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        is_tanf_enrolled: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    ct_tanf_income_eligible: true
+    # Earnings: ($12,000 + $6,000)/year = $1,500/month
+    # Two earners → 2 * $90 = $180 disregard
+    # After disregard: 1,500 - 180 = 1,320
+    # FPL for 2: ~$1,580/month (2024), 55% = $869
+    # 1,320 > 869 → Not eligible (may fail if FPL off)
+
+- name: Case 5, applicant with child support.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 6_000
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        is_tanf_enrolled: false
+        child_support_received: 1_200
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    ct_tanf_income_eligible: true
+    # Earned: $6,000/year = $500/month, after $90 = 410
+    # Child support: $1,200/year = $100/month
+    # After $50 passthrough: 100 - 50 = 50
+    # Total countable: 410 + 50 = 460
+    # FPL for 2: ~$1,580/month (2024), 55% = $869
+    # 460 < 869 → Eligible
+
+- name: Case 6, recipient with no earnings.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 0
+    spm_units:
+      spm_unit:
+        members: [person1]
+        is_tanf_enrolled: true
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    ct_tanf_income_eligible: true
+    # No earnings → Eligible
+
+- name: Case 7, recipient with earnings below 230 percent FPL.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 30_000
+    spm_units:
+      spm_unit:
+        members: [person1]
+        is_tanf_enrolled: true
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    ct_tanf_income_eligible: true
+    # Earnings: $30,000/year = $2,500/month
+    # FPL for 1: ~$1,255/month (2024), 230% = $2,887
+    # 2,500 < 2,887 → Eligible
+
+- name: Case 8, recipient with earnings exactly at 230 percent FPL.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 34_620
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        is_tanf_enrolled: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    ct_tanf_income_eligible: true
+    # Earnings: $34,620/year = $2,885/month
+    # FPL for 2: ~$1,580/month (2024), 230% = $3,634
+    # 2,885 < 3,634 → Eligible (may fail if FPL off)
+
+- name: Case 9, recipient with earnings above 230 percent FPL.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 50_000
+    spm_units:
+      spm_unit:
+        members: [person1]
+        is_tanf_enrolled: true
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    ct_tanf_income_eligible: false
+    # Earnings: $50,000/year = $4,167/month
+    # FPL for 1: ~$1,255/month (2024), 230% = $2,887
+    # 4,167 > 2,887 → Not eligible

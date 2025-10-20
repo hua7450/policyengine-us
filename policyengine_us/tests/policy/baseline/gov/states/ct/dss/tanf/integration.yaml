@@ -1,51 +1,49 @@
-- name: Case 1, single parent with two children and part-time work.
+- name: Case 1, applicant with part-time work receives partial benefit.
   period: 2024-01
   absolute_error_margin: 0.01
   input:
     people:
       person1:
-        age: 35
+        age: 30
         is_tax_unit_head_or_spouse: true
-        employment_income: 12_000  # $1,000/month
+        employment_income: 6_000
       person2:
-        age: 8
-      person3:
         age: 5
     spm_units:
       spm_unit:
-        members: [person1, person2, person3]
-        spm_unit_cash_assets: 3_000
-        is_tanf_enrolled: false  # New applicant
-        childcare_expenses: 0
+        members: [person1, person2]
+        spm_unit_cash_assets: 2_000
+        is_tanf_enrolled: false
     households:
       household:
-        members: [person1, person2, person3]
+        members: [person1, person2]
         state_code: CT
   output:
-    # Eligibility calculations
+    # Income eligibility check
     ct_tanf_income_eligible: true
-    # Income: $12,000/year = $1,000/month
-    # With $90 applicant disregard per person: 1,000 - 90 = 910
-    # FPL for 3: ~$2,072/month (2024), 55% = $1,140
-    # 910 < 1,140 → Eligible
+    # Earnings: $6,000/year = $500/month
+    # After $90 disregard: 500 - 90 = 410
+    # FPL for 2: ~$1,580/month (2024), 55% = $869
+    # 410 < 869 → Eligible
 
+    # Resource eligibility check
     ct_tanf_resources_eligible: true
-    # Assets ($3,000) < limit ($6,000) → Eligible
+    # Assets ($2,000) < limit ($6,000) → Eligible
 
+    # Overall eligibility
     ct_tanf_eligible: true
-    # Passes all eligibility tests
 
-    ct_tanf_payment_standard: 833
-    # Family size 3 → $833/month
+    # Benefit calculation
+    ct_tanf_payment_standard: 661
+    # Family size 2 → $661/month
 
-    ct_tanf_countable_income: 910
-    # After $90 applicant disregard: 1,000 - 90 = 910
+    ct_tanf_countable_income: 410
+    # After $90 applicant disregard: 500 - 90 = 410
 
-    ct_tanf: 0
-    # Since applicant and income > 0, benefit = max(833 - 910, 0) = 0
-    # However, recipient would have different calculation with 100% disregard
+    ct_tanf: 251
+    # Benefit: max(661 - 410, 0) = 251
 
-- name: Case 2, two-parent household with three children, one earner.
+- name: Case 2, recipient with earnings below FPL receives full benefit.
   period: 2024-01
   absolute_error_margin: 0.01
   input:
@@ -53,7 +51,7 @@
       person1:
         age: 32
         is_tax_unit_head_or_spouse: true
-        employment_income: 18_000  # $1,500/month
+        employment_income: 18_000
       person2:
         age: 30
         is_tax_unit_head_or_spouse: true
@@ -68,72 +66,42 @@
       spm_unit:
         members: [person1, person2, person3, person4, person5]
         spm_unit_cash_assets: 4_500
-        is_tanf_enrolled: true  # Continuing recipient
-        childcare_expenses: 0
+        is_tanf_enrolled: true
     households:
       household:
         members: [person1, person2, person3, person4, person5]
         state_code: CT
   output:
-    # Eligibility - recipients have 100% earned income disregard up to 100% FPL
+    # Income eligibility for recipient
     ct_tanf_income_eligible: true
-    # Income: $18,000/year = $1,500/month
-    # FPL for 5: ~$3,055/month (2024), 100% = $3,055
-    # As recipient, earnings up to 100% FPL disregarded
-    # 1,500 < 3,055 → All income disregarded, countable = 0
+    # Earnings: $18,000/year = $1,500/month
+    # FPL for 5: ~$3,055/month (2024), 230% = $7,027
+    # 1,500 < 7,027 → Eligible
 
+    # Resource eligibility
     ct_tanf_resources_eligible: true
     # Assets ($4,500) < limit ($6,000) → Eligible
 
+    # Overall eligibility
     ct_tanf_eligible: true
 
+    # Benefit calculation
     ct_tanf_payment_standard: 1_177
     # Family size 5 → $1,177/month
 
+    ct_tanf_earned_income_after_disregard: 0
+    # Earnings: $1,500/month
+    # As recipient, 100% FPL disregard: ~$3,055
+    # Disregard = min(1,500, 3,055) = 1,500
+    # After disregard: max(1,500 - 1,500, 0) = 0
+
     ct_tanf_countable_income: 0
-    # Recipient with income below 100% FPL: full disregard
+    # Full earnings disregard for recipient below FPL
 
     ct_tanf: 1_177
-    # Full payment standard: 1,177 - 0 = 1,177
+    # Full benefit: max(1,177 - 0, 0) = 1,177
 
-- name: Case 3, single parent at income eligibility threshold.
-  period: 2024-01
-  absolute_error_margin: 0.01
-  input:
-    people:
-      person1:
-        age: 28
-        is_tax_unit_head_or_spouse: true
-        employment_income: 15_000  # ~$1,250/month
-      person2:
-        age: 4
-    spm_units:
-      spm_unit:
-        members: [person1, person2]
-        spm_unit_cash_assets: 2_000
-        is_tanf_enrolled: false  # New applicant
-        childcare_expenses: 0
-    households:
-      household:
-        members: [person1, person2]
-        state_code: CT
-  output:
-    # Testing income limit for applicants
-    ct_tanf_income_eligible: false
-    # Income: $15,000/year = $1,250/month
-    # With $90 disregard: 1,250 - 90 = 1,160
-    # FPL for 2: ~$1,580/month (2024), 55% = $869
-    # 1,160 > 869 → Not eligible (over threshold)
-
-    ct_tanf_resources_eligible: true
-    # Assets ($2,000) < limit ($6,000) → Eligible
-
-    ct_tanf_eligible: false
-    # Failed income test
-
-    ct_tanf: 0
-
-- name: Case 4, household with unearned income from child support.
+- name: Case 3, household with child support receives reduced benefit.
   period: 2024-01
   absolute_error_margin: 0.01
   input:
@@ -150,199 +118,34 @@
       spm_unit:
         members: [person1, person2, person3]
         spm_unit_cash_assets: 1_500
-        is_tanf_enrolled: true  # Continuing recipient
-        childcare_expenses: 0
-        child_support_received: 900  # $75/month
+        is_tanf_enrolled: true
+        child_support_received: 900
     households:
       household:
         members: [person1, person2, person3]
         state_code: CT
   output:
-    # Child support passthrough handling
+    # Income eligibility
     ct_tanf_income_eligible: true
-    # Child support: $900/year = $75/month
-    # First $50/month excluded (passthrough)
-    # Countable child support: max(75 - 50, 0) = 25
+    # No earnings, child support doesn't affect recipient eligibility
 
+    # Resource eligibility
     ct_tanf_resources_eligible: true
     # Assets ($1,500) < limit ($6,000) → Eligible
 
+    # Overall eligibility
     ct_tanf_eligible: true
 
+    # Benefit calculation
     ct_tanf_payment_standard: 833
     # Family size 3 → $833/month
+
+    ct_tanf_countable_unearned_income: 25
+    # Child support: $900/year = $75/month
+    # After $50 passthrough: max(75 - 50, 0) = 25
 
     ct_tanf_countable_income: 25
-    # Only $25 of child support counted (after $50 passthrough)
+    # Only child support counted (no earned income)
 
     ct_tanf: 808
-    # Payment: 833 - 25 = 808
-
-- name: Case 5, transitional benefits at 150% FPL.
-  period: 2024-01
-  absolute_error_margin: 0.01
-  input:
-    people:
-      person1:
-        age: 29
-        is_tax_unit_head_or_spouse: true
-        employment_income: 30_000  # $2,500/month
-      person2:
-        age: 6
-      person3:
-        age: 3
-    spm_units:
-      spm_unit:
-        members: [person1, person2, person3]
-        spm_unit_cash_assets: 2_500
-        is_tanf_enrolled: true  # Must be enrolled to get transitional
-        childcare_expenses: 3_600  # $300/month
-    households:
-      household:
-        members: [person1, person2, person3]
-        state_code: CT
-  output:
-    # Transitional benefits (effective Jan 1, 2024)
-    # Income exceeds 100% FPL but below 230% FPL
-    ct_tanf_income_eligible: true
-    # Income: $30,000/year = $2,500/month
-    # FPL for 3: ~$2,072/month (2024)
-    # 100% FPL = $2,072, 171% = $3,543, 230% = $4,766
-    # 2,500 is between 100% and 171% FPL
-    # Eligible for transitional benefits (up to 6 months)
-
-    ct_tanf_resources_eligible: true
-
-    ct_tanf_eligible: true
-
-    ct_tanf_payment_standard: 833
-    # Family size 3 → $833/month
-
-    ct_tanf_countable_income: 2_500
-    # In transitional tier below 171% FPL, full income counted
-    # No reduction applied until 171-230% FPL range
-
-    ct_tanf: 0
-    # Standard calc: max(833 - 2,500, 0) = 0
-    # Income too high even with transitional eligibility
-
-- name: Case 6, transitional benefits at 200% FPL with reduction.
-  period: 2024-01
-  absolute_error_margin: 0.01
-  input:
-    people:
-      person1:
-        age: 33
-        is_tax_unit_head_or_spouse: true
-        employment_income: 25_000  # ~$2,083/month
-      person2:
-        age: 5
-    spm_units:
-      spm_unit:
-        members: [person1, person2]
-        spm_unit_cash_assets: 1_000
-        is_tanf_enrolled: true  # Must be enrolled for transitional
-        childcare_expenses: 0
-    households:
-      household:
-        members: [person1, person2]
-        state_code: CT
-  output:
-    # Transitional benefits with 20% reduction
-    # FPL for 2: ~$1,580/month (2024)
-    # 171% = $2,702, 230% = $3,634
-    # Income: $25,000/year = ~$2,083/month
-    # Since 2,083 < 2,702, no 20% reduction applies
-    # (20% reduction only applies when income between 171-230% FPL)
-
-    ct_tanf_income_eligible: true
-    # Income between 100% and 171% FPL → transitional eligible
-
-    ct_tanf_resources_eligible: true
-
-    ct_tanf_eligible: true
-
-    ct_tanf_payment_standard: 661
-    # Family size 2 → $661/month
-
-    ct_tanf_countable_income: 2_083
-    # Full income counted in transitional tier
-
-    ct_tanf: 0
-    # Standard calc: max(661 - 2,083, 0) = 0
-
-- name: Case 7, household exceeds resource limit.
-  period: 2024-01
-  input:
-    people:
-      person1:
-        age: 45
-        is_tax_unit_head_or_spouse: true
-        employment_income: 6_000  # $500/month
-      person2:
-        age: 14
-      person3:
-        age: 11
-    spm_units:
-      spm_unit:
-        members: [person1, person2, person3]
-        spm_unit_cash_assets: 8_000
-        is_tanf_enrolled: false
-        childcare_expenses: 0
-    households:
-      household:
-        members: [person1, person2, person3]
-        state_code: CT
-  output:
-    ct_tanf_income_eligible: true
-    # Income: $6,000/year = $500/month
-    # With $90 disregard: 500 - 90 = 410
-    # FPL for 3: ~$2,072/month, 55% = $1,140
-    # 410 < 1,140 → Eligible
-
-    ct_tanf_resources_eligible: false
-    # Assets ($8,000) > limit ($6,000) → Not eligible
-
-    ct_tanf_eligible: false
-    # Failed resource test
-
-    ct_tanf: 0
-    # Ineligible → no benefit
-
-- name: Case 8, low-income family with no earnings receives full benefit.
-  period: 2024-01
-  input:
-    people:
-      person1:
-        age: 25
-        is_tax_unit_head_or_spouse: true
-        employment_income: 0
-      person2:
-        age: 2
-    spm_units:
-      spm_unit:
-        members: [person1, person2]
-        spm_unit_cash_assets: 500
-        is_tanf_enrolled: false
-        childcare_expenses: 0
-    households:
-      household:
-        members: [person1, person2]
-        state_code: CT
-  output:
-    ct_tanf_income_eligible: true
-    # No income → Eligible
-
-    ct_tanf_resources_eligible: true
-    # Assets ($500) < limit ($6,000) → Eligible
-
-    ct_tanf_eligible: true
-
-    ct_tanf_payment_standard: 661
-    # Family size 2 → $661/month
-
-    ct_tanf_countable_income: 0
-    # No income
-
-    ct_tanf: 661
-    # Full benefit: 661 - 0 = 661
+    # Benefit: max(833 - 25, 0) = 808
