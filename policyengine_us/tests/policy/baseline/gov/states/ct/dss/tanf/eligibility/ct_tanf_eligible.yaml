@@ -1,0 +1,54 @@
+- name: Case 1, all requirements met is eligible.
+  period: 2024-01
+  input:
+    state_code: CT
+    is_demographic_tanf_eligible: true
+    is_citizen_or_legal_immigrant: true
+    ct_tanf_income_eligible: true
+    ct_tanf_resources_eligible: true
+  output:
+    ct_tanf_eligible: true
+
+- name: Case 2, not demographically eligible is ineligible.
+  period: 2024-01
+  input:
+    state_code: CT
+    is_demographic_tanf_eligible: false
+    is_citizen_or_legal_immigrant: true
+    ct_tanf_income_eligible: true
+    ct_tanf_resources_eligible: true
+  output:
+    ct_tanf_eligible: false
+
+- name: Case 3, not immigration eligible is ineligible.
+  period: 2024-01
+  input:
+    state_code: CT
+    is_demographic_tanf_eligible: true
+    is_citizen_or_legal_immigrant: false
+    ct_tanf_income_eligible: true
+    ct_tanf_resources_eligible: true
+  output:
+    ct_tanf_eligible: false
+
+- name: Case 4, not income eligible is ineligible.
+  period: 2024-01
+  input:
+    state_code: CT
+    is_demographic_tanf_eligible: true
+    is_citizen_or_legal_immigrant: true
+    ct_tanf_income_eligible: false
+    ct_tanf_resources_eligible: true
+  output:
+    ct_tanf_eligible: false
+
+- name: Case 5, not resources eligible is ineligible.
+  period: 2024-01
+  input:
+    state_code: CT
+    is_demographic_tanf_eligible: true
+    is_citizen_or_legal_immigrant: true
+    ct_tanf_income_eligible: true
+    ct_tanf_resources_eligible: false
+  output:
+    ct_tanf_eligible: false

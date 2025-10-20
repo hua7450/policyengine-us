@@ -1,0 +1,67 @@
+- name: Case 1, no unearned income.
+  period: 2024-01
+  input:
+    state_code: CT
+    tanf_gross_unearned_income: 0
+    child_support_received: 0
+  output:
+    ct_tanf_countable_unearned_income: 0
+
+- name: Case 2, unearned income with no child support.
+  period: 2024-01
+  input:
+    state_code: CT
+    tanf_gross_unearned_income: 500
+    child_support_received: 0
+  output:
+    # No child support deduction
+    # max(500 - 0, 0) = 500
+    ct_tanf_countable_unearned_income: 500
+
+- name: Case 3, unearned income with child support below $50 passthrough.
+  period: 2024-01
+  input:
+    state_code: CT
+    tanf_gross_unearned_income: 500
+    child_support_received: 360
+  output:
+    # child_support_received is YEAR, so 360/year = 30/month
+    # Child support deduction: min(30, 50) = 30
+    # max(500 - 30, 0) = 470
+    ct_tanf_countable_unearned_income: 470
+
+- name: Case 4, unearned income with child support exactly at $50 passthrough.
+  period: 2024-01
+  input:
+    state_code: CT
+    tanf_gross_unearned_income: 500
+    child_support_received: 600
+  output:
+    # child_support_received is YEAR, so 600/year = 50/month
+    # Child support deduction: min(50, 50) = 50
+    # max(500 - 50, 0) = 450
+    ct_tanf_countable_unearned_income: 450
+
+- name: Case 5, unearned income with child support above $50 passthrough.
+  period: 2024-01
+  input:
+    state_code: CT
+    tanf_gross_unearned_income: 500
+    child_support_received: 1_200
+  output:
+    # child_support_received is YEAR, so 1,200/year = 100/month
+    # Child support deduction: min(100, 50) = 50 (capped)
+    # max(500 - 50, 0) = 450
+    ct_tanf_countable_unearned_income: 450
+
+- name: Case 6, child support exceeds total unearned income.
+  period: 2024-01
+  input:
+    state_code: CT
+    tanf_gross_unearned_income: 30
+    child_support_received: 1_200
+  output:
+    # child_support_received is YEAR, so 1,200/year = 100/month
+    # Child support deduction: min(100, 50) = 50 (capped)
+    # max(30 - 50, 0) = 0 (cannot be negative)
+    ct_tanf_countable_unearned_income: 0

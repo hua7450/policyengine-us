@@ -1,0 +1,56 @@
+- name: Case 1, no income is eligible.
+  period: 2024-01
+  input:
+    state_code: CT
+    ct_tanf_countable_income: 0
+    tanf_fpg: 1_255
+  output:
+    ct_tanf_income_eligible: true
+
+- name: Case 2, income just below 55% FPL is eligible.
+  period: 2024-01
+  input:
+    state_code: CT
+    ct_tanf_countable_income: 690
+    tanf_fpg: 1_255
+  output:
+    # tanf_fpg is monthly: 1,255
+    # 1,255 * 0.55 = 690.25/month
+    # 690 < 690.25, so eligible
+    ct_tanf_income_eligible: true
+
+- name: Case 3, income exactly at 55% FPL is eligible.
+  period: 2024-01
+  input:
+    state_code: CT
+    ct_tanf_countable_income: 690.25
+    tanf_fpg: 1_255
+  output:
+    # tanf_fpg is monthly: 1,255
+    # 1,255 * 0.55 = 690.25/month
+    # 690.25 = 690.25, so eligible (<=)
+    ct_tanf_income_eligible: true
+
+- name: Case 4, income just above 55% FPL is ineligible.
+  period: 2024-01
+  input:
+    state_code: CT
+    ct_tanf_countable_income: 691
+    tanf_fpg: 1_255
+  output:
+    # tanf_fpg is monthly: 1,255
+    # 1,255 * 0.55 = 690.25/month
+    # 691 > 690.25, so ineligible
+    ct_tanf_income_eligible: false
+
+- name: Case 5, larger household with income above 55% FPL.
+  period: 2024-01
+  input:
+    state_code: CT
+    ct_tanf_countable_income: 1_000
+    tanf_fpg: 1_703.33
+  output:
+    # tanf_fpg is monthly: 1,703.33 (for 2-person household)
+    # 1,703.33 * 0.55 = 936.83/month
+    # 1,000 > 936.83, so ineligible
+    ct_tanf_income_eligible: false

@@ -1,0 +1,72 @@
+- name: Case 1, household size 1.
+  period: 2024-01
+  input:
+    state_code: CT
+    spm_unit_size: 1
+  output:
+    ct_tanf_payment_standard: 489
+
+- name: Case 2, household size 2.
+  period: 2024-01
+  input:
+    state_code: CT
+    spm_unit_size: 2
+  output:
+    ct_tanf_payment_standard: 661
+
+- name: Case 3, household size 3.
+  period: 2024-01
+  input:
+    state_code: CT
+    spm_unit_size: 3
+  output:
+    ct_tanf_payment_standard: 833
+
+- name: Case 4, household size 4.
+  period: 2024-01
+  input:
+    state_code: CT
+    spm_unit_size: 4
+  output:
+    ct_tanf_payment_standard: 1_044
+
+- name: Case 5, household size 5.
+  period: 2024-01
+  input:
+    state_code: CT
+    spm_unit_size: 5
+  output:
+    ct_tanf_payment_standard: 1_177
+
+- name: Case 6, household size 6.
+  period: 2024-01
+  input:
+    state_code: CT
+    spm_unit_size: 6
+  output:
+    ct_tanf_payment_standard: 1_349
+
+- name: Case 7, household size 7.
+  period: 2024-01
+  input:
+    state_code: CT
+    spm_unit_size: 7
+  output:
+    ct_tanf_payment_standard: 1_520
+
+- name: Case 8, household size 8.
+  period: 2024-01
+  input:
+    state_code: CT
+    spm_unit_size: 8
+  output:
+    ct_tanf_payment_standard: 1_693
+
+- name: Case 9, household size above 8 capped at 8.
+  period: 2024-01
+  input:
+    state_code: CT
+    spm_unit_size: 10
+  output:
+    # Capped at size 8
+    ct_tanf_payment_standard: 1_693
