@@ -88,44 +88,34 @@ Invoke @pr-pusher agent to:
 
 **Quality Gate**: Branch must be properly formatted and have changelog before continuing.
 
-## Phase 7: Required Fixes and Validations (SEQUENTIAL)
+## Phase 7: Edge Case Testing
 
-**MANDATORY**: These agents fix critical issues. Invoke them SEQUENTIALLY:
+**For simplified TANF implementations:** Only run edge case testing
 
-### Step 1: Edge Case Testing
+Invoke @edge-case-generator to:
+- Generate comprehensive boundary tests
+- Examples: income exactly at thresholds (55% FPL, 171% FPL, 230% FPL)
+- Resources exactly at limits ($6,000)
+- Benefit reduction edge cases
+- Commit generated tests
 
-- @edge-case-generator: Generate comprehensive boundary tests
-- Commit generated tests before proceeding
+**Quality Requirement**:
+- All edge cases covered for thresholds and limits
 
-### Step 2: Cross-Program Validation
+---
 
-**For simplified TANF implementations: SKIP this step**
+**OPTIONAL (for production implementations only):**
 
-For complex implementations only:
+### Step 2: Cross-Program Validation (SKIP for simplified TANF)
 - @cross-program-validator: Check interactions with other benefits
-- Fix any cliff effects or integration issues found
-- Commit fixes before proceeding
 
-**Note:** Simple TANF implementations (using federal baselines, basic eligibility) don't need cross-program validation. Skip this for experimental/simplified implementations.
-
-### Step 3: Documentation Enhancement
-
+### Step 3: Documentation Enhancement (SKIP for simplified TANF)
 - @documentation-enricher: Add examples and regulatory citations
-- Commit documentation improvements
 
-### Step 4: Performance Optimization
-
+### Step 4: Performance Optimization (SKIP for simplified TANF)
 - @performance-optimizer: Vectorize and optimize calculations
-- Run tests to ensure no regressions
-- Commit optimizations
 
-**Why Sequential**: Each enhancement builds on the previous work and modifying the same files in parallel would cause conflicts.
-
-**Quality Requirements**:
-- All edge cases covered
-- No benefit cliffs or integration issues
-- Complete documentation with examples
-- Fully vectorized, no performance issues
+**Note:** For experimental/simplified TANF implementations, only edge case testing is required. The other steps are optional enhancements for production implementations.
 
 ## Phase 8: Implementation Validation
 Invoke @implementation-validator agent to check for:
