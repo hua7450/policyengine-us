@@ -31,9 +31,9 @@ class ct_tanf_earned_income_after_disregard(Variable):
         fpg = spm_unit("tanf_fpg", period)
         # Attribute FPL disregard equally to each person in unit
         unit_size = spm_unit("spm_unit_size", period)
-        # Use extended_eligibility_upper parameter (230% FPL after 2024)
+        # Use income_limit.rate parameter (100% pre-2024, 230% post-2024)
         recipient_disregard_per_person = (
-            fpg * p.income.standards.extended_eligibility_upper / unit_size
+            fpg * p.income_limit.rate / unit_size
         )
 
         recipient_income = max_(

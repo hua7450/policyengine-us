@@ -25,19 +25,16 @@ class ct_tanf(Variable):
         )
         fpg = spm_unit("tanf_fpg", period)
 
-        # Check if in extended eligibility reduction tier (171-230% FPL)
-        reduction_threshold = (
-            p.income.standards.extended_eligibility_reduction_threshold * fpg
-        )
-        upper_threshold = p.income.standards.extended_eligibility_upper * fpg
+        # Check if in benefit reduction tier (171-230% FPL)
+        reduction_threshold = p.benefit_reduction.threshold * fpg
+        upper_threshold = p.income_limit.rate * fpg
 
         in_reduction_tier = (total_gross_earnings >= reduction_threshold) & (
             total_gross_earnings <= upper_threshold
         )
 
         # Apply 20% benefit reduction if in tier
-        # benefit_reduction = 0.20, so multiply by (1 - 0.20) = 0.80
-        reduction_rate = p.extended_eligibility.benefit_reduction
+        reduction_rate = p.benefit_reduction.rate
         reduced_benefit = standard_benefit * (1 - reduction_rate)
 
         return where(in_reduction_tier, reduced_benefit, standard_benefit)
