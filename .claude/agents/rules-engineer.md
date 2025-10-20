@@ -296,8 +296,11 @@ class ct_tanf_countable_earned_income(Variable):
 2. **Use federal immigration eligibility directly** - No separate immigration variable needed (see example above)
 
 3. **Use federal income sources directly** - Do NOT create state-specific income source parameters or gross income variables:
+
+   **CRITICAL: For simple TANF, ALWAYS use federal gross earned and unearned income**
+
    ```python
-   # ✅ CORRECT - Use federal baseline directly with adds pattern
+   # ✅ CORRECT - Use federal baseline for gross income, apply state deductions
    class ct_tanf_countable_unearned_income(Variable):
        value_type = float
        entity = SPMUnit
@@ -306,17 +309,29 @@ class ct_tanf_countable_earned_income(Variable):
        unit = USD
        defined_for = StateCode.CT
 
-       adds = ["tanf_gross_unearned_income"]
-
-   # ❌ WRONG - Don't use formula with add() for simple summing
-   # class ct_tanf_countable_unearned_income(Variable):
-   #     def formula(spm_unit, period, parameters):
-   #         return add(spm_unit, period, ["tanf_gross_unearned_income"])
+       def formula(spm_unit, period, parameters):
+           p = parameters(period).gov.states.ct.dss.tanf.income
+           # Use federal baseline (includes child_support_received)
+           total_unearned = add(spm_unit, period, ["tanf_gross_unearned_income"])
+           # Apply CT's $50 child support passthrough deduction
+           child_support = add(spm_unit, period, ["child_support_received"])
+           passthrough = min_(child_support, p.deductions.child_support_passthrough)
+           return max_(0, total_unearned - passthrough)
 
    # ❌ WRONG - Don't create state-specific gross income variables
-   # class ct_tanf_gross_earned_income(Variable):
-   #     adds = "gov.states.ct.dss.tanf.income.sources.earned"
+   # class ct_tanf_gross_unearned_income(Variable):
+   #     # This should NOT exist for simplified TANF
+   #     adds = "gov.states.ct.dss.tanf.income.sources.unearned"
+
+   # ❌ WRONG - Don't exclude income sources just because there's a deduction
+   # Even if state has "$50 child support passthrough," child support is still
+   # in gross income - the passthrough is a DEDUCTION, not SOURCE exclusion
    ```
+
+   **Understanding Passthroughs vs Exclusions:**
+   - **Passthrough** ($50 child support) = DEDUCTION from total income
+   - **Exclusion** (SSI, EITC) = NOT included in gross income sources
+   - Use federal baseline, apply passthrough as deduction
 
 4. **Do NOT create these files for simplified implementations:**
    - ❌ `[state]_tanf_demographic_eligible_person.py`
