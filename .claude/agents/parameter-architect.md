@@ -86,6 +86,48 @@ description: Montana disregards this amount from earned income under the Tempora
 description: Montana counts these sources as earned income under the Temporary Assistance for Needy Families program.
 ```
 
+### Parameter File Naming Conventions
+
+**Learn from DC and IL TANF naming patterns:**
+
+**For dollar amounts - use `/amount.yaml`:**
+```
+income/deductions/work_expense/amount.yaml        # $120
+income/deductions/child_support/amount.yaml       # $50
+resources/limit/amount.yaml                       # $6,000
+```
+
+**For percentages/multipliers - use `/rate.yaml`:**
+```
+income_limit/rate.yaml                            # 1.0, 2.3 (FPL multipliers)
+benefit_reduction/rate.yaml                       # 0.2 (20%)
+payment_level/rate.yaml                           # 0.35 (35% of FPL)
+income/disregard/rate.yaml                        # 0.67 (67%)
+```
+
+**For cutoff points - use `/threshold.yaml`:**
+```
+benefit_reduction/threshold.yaml                  # 1.71 (171% FPL)
+age_threshold/minor_child.yaml                    # 18 (age)
+resource_limit/higher/age_threshold.yaml          # 60 (age)
+```
+
+**Pattern Summary:**
+- `/amount.yaml` = Dollar values ($X)
+- `/rate.yaml` or `/percentage.yaml` = Decimal multipliers (0.X or X.X)
+- `/threshold.yaml` = Cutoff/boundary values
+
+**Examples from existing implementations:**
+- DC TANF: `income/deductions/earned_income_disregard/percentage.yaml` (0.67)
+- IL TANF: `payment_level/rate.yaml` (0.35), `income/disregard/rate.yaml` (0.75)
+- CT TANF: `income_limit/rate.yaml` (2.3), `benefit_reduction/rate.yaml` (0.2)
+
+**Why this matters:**
+- Consistent naming across state implementations
+- Clear distinction: amount (dollars) vs rate (percentage)
+- Easy to understand parameter purpose from path alone
+- Follows established PolicyEngine patterns
+
 **Values:**
 - Second section (after description)
 - Use underscore thousands separators (`3_000` not `3000`)
