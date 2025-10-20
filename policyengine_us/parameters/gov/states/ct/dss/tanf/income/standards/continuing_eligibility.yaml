@@ -2,13 +2,15 @@ description: Connecticut excludes earned income up to this percentage of the Fed
 
 values:
   2010-01-01: 1.0
+  2024-01-01: 2.30
 
 metadata:
   unit: /1
   period: year
   label: Connecticut TFA continuing eligibility earned income exclusion (% of FPL)
   reference:
-    - title: "Connecticut General Statutes § 17b-112 - Temporary family assistance program"
+    - title: "Connecticut General Statutes § 17b-112 - Temporary family assistance program (as amended effective January 1, 2024)"
       href: "https://law.justia.com/codes/connecticut/title-17b/chapter-319s/section-17b-112/"
-    - title: "Connecticut DSS - What is Temporary Family Assistance (TFA)?"
-      href: "https://portal.ct.gov/dss/knowledge-base/articles/cash-assistance/temporary-family-assistance"
+    - title: "Connecticut TANF State Plan 2024-2026, page 10"
+      href: "https://portal.ct.gov/-/media/departments-and-agencies/dss/economic-security/ct-tanf-state-plan-2024---2026---41524-amendment.pdf#page=10"
+  note: "Increased from 100% to 230% FPL effective January 1, 2024 per State Plan: 'On and after January 1, 2024... the Department shall disregard, for purposes of eligibility, a family's total gross earnings in an amount not to exceed 230% of the FPL.'"
