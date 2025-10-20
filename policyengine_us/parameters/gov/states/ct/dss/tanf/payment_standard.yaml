@@ -1,0 +1,23 @@
+description: Connecticut TANF payment standard amounts define the maximum monthly benefit by household size, established at 40% of the Federal Poverty Level through Public Act 22-118.
+metadata:
+  unit: currency-usd
+  period: month
+  reference:
+    - title: Connecticut TANF State Plan 2024-2026, Addendum A - Payment Standards
+      href: https://portal.ct.gov/-/media/departments-and-agencies/dss/economic-security/ct-tanf-state-plan-2024---2026---41524-amendment.pdf
+      publication_date: 2024-04-15
+    - title: Public Act 22-118 § 236 (2022)
+      href: https://www.cga.ct.gov/2022/ACT/PA/PDF/2022PA-00118-R00SB-00005-PA.PDF
+  breakdown:
+    - spm_unit_size
+
+values:
+  2023-10-01:
+    1: 489
+    2: 661
+    3: 833
+    4: 1_044
+    5: 1_177
+    6: 1_349
+    7: 1_520
+    8: 1_693

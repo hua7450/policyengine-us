@@ -1,0 +1,13 @@
+description: Connecticut defines initial TANF eligibility as income below 55% of the Federal Poverty Level, which is the state's Standard of Need for determining if a family is needy.
+metadata:
+  unit: /1
+  period: month
+  reference:
+    - title: Connecticut TANF State Plan 2024-2026, Section A, Part I, A.1
+      href: https://portal.ct.gov/-/media/departments-and-agencies/dss/economic-security/ct-tanf-state-plan-2024---2026---41524-amendment.pdf
+      publication_date: 2024-04-15
+    - title: Public Act 22-118 (2022)
+      href: https://www.cga.ct.gov/2022/ACT/PA/PDF/2022PA-00118-R00SB-00005-PA.PDF
+
+values:
+  2023-10-01: 0.55
