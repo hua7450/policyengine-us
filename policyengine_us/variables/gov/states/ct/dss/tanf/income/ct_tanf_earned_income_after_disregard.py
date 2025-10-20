@@ -23,17 +23,17 @@ class ct_tanf_earned_income_after_disregard(Variable):
             gross_earned - p.income.disregards.initial_disregard, 0
         )
 
-        # For recipients: Disregard earned income up to % of FPL
-        # Policy changed Jan 1, 2024: 100% FPL → 230% FPL
-        # The 230% disregard applies for up to 6 consecutive months (not modeled)
-        # Parameter handles time-based transition automatically
+        # For recipients: Disregard earned income up to 230% FPL (after 2024)
+        # Policy changed Jan 1, 2024: Before 2024 = ineligible if > 100% FPL
+        #                            After 2024 = can earn up to 230% FPL for 6 months
+        # The 6-month time limit is not modeled (simplified implementation)
         spm_unit = person.spm_unit
         fpg = spm_unit("tanf_fpg", period)
         # Attribute FPL disregard equally to each person in unit
         unit_size = spm_unit("spm_unit_size", period)
-        # Use continuing_eligibility parameter (100% pre-2024, 230% post-2024)
+        # Use extended_eligibility_upper parameter (230% FPL after 2024)
         recipient_disregard_per_person = (
-            fpg * p.income.standards.continuing_eligibility / unit_size
+            fpg * p.income.standards.extended_eligibility_upper / unit_size
         )
 
         recipient_income = max_(
