@@ -147,10 +147,8 @@ Invoke @rules-reviewer to validate the complete implementation against documenta
 - Edge case handling
 - **Folder structure optimization:** Review and optimize folder organization for clarity and consistency
 
-## Phase 10: Local Testing & CI Finalization
+## Phase 10: Local Testing & Fixes
 **CRITICAL: ALWAYS invoke @ci-fixer agent - do NOT manually fix issues**
-
-### Step 1: Local Test Execution & Fixes
 
 Invoke @ci-fixer agent to:
 - Run all tests locally: `policyengine-core test policyengine_us/tests/policy/baseline/gov/states/[STATE]/[PROGRAM] -c policyengine_us -v`
@@ -165,26 +163,15 @@ Invoke @ci-fixer agent to:
   - Re-run tests to verify fix
 - Iterate until ALL tests pass locally
 - Run `make format` before committing fixes
-
-### Step 2: PR & CI Monitoring (if PR exists)
-
-If a draft PR was created in Phase 1:
-- Push all local fixes to the PR branch
-- Monitor GitHub Actions CI pipeline for ALL failures
-- Fix any additional environment-specific issues found in CI
-- Address any entity-level issues in tests
-- Fix parameter validation errors
-- Clean up working_references.md and temporary files
-- Iterate until ALL CI checks pass
-- Mark PR as ready for review
+- Push final fixes to PR branch
 
 **Success Metrics**:
 - All tests pass locally (green output)
-- All CI checks passing (tests, lint, format)
-- Test and implementation branches merged
-- No temporary files in commits
-- PR marked ready (not draft) if PR exists
-- Clean commit history showing agent work
+- Code properly formatted
+- Implementation complete and working
+- Clean commit history
+
+**Note:** For experimental implementations, CI monitoring is optional. Focus on local test success.
 
 
 ## Anti-Patterns This Workflow Prevents
