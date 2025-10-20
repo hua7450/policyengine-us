@@ -1,0 +1,15 @@
+description: Connecticut requires that countable income must be below this percentage of the Federal Poverty Level to qualify for Temporary Family Assistance.
+
+values:
+  2010-01-01: 0.55
+
+metadata:
+  unit: /1
+  period: year
+  label: Connecticut TFA Standard of Need rate
+  reference:
+    - title: Connecticut General Statutes § 17b-112 - Temporary family assistance program
+      href: https://law.justia.com/codes/connecticut/title-17b/chapter-319s/section-17b-112/
+    - title: Connecticut TANF State Plan 2024-2026, page 10
+      href: https://portal.ct.gov/-/media/departments-and-agencies/dss/economic-security/ct-tanf-state-plan-2024---2026---41524-amendment.pdf#page=10
+  note: The Standard of Need is 55% of FPL. Applicants must have countable income below this threshold to qualify.

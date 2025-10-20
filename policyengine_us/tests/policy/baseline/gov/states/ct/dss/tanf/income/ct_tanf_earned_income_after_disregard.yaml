@@ -1,0 +1,76 @@
+- name: Case 1, applicant with no earnings.
+  period: 2024-01
+  input:
+    state_code: CT
+    is_tanf_enrolled: false
+    tanf_gross_earned_income: 0
+    tanf_fpg: 1_255
+    spm_unit_size: 1
+  output:
+    ct_tanf_earned_income_after_disregard: 0
+
+- name: Case 2, applicant with earnings below $90 disregard.
+  period: 2024-01
+  input:
+    state_code: CT
+    is_tanf_enrolled: false
+    tanf_gross_earned_income: 50
+    tanf_fpg: 1_255
+    spm_unit_size: 1
+  output:
+    # Applicant: max(50 - 90, 0) = 0
+    ct_tanf_earned_income_after_disregard: 0
+
+- name: Case 3, applicant with earnings exactly at $90 disregard.
+  period: 2024-01
+  input:
+    state_code: CT
+    is_tanf_enrolled: false
+    tanf_gross_earned_income: 90
+    tanf_fpg: 1_255
+    spm_unit_size: 1
+  output:
+    # Applicant: max(90 - 90, 0) = 0
+    ct_tanf_earned_income_after_disregard: 0
+
+- name: Case 4, applicant with earnings above $90 disregard.
+  period: 2024-01
+  input:
+    state_code: CT
+    is_tanf_enrolled: false
+    tanf_gross_earned_income: 500
+    tanf_fpg: 1_255
+    spm_unit_size: 1
+  output:
+    # Applicant: max(500 - 90, 0) = 410
+    ct_tanf_earned_income_after_disregard: 410
+
+- name: Case 5, recipient with earnings below 230% FPL per-person disregard.
+  period: 2024-01
+  input:
+    state_code: CT
+    is_tanf_enrolled: true
+    tanf_gross_earned_income: 1_500
+    tanf_fpg: 1_703.33
+    spm_unit_size: 2
+  output:
+    # Recipient: 230% FPL disregard per person
+    # tanf_fpg is monthly: 1,703.33 for 2-person unit (100% FPL)
+    # Extended disregard per person: (1,703.33 * 2.30) / 2 = 1,958.83/month
+    # max(1,500 - 1,958.83, 0) = 0
+    ct_tanf_earned_income_after_disregard: 0
+
+- name: Case 6, recipient with earnings above 230% FPL per-person disregard.
+  period: 2024-01
+  input:
+    state_code: CT
+    is_tanf_enrolled: true
+    tanf_gross_earned_income: 3_000
+    tanf_fpg: 1_255
+    spm_unit_size: 1
+  output:
+    # Recipient: 230% FPL disregard per person
+    # tanf_fpg is monthly: 1,255 for 1-person unit (100% FPL)
+    # Extended disregard per person: (1,255 * 2.30) / 1 = 2,886.50/month
+    # max(3,000 - 2,886.50, 0) = 113.50
+    ct_tanf_earned_income_after_disregard: 113.5

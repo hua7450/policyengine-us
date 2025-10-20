@@ -1,0 +1,14 @@
+description: Connecticut reduces the Temporary Family Assistance benefit by 20% when household earnings exceed this percentage of the Federal Poverty Level.
+
+values:
+  2024-01-01: 1.71
+
+metadata:
+  unit: /1
+  period: year
+  label: Connecticut TFA benefit reduction threshold
+  reference:
+    - title: Connecticut General Statutes § 17b-112 - Temporary family assistance program (as amended effective January 1, 2024)
+      href: https://law.justia.com/codes/connecticut/title-17b/chapter-319s/section-17b-112/
+    - title: Connecticut TANF State Plan 2024-2026, page 10
+      href: https://portal.ct.gov/-/media/departments-and-agencies/dss/economic-security/ct-tanf-state-plan-2024---2026---41524-amendment.pdf#page=10

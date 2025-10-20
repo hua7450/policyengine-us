@@ -1,0 +1,124 @@
+- name: Case 1, eligible with no income receives full payment standard.
+  period: 2024-01
+  input:
+    state_code: CT
+    ct_tanf_eligible: true
+    ct_tanf_payment_standard: 489
+    ct_tanf_countable_income: 0
+    tanf_gross_earned_income: 0
+    tanf_fpg: 1_255
+  output:
+    # max(489 - 0, 0) = 489
+    ct_tanf: 489
+
+- name: Case 2, eligible with income below payment standard.
+  period: 2024-01
+  input:
+    state_code: CT
+    ct_tanf_eligible: true
+    ct_tanf_payment_standard: 661
+    ct_tanf_countable_income: 200
+    tanf_gross_earned_income: 0
+    tanf_fpg: 1_255
+  output:
+    # max(661 - 200, 0) = 461
+    ct_tanf: 461
+
+- name: Case 3, eligible with income exceeding payment standard.
+  period: 2024-01
+  input:
+    state_code: CT
+    ct_tanf_eligible: true
+    ct_tanf_payment_standard: 489
+    ct_tanf_countable_income: 500
+    tanf_gross_earned_income: 0
+    tanf_fpg: 1_255
+  output:
+    # max(489 - 500, 0) = 0
+    ct_tanf: 0
+
+- name: Case 4, earnings just below 171% FPL (no reduction).
+  period: 2024-01
+  input:
+    state_code: CT
+    ct_tanf_eligible: true
+    ct_tanf_payment_standard: 489
+    ct_tanf_countable_income: 0
+    tanf_gross_earned_income: 2_145
+    tanf_fpg: 1_255
+  output:
+    # tanf_fpg is monthly: 1,255 for 1-person
+    # 171% FPL: 1,255 * 1.71 = 2,146.05/month
+    # 2,145 < 2,146.05, so no reduction
+    # max(489 - 0, 0) = 489
+    ct_tanf: 489
+
+- name: Case 5, earnings exactly at 171% FPL (apply 20% reduction).
+  period: 2024-01
+  input:
+    state_code: CT
+    ct_tanf_eligible: true
+    ct_tanf_payment_standard: 489
+    ct_tanf_countable_income: 0
+    tanf_gross_earned_income: 2_146.05
+    tanf_fpg: 1_255
+  output:
+    # tanf_fpg is monthly: 1,255
+    # 171% FPL: 1,255 * 1.71 = 2,146.05/month
+    # 230% FPL: 1,255 * 2.30 = 2,886.50/month
+    # In reduction tier (171% to 230%)
+    # Standard benefit: max(489 - 0, 0) = 489
+    # Reduced benefit: 489 * (1 - 0.20) = 489 * 0.80 = 391.2
+    ct_tanf: 391.2
+
+- name: Case 6, earnings in middle of 171-230% FPL range (apply 20% reduction).
+  period: 2024-01
+  input:
+    state_code: CT
+    ct_tanf_eligible: true
+    ct_tanf_payment_standard: 661
+    ct_tanf_countable_income: 0
+    tanf_gross_earned_income: 2_500
+    tanf_fpg: 1_255
+  output:
+    # tanf_fpg is monthly: 1,255
+    # 171% FPL: 1,255 * 1.71 = 2,146.05/month
+    # 230% FPL: 1,255 * 2.30 = 2,886.50/month
+    # 2,500 is between 171-230% FPL
+    # Standard benefit: max(661 - 0, 0) = 661
+    # Reduced benefit: 661 * (1 - 0.20) = 661 * 0.80 = 528.8
+    ct_tanf: 528.8
+
+- name: Case 7, earnings exactly at 230% FPL (apply 20% reduction).
+  period: 2024-01
+  input:
+    state_code: CT
+    ct_tanf_eligible: true
+    ct_tanf_payment_standard: 489
+    ct_tanf_countable_income: 0
+    tanf_gross_earned_income: 2_886.50
+    tanf_fpg: 1_255
+  output:
+    # tanf_fpg is monthly: 1,255
+    # 230% FPL: 1,255 * 2.30 = 2,886.50/month
+    # At upper threshold (<=), so reduction applies
+    # Standard benefit: max(489 - 0, 0) = 489
+    # Reduced benefit: 489 * (1 - 0.20) = 489 * 0.80 = 391.2
+    ct_tanf: 391.2
+
+- name: Case 8, earnings above 230% FPL (no reduction as would be ineligible).
+  period: 2024-01
+  input:
+    state_code: CT
+    ct_tanf_eligible: true
+    ct_tanf_payment_standard: 489
+    ct_tanf_countable_income: 0
+    tanf_gross_earned_income: 3_000
+    tanf_fpg: 1_255
+  output:
+    # tanf_fpg is monthly: 1,255
+    # 230% FPL: 1,255 * 2.30 = 2,886.50/month
+    # 3,000 > 2,886.50, so above extended eligibility threshold
+    # No reduction applied (household would be income-ineligible)
+    # Standard benefit: max(489 - 0, 0) = 489
+    ct_tanf: 489

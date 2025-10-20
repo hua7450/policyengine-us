@@ -1,0 +1,68 @@
+- name: Case 1, no unearned income.
+  period: 2024-01
+  input:
+    state_code: CT
+    social_security: 0
+    child_support_received: 0
+  output:
+    ct_tanf_countable_unearned_income: 0
+
+- name: Case 2, unearned income with no child support.
+  period: 2024-01
+  input:
+    state_code: CT
+    social_security: 6_000  # $500/month
+    child_support_received: 0
+  output:
+    # Gross unearned (SS): $500/month
+    # No child support deduction
+    # max(500 - 0, 0) = 500
+    ct_tanf_countable_unearned_income: 500
+
+- name: Case 3, unearned income with child support below $50 passthrough.
+  period: 2024-01
+  input:
+    state_code: CT
+    social_security: 6_000  # $500/month
+    child_support_received: 360  # $30/month
+  output:
+    # Gross unearned (federal baseline includes child support): $500 SS + $30 CS = $530/month
+    # Child support passthrough deduction: min(30, 50) = 30
+    # max(530 - 30, 0) = 500
+    ct_tanf_countable_unearned_income: 500
+
+- name: Case 4, unearned income with child support exactly at $50 passthrough.
+  period: 2024-01
+  input:
+    state_code: CT
+    social_security: 6_000  # $500/month
+    child_support_received: 600  # $50/month
+  output:
+    # Gross unearned (federal baseline includes child support): $500 SS + $50 CS = $550/month
+    # Child support passthrough deduction: min(50, 50) = 50
+    # max(550 - 50, 0) = 500
+    ct_tanf_countable_unearned_income: 500
+
+- name: Case 5, unearned income with child support above $50 passthrough.
+  period: 2024-01
+  input:
+    state_code: CT
+    social_security: 6_000  # $500/month
+    child_support_received: 1_200  # $100/month
+  output:
+    # Gross unearned (federal baseline includes child support): $500 SS + $100 CS = $600/month
+    # Child support passthrough deduction: min(100, 50) = 50 (capped)
+    # max(600 - 50, 0) = 550
+    ct_tanf_countable_unearned_income: 550
+
+- name: Case 6, child support exceeds total unearned income.
+  period: 2024-01
+  input:
+    state_code: CT
+    social_security: 360  # $30/month
+    child_support_received: 1_200  # $100/month
+  output:
+    # Gross unearned (federal baseline includes child support): $30 SS + $100 CS = $130/month
+    # Child support passthrough deduction: min(100, 50) = 50 (capped)
+    # max(130 - 50, 0) = 80
+    ct_tanf_countable_unearned_income: 80

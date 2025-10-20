@@ -1,0 +1,235 @@
+- name: Case 1, family of 3 with no income.
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+      person2:
+        age: 8
+        is_tax_unit_dependent: true
+      person3:
+        age: 5
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: CT
+  output:
+    ct_tanf_eligible: true
+    ct_tanf_payment_standard: 833
+    ct_tanf: 833
+
+- name: Case 2, applicant with part-time earnings.
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 7_200  # $600/month
+        is_tax_unit_head_or_spouse: true
+      person2:
+        age: 8
+        is_tax_unit_dependent: true
+      person3:
+        age: 5
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        is_tanf_enrolled: false  # Applicant
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: CT
+  output:
+    ct_tanf_eligible: true
+    ct_tanf_countable_earned_income: 510  # ($600 - $90) = $510
+    ct_tanf: 323  # $833 - $510 = $323
+
+- name: Case 3, recipient with earnings below 100% FPL.
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 21_600  # $1,800/month
+        is_tax_unit_head_or_spouse: true
+      person2:
+        age: 8
+        is_tax_unit_dependent: true
+      person3:
+        age: 5
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        is_tanf_enrolled: true  # Recipient
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: CT
+  output:
+    ct_tanf_eligible: true
+    ct_tanf_countable_earned_income: 0  # Below 230% FPL, fully disregarded
+    ct_tanf: 833  # Full benefit
+
+- name: Case 4, recipient with earnings 100-171% FPL, full benefit.
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 38_700  # ~150% FPL
+        is_tax_unit_head_or_spouse: true
+      person2:
+        age: 8
+        is_tax_unit_dependent: true
+      person3:
+        age: 5
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        is_tanf_enrolled: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: CT
+  output:
+    ct_tanf_eligible: true
+    ct_tanf: 833  # Full benefit, no 20% reduction
+
+- name: Case 5, recipient with earnings 171-230% FPL, 20% reduction.
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 51_600  # ~200% FPL
+        is_tax_unit_head_or_spouse: true
+      person2:
+        age: 8
+        is_tax_unit_dependent: true
+      person3:
+        age: 5
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        is_tanf_enrolled: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: CT
+  output:
+    ct_tanf_eligible: true
+    ct_tanf: 666.40  # $833 × 0.8 (20% reduction)
+
+- name: Case 6, earnings above 230% FPL, ineligible.
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 64_800  # ~251% FPL
+        is_tax_unit_head_or_spouse: true
+      person2:
+        age: 8
+        is_tax_unit_dependent: true
+      person3:
+        age: 5
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        is_tanf_enrolled: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: CT
+  output:
+    ct_tanf_eligible: false
+    ct_tanf: 0
+
+- name: Case 7, family with unearned income.
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        social_security: 4_800  # $400/month
+        child_support_received: 600  # $50/month
+        is_tax_unit_head_or_spouse: true
+      person2:
+        age: 8
+        is_tax_unit_dependent: true
+      person3:
+        age: 5
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: CT
+  output:
+    ct_tanf_eligible: true
+    ct_tanf_countable_unearned_income: 350  # $400 - $50 child support
+    ct_tanf: 483  # $833 - $350 = $483
+
+- name: Case 8, pregnant woman eligible.
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 25
+        is_pregnant: true
+        is_tax_unit_head_or_spouse: true
+    spm_units:
+      spm_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    ct_tanf_eligible: true
+    ct_tanf_payment_standard: 489
+    ct_tanf: 489
