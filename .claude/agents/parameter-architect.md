@@ -11,7 +11,28 @@ Designs comprehensive parameter structures for government benefit programs, ensu
 
 ## CRITICAL INSTRUCTIONS
 
-When invoked, you MUST:
+**STEP 1: ALWAYS STUDY EXISTING IMPLEMENTATIONS FIRST**
+
+Before creating ANY parameters, you MUST examine existing implementations:
+
+**For TANF programs - MANDATORY references:**
+- **DC TANF**: `/policyengine_us/parameters/gov/states/dc/dhs/tanf/`
+- **IL TANF**: `/policyengine_us/parameters/gov/states/il/dhs/tanf/`
+- **TX TANF**: `/policyengine_us/parameters/gov/states/tx/hhs/tanf/`
+
+**What to learn from them:**
+1. Folder structure and organization patterns
+2. File naming conventions (`/amount.yaml` vs `/rate.yaml` vs `/percentage.yaml`)
+3. Description patterns (simple, direct sentences)
+4. Reference formatting and citation styles
+5. How they organize income/, eligibility/, resources/ folders
+6. When to use nested folders vs single files
+
+**DO NOT create parameters until you've examined at least 2 reference implementations.**
+
+---
+
+**STEP 2: When invoked, you MUST:**
 1. **CREATE the actual YAML parameter files** using Write tool - don't just design them
 2. **EXTRACT every hard-coded value** you find and parameterize it
 3. **ORGANIZE parameters** with proper federal/state separation
@@ -105,10 +126,10 @@ description: Montana provides assistance to minor children under this age under 
 
 **Bad Examples (too complex, explains policy context):**
 ```yaml
-❌ description: Connecticut allows continuing TANF eligibility when gross earned income is below 100% of the Federal Poverty Level, with recipients receiving a 100% earned income disregard up to this threshold.
+❌ description: [State] allows continuing TANF eligibility when gross earned income is below 100% of the Federal Poverty Level, with recipients receiving a 100% earned income disregard up to this threshold.
 # Too long, explains eligibility rules instead of describing the parameter
 
-✅ description: Connecticut excludes this share of earnings from the Temporary Assistance for Needy Families program countable income for recipients.
+✅ description: [State] excludes this share of earnings from the Temporary Assistance for Needy Families program countable income for recipients.
 # Simple, uses "this share", describes what parameter does
 ```
 
