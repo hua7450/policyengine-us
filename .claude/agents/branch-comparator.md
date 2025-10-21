@@ -33,7 +33,20 @@ When invoked, you will receive:
      git diff branch1..branch2 -- '**/ct/dss/t*f*' '**/ct_t*f*'
      ```
 
-3. **Compare Program Implementations**
+3. **Extract and Compare Formulas**
+   **CRITICAL**: Read the main benefit variable files from both branches and extract the actual formulas:
+   - Checkout each branch and read the main variable file (e.g., `ct_tfa.py` vs `ct_tanf.py`)
+   - Extract the `formula()` method showing how the benefit is calculated
+   - Document the exact Python code for the calculation
+   - Identify all intermediate variables used in the calculation
+   - Create a side-by-side comparison showing:
+     - How each branch calculates the final benefit amount
+     - What variables/inputs each uses
+     - Any differences in the calculation order or logic
+     - Which parameters are referenced
+   - Explain the mathematical/logical differences between the formulas
+
+4. **Compare Program Implementations**
    Focus ONLY on the target program:
    - **Naming conventions**: Variable names, parameter paths, file names
    - **Implementation logic**: How benefits are calculated
@@ -43,7 +56,7 @@ When invoked, you will receive:
    - **Test coverage**: Quality and comprehensiveness of tests
    - **Documentation**: Code comments, regulatory references, clarity
 
-4. **Analyze Implementation Quality**
+5. **Analyze Implementation Quality**
    For the target program only, compare:
    - Code clarity and maintainability
    - Alignment with PolicyEngine best practices
@@ -53,7 +66,7 @@ When invoked, you will receive:
    - Reusability and consistency with federal/state patterns
    - Use of federal infrastructure vs. standalone approach
 
-5. **Generate Program Comparison Report**
+6. **Generate Program Comparison Report**
    Create a focused report comparing how each branch implements the same program:
    - Executive summary: Which approach is better for THIS PROGRAM and why
    - Implementation differences: Naming, logic, structure FOR THIS PROGRAM
@@ -88,6 +101,55 @@ Your final report should be saved as `program-comparison-report.md` in the worki
 - Program name in standard branch: [e.g., ct_tfa]
 - Program name in comparison branch: [e.g., ct_tanf]
 - Files analyzed: [count for THIS PROGRAM only]
+
+## Formula Comparison
+
+### Standard Branch Formula
+```python
+[Extract the exact formula() method code from the main benefit variable]
+```
+
+**Calculation Steps**:
+1. [Step 1 of calculation]
+2. [Step 2 of calculation]
+...
+
+**Variables Used**:
+- `variable_1`: [description]
+- `variable_2`: [description]
+
+**Parameters Referenced**:
+- `parameter.path.1`: [description]
+- `parameter.path.2`: [description]
+
+### Comparison Branch Formula
+```python
+[Extract the exact formula() method code from the main benefit variable]
+```
+
+**Calculation Steps**:
+1. [Step 1 of calculation]
+2. [Step 2 of calculation]
+...
+
+**Variables Used**:
+- `variable_1`: [description]
+- `variable_2`: [description]
+
+**Parameters Referenced**:
+- `parameter.path.1`: [description]
+- `parameter.path.2`: [description]
+
+### Key Formula Differences
+| Aspect | Standard Branch | Comparison Branch | Impact |
+|--------|----------------|-------------------|--------|
+| Income calculation | [how it's done] | [how it's done] | [what's the difference] |
+| Deductions applied | [what's deducted] | [what's deducted] | [what's the difference] |
+| Benefit calculation | [formula] | [formula] | [what's the difference] |
+| Parameter usage | [which params] | [which params] | [what's the difference] |
+
+### Which Formula is More Correct?
+[Analyze which formula better matches the regulatory requirements and explain why]
 
 ## Implementation Comparison
 
@@ -168,7 +230,8 @@ You should:
 1. Create a todo list for the analysis steps
 2. Identify CT TANF/TFA files in both branches
 3. IGNORE all TX programs, federal reforms, and other additions
-4. Compare ONLY the CT TANF/TFA implementation approach
-5. Analyze which CT implementation is better
-6. Generate a focused program comparison report
-7. Present key findings about the CT TANF/TFA implementation specifically
+4. Extract and compare the actual formulas from both branches
+5. Compare ONLY the CT TANF/TFA implementation approach
+6. Analyze which CT implementation is better (including which formula is more correct)
+7. Generate a focused program comparison report with detailed formula comparison
+8. Present key findings about the CT TANF/TFA implementation specifically
