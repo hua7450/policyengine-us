@@ -1,4 +1,4 @@
-description: Florida TANF disregards this amount of earned income per individual in the assistance group as the first step of the earned income disregard calculation.
+description: Florida disregards this amount of earned income per individual in the assistance unit as the standard disregard (first step of two-step disregard process).
 
 values:
   2024-01-01: 90
@@ -6,8 +6,9 @@ values:
 metadata:
   unit: currency-USD
   period: month
+  label: Florida TANF earned income standard disregard per person
   reference:
     - title: Florida Statute § 414.095 - Earned income disregards
       href: https://www.flsenate.gov/Laws/Statutes/2024/414.095
-    - title: Florida Administrative Code Rule 65A-4.209
-      href: https://flrules.org/gateway/ruleNo.asp?id=65A-4.209
+    - title: Florida DCF TCA Documentation
+      href: https://www.myflfamilies.com/services/public-assistance/temporary-cash-assistance

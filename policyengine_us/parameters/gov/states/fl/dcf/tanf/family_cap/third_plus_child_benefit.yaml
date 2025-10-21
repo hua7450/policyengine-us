@@ -1,11 +1,12 @@
-description: Florida reduces benefits by this percentage for a second child born while the family is receiving Temporary Cash Assistance (family cap policy).
+description: Florida provides this benefit amount for third and subsequent children born while the family is receiving Temporary Cash Assistance (family cap policy).
 
 values:
-  2024-01-01: 0.5
+  2024-01-01: 0
 
 metadata:
-  unit: /1
-  label: Florida TANF family cap second child reduction factor
+  unit: currency-USD
+  period: month
+  label: Florida TANF family cap third+ child benefit
   reference:
     - title: Florida Policy Institute - Family Cap Law Analysis
       href: https://www.floridapolicy.org/posts/5-reasons-why-florida-lawmakers-should-repeal-the-outdated-family-cap-law

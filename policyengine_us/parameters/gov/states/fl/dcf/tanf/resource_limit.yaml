@@ -1,10 +1,13 @@
-description: Florida TANF limits countable assets to this amount for eligibility.
+description: Florida limits countable assets to this amount for Temporary Cash Assistance eligibility.
 
 values:
   2024-01-01: 2_000
 
 metadata:
   unit: currency-USD
+  label: Florida TANF countable asset limit
   reference:
-    - title: Florida Statute § 414.075 - Resource limits
+    - title: Florida Statute § 414.075 - Resource eligibility requirements
       href: http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0400-0499/0414/0414.html
+    - title: Florida Administrative Code Chapter 65A-4
+      href: https://flrules.org/gateway/ChapterHome.asp?Chapter=65A-4

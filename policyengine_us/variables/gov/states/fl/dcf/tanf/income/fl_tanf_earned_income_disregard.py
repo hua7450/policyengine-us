@@ -6,32 +6,38 @@ class fl_tanf_earned_income_disregard(Variable):
     entity = SPMUnit
     label = "Florida TANF earned income disregard"
     unit = USD
-    definition_period = YEAR
-    reference = "Florida Statute § 414.095"
-    documentation = "Two-step earned income disregard: (1) $90 per person standard disregard, then (2) $200 plus 50% of remainder"
+    definition_period = MONTH
+    reference = "Florida Statute § 414.095 - Earned income disregards"
+    documentation = """
+    Florida uses a two-step earned income disregard process:
+    Step 1: $90 per individual (standard disregard)
+    Step 2: First $200 plus one-half of remainder (work incentive disregard)
+    
+    Example: $1,000 gross earned income
+    Step 1: $1,000 - $90 = $910
+    Step 2: $910 - $200 = $710
+            $710 × 0.5 = $355 (half disregarded)
+    Countable: $355
+    """
+    defined_for = StateCode.FL
 
     def formula(spm_unit, period, parameters):
         p = parameters(period).gov.states.fl.dcf.tanf.income_disregards
 
         gross_earned = spm_unit("fl_tanf_gross_earned_income", period)
-        family_size = spm_unit.nb_persons()
+        family_size = spm_unit("spm_unit_size", period)
 
-        # Step 1: Standard disregard of $90 per person per month (annualized)
-        monthly_per_person = p.earned_per_person
-        standard_disregard = monthly_per_person * family_size * MONTHS_IN_YEAR
+        # Step 1: Standard disregard ($90 per person)
+        standard_disregard = p.earned_per_person * family_size
         after_standard = max_(gross_earned - standard_disregard, 0)
 
-        # Step 2: Work incentive disregard - first $200 plus 50% of remainder (monthly, annualized)
-        monthly_flat = p.earned_flat
-        flat_disregard = monthly_flat * MONTHS_IN_YEAR
-        percentage_disregard = p.earned_percentage
+        # Step 2: Work incentive disregard ($200 + 50% of remainder)
+        after_flat = max_(after_standard - p.earned_flat, 0)
+        percentage_disregard = after_flat * p.earned_percentage
 
-        after_flat = max_(after_standard - flat_disregard, 0)
-        percentage_amount = after_flat * percentage_disregard
-
-        # Total disregard is all amounts disregarded
+        # Total disregard is everything except what's counted
         total_disregard = (
-            standard_disregard + flat_disregard + percentage_amount
+            standard_disregard + p.earned_flat + percentage_disregard
         )
 
         return min_(total_disregard, gross_earned)

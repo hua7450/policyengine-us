@@ -6,13 +6,25 @@ class fl_tanf_gross_earned_income(Variable):
     entity = SPMUnit
     label = "Florida TANF gross earned income"
     unit = USD
-    definition_period = YEAR
+    definition_period = MONTH
     reference = "Florida Administrative Code Rule 65A-4.209"
-    documentation = "Total earned income before disregards, with specific exclusions for student earnings and WIOA income"
+    documentation = "Gross earned income for Florida TANF, excluding certain student earnings and WIOA income."
+    defined_for = StateCode.FL
 
     def formula(spm_unit, period, parameters):
-        # Sum employment and self-employment income across all SPM unit members
-        employment = spm_unit("employment_income", period)
-        self_employment = spm_unit("self_employment_income", period)
+        person = spm_unit.members
 
-        return employment + self_employment
+        # Get individual earned income
+        earned_income = person("employment_income", period)
+
+        # Exclusions for students
+        age = person("age", period)
+        is_student = person("is_full_time_student", period)
+
+        # Exclude earnings of full-time students under 19 in high school
+        is_excluded_student = is_student & (age < 19)
+
+        # Apply exclusions
+        countable_earned = where(is_excluded_student, 0, earned_income)
+
+        return spm_unit.sum(countable_earned)

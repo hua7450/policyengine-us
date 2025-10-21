@@ -1,4 +1,4 @@
-description: Florida TANF Tier 2 applies to families with shelter obligations of at least this amount per month.
+description: Florida applies Tier 2 payment standards when monthly shelter obligation equals or exceeds this amount.
 
 values:
   2024-01-01: 1
@@ -6,6 +6,7 @@ values:
 metadata:
   unit: currency-USD
   period: month
+  label: Florida TANF Tier 2 minimum shelter obligation
   reference:
-    - title: Florida Statute § 414.095(10) - Three-tier payment structure
+    - title: Florida Statute § 414.095(10) - Payment standards
       href: https://www.flsenate.gov/Laws/Statutes/2024/414.095

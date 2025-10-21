@@ -1,4 +1,4 @@
-description: Florida TANF disregards this flat amount of earned income as part of the work incentive disregard before applying the percentage disregard.
+description: Florida disregards this flat amount of earned income as part of the work incentive disregard (second step of two-step disregard process, before applying percentage disregard).
 
 values:
   2024-01-01: 200
@@ -6,8 +6,7 @@ values:
 metadata:
   unit: currency-USD
   period: month
+  label: Florida TANF earned income flat disregard
   reference:
-    - title: Florida Statute § 414.095 - Work incentive disregard
+    - title: Florida Statute § 414.095 - Work Incentive Disregard
       href: https://www.flsenate.gov/Laws/Statutes/2024/414.095
-    - title: Florida Administrative Code Rule 65A-4.209
-      href: https://flrules.org/gateway/ruleNo.asp?id=65A-4.209

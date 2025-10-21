@@ -6,25 +6,31 @@ class fl_tanf_payment_standard(Variable):
     entity = SPMUnit
     label = "Florida TANF payment standard"
     unit = USD
-    definition_period = YEAR
+    definition_period = MONTH
     reference = "Florida Statute § 414.095(10)"
-    documentation = "Payment standard based on family size and shelter tier, before family cap adjustments"
+    documentation = (
+        "Florida TANF payment standard based on family size and shelter tier."
+    )
+    defined_for = StateCode.FL
 
     def formula(spm_unit, period, parameters):
         p = parameters(period).gov.states.fl.dcf.tanf.payment_standard
 
-        family_size = spm_unit.nb_persons()
-        shelter_tier = spm_unit("fl_tanf_shelter_tier", period)
+        family_size = spm_unit("spm_unit_size", period)
+        tier = spm_unit("fl_tanf_shelter_tier", period)
 
-        # Get payment standard for each tier using calc()
-        tier_1_amount = p.tier_1.calc(family_size)
-        tier_2_amount = p.tier_2.calc(family_size)
-        tier_3_amount = p.tier_3.calc(family_size)
+        # Get max size from tier_1 (they all have same max)
+        max_size = max(p.tier_1.keys())
+        capped_size = min_(family_size, max_size)
 
-        # Select monthly payment based on shelter tier
-        monthly_payment = select(
-            [shelter_tier == 1, shelter_tier == 2, shelter_tier == 3],
+        # Get payment standard based on tier
+        tier_1_amount = p.tier_1[capped_size]
+        tier_2_amount = p.tier_2[capped_size]
+        tier_3_amount = p.tier_3[capped_size]
+
+        payment_standard = select(
+            [tier == 1, tier == 2, tier == 3],
             [tier_1_amount, tier_2_amount, tier_3_amount],
         )
 
-        return monthly_payment * MONTHS_IN_YEAR
+        return payment_standard

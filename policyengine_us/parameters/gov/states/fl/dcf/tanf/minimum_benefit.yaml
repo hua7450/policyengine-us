@@ -1,4 +1,4 @@
-description: Florida TANF sets this as the minimum monthly benefit amount; benefits below this threshold result in no cash payment but retain categorical eligibility.
+description: Florida requires the final benefit calculation to equal or exceed this minimum amount to receive cash assistance (otherwise, families retain categorical eligibility but receive no cash).
 
 values:
   2024-01-01: 10
@@ -6,6 +6,7 @@ values:
 metadata:
   unit: currency-USD
   period: month
+  label: Florida TANF minimum benefit
   reference:
-    - title: Florida Statute § 414.095(12) - Minimum benefit amount
+    - title: Florida Statute § 414.095(12) - Benefit calculation
       href: https://www.flsenate.gov/Laws/Statutes/2024/414.095

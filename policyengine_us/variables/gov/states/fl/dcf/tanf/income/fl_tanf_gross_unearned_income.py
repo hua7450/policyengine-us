@@ -6,26 +6,19 @@ class fl_tanf_gross_unearned_income(Variable):
     entity = SPMUnit
     label = "Florida TANF gross unearned income"
     unit = USD
-    definition_period = YEAR
+    definition_period = MONTH
     reference = "Florida Administrative Code Rule 65A-4.209"
-    documentation = "Total unearned income including child support (minus first $50), SSI, retirement income, and other unearned sources"
+    documentation = "Gross unearned income for Florida TANF before disregards."
+    defined_for = StateCode.FL
 
     def formula(spm_unit, period, parameters):
-        p = parameters(period).gov.states.fl.dcf.tanf.income_disregards
+        # Major unearned income sources
+        unearned_sources = [
+            "social_security",
+            "unemployment_compensation",
+            "alimony_income",
+            "child_support_received",
+            "gi_cash_assistance",
+        ]
 
-        # Child support with $50 monthly disregard (annualized)
-        child_support = spm_unit("child_support_received", period)
-        monthly_child_support_disregard = p.child_support
-        annual_child_support_disregard = (
-            monthly_child_support_disregard * MONTHS_IN_YEAR
-        )
-        countable_child_support = max_(
-            child_support - annual_child_support_disregard, 0
-        )
-
-        # Other unearned income sources
-        ssi = spm_unit("ssi", period)
-        pension = spm_unit("pension_income", period)
-        unemployment = spm_unit("unemployment_compensation", period)
-
-        return countable_child_support + ssi + pension + unemployment
+        return add(spm_unit, period, unearned_sources)

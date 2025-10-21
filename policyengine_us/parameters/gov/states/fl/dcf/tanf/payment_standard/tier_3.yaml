@@ -1,70 +1,40 @@
-description: Florida TANF Tier 3 payment standard applies to families with shelter obligations greater than $50 per month or families experiencing homelessness.
-
-brackets:
-  - threshold:
-      2024-01-01: 0
-    amount:
-      2024-01-01: 0
-  - threshold:
-      2024-01-01: 1
-    amount:
-      2024-01-01: 180
-  - threshold:
-      2024-01-01: 2
-    amount:
-      2024-01-01: 241
-  - threshold:
-      2024-01-01: 3
-    amount:
-      2024-01-01: 303
-  - threshold:
-      2024-01-01: 4
-    amount:
-      2024-01-01: 364
-  - threshold:
-      2024-01-01: 5
-    amount:
-      2024-01-01: 426
-  - threshold:
-      2024-01-01: 6
-    amount:
-      2024-01-01: 487
-  - threshold:
-      2024-01-01: 7
-    amount:
-      2024-01-01: 549
-  - threshold:
-      2024-01-01: 8
-    amount:
-      2024-01-01: 610
-  - threshold:
-      2024-01-01: 9
-    amount:
-      2024-01-01: 671
-  - threshold:
-      2024-01-01: 10
-    amount:
-      2024-01-01: 733
-  - threshold:
-      2024-01-01: 11
-    amount:
-      2024-01-01: 795
-  - threshold:
-      2024-01-01: 12
-    amount:
-      2024-01-01: 857
-  - threshold:
-      2024-01-01: 13
-    amount:
-      2024-01-01: 919
+description: Florida provides this payment amount under Temporary Cash Assistance (TCA) for families with shelter obligation greater than $50 or who are homeless, based on family size.
 
 metadata:
-  type: single_amount
-  threshold_unit: person
-  amount_unit: currency-USD
+  unit: currency-USD
   period: month
+  breakdown:
+    - range(0, 20)
+  label: Florida TANF payment standard - Tier 3 (shelter >$50 or homeless)
   reference:
-    - title: Florida Statute § 414.095(10) - Three-tier payment structure
+    - title: Florida Statute § 414.095(10) - Payment standards
       href: https://www.flsenate.gov/Laws/Statutes/2024/414.095
-    - title: Florida Administrative Code Chapter 65A-4 - Temporary Cash Assistance
-      href: https://flrules.org/gateway/ChapterHome.asp?Chapter=65A-4
+    - title: Florida DCF Temporary Cash Assistance
+      href: https://www.myflfamilies.com/services/public-assistance/temporary-cash-assistance
+
+1:
+  2024-01-01: 180
+2:
+  2024-01-01: 241
+3:
+  2024-01-01: 303
+4:
+  2024-01-01: 364
+5:
+  2024-01-01: 426
+6:
+  2024-01-01: 487
+7:
+  2024-01-01: 549
+8:
+  2024-01-01: 610
+9:
+  2024-01-01: 671
+10:
+  2024-01-01: 733
+11:
+  2024-01-01: 795
+12:
+  2024-01-01: 857
+13:
+  2024-01-01: 919
