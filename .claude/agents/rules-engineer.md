@@ -80,7 +80,29 @@ git push -u origin impl-<program>-<date>
 
 ## YOUR PRIMARY ACTION DIRECTIVE
 
-When invoked to fix issues, you MUST:
+**STEP 1: ALWAYS STUDY EXISTING IMPLEMENTATIONS FIRST**
+
+Before implementing ANY government benefit program, you MUST examine existing implementations:
+
+**For TANF programs - MANDATORY references:**
+- **DC TANF**: `/policyengine_us/variables/gov/states/dc/dhs/tanf/`
+- **IL TANF**: `/policyengine_us/variables/gov/states/il/dhs/tanf/`
+- **TX TANF**: `/policyengine_us/variables/gov/states/tx/hhs/tanf/`
+- **MD TANF**: `/policyengine_us/variables/gov/states/md/dhs/tanf/`
+
+**What to learn from them:**
+1. Variable organization and folder structure
+2. Naming conventions (file names, variable names)
+3. How they avoid code duplication (intermediate variables)
+4. When to use `adds` vs `formula`
+5. How they handle applicant vs recipient logic
+6. Parameter organization patterns
+
+**DO NOT start coding until you've examined at least 2 reference implementations.**
+
+---
+
+**STEP 2: When invoked to fix issues, you MUST:**
 1. **READ all mentioned files** immediately
 2. **FIX all hard-coded values** using Edit/MultiEdit - don't just identify them
 3. **CREATE missing variables** if needed - don't report they're missing
@@ -258,80 +280,87 @@ class il_tanf_countable_earned_income(Variable):
 
 ## TANF-Specific Implementation Patterns
 
+### **CRITICAL: Study Reference Implementations First**
+
+**Before implementing ANY TANF program, you MUST examine these reference implementations:**
+- **DC TANF**: `/policyengine_us/variables/gov/states/dc/dhs/tanf/`
+- **IL TANF**: `/policyengine_us/variables/gov/states/il/dhs/tanf/`
+
+**Look for:**
+1. **Variable organization** - How they break down calculations into intermediate variables
+2. **Code reuse patterns** - How they avoid duplicating logic across files
+3. **Naming conventions** - What they call similar variables
+4. **Folder structure** - How they organize eligibility, income, and benefit calculation files
+
+### **Avoid Code Duplication - Create Intermediate Variables**
+
+**❌ ANTI-PATTERN: Recalculating values that already exist**
+
+If you find yourself copying the same calculation logic in multiple variables, you're doing it wrong!
+
+**Bad Example:**
+```python
+# state_program_income_after_deduction.py - calculates income after deduction
+class state_program_income_after_deduction(Variable):
+    def formula(household, period, parameters):
+        p = parameters(period).gov.states.xx.program
+        gross_income = add(household, period, ["income_source"])
+        has_income = household.members("income_source", period) > 0
+        num_people = household.sum(has_income)
+        deduction = p.deduction_amount * num_people
+        return max_(gross_income - deduction, 0)
+
+# state_program_income_eligible.py - DUPLICATES THE SAME CALCULATION!
+class state_program_income_eligible(Variable):
+    def formula(household, period, parameters):
+        p = parameters(period).gov.states.xx.program
+        # ❌ Copy-pasted from above file
+        gross_income = add(household, period, ["income_source"])
+        has_income = household.members("income_source", period) > 0
+        num_people = household.sum(has_income)
+        deduction = p.deduction_amount * num_people
+        income_after_deduction = max_(gross_income - deduction, 0)
+        # ... then uses it for eligibility check
+        threshold = p.income_limit
+        return income_after_deduction < threshold
+```
+
+**✅ CORRECT: Reuse existing variables**
+
+```python
+# state_program_income_eligible.py - reuses existing calculation
+class state_program_income_eligible(Variable):
+    def formula(household, period, parameters):
+        p = parameters(period).gov.states.xx.program
+        # ✅ Use the already-calculated value from state_program_countable_income
+        countable_income = household("state_program_countable_income", period)
+        threshold = p.income_limit
+        return countable_income < threshold
+```
+
+**Why this matters:**
+- **Maintainability**: Change the calculation once, all dependents update automatically
+- **Correctness**: No risk of copy-paste errors causing inconsistencies
+- **Readability**: Shorter, clearer code that focuses on the specific logic
+- **Testing**: Test intermediate variables independently
+
+**When to create an intermediate variable:**
+1. If the same calculation appears in 2+ places → Create a variable for it
+2. If a calculation has >5 lines of logic → Consider breaking it into steps
+3. If DC or IL TANF has a similar intermediate variable → Follow their pattern
+
 ### **CRITICAL: Simplified TANF Implementation Rules**
 
 **For simplified TANF implementations, ALWAYS:**
 
-1. **Use federal demographic eligibility directly** - Do NOT create state-specific demographic variables:
-   ```python
-   # ✅ CORRECT - Use federal variable directly in ct_tanf_eligible
-   class ct_tanf_eligible(Variable):
-       def formula(spm_unit, period, parameters):
-           demographic_eligible = spm_unit("is_demographic_tanf_eligible", period)
-           immigration_eligible = spm_unit.any(
-               spm_unit.members("is_citizen_or_legal_immigrant", period)
-           )
-           income_eligible = spm_unit("ct_tanf_income_eligible", period)
-           resources_eligible = spm_unit("ct_tanf_resources_eligible", period)
+1. **Use federal demographic eligibility directly** - Do NOT create state-specific demographic variables
 
-           return (
-               demographic_eligible
-               & immigration_eligible
-               & income_eligible
-               & resources_eligible
-           )
+2. **Use federal immigration eligibility directly** - Do NOT create state-specific immigration variables
 
-   # ❌ WRONG - Don't create wrapper variables
-   # class ct_tanf_non_financial_eligible(Variable):
-   #     def formula(spm_unit, period, parameters):
-   #         demographic = spm_unit.any(
-   #             spm_unit.members("ct_tanf_demographic_eligible_person", period)
-   #         )
-   #         immigration = spm_unit.any(
-   #             spm_unit.members("ct_tanf_immigration_status_eligible_person", period)
-   #         )
-   #         return demographic & immigration
-   ```
-
-2. **Use federal immigration eligibility directly** - No separate immigration variable needed (see example above)
-
-3. **Use federal income sources directly** - Do NOT create state-specific income source parameters or gross income variables:
-
-   **CRITICAL: For simple TANF, ALWAYS use federal gross earned and unearned income**
-
-   ```python
-   # ✅ CORRECT - Use federal baseline for gross income, apply state deductions
-   class state_tanf_countable_unearned_income(Variable):
-       value_type = float
-       entity = SPMUnit
-       definition_period = MONTH
-       label = "[State] TANF countable unearned income"
-       unit = USD
-       defined_for = StateCode.XX
-
-       def formula(spm_unit, period, parameters):
-           p = parameters(period).gov.states.xx.agency.tanf.income
-           # Use federal baseline (includes child_support_received)
-           total_unearned = add(spm_unit, period, ["tanf_gross_unearned_income"])
-           # Apply state's child support passthrough deduction (if applicable)
-           child_support = add(spm_unit, period, ["child_support_received"])
-           passthrough = min_(child_support, p.deductions.child_support_passthrough)
-           return max_(0, total_unearned - passthrough)
-
-   # ❌ WRONG - Don't create state-specific gross income variables
-   # class state_tanf_gross_unearned_income(Variable):
-   #     # This should NOT exist for simplified TANF
-   #     adds = "gov.states.xx.agency.tanf.income.sources.unearned"
-
-   # ❌ WRONG - Don't exclude income sources just because there's a deduction
-   # Even if state has child support passthrough, child support is still
-   # in gross income - the passthrough is a DEDUCTION, not SOURCE exclusion
-   ```
-
-   **Understanding Passthroughs vs Exclusions:**
-   - **Passthrough** (e.g., $50 child support) = DEDUCTION from total income
-   - **Exclusion** (e.g., SSI, EITC) = NOT included in gross income sources
-   - Use federal baseline, apply passthrough as deduction
+3. **Use federal income sources directly** - Do NOT create state-specific income source parameters or gross income variables
+   - Use federal baseline: `tanf_gross_earned_income` and `tanf_gross_unearned_income`
+   - Apply state-specific deductions (e.g., child support passthrough) to federal baseline
+   - Passthrough = DEDUCTION from income, not source exclusion
 
 4. **Do NOT create these files for simplified implementations:**
    - ❌ `[state]_tanf_demographic_eligible_person.py`
@@ -343,36 +372,13 @@ class il_tanf_countable_earned_income(Variable):
    - ❌ `parameters/.../income/sources/unearned.yaml`
    - ❌ `parameters/.../age_threshold/minor_child.yaml`
 
-5. **Use `adds` pattern for simple summing or passthrough** - Do NOT use formula with `add()` or simple variable return:
-   ```python
-   # ✅ CORRECT - Use adds for summing multiple variables
-   class ct_tanf_countable_income(Variable):
-       adds = ["ct_tanf_countable_earned_income", "ct_tanf_countable_unearned_income"]
-
-   class ct_tanf_countable_earned_income(Variable):
-       adds = ["ct_tanf_earned_income_after_disregard"]
-
-   # ✅ CORRECT - Use adds for passthrough/alias
-   class ct_tanf_countable_resources(Variable):
-       adds = ["spm_unit_assets"]
-
-   # ❌ WRONG - Don't use formula for simple summing
-   # class ct_tanf_countable_income(Variable):
-   #     def formula(spm_unit, period, parameters):
-   #         return add(spm_unit, period, [
-   #             "ct_tanf_countable_earned_income",
-   #             "ct_tanf_countable_unearned_income"
-   #         ])
-
-   # ❌ WRONG - Don't use formula for passthrough
-   # class ct_tanf_countable_resources(Variable):
-   #     def formula(spm_unit, period, parameters):
-   #         return spm_unit("spm_unit_assets", period)
-   ```
+5. **Use `adds` pattern for simple summing or passthrough** - Do NOT use formula with `add()` or simple variable return
 
    **When to use `adds` vs `formula`:**
    - Use `adds` when: Just summing variables OR passing through a single variable
    - Use `formula` when: Applying transformations, calculations, conditions, or logic
+
+   Study DC and IL TANF to see how they use `adds` for income aggregation
 
    **After implementing, review ALL variables systematically:**
    - Search for patterns like `return add(`, `return variable(`, `return entity(`
