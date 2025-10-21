@@ -1,0 +1,12 @@
+description: Connecticut allows continuing recipients to have countable income below this percentage of the Federal Poverty Level before the earned income disregard is fully exhausted.
+
+values:
+  2022-07-01: 1.0
+
+metadata:
+  unit: /1
+  period: month
+  label: CT TANF continuing eligibility income limit
+  reference:
+    - title: CT TANF State Plan 2024-2026, Section A.1 - TFA Component of Jobs First
+      href: https://portal.ct.gov/-/media/departments-and-agencies/dss/economic-security/ct-tanf-state-plan-2024---2026---41524-amendment.pdf

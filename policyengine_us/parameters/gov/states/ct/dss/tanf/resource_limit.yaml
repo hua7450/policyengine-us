@@ -1,0 +1,12 @@
+description: Connecticut limits total household countable assets to this amount for Temporary Family Assistance eligibility.
+
+values:
+  2022-07-01: 6_000
+
+metadata:
+  unit: currency-USD
+  period: year
+  label: CT TANF resource limit
+  reference:
+    - title: CT TANF State Plan 2024-2026 - Asset and Vehicle Limits
+      href: https://portal.ct.gov/-/media/departments-and-agencies/dss/economic-security/ct-tanf-state-plan-2024---2026---41524-amendment.pdf
