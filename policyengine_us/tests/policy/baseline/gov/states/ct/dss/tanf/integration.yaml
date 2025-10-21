@@ -1,42 +1,4 @@
-- name: Case 1, single parent with two children and part-time work (applicant).
-  period: 2024-01
-  absolute_error_margin: 0.01
-  input:
-    people:
-      person1:
-        age: 32
-        employment_income: 18_000  # $1,500/month
-      person2:
-        age: 8
-        is_tax_unit_dependent: true
-      person3:
-        age: 5
-        is_tax_unit_dependent: true
-    spm_units:
-      spm_unit:
-        members: [person1, person2, person3]
-        is_tanf_enrolled: false
-    tax_units:
-      tax_unit:
-        members: [person1, person2, person3]
-    households:
-      household:
-        members: [person1, person2, person3]
-        state_code: CT
-  output:
-    # Applicant status: $90 disregard per person
-    # Gross earned: $1,500/month
-    # Disregard: $90 (applicant disregard)
-    # Countable earned: $1,500 - $90 = $1,410
-    # No unearned income
-    # Countable income: $1,410
-    # Payment standard for 3: $833
-    # Benefit: max($833 - $1,410, 0) = $0
-    ct_tanf_countable_income: 1_410
-    ct_tanf_payment_standard: 833
-    ct_tanf: 0
-
-- name: Case 2, two-parent household with three children, one earner (applicant).
+- name: Case 1, two-parent household with three children applying for TANF.
   period: 2024-01
   absolute_error_margin: 0.01
   input:
@@ -60,6 +22,7 @@
       spm_unit:
         members: [person1, person2, person3, person4, person5]
         is_tanf_enrolled: false
+        spm_unit_assets: 2_000
     tax_units:
       tax_unit:
         members: [person1, person2, person3, person4, person5]
@@ -68,52 +31,34 @@
         members: [person1, person2, person3, person4, person5]
         state_code: CT
   output:
-    # Applicant status: $90 disregard per earning person
-    # Gross earned: $1,000/month (person1 only)
-    # Disregard: $90 (one earner)
-    # Countable earned: $1,000 - $90 = $910
+    # Demographics: Has children, all US citizens
+    # Immigration: All eligible
+    # Assets: $2,000 < $6,000 limit
+    ct_tanf_resources_eligible: true
+
+    # Income calculation (applicant)
+    # Gross earned: $1,000/month
+    # Applicant disregard: $90 per person
+    # Countable earned: max($1,000 - $90, 0) = $910
     # No unearned income
     # Countable income: $910
+    ct_tanf_countable_earned_income: 910
+    ct_tanf_countable_unearned_income: 0
+    ct_tanf_countable_income: 910
+
+    # Income test: $910 < 55% FPL for 5 ($1,326.65)
+    ct_tanf_income_eligible: true
+
+    # Eligibility: All tests pass
+    ct_tanf_eligible: true
+
+    # Benefit calculation
     # Payment standard for 5: $1,177
     # Benefit: $1,177 - $910 = $267
-    ct_tanf_countable_income: 910
     ct_tanf_payment_standard: 1_177
-    ct_tanf_eligible: true
     ct_tanf: 267
 
-- name: Case 3, single parent with one child at income threshold (applicant).
-  period: 2024-01
-  absolute_error_margin: 0.01
-  input:
-    people:
-      person1:
-        age: 28
-        employment_income: 10_080  # Exactly at 55% FPL for 2 after $90 disregard
-      person2:
-        age: 6
-        is_tax_unit_dependent: true
-    spm_units:
-      spm_unit:
-        members: [person1, person2]
-        is_tanf_enrolled: false
-    tax_units:
-      tax_unit:
-        members: [person1, person2]
-    households:
-      household:
-        members: [person1, person2]
-        state_code: CT
-  output:
-    # Gross earned: $840/month ($10,080/12)
-    # Disregard: $90
-    # Countable earned: $840 - $90 = $750
-    # Payment standard for 2: $661
-    # Benefit: max($661 - $750, 0) = $0
-    ct_tanf_countable_income: 750
-    ct_tanf_payment_standard: 661
-    ct_tanf: 0
-
-- name: Case 4, household with unearned income (child support) (recipient).
+- name: Case 2, single parent recipient with child support and moderate earnings.
   period: 2024-01
   absolute_error_margin: 0.01
   input:
@@ -129,6 +74,7 @@
       spm_unit:
         members: [person1, person2]
         is_tanf_enrolled: true
+        spm_unit_assets: 1_500
     tax_units:
       tax_unit:
         members: [person1, person2]
@@ -137,27 +83,44 @@
         members: [person1, person2]
         state_code: CT
   output:
-    # Recipient status: 100% FPL disregard on earned income
-    # Gross earned: $1,250/month
-    # FPL for 2 (2024): approximately $1,580/month
+    # Demographics: Has child, US citizens
+    # Assets: $1,500 < $6,000 limit
+    ct_tanf_resources_eligible: true
+
+    # Income calculation (recipient)
+    # Gross earned: $1,250/month ($15,000/12)
+    # Recipient FPL disregard: $1,580 (FPL for 2)
     # Countable earned: max($1,250 - $1,580, 0) = $0
-    # Child support: $100/month - $50 passthrough = $50 countable
-    # Countable income: $0 + $50 = $50
+    ct_tanf_countable_earned_income: 0
+
+    # Child support: $100/month ($1,200/12)
+    # Passthrough: min($100, $50) = $50
+    # Countable unearned: $100 - $50 = $50
+    ct_tanf_countable_unearned_income: 50
+
+    # Total countable income: $0 + $50 = $50
+    ct_tanf_countable_income: 50
+
+    # Income test: $50 < 100% FPL ($1,580)
+    ct_tanf_income_eligible: true
+
+    # Eligibility: All tests pass
+    ct_tanf_eligible: true
+
+    # Benefit calculation
     # Payment standard for 2: $661
     # Benefit: $661 - $50 = $611
-    ct_tanf_countable_income: 50
     ct_tanf_payment_standard: 661
-    ct_tanf_eligible: true
     ct_tanf: 611
 
-- name: Case 5, family of four with moderate earnings (recipient).
+- name: Case 3, family of four with moderate earnings in extended eligibility range.
   period: 2024-01
   absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 40
-        employment_income: 24_000  # $2,000/month
+        employment_income: 48_000  # $4,000/month
       person2:
         age: 38
         employment_income: 0
@@ -171,6 +134,7 @@
       spm_unit:
         members: [person1, person2, person3, person4]
         is_tanf_enrolled: true
+        spm_unit_assets: 3_500
     tax_units:
       tax_unit:
         members: [person1, person2, person3, person4]
@@ -179,100 +143,34 @@
         members: [person1, person2, person3, person4]
         state_code: CT
   output:
-    # Recipient status: 100% FPL disregard
-    # Gross earned: $2,000/month
-    # FPL for 4 (2024): approximately $2,410/month
-    # Countable earned: max($2,000 - $2,410, 0) = $0
+    # Demographics: Has children, US citizens
+    # Assets: $3,500 < $6,000 limit
+    ct_tanf_resources_eligible: true
+
+    # Income calculation (recipient)
+    # Gross earned: $4,000/month ($48,000/12)
+    # Recipient FPL disregard: $2,410 (FPL for 4)
+    # Countable earned: max($4,000 - $2,410, 0) = $1,590
+    ct_tanf_countable_earned_income: 1_590
+
     # No unearned income
-    # Countable income: $0
+    ct_tanf_countable_unearned_income: 0
+
+    # Total countable income: $1,590
+    ct_tanf_countable_income: 1_590
+
+    # Income test (recipient):
+    # Countable income $1,590 > 100% FPL ($2,410) - false, passes standard
+    # But gross earnings $4,000 < 230% FPL ($5,543) - extended eligible
+    ct_tanf_income_eligible: true
+
+    # Eligibility: All tests pass
+    ct_tanf_eligible: true
+
+    # Benefit calculation
     # Payment standard for 4: $1,044
-    # Benefit: $1,044 - $0 = $1,044
-    ct_tanf_countable_income: 0
+    # Standard benefit: $1,044 - $1,590 = -$546 → $0
+    # Gross earnings $4,000 is in reduction tier (171%-230% FPL = $4,121-$5,543)
+    # Actually, $4,000 < $4,121 (171% FPL), so no reduction
     ct_tanf_payment_standard: 1_044
-    ct_tanf_eligible: true
-    ct_tanf: 1_044
-
-- name: Case 6, large family with no income (applicant).
-  period: 2024-01
-  absolute_error_margin: 0.01
-  input:
-    people:
-      person1:
-        age: 42
-        employment_income: 0
-      person2:
-        age: 40
-        employment_income: 0
-      person3:
-        age: 15
-        is_tax_unit_dependent: true
-      person4:
-        age: 12
-        is_tax_unit_dependent: true
-      person5:
-        age: 9
-        is_tax_unit_dependent: true
-      person6:
-        age: 6
-        is_tax_unit_dependent: true
-    spm_units:
-      spm_unit:
-        members: [person1, person2, person3, person4, person5, person6]
-        is_tanf_enrolled: false
-    tax_units:
-      tax_unit:
-        members: [person1, person2, person3, person4, person5, person6]
-    households:
-      household:
-        members: [person1, person2, person3, person4, person5, person6]
-        state_code: CT
-  output:
-    # No income
-    # Countable income: $0
-    # Payment standard for 6: $1,349
-    # Benefit: $1,349 - $0 = $1,349
-    ct_tanf_countable_income: 0
-    ct_tanf_payment_standard: 1_349
-    ct_tanf_eligible: true
-    ct_tanf: 1_349
-
-- name: Case 7, single parent with SSI child excluded (recipient).
-  period: 2024-01
-  absolute_error_margin: 0.01
-  input:
-    people:
-      person1:
-        age: 35
-        employment_income: 18_000  # $1,500/month
-      person2:
-        age: 10
-        is_tax_unit_dependent: true
-        ssi: 0  # Receiving SSI but excluded from assistance unit
-      person3:
-        age: 7
-        is_tax_unit_dependent: true
-    spm_units:
-      spm_unit:
-        members: [person1, person2, person3]
-        is_tanf_enrolled: true
-    tax_units:
-      tax_unit:
-        members: [person1, person2, person3]
-    households:
-      household:
-        members: [person1, person2, person3]
-        state_code: CT
-  output:
-    # Recipient status: 100% FPL disregard
-    # Gross earned: $1,500/month
-    # FPL for 3 (2024): approximately $2,072/month
-    # Note: SSI child may be excluded from assistance unit size
-    # Countable earned: max($1,500 - $2,072, 0) = $0
-    # SSI not counted as income
-    # Countable income: $0
-    # Payment standard for 3: $833
-    # Benefit: $833 - $0 = $833
-    ct_tanf_countable_income: 0
-    ct_tanf_payment_standard: 833
-    ct_tanf_eligible: true
-    ct_tanf: 833
+    ct_tanf: 0
