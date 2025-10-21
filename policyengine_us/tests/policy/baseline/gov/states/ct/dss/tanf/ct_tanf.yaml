@@ -1,0 +1,237 @@
+- name: Case 1, no countable income receives full payment standard.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 0
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ct_tanf_eligible: true
+        ct_tanf_payment_standard: 661
+        ct_tanf_countable_income: 0
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Benefit = max($661 - $0, 0) = $661
+    ct_tanf: 661
+
+- name: Case 2, countable income below payment standard.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 6_000  # $500/month
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ct_tanf_eligible: true
+        ct_tanf_payment_standard: 661
+        ct_tanf_countable_income: 200
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Benefit = max($661 - $200, 0) = $461
+    ct_tanf: 461
+
+- name: Case 3, countable income equals payment standard.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 9_600  # $800/month
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ct_tanf_eligible: true
+        ct_tanf_payment_standard: 661
+        ct_tanf_countable_income: 661
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Benefit = max($661 - $661, 0) = $0
+    ct_tanf: 0
+
+- name: Case 4, countable income exceeds payment standard.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 10_800  # $900/month
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ct_tanf_eligible: true
+        ct_tanf_payment_standard: 661
+        ct_tanf_countable_income: 700
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Benefit = max($661 - $700, 0) = $0
+    ct_tanf: 0
+
+- name: Case 5, extended eligibility reduction tier at 171 percent FPL.
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 33_721  # $2,810.09/month (171% of 2024 FPL)
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ct_tanf_eligible: true
+        ct_tanf_payment_standard: 661
+        ct_tanf_countable_income: 0
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Standard benefit = $661 - $0 = $661
+    # In reduction tier (171% of 2024 FPL), 20% reduction
+    # Benefit = $661 * 0.8 = $528.80
+    ct_tanf: 528.80
+
+- name: Case 6, extended eligibility reduction tier at 200 percent FPL.
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 39_440  # $3,286.67/month (200% of 2024 FPL)
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ct_tanf_eligible: true
+        ct_tanf_payment_standard: 661
+        ct_tanf_countable_income: 0
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Standard benefit = $661 - $0 = $661
+    # In reduction tier (200% of 2024 FPL), 20% reduction
+    # Benefit = $661 * 0.8 = $528.80
+    ct_tanf: 528.80
+
+- name: Case 7, extended eligibility reduction tier at 230 percent FPL.
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 45_356  # $3,779.67/month (230% of 2024 FPL)
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ct_tanf_eligible: true
+        ct_tanf_payment_standard: 661
+        ct_tanf_countable_income: 0
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Standard benefit = $661 - $0 = $661
+    # At upper boundary of reduction tier (230% of 2024 FPL), 20% reduction
+    # Benefit = $661 * 0.8 = $528.80
+    ct_tanf: 528.80
+
+- name: Case 8, just below extended eligibility reduction tier.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 33_700  # $2,808.33/month (just below 171% of 2024 FPL)
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ct_tanf_eligible: true
+        ct_tanf_payment_standard: 661
+        ct_tanf_countable_income: 0
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Standard benefit = $661 - $0 = $661
+    # Below 171% of 2024 FPL, no reduction
+    ct_tanf: 661
+
+- name: Case 9, above extended eligibility reduction tier.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 45_400  # $3,783.33/month (above 230% of 2024 FPL)
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ct_tanf_eligible: true
+        ct_tanf_payment_standard: 661
+        ct_tanf_countable_income: 0
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Standard benefit = $661 - $0 = $661
+    # Above 230% of 2024 FPL, no reduction (but would be ineligible)
+    ct_tanf: 661
+
+- name: Case 10, zero payment standard.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 25
+    spm_units:
+      spm_unit:
+        members: [person1]
+        ct_tanf_eligible: true
+        ct_tanf_payment_standard: 0
+        ct_tanf_countable_income: 0
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    # Benefit = max($0 - $0, 0) = $0
+    ct_tanf: 0

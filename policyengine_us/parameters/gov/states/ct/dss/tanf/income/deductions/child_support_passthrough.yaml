@@ -1,0 +1,12 @@
+description: Connecticut excludes up to this amount per month of current child support payments from countable unearned income.
+
+values:
+  2022-07-01: 50
+
+metadata:
+  unit: currency-USD
+  period: month
+  label: CT TANF child support passthrough
+  reference:
+    - title: CT TANF State Plan 2024-2026 - Child Support Passthrough Policy
+      href: https://portal.ct.gov/-/media/departments-and-agencies/dss/economic-security/ct-tanf-state-plan-2024---2026---41524-amendment.pdf

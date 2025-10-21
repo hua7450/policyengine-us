@@ -1,0 +1,271 @@
+- name: Case 1, applicant with zero earnings.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 0
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        is_tanf_enrolled: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Applicant: 2 eligible persons * $90 = $180 disregard
+    # Countable = max($0 - $180, 0) = $0
+    ct_tanf_earned_income_after_disregard: 0
+
+- name: Case 2, applicant with low earnings below disregard.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 1_200  # $100/month
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        is_tanf_enrolled: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Applicant: 2 eligible persons * $90 = $180 disregard
+    # Countable = max($100 - $180, 0) = $0
+    ct_tanf_earned_income_after_disregard: 0
+
+- name: Case 3, applicant with earnings equal to disregard.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 2_160  # $180/month
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        is_tanf_enrolled: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Applicant: 2 eligible persons * $90 = $180 disregard
+    # Countable = max($180 - $180, 0) = $0
+    ct_tanf_earned_income_after_disregard: 0
+
+- name: Case 4, applicant with earnings above disregard.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 12_000  # $1,000/month
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        is_tanf_enrolled: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Applicant: 2 eligible persons * $90 = $180 disregard
+    # Countable = max($1,000 - $180, 0) = $820
+    ct_tanf_earned_income_after_disregard: 820
+
+- name: Case 5, applicant two-person household.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 6_000  # $500/month
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        is_tanf_enrolled: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Applicant: 2 persons * $90 = $180 disregard
+    # Countable = max($500 - $180, 0) = $320
+    ct_tanf_earned_income_after_disregard: 320
+
+- name: Case 6, recipient with zero earnings.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 0
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        is_tanf_enrolled: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Recipient: FPL disregard = $1,580
+    # Countable = max($0 - $1,580, 0) = $0
+    ct_tanf_earned_income_after_disregard: 0
+
+- name: Case 7, recipient with earnings below FPL.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 12_000  # $1,000/month
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        is_tanf_enrolled: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Recipient: FPL disregard = $1,580
+    # Countable = max($1,000 - $1,580, 0) = $0
+    ct_tanf_earned_income_after_disregard: 0
+
+- name: Case 8, recipient with earnings equal to FPL.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 18_960  # $1,580/month
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        is_tanf_enrolled: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Recipient: FPL disregard = $1,580
+    # Countable = max($1,580 - $1,580, 0) = $0
+    ct_tanf_earned_income_after_disregard: 0
+
+- name: Case 9, recipient with earnings above FPL.
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 24_000  # $2,000/month
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        is_tanf_enrolled: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Recipient: FPL disregard = $1,643.33 (2024 FPL for 2)
+    # Countable = max($2,000 - $1,643.33, 0) = $356.67
+    ct_tanf_earned_income_after_disregard: 356.67
+
+- name: Case 10, recipient with high earnings.
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 36_000  # $3,000/month
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        is_tanf_enrolled: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Recipient: FPL disregard = $1,643.33 (2024 FPL for 2)
+    # Countable = max($3,000 - $1,643.33, 0) = $1,356.67
+    ct_tanf_earned_income_after_disregard: 1_356.67
+
+- name: Case 11, applicant with three eligible persons.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 35
+        employment_income: 9_600  # $800/month
+      person2:
+        age: 8
+      person3:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        is_tanf_enrolled: false
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: CT
+  output:
+    # Applicant: 3 eligible persons * $90 = $270 disregard
+    # Countable = max($800 - $270, 0) = $530
+    ct_tanf_earned_income_after_disregard: 530
+
+- name: Case 12, recipient larger household with earnings below FPL.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 40
+        employment_income: 24_000  # $2,000/month
+      person2:
+        age: 38
+      person3:
+        age: 12
+      person4:
+        age: 9
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3, person4]
+        is_tanf_enrolled: true
+    households:
+      household:
+        members: [person1, person2, person3, person4]
+        state_code: CT
+  output:
+    # Recipient: FPL disregard = $2,410
+    # Countable = max($2,000 - $2,410, 0) = $0
+    ct_tanf_earned_income_after_disregard: 0
