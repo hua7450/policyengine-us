@@ -21,12 +21,10 @@ class ct_tanf_earned_income_after_disregard(Variable):
         # Check if enrolled - different disregards for applicants vs recipients
         is_enrolled = spm_unit("is_tanf_enrolled", period)
 
-        # Applicants: $90 per eligible person
-        num_eligible_persons = spm_unit.sum(
-            spm_unit.members("is_demographic_tanf_eligible", period)
-        )
+        # Applicants: $90 per person in the unit
+        unit_size = spm_unit("spm_unit_size", period)
         applicant_disregard = (
-            num_eligible_persons * p.applicant_earned_income_disregard
+            unit_size * p.applicant_earned_income_disregard
         )
         applicant_countable = max_(
             total_gross_earnings - applicant_disregard, 0

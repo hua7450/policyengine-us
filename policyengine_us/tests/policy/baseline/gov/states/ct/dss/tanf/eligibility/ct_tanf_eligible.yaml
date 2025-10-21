@@ -9,11 +9,9 @@
     people:
       person1:
         age: 30
-        is_demographic_tanf_eligible: true
         is_citizen_or_legal_immigrant: true
       person2:
         age: 5
-        is_demographic_tanf_eligible: true
         is_citizen_or_legal_immigrant: true
     households:
       household:
@@ -33,11 +31,9 @@
     people:
       person1:
         age: 25
-        is_demographic_tanf_eligible: false
         is_citizen_or_legal_immigrant: true
       person2:
         age: 26
-        is_demographic_tanf_eligible: false
         is_citizen_or_legal_immigrant: true
     households:
       household:
@@ -58,11 +54,9 @@
     people:
       person1:
         age: 30
-        is_demographic_tanf_eligible: true
         is_citizen_or_legal_immigrant: false
       person2:
         age: 5
-        is_demographic_tanf_eligible: true
         is_citizen_or_legal_immigrant: false
     households:
       household:
@@ -83,11 +77,9 @@
     people:
       person1:
         age: 30
-        is_demographic_tanf_eligible: true
         is_citizen_or_legal_immigrant: true
       person2:
         age: 5
-        is_demographic_tanf_eligible: true
         is_citizen_or_legal_immigrant: true
     households:
       household:
@@ -108,11 +100,9 @@
     people:
       person1:
         age: 30
-        is_demographic_tanf_eligible: true
         is_citizen_or_legal_immigrant: true
       person2:
         age: 5
-        is_demographic_tanf_eligible: true
         is_citizen_or_legal_immigrant: true
     households:
       household:
@@ -133,11 +123,9 @@
     people:
       person1:
         age: 30
-        is_demographic_tanf_eligible: true
         is_citizen_or_legal_immigrant: false
       person2:
         age: 5
-        is_demographic_tanf_eligible: true
         is_citizen_or_legal_immigrant: true
     households:
       household:
@@ -158,11 +146,9 @@
     people:
       person1:
         age: 25
-        is_demographic_tanf_eligible: false
         is_citizen_or_legal_immigrant: false
       person2:
         age: 26
-        is_demographic_tanf_eligible: false
         is_citizen_or_legal_immigrant: false
     households:
       household:
@@ -183,11 +169,9 @@
     people:
       person1:
         age: 28
-        is_demographic_tanf_eligible: true
         is_citizen_or_legal_immigrant: true
       person2:
         age: 3
-        is_demographic_tanf_eligible: true
         is_citizen_or_legal_immigrant: true
     households:
       household:
@@ -207,23 +191,18 @@
     people:
       person1:
         age: 40
-        is_demographic_tanf_eligible: true
         is_citizen_or_legal_immigrant: true
       person2:
         age: 38
-        is_demographic_tanf_eligible: true
         is_citizen_or_legal_immigrant: true
       person3:
         age: 12
-        is_demographic_tanf_eligible: true
         is_citizen_or_legal_immigrant: true
       person4:
         age: 9
-        is_demographic_tanf_eligible: true
         is_citizen_or_legal_immigrant: true
       person5:
         age: 3
-        is_demographic_tanf_eligible: true
         is_citizen_or_legal_immigrant: true
     households:
       household:

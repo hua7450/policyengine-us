@@ -10,10 +10,8 @@ class ct_tanf_eligible(Variable):
     defined_for = StateCode.CT
 
     def formula(spm_unit, period, parameters):
-        # Demographic eligibility: at least one eligible child or pregnant person
-        demographic_eligible = spm_unit.any(
-            spm_unit.members("is_demographic_tanf_eligible", period)
-        )
+        # Demographic eligibility: SPM unit has at least one eligible child or pregnant person
+        demographic_eligible = spm_unit("is_demographic_tanf_eligible", period)
 
         # Immigration eligibility: at least one citizen or legal immigrant
         immigration_eligible = spm_unit.any(

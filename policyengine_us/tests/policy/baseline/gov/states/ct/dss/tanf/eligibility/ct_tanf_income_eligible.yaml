@@ -1,18 +1,17 @@
 - name: Case 1, applicant with zero income.
   period: 2024-01
   input:
+    people:
+      person1:
+        age: 30
+        employment_income: 0
+      person2:
+        age: 5
     spm_units:
       spm_unit:
         members: [person1, person2]
         ct_tanf_countable_income: 0
-        tanf_gross_earned_income: 0
-        tanf_fpg: 1_580
         is_tanf_enrolled: false
-    people:
-      person1:
-        age: 30
-      person2:
-        age: 5
     households:
       household:
         members: [person1, person2]
@@ -24,18 +23,17 @@
 - name: Case 2, applicant below 55 percent FPL.
   period: 2024-01
   input:
+    people:
+      person1:
+        age: 30
+        employment_income: 12_000  # $1,000/month
+      person2:
+        age: 5
     spm_units:
       spm_unit:
         members: [person1, person2]
         ct_tanf_countable_income: 800
-        tanf_gross_earned_income: 1_000
-        tanf_fpg: 1_580
         is_tanf_enrolled: false
-    people:
-      person1:
-        age: 30
-      person2:
-        age: 5
     households:
       household:
         members: [person1, person2]
@@ -47,18 +45,17 @@
 - name: Case 3, applicant at 55 percent FPL boundary minus one dollar.
   period: 2024-01
   input:
+    people:
+      person1:
+        age: 30
+        employment_income: 12_000  # $1,000/month
+      person2:
+        age: 5
     spm_units:
       spm_unit:
         members: [person1, person2]
         ct_tanf_countable_income: 868
-        tanf_gross_earned_income: 1_000
-        tanf_fpg: 1_580
         is_tanf_enrolled: false
-    people:
-      person1:
-        age: 30
-      person2:
-        age: 5
     households:
       household:
         members: [person1, person2]
@@ -70,18 +67,17 @@
 - name: Case 4, applicant at 55 percent FPL boundary.
   period: 2024-01
   input:
+    people:
+      person1:
+        age: 30
+        employment_income: 12_000  # $1,000/month
+      person2:
+        age: 5
     spm_units:
       spm_unit:
         members: [person1, person2]
         ct_tanf_countable_income: 869
-        tanf_gross_earned_income: 1_000
-        tanf_fpg: 1_580
         is_tanf_enrolled: false
-    people:
-      person1:
-        age: 30
-      person2:
-        age: 5
     households:
       household:
         members: [person1, person2]
@@ -93,18 +89,17 @@
 - name: Case 5, applicant above 55 percent FPL.
   period: 2024-01
   input:
+    people:
+      person1:
+        age: 30
+        employment_income: 13_200  # $1,100/month
+      person2:
+        age: 5
     spm_units:
       spm_unit:
         members: [person1, person2]
         ct_tanf_countable_income: 900
-        tanf_gross_earned_income: 1_100
-        tanf_fpg: 1_580
         is_tanf_enrolled: false
-    people:
-      person1:
-        age: 30
-      person2:
-        age: 5
     households:
       household:
         members: [person1, person2]
@@ -116,18 +111,17 @@
 - name: Case 6, recipient with zero income.
   period: 2024-01
   input:
+    people:
+      person1:
+        age: 30
+        employment_income: 0
+      person2:
+        age: 5
     spm_units:
       spm_unit:
         members: [person1, person2]
         ct_tanf_countable_income: 0
-        tanf_gross_earned_income: 0
-        tanf_fpg: 1_580
         is_tanf_enrolled: true
-    people:
-      person1:
-        age: 30
-      person2:
-        age: 5
     households:
       household:
         members: [person1, person2]
@@ -139,18 +133,17 @@
 - name: Case 7, recipient below 100 percent FPL.
   period: 2024-01
   input:
+    people:
+      person1:
+        age: 30
+        employment_income: 24_000  # $2,000/month
+      person2:
+        age: 5
     spm_units:
       spm_unit:
         members: [person1, person2]
         ct_tanf_countable_income: 1_000
-        tanf_gross_earned_income: 2_000
-        tanf_fpg: 1_580
         is_tanf_enrolled: true
-    people:
-      person1:
-        age: 30
-      person2:
-        age: 5
     households:
       household:
         members: [person1, person2]
@@ -162,18 +155,17 @@
 - name: Case 8, recipient at 100 percent FPL boundary minus one dollar.
   period: 2024-01
   input:
+    people:
+      person1:
+        age: 30
+        employment_income: 30_000  # $2,500/month
+      person2:
+        age: 5
     spm_units:
       spm_unit:
         members: [person1, person2]
         ct_tanf_countable_income: 1_579
-        tanf_gross_earned_income: 2_500
-        tanf_fpg: 1_580
         is_tanf_enrolled: true
-    people:
-      person1:
-        age: 30
-      person2:
-        age: 5
     households:
       household:
         members: [person1, person2]
@@ -185,18 +177,17 @@
 - name: Case 9, recipient at 100 percent FPL boundary.
   period: 2024-01
   input:
+    people:
+      person1:
+        age: 30
+        employment_income: 30_000  # $2,500/month
+      person2:
+        age: 5
     spm_units:
       spm_unit:
         members: [person1, person2]
         ct_tanf_countable_income: 1_580
-        tanf_gross_earned_income: 2_500
-        tanf_fpg: 1_580
         is_tanf_enrolled: true
-    people:
-      person1:
-        age: 30
-      person2:
-        age: 5
     households:
       household:
         members: [person1, person2]
@@ -209,18 +200,17 @@
 - name: Case 10, recipient above 100 percent FPL but extended eligible.
   period: 2024-01
   input:
+    people:
+      person1:
+        age: 30
+        employment_income: 36_000  # $3,000/month (190% FPL)
+      person2:
+        age: 5
     spm_units:
       spm_unit:
         members: [person1, person2]
         ct_tanf_countable_income: 1_700
-        tanf_gross_earned_income: 3_000  # 190% FPL
-        tanf_fpg: 1_580
         is_tanf_enrolled: true
-    people:
-      person1:
-        age: 30
-      person2:
-        age: 5
     households:
       household:
         members: [person1, person2]
@@ -234,18 +224,17 @@
 - name: Case 11, recipient at 230 percent FPL boundary.
   period: 2024-01
   input:
+    people:
+      person1:
+        age: 30
+        employment_income: 43_608  # $3,634/month (230% FPL)
+      person2:
+        age: 5
     spm_units:
       spm_unit:
         members: [person1, person2]
         ct_tanf_countable_income: 2_000
-        tanf_gross_earned_income: 3_634  # 230% FPL
-        tanf_fpg: 1_580
         is_tanf_enrolled: true
-    people:
-      person1:
-        age: 30
-      person2:
-        age: 5
     households:
       household:
         members: [person1, person2]
@@ -259,18 +248,17 @@
 - name: Case 12, recipient above 230 percent FPL.
   period: 2024-01
   input:
+    people:
+      person1:
+        age: 30
+        employment_income: 44_400  # $3,700/month (above 230% FPL)
+      person2:
+        age: 5
     spm_units:
       spm_unit:
         members: [person1, person2]
         ct_tanf_countable_income: 2_500
-        tanf_gross_earned_income: 3_700  # Above 230% FPL
-        tanf_fpg: 1_580
         is_tanf_enrolled: true
-    people:
-      person1:
-        age: 30
-      person2:
-        age: 5
     households:
       household:
         members: [person1, person2]
@@ -284,22 +272,21 @@
 - name: Case 13, larger household applicant at threshold.
   period: 2024-01
   input:
-    spm_units:
-      spm_unit:
-        members: [person1, person2, person3, person4]
-        ct_tanf_countable_income: 1_325  # Just below 55% of 4-person FPL
-        tanf_gross_earned_income: 1_500
-        tanf_fpg: 2_410
-        is_tanf_enrolled: false
     people:
       person1:
         age: 40
+        employment_income: 18_000  # $1,500/month
       person2:
         age: 38
       person3:
         age: 12
       person4:
         age: 9
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3, person4]
+        ct_tanf_countable_income: 1_325  # Just below 55% of 4-person FPL
+        is_tanf_enrolled: false
     households:
       household:
         members: [person1, person2, person3, person4]
@@ -311,22 +298,21 @@
 - name: Case 14, larger household recipient in extended range.
   period: 2024-01
   input:
-    spm_units:
-      spm_unit:
-        members: [person1, person2, person3, person4]
-        ct_tanf_countable_income: 2_500
-        tanf_gross_earned_income: 5_000  # ~207% FPL
-        tanf_fpg: 2_410
-        is_tanf_enrolled: true
     people:
       person1:
         age: 40
+        employment_income: 60_000  # $5,000/month (~207% FPL)
       person2:
         age: 38
       person3:
         age: 12
       person4:
         age: 9
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3, person4]
+        ct_tanf_countable_income: 2_500
+        is_tanf_enrolled: true
     households:
       household:
         members: [person1, person2, person3, person4]
@@ -340,18 +326,18 @@
 - name: Case 15, recipient with no gross earnings above 100 percent FPL.
   period: 2024-01
   input:
+    people:
+      person1:
+        age: 30
+        employment_income: 0
+        unemployment_compensation: 19_200  # $1,600/month unearned
+      person2:
+        age: 5
     spm_units:
       spm_unit:
         members: [person1, person2]
         ct_tanf_countable_income: 1_600
-        tanf_gross_earned_income: 0
-        tanf_fpg: 1_580
         is_tanf_enrolled: true
-    people:
-      person1:
-        age: 30
-      person2:
-        age: 5
     households:
       household:
         members: [person1, person2]
@@ -364,16 +350,15 @@
 - name: Case 16, applicant household size 1.
   period: 2024-01
   input:
+    people:
+      person1:
+        age: 17
+        employment_income: 8_400  # $700/month
     spm_units:
       spm_unit:
         members: [person1]
         ct_tanf_countable_income: 604
-        tanf_gross_earned_income: 700
-        tanf_fpg: 1_100
         is_tanf_enrolled: false
-    people:
-      person1:
-        age: 17
     households:
       household:
         members: [person1]
@@ -385,16 +370,15 @@
 - name: Case 17, applicant household size 1 at boundary.
   period: 2024-01
   input:
+    people:
+      person1:
+        age: 17
+        employment_income: 8_400  # $700/month
     spm_units:
       spm_unit:
         members: [person1]
         ct_tanf_countable_income: 605
-        tanf_gross_earned_income: 700
-        tanf_fpg: 1_100
         is_tanf_enrolled: false
-    people:
-      person1:
-        age: 17
     households:
       household:
         members: [person1]

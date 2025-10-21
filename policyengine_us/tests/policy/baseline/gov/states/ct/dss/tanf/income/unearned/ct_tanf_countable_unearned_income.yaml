@@ -1,16 +1,15 @@
 - name: Case 1, no unearned income.
   period: 2024-01
   input:
-    spm_units:
-      spm_unit:
-        members: [person1, person2]
-        tanf_gross_unearned_income: 0
-        child_support_received: 0
     people:
       person1:
         age: 30
+        child_support_received: 0
       person2:
         age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
     households:
       household:
         members: [person1, person2]
@@ -22,16 +21,15 @@
 - name: Case 2, child support below passthrough amount.
   period: 2024-01
   input:
-    spm_units:
-      spm_unit:
-        members: [person1, person2]
-        tanf_gross_unearned_income: 30
-        child_support_received: 30
     people:
       person1:
         age: 30
+        child_support_received: 360  # $30/month
       person2:
         age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
     households:
       household:
         members: [person1, person2]
@@ -45,16 +43,15 @@
 - name: Case 3, child support equal to passthrough amount.
   period: 2024-01
   input:
-    spm_units:
-      spm_unit:
-        members: [person1, person2]
-        tanf_gross_unearned_income: 50
-        child_support_received: 50
     people:
       person1:
         age: 30
+        child_support_received: 600  # $50/month
       person2:
         age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
     households:
       household:
         members: [person1, person2]
@@ -68,16 +65,15 @@
 - name: Case 4, child support above passthrough amount.
   period: 2024-01
   input:
-    spm_units:
-      spm_unit:
-        members: [person1, person2]
-        tanf_gross_unearned_income: 100
-        child_support_received: 100
     people:
       person1:
         age: 30
+        child_support_received: 1_200  # $100/month
       person2:
         age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
     households:
       household:
         members: [person1, person2]
@@ -91,16 +87,15 @@
 - name: Case 5, high child support.
   period: 2024-01
   input:
-    spm_units:
-      spm_unit:
-        members: [person1, person2]
-        tanf_gross_unearned_income: 500
-        child_support_received: 500
     people:
       person1:
         age: 30
+        child_support_received: 6_000  # $500/month
       person2:
         age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
     households:
       household:
         members: [person1, person2]
@@ -114,16 +109,16 @@
 - name: Case 6, other unearned income without child support.
   period: 2024-01
   input:
-    spm_units:
-      spm_unit:
-        members: [person1, person2]
-        tanf_gross_unearned_income: 200
-        child_support_received: 0
     people:
       person1:
         age: 30
+        child_support_received: 0
+        unemployment_compensation: 2_400  # $200/month
       person2:
         age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
     households:
       household:
         members: [person1, person2]
@@ -136,16 +131,16 @@
 - name: Case 7, mixed unearned income with partial child support.
   period: 2024-01
   input:
-    spm_units:
-      spm_unit:
-        members: [person1, person2]
-        tanf_gross_unearned_income: 300
-        child_support_received: 75
     people:
       person1:
         age: 30
+        child_support_received: 900  # $75/month
+        unemployment_compensation: 2_700  # $225/month (total unearned $300/month)
       person2:
         age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
     households:
       household:
         members: [person1, person2]
@@ -159,16 +154,16 @@
 - name: Case 8, zero child support with other unearned.
   period: 2024-01
   input:
-    spm_units:
-      spm_unit:
-        members: [person1, person2]
-        tanf_gross_unearned_income: 150
-        child_support_received: 0
     people:
       person1:
         age: 30
+        child_support_received: 0
+        unemployment_compensation: 1_800  # $150/month
       person2:
         age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
     households:
       household:
         members: [person1, person2]
