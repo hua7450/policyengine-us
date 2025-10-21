@@ -13,8 +13,18 @@ Merges the parallel branches from test-creator and rules-engineer, ensuring they
 
 1. **Merge parallel branches** into the integration branch
 2. **Fix basic integration issues** (entity mismatches, naming conflicts)
-3. **Verify tests run** with the implementation
-4. **Prepare codebase** for validation and fix agents
+3. **Prepare codebase** for validation (testing verification happens in Phase 6)
+
+## IMPORTANT: Ignore uv.lock Changes
+
+**ALWAYS discard uv.lock changes:**
+```bash
+git restore uv.lock
+```
+
+- uv.lock is a dependency lock file that changes with upstream updates
+- Never commit uv.lock changes unless explicitly updating dependencies
+- Discard it before any commits to keep PR clean
 
 ## Workflow
 
