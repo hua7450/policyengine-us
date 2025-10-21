@@ -13,13 +13,18 @@ class fl_tanf_resource_eligible(Variable):
     def formula(spm_unit, period, parameters):
         p = parameters(period).gov.states.fl.dcf.tanf
 
-        # For now, assume resource eligibility based on available data
-        # In a complete implementation, this would check countable assets
-        # and vehicle equity values against limits
+        # Check countable assets against resource limit
+        # Note: spm_unit_assets includes all household assets
+        total_assets = spm_unit("spm_unit_assets", period)
 
-        # Placeholder: assume eligible unless we have asset data
-        # A full implementation would check:
-        # - Total countable assets <= $2,000 (p.resource_limit)
-        # - Vehicle equity <= $8,500 (p.vehicle_limit)
+        # For vehicle assets, we use the standard vehicle_value variable
+        # Florida allows one vehicle exclusion up to $8,500 equity
+        vehicle_value = spm_unit("vehicle_owned_value", period)
 
-        return True
+        # Calculate countable assets (total assets minus exempt vehicle value)
+        # Exempt the first vehicle up to the vehicle limit
+        exempt_vehicle = min_(vehicle_value, p.vehicle_limit)
+        countable_assets = max_(total_assets - exempt_vehicle, 0)
+
+        # Family is resource eligible if countable assets <= resource limit
+        return countable_assets <= p.resource_limit

@@ -13,12 +13,16 @@ class fl_tanf_categorically_eligible(Variable):
     defined_for = StateCode.FL
 
     def formula(spm_unit, period, parameters):
-        # Children under 18 or under 19 and in high school
+        p = parameters(period).gov.states.fl.dcf.tanf.age_thresholds
+
+        # Children under child_max_age or under student_max_age and in high school
         person = spm_unit.members
         age = person("age", period)
         is_student = person("is_full_time_student", period)
 
-        is_qualifying_child = (age < 18) | ((age < 19) & is_student)
+        is_qualifying_child = (age < p.child_max_age) | (
+            (age < p.student_max_age) & is_student
+        )
         has_qualifying_child = spm_unit.any(is_qualifying_child)
 
         # Pregnant women

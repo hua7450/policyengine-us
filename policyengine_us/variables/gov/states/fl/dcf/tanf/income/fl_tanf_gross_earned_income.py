@@ -12,6 +12,8 @@ class fl_tanf_gross_earned_income(Variable):
     defined_for = StateCode.FL
 
     def formula(spm_unit, period, parameters):
+        p = parameters(period).gov.states.fl.dcf.tanf.age_thresholds
+
         person = spm_unit.members
 
         # Get individual earned income
@@ -21,8 +23,8 @@ class fl_tanf_gross_earned_income(Variable):
         age = person("age", period)
         is_student = person("is_full_time_student", period)
 
-        # Exclude earnings of full-time students under 19 in high school
-        is_excluded_student = is_student & (age < 19)
+        # Exclude earnings of full-time students under student_max_age in high school
+        is_excluded_student = is_student & (age < p.student_max_age)
 
         # Apply exclusions
         countable_earned = where(is_excluded_student, 0, earned_income)
