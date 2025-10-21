@@ -1,0 +1,11 @@
+description: Connecticut reduces benefits by this percentage when gross earnings are between 171% and 230% of FPL during the transitional benefit period.
+metadata:
+  unit: /1
+  period: month
+  reference:
+    - title: Connecticut TANF State Plan 2024-2026, Section A, Part I, A.1
+      href: https://portal.ct.gov/-/media/departments-and-agencies/dss/economic-security/ct-tanf-state-plan-2024---2026---41524-amendment.pdf
+      publication_date: 2024-04-15
+
+values:
+  2024-01-01: 0.20
