@@ -258,6 +258,71 @@ class il_tanf_countable_earned_income(Variable):
 
 ## TANF-Specific Implementation Patterns
 
+### **CRITICAL: Study Reference Implementations First**
+
+**Before implementing ANY TANF program, you MUST examine these reference implementations:**
+- **DC TANF**: `/policyengine_us/variables/gov/states/dc/dhs/tanf/`
+- **IL TANF**: `/policyengine_us/variables/gov/states/il/dhs/tanf/`
+
+**Look for:**
+1. **Variable organization** - How they break down calculations into intermediate variables
+2. **Code reuse patterns** - How they avoid duplicating logic across files
+3. **Naming conventions** - What they call similar variables
+4. **Folder structure** - How they organize eligibility, income, and benefit calculation files
+
+### **Avoid Code Duplication - Create Intermediate Variables**
+
+**❌ ANTI-PATTERN: Recalculating values that already exist**
+
+If you find yourself copying the same calculation logic in multiple variables, you're doing it wrong!
+
+**Bad Example:**
+```python
+# ct_tanf_earned_income_after_disregard.py - calculates disregard
+class ct_tanf_earned_income_after_disregard(Variable):
+    def formula(spm_unit, period, parameters):
+        gross_earned = add(spm_unit, period, ["tanf_gross_earned_income"])
+        has_earnings = spm_unit.members("tanf_gross_earned_income", period) > 0
+        num_earners = spm_unit.sum(has_earnings)
+        disregard = p.income.disregards.applicant_disregard * num_earners
+        return max_(gross_earned - disregard, 0)
+
+# ct_tanf_income_eligible.py - DUPLICATES THE SAME CALCULATION!
+class ct_tanf_income_eligible(Variable):
+    def formula(spm_unit, period, parameters):
+        # ❌ Copy-pasted from above file
+        gross_earned = add(spm_unit, period, ["tanf_gross_earned_income"])
+        has_earnings = spm_unit.members("tanf_gross_earned_income", period) > 0
+        num_earners = spm_unit.sum(has_earnings)
+        disregard = p.income.disregards.applicant_disregard * num_earners
+        earned_after_disregard = max_(gross_earned - disregard, 0)
+        # ... then uses it for eligibility check
+```
+
+**✅ CORRECT: Reuse existing variables**
+
+```python
+# ct_tanf_income_eligible.py - reuses existing calculation
+class ct_tanf_income_eligible(Variable):
+    def formula(spm_unit, period, parameters):
+        # ✅ Use the already-calculated value from ct_tanf_countable_income
+        countable_income = spm_unit("ct_tanf_countable_income", period)
+        fpg = spm_unit("tanf_fpg", period)
+        initial_limit = fpg * p.income.standards.initial_eligibility
+        return countable_income < initial_limit
+```
+
+**Why this matters:**
+- **Maintainability**: Change the calculation once, all dependents update automatically
+- **Correctness**: No risk of copy-paste errors causing inconsistencies
+- **Readability**: Shorter, clearer code that focuses on the specific logic
+- **Testing**: Test intermediate variables independently
+
+**When to create an intermediate variable:**
+1. If the same calculation appears in 2+ places → Create a variable for it
+2. If a calculation has >5 lines of logic → Consider breaking it into steps
+3. If DC or IL TANF has a similar intermediate variable → Follow their pattern
+
 ### **CRITICAL: Simplified TANF Implementation Rules**
 
 **For simplified TANF implementations, ALWAYS:**
