@@ -1,371 +1,238 @@
 # Collected Documentation
 
-## Florida TANF Implementation
-**Collected**: October 21, 2025
-**Implementation Task**: Florida Temporary Assistance for Needy Families (TANF) / Temporary Cash Assistance (TCA) program
+## Florida TANF (Temporary Cash Assistance) - Implementation Reference
+**Collected**: 2025-10-22
+**Implementation Task**: Documentation for existing Florida TANF implementation validation and enhancement
+
+### Program Overview
+Florida's Temporary Assistance for Needy Families (TANF) program is called Temporary Cash Assistance (TCA). The program provides cash assistance to low-income families with children. Florida's benefit levels have remained unchanged since 1992.
+
+---
 
 ### Source Information
 
-**Primary Legal Authority**:
-- **Title**: Florida Statute Chapter 414 - Temporary Cash Assistance Program
-- **Citation**: Fla. Stat. Ch. 414
-- **URL**: http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0400-0499/0414/0414.html
+**Primary Legal Authority:**
+- **Title**: Florida Statute § 414.095 - Determining eligibility for temporary cash assistance
+- **Citation**: F.S. § 414.095
+- **URL**: https://www.flsenate.gov/Laws/Statutes/2024/414.095
 - **Effective Date**: Current as of 2024
 
-**Primary Regulations**:
+**Administrative Rules:**
 - **Title**: Florida Administrative Code Chapter 65A-4 - Temporary Cash Assistance
-- **Citation**: Fla. Admin. Code Ch. 65A-4
+- **Citation**: F.A.C. 65A-4
 - **URL**: https://flrules.org/gateway/ChapterHome.asp?Chapter=65A-4
-- **Effective Date**: Various rules updated through 2024
+- **Key Rules**:
+  - 65A-4.207: Age requirements (Effective 3/13/2024)
+  - 65A-4.208: Need determination (Effective 3/13/2024)
+  - 65A-4.209: Income rules (Effective 4/29/2024)
+  - 65A-4.210: Budgeting (Effective 3/13/2024)
+  - 65A-4.214: Family Cap Requirements (Effective 3/13/2024)
+  - 65A-4.220: Amount and Duration of Cash Payment (Effective 3/13/2024)
 
-**Federal Authority**:
-- **Title**: Personal Responsibility and Work Opportunity Reconciliation Act of 1996
-- **Citation**: 42 U.S.C. § 601 et seq.
-- **URL**: https://www.govinfo.gov/content/pkg/USCODE-2011-title42/html/USCODE-2011-title42-chap7-subchapIV-partA.htm
+**Policy Resources:**
+- **Title**: Florida's Cash Assistance (TANF) Policy Profile
+- **URL**: https://www.nccp.org/wp-content/uploads/2024/11/TANF-profile-Florida.pdf
+- **Published**: November 2024
 
-### Key Rules and Thresholds
+---
 
-#### Eligibility Requirements
-- **Categorical**: Families with children under 18 (or under 19 if full-time high school student) or pregnant women
-- **Citizenship**: U.S. citizens or qualified noncitizens
-- **Residency**: Florida legal resident
-- **Income limit**: Gross income < 185% FPL; Net countable income ≤ payment standard
-- **Asset limit**: $2,000 countable assets
-- **Vehicle limit**: $8,500 combined value for work-eligible individuals
-- **Time limit**: 48 months lifetime as adult (child-only cases exempt)
+### Key Eligibility Rules
 
-#### 2024 Gross Income Limits (185% FPL)
-| Family Size | Annual | Monthly |
-|-------------|---------|---------|
-| 1 | $27,861 | $2,322 |
-| 2 | $37,814 | $3,151 |
-| 3 | $47,767 | $3,981 |
-| 4 | $57,720 | $4,810 |
-| 5 | $67,673 | $5,639 |
+#### Gross Income Limit
+- **Threshold**: 185% of Federal Poverty Level (FPL)
+- **Application**: Applies to applicants
+- **Example**: For family of 3, approximately $3,981/month (2024)
+- **Reference**: F.A.C. 65A-4.209
 
-#### Payment Standards (Three-Tier System based on shelter obligation)
+#### Net Income (Need Test)
+- **Threshold**: Countable income must not exceed the applicable payment standard for family size
+- **Calculation**: Gross income minus applicable disregards
+- **Must pass**: Both gross income test AND net income test
 
-**Florida Statute § 414.095(10) establishes three tiers**:
-- Tier 1: No shelter obligation ($0)
-- Tier 2: Shelter obligation $1-$50
-- Tier 3: Shelter obligation >$50 OR homeless
+#### Resource Limits
+- **Asset Limit**: $2,000 in countable assets
+- **Vehicle Exclusion**: Licensed vehicles with combined value up to $8,500 (for work-required families or disabled transport)
+- **Reference**: Florida policy sources
 
-| Family Size | Tier 1 | Tier 2 | Tier 3 |
-|-------------|--------|--------|--------|
-| 1 | $95 | $153 | $180 |
-| 2 | $158 | $205 | $241 |
-| 3 | $198 | $258 | $303 |
-| 4 | $254 | $309 | $364 |
-| 5 | $289 | $362 | $426 |
-| 6 | $346 | $414 | $487 |
-| 7 | $392 | $467 | $549 |
-| 8 | $438 | $519 | $610 |
-| 9 | $485 | $570 | $671 |
-| 10 | $534 | $623 | $733 |
-| 11 | $582 | $676 | $795 |
-| 12 | $630 | $728 | $857 |
-| 13+ | $678 | $781 | $919 |
+---
 
-**Note**: Tier 3 payment for family of 3 ($303) unchanged since 1992
+### Income Disregards (Work Incentive Deductions)
 
-### Calculation Formulas
+#### Step 1: Per-Person Disregard
+- **Amount**: $90 per person with earned income
+- **Application**: Deducted from gross earned income first
+- **Reference**: F.S. § 414.095
 
-#### Basic Benefit Formula
+#### Step 2: "$200 and 1/2" Disregard
+- **Flat Amount**: First $200 of remaining earned income
+- **Percentage**: 50% of remaining earned income after $200
+- **Calculation Process**:
+  1. Total gross earned income
+  2. Subtract $90 per earner
+  3. Subtract first $200 of remaining earnings
+  4. Subtract 50% of earnings above $200
+- **Reference**: F.S. § 414.095; Florida DCF policy manual
+
+---
+
+### Payment Standards (Shelter Tiers)
+
+Florida uses a three-tier payment structure based on shelter obligations:
+
+#### Tier Definitions
+- **Tier III (No Shelter)**: Family has no shelter obligation (living rent-free)
+- **Tier II (Low Shelter)**: Monthly shelter obligation >$0 but ≤$50
+- **Tier I (High Shelter)**: Monthly shelter obligation >$50 OR family is homeless
+
+#### Payment Standard Amounts (Monthly)
+
+| Family Size | Tier III (No Shelter) | Tier II (≤$50) | Tier I (>$50 or Homeless) |
+|-------------|----------------------|----------------|---------------------------|
+| 1           | $95                  | $153           | $180                      |
+| 2           | $158                 | $205           | $241                      |
+| 3           | $198                 | $258           | $303                      |
+| 4           | $254                 | $309           | $364                      |
+| 5           | $289                 | $362           | $426                      |
+| 6           | $346                 | (varies)       | (varies)                  |
+| 7+          | (varies)             | (varies)       | (varies)                  |
+
+**Notes**:
+- Maximum benefit for family of 3 (Tier I): $303/month - unchanged since 1992
+- These amounts represent 9%, 12%, and 14% of FPL respectively for family of 3
+- **Reference**: F.S. § 414.095(10); Florida DCF TCA fact sheet
+
+---
+
+### Benefit Calculation Formula
+
 ```
-Monthly TANF Benefit = Payment Standard - Net Countable Income
-(rounded down to nearest dollar, minimum $10)
+1. Gross Earned Income - ($90 × number of earners) = Adjusted Earned Income
+2. Adjusted Earned Income - $200 = Remaining Earnings
+3. Remaining Earnings × 0.5 = Additional Disregard
+4. Adjusted Earned Income - $200 - Additional Disregard = Net Earned Income
+5. Net Earned Income + Gross Unearned Income = Total Net Income
+6. Payment Standard (for family size/tier) - Total Net Income = Benefit Amount
+7. Round down to nearest $1
+8. If result < $10, no cash benefit (but retain TCA status for Medicaid)
 ```
 
-#### Earned Income Disregards (Florida Statute § 414.095)
+**Reference**: F.A.C. 65A-4.220; F.S. § 414.095
 
-**Step 1 - Standard Disregard**: $90 per individual
+---
 
-**Step 2 - Work Incentive Disregard**: First $200 plus one-half of remainder
-```
-Gross Earned Income
-- $90 (standard disregard)
-= Subtotal
-- $200
-= Remainder
-× 0.5 (disregard half of remainder)
-= Countable Earned Income
-```
+### Family Cap Policy
 
-**Example**:
-```
-Gross Earned Income: $1,000
-Step 1: $1,000 - $90 = $910
-Step 2: $910 - $200 = $710
-        $710 × 0.5 = $355 (countable portion)
-Countable Earned Income: $355
-```
+Florida imposes penalties on additional children born while receiving assistance:
 
-#### Income Exclusions (FAC Rule 65A-4.209)
+#### Second Child Born on Assistance
+- **Reduction**: 50% of the benefit increment for second child
+- **Example**: Without family cap, second child would add ~$61/month; with cap, only adds ~$30.50/month
+- **Reference**: F.A.C. 65A-4.214; Florida Policy Institute analysis
 
-**Earned Income - Fully Excluded**:
-- Full-time student (elementary/secondary/equivalent) minor child earnings
-- Minor child WIOA (Workforce Innovation and Opportunity Act) income
-- Adult WIOA income (except wages paid directly by employer)
-- Child under 19 in high school earnings
+#### Third and Subsequent Children
+- **Benefit**: No additional cash assistance for 3rd+ children born while on TCA
+- **Exception**: Family cap does NOT apply to children conceived before receiving assistance
+- **Reference**: F.A.C. 65A-4.214
 
-**Unearned Income - Fully Excluded**:
-- Infrequent/irregular income <$60 per quarter (gifts, etc.)
+**States with Family Cap**: Only 6 states maintain family cap policies (Arizona, Arkansas, Florida, Mississippi, North Carolina, South Carolina)
 
-**Partially Excluded**:
-- First $50 of child support (remainder counted as unearned income)
+---
 
 ### Special Cases and Exceptions
 
-#### Family Cap Policy
-**CRITICAL STATE-SPECIFIC RULE**: Florida is one of 6 states with family cap
+#### Minimum Benefit
+- **Amount**: $10/month minimum grant
+- **Below Minimum**: Families eligible for <$10 receive no cash but retain TCA recipient status for:
+  - Medicaid coverage
+  - Food assistance eligibility
 
-- **Second child born while receiving TANF**: Benefits reduced by 50%
-  - Example: $31/month instead of $62 increment
-- **Third+ children born while receiving TANF**: NO benefits
-- **Exceptions**: Parent incarcerated/institutionalized, or child from rape/incest/sexual exploitation
+#### Time Limits
+- **Federal**: 60-month (5-year) lifetime limit on federally-funded assistance
+- **State**: Florida enforces the federal 60-month limit
+- **Hardship Extensions**: Available through F.A.C. 65A-4.201
 
-#### Work Requirement Exemptions
-- Domestic violence victims unable to comply
-- Medical incapacity (verified by physician)
-- Mental health/substance abuse treatment (up to 5 hours/week)
-- Person totally responsible for disabled family member care (no alternative available)
-- Single parent with child <6 when childcare unavailable
+#### Demographic Eligibility
+- **Age Limits**: Minor children under age 18 (or age 19 if full-time student)
+- **Pregnant Women**: Eligible in last trimester (per F.A.C. 65A-4.215)
+- **Reference**: F.A.C. 65A-4.207
 
-#### Sanctions for Non-Compliance
-- First violation: 10 days minimum termination
-- Second violation: 1 month termination
-- Third violation: 3 months termination
+---
 
-#### Time Limit Extensions
-- Up to 20% of average monthly caseload may receive hardship extensions
-- Criteria: Work participation + employment barriers, domestic violence, awaiting SSI/SSDI
+### References for Code Implementation
 
-#### Pregnant Women
-- 3rd trimester if unable to work
-- 9th month automatic eligibility
-
-#### Drug Screening
-- Mandatory for applicants (applicant pays cost)
-- Positive test = 1 year ineligibility
-
-### Implementation Notes for Code
-
-#### Parameters to Define
-
-**Income Limits** (by year and family size):
+#### For Parameters:
 ```yaml
-fl_tanf_gross_income_limit:
-  2024:
-    1: 27_861
-    2: 37_814
-    3: 47_767
-    4: 57_720
-    5: 67_673
-  reference:
-    - title: "Florida Statute § 414.095 - Determining eligibility for temporary cash assistance"
-      href: "https://www.flsenate.gov/Laws/Statutes/2024/414.095"
-```
-
-**Payment Standards** (three-tier system):
-```yaml
-fl_tanf_payment_standard:
-  tier_1:  # No shelter obligation
-    2024:
-      1: 95
-      2: 158
-      3: 198
-      # ... etc
-  tier_2:  # Shelter $1-$50
-    2024:
-      1: 153
-      2: 205
-      3: 258
-      # ... etc
-  tier_3:  # Shelter >$50 or homeless
-    2024:
-      1: 180
-      2: 241
-      3: 303
-      4: 364
-      5: 426
-      6: 487
-      7: 549
-      8: 610
-      9: 671
-      10: 733
-      11: 795
-      12: 857
-      13: 919
-  reference:
-    - title: "Florida Statute § 414.095(10)"
-      href: "https://www.flsenate.gov/Laws/Statutes/2024/414.095"
-```
-
-**Asset Limits**:
-```yaml
-fl_tanf_asset_limit:
-  2024: 2_000
-  reference:
-    - title: "Florida Statute § 414.075"
-      href: "http://www.leg.state.fl.us/statutes/"
-
-fl_tanf_vehicle_limit:
-  2024: 8_500
-  reference:
-    - title: "Florida Statute § 414.075"
-      href: "http://www.leg.state.fl.us/statutes/"
-```
-
-**Disregards**:
-```yaml
-fl_tanf_earned_income_disregard_standard:
-  2024: 90
-  reference:
-    - title: "Florida DCF TCA Documentation"
-      href: "https://www.myflfamilies.com/services/public-assistance/temporary-cash-assistance"
-
-fl_tanf_earned_income_disregard_base:
-  2024: 200
-  reference:
-    - title: "Florida Statute § 414.095 - Work Incentive Disregard"
-      href: "https://www.flsenate.gov/Laws/Statutes/2024/414.095"
-
-fl_tanf_earned_income_disregard_rate:
-  2024: 0.5
-  reference:
-    - title: "Florida Statute § 414.095"
-      href: "https://www.flsenate.gov/Laws/Statutes/2024/414.095"
-
-fl_tanf_child_support_disregard:
-  2024: 50
-  reference:
-    - title: "Florida Statute § 414.095"
-      href: "https://www.flsenate.gov/Laws/Statutes/2024/414.095"
-
-fl_tanf_irregular_income_exclusion:
-  2024: 60  # Per quarter
-  reference:
-    - title: "FAC Rule 65A-4.209"
-      href: "http://flrules.elaws.us/fac/65a-4.209"
-```
-
-**Time Limits**:
-```yaml
-fl_tanf_time_limit_months:
-  2024: 48
-  reference:
-    - title: "Florida Statute § 414.105"
-      href: "http://www.leg.state.fl.us/statutes/"
-```
-
-#### Variables to Define
-
-**Eligibility Variables**:
-```python
-# fl_tanf_eligible
-reference = "Florida Statute § 414.095"
-documentation = "https://www.flsenate.gov/Laws/Statutes/2024/414.095"
-
-# fl_tanf_meets_categorical_requirements
-reference = "Florida Statute § 414.095; FAC Rule 65A-4.208"
-
-# fl_tanf_meets_income_test
-reference = "Florida Statute § 414.095; FAC Rule 65A-4.209"
-
-# fl_tanf_meets_asset_test
-reference = "Florida Statute § 414.075"
-```
-
-**Income Variables**:
-```python
-# fl_tanf_gross_income
-reference = "FAC Rule 65A-4.209"
-documentation = "http://flrules.elaws.us/fac/65a-4.209"
-
-# fl_tanf_earned_income_deduction
-reference = "Florida Statute § 414.095 - Earned income disregards"
-
-# fl_tanf_countable_income
-reference = "FAC Rule 65A-4.209 - Income calculation"
-```
-
-**Benefit Variables**:
-```python
-# fl_tanf_payment_standard
-reference = "Florida Statute § 414.095(10)"
-documentation = "Three-tier payment structure based on shelter obligation"
-
-# fl_tanf_shelter_tier
-reference = "Florida Statute § 414.095(10)"
-# Returns: 1 (no shelter), 2 ($1-$50), or 3 (>$50 or homeless)
-
-# fl_tanf
-reference = "Florida Statute § 414.095(12)"
-documentation = "https://www.flsenate.gov/Laws/Statutes/2024/414.095"
-# Formula: payment_standard - countable_income, rounded down, min $10
-```
-
-**Special Provision Variables**:
-```python
-# fl_tanf_family_cap_applies
-reference = "Florida Policy Institute analysis"
-documentation = "https://www.floridapolicy.org/posts/5-reasons-why-florida-lawmakers-should-repeal-the-outdated-family-cap-law"
-
-# fl_tanf_work_exempt
-reference = "Florida Statute § 414.065; § 414.105"
-
-# fl_tanf_months_received
-reference = "Florida Statute § 414.105 - Time limits"
-```
-
-### Key Implementation Decisions
-
-1. **Three-tier structure**: Need variable to determine shelter obligation tier (likely based on housing costs)
-2. **Family cap**: Need to track birth order and timing relative to TANF receipt
-3. **Earned income disregard**: Two-step process ($90 standard + $200 + 50% remainder)
-4. **Student income**: Full exclusion for qualifying students
-5. **WIOA income**: Special exclusion rules
-6. **Minimum benefit**: $10 floor (below this, no cash but retain categorical eligibility)
-7. **Child-only cases**: Exempt from time limits
-8. **Shelter costs**: Needed to determine tier assignment
-
-### Testing Scenarios
-
-1. **Basic family with earned income**: Family of 3, $500/month earnings, Tier 3 shelter
-2. **Family cap case**: Family on TANF has additional child
-3. **Student income**: Teen with part-time job while in high school
-4. **Multiple income sources**: Earned + child support
-5. **Boundary cases**: Income exactly at payment standard
-6. **Minimum benefit**: Calculation resulting in <$10
-7. **Different tiers**: Same income/family size across three shelter tiers
-
-### References for Metadata
-
-```yaml
-# For parameters:
 reference:
-  - title: "Florida Statute Chapter 414 - Temporary Cash Assistance"
-    href: "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0400-0499/0414/0414.html"
-  - title: "Florida Administrative Code Chapter 65A-4"
-    href: "https://flrules.org/gateway/ChapterHome.asp?Chapter=65A-4"
+  - title: "Florida Statute § 414.095 - Determining eligibility for temporary cash assistance"
+    href: "https://www.flsenate.gov/Laws/Statutes/2024/414.095"
+  - title: "Florida DCF Temporary Cash Assistance"
+    href: "https://www.myflfamilies.com/services/public-assistance/temporary-cash-assistance"
 ```
 
+#### For Variables:
 ```python
-# For variables:
-reference = "Florida Statute § 414.095"
-documentation = "https://www.flsenate.gov/Laws/Statutes/2024/414.095"
+reference = "F.S. § 414.095; F.A.C. 65A-4.220"
+documentation = "https://flrules.org/gateway/ChapterHome.asp?Chapter=65A-4"
 ```
 
-### Additional Resources
+---
 
-**Policy Analysis**:
-- NCCP TANF Profile: https://www.nccp.org/wp-content/uploads/2024/11/TANF-profile-Florida.pdf
-- Florida Policy Institute Family Cap: https://www.floridapolicy.org/posts/5-reasons-why-florida-lawmakers-should-repeal-the-outdated-family-cap-law
+### Implementation Status
 
-**State Resources**:
-- Florida DCF TCA Page: https://www.myflfamilies.com/services/public-assistance/temporary-cash-assistance
-- ACCESS Florida Application: https://www.myflorida.com/accessflorida/
+**Existing Implementation Found**: Yes, Florida TANF is already implemented in:
+- `/policyengine_us/parameters/gov/states/fl/dcf/tanf/`
+- `/policyengine_us/variables/gov/states/fl/dcf/tanf/`
 
-**Federal Resources**:
-- ACF TANF Overview: https://www.acf.hhs.gov/ofa/programs/tanf
-- Welfare Rules Databook: https://acf.gov/opre/report/welfare-rules-databook-state-and-territory-tanf-policies-july-2023
+**Key Implementation Files**:
+- Payment standards: `payment_standard/tier_1.yaml`, `tier_2.yaml`, `tier_3.yaml`
+- Income disregards: `income_disregards/earned_flat.yaml`, `earned_percentage.yaml`, `earned_per_person.yaml`
+- Family cap: `family_cap/second_child_reduction.yaml`, `third_plus_child_benefit.yaml`
+- Resource limits: `resource_limit.yaml`, `vehicle_limit.yaml`
+
+---
+
+### Additional Context
+
+**Historical Note**: Florida TANF payment standards were last updated in 1992. The purchasing power has eroded significantly due to inflation over 30+ years.
+
+**Comparison to FPL**:
+- Family of 3 maximum benefit ($303): Represents only 14% of Federal Poverty Level
+- This is among the lowest TANF-to-poverty ratios in the United States
+
+**Program Name**: In Florida, TANF is referred to as "Temporary Cash Assistance (TCA)" or part of the "WAGES Program" (Work and Gain Economic Self-Sufficiency)
+
+---
+
+### Data Quality Notes
+
+1. **Payment amounts verified** against multiple sources (statute, policy manuals, advocacy reports)
+2. **Tier definitions confirmed** in F.A.C. 65A-4.220 and F.S. § 414.095
+3. **Income disregard calculation** documented in Florida DCF policy manual and statute
+4. **Family cap policy** verified in administrative code and policy analysis reports
+5. **All amounts current** as of 2024; no updates since 1992 for payment standards
+
+---
+
+### Outstanding Questions / Areas for Further Research
+
+1. **Complete payment table**: Payment amounts for families sizes 6-20 for all three tiers (partial data found for Tier III)
+2. **Tier II shelter threshold**: Confirm exact definition ($50 max) in statute
+3. **Child support disregard**: Specific amount/percentage if any (not clearly documented in sources found)
+4. **Irregular income quarterly limit**: Specific amount if applicable
+
+---
+
+### Source Accessibility Summary
+
+✅ **Highly Accessible**:
+- Florida Statutes (flsenate.gov)
+- Florida Administrative Code (flrules.org)
+- Florida DCF website (myflfamilies.com)
+
+⚠️ **Moderately Accessible**:
+- Florida DCF policy manuals (PDFs, some require direct download)
+- NCCP policy profiles (PDFs)
+
+❌ **Not Directly Accessible**:
+- Complete payment standard tables in machine-readable format
+- Detailed calculation worksheets or official examples
