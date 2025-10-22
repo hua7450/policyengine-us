@@ -1,0 +1,141 @@
+# Unit tests for fl_tanf_payment_standard variable
+# Tests payment standards by family size and shelter tier
+
+# Tier 1 tests (no shelter)
+- name: Tier 1, family size 1.
+  period: 2024-01
+  input:
+    state_code: FL
+    spm_unit_size: 1
+    fl_tanf_shelter_tier: 1
+  output:
+    fl_tanf_payment_standard: 95
+
+- name: Tier 1, family size 2.
+  period: 2024-01
+  input:
+    state_code: FL
+    spm_unit_size: 2
+    fl_tanf_shelter_tier: 1
+  output:
+    fl_tanf_payment_standard: 158
+
+- name: Tier 1, family size 3.
+  period: 2024-01
+  input:
+    state_code: FL
+    spm_unit_size: 3
+    fl_tanf_shelter_tier: 1
+  output:
+    fl_tanf_payment_standard: 198
+
+- name: Tier 1, family size 10.
+  period: 2024-01
+  input:
+    state_code: FL
+    spm_unit_size: 10
+    fl_tanf_shelter_tier: 1
+  output:
+    fl_tanf_payment_standard: 534
+
+# Tier 2 tests (shelter $1-$50)
+- name: Tier 2, family size 1.
+  period: 2024-01
+  input:
+    state_code: FL
+    spm_unit_size: 1
+    fl_tanf_shelter_tier: 2
+  output:
+    fl_tanf_payment_standard: 153
+
+- name: Tier 2, family size 2.
+  period: 2024-01
+  input:
+    state_code: FL
+    spm_unit_size: 2
+    fl_tanf_shelter_tier: 2
+  output:
+    fl_tanf_payment_standard: 205
+
+- name: Tier 2, family size 3.
+  period: 2024-01
+  input:
+    state_code: FL
+    spm_unit_size: 3
+    fl_tanf_shelter_tier: 2
+  output:
+    fl_tanf_payment_standard: 258
+
+- name: Tier 2, family size 6.
+  period: 2024-01
+  input:
+    state_code: FL
+    spm_unit_size: 6
+    fl_tanf_shelter_tier: 2
+  output:
+    fl_tanf_payment_standard: 414
+
+# Tier 3 tests (shelter >$50)
+- name: Tier 3, family size 1.
+  period: 2024-01
+  input:
+    state_code: FL
+    spm_unit_size: 1
+    fl_tanf_shelter_tier: 3
+  output:
+    fl_tanf_payment_standard: 180
+
+- name: Tier 3, family size 2.
+  period: 2024-01
+  input:
+    state_code: FL
+    spm_unit_size: 2
+    fl_tanf_shelter_tier: 3
+  output:
+    fl_tanf_payment_standard: 241
+
+- name: Tier 3, family size 3.
+  period: 2024-01
+  input:
+    state_code: FL
+    spm_unit_size: 3
+    fl_tanf_shelter_tier: 3
+  output:
+    fl_tanf_payment_standard: 303
+
+- name: Tier 3, family size 4.
+  period: 2024-01
+  input:
+    state_code: FL
+    spm_unit_size: 4
+    fl_tanf_shelter_tier: 3
+  output:
+    fl_tanf_payment_standard: 364
+
+- name: Tier 3, family size 10.
+  period: 2024-01
+  input:
+    state_code: FL
+    spm_unit_size: 10
+    fl_tanf_shelter_tier: 3
+  output:
+    fl_tanf_payment_standard: 733
+
+- name: Tier 3, family size 13 (maximum in parameters).
+  period: 2024-01
+  input:
+    state_code: FL
+    spm_unit_size: 13
+    fl_tanf_shelter_tier: 3
+  output:
+    fl_tanf_payment_standard: 919
+
+- name: Tier 3, family size 15 (capped at 13).
+  period: 2024-01
+  input:
+    state_code: FL
+    spm_unit_size: 15
+    fl_tanf_shelter_tier: 3
+  output:
+    # Should use payment standard for size 13
+    fl_tanf_payment_standard: 919

@@ -1,0 +1,90 @@
+# Unit tests for fl_tanf_income_eligible variable
+# Tests gross income test (185% FPL) and net income test (countable <= payment standard)
+
+- name: No income, passes both tests.
+  period: 2024-01
+  input:
+    state_code: FL
+    spm_unit_size: 3
+    fl_tanf_gross_income: 0
+    fl_tanf_countable_income: 0
+    fl_tanf_payment_standard: 303
+  output:
+    fl_tanf_income_eligible: true
+
+- name: Gross income exactly at 185% FPL limit, countable below payment standard.
+  period: 2024-01
+  input:
+    state_code: FL
+    spm_unit_size: 3
+    fl_tanf_gross_income: 47_767  # Exactly at limit for family of 3
+    fl_tanf_countable_income: 100
+    fl_tanf_payment_standard: 303
+  output:
+    fl_tanf_income_eligible: true
+
+- name: Gross income one dollar over 185% FPL limit.
+  period: 2024-01
+  input:
+    state_code: FL
+    spm_unit_size: 3
+    fl_tanf_gross_income: 47_768  # $1 over limit
+    fl_tanf_countable_income: 100
+    fl_tanf_payment_standard: 303
+  output:
+    fl_tanf_income_eligible: false
+
+- name: Countable income exactly equals payment standard.
+  period: 2024-01
+  input:
+    state_code: FL
+    spm_unit_size: 2
+    fl_tanf_gross_income: 20_000
+    fl_tanf_countable_income: 241
+    fl_tanf_payment_standard: 241
+  output:
+    fl_tanf_income_eligible: true
+
+- name: Countable income one dollar over payment standard.
+  period: 2024-01
+  input:
+    state_code: FL
+    spm_unit_size: 2
+    fl_tanf_gross_income: 20_000
+    fl_tanf_countable_income: 242
+    fl_tanf_payment_standard: 241
+  output:
+    fl_tanf_income_eligible: false
+
+- name: Passes gross test but fails net test.
+  period: 2024-01
+  input:
+    state_code: FL
+    spm_unit_size: 3
+    fl_tanf_gross_income: 40_000
+    fl_tanf_countable_income: 500
+    fl_tanf_payment_standard: 303
+  output:
+    fl_tanf_income_eligible: false
+
+- name: Large family size 10, at gross income limit.
+  period: 2024-01
+  input:
+    state_code: FL
+    spm_unit_size: 10
+    fl_tanf_gross_income: 88_187  # Limit for family of 10
+    fl_tanf_countable_income: 200
+    fl_tanf_payment_standard: 733
+  output:
+    fl_tanf_income_eligible: true
+
+- name: Large family size 12, capped at 10 for gross income limit.
+  period: 2024-01
+  input:
+    state_code: FL
+    spm_unit_size: 12
+    fl_tanf_gross_income: 88_187  # Should use limit for 10
+    fl_tanf_countable_income: 200
+    fl_tanf_payment_standard: 856
+  output:
+    fl_tanf_income_eligible: true

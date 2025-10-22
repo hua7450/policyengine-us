@@ -1,0 +1,67 @@
+# Unit tests for fl_tanf_countable_unearned_income variable
+# Tests $50 monthly child support disregard
+
+- name: No unearned income.
+  period: 2024-01
+  input:
+    state_code: FL
+    fl_tanf_gross_unearned_income: 0
+    child_support_received: 0  # Annual
+  output:
+    fl_tanf_countable_unearned_income: 0
+
+- name: Child support only, below $50 monthly disregard, fully excluded.
+  period: 2024-01
+  input:
+    state_code: FL
+    fl_tanf_gross_unearned_income: 30
+    child_support_received: 360  # $30/month × 12
+  output:
+    fl_tanf_countable_unearned_income: 0
+
+- name: Child support exactly $50 monthly, fully excluded.
+  period: 2024-01
+  input:
+    state_code: FL
+    fl_tanf_gross_unearned_income: 50
+    child_support_received: 600  # $50/month × 12
+  output:
+    fl_tanf_countable_unearned_income: 0
+
+- name: Child support $100 monthly, $50 disregard, $50 countable.
+  period: 2024-01
+  input:
+    state_code: FL
+    fl_tanf_gross_unearned_income: 100
+    child_support_received: 1_200  # $100/month × 12
+  output:
+    fl_tanf_countable_unearned_income: 50
+
+- name: Child support $150 monthly, $50 disregard, $100 countable.
+  period: 2024-01
+  input:
+    state_code: FL
+    fl_tanf_gross_unearned_income: 150
+    child_support_received: 1_800  # $150/month × 12
+  output:
+    fl_tanf_countable_unearned_income: 100
+
+- name: Other unearned income (no child support), no disregard.
+  period: 2024-01
+  input:
+    state_code: FL
+    fl_tanf_gross_unearned_income: 200
+    child_support_received: 0
+  output:
+    fl_tanf_countable_unearned_income: 200
+
+- name: Mixed unearned income with child support.
+  period: 2024-01
+  input:
+    state_code: FL
+    fl_tanf_gross_unearned_income: 300  # $100 child support + $200 other
+    child_support_received: 1_200  # $100/month × 12
+  output:
+    # Child support disregard: $50
+    # Countable: $300 - $50 = $250
+    fl_tanf_countable_unearned_income: 250

@@ -1,0 +1,102 @@
+# Unit tests for fl_tanf variable
+# Tests benefit calculation: payment standard - countable income, with $10 minimum
+
+- name: No countable income, full payment standard.
+  period: 2024-01
+  input:
+    state_code: FL
+    fl_tanf_eligible: true
+    fl_tanf_payment_standard: 303
+    fl_tanf_countable_income: 0
+  output:
+    fl_tanf: 303
+
+- name: Countable income $100, payment standard $303.
+  period: 2024-01
+  input:
+    state_code: FL
+    fl_tanf_eligible: true
+    fl_tanf_payment_standard: 303
+    fl_tanf_countable_income: 100
+  output:
+    fl_tanf: 203
+
+- name: Countable income exactly equals payment standard.
+  period: 2024-01
+  input:
+    state_code: FL
+    fl_tanf_eligible: true
+    fl_tanf_payment_standard: 241
+    fl_tanf_countable_income: 241
+  output:
+    fl_tanf: 0
+
+- name: Countable income exceeds payment standard, zero benefit.
+  period: 2024-01
+  input:
+    state_code: FL
+    fl_tanf_eligible: true
+    fl_tanf_payment_standard: 241
+    fl_tanf_countable_income: 300
+  output:
+    fl_tanf: 0
+
+- name: Benefit exactly $10 (minimum threshold).
+  period: 2024-01
+  input:
+    state_code: FL
+    fl_tanf_eligible: true
+    fl_tanf_payment_standard: 303
+    fl_tanf_countable_income: 293
+  output:
+    fl_tanf: 10
+
+- name: Benefit exactly $11 (above minimum).
+  period: 2024-01
+  input:
+    state_code: FL
+    fl_tanf_eligible: true
+    fl_tanf_payment_standard: 303
+    fl_tanf_countable_income: 292
+  output:
+    fl_tanf: 11
+
+- name: Benefit $9 (below minimum), zero benefit.
+  period: 2024-01
+  input:
+    state_code: FL
+    fl_tanf_eligible: true
+    fl_tanf_payment_standard: 303
+    fl_tanf_countable_income: 294
+  output:
+    fl_tanf: 0
+
+- name: Small benefit at $5 (below minimum), zero benefit.
+  period: 2024-01
+  input:
+    state_code: FL
+    fl_tanf_eligible: true
+    fl_tanf_payment_standard: 241
+    fl_tanf_countable_income: 236
+  output:
+    fl_tanf: 0
+
+- name: Benefit exactly $50.
+  period: 2024-01
+  input:
+    state_code: FL
+    fl_tanf_eligible: true
+    fl_tanf_payment_standard: 303
+    fl_tanf_countable_income: 253
+  output:
+    fl_tanf: 50
+
+- name: Large benefit, low income family.
+  period: 2024-01
+  input:
+    state_code: FL
+    fl_tanf_eligible: true
+    fl_tanf_payment_standard: 733
+    fl_tanf_countable_income: 50
+  output:
+    fl_tanf: 683

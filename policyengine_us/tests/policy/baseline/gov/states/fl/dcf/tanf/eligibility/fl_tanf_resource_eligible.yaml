@@ -1,0 +1,74 @@
+# Unit tests for fl_tanf_resource_eligible variable
+# Tests resource limit ($2,000) with vehicle exclusion ($8,500)
+
+- name: No resources, eligible.
+  period: 2024-01
+  input:
+    state_code: FL
+    spm_unit_cash_assets: 0
+    household_vehicles_value: 0
+  output:
+    fl_tanf_resource_eligible: true
+
+- name: Cash assets exactly at $2,000 limit.
+  period: 2024-01
+  input:
+    state_code: FL
+    spm_unit_cash_assets: 2_000
+    household_vehicles_value: 0
+  output:
+    fl_tanf_resource_eligible: true
+
+- name: Cash assets one dollar over $2,000 limit.
+  period: 2024-01
+  input:
+    state_code: FL
+    spm_unit_cash_assets: 2_001
+    household_vehicles_value: 0
+  output:
+    fl_tanf_resource_eligible: false
+
+- name: Vehicle value exactly at $8,500 exclusion.
+  period: 2024-01
+  input:
+    state_code: FL
+    spm_unit_cash_assets: 0
+    household_vehicles_value: 8_500
+  output:
+    fl_tanf_resource_eligible: true
+
+- name: Vehicle value one dollar over exclusion, but total under limit.
+  period: 2024-01
+  input:
+    state_code: FL
+    spm_unit_cash_assets: 0
+    household_vehicles_value: 8_501
+  output:
+    fl_tanf_resource_eligible: true
+
+- name: Vehicle excess plus cash exactly at $2,000 limit.
+  period: 2024-01
+  input:
+    state_code: FL
+    spm_unit_cash_assets: 1_000
+    household_vehicles_value: 9_500  # $1,000 excess
+  output:
+    fl_tanf_resource_eligible: true
+
+- name: Vehicle excess plus cash over $2,000 limit.
+  period: 2024-01
+  input:
+    state_code: FL
+    spm_unit_cash_assets: 1_500
+    household_vehicles_value: 9_001  # $501 excess, total $2,001
+  output:
+    fl_tanf_resource_eligible: false
+
+- name: High vehicle value, excess pushes over resource limit.
+  period: 2024-01
+  input:
+    state_code: FL
+    spm_unit_cash_assets: 500
+    household_vehicles_value: 12_000  # $3,500 excess, total $4,000
+  output:
+    fl_tanf_resource_eligible: false
