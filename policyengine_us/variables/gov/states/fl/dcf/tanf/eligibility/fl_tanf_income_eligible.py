@@ -19,9 +19,8 @@ class fl_tanf_income_eligible(Variable):
         gross_income = spm_unit("fl_tanf_gross_income", period.this_year)
         family_size = spm_unit("spm_unit_size", period)
 
-        # Get annual gross income limit
-        max_size = max(p.income_limits.gross_income_limit.keys())
-        capped_size = min_(family_size, max_size)
+        # Get annual gross income limit (cap family size at 10)
+        capped_size = min_(family_size, 10)
         gross_income_limit = p.income_limits.gross_income_limit[capped_size]
 
         meets_gross_test = gross_income <= gross_income_limit
