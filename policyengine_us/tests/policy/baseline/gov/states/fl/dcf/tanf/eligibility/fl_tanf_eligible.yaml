@@ -1,0 +1,52 @@
+# Unit tests for fl_tanf_eligible variable
+# Tests combination of categorical, income, and resource eligibility
+
+- name: All eligibility conditions met.
+  period: 2024-01
+  input:
+    state_code: FL
+    fl_tanf_categorically_eligible: true
+    fl_tanf_income_eligible: true
+    fl_tanf_resource_eligible: true
+  output:
+    fl_tanf_eligible: true
+
+- name: Categorically eligible and income eligible but not resource eligible.
+  period: 2024-01
+  input:
+    state_code: FL
+    fl_tanf_categorically_eligible: true
+    fl_tanf_income_eligible: true
+    fl_tanf_resource_eligible: false
+  output:
+    fl_tanf_eligible: false
+
+- name: Categorically eligible and resource eligible but not income eligible.
+  period: 2024-01
+  input:
+    state_code: FL
+    fl_tanf_categorically_eligible: true
+    fl_tanf_income_eligible: false
+    fl_tanf_resource_eligible: true
+  output:
+    fl_tanf_eligible: false
+
+- name: Income eligible and resource eligible but not categorically eligible.
+  period: 2024-01
+  input:
+    state_code: FL
+    fl_tanf_categorically_eligible: false
+    fl_tanf_income_eligible: true
+    fl_tanf_resource_eligible: true
+  output:
+    fl_tanf_eligible: false
+
+- name: None of the eligibility conditions met.
+  period: 2024-01
+  input:
+    state_code: FL
+    fl_tanf_categorically_eligible: false
+    fl_tanf_income_eligible: false
+    fl_tanf_resource_eligible: false
+  output:
+    fl_tanf_eligible: false

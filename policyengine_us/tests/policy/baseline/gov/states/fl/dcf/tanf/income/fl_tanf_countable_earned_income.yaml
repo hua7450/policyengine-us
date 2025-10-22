@@ -1,0 +1,56 @@
+# Unit tests for fl_tanf_countable_earned_income variable
+# Tests gross earned income minus disregard
+
+- name: No earned income.
+  period: 2024-01
+  input:
+    state_code: FL
+    fl_tanf_gross_earned_income: 0
+    fl_tanf_earned_income_disregard: 0
+  output:
+    fl_tanf_countable_earned_income: 0
+
+- name: Income fully disregarded (below $90).
+  period: 2024-01
+  input:
+    state_code: FL
+    fl_tanf_gross_earned_income: 50
+    fl_tanf_earned_income_disregard: 50
+  output:
+    fl_tanf_countable_earned_income: 0
+
+- name: Income $500, disregard $395, countable $105.
+  period: 2024-01
+  input:
+    state_code: FL
+    fl_tanf_gross_earned_income: 500
+    fl_tanf_earned_income_disregard: 395
+  output:
+    fl_tanf_countable_earned_income: 105
+
+- name: Income $800, disregard $545, countable $255.
+  period: 2024-01
+  input:
+    state_code: FL
+    fl_tanf_gross_earned_income: 800
+    fl_tanf_earned_income_disregard: 545
+  output:
+    fl_tanf_countable_earned_income: 255
+
+- name: Income $1,000, two earners, disregard $690, countable $310.
+  period: 2024-01
+  input:
+    state_code: FL
+    fl_tanf_gross_earned_income: 1_000
+    fl_tanf_earned_income_disregard: 690
+  output:
+    fl_tanf_countable_earned_income: 310
+
+- name: High income, large disregard.
+  period: 2024-01
+  input:
+    state_code: FL
+    fl_tanf_gross_earned_income: 3_000
+    fl_tanf_earned_income_disregard: 1_645
+  output:
+    fl_tanf_countable_earned_income: 1_355

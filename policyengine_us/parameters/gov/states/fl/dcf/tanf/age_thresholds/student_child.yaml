@@ -1,0 +1,13 @@
+description: Florida considers children under this age as qualifying children for Temporary Cash Assistance if they are full-time high school students.
+
+values:
+  1992-01-01: 19
+
+metadata:
+  unit: year
+  label: Florida TANF student child age threshold
+  reference:
+    - title: Florida Administrative Code Rule 65A-4.207 - Age requirements
+      href: https://flrules.org/gateway/ChapterHome.asp?Chapter=65A-4
+    - title: Florida Statute § 414.095 - Determining eligibility
+      href: https://www.flsenate.gov/Laws/Statutes/2024/414.095

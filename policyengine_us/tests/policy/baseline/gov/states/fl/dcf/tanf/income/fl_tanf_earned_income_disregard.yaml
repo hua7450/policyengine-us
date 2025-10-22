@@ -1,0 +1,177 @@
+# Unit tests for fl_tanf_earned_income_disregard variable
+# Tests two-step disregard: $90 per earner + ($200 flat + 50% of remainder)
+
+- name: No earned income, no disregard.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        employment_income: 0
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: FL
+  output:
+    fl_tanf_earned_income_disregard: 0
+
+- name: Income below $90 standard disregard, fully disregarded.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        employment_income: 600  # $50/month
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: FL
+  output:
+    fl_tanf_earned_income_disregard: 50
+
+- name: Income exactly $90, fully disregarded.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        employment_income: 1_080  # $90/month
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: FL
+  output:
+    fl_tanf_earned_income_disregard: 90
+
+- name: Income exactly $200 after standard disregard (boundary).
+  period: 2024-01
+  input:
+    people:
+      person1:
+        employment_income: 2_400  # $200/month
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: FL
+  output:
+    # Step 1: $200 - $90 = $110
+    # Step 2: $110 < $200, so no additional disregard beyond flat $200
+    # Total disregard: $90 + $110 = $200 (full amount)
+    fl_tanf_earned_income_disregard: 200
+
+- name: Income $500, one earner.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        employment_income: 6_000  # $500/month
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: FL
+  output:
+    # Step 1: $500 - $90 = $410
+    # Step 2: $410 - $200 = $210
+    #         $210 × 0.5 = $105 (half disregarded)
+    # Total disregard: $90 + $200 + $105 = $395
+    fl_tanf_earned_income_disregard: 395
+
+- name: Income $800, one earner.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        employment_income: 9_600  # $800/month
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: FL
+  output:
+    # Step 1: $800 - $90 = $710
+    # Step 2: $710 - $200 = $510
+    #         $510 × 0.5 = $255 (half disregarded)
+    # Total disregard: $90 + $200 + $255 = $545
+    fl_tanf_earned_income_disregard: 545
+
+- name: Two earners, combined income $1,000.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        employment_income: 7_200  # $600/month
+      person2:
+        employment_income: 4_800  # $400/month
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: FL
+  output:
+    # Gross: $1,000
+    # Step 1: $1,000 - (2 × $90) = $1,000 - $180 = $820
+    # Step 2: $820 - $200 = $620
+    #         $620 × 0.5 = $310 (half disregarded)
+    # Total disregard: $180 + $200 + $310 = $690
+    fl_tanf_earned_income_disregard: 690
+
+- name: Three earners, combined income $1,200.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        employment_income: 7_200  # $600/month
+      person2:
+        employment_income: 4_800  # $400/month
+      person3:
+        employment_income: 2_400  # $200/month
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: FL
+  output:
+    # Gross: $1,200
+    # Step 1: $1,200 - (3 × $90) = $1,200 - $270 = $930
+    # Step 2: $930 - $200 = $730
+    #         $730 × 0.5 = $365 (half disregarded)
+    # Total disregard: $270 + $200 + $365 = $835
+    fl_tanf_earned_income_disregard: 835
+
+- name: High income, tests disregard cap at gross income.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        employment_income: 36_000  # $3,000/month
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: FL
+  output:
+    # Step 1: $3,000 - $90 = $2,910
+    # Step 2: $2,910 - $200 = $2,710
+    #         $2,710 × 0.5 = $1,355
+    # Total disregard: $90 + $200 + $1,355 = $1,645
+    fl_tanf_earned_income_disregard: 1_645

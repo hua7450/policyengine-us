@@ -19,9 +19,8 @@ class fl_tanf_payment_standard(Variable):
         family_size = spm_unit("spm_unit_size", period)
         tier = spm_unit("fl_tanf_shelter_tier", period)
 
-        # Get max size from tier_1 (they all have same max)
-        max_size = max(p.tier_1.keys())
-        capped_size = min_(family_size, max_size)
+        # Cap family size at 13 (max size in parameter tables)
+        capped_size = min_(family_size, 13)
 
         # Get payment standard based on tier
         tier_1_amount = p.tier_1[capped_size]

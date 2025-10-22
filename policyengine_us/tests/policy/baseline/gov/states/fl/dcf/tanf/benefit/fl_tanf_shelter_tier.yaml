@@ -1,0 +1,67 @@
+# Unit tests for fl_tanf_shelter_tier variable
+# Tests three-tier shelter obligation system
+# NOTE: rent is annual, converted to monthly for tier determination
+
+- name: No shelter costs, Tier 1.
+  period: 2024-01
+  input:
+    state_code: FL
+    rent: 0
+  output:
+    fl_tanf_shelter_tier: 1
+
+- name: Exactly $1 monthly shelter, Tier 2 starts.
+  period: 2024-01
+  input:
+    state_code: FL
+    rent: 12  # $1/month × 12
+  output:
+    fl_tanf_shelter_tier: 2
+
+- name: $25 monthly shelter, Tier 2.
+  period: 2024-01
+  input:
+    state_code: FL
+    rent: 300  # $25/month × 12
+  output:
+    fl_tanf_shelter_tier: 2
+
+- name: Exactly $50 monthly shelter, Tier 2 upper boundary.
+  period: 2024-01
+  input:
+    state_code: FL
+    rent: 600  # $50/month × 12
+  output:
+    fl_tanf_shelter_tier: 2
+
+- name: Exactly $51 monthly shelter, Tier 3 starts.
+  period: 2024-01
+  input:
+    state_code: FL
+    rent: 612  # $51/month × 12
+  output:
+    fl_tanf_shelter_tier: 3
+
+- name: $100 monthly shelter, Tier 3.
+  period: 2024-01
+  input:
+    state_code: FL
+    rent: 1_200  # $100/month × 12
+  output:
+    fl_tanf_shelter_tier: 3
+
+- name: $600 monthly shelter, Tier 3.
+  period: 2024-01
+  input:
+    state_code: FL
+    rent: 7_200  # $600/month × 12
+  output:
+    fl_tanf_shelter_tier: 3
+
+- name: Very high shelter costs, Tier 3.
+  period: 2024-01
+  input:
+    state_code: FL
+    rent: 18_000  # $1,500/month × 12
+  output:
+    fl_tanf_shelter_tier: 3

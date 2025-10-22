@@ -1,0 +1,139 @@
+# Unit tests for fl_tanf_categorically_eligible variable
+# Tests age thresholds for qualifying children and pregnant women
+
+- name: Child under 18 qualifies.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 17
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: FL
+  output:
+    fl_tanf_categorically_eligible: true
+
+- name: Person exactly 18, not a student, does not qualify.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 18
+        is_full_time_student: false
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: FL
+  output:
+    fl_tanf_categorically_eligible: false
+
+- name: Student exactly 18, in high school, qualifies.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 18
+        is_full_time_student: true
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: FL
+  output:
+    fl_tanf_categorically_eligible: true
+
+- name: Student exactly 19, does not qualify (over student threshold).
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 19
+        is_full_time_student: true
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: FL
+  output:
+    fl_tanf_categorically_eligible: false
+
+- name: Pregnant woman qualifies.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 25
+        is_pregnant: true
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: FL
+  output:
+    fl_tanf_categorically_eligible: true
+
+- name: Adult not pregnant, no qualifying children, does not qualify.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        is_pregnant: false
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: FL
+  output:
+    fl_tanf_categorically_eligible: false
+
+- name: Family with qualifying child and adult.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: FL
+  output:
+    fl_tanf_categorically_eligible: true
+
+- name: Two adults, no children, not pregnant.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 28
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: FL
+  output:
+    fl_tanf_categorically_eligible: false
