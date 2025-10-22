@@ -1,4 +1,4 @@
-description: Florida disregards this amount of earned income per individual in the assistance unit as the standard disregard (first step of two-step disregard process).
+description: Florida disregards this amount of earned income per earner (person with earned income) as the standard disregard (first step of two-step disregard process).
 
 values:
   2024-01-01: 90
@@ -6,7 +6,7 @@ values:
 metadata:
   unit: currency-USD
   period: month
-  label: Florida TANF earned income standard disregard per person
+  label: Florida TANF earned income standard disregard per earner
   reference:
     - title: Florida Statute § 414.095 - Earned income disregards
       href: https://www.flsenate.gov/Laws/Statutes/2024/414.095

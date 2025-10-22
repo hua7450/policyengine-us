@@ -10,10 +10,11 @@ class fl_tanf_earned_income_disregard(Variable):
     reference = "Florida Statute § 414.095 - Earned income disregards"
     documentation = """
     Florida uses a two-step earned income disregard process:
-    Step 1: $90 per individual (standard disregard)
-    Step 2: First $200 plus one-half of remainder (work incentive disregard)
-    
-    Example: $1,000 gross earned income
+    Step 1: Standard disregard per earner (person with earned income)
+    Step 2: Flat amount plus percentage of remainder (work incentive disregard)
+
+    Example with $90 per earner, $200 flat, 50% percentage:
+    $1,000 gross earned income, 1 earner
     Step 1: $1,000 - $90 = $910
     Step 2: $910 - $200 = $710
             $710 × 0.5 = $355 (half disregarded)
@@ -25,10 +26,14 @@ class fl_tanf_earned_income_disregard(Variable):
         p = parameters(period).gov.states.fl.dcf.tanf.income_disregards
 
         gross_earned = spm_unit("fl_tanf_gross_earned_income", period)
-        family_size = spm_unit("spm_unit_size", period)
 
-        # Step 1: Standard disregard ($90 per person)
-        standard_disregard = p.earned_per_person * family_size
+        # Count number of earners (people with earned income)
+        person = spm_unit.members
+        has_earned_income = person("employment_income", period) > 0
+        num_earners = spm_unit.sum(has_earned_income)
+
+        # Step 1: Standard disregard ($90 per earner, not per person)
+        standard_disregard = p.earned_per_person * num_earners
         after_standard = max_(gross_earned - standard_disregard, 0)
 
         # Step 2: Work incentive disregard ($200 + 50% of remainder)
