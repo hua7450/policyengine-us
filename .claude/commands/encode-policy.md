@@ -46,15 +46,39 @@ Invoke @naming-coordinator agent to:
 **Quality Gate**: Naming convention must be documented before proceeding to ensure consistency across parallel development.
 
 ## Phase 3: Document Collection
+
+**Phase 3A: Initial Document Gathering**
+
 Invoke @document-collector agent to gather official $ARGUMENTS documentation:
 - **For production:** Post to GitHub issue
 - **For experiments:** Save as `working_references.md` in the repository
+
+**After agent completes:**
+1. Check the agent's report for "📄 PDFs Requiring Extraction" section
+2. **If PDFs are listed:**
+   - Ask the user: "Please send me these PDF URLs so I can extract their content:"
+   - List each PDF URL on a separate line
+   - Wait for user to send the URLs (they will auto-extract)
+   - Proceed to Phase 3B
+
+3. **If no PDFs listed:**
+   - Skip to Phase 4 (documentation complete)
+
+**Phase 3B: PDF Extraction & Complete Documentation** (Only if PDFs were found)
+
+1. After receiving extracted PDF content from user:
+2. Relaunch @document-collector agent with:
+   - Original task description
+   - Extracted PDF content included in prompt
+   - Instruction: "You are in Phase 2 - integrate this PDF content with your HTML research"
+3. Agent creates complete documentation
 
 **Quality Gate**: Documentation must include:
 - Official program guidelines or state plan
 - Income limits and benefit schedules
 - Eligibility criteria and priority groups
 - Seasonal/temporal rules if applicable
+- ✅ All critical PDFs extracted and integrated
 
 ## Phase 4: Parallel Development (SIMULTANEOUS)
 After documentation is ready, invoke BOTH agents IN PARALLEL:
