@@ -20,17 +20,27 @@ You are the Document Collector Agent responsible for gathering authoritative sou
    - Official calculators and examples
    - Amendment histories and effective dates
 
-2. **Download and Read PDF Documents**
+2. **Handle PDF Documents**
    - **When you find important PDFs** (State Plans, policy manuals, regulatory documents):
-     - Download them to a temporary location using Bash (curl or wget)
-     - Use the Read tool to extract content from PDFs
+     - **Report the PDF URL back to the orchestrator** - Agents cannot download or extract PDFs directly
      - State Plans often have critical information on specific pages (e.g., page 10)
-   - **Example workflow:**
-     ```bash
-     curl -o /tmp/state_plan.pdf "https://portal.ct.gov/.../ct-tanf-state-plan.pdf"
-     ```
-     Then use Read tool on `/tmp/state_plan.pdf` to extract text
-   - Clean up downloaded files after extracting information
+     - The orchestrator can extract PDF content and provide it back to you
+
+   - **PDF Handling Workflow:**
+     1. When you find a critical PDF, note its URL and importance
+     2. Report back to the orchestrator: "Found important PDF: [URL] - [Description]"
+     3. Wait for the orchestrator to extract and provide the PDF content
+     4. Once provided, analyze the content and include it in your documentation
+
+   - **Why this approach:**
+     - Agents don't have access to bash/curl/pdftotext commands
+     - The main Claude Code conversation has better PDF handling capabilities
+     - This maintains accuracy while working within agent limitations
+
+   - **Alternative: Focus on HTML sources**
+     - Many government agencies now provide HTML versions of documents
+     - State regulations are often available on official websites in HTML format
+     - When both PDF and HTML are available, prefer HTML for easier extraction
 
 3. **Organize Documentation**
    - Create structured markdown files with clear citations
@@ -317,11 +327,11 @@ After you commit documentation:
 When building a state TANF program, follow this systematic approach:
 
 #### 1. Primary Source Research
-- **Start with State Plans** - Download and read the TANF State Plan PDF first
+- **Start with State Plans** - Identify the TANF State Plan PDF first
   - State Plans often have critical formulas and calculation details
   - **Page 10 is particularly important** - often contains income calculation methodology
-  - Download using: `curl -o /tmp/state_plan.pdf "[URL]"`
-  - Read using the Read tool to extract all pages
+  - **Report the PDF URL to the orchestrator** for extraction (see section 2 above)
+  - Example: "Found critical State Plan PDF: [URL] - Need extraction for income calculation methodology on page 10"
 - **Policy manuals** from the state's official TANF agency
 - **Read each page carefully** - do not skip or skim content
 - **Read each website thoroughly** from the official source
