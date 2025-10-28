@@ -1,0 +1,30 @@
+description: Connecticut provides this payment standard amount under the Temporary Family Assistance program based on household size, equal to approximately 40% of the Federal Poverty Level.
+
+metadata:
+  unit: currency-USD
+  period: month
+  breakdown:
+    - range(1, 9)
+  label: CT TANF payment standard
+  reference:
+    - title: CT TANF State Plan 2024-2026, Addendum A - Payment Standards
+      href: https://portal.ct.gov/-/media/departments-and-agencies/dss/economic-security/ct-tanf-state-plan-2024---2026---41524-amendment.pdf
+    - title: Connecticut General Statutes Chapter 319s - Financial Assistance
+      href: https://www.cga.ct.gov/current/pub/chap_319s.htm
+
+1:
+  2023-10-01: 489
+2:
+  2023-10-01: 661
+3:
+  2023-10-01: 833
+4:
+  2023-10-01: 1_044
+5:
+  2023-10-01: 1_177
+6:
+  2023-10-01: 1_349
+7:
+  2023-10-01: 1_520
+8:
+  2023-10-01: 1_693

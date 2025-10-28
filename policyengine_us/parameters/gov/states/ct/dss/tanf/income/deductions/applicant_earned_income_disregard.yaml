@@ -1,0 +1,12 @@
+description: Connecticut deducts this amount from each person's gross earnings at the time of application when determining countable income.
+
+values:
+  2022-07-01: 90
+
+metadata:
+  unit: currency-USD
+  period: month
+  label: CT TANF applicant earned income disregard per person
+  reference:
+    - title: CT TANF State Plan 2024-2026, Section A.1 - TFA Component of Jobs First
+      href: https://portal.ct.gov/-/media/departments-and-agencies/dss/economic-security/ct-tanf-state-plan-2024---2026---41524-amendment.pdf
