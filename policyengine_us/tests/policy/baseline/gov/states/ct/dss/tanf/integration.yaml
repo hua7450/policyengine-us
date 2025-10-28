@@ -1,0 +1,151 @@
+- name: Case 1, applicant with part-time work receives partial benefit.
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+        employment_income: 6_000
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_assets: 2_000
+        is_tanf_enrolled: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Income eligibility check
+    ct_tanf_income_eligible: true
+    # Earnings: $6,000/year = $500/month
+    # After $90 disregard: 500 - 90 = 410
+    # FPL for 2: ~$1,580/month (2024), 55% = $869
+    # 410 < 869 → Eligible
+
+    # Resource eligibility check
+    ct_tanf_resources_eligible: true
+    # Assets ($2,000) < limit ($6,000) → Eligible
+
+    # Overall eligibility
+    ct_tanf_eligible: true
+
+    # Benefit calculation
+    ct_tanf_payment_standard: 661
+    # Family size 2 → $661/month
+
+    ct_tanf_countable_income: 410
+    # After $90 applicant disregard: 500 - 90 = 410
+
+    ct_tanf: 251
+    # Benefit: max(661 - 410, 0) = 251
+
+- name: Case 2, recipient with earnings below FPL receives full benefit.
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 32
+        is_tax_unit_head_or_spouse: true
+        employment_income: 18_000
+      person2:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+        employment_income: 0
+      person3:
+        age: 10
+      person4:
+        age: 7
+      person5:
+        age: 3
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3, person4, person5]
+        spm_unit_assets: 4_500
+        is_tanf_enrolled: true
+    households:
+      household:
+        members: [person1, person2, person3, person4, person5]
+        state_code: CT
+  output:
+    # Income eligibility for recipient
+    ct_tanf_income_eligible: true
+    # Earnings: $18,000/year = $1,500/month
+    # FPL for 5: ~$3,055/month (2024), 230% = $7,027
+    # 1,500 < 7,027 → Eligible
+
+    # Resource eligibility
+    ct_tanf_resources_eligible: true
+    # Assets ($4,500) < limit ($6,000) → Eligible
+
+    # Overall eligibility
+    ct_tanf_eligible: true
+
+    # Benefit calculation
+    ct_tanf_payment_standard: 1_177
+    # Family size 5 → $1,177/month
+
+    ct_tanf_earned_income_after_disregard: 0
+    # Earnings: $1,500/month
+    # As recipient, 100% FPL disregard: ~$3,055
+    # Disregard = min(1,500, 3,055) = 1,500
+    # After disregard: max(1,500 - 1,500, 0) = 0
+
+    ct_tanf_countable_income: 0
+    # Full earnings disregard for recipient below FPL
+
+    ct_tanf: 1_177
+    # Full benefit: max(1,177 - 0, 0) = 1,177
+
+- name: Case 3, household with child support receives reduced benefit.
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 40
+        is_tax_unit_head_or_spouse: true
+        employment_income: 0
+        child_support_received: 900
+      person2:
+        age: 12
+      person3:
+        age: 9
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        spm_unit_assets: 1_500
+        is_tanf_enrolled: true
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: CT
+  output:
+    # Income eligibility
+    ct_tanf_income_eligible: true
+    # No earnings, child support doesn't affect recipient eligibility
+
+    # Resource eligibility
+    ct_tanf_resources_eligible: true
+    # Assets ($1,500) < limit ($6,000) → Eligible
+
+    # Overall eligibility
+    ct_tanf_eligible: true
+
+    # Benefit calculation
+    ct_tanf_payment_standard: 833
+    # Family size 3 → $833/month
+
+    ct_tanf_countable_unearned_income: 25
+    # Child support: $900/year = $75/month
+    # After $50 passthrough: max(75 - 50, 0) = 25
+
+    ct_tanf_countable_income: 25
+    # Only child support counted (no earned income)
+
+    ct_tanf: 808
+    # Benefit: max(833 - 25, 0) = 808

@@ -1,0 +1,11 @@
+description: Connecticut limits total household countable assets to this amount for TANF eligibility, excluding home property and certain vehicle equity.
+metadata:
+  unit: currency-usd
+  period: year
+  reference:
+    - title: Connecticut TANF State Plan 2024-2026, Section A, Part I, A.1
+      href: https://portal.ct.gov/-/media/departments-and-agencies/dss/economic-security/ct-tanf-state-plan-2024---2026---41524-amendment.pdf
+      publication_date: 2024-04-15
+
+values:
+  2023-10-01: 6_000

@@ -1,0 +1,11 @@
+description: Connecticut provides transitional benefits for up to 6 months when earnings exceed 100% FPL but remain below this upper limit (230% of FPL).
+metadata:
+  unit: /1
+  period: month
+  reference:
+    - title: Connecticut TANF State Plan 2024-2026, Section A, Part I, A.1
+      href: https://portal.ct.gov/-/media/departments-and-agencies/dss/economic-security/ct-tanf-state-plan-2024---2026---41524-amendment.pdf
+      publication_date: 2024-04-15
+
+values:
+  2024-01-01: 2.30
