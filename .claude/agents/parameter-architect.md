@@ -203,7 +203,14 @@ resource_limit/higher/age_threshold.yaml          # 60 (age - DC pattern)
   1. Legal code/regulation (ARM, CFR, USC, State Admin Code)
   2. Policy manual/handbook
 - Only include references that **contain the actual parameter value**
-- Legal code references must include subsection numbers (e.g., `(a)(1)`, `(c)(22)`)
+- **Legal code references MUST include subsection numbers**
+  - Examples: `ARM 37.78.103(35)`, `7 CFR 273.9(d)(3)`, `42 USC 601(a)(1)`
+- **PDF references MUST include page anchors**
+  - Format: `document.pdf#page=10`
+  - Example: `https://dphhs.mt.gov/tanf-manual.pdf#page=15`
+- **Manual/handbook titles MUST include section and page**
+  - Format: "[Title] Section [X], page [Y]"
+  - Example: "TANF Policy Manual Section 5.2, page 10"
 - Only `title` and `href` fields (no `description` field)
 - If a reference doesn't show the value when clicked, remove it
 
@@ -227,7 +234,9 @@ label: Riverside County General Relief minimum age limit
 ❌ More than two references
 ❌ References that don't contain the actual value
 ❌ Missing blank line between values and metadata
-❌ Legal code references without subsection numbers
+❌ Legal code references without subsection numbers (e.g., just "ARM 37.78.103" instead of "ARM 37.78.103(35)")
+❌ PDF references without page anchors (e.g., `manual.pdf` instead of `manual.pdf#page=10`)
+❌ Manual titles without section/page info (e.g., "TANF Manual" instead of "TANF Manual Section 5.2, page 10")
 ❌ Including `description` field in references
 
 ## Effective Dates
@@ -461,8 +470,10 @@ metadata:
   unit: currency-USD
   period: year
   reference:
-    - title: Idaho LIHEAP State Plan FY 2025, Table 3
-      href: https://healthandwelfare.idaho.gov/liheap-plan-2025.pdf
+    - title: Idaho Admin Code 16.05.03.103(2)(a), Table 3
+      href: https://adminrules.idaho.gov/rules/current/16/160503.pdf#page=8
+    - title: Idaho LIHEAP State Plan FY 2025, Table 3, page 15
+      href: https://healthandwelfare.idaho.gov/liheap-plan-2025.pdf#page=15
 values:
   2024-10-01:
     1: 800
@@ -481,8 +492,10 @@ values:
 description: Idaho defines the heating season months for LIHEAP eligibility
 metadata:
   reference:
-    - title: Idaho LIHEAP State Plan FY 2025, Section 2.1
-      href: https://healthandwelfare.idaho.gov/liheap-plan-2025.pdf
+    - title: Idaho Admin Code 16.05.03.200(1)
+      href: https://adminrules.idaho.gov/rules/current/16/160503.pdf#page=12
+    - title: Idaho LIHEAP State Plan FY 2025, Section 2.1, page 8
+      href: https://healthandwelfare.idaho.gov/liheap-plan-2025.pdf#page=8
 values:
   2024-10-01:
     start_month: 10  # October
@@ -514,8 +527,10 @@ description: Idaho reduces regular benefit by this factor for crisis assistance
 metadata:
   unit: /1
   reference:
-    - title: Idaho LIHEAP Crisis Assistance Guidelines, Page 8
-      href: https://healthandwelfare.idaho.gov/crisis-guidelines.pdf
+    - title: Idaho Admin Code 16.05.03.205(3)
+      href: https://adminrules.idaho.gov/rules/current/16/160503.pdf#page=14
+    - title: Idaho LIHEAP Crisis Assistance Guidelines, Section 3, page 8
+      href: https://healthandwelfare.idaho.gov/crisis-guidelines.pdf#page=8
 values:
   2024-10-01: 0.5  # 50% of regular benefit
 ```
@@ -526,8 +541,10 @@ values:
 description: Idaho age thresholds for LIHEAP priority groups
 metadata:
   reference:
-    - title: Idaho LIHEAP State Plan FY 2025, Section 4.2
-      href: https://healthandwelfare.idaho.gov/liheap-plan-2025.pdf
+    - title: Idaho Admin Code 16.05.03.110(2)
+      href: https://adminrules.idaho.gov/rules/current/16/160503.pdf#page=9
+    - title: Idaho LIHEAP State Plan FY 2025, Section 4.2, page 18
+      href: https://healthandwelfare.idaho.gov/liheap-plan-2025.pdf#page=18
 values:
   2024-10-01:
     elderly_age: 60      # Elderly priority at 60+
