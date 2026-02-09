@@ -1,0 +1,130 @@
+# Unit tests for Iowa FIP income eligibility (Test 3 - Payment Standard test)
+# IAC 441-41.27(239B): Countable income < Payment Standard
+# This is the net income test after all deductions (20% EID + 58% WID)
+# https://www.law.cornell.edu/regulations/iowa/Iowa-Admin-Code-r-441-41-27
+#
+# Payment standards by family size:
+#   Size 1: $183, Size 2: $361, Size 3: $426, Size 4: $495, Size 5: $548
+
+- name: Case 1, no income, family of 2.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income_before_lsr: 0
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IA
+  output:
+    # Countable income: $0
+    # Payment standard (size 2): $361
+    # $0 < $361 -> eligible
+    ia_fip_income_eligible: true
+
+- name: Case 2, countable income below payment standard.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income_before_lsr: 9_600  # $800/month
+      person2:
+        age: 7
+      person3:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: IA
+  output:
+    # Family size: 3, Payment standard: $426
+    # Countable earned: $800 * 0.80 * 0.42 = $268.80
+    # Countable income: $268.80
+    # $268.80 < $426 -> eligible
+    ia_fip_income_eligible: true
+
+- name: Case 3, countable income above payment standard.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income_before_lsr: 18_000  # $1,500/month
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IA
+  output:
+    # Family size: 2, Payment standard: $361
+    # Countable earned: $1,500 * 0.80 * 0.42 = $504
+    # Countable income: $504
+    # $504 >= $361 -> ineligible
+    ia_fip_income_eligible: false
+
+- name: Case 4, unearned income exceeds payment standard.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        social_security: 6_000  # $500/month
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IA
+  output:
+    # Family size: 2, Payment standard: $361
+    # Countable income: $500 (unearned, no deductions)
+    # $500 >= $361 -> ineligible
+    ia_fip_income_eligible: false
+
+- name: Case 5, unearned income below payment standard, family of 4.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 35
+        pension_income: 5_400  # $450/month
+      person2:
+        age: 33
+      person3:
+        age: 10
+      person4:
+        age: 7
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3, person4]
+    households:
+      household:
+        members: [person1, person2, person3, person4]
+        state_code: IA
+  output:
+    # Family size: 4, Payment standard: $495
+    # Countable income: $450 (unearned, no deductions)
+    # $450 < $495 -> eligible
+    ia_fip_income_eligible: true

@@ -1,0 +1,175 @@
+# Unit tests for Iowa FIP countable income
+# IAC 441-41.27(239B): Countable income = countable earned + unearned - child support exemption
+# Countable earned = gross earned * (1 - 0.20) * (1 - 0.58) = gross earned * 0.336
+# Child support exemption: $50/month per eligible group
+# https://www.law.cornell.edu/regulations/iowa/Iowa-Admin-Code-r-441-41-27
+
+- name: Case 1, no income.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income_before_lsr: 0
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IA
+  output:
+    ia_fip_countable_income: 0
+
+- name: Case 2, earned income only.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income_before_lsr: 12_000  # $1,000/month
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IA
+  output:
+    # Countable earned: $1,000 * 0.80 * 0.42 = $336
+    # No unearned income
+    # No child support to exempt
+    # Countable income: $336
+    ia_fip_countable_income: 336
+
+- name: Case 3, unearned income only.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        social_security: 6_000  # $500/month
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IA
+  output:
+    # No earned income, so no EID or WID
+    # Unearned: $500/month
+    # No child support to exempt
+    # Countable income: $500
+    ia_fip_countable_income: 500
+
+- name: Case 4, combined earned and unearned income.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income_before_lsr: 6_000  # $500/month earned
+        pension_income: 2_400  # $200/month unearned
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IA
+  output:
+    # Countable earned: $500 * 0.80 * 0.42 = $168
+    # Unearned: $200
+    # No child support to exempt
+    # Countable income: $168 + $200 = $368
+    ia_fip_countable_income: 368
+
+- name: Case 5, child support income with $50 exemption.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income_before_lsr: 6_000  # $500/month earned
+        child_support_received: 1_800  # $150/month child support
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IA
+  output:
+    # Countable earned: $500 * 0.80 * 0.42 = $168
+    # Gross unearned includes child support: $150/month
+    # Child support exemption: min($150, $50) = $50
+    # Countable unearned: $150 - $50 = $100
+    # Countable income: $168 + $100 = $268
+    ia_fip_countable_income: 268
+
+- name: Case 6, child support below $50 exemption.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        child_support_received: 360  # $30/month child support
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IA
+  output:
+    # No earned income
+    # Gross unearned: $30/month (child support)
+    # Child support exemption: min($30, $50) = $30
+    # Countable unearned: $30 - $30 = $0
+    # Countable income: $0
+    ia_fip_countable_income: 0
+
+- name: Case 7, high earned income with unearned.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 35
+        employment_income_before_lsr: 18_000  # $1,500/month earned
+        social_security: 3_600  # $300/month unearned
+      person2:
+        age: 10
+      person3:
+        age: 7
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: IA
+  output:
+    # Countable earned: $1,500 * 0.80 * 0.42 = $504
+    # Unearned: $300
+    # Countable income: $504 + $300 = $804
+    ia_fip_countable_income: 804

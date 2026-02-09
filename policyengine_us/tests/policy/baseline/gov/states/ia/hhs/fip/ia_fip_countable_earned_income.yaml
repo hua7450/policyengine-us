@@ -1,0 +1,156 @@
+# Unit tests for Iowa FIP countable earned income
+# IAC 441-41.27(239B): 20% earned income deduction + 58% work incentive disregard
+# Combined effect: gross * (1 - 0.20) * (1 - 0.58) = gross * 0.80 * 0.42 = gross * 0.336
+# https://www.law.cornell.edu/regulations/iowa/Iowa-Admin-Code-r-441-41-27
+
+- name: Case 1, no earned income.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income_before_lsr: 0
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    ia_fip_countable_earned_income: 0
+
+- name: Case 2, $1,000 monthly earned income.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income_before_lsr: 12_000  # $1,000/month
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IA
+  output:
+    # Monthly gross earned: $1,000
+    # 20% EID: $1,000 * 0.20 = $200
+    # After EID: $1,000 - $200 = $800
+    # 58% WID: $800 * 0.58 = $464
+    # Countable earned: $800 - $464 = $336
+    # Or equivalently: $1,000 * 0.80 * 0.42 = $336
+    ia_fip_countable_earned_income: 336
+
+- name: Case 3, $500 monthly earned income.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 28
+        employment_income_before_lsr: 6_000  # $500/month
+      person2:
+        age: 3
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IA
+  output:
+    # Monthly gross earned: $500
+    # 20% EID: $500 * 0.20 = $100
+    # After EID: $500 - $100 = $400
+    # 58% WID: $400 * 0.58 = $232
+    # Countable earned: $400 - $232 = $168
+    # Or equivalently: $500 * 0.80 * 0.42 = $168
+    ia_fip_countable_earned_income: 168
+
+- name: Case 4, $2,000 monthly earned income.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 35
+        employment_income_before_lsr: 24_000  # $2,000/month
+      person2:
+        age: 8
+      person3:
+        age: 6
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: IA
+  output:
+    # Monthly gross earned: $2,000
+    # 20% EID: $2,000 * 0.20 = $400
+    # After EID: $2,000 - $400 = $1,600
+    # 58% WID: $1,600 * 0.58 = $928
+    # Countable earned: $1,600 - $928 = $672
+    # Or equivalently: $2,000 * 0.80 * 0.42 = $672
+    ia_fip_countable_earned_income: 672
+
+- name: Case 5, small earned income $100 monthly.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 25
+        employment_income_before_lsr: 1_200  # $100/month
+      person2:
+        age: 2
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IA
+  output:
+    # Monthly gross earned: $100
+    # 20% EID: $100 * 0.20 = $20
+    # After EID: $100 - $20 = $80
+    # 58% WID: $80 * 0.58 = $46.40
+    # Countable earned: $80 - $46.40 = $33.60
+    # Or equivalently: $100 * 0.80 * 0.42 = $33.60
+    ia_fip_countable_earned_income: 33.6
+
+- name: Case 6, $800 monthly earned income per documentation example.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income_before_lsr: 9_600  # $800/month
+      person2:
+        age: 7
+      person3:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: IA
+  output:
+    # Monthly gross earned: $800
+    # 20% EID: $800 * 0.20 = $160
+    # After EID: $800 - $160 = $640
+    # 58% WID: $640 * 0.58 = $371.20
+    # Countable earned: $640 - $371.20 = $268.80
+    # Per documentation worked example for family of 3
+    ia_fip_countable_earned_income: 268.8

@@ -1,0 +1,107 @@
+# Unit tests for Iowa FIP resources eligibility
+# IAC 441-41.26(239B): Resource limit $5,000 (continuing recipients)
+# PolicyEngine models continuing recipient rules
+# https://www.law.cornell.edu/regulations/iowa/Iowa-Admin-Code-r-441-41-26
+
+- name: Case 1, no resources.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_assets: 0
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IA
+  output:
+    ia_fip_resources_eligible: true
+
+- name: Case 2, resources below $5,000 limit.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_assets: 3_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IA
+  output:
+    ia_fip_resources_eligible: true
+
+- name: Case 3, resources at exact $5,000 limit.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_assets: 5_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IA
+  output:
+    # $5,000 <= $5,000 -> eligible
+    ia_fip_resources_eligible: true
+
+- name: Case 4, resources above $5,000 limit.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_assets: 6_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IA
+  output:
+    # $6,000 > $5,000 -> ineligible
+    ia_fip_resources_eligible: false
+
+- name: Case 5, resources just above $5,000 limit.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_assets: 5_001
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IA
+  output:
+    # $5,001 > $5,000 -> ineligible
+    ia_fip_resources_eligible: false

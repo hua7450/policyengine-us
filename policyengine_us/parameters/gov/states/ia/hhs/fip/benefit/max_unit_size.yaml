@@ -1,0 +1,12 @@
+description: Iowa limits the need standard schedule lookup to this number of persons under the Family Investment Program.
+
+values:
+  2025-07-01: 10
+
+metadata:
+  unit: person
+  period: month
+  label: Iowa FIP maximum unit size for schedule lookup
+  reference:
+    - title: IAC 441-41.28(239B) Need Standards
+      href: https://www.law.cornell.edu/regulations/iowa/Iowa-Admin-Code-r-441-41-28

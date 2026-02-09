@@ -1,0 +1,12 @@
+description: Iowa excludes up to this amount of child support received under the Family Investment Program.
+
+values:
+  2025-07-01: 50
+
+metadata:
+  unit: currency-USD
+  period: month
+  label: Iowa FIP child support exemption
+  reference:
+    - title: IAC 441-41.27(239B) Income
+      href: https://www.law.cornell.edu/regulations/iowa/Iowa-Admin-Code-r-441-41-27

@@ -1,0 +1,133 @@
+# Unit tests for Iowa FIP eligibility
+# IAC 441-41.27(239B), IAC 441-41.26(239B)
+# Combines demographic, immigration, gross income, net income, and resource eligibility
+# https://www.law.cornell.edu/regulations/iowa/Iowa-Admin-Code-r-441-41-27
+# https://www.law.cornell.edu/regulations/iowa/Iowa-Admin-Code-r-441-41-26
+
+- name: Case 1, eligible family with no income and no resources.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income_before_lsr: 0
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_assets: 0
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IA
+  output:
+    ia_fip_eligible: true
+
+- name: Case 2, ineligible due to resources above $5,000 limit.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income_before_lsr: 0
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_assets: 6_000
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IA
+  output:
+    ia_fip_eligible: false
+
+- name: Case 3, ineligible due to gross income above 185% threshold.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income_before_lsr: 24_000
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IA
+  output:
+    # Family size 2, gross income $2,000/month
+    # 185% threshold: $719 * 1.85 = $1,330.15
+    # $2,000 > $1,330.15 -> ineligible
+    ia_fip_eligible: false
+
+- name: Case 4, ineligible due to countable income above payment standard.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income_before_lsr: 18_000
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IA
+  output:
+    # Family size 2, gross income $1,500/month
+    # 185% threshold: $719 * 1.85 = $1,330.15
+    # $1,500 > $1,330.15 -> ineligible (fails gross test)
+    ia_fip_eligible: false
+
+- name: Case 5, eligible with moderate earned income.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income_before_lsr: 9_600
+      person2:
+        age: 7
+      person3:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: IA
+  output:
+    # Family size 3, gross $800/month <= $1,570.65 (185%)
+    # Countable earned: $800 * 0.80 * 0.42 = $268.80
+    # $268.80 < $426 (payment standard) -> eligible
+    ia_fip_eligible: true

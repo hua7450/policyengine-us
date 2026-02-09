@@ -1,0 +1,124 @@
+# Unit tests for Iowa FIP final benefit calculation
+# IAC 441-41.27(239B), IAC 441-41.28(239B)
+# Benefit = Payment Standard - Countable Income
+# Minimum benefit: $10 (if calculated > 0 but < $10, no payment issued)
+# https://www.law.cornell.edu/regulations/iowa/Iowa-Admin-Code-r-441-41-27
+
+- name: Case 1, eligible with full payment standard.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    ia_fip_payment_standard: 426
+    ia_fip_countable_income: 0
+    ia_fip_eligible: true
+    state_code: IA
+  output:
+    # $426 - $0 = $426 (>= $10 minimum)
+    ia_fip: 426
+
+- name: Case 2, eligible with partial benefit.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    ia_fip_payment_standard: 426
+    ia_fip_countable_income: 200
+    ia_fip_eligible: true
+    state_code: IA
+  output:
+    # $426 - $200 = $226 (>= $10 minimum)
+    ia_fip: 226
+
+- name: Case 3, countable income equals payment standard.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    ia_fip_payment_standard: 361
+    ia_fip_countable_income: 361
+    ia_fip_eligible: true
+    state_code: IA
+  output:
+    # $361 - $361 = $0
+    ia_fip: 0
+
+- name: Case 4, countable income exceeds payment standard.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    ia_fip_payment_standard: 361
+    ia_fip_countable_income: 500
+    ia_fip_eligible: true
+    state_code: IA
+  output:
+    # max($361 - $500, 0) = $0
+    ia_fip: 0
+
+- name: Case 5, ineligible household receives no benefit.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    ia_fip_payment_standard: 426
+    ia_fip_countable_income: 0
+    ia_fip_eligible: false
+    state_code: IA
+  output:
+    ia_fip: 0
+
+- name: Case 6, benefit below $10 minimum, no payment.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    ia_fip_payment_standard: 361
+    ia_fip_countable_income: 355
+    ia_fip_eligible: true
+    state_code: IA
+  output:
+    # $361 - $355 = $6, which is < $10 minimum, so no payment
+    ia_fip: 0
+
+- name: Case 7, benefit exactly at $10 minimum.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    ia_fip_payment_standard: 361
+    ia_fip_countable_income: 351
+    ia_fip_eligible: true
+    state_code: IA
+  output:
+    # $361 - $351 = $10, meets minimum, payment issued
+    ia_fip: 10
+
+- name: Case 8, benefit just above $10 minimum.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    ia_fip_payment_standard: 426
+    ia_fip_countable_income: 415
+    ia_fip_eligible: true
+    state_code: IA
+  output:
+    # $426 - $415 = $11 (>= $10 minimum)
+    ia_fip: 11
+
+- name: Case 9, maximum benefit for family of 10.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    ia_fip_payment_standard: 865
+    ia_fip_countable_income: 0
+    ia_fip_eligible: true
+    state_code: IA
+  output:
+    # Full payment standard for largest family size
+    ia_fip: 865
+
+- name: Case 10, single person benefit.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    ia_fip_payment_standard: 183
+    ia_fip_countable_income: 50
+    ia_fip_eligible: true
+    state_code: IA
+  output:
+    # $183 - $50 = $133
+    ia_fip: 133

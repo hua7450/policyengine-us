@@ -1,0 +1,337 @@
+# Integration tests for Iowa FIP (Family Investment Program / TANF)
+# Tests realistic family scenarios with complete eligibility and benefit calculations
+# IAC 441-41.27(239B) Income, IAC 441-41.28(239B) Need Standards
+# https://www.law.cornell.edu/regulations/iowa/Iowa-Admin-Code-r-441-41-27
+# https://www.law.cornell.edu/regulations/iowa/Iowa-Admin-Code-r-441-41-28
+#
+# Key rules:
+#   20% earned income deduction + 58% work incentive disregard
+#   Combined effect on earned: gross * 0.80 * 0.42 = gross * 0.336
+#   Gross income test: gross <= 185% of Standard of Need
+#   Payment standard test: countable income < Payment Standard
+#   Benefit = Payment Standard - countable income (min $10)
+#   $50 child support exemption per eligible group
+#   Resource limit: $5,000
+
+- name: Scenario 1, family of 3, no income, maximum benefit.
+  # Single parent with 2 children, no income receives full payment standard
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income_before_lsr: 0
+      person2:
+        age: 7
+      person3:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: IA
+  output:
+    # Family size: 3
+    # Gross income: $0
+    # 185% threshold (size 3): $849 * 1.85 = $1,570.65
+    # $0 <= $1,570.65 -> passes gross test
+    # Countable earned: $0
+    # Countable income: $0
+    # Payment standard (size 3): $426
+    # Benefit: $426 - $0 = $426 (>= $10 minimum)
+    is_person_demographic_tanf_eligible: [false, true, true]
+    ia_fip_gross_income_eligible: true
+    ia_fip_countable_earned_income: 0
+    ia_fip_countable_income: 0
+    ia_fip_payment_standard: 426
+    ia_fip_resources_eligible: true
+    ia_fip_income_eligible: true
+    ia_fip_eligible: true
+    ia_fip: 426
+
+- name: Scenario 2, family of 3, $800 monthly earned income.
+  # Per documentation worked example
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income_before_lsr: 9_600  # $800/month
+      person2:
+        age: 7
+      person3:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: IA
+  output:
+    # Family size: 3
+    # Gross income: $800/month
+    # 185% threshold (size 3): $849 * 1.85 = $1,570.65
+    # $800 <= $1,570.65 -> passes gross test
+    #
+    # Earned income deductions:
+    # 20% EID: $800 * 0.20 = $160
+    # After EID: $800 - $160 = $640
+    # 58% WID: $640 * 0.58 = $371.20
+    # Countable earned: $640 - $371.20 = $268.80
+    #
+    # No unearned income
+    # Countable income: $268.80
+    # Payment standard (size 3): $426
+    # $268.80 < $426 -> passes payment standard test
+    # Benefit: $426 - $268.80 = $157.20 (>= $10 minimum)
+    is_person_demographic_tanf_eligible: [false, true, true]
+    ia_fip_gross_income_eligible: true
+    ia_fip_countable_earned_income: 268.8
+    ia_fip_countable_income: 268.8
+    ia_fip_payment_standard: 426
+    ia_fip_income_eligible: true
+    ia_fip_eligible: true
+    ia_fip: 157.2
+
+- name: Scenario 3, family of 4, unearned income only.
+  # Per documentation worked example
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 35
+        social_security: 5_400  # $450/month
+      person2:
+        age: 33
+      person3:
+        age: 10
+      person4:
+        age: 7
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3, person4]
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3, person4]
+    households:
+      household:
+        members: [person1, person2, person3, person4]
+        state_code: IA
+  output:
+    # Family size: 4
+    # Gross income: $450/month (unearned only)
+    # 185% threshold (size 4): $986 * 1.85 = $1,824.10
+    # $450 <= $1,824.10 -> passes gross test
+    #
+    # No earned income, so no EID or WID
+    # Countable earned: $0
+    # Countable income: $450
+    # Payment standard (size 4): $495
+    # $450 < $495 -> passes payment standard test
+    # Benefit: $495 - $450 = $45 (>= $10 minimum)
+    is_person_demographic_tanf_eligible: [false, false, true, true]
+    ia_fip_gross_income_eligible: true
+    ia_fip_countable_earned_income: 0
+    ia_fip_countable_income: 450
+    ia_fip_payment_standard: 495
+    ia_fip_income_eligible: true
+    ia_fip_eligible: true
+    ia_fip: 45
+
+- name: Scenario 4, family of 2, combined earned and unearned income.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 28
+        employment_income_before_lsr: 6_000  # $500/month earned
+        pension_income: 1_200  # $100/month unearned
+      person2:
+        age: 3
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IA
+  output:
+    # Family size: 2
+    # Gross income: $500 + $100 = $600/month
+    # 185% threshold (size 2): $719 * 1.85 = $1,330.15
+    # $600 <= $1,330.15 -> passes gross test
+    #
+    # Earned income deductions:
+    # 20% EID: $500 * 0.20 = $100
+    # After EID: $500 - $100 = $400
+    # 58% WID: $400 * 0.58 = $232
+    # Countable earned: $400 - $232 = $168
+    #
+    # Unearned: $100 (pension, no deductions)
+    # Countable income: $168 + $100 = $268
+    # Payment standard (size 2): $361
+    # $268 < $361 -> passes payment standard test
+    # Benefit: $361 - $268 = $93 (>= $10 minimum)
+    is_person_demographic_tanf_eligible: [false, true]
+    ia_fip_gross_income_eligible: true
+    ia_fip_countable_earned_income: 168
+    ia_fip_countable_income: 268
+    ia_fip_payment_standard: 361
+    ia_fip_income_eligible: true
+    ia_fip_eligible: true
+    ia_fip: 93
+
+- name: Scenario 5, family of 3, income above gross threshold.
+  # Income too high, fails gross income test (Test 1)
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income_before_lsr: 24_000  # $2,000/month
+      person2:
+        age: 7
+      person3:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: IA
+  output:
+    # Family size: 3
+    # Gross income: $2,000/month
+    # 185% threshold (size 3): $849 * 1.85 = $1,570.65
+    # $2,000 > $1,570.65 -> fails gross test, INELIGIBLE
+    is_person_demographic_tanf_eligible: [false, true, true]
+    ia_fip_gross_income_eligible: false
+    ia_fip_eligible: false
+    ia_fip: 0
+
+- name: Scenario 6, benefit below $10 minimum, no payment issued.
+  # Passes all tests but calculated benefit is below $10 minimum
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        # Need countable earned close to payment standard
+        # Family of 3, payment standard = $426
+        # Target: countable ~$420 -> benefit = $6 < $10
+        # countable earned = gross * 0.336
+        # $420 / 0.336 = $1,250
+        employment_income_before_lsr: 15_000  # $1,250/month
+      person2:
+        age: 7
+      person3:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: IA
+  output:
+    # Family size: 3
+    # Gross income: $1,250/month
+    # 185% threshold (size 3): $849 * 1.85 = $1,570.65
+    # $1,250 <= $1,570.65 -> passes gross test
+    #
+    # Earned income deductions:
+    # 20% EID: $1,250 * 0.20 = $250
+    # After EID: $1,250 - $250 = $1,000
+    # 58% WID: $1,000 * 0.58 = $580
+    # Countable earned: $1,000 - $580 = $420
+    #
+    # Countable income: $420
+    # Payment standard (size 3): $426
+    # $420 < $426 -> passes payment standard test, eligible
+    # Benefit: $426 - $420 = $6
+    # $6 < $10 minimum -> NO PAYMENT ISSUED
+    is_person_demographic_tanf_eligible: [false, true, true]
+    ia_fip_gross_income_eligible: true
+    ia_fip_countable_earned_income: 420
+    ia_fip_countable_income: 420
+    ia_fip_payment_standard: 426
+    ia_fip_income_eligible: true
+    ia_fip_eligible: true
+    ia_fip: 0
+
+- name: Scenario 7, family with child support income and $50 exemption.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 28
+        employment_income_before_lsr: 4_800  # $400/month earned
+        child_support_received: 2_400  # $200/month child support
+      person2:
+        age: 5
+      person3:
+        age: 3
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: IA
+  output:
+    # Family size: 3
+    # Gross earned: $400/month, gross unearned: $200/month (child support)
+    # Gross income: $400 + $200 = $600
+    # 185% threshold (size 3): $849 * 1.85 = $1,570.65
+    # $600 <= $1,570.65 -> passes gross test
+    #
+    # Earned income deductions:
+    # 20% EID: $400 * 0.20 = $80
+    # After EID: $400 - $80 = $320
+    # 58% WID: $320 * 0.58 = $185.60
+    # Countable earned: $320 - $185.60 = $134.40
+    #
+    # Child support exemption: min($200, $50) = $50
+    # Countable unearned: $200 - $50 = $150
+    # Countable income: $134.40 + $150 = $284.40
+    #
+    # Payment standard (size 3): $426
+    # $284.40 < $426 -> passes payment standard test
+    # Benefit: $426 - $284.40 = $141.60 (>= $10 minimum)
+    is_person_demographic_tanf_eligible: [false, true, true]
+    ia_fip_gross_income_eligible: true
+    ia_fip_countable_earned_income: 134.4
+    ia_fip_countable_income: 284.4
+    ia_fip_payment_standard: 426
+    ia_fip_income_eligible: true
+    ia_fip_eligible: true
+    ia_fip: 141.6
