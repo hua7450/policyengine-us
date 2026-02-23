@@ -1,0 +1,9 @@
+description: Connecticut HB-5009 guarantees eligible filers receive at least this minimum credit amount.
+
+values:
+  2026-01-01: 400
+
+metadata:
+  period: year
+  unit: currency-USD
+  label: Connecticut HB-5009 property tax credit minimum

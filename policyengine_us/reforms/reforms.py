@@ -154,6 +154,9 @@ from .cdcc import (
 from .states.ct.tax_rebate_2026 import (
     create_ct_tax_rebate_2026_reform,
 )
+from .states.ct.hb5009 import (
+    create_ct_hb5009_reform,
+)
 
 
 from policyengine_core.reforms import Reform
@@ -346,6 +349,7 @@ def create_structural_reforms_from_parameters(parameters, period):
         create_cdcc_single_parent_work_requirement_reform(parameters, period)
     )
     ct_tax_rebate_2026 = create_ct_tax_rebate_2026_reform(parameters, period)
+    ct_hb5009 = create_ct_hb5009_reform(parameters, period)
 
     reforms = [
         afa_reform,
@@ -417,6 +421,7 @@ def create_structural_reforms_from_parameters(parameters, period):
         aca_ptc_simplified_bracket,
         aca_ptc_700_fpl_cliff,
         cdcc_single_parent_work_requirement,
+        ct_hb5009,
         ct_tax_rebate_2026,
     ]
     reforms = tuple(filter(lambda x: x is not None, reforms))
