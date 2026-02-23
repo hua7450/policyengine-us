@@ -6,6 +6,9 @@ metadata:
   unit: currency-USD
   breakdown:
     - filing_status
+  reference:
+    - title: Connecticut SB 100 (2026) - An Act Concerning a Reduction in the Income Tax
+      href: https://www.cga.ct.gov/2026/TOB/S/PDF/2026SB-00100-R00-SB.PDF
 
 JOINT:
   2026-01-01: 200_000
