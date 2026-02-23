@@ -7,6 +7,9 @@ metadata:
   reference:
     - title: Utah Admin. Code R986-200-239(1)
       href: https://www.law.cornell.edu/regulations/utah/Utah-Admin-Code-R986-200-239
+    - title: Utah DWS Obsolete Table 1 (2008 to September 30, 2022)
+      href: https://jobs.utah.gov/Infosource/eligibilitymanual/Tables,_Appendicies,_and_Charts/Tables,_Appendicies,_and_Charts/Table_1_-_Financial_Monthly_Income_Limits_and_Assistance_Amounts.htm
 
 values:
+  2008-01-01: 1.85
   2022-10-01: 1.85
