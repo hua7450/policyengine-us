@@ -13381,3 +13381,9 @@
     added:
     - Implement Connecticut 2026 tax rebate proposal (Gov. Lamont).
   date: 2026-02-23 20:47:20
+- bump: patch
+  changes:
+    changed:
+    - Add pragma no cover to truly untestable code (microsim branches, behavioral
+      responses, TAXSIM compatibility).
+  date: 2026-02-23 21:02:29

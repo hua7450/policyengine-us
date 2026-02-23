@@ -1,4 +1,0 @@
-- bump: patch
-  changes:
-    changed:
-      - Add pragma no cover to truly untestable code (microsim branches, behavioral responses, TAXSIM compatibility).
