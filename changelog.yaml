@@ -13376,3 +13376,8 @@
     added:
     - Add Connecticut refundable child tax credit (HB 5134) as a reform.
   date: 2026-02-23 19:09:02
+- bump: minor
+  changes:
+    added:
+    - Implement Connecticut 2026 tax rebate proposal (Gov. Lamont).
+  date: 2026-02-23 20:47:20

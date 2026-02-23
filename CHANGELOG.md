@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.581.0] - 2026-02-23 20:47:20
+
+### Added
+
+- Implement Connecticut 2026 tax rebate proposal (Gov. Lamont).
+
 ## [1.580.0] - 2026-02-23 19:09:02
 
 ### Added
@@ -15444,6 +15450,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+[1.581.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.580.0...1.581.0
 [1.580.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.579.0...1.580.0
 [1.579.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.578.1...1.579.0
 [1.578.1]: https://github.com/PolicyEngine/policyengine-us/compare/1.578.0...1.578.1
