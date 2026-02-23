@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.579.0] - 2026-02-23 16:14:13
+
+### Added
+
+- Added non-age work registration exemptions for SNAP ABAWD (student, UI recipient, child under 6) per 7 U.S.C. 2015(o)(3)(D).
+- Added is_snap_abawd_hr1_in_effect variable to centralize state-level HR1 adoption routing.
+
+### Changed
+
+- Refactored SNAP ABAWD work requirements to absorb California pre-HR1 delay logic, eliminating duplicate CA variable.
+- Updated federal SNAP ABAWD parameter effective dates to 2025-07-04 per Public Law 119-21 enactment date.
+- Backdated ABAWD age exemption parameters to 1997-03-01 (PRWORA effective date) and added FRA 2023 phase-in history (50→51→53→55).
+- Removed blanket HI/AK ABAWD exemption from formula; both states are implementing ABAWD. Preferential waiver authority documented in parameter file.
+
 ## [1.578.1] - 2026-02-23 15:39:55
 
 ### Fixed
@@ -15424,6 +15438,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+[1.579.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.578.1...1.579.0
 [1.578.1]: https://github.com/PolicyEngine/policyengine-us/compare/1.578.0...1.578.1
 [1.578.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.577.1...1.578.0
 [1.577.1]: https://github.com/PolicyEngine/policyengine-us/compare/1.577.0...1.577.1
