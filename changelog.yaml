@@ -13387,3 +13387,9 @@
     - Add pragma no cover to truly untestable code (microsim branches, behavioral
       responses, TAXSIM compatibility).
   date: 2026-02-23 21:02:29
+- bump: patch
+  changes:
+    added:
+    - Add tests for tax_unit_state, emp_self_emp_ratio, is_premium_free_part_a, and
+      savers_credit_credit_limit variables
+  date: 2026-02-23 22:15:43

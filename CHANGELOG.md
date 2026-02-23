@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.581.2] - 2026-02-23 22:15:43
+
+### Added
+
+- Add tests for tax_unit_state, emp_self_emp_ratio, is_premium_free_part_a, and savers_credit_credit_limit variables
+
 ## [1.581.1] - 2026-02-23 21:02:29
 
 ### Changed
@@ -15456,6 +15462,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+[1.581.2]: https://github.com/PolicyEngine/policyengine-us/compare/1.581.1...1.581.2
 [1.581.1]: https://github.com/PolicyEngine/policyengine-us/compare/1.581.0...1.581.1
 [1.581.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.580.0...1.581.0
 [1.580.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.579.0...1.580.0
