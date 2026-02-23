@@ -13336,3 +13336,18 @@
       Losses in any income category (capital gains, S-corp/partnership, rental, self-employment)
       are now disregarded and cannot offset income from other categories.
   date: 2026-02-23 13:51:33
+- bump: minor
+  changes:
+    added:
+    - Add SNAP immigration status eligibility, reflecting changes from the One Big
+      Beautiful Bill Act of 2025.
+    - Exclude immigration-ineligible members from SNAP unit size.
+    - Add California-specific delayed effective date (April 1, 2026) for SNAP immigration
+      eligibility changes per ACL 25-92.
+  date: 2026-02-23 13:53:18
+- bump: patch
+  changes:
+    fixed:
+    - Remove duplicate pr_gross_income.py that caused a VariableNameConflictError
+      for pr_gross_income_person.
+  date: 2026-02-23 15:39:55
