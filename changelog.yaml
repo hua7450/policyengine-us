@@ -13371,3 +13371,8 @@
     - Removed ca_meets_snap_abawd_work_requirements (functionality merged into federal
       variable).
   date: 2026-02-23 16:14:13
+- bump: minor
+  changes:
+    added:
+    - Add Connecticut refundable child tax credit (HB 5134) as a reform.
+  date: 2026-02-23 19:09:02
