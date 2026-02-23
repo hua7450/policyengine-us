@@ -1,0 +1,4 @@
+- bump: patch
+  changes:
+    fixed:
+    - Remove duplicate pr_gross_income.py that caused a VariableNameConflictError for pr_gross_income_person.
