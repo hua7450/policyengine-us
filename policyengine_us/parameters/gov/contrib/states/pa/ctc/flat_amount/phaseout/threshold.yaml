@@ -1,11 +1,14 @@
-description: Pennsylvania reduces the Child Tax Credit for filers with adjusted gross income above this threshold, based on filing status.
+description: Pennsylvania reduces the flat amount Child Tax Credit for filers with adjusted gross income above this threshold.
 
 metadata:
-  label: Pennsylvania CTC phaseout threshold
+  label: Pennsylvania Child Tax Credit flat amount phaseout threshold
   period: year
   unit: currency-USD
   breakdown:
     - filing_status
+  reference:
+    - title: PolicyEngine PA CTC reform proposal
+      href: https://github.com/PolicyEngine/policyengine-us/issues/7436
 
 JOINT:
   2026-01-01: 125_000

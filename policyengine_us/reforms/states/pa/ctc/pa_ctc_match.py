@@ -7,10 +7,13 @@ def create_pa_ctc_match() -> Reform:
     class pa_ctc_match(Variable):
         value_type = float
         entity = TaxUnit
-        label = "Pennsylvania CTC match for young children"
+        label = "Pennsylvania Child Tax Credit match for young children"
         unit = USD
         definition_period = YEAR
         defined_for = StateCode.PA
+        reference = (
+            "https://github.com/PolicyEngine/policyengine-us/issues/7436"
+        )
 
         def formula(tax_unit, period, parameters):
             p = parameters(period).gov.contrib.states.pa.ctc.ctc_match

@@ -1,4 +1,4 @@
-description: Pennsylvania allows the Child Tax Credit for children younger than this age.
+description: Pennsylvania provides the flat amount Child Tax Credit for children younger than this age.
 
 values:
   2026-01-01: 6
@@ -6,4 +6,7 @@ values:
 metadata:
   unit: year
   period: year
-  label: Pennsylvania CTC age limit
+  label: Pennsylvania Child Tax Credit flat amount age limit
+  reference:
+    - title: PolicyEngine PA CTC reform proposal
+      href: https://github.com/PolicyEngine/policyengine-us/issues/7436
