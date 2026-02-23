@@ -5,6 +5,130 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.578.1] - 2026-02-23 15:39:55
+
+### Fixed
+
+- Remove duplicate pr_gross_income.py that caused a VariableNameConflictError for pr_gross_income_person.
+
+## [1.578.0] - 2026-02-23 13:53:18
+
+### Added
+
+- Add SNAP immigration status eligibility, reflecting changes from the One Big Beautiful Bill Act of 2025.
+- Exclude immigration-ineligible members from SNAP unit size.
+- Add California-specific delayed effective date (April 1, 2026) for SNAP immigration eligibility changes per ACL 25-92.
+
+## [1.577.1] - 2026-02-23 13:51:33
+
+### Fixed
+
+- Implement NJ same-category loss rule (N.J.S. 54A:5-1) for gross income calculation. Losses in any income category (capital gains, S-corp/partnership, rental, self-employment) are now disregarded and cannot offset income from other categories.
+
+## [1.577.0] - 2026-02-23 13:49:59
+
+### Added
+
+- Add Washington Apple Health for Kids and Apple Health Expansion programs.
+
+## [1.576.0] - 2026-02-23 13:47:45
+
+### Added
+
+- Colorado alternative minimum tax (AMT).
+
+## [1.575.0] - 2026-02-23 13:46:51
+
+### Added
+
+- Maryland county income tax rates for 2024 and 2025.
+
+## [1.574.0] - 2026-02-23 13:45:06
+
+### Added
+
+- added 2018 CHIP pregnant income limit
+
+## [1.573.0] - 2026-02-23 13:42:35
+
+### Added
+
+- Puerto Rico non-refundable child tax credit (CTC).
+
+## [1.572.5] - 2026-02-23 06:32:41
+
+### Fixed
+
+- Fix WA Working Families Tax Credit phaseout to phase to $50 minimum instead of zero per RCW 82.08.0206(3)(f).
+
+## [1.572.4] - 2026-02-23 06:19:36
+
+### Fixed
+
+- Fix Stay NJ benefit formula order of operations and add Senior Freeze offset per P.L. 2024 c.88.
+
+## [1.572.3] - 2026-02-23 00:04:18
+
+### Fixed
+
+- Fix circular dependency in NY A06774 Enhanced CDCC reform by using cdcc_potential instead of cdcc, which avoids the income_tax_before_credits dependency cycle.
+
+## [1.572.2] - 2026-02-22 23:59:28
+
+### Fixed
+
+- Cap DC self-employment loss addition at the amount actually deducted in federal AGI via loss_ald.
+
+## [1.572.1] - 2026-02-20 22:56:55
+
+### Fixed
+
+- Hawaii child and dependent care credit (hi_cdcc) no longer goes negative when spouse has negative self-employment income.
+
+## [1.572.0] - 2026-02-20 22:34:21
+
+### Added
+
+- Multnomah County Preschool for All (PFA) Personal Income Tax with progressive rates by filing status.
+
+## [1.571.1] - 2026-02-20 21:53:15
+
+### Added
+
+- Add historical TANF parameter data for DE, MO, RI, SD (pre-2018 values).
+- Add PA TANF Work Expense Reimbursement (WER) for 2009-2020 era.
+- Add PA TANF work expense mechanism toggle (deduction_applies parameter).
+
+## [1.571.0] - 2026-02-20 19:38:12
+
+### Added
+
+- Add 2024 SLCSP premiums by rating area for all states, scraped from the KFF 2024 subsidy calculator (age 0 benchmark).
+
+## [1.570.7] - 2026-02-19 06:54:52
+
+### Fixed
+
+- Cap all state TANF benefit formulas to prevent negative countable income from inflating benefits above the payment standard. Fixes NC household size .sum() bug and adds min_() caps to 38 state programs (AL, AK, AR, AZ, CA, CO, CT, DC, FL, HI, IA, IL, IN, KS, LA, MA, MD, MI, MN, MO, MS, MT, NC, ND, NE, NH, NJ, NM, NV, NY, OH, OK, OR, PA, RI, SC, SD, TX, UT, VT, WV, WY). Previously, negative countable income could produce benefits exceeding $1M per household, inflating total TANF microsimulation from $9B target to $17.9T.
+
+## [1.570.6] - 2026-02-19 06:19:21
+
+### Fixed
+
+- Cap all state TANF benefit formulas to prevent negative countable income from inflating benefits above the payment standard. Fixes NC household size .sum() bug and adds min_() caps to 38 state programs (AL, AK, AR, AZ, CA, CO, CT, DC, FL, HI, IA, IL, IN, KS, LA, MA, MD, MI, MN, MO, MS, MT, NC, ND, NE, NH, NJ, NM, NV, NY, OH, OK, OR, PA, RI, SC, SD, TX, UT, VT, WV, WY). Previously, negative countable income could produce benefits exceeding $1M per household, inflating total TANF microsimulation from $9B target to $17.9T.
+
+## [1.570.5] - 2026-02-19 02:18:18
+
+### Fixed
+
+- Eliminate Montana federal income tax deduction for 2024+, per Senate Bill 399.
+
+## [1.570.4] - 2026-02-19 02:12:57
+
+### Fixed
+
+- Missouri Social Security deduction now correctly requires age 62+ (SSDI has no age limit per MO Form MO-A Section C).
+
 ## [1.570.3] - 2026-02-19 01:56:51
 
 ### Changed
@@ -15300,6 +15424,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+[1.578.1]: https://github.com/PolicyEngine/policyengine-us/compare/1.578.0...1.578.1
+[1.578.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.577.1...1.578.0
+[1.577.1]: https://github.com/PolicyEngine/policyengine-us/compare/1.577.0...1.577.1
+[1.577.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.576.0...1.577.0
+[1.576.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.575.0...1.576.0
+[1.575.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.574.0...1.575.0
+[1.574.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.573.0...1.574.0
+[1.573.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.572.5...1.573.0
+[1.572.5]: https://github.com/PolicyEngine/policyengine-us/compare/1.572.4...1.572.5
+[1.572.4]: https://github.com/PolicyEngine/policyengine-us/compare/1.572.3...1.572.4
+[1.572.3]: https://github.com/PolicyEngine/policyengine-us/compare/1.572.2...1.572.3
+[1.572.2]: https://github.com/PolicyEngine/policyengine-us/compare/1.572.1...1.572.2
+[1.572.1]: https://github.com/PolicyEngine/policyengine-us/compare/1.572.0...1.572.1
+[1.572.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.571.1...1.572.0
+[1.571.1]: https://github.com/PolicyEngine/policyengine-us/compare/1.571.0...1.571.1
+[1.571.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.570.7...1.571.0
+[1.570.7]: https://github.com/PolicyEngine/policyengine-us/compare/1.570.6...1.570.7
+[1.570.6]: https://github.com/PolicyEngine/policyengine-us/compare/1.570.5...1.570.6
+[1.570.5]: https://github.com/PolicyEngine/policyengine-us/compare/1.570.4...1.570.5
+[1.570.4]: https://github.com/PolicyEngine/policyengine-us/compare/1.570.3...1.570.4
 [1.570.3]: https://github.com/PolicyEngine/policyengine-us/compare/1.570.2...1.570.3
 [1.570.2]: https://github.com/PolicyEngine/policyengine-us/compare/1.570.1...1.570.2
 [1.570.1]: https://github.com/PolicyEngine/policyengine-us/compare/1.570.0...1.570.1
