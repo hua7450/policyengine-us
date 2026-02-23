@@ -13304,3 +13304,8 @@
     - Fix WA Working Families Tax Credit phaseout to phase to $50 minimum instead
       of zero per RCW 82.08.0206(3)(f).
   date: 2026-02-23 06:32:41
+- bump: minor
+  changes:
+    added:
+    - Puerto Rico non-refundable child tax credit (CTC).
+  date: 2026-02-23 13:42:35
