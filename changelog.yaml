@@ -13298,3 +13298,9 @@
     - Fix Stay NJ benefit formula order of operations and add Senior Freeze offset
       per P.L. 2024 c.88.
   date: 2026-02-23 06:19:36
+- bump: patch
+  changes:
+    fixed:
+    - Fix WA Working Families Tax Credit phaseout to phase to $50 minimum instead
+      of zero per RCW 82.08.0206(3)(f).
+  date: 2026-02-23 06:32:41

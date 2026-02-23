@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.572.5] - 2026-02-23 06:32:41
+
+### Fixed
+
+- Fix WA Working Families Tax Credit phaseout to phase to $50 minimum instead of zero per RCW 82.08.0206(3)(f).
+
 ## [1.572.4] - 2026-02-23 06:19:36
 
 ### Fixed
@@ -15368,6 +15374,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+[1.572.5]: https://github.com/PolicyEngine/policyengine-us/compare/1.572.4...1.572.5
 [1.572.4]: https://github.com/PolicyEngine/policyengine-us/compare/1.572.3...1.572.4
 [1.572.3]: https://github.com/PolicyEngine/policyengine-us/compare/1.572.2...1.572.3
 [1.572.2]: https://github.com/PolicyEngine/policyengine-us/compare/1.572.1...1.572.2
