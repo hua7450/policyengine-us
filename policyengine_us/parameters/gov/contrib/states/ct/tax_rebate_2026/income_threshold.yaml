@@ -1,0 +1,22 @@
+description: Connecticut proposed the following income thresholds for the 2026 tax rebate.
+JOINT:
+  values:
+    2026-01-01: 400_000
+SINGLE:
+  values:
+    2026-01-01: 200_000
+HEAD_OF_HOUSEHOLD:
+  values:
+    2026-01-01: 320_000
+SEPARATE:
+  values:
+    2026-01-01: 200_000
+SURVIVING_SPOUSE:
+  values:
+    2026-01-01: 400_000
+metadata:
+  unit: currency-USD
+  period: year
+  label: CT 2026 tax rebate income threshold
+  breakdown:
+    - filing_status

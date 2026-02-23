@@ -1,0 +1,7 @@
+description: Connecticut proposed a 2026 tax rebate effective when this parameter is true.
+values:
+  2026-01-01: false
+metadata:
+  unit: bool
+  period: year
+  label: CT 2026 tax rebate in effect
