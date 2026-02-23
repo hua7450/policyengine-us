@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.578.1] - 2026-02-23 15:39:55
+
+### Fixed
+
+- Remove duplicate pr_gross_income.py that caused a VariableNameConflictError for pr_gross_income_person.
+
 ## [1.578.0] - 2026-02-23 13:53:18
 
 ### Added
@@ -15418,6 +15424,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+[1.578.1]: https://github.com/PolicyEngine/policyengine-us/compare/1.578.0...1.578.1
 [1.578.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.577.1...1.578.0
 [1.577.1]: https://github.com/PolicyEngine/policyengine-us/compare/1.577.0...1.577.1
 [1.577.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.576.0...1.577.0
