@@ -1,4 +1,6 @@
-- bump: minor
+- bump: patch
   changes:
-    added:
-      - Add Washington Apple Health for Kids and Apple Health Expansion programs.
+    fixed:
+    - Implement NJ same-category loss rule (N.J.S. 54A:5-1) for gross income calculation.
+      Losses in any income category (capital gains, S-corp/partnership, rental, self-employment)
+      are now disregarded and cannot offset income from other categories.
