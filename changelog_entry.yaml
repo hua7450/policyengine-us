@@ -1,0 +1,4 @@
+- bump: patch
+  changes:
+    fixed:
+    - Fix WA Working Families Tax Credit phaseout to phase to $50 minimum instead of zero per RCW 82.08.0206(3)(f).
