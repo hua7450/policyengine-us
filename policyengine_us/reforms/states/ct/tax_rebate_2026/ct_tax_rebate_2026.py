@@ -11,6 +11,7 @@ def create_ct_tax_rebate_2026() -> Reform:
         unit = USD
         definition_period = YEAR
         defined_for = StateCode.CT
+        reference = "https://ctmirror.org/2026/02/16/gov-lamonts-tax-rebate-what-you-need-to-know/"
 
         def formula(tax_unit, period, parameters):
             p = parameters(period).gov.contrib.states.ct.tax_rebate_2026
@@ -25,11 +26,15 @@ def create_ct_tax_rebate_2026() -> Reform:
             return eligible * amount
 
     def modify_parameters(parameters):
-        parameters.gov.states.ct.tax.income.credits.refundable.update(
-            start=instant("2026-01-01"),
-            stop=instant("2026-12-31"),
-            value=["ct_eitc", "ct_tax_rebate_2026"],
-        )
+        refundable = parameters.gov.states.ct.tax.income.credits.refundable
+        current_refundable = refundable(instant("2026-01-01"))
+        if "ct_tax_rebate_2026" not in current_refundable:
+            new_refundable = list(current_refundable) + ["ct_tax_rebate_2026"]
+            refundable.update(
+                start=instant("2026-01-01"),
+                stop=instant("2026-12-31"),
+                value=new_refundable,
+            )
         return parameters
 
     class reform(Reform):

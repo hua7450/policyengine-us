@@ -6,6 +6,9 @@ metadata:
   unit: currency-USD
   breakdown:
     - filing_status
+  reference:
+    - title: CT Mirror - Gov. Lamont's tax rebate proposal
+      href: https://ctmirror.org/2026/02/16/gov-lamonts-tax-rebate-what-you-need-to-know/
 
 JOINT:
   2026-01-01: 400
