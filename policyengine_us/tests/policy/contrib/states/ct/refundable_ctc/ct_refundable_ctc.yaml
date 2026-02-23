@@ -6,6 +6,7 @@
 # Test: Single filer with 2 children under age limit
 - name: Single filer with 2 children under income limit
   period: 2026
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.states.ct.refundable_ctc.ct_refundable_ctc.ct_refundable_ctc
   input:
     gov.contrib.states.ct.refundable_ctc.in_effect: true
@@ -29,10 +30,13 @@
         state_code: CT
   output:
     ct_refundable_ctc: 1_200  # 2 children * $600
+    ct_income_tax: 600
+    household_net_income: 18_889
 
 # Test: Joint filers with 3 children under income limit
 - name: Joint filers with 3 children under income limit
   period: 2026
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.states.ct.refundable_ctc.ct_refundable_ctc.ct_refundable_ctc
   input:
     gov.contrib.states.ct.refundable_ctc.in_effect: true
@@ -61,10 +65,13 @@
         state_code: CT
   output:
     ct_refundable_ctc: 1_800  # 3 children * $600
+    ct_income_tax: 8_200
+    household_net_income: 561
 
 # Test: Joint filers with 4 children (capped at 3)
 - name: Joint filers with 4 children capped at 3
   period: 2026
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.states.ct.refundable_ctc.ct_refundable_ctc.ct_refundable_ctc
   input:
     gov.contrib.states.ct.refundable_ctc.in_effect: true
@@ -96,10 +103,13 @@
         state_code: CT
   output:
     ct_refundable_ctc: 1_800  # Capped at 3 children * $600
+    ct_income_tax: 5_450
+    household_net_income: 22_096
 
 # Test: Single filer at income limit is ineligible
 - name: Single filer at income limit is ineligible
   period: 2026
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.states.ct.refundable_ctc.ct_refundable_ctc.ct_refundable_ctc
   input:
     gov.contrib.states.ct.refundable_ctc.in_effect: true
@@ -120,10 +130,13 @@
         state_code: CT
   output:
     ct_refundable_ctc: 0
+    ct_income_tax: 4_975
+    household_net_income: -1_916
 
 # Test: Single filer just under income limit is eligible
 - name: Single filer just under income limit is eligible
   period: 2026
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.states.ct.refundable_ctc.ct_refundable_ctc.ct_refundable_ctc
   input:
     gov.contrib.states.ct.refundable_ctc.in_effect: true
@@ -144,10 +157,13 @@
         state_code: CT
   output:
     ct_refundable_ctc: 600
+    ct_income_tax: 4_375
+    household_net_income: -1_316
 
 # Test: Joint filers at income limit are ineligible
 - name: Joint filers at income limit are ineligible
   period: 2026
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.states.ct.refundable_ctc.ct_refundable_ctc.ct_refundable_ctc
   input:
     gov.contrib.states.ct.refundable_ctc.in_effect: true
@@ -173,10 +189,13 @@
         state_code: CT
   output:
     ct_refundable_ctc: 0
+    ct_income_tax: 10_000
+    household_net_income: -8_106
 
 # Test: Taxpayer with no children gets no credit
 - name: Taxpayer with no children gets no credit
   period: 2026
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.states.ct.refundable_ctc.ct_refundable_ctc.ct_refundable_ctc
   input:
     gov.contrib.states.ct.refundable_ctc.in_effect: true
@@ -194,10 +213,13 @@
         state_code: CT
   output:
     ct_refundable_ctc: 0
+    ct_income_tax: 1_800
+    household_net_income: -2_024
 
 # Test: Child at age limit (18) does not qualify
 - name: Child at age limit does not qualify
   period: 2026
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.states.ct.refundable_ctc.ct_refundable_ctc.ct_refundable_ctc
   input:
     gov.contrib.states.ct.refundable_ctc.in_effect: true
@@ -221,10 +243,13 @@
         state_code: CT
   output:
     ct_refundable_ctc: 600  # Only 1 qualifying child (age 10)
+    ct_income_tax: 1_718
+    household_net_income: 14_320
 
 # Test: Child just under age limit qualifies
 - name: Child just under age limit qualifies
   period: 2026
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.states.ct.refundable_ctc.ct_refundable_ctc.ct_refundable_ctc
   input:
     gov.contrib.states.ct.refundable_ctc.in_effect: true
@@ -245,3 +270,5 @@
         state_code: CT
   output:
     ct_refundable_ctc: 600
+    ct_income_tax: 1_718
+    household_net_income: 7_791
