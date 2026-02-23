@@ -1,4 +1,4 @@
-description: Utah disregards this share of remaining earned income after the work expense allowance under the Family Employment Program.
+description: Utah excludes this share of earned income under the Family Employment Program.
 
 metadata:
   unit: /1
@@ -12,4 +12,3 @@ metadata:
 
 values:
   1996-10-01: 0.5
-  2022-10-01: 0.5

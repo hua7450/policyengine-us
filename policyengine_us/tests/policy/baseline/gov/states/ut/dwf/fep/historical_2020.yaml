@@ -2,40 +2,45 @@
 # Tests use 2020 period to verify backdated parameter values
 # Source: Utah DWS Obsolete Table 1 (May 2012 to September 30, 2022)
 
-- name: Historical 2020 - payment standard family of 3 is $498
+- name: Case 1, historical 2020 payment standard for family of 3.
   period: 2020-01
+  absolute_error_margin: 0.1
   input:
     state_code: UT
     spm_unit_size: 3
   output:
     ut_fep_payment_standard: 498
 
-- name: Historical 2020 - payment standard family of 1 is $288
+- name: Case 2, historical 2020 payment standard for family of 1.
   period: 2020-01
+  absolute_error_margin: 0.1
   input:
     state_code: UT
     spm_unit_size: 1
   output:
     ut_fep_payment_standard: 288
 
-- name: Historical 2020 - payment standard family of 6 is $731
+- name: Case 3, historical 2020 payment standard for family of 6.
   period: 2020-01
+  absolute_error_margin: 0.1
   input:
     state_code: UT
     spm_unit_size: 6
   output:
     ut_fep_payment_standard: 731
 
-- name: Historical 2020 - payment standard family of 16 (max old size) is $1,090
+- name: Case 4, historical 2020 payment standard at max old size 16.
   period: 2020-01
+  absolute_error_margin: 0.1
   input:
     state_code: UT
     spm_unit_size: 16
   output:
     ut_fep_payment_standard: 1_090
 
-- name: Historical 2020 - eligible family of 3 with moderate earnings
+- name: Case 5, eligible family of 3 with moderate earnings.
   period: 2020-01
+  absolute_error_margin: 0.1
   input:
     people:
       person1:
@@ -78,8 +83,9 @@
     ut_fep_eligible: true
     ut_fep: 248
 
-- name: Historical 2020 - no income family of 2 receives full payment standard
+- name: Case 6, no income family of 2 receives full payment standard.
   period: 2020-01
+  absolute_error_margin: 0.1
   input:
     people:
       person1:

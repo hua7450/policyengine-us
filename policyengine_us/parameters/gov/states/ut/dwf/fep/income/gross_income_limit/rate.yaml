@@ -1,4 +1,4 @@
-description: Utah limits gross income to this share of the Standard Needs Budget under the Family Employment Program.
+description: Utah limits gross income to this share under the Family Employment Program.
 
 metadata:
   unit: /1
@@ -12,4 +12,3 @@ metadata:
 
 values:
   2008-01-01: 1.85
-  2022-10-01: 1.85

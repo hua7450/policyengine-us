@@ -1,4 +1,4 @@
-description: Utah deducts this work expense allowance per employed person from earned income under the Family Employment Program.
+description: Utah deducts this amount as the work expense allowance under the Family Employment Program.
 
 metadata:
   unit: currency-USD
@@ -12,4 +12,3 @@ metadata:
 
 values:
   1996-10-01: 100
-  2022-10-01: 100
