@@ -144,7 +144,36 @@
     # Final: $1,960
     ct_income_tax_after_personal_credits: 1_960
 
-- name: Case 6, non-CT resident gets zero CT tax.
+- name: Case 6, head of household not qualifying due to high AGI.
+  absolute_error_margin: 1
+  period: 2026
+  reforms: policyengine_us.reforms.states.ct.sb100.ct_sb100.ct_sb100
+  input:
+    people:
+      person1:
+        age: 40
+        employment_income: 110_000
+      person2:
+        age: 10
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+        filing_status: HEAD_OF_HOUSEHOLD
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # AGI $110k >= $100k threshold -> does NOT qualify
+    # Standard rates: $0-$16k@2% + $16k-$80k@4.5% + $80k-$110k@5.5%
+    #   = $320 + $2,880 + $1,650 = $4,850
+    # Add-back: ceil(($110k - $78.5k) / $4k) * $40 = 8 * $40 = $320
+    # Total: $4,850 + $320 = $5,170
+    # Personal credit: 0%
+    # Final: $5,170
+    ct_income_tax_after_personal_credits: 5_170
+
+- name: Case 7, non-CT resident gets zero CT tax.
   absolute_error_margin: 1
   period: 2026
   reforms: policyengine_us.reforms.states.ct.sb100.ct_sb100.ct_sb100
@@ -164,7 +193,7 @@
   output:
     ct_income_tax_after_personal_credits: 0
 
-- name: Case 7, single filer just below AGI threshold qualifies.
+- name: Case 8, single filer just below AGI threshold qualifies.
   absolute_error_margin: 1
   period: 2026
   reforms: policyengine_us.reforms.states.ct.sb100.ct_sb100.ct_sb100
@@ -191,7 +220,7 @@
     # Final: $4,175
     ct_income_tax_after_personal_credits: 4_175
 
-- name: Case 8, joint filers just below AGI threshold qualifies.
+- name: Case 9, joint filers just below AGI threshold qualifies.
   absolute_error_margin: 1
   period: 2026
   reforms: policyengine_us.reforms.states.ct.sb100.ct_sb100.ct_sb100
@@ -221,7 +250,7 @@
     # Final: $8,400
     ct_income_tax_after_personal_credits: 8_400
 
-- name: Case 9, single filer with income spanning into 3rd bracket.
+- name: Case 10, single filer with income spanning into 3rd bracket.
   absolute_error_margin: 1
   period: 2026
   reforms: policyengine_us.reforms.states.ct.sb100.ct_sb100.ct_sb100
@@ -249,7 +278,7 @@
     # Final: $2,975
     ct_income_tax_after_personal_credits: 2_975
 
-- name: Case 10, separate filer qualifying for SB-100 reduced rates.
+- name: Case 11, separate filer qualifying for SB-100 reduced rates.
   absolute_error_margin: 1
   period: 2026
   reforms: policyengine_us.reforms.states.ct.sb100.ct_sb100.ct_sb100
@@ -278,7 +307,7 @@
     # Final: $3,100
     ct_income_tax_after_personal_credits: 3_100
 
-- name: Case 11, separate filer not qualifying due to high AGI.
+- name: Case 12, separate filer not qualifying due to high AGI.
   absolute_error_margin: 1
   period: 2026
   reforms: policyengine_us.reforms.states.ct.sb100.ct_sb100.ct_sb100
@@ -306,7 +335,7 @@
     # Final: $5,625
     ct_income_tax_after_personal_credits: 5_625
 
-- name: Case 12, surviving spouse qualifying for SB-100 reduced rates.
+- name: Case 13, surviving spouse qualifying for SB-100 reduced rates.
   absolute_error_margin: 1
   period: 2026
   reforms: policyengine_us.reforms.states.ct.sb100.ct_sb100.ct_sb100
@@ -335,7 +364,7 @@
     # Final: $5,650
     ct_income_tax_after_personal_credits: 5_650
 
-- name: Case 13, surviving spouse not qualifying due to high AGI.
+- name: Case 14, surviving spouse not qualifying due to high AGI.
   absolute_error_margin: 1
   period: 2026
   reforms: policyengine_us.reforms.states.ct.sb100.ct_sb100.ct_sb100
