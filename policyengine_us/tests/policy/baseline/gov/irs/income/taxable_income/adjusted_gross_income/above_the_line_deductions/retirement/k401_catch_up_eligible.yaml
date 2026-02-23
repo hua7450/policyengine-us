@@ -1,0 +1,29 @@
+# Tests for 401(k) catch-up contribution eligibility
+
+- name: Person under age 50 is not eligible for catch-up contributions
+  period: 2025
+  input:
+    age: 45
+  output:
+    k401_catch_up_eligible: false
+
+- name: Person at age 50 is eligible for catch-up contributions
+  period: 2025
+  input:
+    age: 50
+  output:
+    k401_catch_up_eligible: true
+
+- name: Person at age 60 is eligible for catch-up contributions
+  period: 2025
+  input:
+    age: 60
+  output:
+    k401_catch_up_eligible: true
+
+- name: Person at age 49 is not eligible for catch-up contributions
+  period: 2025
+  input:
+    age: 49
+  output:
+    k401_catch_up_eligible: false

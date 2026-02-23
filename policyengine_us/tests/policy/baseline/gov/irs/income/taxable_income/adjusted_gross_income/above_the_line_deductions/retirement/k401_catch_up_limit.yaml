@@ -1,0 +1,74 @@
+# Tests for 401(k) catch-up contribution limits
+# Standard catch-up: $7,500 for ages 50+ (2025)
+# Enhanced catch-up: $11,250 for ages 60-63 (2025+, SECURE 2.0)
+
+- name: Person under age 50 receives no catch-up limit
+  period: 2025
+  input:
+    age: 45
+  output:
+    k401_catch_up_limit: 0
+
+- name: Person at age 50 receives the standard catch-up limit
+  period: 2025
+  input:
+    age: 50
+  output:
+    k401_catch_up_limit: 7_500
+
+- name: Person at age 55 receives the standard catch-up limit
+  period: 2025
+  input:
+    age: 55
+  output:
+    k401_catch_up_limit: 7_500
+
+- name: Person at age 59 receives the standard catch-up limit
+  period: 2025
+  input:
+    age: 59
+  output:
+    k401_catch_up_limit: 7_500
+
+- name: Person at age 60 receives the SECURE 2.0 enhanced catch-up limit
+  period: 2025
+  input:
+    age: 60
+  output:
+    k401_catch_up_limit: 11_250
+
+- name: Person at age 62 receives the SECURE 2.0 enhanced catch-up limit
+  period: 2025
+  input:
+    age: 62
+  output:
+    k401_catch_up_limit: 11_250
+
+- name: Person at age 63 receives the SECURE 2.0 enhanced catch-up limit
+  period: 2025
+  input:
+    age: 63
+  output:
+    k401_catch_up_limit: 11_250
+
+- name: Person at age 64 receives the standard catch-up limit
+  period: 2025
+  input:
+    age: 64
+  output:
+    k401_catch_up_limit: 7_500
+
+- name: Person at age 70 receives the standard catch-up limit
+  period: 2025
+  input:
+    age: 70
+  output:
+    k401_catch_up_limit: 7_500
+
+# Test 2024 (before SECURE 2.0 enhanced catch-up)
+- name: Person at age 60 in 2024 receives the standard limit (no enhanced catch-up yet)
+  period: 2024
+  input:
+    age: 60
+  output:
+    k401_catch_up_limit: 7_500
