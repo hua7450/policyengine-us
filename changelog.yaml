@@ -13319,3 +13319,8 @@
     added:
     - Maryland county income tax rates for 2024 and 2025.
   date: 2026-02-23 13:46:51
+- bump: minor
+  changes:
+    added:
+    - Colorado alternative minimum tax (AMT).
+  date: 2026-02-23 13:47:45
