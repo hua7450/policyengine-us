@@ -237,7 +237,7 @@
   output:
     tx_ccs_payment_rate: 0
 
-- name: BCY25 - Capital Area Relative Reg 6 months Full Time, no such rating. 
+- name: BCY25 - Capital Area Relative Reg 6 months Full Time, no such rating.
   period: 2025-01
   input:
     age: 0.5
@@ -252,3 +252,20 @@
     county: TRAVIS_COUNTY_TX
   output:
     tx_ccs_payment_rate: 0
+
+- name: BCY27 fallback - ALAMO LCCC REG 0-11m Full Time (uses BCY26 rates)
+  period: 2027-01
+  input:
+    age: 0
+    is_disabled: false
+    is_tax_unit_dependent: true
+    is_citizen_or_legal_immigrant: true
+    tx_ccs_provider_type: LCCC
+    tx_ccs_provider_rating: REG
+    tx_ccs_care_schedule: FULL_TIME
+    childcare_attending_days_per_month: 10
+    state_code: TX
+    tx_ccs_workforce_board_region: ALAMO
+  output:
+    # No bcy2027.csv exists; falls back to BCY26 rate: 46.00 * 10 = 460.00
+    tx_ccs_payment_rate: 460.00

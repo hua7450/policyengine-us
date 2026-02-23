@@ -7,6 +7,9 @@ from functools import lru_cache
 from pathlib import Path
 
 FOLDER = Path(__file__).parent
+_AVAILABLE_YEARS = sorted(
+    int(f.stem.replace("bcy", "")) for f in FOLDER.glob("bcy*.csv")
+)
 
 # CSV column name -> (age_group enum name, schedule enum name)
 COLUMN_MAP = {
@@ -53,4 +56,7 @@ def _load_long(csv_path):
 
 @lru_cache(maxsize=None)
 def get_rates(bcy_year):
-    return _load_long(FOLDER / f"bcy{bcy_year}.csv")
+    year = int(bcy_year)
+    if year > _AVAILABLE_YEARS[-1]:
+        year = _AVAILABLE_YEARS[-1]
+    return _load_long(FOLDER / f"bcy{year}.csv")

@@ -15,7 +15,7 @@ class tx_ccs_copay(Variable):
 
         income = spm_unit("tx_ccs_countable_income", period)
         smi = spm_unit("hhs_smi", period)
-        smi_ratio = income / smi
+        smi_ratio = where(smi > 0, income / smi, 0)
 
         eligible_children = spm_unit.sum(
             spm_unit.members("tx_ccs_eligible_child", period)
