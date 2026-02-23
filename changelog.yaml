@@ -13292,3 +13292,9 @@
     - Fix circular dependency in NY A06774 Enhanced CDCC reform by using cdcc_potential
       instead of cdcc, which avoids the income_tax_before_credits dependency cycle.
   date: 2026-02-23 00:04:18
+- bump: patch
+  changes:
+    fixed:
+    - Fix Stay NJ benefit formula order of operations and add Senior Freeze offset
+      per P.L. 2024 c.88.
+  date: 2026-02-23 06:19:36
