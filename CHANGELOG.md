@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.574.0] - 2026-02-23 13:45:06
+
+### Added
+
+- added 2018 CHIP pregnant income limit
+
 ## [1.573.0] - 2026-02-23 13:42:35
 
 ### Added
@@ -15380,6 +15386,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+[1.574.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.573.0...1.574.0
 [1.573.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.572.5...1.573.0
 [1.572.5]: https://github.com/PolicyEngine/policyengine-us/compare/1.572.4...1.572.5
 [1.572.4]: https://github.com/PolicyEngine/policyengine-us/compare/1.572.3...1.572.4

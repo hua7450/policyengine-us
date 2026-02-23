@@ -13309,3 +13309,8 @@
     added:
     - Puerto Rico non-refundable child tax credit (CTC).
   date: 2026-02-23 13:42:35
+- bump: minor
+  changes:
+    added:
+    - added 2018 CHIP pregnant income limit
+  date: 2026-02-23 13:45:06
