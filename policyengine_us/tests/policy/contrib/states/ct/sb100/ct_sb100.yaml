@@ -1,0 +1,182 @@
+- name: Case 1, single filer qualifying for SB-100 reduced rates.
+  absolute_error_margin: 1
+  period: 2026
+  reforms: policyengine_us.reforms.states.ct.sb100.ct_sb100.ct_sb100
+  input:
+    people:
+      person1:
+        age: 40
+        employment_income: 50_000
+    tax_units:
+      tax_unit:
+        members: [person1]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    # Single, AGI $50k < $100k threshold, qualifies for SB-100
+    # SB-100 rates applied with CT exemptions and personal credits
+    ct_income_tax_after_personal_credits: 1_080
+
+- name: Case 2, single filer not qualifying due to high AGI.
+  absolute_error_margin: 1
+  period: 2026
+  reforms: policyengine_us.reforms.states.ct.sb100.ct_sb100.ct_sb100
+  input:
+    people:
+      person1:
+        age: 40
+        employment_income: 100_000
+    tax_units:
+      tax_unit:
+        members: [person1]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    # Single, AGI $100k = $100k threshold, does NOT qualify (strict <)
+    # Standard rates apply
+    ct_income_tax_after_personal_credits: 4_975
+
+- name: Case 3, joint filers qualifying for SB-100 reduced rates.
+  absolute_error_margin: 1
+  period: 2026
+  reforms: policyengine_us.reforms.states.ct.sb100.ct_sb100.ct_sb100
+  input:
+    people:
+      person1:
+        age: 40
+        employment_income: 75_000
+      person2:
+        age: 38
+        employment_income: 75_000
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+        filing_status: JOINT
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Joint, AGI $150k < $200k threshold, qualifies for SB-100
+    # SB-100 rates applied with CT exemptions and personal credits
+    ct_income_tax_after_personal_credits: 5_650
+
+- name: Case 4, joint filers not qualifying due to high AGI.
+  absolute_error_margin: 1
+  period: 2026
+  reforms: policyengine_us.reforms.states.ct.sb100.ct_sb100.ct_sb100
+  input:
+    people:
+      person1:
+        age: 40
+        employment_income: 100_000
+      person2:
+        age: 38
+        employment_income: 100_000
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+        filing_status: JOINT
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Joint, AGI $200k = $200k threshold, does NOT qualify (strict <)
+    # Standard rates apply
+    ct_income_tax_after_personal_credits: 10_000
+
+- name: Case 5, head of household qualifying for SB-100 reduced rates.
+  absolute_error_margin: 1
+  period: 2026
+  reforms: policyengine_us.reforms.states.ct.sb100.ct_sb100.ct_sb100
+  input:
+    people:
+      person1:
+        age: 40
+        employment_income: 80_000
+      child1:
+        age: 10
+    tax_units:
+      tax_unit:
+        members: [person1, child1]
+        filing_status: HEAD_OF_HOUSEHOLD
+    households:
+      household:
+        members: [person1, child1]
+        state_code: CT
+  output:
+    # HoH, AGI $80k < $100k threshold, qualifies for SB-100
+    # SB-100 rates applied with CT exemptions and personal credits
+    ct_income_tax_after_personal_credits: 1_960
+
+- name: Case 6, non-CT resident gets zero CT tax.
+  absolute_error_margin: 1
+  period: 2026
+  reforms: policyengine_us.reforms.states.ct.sb100.ct_sb100.ct_sb100
+  input:
+    people:
+      person1:
+        age: 40
+        employment_income: 50_000
+    tax_units:
+      tax_unit:
+        members: [person1]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [person1]
+        state_code: NY
+  output:
+    ct_income_tax_after_personal_credits: 0
+
+- name: Case 7, single filer just below AGI threshold qualifies.
+  absolute_error_margin: 1
+  period: 2026
+  reforms: policyengine_us.reforms.states.ct.sb100.ct_sb100.ct_sb100
+  input:
+    people:
+      person1:
+        age: 40
+        employment_income: 99_999
+    tax_units:
+      tax_unit:
+        members: [person1]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    # Single, AGI $99,999 < $100k threshold, qualifies for SB-100
+    ct_income_tax_after_personal_credits: 4_175
+
+- name: Case 8, joint filers just below AGI threshold qualifies.
+  absolute_error_margin: 1
+  period: 2026
+  reforms: policyengine_us.reforms.states.ct.sb100.ct_sb100.ct_sb100
+  input:
+    people:
+      person1:
+        age: 40
+        employment_income: 99_999
+      person2:
+        age: 38
+        employment_income: 99_999
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+        filing_status: JOINT
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Joint, AGI $199,998 < $200k threshold, qualifies for SB-100
+    ct_income_tax_after_personal_credits: 8_400

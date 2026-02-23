@@ -1,0 +1,38 @@
+description: Connecticut SB-100 taxes income of head of household filers at these reduced rates.
+
+metadata:
+  type: marginal_rate
+  threshold_unit: currency-USD
+  rate_unit: /1
+  period: year
+  label: Connecticut SB-100 income tax rate head of household filers
+
+brackets:
+  - threshold:
+      2026-01-01: 0
+    rate:
+      2026-01-01: 0
+  - threshold:
+      2026-01-01: 16_000
+    rate:
+      2026-01-01: 0.03
+  - threshold:
+      2026-01-01: 80_000
+    rate:
+      2026-01-01: 0.055
+  - threshold:
+      2026-01-01: 160_000
+    rate:
+      2026-01-01: 0.06
+  - threshold:
+      2026-01-01: 320_000
+    rate:
+      2026-01-01: 0.065
+  - threshold:
+      2026-01-01: 400_000
+    rate:
+      2026-01-01: 0.069
+  - threshold:
+      2026-01-01: 800_000
+    rate:
+      2026-01-01: 0.0699

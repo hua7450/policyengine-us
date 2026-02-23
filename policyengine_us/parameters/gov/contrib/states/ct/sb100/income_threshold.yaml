@@ -1,0 +1,23 @@
+description: Connecticut SB-100 applies reduced marginal rates for taxpayers with AGI below this threshold by filing status.
+
+metadata:
+  label: Connecticut SB-100 AGI threshold
+  period: year
+  unit: currency-USD
+  breakdown:
+    - filing_status
+
+JOINT:
+  2026-01-01: 200_000
+
+SINGLE:
+  2026-01-01: 100_000
+
+HEAD_OF_HOUSEHOLD:
+  2026-01-01: 100_000
+
+SEPARATE:
+  2026-01-01: 100_000
+
+SURVIVING_SPOUSE:
+  2026-01-01: 200_000
