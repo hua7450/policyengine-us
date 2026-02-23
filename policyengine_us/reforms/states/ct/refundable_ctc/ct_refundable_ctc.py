@@ -27,11 +27,22 @@ def create_ct_refundable_ctc() -> Reform:
             # Calculate credit amount
             credit_amount = capped_children * p.amount
 
-            # Check income eligibility - AGI must be less than threshold
+            # Check income eligibility.
+            # HB 5134: "less than" $100K for single filers (strict <),
+            # "$200K or less" for joint filers (<=).
             agi = tax_unit("adjusted_gross_income", period)
             filing_status = tax_unit("filing_status", period)
             income_threshold = p.income_threshold[filing_status]
-            income_eligible = agi < income_threshold
+            joint = filing_status.possible_values.JOINT
+            surviving_spouse = filing_status.possible_values.SURVIVING_SPOUSE
+            uses_joint_threshold = (filing_status == joint) | (
+                filing_status == surviving_spouse
+            )
+            income_eligible = where(
+                uses_joint_threshold,
+                agi <= income_threshold,
+                agi < income_threshold,
+            )
 
             return income_eligible * credit_amount
 

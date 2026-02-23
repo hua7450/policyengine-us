@@ -1,4 +1,4 @@
-description: Connecticut proposed to provide the following refundable child tax credit amount per qualifying child.
+description: Connecticut provides this amount per qualifying child under the proposed refundable child tax credit.
 
 values:
   2026-01-01: 600
@@ -6,7 +6,7 @@ values:
 metadata:
   unit: currency-USD
   period: year
-  label: CT refundable CTC amount per child
+  label: Connecticut refundable CTC amount per child
   reference:
-    - title: Connecticut HB 5134 (2026) - AN ACT ESTABLISHING A REFUNDABLE CHILD TAX CREDIT
+    - title: Connecticut HB 5134 (2026), Sec. 1 - "six hundred dollars per child"
       href: https://www.cga.ct.gov/2026/TOB/H/PDF/2026HB-05134-R00-HB.PDF#page=2
