@@ -22,7 +22,7 @@ class va_agi_person(Variable):
             total_subtractions - total_age_deduction, 0
         )
         total_federal_agi = person.tax_unit.sum(person_fagi)
-        prorate = np.where(
+        prorate = where(
             total_federal_agi > 0, person_fagi / total_federal_agi, 0
         )
         person_non_age_subtractions = non_age_subtractions * prorate

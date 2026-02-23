@@ -7,6 +7,7 @@ class va_age_deduction_person(Variable):
     label = "Virginia age deduction allocated to each person"
     unit = USD
     definition_period = YEAR
+    reference = "https://www.tax.virginia.gov/sites/default/files/vatax-pdf/2022-760-instructions.pdf#page=16"
     defined_for = StateCode.VA
 
     def formula(person, period, parameters):
