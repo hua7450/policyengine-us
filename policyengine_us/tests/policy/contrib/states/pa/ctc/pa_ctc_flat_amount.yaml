@@ -3,6 +3,7 @@
 
 - name: PA CTC flat amount - income below threshold, one eligible child
   period: 2026
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.states.pa.ctc.pa_ctc_flat_amount.pa_ctc_flat_amount
   input:
     gov.contrib.states.pa.ctc.flat_amount.in_effect: true
@@ -25,9 +26,12 @@
     # AGI $100k < threshold $125k, no phaseout
     # Credit = 1 child * $1,000 = $1,000
     pa_ctc_flat_amount: 1_000
+    pa_income_tax: 2_114
+    household_net_income: 102_233
 
 - name: PA CTC flat amount - income above threshold with phaseout
   period: 2026
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.states.pa.ctc.pa_ctc_flat_amount.pa_ctc_flat_amount
   input:
     gov.contrib.states.pa.ctc.flat_amount.in_effect: true
@@ -51,9 +55,12 @@
     # Phaseout = $10,000 * 0.02 = $200
     # Credit = $1,000 - $200 = $800
     pa_ctc_flat_amount: 800
+    pa_income_tax: 3_389
+    household_net_income: 125_478
 
 - name: PA CTC flat amount - credit fully phased out
   period: 2026
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.states.pa.ctc.pa_ctc_flat_amount.pa_ctc_flat_amount
   input:
     gov.contrib.states.pa.ctc.flat_amount.in_effect: true
@@ -77,9 +84,12 @@
     # Phaseout = $50,000 * 0.02 = $1,000
     # Credit = $1,000 - $1,000 = $0
     pa_ctc_flat_amount: 0
+    pa_income_tax: 5_430
+    household_net_income: 153_559
 
 - name: PA CTC flat amount - joint filer at threshold with two children
   period: 2026
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.states.pa.ctc.pa_ctc_flat_amount.pa_ctc_flat_amount
   input:
     gov.contrib.states.pa.ctc.flat_amount.in_effect: true
@@ -110,9 +120,12 @@
     # AGI $125k = threshold, no phaseout
     # Credit = 2 children * $1,000 = $2,000
     pa_ctc_flat_amount: 2_000
+    pa_income_tax: 1_882
+    household_net_income: 130_004
 
 - name: PA CTC flat amount - joint filer above threshold
   period: 2026
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.states.pa.ctc.pa_ctc_flat_amount.pa_ctc_flat_amount
   input:
     gov.contrib.states.pa.ctc.flat_amount.in_effect: true
@@ -141,9 +154,12 @@
     # Phaseout = $25,000 * 0.02 = $500
     # Credit = $1,000 - $500 = $500
     pa_ctc_flat_amount: 500
+    pa_income_tax: 4_162
+    household_net_income: 141_652
 
 - name: PA CTC flat amount - child too old (age 6)
   period: 2026
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.states.pa.ctc.pa_ctc_flat_amount.pa_ctc_flat_amount
   input:
     gov.contrib.states.pa.ctc.flat_amount.in_effect: true
@@ -165,9 +181,12 @@
   output:
     # Child age 6 not eligible (must be under 6)
     pa_ctc_flat_amount: 0
+    pa_income_tax: 3_114
+    household_net_income: 86_771
 
 - name: PA CTC flat amount - mixed age children
   period: 2026
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.states.pa.ctc.pa_ctc_flat_amount.pa_ctc_flat_amount
   input:
     gov.contrib.states.pa.ctc.flat_amount.in_effect: true
@@ -193,9 +212,12 @@
     # Only child age 4 is eligible (under 6)
     # Credit = 1 child * $1,000 = $1,000
     pa_ctc_flat_amount: 1_000
+    pa_income_tax: 2_114
+    household_net_income: 106_608
 
 - name: PA CTC flat amount - head of household
   period: 2026
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.states.pa.ctc.pa_ctc_flat_amount.pa_ctc_flat_amount
   input:
     gov.contrib.states.pa.ctc.flat_amount.in_effect: true
@@ -220,3 +242,5 @@
     # Phaseout = $5,000 * 0.02 = $100
     # Credit = $1,000 - $100 = $900
     pa_ctc_flat_amount: 900
+    pa_income_tax: 3_135
+    household_net_income: 122_314
