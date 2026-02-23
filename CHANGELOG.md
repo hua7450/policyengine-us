@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.577.0] - 2026-02-23 13:49:59
+
+### Added
+
+- Add Washington Apple Health for Kids and Apple Health Expansion programs.
+
 ## [1.576.0] - 2026-02-23 13:47:45
 
 ### Added
@@ -15398,6 +15404,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+[1.577.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.576.0...1.577.0
 [1.576.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.575.0...1.576.0
 [1.575.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.574.0...1.575.0
 [1.574.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.573.0...1.574.0

@@ -13324,3 +13324,8 @@
     added:
     - Colorado alternative minimum tax (AMT).
   date: 2026-02-23 13:47:45
+- bump: minor
+  changes:
+    added:
+    - Add Washington Apple Health for Kids and Apple Health Expansion programs.
+  date: 2026-02-23 13:49:59
