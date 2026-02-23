@@ -13255,3 +13255,57 @@
       countable income could produce benefits exceeding $1M per household, inflating
       total TANF microsimulation from $9B target to $17.9T.
   date: 2026-02-19 06:54:52
+- bump: minor
+  changes:
+    added:
+    - Add 2024 SLCSP premiums by rating area for all states, scraped from the KFF
+      2024 subsidy calculator (age 0 benchmark).
+  date: 2026-02-20 19:38:12
+- bump: patch
+  changes:
+    added:
+    - Add historical TANF parameter data for DE, MO, RI, SD (pre-2018 values).
+    - Add PA TANF Work Expense Reimbursement (WER) for 2009-2020 era.
+    - Add PA TANF work expense mechanism toggle (deduction_applies parameter).
+  date: 2026-02-20 21:53:15
+- bump: minor
+  changes:
+    added:
+    - Multnomah County Preschool for All (PFA) Personal Income Tax with progressive
+      rates by filing status.
+  date: 2026-02-20 22:34:21
+- bump: patch
+  changes:
+    fixed:
+    - Hawaii child and dependent care credit (hi_cdcc) no longer goes negative when
+      spouse has negative self-employment income.
+  date: 2026-02-20 22:56:55
+- bump: patch
+  changes:
+    fixed:
+    - Cap DC self-employment loss addition at the amount actually deducted in federal
+      AGI via loss_ald.
+  date: 2026-02-22 23:59:28
+- bump: patch
+  changes:
+    fixed:
+    - Fix circular dependency in NY A06774 Enhanced CDCC reform by using cdcc_potential
+      instead of cdcc, which avoids the income_tax_before_credits dependency cycle.
+  date: 2026-02-23 00:04:18
+- bump: patch
+  changes:
+    fixed:
+    - Fix Stay NJ benefit formula order of operations and add Senior Freeze offset
+      per P.L. 2024 c.88.
+  date: 2026-02-23 06:19:36
+- bump: patch
+  changes:
+    fixed:
+    - Fix WA Working Families Tax Credit phaseout to phase to $50 minimum instead
+      of zero per RCW 82.08.0206(3)(f).
+  date: 2026-02-23 06:32:41
+- bump: minor
+  changes:
+    added:
+    - Puerto Rico non-refundable child tax credit (CTC).
+  date: 2026-02-23 13:42:35

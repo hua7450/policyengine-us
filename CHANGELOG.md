@@ -5,6 +5,62 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.573.0] - 2026-02-23 13:42:35
+
+### Added
+
+- Puerto Rico non-refundable child tax credit (CTC).
+
+## [1.572.5] - 2026-02-23 06:32:41
+
+### Fixed
+
+- Fix WA Working Families Tax Credit phaseout to phase to $50 minimum instead of zero per RCW 82.08.0206(3)(f).
+
+## [1.572.4] - 2026-02-23 06:19:36
+
+### Fixed
+
+- Fix Stay NJ benefit formula order of operations and add Senior Freeze offset per P.L. 2024 c.88.
+
+## [1.572.3] - 2026-02-23 00:04:18
+
+### Fixed
+
+- Fix circular dependency in NY A06774 Enhanced CDCC reform by using cdcc_potential instead of cdcc, which avoids the income_tax_before_credits dependency cycle.
+
+## [1.572.2] - 2026-02-22 23:59:28
+
+### Fixed
+
+- Cap DC self-employment loss addition at the amount actually deducted in federal AGI via loss_ald.
+
+## [1.572.1] - 2026-02-20 22:56:55
+
+### Fixed
+
+- Hawaii child and dependent care credit (hi_cdcc) no longer goes negative when spouse has negative self-employment income.
+
+## [1.572.0] - 2026-02-20 22:34:21
+
+### Added
+
+- Multnomah County Preschool for All (PFA) Personal Income Tax with progressive rates by filing status.
+
+## [1.571.1] - 2026-02-20 21:53:15
+
+### Added
+
+- Add historical TANF parameter data for DE, MO, RI, SD (pre-2018 values).
+- Add PA TANF Work Expense Reimbursement (WER) for 2009-2020 era.
+- Add PA TANF work expense mechanism toggle (deduction_applies parameter).
+
+## [1.571.0] - 2026-02-20 19:38:12
+
+### Added
+
+- Add 2024 SLCSP premiums by rating area for all states, scraped from the KFF 2024 subsidy calculator (age 0 benchmark).
+
 ## [1.570.7] - 2026-02-19 06:54:52
 
 ### Fixed
@@ -15324,6 +15380,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+[1.573.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.572.5...1.573.0
+[1.572.5]: https://github.com/PolicyEngine/policyengine-us/compare/1.572.4...1.572.5
+[1.572.4]: https://github.com/PolicyEngine/policyengine-us/compare/1.572.3...1.572.4
+[1.572.3]: https://github.com/PolicyEngine/policyengine-us/compare/1.572.2...1.572.3
+[1.572.2]: https://github.com/PolicyEngine/policyengine-us/compare/1.572.1...1.572.2
+[1.572.1]: https://github.com/PolicyEngine/policyengine-us/compare/1.572.0...1.572.1
+[1.572.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.571.1...1.572.0
+[1.571.1]: https://github.com/PolicyEngine/policyengine-us/compare/1.571.0...1.571.1
+[1.571.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.570.7...1.571.0
 [1.570.7]: https://github.com/PolicyEngine/policyengine-us/compare/1.570.6...1.570.7
 [1.570.6]: https://github.com/PolicyEngine/policyengine-us/compare/1.570.5...1.570.6
 [1.570.5]: https://github.com/PolicyEngine/policyengine-us/compare/1.570.4...1.570.5
