@@ -1,22 +1,23 @@
-description: Connecticut proposed the following 2026 tax rebate amounts by filing status.
-JOINT:
-  values:
-    2026-01-01: 400
-SINGLE:
-  values:
-    2026-01-01: 200
-HEAD_OF_HOUSEHOLD:
-  values:
-    2026-01-01: 320
-SEPARATE:
-  values:
-    2026-01-01: 200
-SURVIVING_SPOUSE:
-  values:
-    2026-01-01: 400
+description: Connecticut provides this rebate amount by filing status under the proposed 2026 tax rebate.
+
 metadata:
-  unit: currency-USD
+  label: Connecticut 2026 tax rebate amount
   period: year
-  label: CT 2026 tax rebate amount
+  unit: currency-USD
   breakdown:
     - filing_status
+
+JOINT:
+  2026-01-01: 400
+
+SINGLE:
+  2026-01-01: 200
+
+HEAD_OF_HOUSEHOLD:
+  2026-01-01: 320
+
+SEPARATE:
+  2026-01-01: 200
+
+SURVIVING_SPOUSE:
+  2026-01-01: 400
