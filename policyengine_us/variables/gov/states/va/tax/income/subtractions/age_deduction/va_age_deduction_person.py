@@ -1,0 +1,28 @@
+from policyengine_us.model_api import *
+
+
+class va_age_deduction_person(Variable):
+    value_type = float
+    entity = Person
+    label = "Virginia age deduction allocated to each person"
+    unit = USD
+    definition_period = YEAR
+    defined_for = StateCode.VA
+
+    def formula(person, period, parameters):
+        p = parameters(
+            period
+        ).gov.states.va.tax.income.subtractions.age_deduction
+
+        total_deduction = person.tax_unit("va_age_deduction", period)
+
+        age = person("age", period)
+        is_head_or_spouse = person("is_tax_unit_head_or_spouse", period)
+        eligible = is_head_or_spouse & (age >= p.age_minimum)
+
+        count_eligible = person.tax_unit.sum(eligible)
+        return where(
+            eligible & (count_eligible > 0),
+            total_deduction / count_eligible,
+            0,
+        )
