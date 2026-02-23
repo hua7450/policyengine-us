@@ -1,0 +1,4 @@
+- bump: patch
+  changes:
+    changed:
+      - Nebraska ADC parameters backdated with historical values for 2015, 2017, 2019, and 2023 periods.
