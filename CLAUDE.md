@@ -61,7 +61,7 @@ make documentation
   - Use `git push` to push changes to the PR branch
 
 ## Project Requirements
-- Python >= 3.10, < 3.13
+- Python >= 3.11, < 3.15
 - Follow GitHub Flow with PRs targeting master branch
 - Every PR needs a changelog entry in changelog_entry.yaml
 - **ALWAYS run `make format` before every commit** - this is mandatory
