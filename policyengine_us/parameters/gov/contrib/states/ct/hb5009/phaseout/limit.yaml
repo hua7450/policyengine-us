@@ -1,7 +1,7 @@
-description: Connecticut HB-5009 expands eligibility by increasing the AGI threshold for full credit by filing status. Specific threshold values are from the CT House GOP press release as the bill is a concept bill.
+description: Connecticut HB-5009 AGI threshold where phase-out ends (credit would reach zero without the minimum floor) by filing status.
 
 metadata:
-  label: Connecticut HB-5009 property tax credit income threshold
+  label: Connecticut HB-5009 property tax credit phase-out limit
   period: year
   unit: currency-USD
   breakdown:

@@ -17,9 +17,6 @@ def create_ct_hb5009() -> Reform:
 
             # Use HB-5009 parameters
             p = parameters(period).gov.contrib.states.ct.hb5009
-            baseline = parameters(
-                period
-            ).gov.states.ct.tax.income.credits.property_tax
 
             # Get property taxes paid
             real_estate_taxes = add(tax_unit, period, ["real_estate_taxes"])
@@ -27,15 +24,15 @@ def create_ct_hb5009() -> Reform:
             # Calculate credit with increased cap
             max_credit = min_(real_estate_taxes, p.cap)
 
-            # Use expanded income thresholds
-            income_threshold = p.income_threshold[filing_status]
+            # Phase-out calculation using HB-5009 parameters
+            start = p.phaseout.start[filing_status]
+            increment = p.phaseout.increment[filing_status]
+            rate = p.phaseout.rate
 
-            # Calculate phase-out using baseline increment and rate
-            excess = max_(agi - income_threshold, 0)
-            total_increments = np.ceil(
-                excess / baseline.reduction.increment[filing_status]
-            )
-            reduction_percent = baseline.reduction.rate * total_increments
+            # Calculate stepped reduction
+            excess = max_(agi - start, 0)
+            total_increments = np.ceil(excess / increment)
+            reduction_percent = rate * total_increments
             reduction_amount = max_credit * reduction_percent
 
             # Apply minimum floor - key structural change

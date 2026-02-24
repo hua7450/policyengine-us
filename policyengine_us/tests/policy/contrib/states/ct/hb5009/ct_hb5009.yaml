@@ -1,4 +1,4 @@
-- name: Case 1, senior single filer with property taxes gets increased max credit.
+- name: Case 1, single filer below phase-out start gets full credit.
   absolute_error_margin: 1
   period: 2026
   reforms: policyengine_us.reforms.states.ct.hb5009.ct_hb5009.ct_hb5009
@@ -6,6 +6,7 @@
     people:
       person1:
         age: 65
+        employment_income: 60_000
         real_estate_taxes: 5_000
     tax_units:
       tax_unit:
@@ -16,10 +17,11 @@
         members: [person1]
         state_code: CT
   output:
-    # Senior with $0 AGI, eligible, gets full $1,000 (min of taxes paid and cap)
+    # Single with AGI $60k, below $70k start threshold
+    # Full credit = min($5,000, $1,000) = $1,000
     ct_property_tax_credit: 1_000
 
-- name: Case 2, senior single filer with high AGI phases down to minimum floor.
+- name: Case 2, single filer just above phase-out start gets partial reduction.
   absolute_error_margin: 1
   period: 2026
   reforms: policyengine_us.reforms.states.ct.hb5009.ct_hb5009.ct_hb5009
@@ -27,7 +29,7 @@
     people:
       person1:
         age: 65
-        employment_income: 200_000
+        employment_income: 85_000
         real_estate_taxes: 5_000
     tax_units:
       tax_unit:
@@ -38,11 +40,61 @@
         members: [person1]
         state_code: CT
   output:
-    # Senior single with AGI $200k, exceeds $130k threshold by $70k
-    # 7 increments * 15% = 105% reduction, but minimum floor is $400
+    # Single with AGI $85k, exceeds $70k start by $15k
+    # Increments: ceil($15k / $10k) = 2
+    # Reduction: 2 * 15% = 30% of $1,000 = $300
+    # Credit: $1,000 - $300 = $700 (above $400 floor)
+    ct_property_tax_credit: 700
+
+- name: Case 3, single filer near phase-out limit hits minimum floor.
+  absolute_error_margin: 1
+  period: 2026
+  reforms: policyengine_us.reforms.states.ct.hb5009.ct_hb5009.ct_hb5009
+  input:
+    people:
+      person1:
+        age: 65
+        employment_income: 125_000
+        real_estate_taxes: 5_000
+    tax_units:
+      tax_unit:
+        members: [person1]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    # Single with AGI $125k, exceeds $70k start by $55k
+    # Increments: ceil($55k / $10k) = 6
+    # Reduction: 6 * 15% = 90% of $1,000 = $900
+    # Credit: $1,000 - $900 = $100, but minimum floor is $400
     ct_property_tax_credit: 400
 
-- name: Case 3, senior joint filers below new threshold get full credit.
+- name: Case 4, single filer above phase-out limit gets minimum floor.
+  absolute_error_margin: 1
+  period: 2026
+  reforms: policyengine_us.reforms.states.ct.hb5009.ct_hb5009.ct_hb5009
+  input:
+    people:
+      person1:
+        age: 65
+        employment_income: 150_000
+        real_estate_taxes: 5_000
+    tax_units:
+      tax_unit:
+        members: [person1]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    # Single with AGI $150k, well above $130k limit
+    # Reduction exceeds 100%, minimum floor of $400 applies
+    ct_property_tax_credit: 400
+
+- name: Case 5, joint filers below phase-out start get full credit.
   absolute_error_margin: 1
   period: 2026
   reforms: policyengine_us.reforms.states.ct.hb5009.ct_hb5009.ct_hb5009
@@ -50,11 +102,11 @@
     people:
       person1:
         age: 68
-        employment_income: 100_000
+        employment_income: 50_000
         real_estate_taxes: 2_000
       person2:
         age: 66
-        employment_income: 80_000
+        employment_income: 40_000
     tax_units:
       tax_unit:
         members: [person1, person2]
@@ -64,11 +116,39 @@
         members: [person1, person2]
         state_code: CT
   output:
-    # Joint seniors with AGI $180k, below $200k threshold, gets full credit
-    # Credit = min(property_taxes, cap) = min($2,000, $1,000) = $1,000
+    # Joint with AGI $90k, below $100k start threshold
+    # Full credit = min($2,000, $1,000) = $1,000
     ct_property_tax_credit: 1_000
 
-- name: Case 4, senior joint filers above threshold get reduced credit with floor.
+- name: Case 6, joint filers with partial phase-out.
+  absolute_error_margin: 1
+  period: 2026
+  reforms: policyengine_us.reforms.states.ct.hb5009.ct_hb5009.ct_hb5009
+  input:
+    people:
+      person1:
+        age: 68
+        employment_income: 70_000
+        real_estate_taxes: 3_000
+      person2:
+        age: 66
+        employment_income: 60_000
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+        filing_status: JOINT
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Joint with AGI $130k, exceeds $100k start by $30k
+    # Increments: ceil($30k / $10k) = 3
+    # Reduction: 3 * 15% = 45% of $1,000 = $450
+    # Credit: $1,000 - $450 = $550 (above $400 floor)
+    ct_property_tax_credit: 550
+
+- name: Case 7, joint filers above phase-out limit get minimum floor.
   absolute_error_margin: 1
   period: 2026
   reforms: policyengine_us.reforms.states.ct.hb5009.ct_hb5009.ct_hb5009
@@ -80,7 +160,7 @@
         real_estate_taxes: 3_000
       person2:
         age: 68
-        employment_income: 150_000
+        employment_income: 100_000
     tax_units:
       tax_unit:
         members: [person1, person2]
@@ -90,11 +170,11 @@
         members: [person1, person2]
         state_code: CT
   output:
-    # Senior joint with AGI $300k, exceeds $200k threshold by $100k
-    # 10 increments * 15% = 150% reduction, but minimum floor is $400
+    # Joint with AGI $250k, well above $200k limit
+    # Reduction exceeds 100%, minimum floor of $400 applies
     ct_property_tax_credit: 400
 
-- name: Case 5, filer with dependent gets credit with floor for low property taxes.
+- name: Case 8, head of household with partial phase-out.
   absolute_error_margin: 1
   period: 2026
   reforms: policyengine_us.reforms.states.ct.hb5009.ct_hb5009.ct_hb5009
@@ -102,7 +182,8 @@
     people:
       person1:
         age: 40
-        real_estate_taxes: 200
+        employment_income: 100_000
+        real_estate_taxes: 4_000
       person2:
         age: 10
     tax_units:
@@ -114,52 +195,13 @@
         members: [person1, person2]
         state_code: CT
   output:
-    # HoH with dependent, low property taxes $200
-    # Credit = min($200, $1,000) = $200, but minimum floor is $400
-    ct_property_tax_credit: 400
+    # HoH with AGI $100k, exceeds $70k start by $30k
+    # Increments: ceil($30k / $10k) = 3
+    # Reduction: 3 * 15% = 45% of $1,000 = $450
+    # Credit: $1,000 - $450 = $550 (above $400 floor)
+    ct_property_tax_credit: 550
 
-- name: Case 6, non-CT resident gets zero credit.
-  absolute_error_margin: 1
-  period: 2026
-  reforms: policyengine_us.reforms.states.ct.hb5009.ct_hb5009.ct_hb5009
-  input:
-    people:
-      person1:
-        age: 65
-        real_estate_taxes: 5_000
-    tax_units:
-      tax_unit:
-        members: [person1]
-        filing_status: SINGLE
-    households:
-      household:
-        members: [person1]
-        state_code: NY
-  output:
-    ct_property_tax_credit: 0
-
-- name: Case 7, younger filer with property taxes gets credit (age threshold is 0 since 2022).
-  absolute_error_margin: 1
-  period: 2026
-  reforms: policyengine_us.reforms.states.ct.hb5009.ct_hb5009.ct_hb5009
-  input:
-    people:
-      person1:
-        age: 30
-        real_estate_taxes: 5_000
-    tax_units:
-      tax_unit:
-        members: [person1]
-        filing_status: SINGLE
-    households:
-      household:
-        members: [person1]
-        state_code: CT
-  output:
-    # Since 2022, age threshold is 0 so all CT filers qualify
-    ct_property_tax_credit: 1_000
-
-- name: Case 8, SEPARATE filing status near income threshold.
+- name: Case 9, separate filer with partial phase-out (uses $5k increment).
   absolute_error_margin: 1
   period: 2026
   reforms: policyengine_us.reforms.states.ct.hb5009.ct_hb5009.ct_hb5009
@@ -167,7 +209,7 @@
     people:
       person1:
         age: 45
-        employment_income: 98_000
+        employment_income: 65_000
         real_estate_taxes: 3_000
     tax_units:
       tax_unit:
@@ -178,11 +220,13 @@
         members: [person1]
         state_code: CT
   output:
-    # SEPARATE filer with AGI $98k, below $100k threshold
-    # Credit = min($3,000, $1,000) = $1,000, no reduction
-    ct_property_tax_credit: 1_000
+    # SEPARATE with AGI $65k, exceeds $50k start by $15k
+    # Increments: ceil($15k / $5k) = 3
+    # Reduction: 3 * 15% = 45% of $1,000 = $450
+    # Credit: $1,000 - $450 = $550 (above $400 floor)
+    ct_property_tax_credit: 550
 
-- name: Case 9, SURVIVING_SPOUSE filing status below threshold.
+- name: Case 10, surviving spouse below phase-out start.
   absolute_error_margin: 1
   period: 2026
   reforms: policyengine_us.reforms.states.ct.hb5009.ct_hb5009.ct_hb5009
@@ -190,7 +234,7 @@
     people:
       person1:
         age: 58
-        employment_income: 180_000
+        employment_income: 90_000
         real_estate_taxes: 4_500
       person2:
         age: 12
@@ -203,44 +247,19 @@
         members: [person1, person2]
         state_code: CT
   output:
-    # SURVIVING_SPOUSE with AGI $180k, below $200k threshold
-    # Credit = min($4,500, $1,000) = $1,000, no reduction
+    # SURVIVING_SPOUSE with AGI $90k, below $100k start threshold
+    # Full credit = min($4,500, $1,000) = $1,000
     ct_property_tax_credit: 1_000
 
-- name: Case 10, SEPARATE filer above threshold gets reduced credit.
+- name: Case 11, non-CT resident gets zero credit.
   absolute_error_margin: 1
   period: 2026
   reforms: policyengine_us.reforms.states.ct.hb5009.ct_hb5009.ct_hb5009
   input:
     people:
       person1:
-        age: 50
-        employment_income: 150_000
-        real_estate_taxes: 5_000
-    tax_units:
-      tax_unit:
-        members: [person1]
-        filing_status: SEPARATE
-    households:
-      household:
-        members: [person1]
-        state_code: CT
-  output:
-    # SEPARATE filer with AGI $150k, exceeds $100k threshold by $50k
-    # Increment is $5,000 for SEPARATE, so 10 increments
-    # Reduction: 10 * 15% = 150% -> max credit $1,000 reduced to $0
-    # But minimum floor is $400
-    ct_property_tax_credit: 400
-
-- name: Case 11, single filer with partial phase-out not hitting floor.
-  absolute_error_margin: 1
-  period: 2026
-  reforms: policyengine_us.reforms.states.ct.hb5009.ct_hb5009.ct_hb5009
-  input:
-    people:
-      person1:
-        age: 35
-        employment_income: 145_000
+        age: 65
+        employment_income: 50_000
         real_estate_taxes: 5_000
     tax_units:
       tax_unit:
@@ -249,70 +268,11 @@
     households:
       household:
         members: [person1]
-        state_code: CT
+        state_code: NY
   output:
-    # Single filer with AGI $145k, exceeds $130k threshold by $15k
-    # Increment is $10,000 for SINGLE, so ceil(15k/10k) = 2 increments
-    # Reduction: 2 * 15% = 30% -> max credit $1,000 * 30% = $300 reduction
-    # Credit after reduction: $1,000 - $300 = $700, above $400 floor
-    ct_property_tax_credit: 700
+    ct_property_tax_credit: 0
 
-- name: Case 12, joint filer with partial phase-out.
-  absolute_error_margin: 1
-  period: 2026
-  reforms: policyengine_us.reforms.states.ct.hb5009.ct_hb5009.ct_hb5009
-  input:
-    people:
-      person1:
-        age: 62
-        employment_income: 120_000
-        real_estate_taxes: 2_500
-      person2:
-        age: 60
-        employment_income: 105_000
-    tax_units:
-      tax_unit:
-        members: [person1, person2]
-        filing_status: JOINT
-    households:
-      household:
-        members: [person1, person2]
-        state_code: CT
-  output:
-    # Joint filers with AGI $225k, exceeds $200k threshold by $25k
-    # Increment is $10,000 for JOINT, so ceil(25k/10k) = 3 increments
-    # Reduction: 3 * 15% = 45% -> max credit $1,000 * 45% = $450 reduction
-    # Credit after reduction: $1,000 - $450 = $550, above $400 floor
-    ct_property_tax_credit: 550
-
-- name: Case 13, head of household with partial phase-out.
-  absolute_error_margin: 1
-  period: 2026
-  reforms: policyengine_us.reforms.states.ct.hb5009.ct_hb5009.ct_hb5009
-  input:
-    people:
-      person1:
-        age: 42
-        employment_income: 155_000
-        real_estate_taxes: 4_000
-      person2:
-        age: 15
-    tax_units:
-      tax_unit:
-        members: [person1, person2]
-        filing_status: HEAD_OF_HOUSEHOLD
-    households:
-      household:
-        members: [person1, person2]
-        state_code: CT
-  output:
-    # HoH with AGI $155k, exceeds $130k threshold by $25k
-    # Increment is $10,000 for HoH, so ceil(25k/10k) = 3 increments
-    # Reduction: 3 * 15% = 45% -> max credit $1,000 * 45% = $450 reduction
-    # Credit after reduction: $1,000 - $450 = $550, above $400 floor
-    ct_property_tax_credit: 550
-
-- name: Case 14, filer with zero property taxes gets zero credit.
+- name: Case 12, filer with zero property taxes gets zero credit (floor does not apply).
   absolute_error_margin: 1
   period: 2026
   reforms: policyengine_us.reforms.states.ct.hb5009.ct_hb5009.ct_hb5009
@@ -331,7 +291,53 @@
         members: [person1]
         state_code: CT
   output:
-    # Filer with $0 property taxes should get $0 credit
-    # Even though minimum floor is $400, it only applies when there are property taxes
-    # max_credit = min(0, 1000) = 0, and floor doesn't apply when max_credit = 0
+    # $0 property taxes means $0 credit - floor only applies when there are taxes
     ct_property_tax_credit: 0
+
+- name: Case 13, filer with low property taxes gets floor when below cap.
+  absolute_error_margin: 1
+  period: 2026
+  reforms: policyengine_us.reforms.states.ct.hb5009.ct_hb5009.ct_hb5009
+  input:
+    people:
+      person1:
+        age: 40
+        employment_income: 60_000
+        real_estate_taxes: 200
+    tax_units:
+      tax_unit:
+        members: [person1]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    # Property taxes $200 < cap $1,000, so max_credit = $200
+    # Below phase-out start, no reduction
+    # But minimum floor is $400, so credit = max($200, $400) = $400
+    ct_property_tax_credit: 400
+
+- name: Case 14, single filer exactly at phase-out start threshold.
+  absolute_error_margin: 1
+  period: 2026
+  reforms: policyengine_us.reforms.states.ct.hb5009.ct_hb5009.ct_hb5009
+  input:
+    people:
+      person1:
+        age: 35
+        employment_income: 70_000
+        real_estate_taxes: 5_000
+    tax_units:
+      tax_unit:
+        members: [person1]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    # Single with AGI exactly at $70k start threshold
+    # Excess = $0, no reduction
+    # Full credit = $1,000
+    ct_property_tax_credit: 1_000
