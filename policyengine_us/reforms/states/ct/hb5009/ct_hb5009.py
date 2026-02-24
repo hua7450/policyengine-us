@@ -12,9 +12,6 @@ def create_ct_hb5009() -> Reform:
         defined_for = "ct_property_tax_credit_eligible"
 
         def formula(tax_unit, period, parameters):
-            # Check eligibility first
-            eligible = tax_unit("ct_property_tax_credit_eligible", period)
-
             agi = tax_unit("ct_agi", period)
             filing_status = tax_unit("filing_status", period)
 
@@ -42,12 +39,14 @@ def create_ct_hb5009() -> Reform:
             reduction_amount = max_credit * reduction_percent
 
             # Apply minimum floor - key structural change
+            # Only apply floor when there are actual property taxes
             credit_after_reduction = max_credit - reduction_amount
             minimum_floor = p.minimum
+            credit = where(
+                max_credit > 0, max_(credit_after_reduction, minimum_floor), 0
+            )
 
-            credit = max_(credit_after_reduction, minimum_floor)
-
-            return eligible * credit
+            return credit
 
     class reform(Reform):
         def apply(self):
