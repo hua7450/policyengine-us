@@ -26,6 +26,7 @@ def create_ct_hb5009() -> Reform:
 
             # Phase-out calculation using HB-5009 parameters
             start = p.phaseout.start[filing_status]
+            limit = p.phaseout.limit[filing_status]
             increment = p.phaseout.increment[filing_status]
             rate = p.phaseout.rate
 
@@ -35,12 +36,20 @@ def create_ct_hb5009() -> Reform:
             reduction_percent = rate * total_increments
             reduction_amount = max_credit * reduction_percent
 
-            # Apply minimum floor - key structural change
-            # Only apply floor when there are actual property taxes
+            # Apply minimum floor between start and limit
+            # Floor prevents phase-out from reducing below $400, but credit
+            # cannot exceed actual property taxes paid
+            # Above limit: no credit at all
             credit_after_reduction = max_credit - reduction_amount
             minimum_floor = p.minimum
+            below_limit = agi <= limit
+            credit_with_floor = max_(credit_after_reduction, minimum_floor)
+            # Cap at actual property taxes (max_credit)
+            credit_capped = min_(credit_with_floor, max_credit)
             credit = where(
-                max_credit > 0, max_(credit_after_reduction, minimum_floor), 0
+                max_credit > 0,
+                where(below_limit, credit_capped, 0),
+                0,
             )
 
             return credit

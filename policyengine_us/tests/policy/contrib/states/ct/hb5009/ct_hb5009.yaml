@@ -71,7 +71,7 @@
     # Credit: $1,000 - $900 = $100, but minimum floor is $400
     ct_property_tax_credit: 400
 
-- name: Case 4, single filer above phase-out limit gets minimum floor.
+- name: Case 4, single filer above phase-out limit gets zero credit.
   absolute_error_margin: 1
   period: 2026
   reforms: policyengine_us.reforms.states.ct.hb5009.ct_hb5009.ct_hb5009
@@ -90,9 +90,9 @@
         members: [person1]
         state_code: CT
   output:
-    # Single with AGI $150k, well above $130k limit
-    # Reduction exceeds 100%, minimum floor of $400 applies
-    ct_property_tax_credit: 400
+    # Single with AGI $150k, above $130k limit
+    # Above limit = no credit (floor only applies below limit)
+    ct_property_tax_credit: 0
 
 - name: Case 5, joint filers below phase-out start get full credit.
   absolute_error_margin: 1
@@ -148,7 +148,7 @@
     # Credit: $1,000 - $450 = $550 (above $400 floor)
     ct_property_tax_credit: 550
 
-- name: Case 7, joint filers above phase-out limit get minimum floor.
+- name: Case 7, joint filers above phase-out limit get zero credit.
   absolute_error_margin: 1
   period: 2026
   reforms: policyengine_us.reforms.states.ct.hb5009.ct_hb5009.ct_hb5009
@@ -170,9 +170,9 @@
         members: [person1, person2]
         state_code: CT
   output:
-    # Joint with AGI $250k, well above $200k limit
-    # Reduction exceeds 100%, minimum floor of $400 applies
-    ct_property_tax_credit: 400
+    # Joint with AGI $250k, above $200k limit
+    # Above limit = no credit (floor only applies below limit)
+    ct_property_tax_credit: 0
 
 - name: Case 8, head of household with partial phase-out.
   absolute_error_margin: 1
@@ -294,7 +294,7 @@
     # $0 property taxes means $0 credit - floor only applies when there are taxes
     ct_property_tax_credit: 0
 
-- name: Case 13, filer with low property taxes gets floor when below cap.
+- name: Case 13, filer with low property taxes gets actual taxes (not boosted to floor).
   absolute_error_margin: 1
   period: 2026
   reforms: policyengine_us.reforms.states.ct.hb5009.ct_hb5009.ct_hb5009
@@ -313,10 +313,10 @@
         members: [person1]
         state_code: CT
   output:
-    # Property taxes $200 < cap $1,000, so max_credit = $200
-    # Below phase-out start, no reduction
-    # But minimum floor is $400, so credit = max($200, $400) = $400
-    ct_property_tax_credit: 400
+    # Property taxes $200 < floor $400
+    # Credit cannot exceed actual property taxes paid
+    # Credit = $200 (floor doesn't boost above actual taxes)
+    ct_property_tax_credit: 200
 
 - name: Case 14, single filer exactly at phase-out start threshold.
   absolute_error_margin: 1
