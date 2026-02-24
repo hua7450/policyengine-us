@@ -13415,3 +13415,8 @@
     added:
     - Connecticut SB-100 reduced income tax rates reform
   date: 2026-02-24 14:42:50
+- bump: minor
+  changes:
+    added:
+    - Added Python 3.14 support and dropped Python 3.10.
+  date: 2026-02-24 17:42:10
