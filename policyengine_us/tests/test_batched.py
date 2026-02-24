@@ -184,11 +184,11 @@ def split_into_batches(
 
         # If --exclude states, skip states and run everything else
         if "states" in exclude:
-            batch = []
+            all_paths = []
 
             # Add root level files if any
             for yaml_file in base_path.glob("*.yaml"):
-                batch.append(str(yaml_file))
+                all_paths.append(str(yaml_file))
 
             # Add all directories except gov/states, household, and contrib
             for item in base_path.iterdir():
@@ -200,14 +200,32 @@ def split_into_batches(
                         # Add gov subdirectories except states
                         for gov_item in item.iterdir():
                             if gov_item.is_dir() and gov_item.name != "states":
-                                batch.append(str(gov_item))
+                                all_paths.append(str(gov_item))
                             elif gov_item.suffix == ".yaml":
-                                batch.append(str(gov_item))
+                                all_paths.append(str(gov_item))
                     else:
                         # Other non-gov directories
-                        batch.append(str(item))
+                        all_paths.append(str(item))
 
-            return [batch] if batch else []
+            if not all_paths:
+                return []
+
+            # Split into num_batches groups
+            if num_batches > 1:
+                all_paths.sort()
+                chunk_size = len(all_paths) // num_batches
+                remainder = len(all_paths) % num_batches
+                batches = []
+                start = 0
+                for i in range(num_batches):
+                    end = start + chunk_size + (1 if i < remainder else 0)
+                    batch = all_paths[start:end]
+                    if batch:
+                        batches.append(batch)
+                    start = end
+                return batches
+
+            return [all_paths]
 
     # Default: return the entire path as a single batch
     return [[str(base_path)]]

@@ -16,7 +16,7 @@ test-yaml-no-structural-states:
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/states --batches 2 --exclude ny
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/states/ny --batches 1
 test-yaml-no-structural-other:
-	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline --batches 1 --exclude states
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline --batches 2 --exclude states
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/household --batches 1
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/contrib --batches 1
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/reform --batches 1
