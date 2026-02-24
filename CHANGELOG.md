@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.583.0] - 2026-02-24 14:30:18
+
+### Fixed
+
+- Fix NY supplemental tax for filers with AGI above $25 million in 2022+.
+
 ## [1.582.1] - 2026-02-24 09:57:52
 
 ### Fixed
@@ -15474,6 +15480,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+[1.583.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.582.1...1.583.0
 [1.582.1]: https://github.com/PolicyEngine/policyengine-us/compare/1.582.0...1.582.1
 [1.582.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.581.2...1.582.0
 [1.581.2]: https://github.com/PolicyEngine/policyengine-us/compare/1.581.1...1.581.2

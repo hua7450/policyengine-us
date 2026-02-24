@@ -13405,3 +13405,8 @@
     - Fix ACTC earned income to subtract half of SE tax for self-employed filers per
       IRC 24(d)(1)(B)(i) and 32(c)(2)(A)(ii).
   date: 2026-02-24 09:57:52
+- bump: minor
+  changes:
+    fixed:
+    - Fix NY supplemental tax for filers with AGI above $25 million in 2022+.
+  date: 2026-02-24 14:30:18

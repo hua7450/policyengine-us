@@ -1,4 +1,0 @@
-- bump: minor
-  changes:
-    fixed:
-    - Fix NY supplemental tax for filers with AGI above $25 million in 2022+.
