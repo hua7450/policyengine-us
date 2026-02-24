@@ -13410,3 +13410,8 @@
     fixed:
     - Fix NY supplemental tax for filers with AGI above $25 million in 2022+.
   date: 2026-02-24 14:30:18
+- bump: minor
+  changes:
+    added:
+    - Connecticut SB-100 reduced income tax rates reform
+  date: 2026-02-24 14:42:50
