@@ -1,4 +1,4 @@
-description: The IRS limits 401(k) catch-up contributions to this amount, based on the individual's age. SECURE 2.0 provides an enhanced limit for ages 60-63 starting in 2025.
+description: The IRS limits 401(k) catch-up contributions to this amount based on the individual's age.
 
 brackets:
   - threshold:
@@ -64,9 +64,9 @@ metadata:
   amount_period: year
   label: 401(k) catch-up contribution limit by age
   reference:
-    - title: 26 CFR 1.414(v)-1 - Catch-up contributions
-      href: https://www.law.cornell.edu/cfr/text/26/1.414(v)-1
-    - title: IRC 414(v)(2)(E) - Increased catch-up contribution limit for individuals aged 60-63
+    - title: 26 CFR 1.414(v)-1(c)(2) - Applicable dollar catch-up limit
+      href: https://www.law.cornell.edu/cfr/text/26/1.414(v)-1#c_2
+    - title: 26 USC 414(v)(2)(E) - Increased catch-up contribution limit for individuals aged 60-63
       href: https://www.law.cornell.edu/uscode/text/26/414#v_2_E
     - title: IRS announcement - 401(k) limit increases for 2025
       href: https://www.irs.gov/newsroom/401k-limit-increases-to-23500-for-2025-ira-limit-remains-7000

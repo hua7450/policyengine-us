@@ -5,14 +5,10 @@ class k401_catch_up_eligible(Variable):
     value_type = bool
     entity = Person
     label = "Eligible for 401(k) catch-up contributions"
-    documentation = (
-        "Whether the individual meets the age requirement for "
-        "401(k) catch-up contributions (age 50 or older)."
-    )
     definition_period = YEAR
     reference = (
         "https://www.law.cornell.edu/cfr/text/26/1.414(v)-1#g_3_ii",
-        "https://www.law.cornell.edu/uscode/text/26/414#v_2_E",
+        "https://www.law.cornell.edu/uscode/text/26/414#v_5_A",
     )
 
     def formula(person, period, parameters):
