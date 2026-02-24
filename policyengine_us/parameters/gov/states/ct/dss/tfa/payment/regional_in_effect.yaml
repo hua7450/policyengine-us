@@ -1,0 +1,15 @@
+description: Connecticut uses this indicator to determine whether regional payment standards apply under the Temporary Family Assistance program.
+
+values:
+  1997-01-01: true
+  2022-07-01: false
+
+metadata:
+  unit: bool
+  period: month
+  label: Connecticut TFA regional payment standards in effect
+  reference:
+    - title: Connecticut Public Act 22-118
+      href: https://www.cga.ct.gov/2022/act/pa/pdf/2022PA-00118-R00SB-00002-PA.pdf
+    - title: SSA POMS SI BOS00830.403
+      href: https://secure.ssa.gov/poms.nsf/lnx/0500830403BOS

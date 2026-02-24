@@ -1,9 +1,14 @@
 # Tests for CT TFA payment standard
-# Payment amounts by size: 1=$489, 2=$661, 3=$833, 4=$1,044, 5=$1,177, 6=$1,349, 7=$1,520, 8=$1,693
+# Statewide amounts (2023-10-01): 1=$489, 2=$661, 3=$833, 4=$1,044, 5=$1,177, 6=$1,349, 7=$1,520, 8=$1,693
+# Statewide amounts (2025-03-01): 1=$525, 2=$709, 3=$893, 4=$1,077, 5=$1,260, 6=$1,444, 7=$1,629, 8=$1,813
+# Regional amounts (pre-2022-07-01): Region A/B/C by family size
 # Maximum unit size: 8 (capped)
+
+# --- Statewide period (2024) ---
 
 - name: Case 1, household size 1.
   period: 2024-01
+  absolute_error_margin: 0.1
   input:
     spm_unit_size: 1
     state_code: CT
@@ -12,6 +17,7 @@
 
 - name: Case 2, household size 3.
   period: 2024-01
+  absolute_error_margin: 0.1
   input:
     spm_unit_size: 3
     state_code: CT
@@ -20,6 +26,7 @@
 
 - name: Case 3, household size 8, at maximum.
   period: 2024-01
+  absolute_error_margin: 0.1
   input:
     spm_unit_size: 8
     state_code: CT
@@ -28,8 +35,148 @@
 
 - name: Case 4, household size 10, capped at 8.
   period: 2024-01
+  absolute_error_margin: 0.1
   input:
     spm_unit_size: 10
     state_code: CT
   output:
     ct_tfa_payment_standard: 1_693
+
+# --- 2025 payment standard update ---
+
+- name: Case 5, 2025 payment standard for size 1.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    spm_unit_size: 1
+    state_code: CT
+  output:
+    ct_tfa_payment_standard: 525
+
+- name: Case 6, 2025 payment standard for size 3.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    spm_unit_size: 3
+    state_code: CT
+  output:
+    ct_tfa_payment_standard: 893
+
+- name: Case 7, 2025 payment standard for size 8.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    spm_unit_size: 8
+    state_code: CT
+  output:
+    ct_tfa_payment_standard: 1_813
+
+# --- Regional period (pre-July 2022) ---
+
+- name: Case 8, regional period default Region B, size 3.
+  period: 2021-01
+  absolute_error_margin: 0.1
+  input:
+    spm_unit_size: 3
+    state_code: CT
+  output:
+    # Region B, size 3 = $597
+    ct_tfa_payment_standard: 597
+
+- name: Case 9, regional period Region A, size 3.
+  period: 2021-01
+  absolute_error_margin: 0.1
+  input:
+    spm_unit_size: 3
+    state_code: CT
+    ct_tfa_region: REGION_A
+  output:
+    # Region A, size 3 = $698
+    ct_tfa_payment_standard: 698
+
+- name: Case 10, regional period Region C, size 3.
+  period: 2021-01
+  absolute_error_margin: 0.1
+  input:
+    spm_unit_size: 3
+    state_code: CT
+    ct_tfa_region: REGION_C
+  output:
+    # Region C, size 3 = $589
+    ct_tfa_payment_standard: 589
+
+- name: Case 11, regional period Region B, size 1.
+  period: 2021-01
+  absolute_error_margin: 0.1
+  input:
+    spm_unit_size: 1
+    state_code: CT
+  output:
+    # Region B, size 1 = $366
+    ct_tfa_payment_standard: 366
+
+- name: Case 12, regional period Region A, size 8.
+  period: 2021-01
+  absolute_error_margin: 0.1
+  input:
+    spm_unit_size: 8
+    state_code: CT
+    ct_tfa_region: REGION_A
+  output:
+    # Region A, size 8 = $1,257
+    ct_tfa_payment_standard: 1_257
+
+- name: Case 13, regional period capped at size 8.
+  period: 2021-01
+  absolute_error_margin: 0.1
+  input:
+    spm_unit_size: 10
+    state_code: CT
+    ct_tfa_region: REGION_B
+  output:
+    # Region B, capped to size 8 = $1,134
+    ct_tfa_payment_standard: 1_134
+
+# --- Regional period (2020) ---
+
+- name: Case 14, Region A family of 3 in 2020.
+  period: 2020-01
+  absolute_error_margin: 0.1
+  input:
+    spm_unit_size: 3
+    state_code: CT
+    ct_tfa_region: REGION_A
+  output:
+    # Region A, size 3 = $698
+    ct_tfa_payment_standard: 698
+
+- name: Case 15, Region B family of 3 in 2020.
+  period: 2020-01
+  absolute_error_margin: 0.1
+  input:
+    spm_unit_size: 3
+    state_code: CT
+  output:
+    # Region B (default), size 3 = $597
+    ct_tfa_payment_standard: 597
+
+- name: Case 16, Region C family of 3 in 2020.
+  period: 2020-01
+  absolute_error_margin: 0.1
+  input:
+    spm_unit_size: 3
+    state_code: CT
+    ct_tfa_region: REGION_C
+  output:
+    # Region C, size 3 = $589
+    ct_tfa_payment_standard: 589
+
+- name: Case 17, default Region B family of 1 in 2020.
+  period: 2020-01
+  absolute_error_margin: 0.1
+  input:
+    spm_unit_size: 1
+    state_code: CT
+  output:
+    # Region B (default), size 1 = $366
+    ct_tfa_payment_standard: 366

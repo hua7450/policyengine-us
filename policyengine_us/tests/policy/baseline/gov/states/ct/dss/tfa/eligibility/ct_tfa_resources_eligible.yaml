@@ -40,3 +40,57 @@
     state_code: CT
   output:
     ct_tfa_resources_eligible: false
+
+# --- Historical period: pre-2023 resource limit was $3,000 ---
+
+- name: Case 6, pre-2023 resources at old limit.
+  period: 2021-01
+  input:
+    spm_unit_assets: 3_000
+    state_code: CT
+  output:
+    ct_tfa_resources_eligible: true
+
+- name: Case 7, pre-2023 resources above old limit.
+  period: 2021-01
+  input:
+    spm_unit_assets: 3_001
+    state_code: CT
+  output:
+    ct_tfa_resources_eligible: false
+
+- name: Case 8, pre-2023 resources between old and new limit.
+  period: 2021-01
+  input:
+    spm_unit_assets: 5_000
+    state_code: CT
+  output:
+    # $5,000 > $3,000 old limit, so ineligible pre-2023
+    ct_tfa_resources_eligible: false
+
+- name: Case 9, 2020 resources at old limit.
+  period: 2020-01
+  absolute_error_margin: 0.1
+  input:
+    spm_unit_assets: 3_000
+    state_code: CT
+  output:
+    ct_tfa_resources_eligible: true
+
+- name: Case 10, 2020 resources above old limit.
+  period: 2020-01
+  absolute_error_margin: 0.1
+  input:
+    spm_unit_assets: 3_001
+    state_code: CT
+  output:
+    ct_tfa_resources_eligible: false
+
+- name: Case 11, 2024 resources at new limit.
+  period: 2024-01
+  absolute_error_margin: 0.1
+  input:
+    spm_unit_assets: 6_000
+    state_code: CT
+  output:
+    ct_tfa_resources_eligible: true

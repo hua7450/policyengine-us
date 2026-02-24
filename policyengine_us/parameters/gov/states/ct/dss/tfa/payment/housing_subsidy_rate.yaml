@@ -1,0 +1,14 @@
+description: Connecticut applies this share of the payment standard for households receiving a housing subsidy under the Temporary Family Assistance program.
+
+values:
+  2023-10-01: 0.92
+
+metadata:
+  unit: /1
+  period: month
+  label: Connecticut TFA housing subsidy rate
+  reference:
+    - title: State of Connecticut TANF State Plan 2024-2026
+      href: https://portal.ct.gov/dss/-/media/departments-and-agencies/dss/state-plans-and-federal-reports/tanf-state-plan/ct-tanf-state-plan-2024---2026---41524-amendment.pdf#page=53
+    - title: DSS Income Limits and Standards for DSS Benefit Programs
+      href: https://portal.ct.gov/dss/-/media/departments-and-agencies/dss/income-and-asset-limits/income-standards.pdf

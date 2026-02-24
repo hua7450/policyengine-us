@@ -87,6 +87,7 @@
 
 - name: Case 7, not eligible.
   period: 2024-01
+  absolute_error_margin: 0.1
   input:
     ct_tfa_eligible: false
     spm_unit_size: 3
@@ -95,3 +96,57 @@
     state_code: CT
   output:
     ct_tfa: 0
+
+# --- High-earnings date fix test (2023, before 2024-01-01) ---
+# Note: The high_earnings/rate parameter only has a 2024-01-01 entry (1.71).
+# PolicyEngine extrapolates the first value backwards, so at 2023-01 the rate
+# is still 1.71. Similarly, reduction_rate extrapolates to 0.2.
+# This means the high-earnings mechanism technically applies in 2023 via
+# backwards extrapolation, even though it was only legislated for 2024+.
+# A low earner in 2023 should still get full benefit (no reduction).
+
+- name: Case 8, 2023 low earner no high-earnings reduction.
+  period: 2023-01
+  absolute_error_margin: 0.1
+  input:
+    ct_tfa_eligible: true
+    spm_unit_size: 3
+    ct_tfa_countable_unearned_income: 0
+    tanf_gross_earned_income: 1_000
+    state_code: CT
+  output:
+    # Statewide amount extrapolated: size 3 = $833
+    ct_tfa_payment_standard: 833
+    ct_tfa: 833
+
+# --- Regional period benefit test (pre-2022) ---
+
+- name: Case 9, 2020 regional period Region B benefit.
+  period: 2020-01
+  absolute_error_margin: 0.1
+  input:
+    ct_tfa_eligible: true
+    spm_unit_size: 3
+    ct_tfa_countable_unearned_income: 0
+    tanf_gross_earned_income: 500
+    state_code: CT
+  output:
+    # Region B (default), size 3 = $597
+    ct_tfa_payment_standard: 597
+    ct_tfa: 597
+
+- name: Case 10, 2020 regional period Region A with unearned income.
+  period: 2020-01
+  absolute_error_margin: 0.1
+  input:
+    ct_tfa_eligible: true
+    spm_unit_size: 3
+    ct_tfa_countable_unearned_income: 100
+    tanf_gross_earned_income: 200
+    ct_tfa_region: REGION_A
+    state_code: CT
+  output:
+    # Region A, size 3 = $698
+    ct_tfa_payment_standard: 698
+    # 698 - 100 = 598
+    ct_tfa: 598

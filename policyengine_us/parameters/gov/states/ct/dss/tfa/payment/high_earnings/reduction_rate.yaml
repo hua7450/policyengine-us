@@ -1,7 +1,8 @@
 description: Connecticut reduces the benefit amount by this percentage for household with high gross earnings under the Temporary Family Assistance program.
 
 values:
-  2023-10-01: 0.2
+  2017-10-01: 0
+  2024-01-01: 0.2
 
 metadata:
   unit: /1
