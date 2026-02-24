@@ -320,15 +320,15 @@
         state_code: NE
   output:
     spm_unit_size: 3
-    ne_adc_need_standard: 851
-    ne_adc_payment_standard: 468
-    # $851 * 0.55 = $468.05
+    ne_adc_need_standard: 849
+    ne_adc_payment_standard: 467
+    # $849 * 0.55 = $466.95
     ne_adc_countable_earned_income: 0
     ne_adc_income_eligible: true
     ne_adc_eligible: true
-    ne_adc: 468
-    # Gap = $851 - $0 = $851
-    # Benefit = min($851, $468.05) = $468.05
+    ne_adc: 467
+    # Gap = $849 - $0 = $849
+    # Benefit = min($849, $466.95) = $466.95
 
 - name: Case 10, family of 3 with no income in 2026 uses 2025 values.
   period: 2026-01

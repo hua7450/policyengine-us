@@ -132,8 +132,8 @@
         members: [person1, person2, person3]
         state_code: NE
   output:
-    ne_adc_payment_standard: 450
-    # Need standard $818 * 0.55 = $449.90
+    ne_adc_payment_standard: 449
+    # Need standard $816 * 0.55 = $448.80
 
 - name: Case 7, family of 3 in 2020 uses 2019 values.
   period: 2020-01
@@ -154,8 +154,8 @@
         members: [person1, person2, person3]
         state_code: NE
   output:
-    ne_adc_payment_standard: 468
-    # Need standard $851 * 0.55 = $468.05
+    ne_adc_payment_standard: 467
+    # Need standard $849 * 0.55 = $466.95
 
 - name: Case 8, family of 3 in 2022 uses 2021 values.
   period: 2022-01

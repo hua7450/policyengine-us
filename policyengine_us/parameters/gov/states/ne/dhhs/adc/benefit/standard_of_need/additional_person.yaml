@@ -2,8 +2,8 @@ description: Nebraska adds this amount to the standard of need for each person b
 
 values:
   2015-07-01: 126
-  2017-07-01: 131
-  2019-07-01: 136
+  2017-07-01: 130
+  2019-07-01: 135
   2021-07-01: 140
   2023-07-01: 160
   2025-07-01: 170
@@ -17,6 +17,8 @@ metadata:
       href: https://nebraskalegislature.gov/laws/statutes.php?statute=43-513
     - title: Urban Institute WRDTP Policy Tables (2015, 2017, 2019)
       href: https://wrd.urban.org/policy-tables
+    - title: ACF-202 TANF Caseload Reduction Report (2017, 2019 SON values)
+      href: https://dhhs.ne.gov/Documents/Nebraska-State-TANF-Plan-2025.pdf#page=3
     - title: 468-000-209 (2021)
       href: https://dhhs.ne.gov/Documents/468-000-209.pdf
     - title: Nebraska Legislature 2024 TANF Report (2023)
