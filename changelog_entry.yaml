@@ -1,4 +1,4 @@
 - bump: minor
   changes:
     fixed:
-    - Add NY tax calculation for filers with AGI above $25 million integration test.
+    - Fix NY supplemental tax for filers with AGI above $25 million in 2022+.
