@@ -9,6 +9,9 @@ def create_ct_hb5009() -> Reform:
         label = "Connecticut property tax credit"
         unit = USD
         definition_period = YEAR
+        reference = (
+            "https://www.cga.ct.gov/2026/TOB/H/PDF/2026HB-05009-R00-HB.PDF"
+        )
         defined_for = "ct_property_tax_credit_eligible"
 
         def formula(tax_unit, period, parameters):
@@ -37,14 +40,12 @@ def create_ct_hb5009() -> Reform:
             reduction_amount = max_credit * reduction_percent
 
             # Apply minimum floor between start and limit
-            # Floor prevents phase-out from reducing below $400, but credit
-            # cannot exceed actual property taxes paid
             # Above limit: no credit at all
             credit_after_reduction = max_credit - reduction_amount
             minimum_floor = p.minimum
             below_limit = agi <= limit
             credit_with_floor = max_(credit_after_reduction, minimum_floor)
-            # Cap at actual property taxes (max_credit)
+            # Cap at actual property taxes paid
             credit_capped = min_(credit_with_floor, max_credit)
             credit = where(
                 max_credit > 0,
