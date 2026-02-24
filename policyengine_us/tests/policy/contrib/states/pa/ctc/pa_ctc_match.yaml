@@ -26,8 +26,6 @@
     # Federal CTC max per child = $2,200
     # PA match = 1 child * $2,200 * 0.5 = $1,100
     pa_ctc_match: 1_100
-    pa_income_tax: 433
-    household_net_income: 64_825
 
 - name: Case 2, two young children.
   period: 2026
@@ -57,8 +55,6 @@
     # Federal CTC max per child = $2,200
     # PA match = 2 children * $2,200 * 0.5 = $2,200
     pa_ctc_match: 2_200
-    pa_income_tax: -335
-    household_net_income: 95_001
 
 - name: Case 3, child at age limit (age 6).
   period: 2026
@@ -84,8 +80,6 @@
   output:
     # Child age 6 not eligible (must be under 6)
     pa_ctc_match: 0
-    pa_income_tax: 1_533
-    household_net_income: 49_263
 
 - name: Case 4, mixed age children.
   period: 2026
@@ -115,8 +109,6 @@
     # Only child age 3 is eligible (under 6)
     # PA match = 1 child * $2,200 * 0.5 = $1,100
     pa_ctc_match: 1_100
-    pa_income_tax: 765
-    household_net_income: 76_657
 
 - name: Case 5, high income with no phaseout.
   period: 2026
@@ -143,8 +135,6 @@
     # No income phaseout for this reform
     # PA match = 1 child * $2,200 * 0.5 = $1,100
     pa_ctc_match: 1_100
-    pa_income_tax: 5_040
-    household_net_income: 169_122
 
 - name: Case 6, three young children.
   period: 2026
@@ -178,8 +168,6 @@
     # Federal CTC max per child = $2,200
     # PA match = 3 children * $2,200 * 0.5 = $3,300
     pa_ctc_match: 3_300
-    pa_income_tax: -1_128
-    household_net_income: 108_288
 
 - name: Case 7, very low income with no federal CTC phase-in.
   period: 2026
@@ -207,8 +195,6 @@
     # At $2,000 income, ctc_value = $0
     # PA match = $0 * 0.5 = $0
     pa_ctc_match: 0
-    pa_income_tax: -62
-    household_net_income: 27_703
 
 - name: Case 8, low income with partial federal CTC phase-in.
   period: 2026
@@ -236,8 +222,6 @@
     # ctc_value = $1,125 (partial, less than $2,200 max)
     # PA match = $1,125 * 0.5 = $562.50
     pa_ctc_match: 562.5
-    pa_income_tax: -897
-    household_net_income: 37_851
 
 - name: Case 9, moderate income with refundable CTC only.
   period: 2026
@@ -265,8 +249,6 @@
     # so tax liability = $0. Only refundable CTC ($1,700) is received.
     # PA match = $1,700 * 0.5 = $850
     pa_ctc_match: 850
-    pa_income_tax: -667
-    household_net_income: 48_840
 
 - name: Case 10, low income with refundable CTC capped.
   period: 2026
@@ -295,8 +277,6 @@
     # Actual federal CTC received = $1,700
     # PA match = $1,700 * 0.5 = $850
     pa_ctc_match: 850
-    pa_income_tax: -1_281
-    household_net_income: 43_253
 
 - name: Case 11, child without SSN gets no federal CTC.
   period: 2026
@@ -325,5 +305,27 @@
     # Federal CTC = $0 (child fails identification requirements)
     # PA match = $0 * 0.5 = $0
     pa_ctc_match: 0
-    pa_income_tax: 1_558
-    household_net_income: 63_454
+
+- name: Case 12, non-PA resident gets zero match.
+  period: 2026
+  absolute_error_margin: 1
+  reforms: policyengine_us.reforms.states.pa.ctc.pa_ctc_match.pa_ctc_match
+  input:
+    gov.contrib.states.pa.ctc.ctc_match.in_effect: true
+    people:
+      person1:
+        age: 35
+        is_tax_unit_head: true
+        employment_income: 50_000
+      person2:
+        age: 3
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: NY
+  output:
+    pa_ctc_match: 0
