@@ -13410,3 +13410,18 @@
     fixed:
     - Fix NY supplemental tax for filers with AGI above $25 million in 2022+.
   date: 2026-02-24 14:30:18
+- bump: minor
+  changes:
+    added:
+    - Connecticut SB-100 reduced income tax rates reform
+  date: 2026-02-24 14:42:50
+- bump: minor
+  changes:
+    added:
+    - Added Python 3.14 support and dropped Python 3.10.
+  date: 2026-02-24 17:42:10
+- bump: minor
+  changes:
+    added:
+    - Connecticut HB-5009 expanded property tax credit reform
+  date: 2026-02-24 19:55:56
