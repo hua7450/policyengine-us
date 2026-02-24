@@ -13393,3 +13393,9 @@
     - Add tests for tax_unit_state, emp_self_emp_ratio, is_premium_free_part_a, and
       savers_credit_credit_limit variables
   date: 2026-02-23 22:15:43
+- bump: minor
+  changes:
+    added:
+    - Implement SECURE 2.0 enhanced 401(k) catch-up contributions for ages 60-63 (starting
+      2025).
+  date: 2026-02-24 01:42:07
