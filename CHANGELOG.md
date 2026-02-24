@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.582.1] - 2026-02-24 09:57:52
+
+### Fixed
+
+- Fix ACTC earned income to subtract half of SE tax for self-employed filers per IRC 24(d)(1)(B)(i) and 32(c)(2)(A)(ii).
+
 ## [1.582.0] - 2026-02-24 01:42:07
 
 ### Added
@@ -15468,6 +15474,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+[1.582.1]: https://github.com/PolicyEngine/policyengine-us/compare/1.582.0...1.582.1
 [1.582.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.581.2...1.582.0
 [1.581.2]: https://github.com/PolicyEngine/policyengine-us/compare/1.581.1...1.581.2
 [1.581.1]: https://github.com/PolicyEngine/policyengine-us/compare/1.581.0...1.581.1
