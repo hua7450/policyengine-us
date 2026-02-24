@@ -19,6 +19,12 @@ class SelectiveTestRunner:
         self.repo_root = Path.cwd()
 
         # Define regex patterns for matching files to tests
+        # Paths that contain only aggregation lists and should not
+        # trigger any tests (the Full Suite already covers them).
+        self.skip_patterns = [
+            r"policyengine_us/parameters/gov/states/household/",
+        ]
+
         self.test_patterns = [
             # Rule 1: Match gov folders (excluding states and contrib) to their test directories
             {
@@ -36,9 +42,20 @@ class SelectiveTestRunner:
                 "test_pattern": r"policyengine_us/tests/policy/baseline/gov/local/\2",
             },
             # Match reforms in specific organization folders to their contrib test folders
+            # (exclude states/, congress/, and local/ which have their own patterns below)
             {
-                "file_pattern": r"policyengine_us/reforms/([^/]+)/",
+                "file_pattern": r"policyengine_us/reforms/(?!states/|congress/|local/)([^/]+)/",
                 "test_pattern": r"policyengine_us/tests/policy/contrib/\1",
+            },
+            # Match reforms in specific congress member folders
+            {
+                "file_pattern": r"policyengine_us/reforms/congress/([^/]+)",
+                "test_pattern": r"policyengine_us/tests/policy/contrib/congress/\1",
+            },
+            # Match reforms in specific local jurisdiction folders
+            {
+                "file_pattern": r"policyengine_us/reforms/local/([^/]+)",
+                "test_pattern": r"policyengine_us/tests/policy/contrib/local/\1",
             },
             # Match general reforms to reform tests
             {
@@ -284,6 +301,11 @@ class SelectiveTestRunner:
                     ]
                 ):
                     continue
+
+            # Skip files that are aggregation-only and need no
+            # selective tests (the Full Suite already covers them).
+            if any(re.search(sp, file) for sp in self.skip_patterns):
+                continue
 
             # Check against regex patterns
             for pattern in self.test_patterns:
