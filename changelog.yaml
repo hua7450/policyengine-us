@@ -13351,3 +13351,83 @@
     - Remove duplicate pr_gross_income.py that caused a VariableNameConflictError
       for pr_gross_income_person.
   date: 2026-02-23 15:39:55
+- bump: minor
+  changes:
+    added:
+    - Added non-age work registration exemptions for SNAP ABAWD (student, UI recipient,
+      child under 6) per 7 U.S.C. 2015(o)(3)(D).
+    - Added is_snap_abawd_hr1_in_effect variable to centralize state-level HR1 adoption
+      routing.
+    changed:
+    - Refactored SNAP ABAWD work requirements to absorb California pre-HR1 delay logic,
+      eliminating duplicate CA variable.
+    - Updated federal SNAP ABAWD parameter effective dates to 2025-07-04 per Public
+      Law 119-21 enactment date.
+    - "Backdated ABAWD age exemption parameters to 1997-03-01 (PRWORA effective date)\
+      \ and added FRA 2023 phase-in history (50\u219251\u219253\u219255)."
+    - Removed blanket HI/AK ABAWD exemption from formula; both states are implementing
+      ABAWD. Preferential waiver authority documented in parameter file.
+    removed:
+    - Removed ca_meets_snap_abawd_work_requirements (functionality merged into federal
+      variable).
+  date: 2026-02-23 16:14:13
+- bump: minor
+  changes:
+    added:
+    - Add Connecticut refundable child tax credit (HB 5134) as a reform.
+  date: 2026-02-23 19:09:02
+- bump: minor
+  changes:
+    added:
+    - Implement Connecticut 2026 tax rebate proposal (Gov. Lamont).
+  date: 2026-02-23 20:47:20
+- bump: patch
+  changes:
+    changed:
+    - Add pragma no cover to truly untestable code (microsim branches, behavioral
+      responses, TAXSIM compatibility).
+  date: 2026-02-23 21:02:29
+- bump: patch
+  changes:
+    added:
+    - Add tests for tax_unit_state, emp_self_emp_ratio, is_premium_free_part_a, and
+      savers_credit_credit_limit variables
+  date: 2026-02-23 22:15:43
+- bump: minor
+  changes:
+    added:
+    - Implement SECURE 2.0 enhanced 401(k) catch-up contributions for ages 60-63 (starting
+      2025).
+  date: 2026-02-24 01:42:07
+- bump: patch
+  changes:
+    fixed:
+    - Fix ACTC earned income to subtract half of SE tax for self-employed filers per
+      IRC 24(d)(1)(B)(i) and 32(c)(2)(A)(ii).
+  date: 2026-02-24 09:57:52
+- bump: minor
+  changes:
+    fixed:
+    - Fix NY supplemental tax for filers with AGI above $25 million in 2022+.
+  date: 2026-02-24 14:30:18
+- bump: minor
+  changes:
+    added:
+    - Connecticut SB-100 reduced income tax rates reform
+  date: 2026-02-24 14:42:50
+- bump: minor
+  changes:
+    added:
+    - Added Python 3.14 support and dropped Python 3.10.
+  date: 2026-02-24 17:42:10
+- bump: minor
+  changes:
+    added:
+    - Connecticut HB-5009 expanded property tax credit reform
+  date: 2026-02-24 19:55:56
+- bump: patch
+  changes:
+    fixed:
+    - Split baseline (excl states) CI batch into memory-aware sub-batches to prevent
+      OOM kills in NonStructural-Other job.
+  date: 2026-02-25 16:09:12
