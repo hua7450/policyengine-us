@@ -1,4 +1,0 @@
-- bump: patch
-  changes:
-    fixed:
-      - Split baseline (excl states) CI batch into memory-aware sub-batches to prevent OOM kills in NonStructural-Other job.

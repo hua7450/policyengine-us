@@ -13425,3 +13425,9 @@
     added:
     - Connecticut HB-5009 expanded property tax credit reform
   date: 2026-02-24 19:55:56
+- bump: patch
+  changes:
+    fixed:
+    - Split baseline (excl states) CI batch into memory-aware sub-batches to prevent
+      OOM kills in NonStructural-Other job.
+  date: 2026-02-25 16:09:12
