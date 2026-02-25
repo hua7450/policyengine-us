@@ -331,3 +331,93 @@
         state_code: NY
   output:
     pa_ctc_match: 0
+
+- name: Case 13, child at age 5 (last eligible age).
+  period: 2026
+  absolute_error_margin: 1
+  reforms: policyengine_us.reforms.states.pa.ctc.pa_ctc_match.pa_ctc_match
+  input:
+    gov.contrib.states.pa.ctc.ctc_match.in_effect: true
+    people:
+      person1:
+        age: 35
+        is_tax_unit_head: true
+        employment_income: 50_000
+      person2:
+        age: 5
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: PA
+  output:
+    # Child age 5 is eligible (under 6)
+    # Actual federal CTC = $2,200 (full amount at this income)
+    # PA match = $2,200 * 0.5 = $1,100
+    pa_ctc_match: 1_100
+
+- name: Case 14, single filer in federal CTC phaseout range.
+  period: 2026
+  absolute_error_margin: 1
+  reforms: policyengine_us.reforms.states.pa.ctc.pa_ctc_match.pa_ctc_match
+  input:
+    gov.contrib.states.pa.ctc.ctc_match.in_effect: true
+    people:
+      person1:
+        age: 35
+        is_tax_unit_head: true
+        employment_income: 205_000
+      person2:
+        age: 4
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: PA
+  output:
+    # Federal CTC phaseout starts at $200k for single
+    # Excess = $205k - $200k = $5k
+    # Phaseout = $5k / $1k * $50 = $250
+    # Federal CTC = $2,200 - $250 = $1,950
+    # PA match = $1,950 * 0.5 = $975
+    pa_ctc_match: 975
+
+- name: Case 15, joint filer in federal CTC phaseout range.
+  period: 2026
+  absolute_error_margin: 1
+  reforms: policyengine_us.reforms.states.pa.ctc.pa_ctc_match.pa_ctc_match
+  input:
+    gov.contrib.states.pa.ctc.ctc_match.in_effect: true
+    people:
+      person1:
+        age: 35
+        is_tax_unit_head: true
+        employment_income: 250_000
+      person2:
+        age: 33
+        is_tax_unit_spouse: true
+        employment_income: 155_000
+      person3:
+        age: 3
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+        filing_status: JOINT
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: PA
+  output:
+    # Federal CTC phaseout starts at $400k for joint
+    # AGI = $405k, excess = $5k
+    # Phaseout = $5k / $1k * $50 = $250
+    # Federal CTC = $2,200 - $250 = $1,950
+    # PA match = $1,950 * 0.5 = $975
+    pa_ctc_match: 975

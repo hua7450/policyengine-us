@@ -252,3 +252,137 @@
         state_code: NY
   output:
     pa_ctc_flat_amount: 0
+
+- name: Case 10, child at age 5 (last eligible age).
+  period: 2026
+  absolute_error_margin: 1
+  reforms: policyengine_us.reforms.states.pa.ctc.pa_ctc_flat_amount.pa_ctc_flat_amount
+  input:
+    gov.contrib.states.pa.ctc.flat_amount.in_effect: true
+    people:
+      person1:
+        age: 35
+        is_tax_unit_head: true
+        employment_income: 100_000
+      person2:
+        age: 5
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: PA
+  output:
+    # Child age 5 is eligible (under 6)
+    # Credit = 1 child * $1,000 = $1,000
+    pa_ctc_flat_amount: 1_000
+
+- name: Case 11, income one dollar below threshold.
+  period: 2026
+  absolute_error_margin: 1
+  reforms: policyengine_us.reforms.states.pa.ctc.pa_ctc_flat_amount.pa_ctc_flat_amount
+  input:
+    gov.contrib.states.pa.ctc.flat_amount.in_effect: true
+    people:
+      person1:
+        age: 35
+        is_tax_unit_head: true
+        employment_income: 124_999
+      person2:
+        age: 3
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: PA
+  output:
+    # AGI $124,999 < threshold $125k, no phaseout
+    # Credit = 1 child * $1,000 = $1,000
+    pa_ctc_flat_amount: 1_000
+
+- name: Case 12, income one dollar above threshold.
+  period: 2026
+  absolute_error_margin: 1
+  reforms: policyengine_us.reforms.states.pa.ctc.pa_ctc_flat_amount.pa_ctc_flat_amount
+  input:
+    gov.contrib.states.pa.ctc.flat_amount.in_effect: true
+    people:
+      person1:
+        age: 35
+        is_tax_unit_head: true
+        employment_income: 125_001
+      person2:
+        age: 3
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: PA
+  output:
+    # AGI $125,001, threshold $125k, excess $1
+    # Phaseout = $1 * 0.02 = $0.02
+    # Credit = $1,000 - $0.02 = $999.98
+    pa_ctc_flat_amount: 999.98
+
+- name: Case 13, married filing separately above threshold.
+  period: 2026
+  absolute_error_margin: 1
+  reforms: policyengine_us.reforms.states.pa.ctc.pa_ctc_flat_amount.pa_ctc_flat_amount
+  input:
+    gov.contrib.states.pa.ctc.flat_amount.in_effect: true
+    people:
+      person1:
+        age: 35
+        is_tax_unit_head: true
+        employment_income: 135_000
+      person2:
+        age: 4
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+        filing_status: SEPARATE
+    households:
+      household:
+        members: [person1, person2]
+        state_code: PA
+  output:
+    # AGI $135k, threshold $125k, excess $10k
+    # Phaseout = $10,000 * 0.02 = $200
+    # Credit = $1,000 - $200 = $800
+    pa_ctc_flat_amount: 800
+
+- name: Case 14, surviving spouse below threshold.
+  period: 2026
+  absolute_error_margin: 1
+  reforms: policyengine_us.reforms.states.pa.ctc.pa_ctc_flat_amount.pa_ctc_flat_amount
+  input:
+    gov.contrib.states.pa.ctc.flat_amount.in_effect: true
+    people:
+      person1:
+        age: 35
+        is_tax_unit_head: true
+        employment_income: 100_000
+      person2:
+        age: 3
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+        filing_status: SURVIVING_SPOUSE
+    households:
+      household:
+        members: [person1, person2]
+        state_code: PA
+  output:
+    # AGI $100k < threshold $125k, no phaseout
+    # Credit = 1 child * $1,000 = $1,000
+    pa_ctc_flat_amount: 1_000
