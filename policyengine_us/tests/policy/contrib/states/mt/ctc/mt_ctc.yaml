@@ -213,3 +213,27 @@
   output:
     mt_ctc: 1_110
     # 1200 - 1*90 = 1110
+
+- name: End-to-end eligible with credit
+  period: 2023
+  reforms: policyengine_us.reforms.states.mt.ctc.mt_ctc.mt_ctc
+  input:
+    gov.contrib.states.mt.ctc.in_effect: true
+    people:
+      head:
+        age: 30
+        employment_income: 40_000
+        is_tax_unit_dependent: false
+      child:
+        age: 3
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        members: [head, child]
+    households:
+      household:
+        members: [head, child]
+        state_code: MT
+  output:
+    mt_ctc_eligible: true
+    mt_ctc: 1_200
