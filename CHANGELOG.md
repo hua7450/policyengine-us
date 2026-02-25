@@ -1,9 +1,115 @@
+## [1.587.0] - 2026-02-25
+
+### Added
+
+- Pennsylvania contributed CTC reforms with two proposals - flat amount ($1,000 per child under 6 with 2% phaseout above $125k) and federal CTC match (50% match for children under 6).
+- Backdate Utah FEP (TANF) parameters to 2008 with historical values from DWS obsolete tables and WRDTP longitudinal data.
+
+
+## [1.586.3] - 2026-02-25
+
+### Changed
+
+- Migrated from changelog_entry.yaml to towncrier fragments to eliminate merge conflicts.
+
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [1.586.2] - 2026-02-25 19:58:01
+
+### Added
+
+- Added boundary tests for Montana CTC eligibility and reduction thresholds.
+
+### Fixed
+
+- Montana CTC now requires federal CTC eligibility per HB 268 Section 1(1).
+- Fixed parameter metadata typos in Montana CTC income limit files.
+
+## [1.586.1] - 2026-02-25 16:09:12
+
+### Fixed
+
+- Split baseline (excl states) CI batch into memory-aware sub-batches to prevent OOM kills in NonStructural-Other job.
+
+## [1.586.0] - 2026-02-24 19:55:56
+
+### Added
+
+- Connecticut HB-5009 expanded property tax credit reform
+
+## [1.585.0] - 2026-02-24 17:42:10
+
+### Added
+
+- Added Python 3.14 support and dropped Python 3.10.
+
+## [1.584.0] - 2026-02-24 14:42:50
+
+### Added
+
+- Connecticut SB-100 reduced income tax rates reform
+
+## [1.583.0] - 2026-02-24 14:30:18
+
+### Fixed
+
+- Fix NY supplemental tax for filers with AGI above $25 million in 2022+.
+
+## [1.582.1] - 2026-02-24 09:57:52
+
+### Fixed
+
+- Fix ACTC earned income to subtract half of SE tax for self-employed filers per IRC 24(d)(1)(B)(i) and 32(c)(2)(A)(ii).
+
+## [1.582.0] - 2026-02-24 01:42:07
+
+### Added
+
+- Implement SECURE 2.0 enhanced 401(k) catch-up contributions for ages 60-63 (starting 2025).
+
+## [1.581.2] - 2026-02-23 22:15:43
+
+### Added
+
+- Add tests for tax_unit_state, emp_self_emp_ratio, is_premium_free_part_a, and savers_credit_credit_limit variables
+
+## [1.581.1] - 2026-02-23 21:02:29
+
+### Changed
+
+- Add pragma no cover to truly untestable code (microsim branches, behavioral responses, TAXSIM compatibility).
+
+## [1.581.0] - 2026-02-23 20:47:20
+
+### Added
+
+- Implement Connecticut 2026 tax rebate proposal (Gov. Lamont).
+
+## [1.580.0] - 2026-02-23 19:09:02
+
+### Added
+
+- Add Connecticut refundable child tax credit (HB 5134) as a reform.
+
+## [1.579.0] - 2026-02-23 16:14:13
+
+### Added
+
+- Added non-age work registration exemptions for SNAP ABAWD (student, UI recipient, child under 6) per 7 U.S.C. 2015(o)(3)(D).
+- Added is_snap_abawd_hr1_in_effect variable to centralize state-level HR1 adoption routing.
+
+### Changed
+
+- Refactored SNAP ABAWD work requirements to absorb California pre-HR1 delay logic, eliminating duplicate CA variable.
+- Updated federal SNAP ABAWD parameter effective dates to 2025-07-04 per Public Law 119-21 enactment date.
+- Backdated ABAWD age exemption parameters to 1997-03-01 (PRWORA effective date) and added FRA 2023 phase-in history (50→51→53→55).
+- Removed blanket HI/AK ABAWD exemption from formula; both states are implementing ABAWD. Preferential waiver authority documented in parameter file.
 
 ## [1.578.1] - 2026-02-23 15:39:55
 
@@ -15424,6 +15530,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+[1.586.2]: https://github.com/PolicyEngine/policyengine-us/compare/1.586.1...1.586.2
+[1.586.1]: https://github.com/PolicyEngine/policyengine-us/compare/1.586.0...1.586.1
+[1.586.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.585.0...1.586.0
+[1.585.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.584.0...1.585.0
+[1.584.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.583.0...1.584.0
+[1.583.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.582.1...1.583.0
+[1.582.1]: https://github.com/PolicyEngine/policyengine-us/compare/1.582.0...1.582.1
+[1.582.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.581.2...1.582.0
+[1.581.2]: https://github.com/PolicyEngine/policyengine-us/compare/1.581.1...1.581.2
+[1.581.1]: https://github.com/PolicyEngine/policyengine-us/compare/1.581.0...1.581.1
+[1.581.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.580.0...1.581.0
+[1.580.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.579.0...1.580.0
+[1.579.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.578.1...1.579.0
 [1.578.1]: https://github.com/PolicyEngine/policyengine-us/compare/1.578.0...1.578.1
 [1.578.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.577.1...1.578.0
 [1.577.1]: https://github.com/PolicyEngine/policyengine-us/compare/1.577.0...1.577.1
