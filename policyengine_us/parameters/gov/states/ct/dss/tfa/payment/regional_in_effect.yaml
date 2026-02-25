@@ -9,7 +9,7 @@ metadata:
   period: month
   label: Connecticut TFA regional payment standards in effect
   reference:
-    - title: Connecticut Public Act 22-118
-      href: https://www.cga.ct.gov/2022/act/pa/pdf/2022PA-00118-R00SB-00002-PA.pdf
+    - title: Connecticut General Statutes § 17b-104(c)
+      href: https://cga.ct.gov/current/pub/chap_319s.htm#sec_17b-104
     - title: SSA POMS SI BOS00830.403
       href: https://secure.ssa.gov/poms.nsf/lnx/0500830403BOS

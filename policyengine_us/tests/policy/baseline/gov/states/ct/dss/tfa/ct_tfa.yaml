@@ -97,13 +97,9 @@
   output:
     ct_tfa: 0
 
-# --- High-earnings date fix test (2023, before 2024-01-01) ---
-# Note: The high_earnings/rate parameter only has a 2024-01-01 entry (1.71).
-# PolicyEngine extrapolates the first value backwards, so at 2023-01 the rate
-# is still 1.71. Similarly, reduction_rate extrapolates to 0.2.
-# This means the high-earnings mechanism technically applies in 2023 via
-# backwards extrapolation, even though it was only legislated for 2024+.
-# A low earner in 2023 should still get full benefit (no reduction).
+# --- Pre-2024 test (before high-earnings provision took effect) ---
+# The high_earnings/rate parameter starts at 2024-01-01. The formula uses
+# an if-check (p.rate > 0) so the reduction does not apply before 2024.
 
 - name: Case 8, 2023 low earner no high-earnings reduction.
   period: 2023-01
@@ -150,3 +146,51 @@
     ct_tfa_payment_standard: 698
     # 698 - 100 = 598
     ct_tfa: 598
+
+# --- Housing subsidy tests (CGS § 17b-104(d)) ---
+# Families in subsidized housing receive 92% of payment standard.
+
+- name: Case 11, housing subsidy reduces payment standard.
+  period: 2024-01
+  absolute_error_margin: 0.3
+  input:
+    ct_tfa_eligible: true
+    spm_unit_size: 3
+    ct_tfa_countable_unearned_income: 0
+    tanf_gross_earned_income: 1_000
+    receives_housing_assistance: true
+    state_code: CT
+  output:
+    ct_tfa_payment_standard: 833
+    # 833 * 0.92 = 766.36
+    ct_tfa: 766.36
+
+- name: Case 12, housing subsidy with unearned income.
+  period: 2024-01
+  absolute_error_margin: 0.3
+  input:
+    ct_tfa_eligible: true
+    spm_unit_size: 3
+    ct_tfa_countable_unearned_income: 200
+    tanf_gross_earned_income: 1_000
+    receives_housing_assistance: true
+    state_code: CT
+  output:
+    ct_tfa_payment_standard: 833
+    # 833 * 0.92 - 200 = 766.36 - 200 = 566.36
+    ct_tfa: 566.36
+
+- name: Case 13, housing subsidy with high earner reduction.
+  period: 2024-01
+  absolute_error_margin: 0.3
+  input:
+    ct_tfa_eligible: true
+    spm_unit_size: 3
+    ct_tfa_countable_unearned_income: 0
+    tanf_gross_earned_income: 3_600
+    receives_housing_assistance: true
+    state_code: CT
+  output:
+    ct_tfa_payment_standard: 833
+    # 833 * 0.92 = 766.36, then * 0.8 = 613.088
+    ct_tfa: 613.09

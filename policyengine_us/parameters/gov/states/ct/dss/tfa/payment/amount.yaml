@@ -14,7 +14,7 @@ metadata:
     - title: Connecticut General Statutes § 17b-104(c)
       href: https://cga.ct.gov/current/pub/chap_319s.htm#sec_17b-104
     - title: DSS Income Limits and Standards for DSS Benefit Programs
-      href: https://portal.ct.gov/dss/-/media/departments-and-agencies/dss/income-and-asset-limits/income-standards.pdf
+      href: https://portal.ct.gov/dss/-/media/departments-and-agencies/dss/fact-sheets-and-issue-briefs/fact-sheets/dss-program-standards-chart.pdf
   # Note: Per CGS § 17b-104(c), payment standard = 73% of need standard (55% FPL).
   # The calculated value for family size 4 is $1,004, but the official State Plan
   # table shows $1,044 (+$40 discrepancy). All other family sizes match the formula
