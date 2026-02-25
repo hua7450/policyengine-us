@@ -2,7 +2,7 @@ description: Montana reduces the child tax credit for each of these increments t
 values:
   2023-01-01: 1_000
 metadata:
-  units: currency-USD
+  unit: currency-USD
   period: year
   label: Montana child tax credit reduction increment
   reference:
