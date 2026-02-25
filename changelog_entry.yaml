@@ -1,0 +1,4 @@
+- bump: patch
+  changes:
+    fixed:
+      - Montana CTC now requires federal CTC eligibility per HB 268 Section 1(1).
