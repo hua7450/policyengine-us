@@ -1,0 +1,1 @@
+Pennsylvania contributed CTC reforms with two proposals - flat amount ($1,000 per child under 6 with 2% phaseout above $125k) and federal CTC match (50% match for children under 6).
