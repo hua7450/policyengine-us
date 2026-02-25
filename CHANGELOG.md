@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.586.1] - 2026-02-25 16:09:12
+
+### Fixed
+
+- Split baseline (excl states) CI batch into memory-aware sub-batches to prevent OOM kills in NonStructural-Other job.
+
 ## [1.586.0] - 2026-02-24 19:55:56
 
 ### Added
@@ -15498,6 +15504,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+[1.586.1]: https://github.com/PolicyEngine/policyengine-us/compare/1.586.0...1.586.1
 [1.586.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.585.0...1.586.0
 [1.585.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.584.0...1.585.0
 [1.584.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.583.0...1.584.0
