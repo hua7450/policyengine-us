@@ -13431,3 +13431,11 @@
     - Split baseline (excl states) CI batch into memory-aware sub-batches to prevent
       OOM kills in NonStructural-Other job.
   date: 2026-02-25 16:09:12
+- bump: patch
+  changes:
+    added:
+    - Added boundary tests for Montana CTC eligibility and reduction thresholds.
+    fixed:
+    - Montana CTC now requires federal CTC eligibility per HB 268 Section 1(1).
+    - Fixed parameter metadata typos in Montana CTC income limit files.
+  date: 2026-02-25 19:58:01

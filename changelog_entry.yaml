@@ -1,7 +1,0 @@
-- bump: patch
-  changes:
-    fixed:
-      - Montana CTC now requires federal CTC eligibility per HB 268 Section 1(1).
-      - Fixed parameter metadata typos in Montana CTC income limit files.
-    added:
-      - Added boundary tests for Montana CTC eligibility and reduction thresholds.

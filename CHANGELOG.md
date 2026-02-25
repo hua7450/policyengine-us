@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.586.2] - 2026-02-25 19:58:01
+
+### Added
+
+- Added boundary tests for Montana CTC eligibility and reduction thresholds.
+
+### Fixed
+
+- Montana CTC now requires federal CTC eligibility per HB 268 Section 1(1).
+- Fixed parameter metadata typos in Montana CTC income limit files.
+
 ## [1.586.1] - 2026-02-25 16:09:12
 
 ### Fixed
@@ -15504,6 +15515,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+[1.586.2]: https://github.com/PolicyEngine/policyengine-us/compare/1.586.1...1.586.2
 [1.586.1]: https://github.com/PolicyEngine/policyengine-us/compare/1.586.0...1.586.1
 [1.586.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.585.0...1.586.0
 [1.585.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.584.0...1.585.0
