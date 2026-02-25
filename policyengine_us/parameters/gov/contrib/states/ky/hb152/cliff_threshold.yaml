@@ -1,4 +1,4 @@
-description: Kentucky HB 152 cliff threshold. If net income exceeds this amount, the flat rate applies to the ENTIRE income (not just marginal).
+description: Kentucky HB 152 cliff threshold. If net income is this amount or more, the flat rate applies to the ENTIRE income (not just marginal).
 
 values:
   2027-01-01: 150_000
