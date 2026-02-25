@@ -149,3 +149,67 @@
     state_code: MT
   output:
     mt_ctc_eligible: false
+
+- name: AGI exactly at threshold - eligible
+  period: 2023
+  reforms: policyengine_us.reforms.states.mt.ctc.mt_ctc.mt_ctc
+  input:
+    gov.contrib.states.mt.ctc.in_effect: true
+    tax_unit_earned_income: 56_000
+    adjusted_gross_income: 56_000
+    eitc_relevant_investment_income: 0
+    ctc_qualifying_children: 1
+    state_code: MT
+  output:
+    mt_ctc_eligible: true
+
+- name: Minimal earned income - eligible
+  period: 2023
+  reforms: policyengine_us.reforms.states.mt.ctc.mt_ctc.mt_ctc
+  input:
+    gov.contrib.states.mt.ctc.in_effect: true
+    tax_unit_earned_income: 1
+    adjusted_gross_income: 1
+    eitc_relevant_investment_income: 0
+    ctc_qualifying_children: 1
+    state_code: MT
+  output:
+    mt_ctc_eligible: true
+
+- name: AGI at reduction threshold - no reduction
+  period: 2023
+  reforms: policyengine_us.reforms.states.mt.ctc.mt_ctc.mt_ctc
+  input:
+    gov.contrib.states.mt.ctc.in_effect: true
+    people:
+      head:
+        age: 30
+      child:
+        age: 3
+    tax_units:
+      tax_unit:
+        members: [head, child]
+        mt_ctc_eligible: true
+        adjusted_gross_income: 50_000
+  output:
+    mt_ctc: 1_200
+    # No reduction at exactly $50,000
+
+- name: AGI just above reduction threshold - first reduction
+  period: 2023
+  reforms: policyengine_us.reforms.states.mt.ctc.mt_ctc.mt_ctc
+  input:
+    gov.contrib.states.mt.ctc.in_effect: true
+    people:
+      head:
+        age: 30
+      child:
+        age: 3
+    tax_units:
+      tax_unit:
+        members: [head, child]
+        mt_ctc_eligible: true
+        adjusted_gross_income: 51_000
+  output:
+    mt_ctc: 1_110
+    # 1200 - 1*90 = 1110

@@ -2,7 +2,7 @@ description: Montana reduces the child tax credit for filers with income above t
 values:
   2023-01-01: 50_000
 metadata:
-  units: currency-USD
+  unit: currency-USD
   period: year
   label: Montana child tax credit reduction threshold
   reference:
