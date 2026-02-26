@@ -12,8 +12,9 @@
     tanf_gross_earned_income: 3_500
     state_code: CT
   output:
-    ct_tfa_payment_standard: 833
-    ct_tfa: 833
+    # 0.73 * 0.55 * (24,860/12) = 831.77
+    ct_tfa_payment_standard: 831.77
+    ct_tfa: 831.77
 
 - name: Case 2, above 171 percent FPG, gets 20 percent reduction.
   period: 2024-01
@@ -25,9 +26,9 @@
     tanf_gross_earned_income: 3_600
     state_code: CT
   output:
-    ct_tfa_payment_standard: 833
-    # 833 * 0.8 = 666.4
-    ct_tfa: 666.4
+    ct_tfa_payment_standard: 831.77
+    # 831.77 * 0.8 = 665.42
+    ct_tfa: 665.42
 
 - name: Case 3, unearned income deducted from payment.
   period: 2024-01
@@ -39,9 +40,9 @@
     tanf_gross_earned_income: 1_000
     state_code: CT
   output:
-    ct_tfa_payment_standard: 833
-    # 833 - 200 = 633
-    ct_tfa: 633
+    ct_tfa_payment_standard: 831.77
+    # 831.77 - 200 = 631.77
+    ct_tfa: 631.77
 
 - name: Case 4, unearned income exceeds payment, benefit zero.
   period: 2024-01
@@ -53,8 +54,8 @@
     tanf_gross_earned_income: 500
     state_code: CT
   output:
-    ct_tfa_payment_standard: 833
-    # max(833 - 900, 0) = 0
+    ct_tfa_payment_standard: 831.77
+    # max(831.77 - 900, 0) = 0
     ct_tfa: 0
 
 - name: Case 5, high earner with unearned income.
@@ -67,9 +68,9 @@
     tanf_gross_earned_income: 3_600
     state_code: CT
   output:
-    ct_tfa_payment_standard: 833
-    # (833 - 133) * 0.8 = 700 * 0.8 = 560
-    ct_tfa: 560
+    ct_tfa_payment_standard: 831.77
+    # (831.77 - 133) * 0.8 = 698.77 * 0.8 = 559.02
+    ct_tfa: 559.02
 
 - name: Case 6, high earner with unearned exceeding payment, zero floor.
   period: 2024-01
@@ -81,8 +82,8 @@
     tanf_gross_earned_income: 3_600
     state_code: CT
   output:
-    ct_tfa_payment_standard: 833
-    # max(833 - 900, 0) * 0.8 = 0 * 0.8 = 0
+    ct_tfa_payment_standard: 831.77
+    # max(831.77 - 900, 0) * 0.8 = 0
     ct_tfa: 0
 
 - name: Case 7, not eligible.
@@ -98,12 +99,13 @@
     ct_tfa: 0
 
 # --- Pre-2024 test (before high-earnings provision took effect) ---
-# The high_earnings/rate parameter starts at 2024-01-01. The formula uses
-# an if-check (p.rate > 0) so the reduction does not apply before 2024.
+# The high_earnings/in_effect parameter is false before 2024-01-01. The formula
+# uses an if-check (p.high_earnings.in_effect) so the reduction does not apply
+# before 2024.
 
-- name: Case 8, 2023 low earner no high-earnings reduction.
+- name: Case 8, 2023 statewide formula uses 2022 FPG.
   period: 2023-01
-  absolute_error_margin: 0.1
+  absolute_error_margin: 0.3
   input:
     ct_tfa_eligible: true
     spm_unit_size: 3
@@ -111,9 +113,9 @@
     tanf_gross_earned_income: 1_000
     state_code: CT
   output:
-    # Statewide amount extrapolated: size 3 = $833
-    ct_tfa_payment_standard: 833
-    ct_tfa: 833
+    # 0.73 * 0.55 * (23,030/12) = 0.4015 * 1,919.17 = 770.55
+    ct_tfa_payment_standard: 770.55
+    ct_tfa: 770.55
 
 # --- Regional period benefit test (pre-2022) ---
 
@@ -161,9 +163,9 @@
     receives_housing_assistance: true
     state_code: CT
   output:
-    ct_tfa_payment_standard: 833
-    # 833 * 0.92 = 766.36
-    ct_tfa: 766.36
+    ct_tfa_payment_standard: 831.77
+    # 831.77 * 0.92 = 765.23
+    ct_tfa: 765.23
 
 - name: Case 12, housing subsidy with unearned income.
   period: 2024-01
@@ -176,9 +178,9 @@
     receives_housing_assistance: true
     state_code: CT
   output:
-    ct_tfa_payment_standard: 833
-    # 833 * 0.92 - 200 = 766.36 - 200 = 566.36
-    ct_tfa: 566.36
+    ct_tfa_payment_standard: 831.77
+    # 831.77 * 0.92 - 200 = 765.23 - 200 = 565.23
+    ct_tfa: 565.23
 
 - name: Case 13, housing subsidy with high earner reduction.
   period: 2024-01
@@ -191,6 +193,54 @@
     receives_housing_assistance: true
     state_code: CT
   output:
-    ct_tfa_payment_standard: 833
-    # 833 * 0.92 = 766.36, then * 0.8 = 613.088
-    ct_tfa: 613.09
+    ct_tfa_payment_standard: 831.77
+    # 831.77 * 0.92 = 765.23, then * 0.8 = 612.18
+    ct_tfa: 612.18
+
+# --- Housing subsidy edge cases ---
+
+- name: Case 14, housing subsidy in 2020 regional period.
+  period: 2020-01
+  absolute_error_margin: 0.3
+  input:
+    ct_tfa_eligible: true
+    spm_unit_size: 3
+    ct_tfa_countable_unearned_income: 0
+    tanf_gross_earned_income: 500
+    receives_housing_assistance: true
+    state_code: CT
+  output:
+    # Region B (default), size 3 = $597
+    ct_tfa_payment_standard: 597
+    # 597 * 0.92 = 549.24
+    ct_tfa: 549.24
+
+- name: Case 15, unearned exceeds housing-adjusted standard, zero floor.
+  period: 2024-01
+  absolute_error_margin: 0.3
+  input:
+    ct_tfa_eligible: true
+    spm_unit_size: 3
+    ct_tfa_countable_unearned_income: 800
+    tanf_gross_earned_income: 500
+    receives_housing_assistance: true
+    state_code: CT
+  output:
+    ct_tfa_payment_standard: 831.77
+    # 831.77 * 0.92 = 765.23; max(765.23 - 800, 0) = 0
+    ct_tfa: 0
+
+- name: Case 16, unearned exceeds regional payment standard, zero floor.
+  period: 2020-01
+  absolute_error_margin: 0.1
+  input:
+    ct_tfa_eligible: true
+    spm_unit_size: 3
+    ct_tfa_countable_unearned_income: 650
+    tanf_gross_earned_income: 0
+    state_code: CT
+  output:
+    # Region B (default), size 3 = $597
+    ct_tfa_payment_standard: 597
+    # max(597 - 650, 0) = 0
+    ct_tfa: 0

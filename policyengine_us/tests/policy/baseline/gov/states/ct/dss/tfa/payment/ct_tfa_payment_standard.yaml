@@ -1,75 +1,81 @@
 # Tests for CT TFA payment standard
-# Statewide amounts (2023-10-01): 1=$489, 2=$661, 3=$833, 4=$1,044, 5=$1,177, 6=$1,349, 7=$1,520, 8=$1,693
-# Statewide amounts (2025-03-01): 1=$525, 2=$709, 3=$893, 4=$1,077, 5=$1,260, 6=$1,444, 7=$1,629, 8=$1,813
-# Regional amounts (pre-2022-07-01): Region A/B/C by family size
-# Maximum unit size: 8 (capped)
+# Statewide: payment_standard = 0.73 * need_standard = 0.73 * 0.55 * tanf_fpg
+# Regional (pre-2022-07-01): flat-dollar amounts by region and family size
+# No statutory cap on family size for the FPG-based formula (CGS 17b-104)
 
 # --- Statewide period (2024) ---
 
 - name: Case 1, household size 1.
   period: 2024-01
-  absolute_error_margin: 0.1
+  absolute_error_margin: 0.3
   input:
     spm_unit_size: 1
     state_code: CT
   output:
-    ct_tfa_payment_standard: 489
+    # 0.73 * 0.55 * (14,580 / 12) = 0.4015 * 1,215 = 487.82
+    ct_tfa_payment_standard: 487.82
 
 - name: Case 2, household size 3.
   period: 2024-01
-  absolute_error_margin: 0.1
+  absolute_error_margin: 0.3
   input:
     spm_unit_size: 3
     state_code: CT
   output:
-    ct_tfa_payment_standard: 833
+    # 0.73 * 0.55 * (24,860 / 12) = 0.4015 * 2,071.67 = 831.77
+    ct_tfa_payment_standard: 831.77
 
-- name: Case 3, household size 8, at maximum.
+- name: Case 3, household size 8.
   period: 2024-01
-  absolute_error_margin: 0.1
+  absolute_error_margin: 0.3
   input:
     spm_unit_size: 8
     state_code: CT
   output:
-    ct_tfa_payment_standard: 1_693
+    # 0.73 * 0.55 * (50,560 / 12) = 0.4015 * 4,213.33 = 1,691.65
+    ct_tfa_payment_standard: 1_691.65
 
-- name: Case 4, household size 10, capped at 8.
+- name: Case 4, household size 10, no cap under FPG-based formula.
   period: 2024-01
-  absolute_error_margin: 0.1
+  absolute_error_margin: 0.3
   input:
     spm_unit_size: 10
     state_code: CT
   output:
-    ct_tfa_payment_standard: 1_693
+    # 0.73 * 0.55 * (60,840 / 12) = 0.4015 * 5,070 = 2,035.61
+    ct_tfa_payment_standard: 2_035.61
 
-# --- 2025 payment standard update ---
+# --- 2025 payment standard (2026-01 uses 2025 FPG via Oct convention) ---
 
-- name: Case 5, 2025 payment standard for size 1.
+- name: Case 5, 2025 FPG-based payment for size 1.
   period: 2026-01
-  absolute_error_margin: 0.1
+  absolute_error_margin: 0.3
   input:
     spm_unit_size: 1
     state_code: CT
   output:
-    ct_tfa_payment_standard: 525
+    # 0.73 * 0.55 * (15,650 / 12) = 0.4015 * 1,304.17 = 523.62
+    ct_tfa_payment_standard: 523.62
 
-- name: Case 6, 2025 payment standard for size 3.
+- name: Case 6, 2025 FPG-based payment for size 3.
   period: 2026-01
-  absolute_error_margin: 0.1
+  absolute_error_margin: 0.3
   input:
     spm_unit_size: 3
     state_code: CT
   output:
-    ct_tfa_payment_standard: 893
+    # 0.73 * 0.55 * (26,650 / 12) = 0.4015 * 2,220.83 = 891.66
+    ct_tfa_payment_standard: 891.66
 
-- name: Case 7, 2025 payment standard for size 8.
+- name: Case 7, 2025 FPG-based payment for size 8.
   period: 2026-01
-  absolute_error_margin: 0.1
+  absolute_error_margin: 0.3
   input:
     spm_unit_size: 8
     state_code: CT
   output:
-    ct_tfa_payment_standard: 1_813
+    # 0.73 * 0.55 * (54,150 / 12) = 0.4015 * 4,512.50 = 1,811.77
+    ct_tfa_payment_standard: 1_811.77
 
 # --- Regional period (pre-July 2022) ---
 

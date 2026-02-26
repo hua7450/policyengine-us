@@ -31,4 +31,5 @@ class ct_tfa_payment_standard(Variable):
                 default=p.regional.region_b.amount[capped_size],
             )
 
-        return p.amount[capped_size]
+        need_standard = spm_unit("ct_tfa_need_standard", period)
+        return p.payment_standard_rate * need_standard
