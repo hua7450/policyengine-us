@@ -379,8 +379,9 @@
   output:
     # AGI $40,001, excess = $1
     # Phase-out fraction = $1 / $55,000 = 0.0000182
-    # SCIAD = $15,000 * (1 - 0.0000182) = $14,999.73
-    sc_sciad: 14_999.7
+    # Raw SCIAD = $15,000 * (1 - 0.0000182) = $14,999.73
+    # Rounded down to nearest $10: $14,990
+    sc_sciad: 14_990
 
 - name: Case 16, SCIAD at exactly phase-out end (single).
   period: 2026
@@ -427,8 +428,9 @@
   output:
     # AGI $94,999, excess = $94,999 - $40,000 = $54,999
     # Phase-out fraction = $54,999 / $55,000 = 0.9999818
-    # SCIAD = $15,000 * (1 - 0.9999818) = $0.27
-    sc_sciad: 0.3
+    # Raw SCIAD = $15,000 * (1 - 0.9999818) = $0.27
+    # Rounded down to nearest $10: $0
+    sc_sciad: 0
 
 - name: Case 18, SCIAD at exactly phase-out start (joint).
   period: 2026
@@ -723,10 +725,11 @@
     # But H.4216 ignores federal deductions and uses SCIAD instead
     # SCIAD at $50k AGI: excess = $50k - $40k = $10k
     # Phase-out fraction = $10k / $55k = 0.18182
-    # SCIAD = $15,000 * (1 - 0.18182) = $12,272.73
-    # SC taxable income = $50,000 - $12,272.73 = $37,727.27
-    sc_sciad: 12_272.7
-    sc_taxable_income: 37_727.3
+    # Raw SCIAD = $15,000 * (1 - 0.18182) = $12,272.73
+    # Rounded down to nearest $10: $12,270
+    # SC taxable income = $50,000 - $12,270 = $37,730
+    sc_sciad: 12_270
+    sc_taxable_income: 37_730
 
 - name: Case 29, high income with no SCIAD (fully phased out).
   period: 2026
@@ -1004,9 +1007,10 @@
     sc_eitc: 200
     # SCIAD for SINGLE: AGI $50k, phase-out start $40k, width $55k
     # Excess = $10k, fraction = $10k/$55k = 0.18182
-    # SCIAD = $15,000 * (1 - 0.18182) = $12,272.73
-    sc_sciad: 12_273
-    # SC taxable income = $50,000 - $12,272.73 = $37,727.27
-    sc_taxable_income: 37_727
-    # Tax = $30k * 1.99% + $7,727.27 * 5.21% = $597 + $402.59 = $999.59
+    # Raw SCIAD = $15,000 * (1 - 0.18182) = $12,272.73
+    # Rounded down to nearest $10: $12,270
+    sc_sciad: 12_270
+    # SC taxable income = $50,000 - $12,270 = $37,730
+    sc_taxable_income: 37_730
+    # Tax = $30k * 1.99% + $7,730 * 5.21% = $597 + $402.73 = $999.73
     sc_income_tax_before_non_refundable_credits: 1_000

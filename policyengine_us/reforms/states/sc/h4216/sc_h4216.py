@@ -58,7 +58,9 @@ def create_sc_h4216() -> Reform:
             # Formula: deduction * (1 - (AGI - phase_out_start) / width)
             excess_agi = max_(agi - phase_out_start, 0)
             phase_out_fraction = min_(excess_agi / phase_out_width, 1)
-            return max_(base_amount * (1 - phase_out_fraction), 0)
+            raw_sciad = max_(base_amount * (1 - phase_out_fraction), 0)
+            # Per H.4216 Section 3, round down to nearest $10
+            return np.floor(raw_sciad / 10) * 10
 
     class sc_taxable_income(Variable):
         value_type = float
