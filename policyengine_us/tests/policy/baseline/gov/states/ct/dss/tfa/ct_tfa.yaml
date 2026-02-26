@@ -244,3 +244,37 @@
     ct_tfa_payment_standard: 597
     # max(597 - 650, 0) = 0
     ct_tfa: 0
+
+# --- Boundary: earnings at exact 171% FPG threshold ---
+
+- name: Case 17, earnings clearly above 171 percent FPG threshold.
+  period: 2024-01
+  absolute_error_margin: 0.3
+  input:
+    ct_tfa_eligible: true
+    spm_unit_size: 3
+    ct_tfa_countable_unearned_income: 0
+    tanf_gross_earned_income: 3_543
+    state_code: CT
+  output:
+    ct_tfa_payment_standard: 831.77
+    # 3,543 >= 1.71 * 2,071.67 = 3,542.55 triggers high earner reduction
+    # 831.77 * 0.8 = 665.42
+    ct_tfa: 665.42
+
+# --- Pre-2024: high earner with no reduction (in_effect = false) ---
+
+- name: Case 18, 2023 high earner, no reduction applied.
+  period: 2023-01
+  absolute_error_margin: 0.3
+  input:
+    ct_tfa_eligible: true
+    spm_unit_size: 3
+    ct_tfa_countable_unearned_income: 0
+    tanf_gross_earned_income: 4_000
+    state_code: CT
+  output:
+    # 0.73 * 0.55 * (23,030 / 12) = 0.4015 * 1,919.17 = 770.55
+    ct_tfa_payment_standard: 770.55
+    # high_earnings/in_effect is false before 2024, so no 20% reduction
+    ct_tfa: 770.55

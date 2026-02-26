@@ -17,6 +17,7 @@ metadata:
       href: https://web.archive.org/web/20111030193758/https://secure.ssa.gov/poms.nsf/lnx/0500830403BOS
 
 0:
+  # TANF program start; amounts from SSA POMS effective July 1, 1995
   1997-01-01: 0
   2014-07-01: 0
 1:

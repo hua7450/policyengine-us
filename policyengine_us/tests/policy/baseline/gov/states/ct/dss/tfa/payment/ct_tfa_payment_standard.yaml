@@ -198,3 +198,15 @@
   output:
     # After 2014-07-01: Region B, size 3 = $597
     ct_tfa_payment_standard: 597
+
+# --- Pre-2014 regional amounts (1997-01-01 values) ---
+
+- name: Case 19, pre-2014 Region B, size 3 in 2013.
+  period: 2013-01
+  absolute_error_margin: 0.1
+  input:
+    spm_unit_size: 3
+    state_code: CT
+  output:
+    # Before 2014-07-01: Region B, size 3 = $543
+    ct_tfa_payment_standard: 543

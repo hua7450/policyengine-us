@@ -15,10 +15,10 @@ class ct_tfa_payment_standard(Variable):
 
     def formula(spm_unit, period, parameters):
         p = parameters(period).gov.states.ct.dss.tfa.payment
-        size = spm_unit("spm_unit_size", period.this_year)
-        capped_size = min_(size, p.max_unit_size)
 
         if p.regional_in_effect:
+            size = spm_unit("spm_unit_size", period.this_year)
+            capped_size = min_(size, p.max_unit_size)
             region = spm_unit.household("ct_tfa_region", period)
             region_a = region == region.possible_values.REGION_A
             region_c = region == region.possible_values.REGION_C
