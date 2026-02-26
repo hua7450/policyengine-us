@@ -1,9 +1,42 @@
+## [1.587.1] - 2026-02-26
+
+### Changed
+
+- Update Texas CCS BCY25/BCY26 payment rates, copay formula, and vectorize payment lookup.
+
+
+## [1.587.0] - 2026-02-25
+
+### Added
+
+- Pennsylvania contributed CTC reforms with two proposals - flat amount ($1,000 per child under 6 with 2% phaseout above $125k) and federal CTC match (50% match for children under 6).
+- Backdate Utah FEP (TANF) parameters to 2008 with historical values from DWS obsolete tables and WRDTP longitudinal data.
+
+
+## [1.586.3] - 2026-02-25
+
+### Changed
+
+- Migrated from changelog_entry.yaml to towncrier fragments to eliminate merge conflicts.
+
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [1.586.2] - 2026-02-25 19:58:01
+
+### Added
+
+- Added boundary tests for Montana CTC eligibility and reduction thresholds.
+
+### Fixed
+
+- Montana CTC now requires federal CTC eligibility per HB 268 Section 1(1).
+- Fixed parameter metadata typos in Montana CTC income limit files.
 
 ## [1.586.1] - 2026-02-25 16:09:12
 
@@ -15504,6 +15537,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+[1.586.2]: https://github.com/PolicyEngine/policyengine-us/compare/1.586.1...1.586.2
 [1.586.1]: https://github.com/PolicyEngine/policyengine-us/compare/1.586.0...1.586.1
 [1.586.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.585.0...1.586.0
 [1.585.0]: https://github.com/PolicyEngine/policyengine-us/compare/1.584.0...1.585.0
