@@ -6,19 +6,12 @@ def create_ky_graduated_income_tax() -> Reform:
     """
     Creates reform for Kentucky HB 13 and HB 152 graduated income tax.
 
-    Both bills implement a "cliff" design where above a threshold,
-    the flat rate applies to the ENTIRE income (not just marginal).
+    Both bills amend KRS 141.020(2) to implement graduated brackets
+    with a "cliff" design where above a threshold, the flat rate
+    applies to the ENTIRE income (not just marginal).
 
-    HB 13 (TY 2027+):
-    - 3.5% on income up to $250,000
-    - 6% on income $250,000-$300,000
-    - Flat 6% on ALL income if income exceeds $300,000 (strict >)
-
-    HB 152 (TY 2027+):
-    - 4% on income up to $100,000
-    - 5% on income $100,000-$125,000
-    - 6% on income $125,000-$150,000
-    - Flat 6% on ALL income if income is $150,000 or more (>=)
+    See parameter files under gov/contrib/states/ky/hb13/ and hb152/
+    for specific rates, thresholds, and effective dates.
     """
 
     def calculate_graduated_tax_with_cliff(
@@ -27,9 +20,9 @@ def create_ky_graduated_income_tax() -> Reform:
         """
         Calculate tax using graduated brackets with cliff design.
 
-        If HB 13 is in effect and income > $300k: 6% on entire income
-        If HB 152 is in effect and income >= $150k: 6% on entire income
-        Otherwise: use graduated brackets or baseline
+        HB 13 takes precedence if both are active. Each bill applies
+        its flat rate to the entire income when the cliff threshold
+        is exceeded; otherwise graduated brackets apply.
         """
         hb13_active = p_hb13.in_effect
         hb152_active = p_hb152.in_effect
@@ -66,10 +59,10 @@ def create_ky_graduated_income_tax() -> Reform:
         unit = USD
         definition_period = YEAR
         defined_for = StateCode.KY
-        reference = [
-            "https://apps.legislature.ky.gov/recorddocuments/bill/26RS/hb13/orig_bill.pdf#page=3",
-            "https://apps.legislature.ky.gov/recorddocuments/bill/26RS/hb152/orig_bill.pdf#page=3",
-        ]
+        reference = (
+            "https://apps.legislature.ky.gov/recorddocuments/bill/26RS/hb13/orig_bill.pdf#page=1",
+            "https://apps.legislature.ky.gov/recorddocuments/bill/26RS/hb152/orig_bill.pdf#page=1",
+        )
 
         def formula(person, period, parameters):
             taxable_income = person("ky_taxable_income_indiv", period)
@@ -88,10 +81,10 @@ def create_ky_graduated_income_tax() -> Reform:
         unit = USD
         definition_period = YEAR
         defined_for = StateCode.KY
-        reference = [
-            "https://apps.legislature.ky.gov/recorddocuments/bill/26RS/hb13/orig_bill.pdf#page=3",
-            "https://apps.legislature.ky.gov/recorddocuments/bill/26RS/hb152/orig_bill.pdf#page=3",
-        ]
+        reference = (
+            "https://apps.legislature.ky.gov/recorddocuments/bill/26RS/hb13/orig_bill.pdf#page=1",
+            "https://apps.legislature.ky.gov/recorddocuments/bill/26RS/hb152/orig_bill.pdf#page=1",
+        )
 
         def formula(person, period, parameters):
             taxable_income = person("ky_taxable_income_joint", period)
