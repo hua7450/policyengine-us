@@ -271,6 +271,53 @@
     ct_tfa_eligible: false
     ct_tfa: 0
 
+# --- Post-2014 regional amounts (effective 2014-07-01) ---
+
+- name: Integration test - 2015 post-2014 Region B amounts
+  period: 2015-01
+  absolute_error_margin: 0.1
+  input:
+    ct_tfa_eligible: true
+    spm_unit_size: 3
+    ct_tfa_countable_unearned_income: 0
+    tanf_gross_earned_income: 0
+    state_code: CT
+  output:
+    # After 2014-07-01: Region B (default), size 3 = $597
+    ct_tfa_payment_standard: 597
+    ct_tfa: 597
+
+- name: Integration test - 2015 post-2014 Region A amounts
+  period: 2015-01
+  absolute_error_margin: 0.1
+  input:
+    ct_tfa_eligible: true
+    spm_unit_size: 3
+    ct_tfa_countable_unearned_income: 0
+    tanf_gross_earned_income: 0
+    state_code: CT
+    ct_tfa_region: REGION_A
+  output:
+    # After 2014-07-01: Region A, size 3 = $698
+    ct_tfa_payment_standard: 698
+    ct_tfa: 698
+
+- name: Integration test - 2015 post-2014 Region C with unearned income
+  period: 2015-01
+  absolute_error_margin: 0.1
+  input:
+    ct_tfa_eligible: true
+    spm_unit_size: 3
+    ct_tfa_countable_unearned_income: 100
+    tanf_gross_earned_income: 0
+    state_code: CT
+    ct_tfa_region: REGION_C
+  output:
+    # After 2014-07-01: Region C, size 3 = $589
+    ct_tfa_payment_standard: 589
+    # 589 - 100 = 489
+    ct_tfa: 489
+
 # --- Statewide period (2024) with full pipeline ---
 
 - name: Integration test - 2024 statewide eligible family

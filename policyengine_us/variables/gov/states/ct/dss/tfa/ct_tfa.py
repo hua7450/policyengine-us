@@ -15,9 +15,8 @@ class ct_tfa(Variable):
         # Unearned income are counted dollar for dollar against TFA benefit amount
         # https://portal.ct.gov/dss/knowledge-base/articles/cash-assistance/temporary-family-assistance?language=en_US
         payment_standard = spm_unit("ct_tfa_payment_standard", period)
-        # Per CGS § 17b-104(d), families in subsidized housing have 8%
-        # of payment standard attributed as income, equivalent to
-        # multiplying the payment standard by 0.92.
+        # Per CGS § 17b-104(d), families in subsidized housing have
+        # a share of the payment standard attributed as income.
         receives_housing = spm_unit(
             "receives_housing_assistance", period.this_year
         )
@@ -30,8 +29,7 @@ class ct_tfa(Variable):
             "ct_tfa_countable_unearned_income", period
         )
         raw_benefit = max_(adjusted_standard - countable_unearned_income, 0)
-        # When gross earnings are >= 171% of FPG, reduce the benefit by 20%
-        # This provision took effect January 1, 2024
+        # Per CGS § 17b-112(d), high earners have their benefit reduced.
         if p.high_earnings.in_effect:
             gross_earnings = add(
                 spm_unit, period, ["tanf_gross_earned_income"]
