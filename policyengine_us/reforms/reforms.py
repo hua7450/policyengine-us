@@ -131,11 +131,17 @@ from .states.ri.exemption.ri_exemption_reform import (
 from .states.de.dependent_credit.de_dependent_credit_reform import (
     create_de_dependent_credit_reform_fn,
 )
+from .states.oregon.dependent_exemption_credit.or_dependent_exemption_credit_reform import (
+    create_or_dependent_exemption_credit_reform_fn,
+)
 from .states.va.dependent_exemption.va_dependent_exemption_reform import (
     create_va_dependent_exemption_reform_fn,
 )
 from .states.va.hb979.va_hb979_reform import (
     create_va_hb979_reform,
+)
+from .states.ct.refundable_ctc import (
+    create_ct_refundable_ctc_reform,
 )
 from .aca import (
     create_aca_ptc_additional_bracket_reform,
@@ -147,6 +153,19 @@ from .cdcc import (
 )
 from .states.ky.graduated_income_tax import (
     create_ky_graduated_income_tax_reform,
+)
+from .states.pa.ctc import (
+    create_pa_ctc_flat_amount_reform,
+    create_pa_ctc_match_reform,
+)
+from .states.ct.sb100 import (
+    create_ct_sb100_reform,
+)
+from .states.ct.tax_rebate_2026 import (
+    create_ct_tax_rebate_2026_reform,
+)
+from .states.ct.hb5009 import (
+    create_ct_hb5009_reform,
 )
 
 
@@ -319,10 +338,14 @@ def create_structural_reforms_from_parameters(parameters, period):
     de_dependent_credit = create_de_dependent_credit_reform_fn(
         parameters, period
     )
+    or_dependent_exemption_credit = (
+        create_or_dependent_exemption_credit_reform_fn(parameters, period)
+    )
     va_dependent_exemption = create_va_dependent_exemption_reform_fn(
         parameters, period
     )
     va_hb979 = create_va_hb979_reform(parameters, period)
+    ct_refundable_ctc = create_ct_refundable_ctc_reform(parameters, period)
     aca_ptc_additional_bracket = create_aca_ptc_additional_bracket_reform(
         parameters, period
     )
@@ -338,6 +361,11 @@ def create_structural_reforms_from_parameters(parameters, period):
     ky_graduated_income_tax = create_ky_graduated_income_tax_reform(
         parameters, period
     )
+    pa_ctc_flat_amount = create_pa_ctc_flat_amount_reform(parameters, period)
+    pa_ctc_match = create_pa_ctc_match_reform(parameters, period)
+    ct_sb100 = create_ct_sb100_reform(parameters, period)
+    ct_tax_rebate_2026 = create_ct_tax_rebate_2026_reform(parameters, period)
+    ct_hb5009 = create_ct_hb5009_reform(parameters, period)
 
     reforms = [
         afa_reform,
@@ -401,13 +429,20 @@ def create_structural_reforms_from_parameters(parameters, period):
         ri_ctc,
         ri_exemption,
         de_dependent_credit,
+        or_dependent_exemption_credit,
         va_dependent_exemption,
         va_hb979,
+        ct_refundable_ctc,
         aca_ptc_additional_bracket,
         aca_ptc_simplified_bracket,
         aca_ptc_700_fpl_cliff,
         cdcc_single_parent_work_requirement,
         ky_graduated_income_tax,
+        pa_ctc_flat_amount,
+        pa_ctc_match,
+        ct_hb5009,
+        ct_sb100,
+        ct_tax_rebate_2026,
     ]
     reforms = tuple(filter(lambda x: x is not None, reforms))
 
