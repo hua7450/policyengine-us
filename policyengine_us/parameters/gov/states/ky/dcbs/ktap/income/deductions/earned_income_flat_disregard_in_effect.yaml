@@ -1,9 +1,9 @@
-description: Kentucky deducts this flat amount from earned income as part of the earned income disregard under the Kentucky Transitional Assistance Program.
+description: Kentucky uses this indicator to determine whether the flat earned income disregard applies under the Kentucky Transitional Assistance Program.
 
 metadata:
-  unit: currency-USD
+  unit: bool
   period: month
-  label: Kentucky K-TAP earned income disregard flat amount
+  label: Kentucky K-TAP earned income flat disregard in effect
   reference:
     - title: 921 KAR 2:016 Section 5(3)(e)
       href: https://apps.legislature.ky.gov/law/kar/titles/921/002/016/
@@ -11,4 +11,5 @@ metadata:
       href: https://apps.legislature.ky.gov/law/kar/titles/921/002/016/10142/
 
 values:
-  1997-07-01: 30
+  1997-07-01: true
+  2023-03-01: false
