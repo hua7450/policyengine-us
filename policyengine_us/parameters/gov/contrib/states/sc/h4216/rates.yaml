@@ -2,9 +2,9 @@ description: South Carolina H.4216 establishes new income tax rates.
 
 metadata:
   reference:
-    - title: South Carolina H.4216 Section 1
+    - title: South Carolina H.4216 Section 1 - Section 12-6-510(C)
       href: https://www.scstatehouse.gov/sess126_2025-2026/prever/4216_20260224.htm
-  label: SC H.4216 income tax rates
+  label: South Carolina H.4216 income tax rates
   type: marginal_rate
   threshold_unit: currency-USD
   rate_unit: /1
