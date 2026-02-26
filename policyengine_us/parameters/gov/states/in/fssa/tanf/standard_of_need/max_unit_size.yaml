@@ -1,6 +1,7 @@
 description: Indiana sets this as the maximum unit size for standard of need lookup under the Temporary Assistance for Needy Families program.
 
 values:
+  1997-10-01: 10
   2023-07-01: 10
 
 metadata:

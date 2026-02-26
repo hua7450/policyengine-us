@@ -1,6 +1,7 @@
 description: Indiana excludes this share of earned income when determining eligibility under the Temporary Assistance for Needy Families program.
 
 values:
+  1997-10-01: 0.33
   2023-07-01: 0.33
 
 metadata:

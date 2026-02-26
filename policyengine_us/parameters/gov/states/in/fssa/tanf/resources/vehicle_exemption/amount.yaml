@@ -1,6 +1,7 @@
 description: Indiana excludes this amount of vehicle equity from countable resources under the Temporary Assistance for Needy Families program.
 
 values:
+  1997-10-01: 20_000
   2023-07-01: 20_000
 
 metadata:
