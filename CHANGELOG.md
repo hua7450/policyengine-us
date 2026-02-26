@@ -1,3 +1,10 @@
+## [1.589.0] - 2026-02-26
+
+### Added
+
+- Added Kentucky HB 13 and HB 152 graduated income tax reforms with cliff design.
+
+
 ## [1.588.0] - 2026-02-26
 
 ### Added
