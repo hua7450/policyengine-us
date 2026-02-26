@@ -1,3 +1,10 @@
+## [1.587.1] - 2026-02-26
+
+### Changed
+
+- Update Texas CCS BCY25/BCY26 payment rates, copay formula, and vectorize payment lookup.
+
+
 ## [1.587.0] - 2026-02-25
 
 ### Added
