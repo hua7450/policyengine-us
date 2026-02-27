@@ -1,0 +1,9 @@
+description: Montana newborn credit requires the child to be under this age at the end of the tax year.
+
+values:
+  2027-01-01: 1
+
+metadata:
+  unit: year
+  period: year
+  label: Montana newborn credit child age limit

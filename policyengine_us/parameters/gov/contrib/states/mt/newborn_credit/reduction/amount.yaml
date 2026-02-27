@@ -1,0 +1,9 @@
+description: Montana newborn credit reduces by this amount for each income increment above the threshold.
+
+values:
+  2027-01-01: 50
+
+metadata:
+  unit: currency-USD
+  period: year
+  label: Montana newborn credit reduction amount

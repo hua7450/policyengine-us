@@ -1,0 +1,9 @@
+description: Montana newborn credit reduces for each of these income increments (or part thereof) that AGI exceeds the threshold.
+
+values:
+  2027-01-01: 1_000
+
+metadata:
+  unit: currency-USD
+  period: year
+  label: Montana newborn credit reduction increment

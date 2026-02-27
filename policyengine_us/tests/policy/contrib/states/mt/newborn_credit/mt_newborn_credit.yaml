@@ -1,0 +1,915 @@
+# Montana Newborn Credit Tests
+
+# Basic Eligibility Tests
+
+- name: Case 1 (single filer with newborn under income threshold)
+  period: 2027
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      parent:
+        age: 30
+        is_tax_unit_head: true
+        employment_income: 40_000
+        ssn_card_type: CITIZEN
+      child:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child]
+        state_code: MT
+  output:
+    mt_newborn_credit: 1_000
+
+- name: Case 2 (MFJ with newborn under income threshold)
+  period: 2027
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      parent1:
+        age: 35
+        is_tax_unit_head: true
+        employment_income: 60_000
+        ssn_card_type: CITIZEN
+      parent2:
+        age: 33
+        is_tax_unit_spouse: true
+        employment_income: 40_000
+        ssn_card_type: CITIZEN
+      child:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent1, parent2, child]
+        filing_status: JOINT
+    households:
+      household:
+        members: [parent1, parent2, child]
+        state_code: MT
+  output:
+    # AGI $100k < $120k threshold for MFJ
+    mt_newborn_credit: 1_000
+
+- name: Case 3 (two newborns - double credit)
+  period: 2027
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      parent:
+        age: 30
+        is_tax_unit_head: true
+        employment_income: 50_000
+        ssn_card_type: CITIZEN
+      child1:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: CITIZEN
+      child2:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child1, child2]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child1, child2]
+        state_code: MT
+  output:
+    mt_newborn_credit: 2_000
+
+# Age Eligibility Tests
+
+- name: Case 4 (child age 0 is eligible)
+  period: 2027
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      parent:
+        age: 30
+        is_tax_unit_head: true
+        employment_income: 40_000
+        ssn_card_type: CITIZEN
+      child:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child]
+        state_code: MT
+  output:
+    mt_newborn_credit: 1_000
+
+- name: Case 5 (child age 1 not eligible - must be under 1)
+  period: 2027
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      parent:
+        age: 30
+        is_tax_unit_head: true
+        employment_income: 40_000
+        ssn_card_type: CITIZEN
+      child:
+        age: 1
+        is_tax_unit_dependent: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child]
+        state_code: MT
+  output:
+    mt_newborn_credit: 0
+
+- name: Case 6 (child age 2 not eligible)
+  period: 2027
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      parent:
+        age: 30
+        is_tax_unit_head: true
+        employment_income: 40_000
+        ssn_card_type: CITIZEN
+      child:
+        age: 2
+        is_tax_unit_dependent: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child]
+        state_code: MT
+  output:
+    mt_newborn_credit: 0
+
+- name: Case 7 (one newborn eligible, one older child not)
+  period: 2027
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      parent:
+        age: 35
+        is_tax_unit_head: true
+        employment_income: 50_000
+        ssn_card_type: CITIZEN
+      newborn:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: CITIZEN
+      toddler:
+        age: 3
+        is_tax_unit_dependent: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, newborn, toddler]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, newborn, toddler]
+        state_code: MT
+  output:
+    # Only newborn qualifies
+    mt_newborn_credit: 1_000
+
+# SSN Requirement Tests - Child
+
+- name: Case 8 (child with SSN CITIZEN qualifies)
+  period: 2027
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      parent:
+        age: 30
+        is_tax_unit_head: true
+        employment_income: 40_000
+        ssn_card_type: CITIZEN
+      child:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child]
+        state_code: MT
+  output:
+    mt_newborn_credit: 1_000
+
+- name: Case 9 (child with SSN NON_CITIZEN_VALID_EAD qualifies)
+  period: 2027
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      parent:
+        age: 30
+        is_tax_unit_head: true
+        employment_income: 40_000
+        ssn_card_type: CITIZEN
+      child:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: NON_CITIZEN_VALID_EAD
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child]
+        state_code: MT
+  output:
+    mt_newborn_credit: 1_000
+
+- name: Case 10 (child with ITIN only - OTHER_NON_CITIZEN - not eligible)
+  period: 2027
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      parent:
+        age: 30
+        is_tax_unit_head: true
+        employment_income: 40_000
+        ssn_card_type: CITIZEN
+      child:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: OTHER_NON_CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child]
+        state_code: MT
+  output:
+    mt_newborn_credit: 0
+
+- name: Case 11 (child with no SSN - NONE - not eligible)
+  period: 2027
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      parent:
+        age: 30
+        is_tax_unit_head: true
+        employment_income: 40_000
+        ssn_card_type: CITIZEN
+      child:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: NONE
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child]
+        state_code: MT
+  output:
+    mt_newborn_credit: 0
+
+# SSN Requirement Tests - Filer
+
+- name: Case 12 (filer with SSN CITIZEN qualifies)
+  period: 2027
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      parent:
+        age: 30
+        is_tax_unit_head: true
+        employment_income: 40_000
+        ssn_card_type: CITIZEN
+      child:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child]
+        state_code: MT
+  output:
+    mt_newborn_credit: 1_000
+
+- name: Case 13 (filer with SSN NON_CITIZEN_VALID_EAD qualifies)
+  period: 2027
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      parent:
+        age: 30
+        is_tax_unit_head: true
+        employment_income: 40_000
+        ssn_card_type: NON_CITIZEN_VALID_EAD
+      child:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child]
+        state_code: MT
+  output:
+    mt_newborn_credit: 1_000
+
+- name: Case 14 (filer with ITIN only - OTHER_NON_CITIZEN - not eligible)
+  period: 2027
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      parent:
+        age: 30
+        is_tax_unit_head: true
+        employment_income: 40_000
+        ssn_card_type: OTHER_NON_CITIZEN
+      child:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child]
+        state_code: MT
+  output:
+    mt_newborn_credit: 0
+
+- name: Case 15 (filer with no SSN - NONE - not eligible)
+  period: 2027
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      parent:
+        age: 30
+        is_tax_unit_head: true
+        employment_income: 40_000
+        ssn_card_type: NONE
+      child:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child]
+        state_code: MT
+  output:
+    mt_newborn_credit: 0
+
+- name: Case 16 (MFJ one spouse has SSN - qualifies)
+  period: 2027
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      parent1:
+        age: 35
+        is_tax_unit_head: true
+        employment_income: 60_000
+        ssn_card_type: CITIZEN
+      parent2:
+        age: 33
+        is_tax_unit_spouse: true
+        ssn_card_type: OTHER_NON_CITIZEN
+      child:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent1, parent2, child]
+        filing_status: JOINT
+    households:
+      household:
+        members: [parent1, parent2, child]
+        state_code: MT
+  output:
+    mt_newborn_credit: 1_000
+
+- name: Case 17 (MFJ neither spouse has SSN - not eligible)
+  period: 2027
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      parent1:
+        age: 35
+        is_tax_unit_head: true
+        employment_income: 60_000
+        ssn_card_type: OTHER_NON_CITIZEN
+      parent2:
+        age: 33
+        is_tax_unit_spouse: true
+        ssn_card_type: OTHER_NON_CITIZEN
+      child:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent1, parent2, child]
+        filing_status: JOINT
+    households:
+      household:
+        members: [parent1, parent2, child]
+        state_code: MT
+  output:
+    mt_newborn_credit: 0
+
+# Earned Income Requirement Tests
+
+- name: Case 18 (no earned income - not eligible)
+  period: 2027
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      parent:
+        age: 30
+        is_tax_unit_head: true
+        employment_income: 0
+        ssn_card_type: CITIZEN
+      child:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child]
+        state_code: MT
+  output:
+    mt_newborn_credit: 0
+
+- name: Case 19 (exactly $1 earned income - qualifies)
+  period: 2027
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      parent:
+        age: 30
+        is_tax_unit_head: true
+        employment_income: 1
+        ssn_card_type: CITIZEN
+      child:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child]
+        state_code: MT
+  output:
+    mt_newborn_credit: 1_000
+
+# Phase-out Tests
+
+- name: Case 20 (single at exactly threshold - full credit)
+  period: 2027
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      parent:
+        age: 30
+        is_tax_unit_head: true
+        employment_income: 60_000
+        ssn_card_type: CITIZEN
+      child:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child]
+        state_code: MT
+  output:
+    # AGI $60k = threshold, no reduction
+    mt_newborn_credit: 1_000
+
+- name: Case 21 (single $1 above threshold - one increment reduction)
+  period: 2027
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      parent:
+        age: 30
+        is_tax_unit_head: true
+        employment_income: 60_001
+        ssn_card_type: CITIZEN
+      child:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child]
+        state_code: MT
+  output:
+    # AGI $60,001 exceeds $60,000 by $1
+    # Ceiling($1 / $1,000) = 1 increment
+    # Reduction = $50 * 1 = $50
+    # Credit = $1,000 - $50 = $950
+    mt_newborn_credit: 950
+
+- name: Case 22 (single $500 above threshold - one increment)
+  period: 2027
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      parent:
+        age: 30
+        is_tax_unit_head: true
+        employment_income: 60_500
+        ssn_card_type: CITIZEN
+      child:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child]
+        state_code: MT
+  output:
+    # AGI $60,500 exceeds $60,000 by $500
+    # Ceiling($500 / $1,000) = 1 increment (fraction triggers full increment)
+    # Reduction = $50 * 1 = $50
+    # Credit = $1,000 - $50 = $950
+    mt_newborn_credit: 950
+
+- name: Case 23 (single $1000 above threshold - one increment)
+  period: 2027
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      parent:
+        age: 30
+        is_tax_unit_head: true
+        employment_income: 61_000
+        ssn_card_type: CITIZEN
+      child:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child]
+        state_code: MT
+  output:
+    # AGI $61,000 exceeds $60,000 by $1,000
+    # Ceiling($1,000 / $1,000) = 1 increment
+    # Reduction = $50 * 1 = $50
+    # Credit = $1,000 - $50 = $950
+    mt_newborn_credit: 950
+
+- name: Case 24 (single $1001 above threshold - two increments)
+  period: 2027
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      parent:
+        age: 30
+        is_tax_unit_head: true
+        employment_income: 61_001
+        ssn_card_type: CITIZEN
+      child:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child]
+        state_code: MT
+  output:
+    # AGI $61,001 exceeds $60,000 by $1,001
+    # Ceiling($1,001 / $1,000) = 2 increments
+    # Reduction = $50 * 2 = $100
+    # Credit = $1,000 - $100 = $900
+    mt_newborn_credit: 900
+
+- name: Case 25 (single fully phased out)
+  period: 2027
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      parent:
+        age: 30
+        is_tax_unit_head: true
+        employment_income: 100_000
+        ssn_card_type: CITIZEN
+      child:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child]
+        state_code: MT
+  output:
+    # AGI $100,000 exceeds $60,000 by $40,000
+    # Ceiling($40,000 / $1,000) = 40 increments
+    # Reduction = $50 * 40 = $2,000 (exceeds $1,000 credit)
+    # Credit = max($1,000 - $2,000, 0) = $0
+    mt_newborn_credit: 0
+
+- name: Case 26 (MFJ at exactly threshold - full credit)
+  period: 2027
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      parent1:
+        age: 35
+        is_tax_unit_head: true
+        employment_income: 70_000
+        ssn_card_type: CITIZEN
+      parent2:
+        age: 33
+        is_tax_unit_spouse: true
+        employment_income: 50_000
+        ssn_card_type: CITIZEN
+      child:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent1, parent2, child]
+        filing_status: JOINT
+    households:
+      household:
+        members: [parent1, parent2, child]
+        state_code: MT
+  output:
+    # AGI $120k = threshold for MFJ, no reduction
+    mt_newborn_credit: 1_000
+
+- name: Case 27 (MFJ above threshold - partial phase-out)
+  period: 2027
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      parent1:
+        age: 35
+        is_tax_unit_head: true
+        employment_income: 70_000
+        ssn_card_type: CITIZEN
+      parent2:
+        age: 33
+        is_tax_unit_spouse: true
+        employment_income: 55_000
+        ssn_card_type: CITIZEN
+      child:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent1, parent2, child]
+        filing_status: JOINT
+    households:
+      household:
+        members: [parent1, parent2, child]
+        state_code: MT
+  output:
+    # AGI $125,000 exceeds $120,000 by $5,000
+    # Ceiling($5,000 / $1,000) = 5 increments
+    # Reduction = $50 * 5 = $250
+    # Credit = $1,000 - $250 = $750
+    mt_newborn_credit: 750
+
+# Filing Status Threshold Tests
+
+- name: Case 28 (HOH uses $60k threshold)
+  period: 2027
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      parent:
+        age: 30
+        is_tax_unit_head: true
+        employment_income: 65_000
+        ssn_card_type: CITIZEN
+      child:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+        filing_status: HEAD_OF_HOUSEHOLD
+    households:
+      household:
+        members: [parent, child]
+        state_code: MT
+  output:
+    # AGI $65,000 exceeds $60,000 by $5,000
+    # Ceiling($5,000 / $1,000) = 5 increments
+    # Reduction = $50 * 5 = $250
+    # Credit = $1,000 - $250 = $750
+    mt_newborn_credit: 750
+
+- name: Case 29 (MFS uses $60k threshold)
+  period: 2027
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      parent:
+        age: 30
+        is_tax_unit_head: true
+        employment_income: 55_000
+        ssn_card_type: CITIZEN
+      child:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+        filing_status: SEPARATE
+    households:
+      household:
+        members: [parent, child]
+        state_code: MT
+  output:
+    # AGI $55k < $60k threshold for MFS
+    mt_newborn_credit: 1_000
+
+- name: Case 30 (surviving spouse uses $120k threshold)
+  period: 2027
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      parent:
+        age: 35
+        is_tax_unit_head: true
+        employment_income: 115_000
+        ssn_card_type: CITIZEN
+      child:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+        filing_status: SURVIVING_SPOUSE
+    households:
+      household:
+        members: [parent, child]
+        state_code: MT
+  output:
+    # AGI $115k < $120k threshold for surviving spouse
+    mt_newborn_credit: 1_000
+
+# Reform Toggle Test
+
+- name: Case 31 (reform not in effect by default)
+  period: 2027
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    people:
+      parent:
+        age: 30
+        is_tax_unit_head: true
+        employment_income: 40_000
+        ssn_card_type: CITIZEN
+      child:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child]
+        state_code: MT
+  output:
+    mt_newborn_credit: 0
+
+# Non-MT Resident Test
+
+- name: Case 32 (non-MT resident gets zero)
+  period: 2027
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      parent:
+        age: 30
+        is_tax_unit_head: true
+        employment_income: 40_000
+        ssn_card_type: CITIZEN
+      child:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child]
+        state_code: NY
+  output:
+    mt_newborn_credit: 0
