@@ -16,7 +16,7 @@ metadata:
     - title: Santa Clara County DEBS Standards Chart Region 2
       href: https://stgenssa.sccgov.org/debs/program_handbooks/charts/assets/1CalWorksRCAECATCVAP/StndsChtReg2.htm
     - title: CDSS Historical MAP and MBSAC Since 1971 (Region 2, page 10 of 10)
-      href: https://cdss.ca.gov/cdssweb/entres/forms/English/TEMP2250.pdf
+      href: https://cdss.ca.gov/cdssweb/entres/forms/English/TEMP2250.pdf#page=11
     - title: CDSS ACL 15-52, MBSAC CNI 2.54% Increase Effective July 1, 2015
       href: https://www.cdss.ca.gov/lettersnotices/entres/getinfo/acl/2015/15-52.pdf#page=3
     - title: CDSS ACL 16-47, MBSAC CNI 2.76% Increase Effective July 1, 2016
@@ -76,7 +76,7 @@ metadata:
   2021-07-01: 1_736
   2022-07-01: 1_851
   2023-07-01: 1_978
-  2024-07-01: 2_064
+  2024-07-01: 2_063
   2025-07-01: 2_134
 5:
   2015-07-01: 1_621
@@ -148,5 +148,5 @@ metadata:
   2021-07-01: 3_139
   2022-07-01: 3_347
   2023-07-01: 3_576
-  2024-07-01: 3_731
+  2024-07-01: 3_730
   2025-07-01: 3_858

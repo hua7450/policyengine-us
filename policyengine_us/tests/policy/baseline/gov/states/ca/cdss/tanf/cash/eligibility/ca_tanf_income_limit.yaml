@@ -86,7 +86,7 @@
     spm_unit_size: 10
     ca_tanf_region1: false
   output:
-    ca_tanf_income_limit: 3_731 * 12
+    ca_tanf_income_limit: 3_730 * 12
 
 - name: Region 2 MBSAC for 11-person household in 2025 uses $35 additional.
   period: 2025
@@ -95,7 +95,7 @@
     spm_unit_size: 11
     ca_tanf_region1: false
   output:
-    ca_tanf_income_limit: (3_731 + 35) * 12
+    ca_tanf_income_limit: (3_730 + 35) * 12
 
 - name: Region 1 MBSAC for 1-person household in 2026 uses 2025-07-01 value ($930/mo).
   period: 2026
@@ -153,7 +153,7 @@
     spm_unit_size: 15
     ca_tanf_region1: false
   output:
-    ca_tanf_income_limit: (3_731 + 5 * 35) * 12
+    ca_tanf_income_limit: (3_730 + 5 * 35) * 12
 
 # Historical MBSAC period transition tests
 
