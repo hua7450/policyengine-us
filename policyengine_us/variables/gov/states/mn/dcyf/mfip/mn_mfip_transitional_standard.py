@@ -4,7 +4,7 @@ from policyengine_us.model_api import *
 class mn_mfip_transitional_standard(Variable):
     value_type = float
     entity = SPMUnit
-    label = "Minnesota MFIP Transitional Standard"
+    label = "Minnesota MFIP Transitional Standard (cash portion)"
     unit = USD
     definition_period = MONTH
     reference = "https://www.house.mn.gov/hrd/pubs/ss/ssmfip.pdf#page=5"
@@ -13,6 +13,7 @@ class mn_mfip_transitional_standard(Variable):
     def formula(spm_unit, period, parameters):
         # Per MN Stat. 142G.17, Subd. 5:
         # Transitional Standard is the maximum MFIP grant by family size.
+        # NOTE: Uses cash portion only; food portion is handled by federal SNAP.
         p = parameters(period).gov.states.mn.dcyf.mfip.transitional_standard
         size = spm_unit("spm_unit_size", period)
         capped_size = min_(size, p.max_unit_size)

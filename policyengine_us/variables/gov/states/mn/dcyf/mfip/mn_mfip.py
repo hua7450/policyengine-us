@@ -14,7 +14,9 @@ class mn_mfip(Variable):
         # Per MN Stat. 142G.16, Subd. 2 (benefit calculation):
         # (a) FWL - countable earned = X, cap at transitional standard
         # (d) X - unearned = final benefit
-        # Note: Dependent care deduction does NOT apply to benefit calculation
+        # NOTE: MFIP is a combined cash+food program. The transitional standard
+        # here uses cash-only amounts because SNAP is modeled separately.
+        # Dependent care deduction does NOT apply to benefit calculation.
         transitional_standard = spm_unit(
             "mn_mfip_transitional_standard", period
         )

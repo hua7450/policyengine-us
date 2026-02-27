@@ -1,4 +1,12 @@
-description: Minnesota provides this Transitional Standard monthly benefit amount under the Minnesota Family Investment Program, based on assistance unit size.
+description: Minnesota provides this cash portion of the Transitional Standard under the Minnesota Family Investment Program.
+# NOTE: MFIP is a combined cash+food program. Recipients receive food assistance
+# through MFIP (not separate SNAP). This parameter models only the cash portion
+# because SNAP is already modeled federally. The full Transitional Standard
+# (cash + food) is used in regulation for eligibility and benefit calculation,
+# but since PolicyEngine models SNAP separately, we use cash-only here to avoid
+# double-counting food assistance. This means the Family Wage Level (110% of TS)
+# used for eligibility is based on the cash portion, which is slightly stricter
+# than regulation (which uses the full TS).
 
 metadata:
   unit: currency-USD
@@ -7,87 +15,53 @@ metadata:
     - range(0, 20)
   breakdown_labels:
     - Assistance unit size
-  label: Minnesota MFIP Transitional Standard amount
+  label: Minnesota MFIP Transitional Standard cash portion
   reference:
     - title: Minnesota House Research - Minnesota Family Investment Program
-      href: https://www.house.mn.gov/hrd/pubs/pap_mfip.pdf#page=5
+      href: https://www.house.mn.gov/hrd/pubs/pap_mfip.pdf#page=17
     - title: Minnesota Combined Manual MFIP/DWP Assistance Standards
       href: https://www.dhs.state.mn.us/main/idcplg?IdcService=GET_DYNAMIC_CONVERSION&RevisionSelectionMethod=LatestReleased&dDocName=cm_002009
-    - title: Minnesota State Register Volume 41, Number 8 - MFIP COLA Adjustment October 1, 2016
-      href: https://mn.gov/admin/assets/SR41_8%20-%20Accessible_tcm36-263468.pdf#page=57
-    - title: Minnesota State Register Volume 42, Number 9 - MFIP COLA Adjustment October 1, 2017
-      href: https://mn.gov/admin/assets/SR42_9%20-%20Accessible_tcm36-309361.pdf#page=10
-    - title: Minnesota State Register Volume 43, Number 9 - MFIP COLA Adjustment October 1, 2018
-      href: https://mn.gov/admin/assets/SR43_9%20-%20Accessible_tcm36-350686.pdf#page=76
-    - title: Minnesota State Register Volume 44, Number 8 - MFIP COLA Adjustment October 1, 2019
-      href: https://mn.gov/admin/assets/SR44_8%20-%20Accessible_tcm36-399622.pdf#page=24
+    - title: Minnesota House Research - MFIP Grants Calculation and Exit Points
+      href: https://www.house.mn.gov/hrd/pubs/mfipgrant.pdf#page=3
 
+# Cash portion was frozen at AFDC levels from 1997 until October 2021.
 1:
-  2016-10-01: 422
-  2017-10-01: 420
-  2019-10-01: 422
-  2024-10-01: 661
-  2025-10-01: 678
+  2016-10-01: 250
+  2024-10-01: 419
+  2025-10-01: 431
 2:
-  2016-10-01: 754
-  2017-10-01: 750
-  2018-10-01: 751
-  2019-10-01: 752
-  2024-10-01: 1_087
-  2025-10-01: 1_114
+  2016-10-01: 437
+  2024-10-01: 642
+  2025-10-01: 661
 3:
-  2016-10-01: 991
-  2017-10-01: 984
-  2018-10-01: 985
-  2019-10-01: 989
-  2024-10-01: 1_394
-  2025-10-01: 1_430
+  2016-10-01: 532
+  2024-10-01: 756
+  2025-10-01: 778
 4:
-  2016-10-01: 1_207
-  2017-10-01: 1_198
-  2018-10-01: 1_200
-  2019-10-01: 1_204
-  2024-10-01: 1_675
-  2025-10-01: 1_715
+  2016-10-01: 621
+  2024-10-01: 861
+  2025-10-01: 886
 5:
-  2016-10-01: 1_395
-  2017-10-01: 1_384
-  2018-10-01: 1_386
-  2019-10-01: 1_392
-  2024-10-01: 1_933
-  2025-10-01: 1_982
+  2016-10-01: 697
+  2024-10-01: 952
+  2025-10-01: 980
 6:
-  2016-10-01: 1_605
-  2017-10-01: 1_594
-  2018-10-01: 1_603
-  2019-10-01: 1_609
-  2024-10-01: 2_238
-  2025-10-01: 2_297
+  2016-10-01: 773
+  2024-10-01: 1_043
+  2025-10-01: 1_073
 7:
-  2016-10-01: 1_748
-  2017-10-01: 1_736
-  2018-10-01: 1_749
-  2019-10-01: 1_762
-  2024-10-01: 2_435
-  2025-10-01: 2_500
+  2016-10-01: 850
+  2024-10-01: 1_134
+  2025-10-01: 1_167
 8:
-  2016-10-01: 1_931
-  2017-10-01: 1_917
-  2018-10-01: 1_930
-  2019-10-01: 1_945
-  2024-10-01: 2_695
-  2025-10-01: 2_759
+  2016-10-01: 916
+  2024-10-01: 1_214
+  2025-10-01: 1_249
 9:
-  2016-10-01: 2_113
-  2017-10-01: 2_096
-  2018-10-01: 2_109
-  2019-10-01: 2_126
-  2024-10-01: 2_951
-  2025-10-01: 3_015
+  2016-10-01: 980
+  2024-10-01: 1_290
+  2025-10-01: 1_327
 10:
-  2016-10-01: 2_288
-  2017-10-01: 2_270
-  2018-10-01: 2_283
-  2019-10-01: 2_301
-  2024-10-01: 3_201
-  2025-10-01: 3_265
+  2016-10-01: 1_035
+  2024-10-01: 1_357
+  2025-10-01: 1_396

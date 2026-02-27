@@ -1,5 +1,6 @@
 - name: Case 1, basic eligible family with no income.
   period: 2025-01
+  absolute_error_margin: 0.1
   input:
     people:
       person1:
@@ -21,10 +22,10 @@
     # Income chain
     mn_mfip_countable_earned_income: 0
     mn_mfip_countable_unearned_income: 0
-    # Standards
-    mn_mfip_transitional_standard: 1_087
-    mn_mfip_family_wage_level: 1_195.7
-    # FWL = 1,087 * 1.10 = 1,195.70
+    # Standards (cash portion only)
+    mn_mfip_transitional_standard: 642
+    mn_mfip_family_wage_level: 706.2
+    # FWL = 642 * 1.10 = 706.20
 
     # Eligibility chain
     mn_mfip_income_eligible: true
@@ -32,10 +33,11 @@
     mn_mfip_eligible: true
 
     # Final benefit
-    mn_mfip: 1_087
+    mn_mfip: 642
 
 - name: Case 2, family with earned income.
   period: 2025-01
+  absolute_error_margin: 0.1
   input:
     people:
       person1:
@@ -63,24 +65,25 @@
     # After 50%: 935 * 0.5 = $467.50
     mn_mfip_countable_earned_income: 467.5
     mn_mfip_countable_unearned_income: 0
-    # Standards for family of 3
-    mn_mfip_transitional_standard: 1_394
-    mn_mfip_family_wage_level: 1_533.4
-    # FWL = 1,394 * 1.10 = 1,533.40
+    # Standards for family of 3 (cash portion)
+    mn_mfip_transitional_standard: 756
+    mn_mfip_family_wage_level: 831.6
+    # FWL = 756 * 1.10 = 831.60
 
     # Eligibility
-    # Countable (467.5) < FWL (1533.4) = true
+    # Countable (467.5) < FWL (831.6) = true
     mn_mfip_income_eligible: true
     mn_mfip_resources_eligible: true
     mn_mfip_eligible: true
 
     # Benefit calculation
-    # Earned-based: min(1533.4-467.5, 1394) = min(1065.9, 1394) = 1,065.90
-    # Final: max(1065.9 - 0, 0) = 1,065.90
-    mn_mfip: 1_065.9
+    # Earned-based: min(831.6-467.5, 756) = min(364.1, 756) = 364.10
+    # Final: max(364.1 - 0, 0) = 364.10
+    mn_mfip: 364.1
 
 - name: Case 3, family with child support income.
   period: 2025-01
+  absolute_error_margin: 0.1
   input:
     people:
       person1:
@@ -111,21 +114,22 @@
     # Countable: max(400-200, 0) = $200
     mn_mfip_countable_earned_income: 0
     mn_mfip_countable_unearned_income: 200
-    # Standards for family of 3
-    mn_mfip_transitional_standard: 1_394
-    mn_mfip_family_wage_level: 1_533.4
+    # Standards for family of 3 (cash portion)
+    mn_mfip_transitional_standard: 756
+    mn_mfip_family_wage_level: 831.6
 
     # Eligibility
     mn_mfip_income_eligible: true
     mn_mfip_eligible: true
 
     # Benefit calculation
-    # Earned-based: min(1533.4-0, 1394) = 1,394
-    # Final: max(1394 - 200, 0) = 1,194
-    mn_mfip: 1_194
+    # Earned-based: min(831.6-0, 756) = 756
+    # Final: max(756 - 200, 0) = 556
+    mn_mfip: 556
 
 - name: Case 4, family with both earned and unearned income.
   period: 2025-01
+  absolute_error_margin: 0.1
   input:
     people:
       person1:
@@ -156,22 +160,23 @@
 
     # Child support: $250, exclusion $100, countable $150
     mn_mfip_countable_unearned_income: 150
-    # Standards for family of 2
-    mn_mfip_transitional_standard: 1_087
-    mn_mfip_family_wage_level: 1_195.7
+    # Standards for family of 2 (cash portion)
+    mn_mfip_transitional_standard: 642
+    mn_mfip_family_wage_level: 706.2
 
     # Eligibility
-    # Countable (517.5) < FWL (1195.7) = true
+    # Countable (517.5) < FWL (706.2) = true
     mn_mfip_income_eligible: true
     mn_mfip_eligible: true
 
     # Benefit calculation
-    # Earned-based: min(1195.7-367.5, 1087) = min(828.2, 1087) = 828.20
-    # Final: max(828.2 - 150, 0) = 678.20
-    mn_mfip: 678.2
+    # Earned-based: min(706.2-367.5, 642) = min(338.7, 642) = 338.70
+    # Final: max(338.7 - 150, 0) = 188.70
+    mn_mfip: 188.7
 
 - name: Case 5, ineligible due to excess resources.
   period: 2025-01
+  absolute_error_margin: 0.1
   input:
     people:
       person1:
@@ -187,7 +192,7 @@
         members: [person1, person2]
         state_code: MN
   output:
-    # Resources check (YEAR variable, so checking via eligibility)
+    # Resources check
     mn_mfip_resources_eligible: false
 
     # Other eligibility factors would pass
@@ -199,6 +204,7 @@
 
 - name: Case 6, ineligible due to excess income.
   period: 2025-01
+  absolute_error_margin: 0.1
   input:
     people:
       person1:
@@ -218,11 +224,11 @@
     # Income calculations
     # Earned: (4000-65)*0.5 = $1,967.50
     mn_mfip_countable_earned_income: 1_967.5
-    # Standards for family of 2
-    mn_mfip_family_wage_level: 1_195.7
+    # Standards for family of 2 (cash portion)
+    mn_mfip_family_wage_level: 706.2
 
     # Eligibility
-    # Countable (1967.5) < FWL (1195.7) = false
+    # Countable (1967.5) > FWL (706.2) = false
     mn_mfip_income_eligible: false
     mn_mfip_resources_eligible: true
     mn_mfip_eligible: false
@@ -230,6 +236,7 @@
 
 - name: Case 7, large family at max table size.
   period: 2025-01
+  absolute_error_margin: 0.1
   input:
     people:
       person1:
@@ -264,13 +271,13 @@
     # Demographics (8 children)
     spm_unit_count_children: 8
 
-    # Standards for family of 10
-    mn_mfip_transitional_standard: 3_201
-    mn_mfip_family_wage_level: 3_521.1
-    # FWL = 3,201 * 1.10 = 3,521.10
+    # Standards for family of 10 (cash portion)
+    mn_mfip_transitional_standard: 1_357
+    mn_mfip_family_wage_level: 1_492.7
+    # FWL = 1,357 * 1.10 = 1,492.70
 
     # Eligibility
     mn_mfip_eligible: true
 
     # Full benefit
-    mn_mfip: 3_201
+    mn_mfip: 1_357
