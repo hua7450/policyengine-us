@@ -13,6 +13,17 @@ class mt_tanf_payment_standard(Variable):
     defined_for = StateCode.MT
 
     def formula(spm_unit, period, parameters):
-        p = parameters(period).gov.states.mt.dhs.tanf.income_standards
-        fpg = spm_unit("mt_tanf_assistance_unit_fpg", period)
-        return fpg * p.payment_fpg_rate
+        p = parameters(period).gov.states.mt.dhs.tanf
+        p_standards = p.income_standards
+        # Montana pins the payment standard to a specific historical FPL year.
+        pinned_year = int(p_standards.payment_fpg_year)
+        instant_str = f"{pinned_year}-01-01"
+        p_fpg = parameters(instant_str).gov.hhs.fpg
+        n = spm_unit("mt_tanf_assistance_unit_size", period)
+        capped_size = min_(n, p.max_unit_size)
+        state_group = spm_unit.household("state_group_str", period)
+        monthly_fpg = (
+            p_fpg.first_person[state_group]
+            + p_fpg.additional_person[state_group] * (capped_size - 1)
+        ) / MONTHS_IN_YEAR
+        return monthly_fpg * p_standards.payment_fpg_rate
