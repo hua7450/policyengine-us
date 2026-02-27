@@ -52,8 +52,8 @@
     mt_tanf_benefit_standard: 493
     mt_tanf_countable_income: 493
   output:
-    # Benefit standard test: countable_income <= benefit_standard => PASS
-    mt_tanf_benefit_standard_eligible: true
+    # Benefit standard test: countable_income < benefit_standard => FAIL (equals is ineligible per State Plan #25 p.10)
+    mt_tanf_benefit_standard_eligible: false
 
 - name: Case 4, countable income $1 above benefit standard for AU=2.
   period: 2024-01
