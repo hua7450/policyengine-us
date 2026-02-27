@@ -11,6 +11,9 @@ class ca_tanf_countable_income_applicant(Variable):
     reference = "http://epolicy.dpss.lacounty.gov/epolicy/epolicy/server/general/projects_responsive/ePolicyMaster/index.htm?&area=general&type=responsivehelp&ctxid=&project=ePolicyMaster#t=mergedProjects%2FCalWORKs%2FCalWORKs%2F44-111_23_Earned_Income_Disregards%2F44-111_23_Earned_Income_Disregards.htm%23Policybc-2&rhtocid=_3_1_6_2_1"
 
     def formula(spm_unit, period, parameters):
+        # Known simplification: per WIC 11450.12, the $450 disregard
+        # should be applied per employed person, not as a flat total.
+        # Current implementation subtracts a single flat amount.
         p = parameters(
             period
         ).gov.states.ca.cdss.tanf.cash.income.disregards.applicant
