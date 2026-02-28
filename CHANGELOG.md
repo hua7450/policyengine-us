@@ -1,3 +1,24 @@
+## [1.589.1] - 2026-02-27
+
+### Fixed
+
+- Fix SC H.4216 reform: remove spurious sc_additions (QBI and SALT addbacks) from AGI-based taxable income calculation.
+
+
+## [1.589.0] - 2026-02-26
+
+### Added
+
+- Added Kentucky HB 13 and HB 152 graduated income tax reforms with cliff design.
+
+
+## [1.588.0] - 2026-02-26
+
+### Added
+
+- South Carolina H.4216 contributed reform with EITC cap ($200), SC Income Adjusted Deduction (SCIAD), and new tax rates (1.99%/5.21%).
+
+
 ## [1.587.1] - 2026-02-26
 
 ### Changed
