@@ -1,4 +1,4 @@
-description: Washington provides this payment standard based on assistance unit size under the Temporary Assistance for Needy Families program.
+description: Washington provides this amount as the payment standard under the Temporary Assistance for Needy Families program.
 
 metadata:
   unit: currency-USD
@@ -11,15 +11,20 @@ metadata:
   reference:
     - title: WAC 388-478-0020 - Payment standards for TANF, SFA, and RCA
       href: https://app.leg.wa.gov/wac/default.aspx?cite=388-478-0020
-    - title: WAC 388-478-0020 Payment standards for TANF, SFA, and RCA. 2016
+    - title: WAC 388-478-0020 Payment standards for TANF, SFA, and RCA. Jan 2016
       href: https://lawfilesext.leg.wa.gov/law/wsr/2016/01/16-01-093.htm
-    - title: WAC 388-478-0020 Payment standards for TANF, SFA, and RCA. 2018
+    - title: WAC 388-478-0020 Payment standards for TANF, SFA, and RCA. Jul 2018
       href: https://lawfilesext.leg.wa.gov/law/wsr/2018/09/18-09-088.htm
-    - title: WAC 388-478-0020 Payment standards for TANF, SFA, and RCA. 2021
+    - title: WAC 388-478-0020 Payment standards for TANF, SFA, and RCA. Jul 2021
       href: https://lawfilesext.leg.wa.gov/law/wsr/2021/21/21-21-054.htm
+    - title: WAC 388-478-0020 Payment standards for TANF, SFA, and RCA. Jan 2024
+      href: https://lawfilesext.leg.wa.gov/law/wsr/2023/23/23-23-054.htm
 
 # Note: Values before Oct 25, 2020 are for households "with shelter costs".
 # WSR 20-20-007 eliminated the shelter cost distinction; all households now use these amounts.
+# Note: The 2021-07-01 effective date reflects the legislatively mandated benefit date
+# per the 2021-2023 operating budget (ESSB 5092). WSR 21-21-054's formal WAC effective
+# date is Nov 15, 2021, but the filing states the increase was "effective July 1, 2021."
 
 1:
   2016-01-15: 332

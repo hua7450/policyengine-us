@@ -1,4 +1,4 @@
-description: Washington sets these gross earned income limits for the Temporary Assistance for Needy Families program.
+description: Washington limits gross earned income to this amount under the Temporary Assistance for Needy Families program.
 # Note: These values appear to follow a mathematical relationship with payment standards
 # (Income Limit ≈ Payment Standard × 2, plus $500 after Aug 1, 2024), but no legal code
 # explicitly states this formula. WAC 388-478-0035 publishes these as a table.
@@ -15,14 +15,20 @@ metadata:
   reference:
     - title: WAC 388-478-0035 - Maximum earned income limits for TANF, SFA, PWA, and RCA
       href: https://app.leg.wa.gov/wac/default.aspx?cite=388-478-0035
-    - title: WAC 388-478-0035 Maximum earned income limits for TANF, SFA, PWA, and RCA. 2016
+    - title: WAC 388-478-0035 Maximum earned income limits for TANF, SFA, PWA, and RCA. Jan 2016
       href: https://lawfilesext.leg.wa.gov/law/wsr/2016/01/16-01-093.htm
-    - title: WAC 388-478-0035 Maximum earned income limits for TANF, SFA, PWA, and RCA. 2018
+    - title: WAC 388-478-0035 Maximum earned income limits for TANF, SFA, PWA, and RCA. Jul 2018
       href: https://lawfilesext.leg.wa.gov/law/wsr/2018/09/18-09-088.htm
-    - title: WAC 388-478-0035 Maximum earned income limits for TANF, SFA, PWA, and RCA. 2021
+    - title: WAC 388-478-0035 Maximum earned income limits for TANF, SFA, PWA, and RCA. Jul 2021
       href: https://lawfilesext.leg.wa.gov/law/wsr/2021/21/21-21-054.htm
-    - title: WAC 388-478-0035 Maximum earned income limits for TANF, SFA, PWA, and RCA. 2024
+    - title: WAC 388-478-0035 Maximum earned income limits for TANF, SFA, PWA, and RCA. Jan 2024
       href: https://lawfilesext.leg.wa.gov/law/wsr/2023/23/23-23-054.htm
+    - title: WAC 388-478-0035 Maximum earned income limits for TANF, SFA, PWA, and RCA. Aug 2024
+      href: https://lawfilesext.leg.wa.gov/law/wsr/2024/11/24-11-019.htm
+
+# Note: The 2021-07-01 effective date reflects the legislatively mandated benefit date
+# per the 2021-2023 operating budget (ESSB 5092). WSR 21-21-054's formal WAC effective
+# date is Nov 15, 2021, but the filing states the increase was "effective July 1, 2021."
 
 1:
   2016-01-15: 665
