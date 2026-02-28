@@ -1,4 +1,4 @@
-description: Montana newborn credit reduces by this amount for each income increment above the threshold.
+description: Montana sets this amount as the phase-out reduction per income increment under the newborn credit program.
 
 values:
   2027-01-01: 50
