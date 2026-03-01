@@ -320,16 +320,20 @@
     # Family size 2
     ky_ktap_standard_of_need: 552 * 12
     ky_ktap_payment_maximum: 450 * 12
-    # Monthly earned: $800 - $175 work = $625
-    # 50% disregard: $625 * 0.5 = $312.50
-    ky_ktap_countable_earned_income: 312.5 * 12
+    # Monthly earned after work expense: $800 - $175 = $625
+    # Months 1-6 (50% disregard): countable = $625 * 0.5 = $312.50
+    # Months 7-12 (no disregard): countable = $625
+    # Annual: 6 * 312.50 + 6 * 625 = 5,625
+    ky_ktap_countable_earned_income: 5_625
     # Gross limit: 552 * 1.85 = $1,021.2
     # $800/mo < $1,021.2 -> income eligible
     ky_ktap_income_eligible: true
     ky_ktap_eligible: true
-    # Deficit: $552 - $312.50 = $239.50
-    # Benefit: min(0.55 * $239.50, $450) = min($131.725, $450) = $131.725
-    ky_ktap: 131.725 * 12
+    # Months 1-6: deficit = $552 - $312.50 = $239.50
+    #   benefit = min(0.55 * $239.50, $450) = $131.725
+    # Months 7-12: deficit = max($552 - $625, 0) = $0, benefit = $0
+    # Annual: 6 * 131.725 = $790.35
+    ky_ktap: 790.35
 
 ###############################################################################
 # Child support exactly at $50 disregard boundary
@@ -1147,16 +1151,20 @@
     # Family size 3, ERA 3
     ky_ktap_standard_of_need: 631 * 12
     ky_ktap_payment_maximum: 341 * 12
-    # Monthly earned: ($200 - $175) * 0.5 = $12.50
-    ky_ktap_countable_earned_income: 12.5 * 12
-    ky_ktap_countable_income: 12.5 * 12
+    # Monthly earned after work expense: $200 - $175 = $25
+    # Months 1-6 (50% disregard): countable = $25 * 0.5 = $12.50
+    # Months 7-12 (no disregard): countable = $25
+    # Annual: 6 * 12.50 + 6 * 25 = 225
+    ky_ktap_countable_earned_income: 225
+    ky_ktap_countable_income: 225
     ky_ktap_income_eligible: true
     ky_ktap_eligible: true
-    # Deficit: $631 - $12.50 = $618.50
-    # 0.55 * $618.50 = $340.175
-    # Payment max (size 3, ERA 3): $341
-    # min($340.175, $341) = $340.175 (just under cap)
-    ky_ktap: 340.175 * 12
+    # Months 1-6: deficit = $631 - $12.50 = $618.50
+    #   benefit = min(0.55 * $618.50, $341) = $340.175
+    # Months 7-12: deficit = $631 - $25 = $606
+    #   benefit = min(0.55 * $606, $341) = min($333.30, $341) = $333.30
+    # Annual: 6 * 340.175 + 6 * 333.30 = 4040.85
+    ky_ktap: 4_040.85
 
 ###############################################################################
 # All unearned income is child support below $50 (fully excluded)

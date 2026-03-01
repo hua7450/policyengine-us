@@ -92,10 +92,41 @@
         members: [person1, person2]
         state_code: KY
   output:
-    # Total gross: $600 + $400 = $1,000
-    # $1,000 - $175 work expense = $825
-    # $825 * 0.5 (50% disregard) = $412.50
-    ky_ktap_countable_earned_income: 412.5
+    # Per-person deductions per MS 2840:
+    # Person1: max($600 - $175, 0) = $425, 50%: $212.50
+    # Person2: max($400 - $175, 0) = $225, 50%: $112.50
+    # Unit total: $325
+    ky_ktap_countable_earned_income: 325
+
+- name: Case 8, two earners with dependent care.
+  period: 2024-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        tanf_gross_earned_income: 600
+      person2:
+        age: 28
+        tanf_gross_earned_income: 400
+      person3:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        # $300/month * 12 = $3,600/year
+        childcare_expenses: 3_600
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: KY
+  output:
+    # Dependent care: min($300, $175 cap for age 5) = $175
+    # Allocated to Person1 (highest earner) per MS 2840 B.2.c
+    # Person1: max($600 - $175, 0) = $425, dep care $175 → $250, 50%: $125
+    # Person2: max($400 - $175, 0) = $225, no dep care, 50%: $112.50
+    # Unit total: $237.50
+    ky_ktap_countable_earned_income: 237.5
 
 - name: Case 7, non-KY state returns zero.
   period: 2024-01
