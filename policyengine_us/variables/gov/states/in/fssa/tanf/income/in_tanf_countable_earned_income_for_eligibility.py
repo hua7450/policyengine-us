@@ -26,7 +26,7 @@ class in_tanf_countable_earned_income_for_eligibility(Variable):
         # (c)(1): $90 per earner
         after_work_expense = max_(gross_earned - p.work_expense.amount, 0)
 
-        is_enrolled = spm_unit("is_tanf_enrolled", period)
+        is_enrolled = person.spm_unit("is_tanf_enrolled", period)
         month = period.start.month
 
         # (c)(2): $30 per earner (enrolled, months 1-12)
