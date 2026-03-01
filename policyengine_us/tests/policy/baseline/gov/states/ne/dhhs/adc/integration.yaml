@@ -14,8 +14,10 @@
 #   Size 3: Need Standard = $1,003, Payment Standard = $551.65
 #   Size 4: Need Standard = $1,163, Payment Standard = $639.65
 #
-# NOTE: These tests model ONGOING recipients (is_tanf_enrolled: true)
+# NOTE: Most tests model ONGOING recipients (is_tanf_enrolled: true)
 #       who receive the 50% earned income disregard.
+#       Case 8 models an INITIAL applicant (is_tanf_enrolled: false)
+#       who receives the 20% earned income disregard.
 
 - name: Case 1, family of 3 with no income receives maximum benefit.
   period: 2024-01
@@ -262,7 +264,41 @@
 # Pattern: family of 3, no income, ongoing recipient (is_tanf_enrolled: true).
 # Benefit = Payment Standard = Need Standard * 0.55
 
-- name: Case 8, family of 3 with no income in 2016 uses 2015 values.
+- name: Case 8, initial applicant with earned income receives benefit with 20% disregard.
+  period: 2024-01
+  absolute_error_margin: 0.5
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+        employment_income_before_lsr: 7_200  # $600/month
+      person2:
+        age: 10
+      person3:
+        age: 8
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        spm_unit_assets: 1_000
+        is_tanf_enrolled: false
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: NE
+  output:
+    spm_unit_size: 3
+    ne_adc_need_standard: 1_003
+    ne_adc_payment_standard: 551.65
+    ne_adc_countable_earned_income: 480
+    # After 20% disregard: $600 * 0.80 = $480
+    ne_adc_income_eligible: true
+    ne_adc_eligible: true
+    ne_adc: 523
+    # Gap = $1,003 - $480 = $523
+    # Benefit = min($523, $551.65) = $523
+
+- name: Case 9, family of 3 with no income in 2016 uses 2015 values.
   period: 2016-01
   absolute_error_margin: 0.5
   input:
@@ -296,7 +332,41 @@
     # Gap = $793 - $0 = $793
     # Benefit = min($793, $436.15) = $436.15
 
-- name: Case 9, family of 3 with no income in 2020 uses 2019 values.
+- name: Case 10, family of 3 with no income in 2018 uses 2017 values.
+  period: 2018-01
+  absolute_error_margin: 0.5
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+        employment_income_before_lsr: 0
+      person2:
+        age: 10
+      person3:
+        age: 8
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        spm_unit_assets: 1_000
+        is_tanf_enrolled: true
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: NE
+  output:
+    spm_unit_size: 3
+    ne_adc_need_standard: 816
+    ne_adc_payment_standard: 449
+    # $816 * 0.55 = $448.80
+    ne_adc_countable_earned_income: 0
+    ne_adc_income_eligible: true
+    ne_adc_eligible: true
+    ne_adc: 449
+    # Gap = $816 - $0 = $816
+    # Benefit = min($816, $448.80) = $448.80
+
+- name: Case 11, family of 3 with no income in 2020 uses 2019 values.
   period: 2020-01
   absolute_error_margin: 0.5
   input:
@@ -330,7 +400,41 @@
     # Gap = $849 - $0 = $849
     # Benefit = min($849, $466.95) = $466.95
 
-- name: Case 10, family of 3 with no income in 2026 uses 2025 values.
+- name: Case 12, family of 3 with no income in 2022 uses 2021 values.
+  period: 2022-01
+  absolute_error_margin: 0.5
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+        employment_income_before_lsr: 0
+      person2:
+        age: 10
+      person3:
+        age: 8
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        spm_unit_assets: 1_000
+        is_tanf_enrolled: true
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: NE
+  output:
+    spm_unit_size: 3
+    ne_adc_need_standard: 881
+    ne_adc_payment_standard: 485
+    # $881 * 0.55 = $484.55
+    ne_adc_countable_earned_income: 0
+    ne_adc_income_eligible: true
+    ne_adc_eligible: true
+    ne_adc: 485
+    # Gap = $881 - $0 = $881
+    # Benefit = min($881, $484.55) = $484.55
+
+- name: Case 13, family of 3 with no income in 2026 uses 2025 values.
   period: 2026-01
   absolute_error_margin: 0.5
   input:

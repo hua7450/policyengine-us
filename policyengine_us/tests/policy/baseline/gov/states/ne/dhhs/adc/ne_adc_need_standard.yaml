@@ -250,7 +250,29 @@
     ne_adc_need_standard: 881
     # Need standard for size 3, 2021 values = $881
 
-- name: Case 11, family of 3 in 2026 uses 2025 values.
+- name: Case 11, family of 3 in 2025-01 still uses 2023 values before July switchover.
+  period: 2025-01
+  absolute_error_margin: 0.5
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 10
+      person3:
+        age: 8
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: NE
+  output:
+    ne_adc_need_standard: 1_003
+    # 2025-01 is before 2025-07-01 switchover, so 2023 values apply
+
+- name: Case 12, family of 3 in 2026 uses 2025 values.
   period: 2026-01
   absolute_error_margin: 0.5
   input:
@@ -272,7 +294,85 @@
     ne_adc_need_standard: 1_067
     # Need standard for size 3, 2025 values = $1,067
 
-- name: Case 12, family of 5 in 2018 uses 2017 values.
+- name: Case 13, family of 11 in 2016 tests 2015 additional person increment.
+  period: 2016-01
+  absolute_error_margin: 0.5
+  input:
+    people:
+      person1:
+        age: 35
+      person2:
+        age: 33
+      person3:
+        age: 17
+      person4:
+        age: 16
+      person5:
+        age: 15
+      person6:
+        age: 14
+      person7:
+        age: 13
+      person8:
+        age: 12
+      person9:
+        age: 11
+      person10:
+        age: 10
+      person11:
+        age: 9
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3, person4, person5, person6, person7, person8, person9, person10, person11]
+    households:
+      household:
+        members: [person1, person2, person3, person4, person5, person6, person7, person8, person9, person10, person11]
+        state_code: NE
+  output:
+    spm_unit_size: 11
+    ne_adc_need_standard: 1_801
+    # Size 10 = $1,675 + 1 * $126 = $1,801
+
+- name: Case 14, family of 11 in 2026 tests 2025 additional person increment.
+  period: 2026-01
+  absolute_error_margin: 0.5
+  input:
+    people:
+      person1:
+        age: 35
+      person2:
+        age: 33
+      person3:
+        age: 17
+      person4:
+        age: 16
+      person5:
+        age: 15
+      person6:
+        age: 14
+      person7:
+        age: 13
+      person8:
+        age: 12
+      person9:
+        age: 11
+      person10:
+        age: 10
+      person11:
+        age: 9
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3, person4, person5, person6, person7, person8, person9, person10, person11]
+    households:
+      household:
+        members: [person1, person2, person3, person4, person5, person6, person7, person8, person9, person10, person11]
+        state_code: NE
+  output:
+    spm_unit_size: 11
+    ne_adc_need_standard: 2_427
+    # Size 10 = $2,257 + 1 * $170 = $2,427
+
+- name: Case 15, family of 5 in 2018 uses 2017 values.
   period: 2018-01
   absolute_error_margin: 0.5
   input:
