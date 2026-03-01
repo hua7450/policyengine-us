@@ -152,6 +152,9 @@ from .aca import (
 from .cdcc import (
     create_cdcc_single_parent_work_requirement_reform,
 )
+from .states.ky.graduated_income_tax import (
+    create_ky_graduated_income_tax_reform,
+)
 from .states.pa.ctc import (
     create_pa_ctc_flat_amount_reform,
     create_pa_ctc_match_reform,
@@ -357,6 +360,9 @@ def create_structural_reforms_from_parameters(parameters, period):
     cdcc_single_parent_work_requirement = (
         create_cdcc_single_parent_work_requirement_reform(parameters, period)
     )
+    ky_graduated_income_tax = create_ky_graduated_income_tax_reform(
+        parameters, period
+    )
     pa_ctc_flat_amount = create_pa_ctc_flat_amount_reform(parameters, period)
     pa_ctc_match = create_pa_ctc_match_reform(parameters, period)
     ct_sb100 = create_ct_sb100_reform(parameters, period)
@@ -434,6 +440,7 @@ def create_structural_reforms_from_parameters(parameters, period):
         aca_ptc_simplified_bracket,
         aca_ptc_700_fpl_cliff,
         cdcc_single_parent_work_requirement,
+        ky_graduated_income_tax,
         pa_ctc_flat_amount,
         pa_ctc_match,
         ct_hb5009,
