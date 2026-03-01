@@ -1,5 +1,5 @@
 # Tests for in_tanf_countable_income_eligible
-# Uses eligibility disregards: $90/earner, $30/unit, 1/3 of remainder
+# Uses eligibility disregards: $90/earner, $30/earner, 1/3 of remainder
 # Compares to standard of need (initial) or FPL (continuing)
 
 - name: Family of 3 with zero income - eligible
@@ -47,11 +47,11 @@
   output:
     in_tanf_countable_earned_income_for_eligibility: [120.6, 120.6, 120.6]
     # $300 - $90 (work expense) = $210
-    # $210 - $30 (unit disregard) = $180
+    # $210 - $30 (flat disregard) = $180
     # $180 * (1 - 0.33) = $120.60
     in_tanf_countable_income_for_eligibility: [120.6, 120.6, 120.6]
     in_tanf_countable_income_eligible: [true, true, true]
-    # Countable ($120.60) < standard of need ($320) → eligible
+    # Enrolled: countable ($120.60) < 100% FPL for 3 → eligible
 
 - name: Applicant family of 3 with moderate earned income - not eligible
   period: 2024-01
@@ -103,7 +103,7 @@
     # $380 * 0.67 = $254.60
     in_tanf_countable_income_for_eligibility: [254.6, 254.6]
     in_tanf_countable_income_eligible: [true, true]
-    # Countable ($254.60) < standard of need ($255) → eligible
+    # Enrolled: countable ($254.60) < 100% FPL for 2 → eligible
 
 - name: Two earners - each gets $90 disregard
   period: 2024-01
@@ -131,7 +131,7 @@
     # Unit total: $53.60 + $53.60 = $107.20
     in_tanf_countable_income_for_eligibility: [107.2, 107.2, 107.2]
     in_tanf_countable_income_eligible: [true, true, true]
-    # Countable ($127.30) < standard of need ($320) → eligible
+    # Enrolled: countable ($107.20) < 100% FPL for 3 → eligible
 
 - name: Continuing eligibility uses FPL threshold
   period: 2024-01

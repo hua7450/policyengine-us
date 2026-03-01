@@ -18,7 +18,7 @@
         state_code: IN
   output:
     in_tanf_countable_earned_income_for_eligibility: [0, 0]
-    # $90 - $90 = $0; $0 - $30 = $0; $0 * 0.67 = $0
+    # Applicant (not enrolled): $90 - $90 = $0
     in_tanf_countable_earned_income: [22.5, 22.5]
     # $90 * 0.25 = $22.50
 

@@ -144,7 +144,7 @@
     # Per earner: ($200-$90-$30)*0.67 = $80*0.67 = $53.60
     # Unit total: $53.60 + $53.60 = $107.20
     # Compare Case 1 (1 earner at $400): ($400-$90-$30)*0.67 = $187.60
-    # 2 earners get $60 more in deductions ($30 each vs $30 once)
+    # 2 earners get more deductions ($90+$30 each = $240 total vs $120 for 1 earner)
 
 # --- Applicants (not enrolled, $90 work expense only) ---
 
