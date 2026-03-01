@@ -101,6 +101,46 @@
     ky_ktap_resource_eligible: true
 
 ###############################################################################
+# Post-2023 resource limit boundary at $10,000
+###############################################################################
+
+- name: Case 46, post-2023 assets exactly $10,000 is resource eligible.
+  period: 2024-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1: {}
+    spm_units:
+      spm_unit:
+        members: [person1]
+        spm_unit_assets: 10_000
+    households:
+      household:
+        members: [person1]
+        state_code: KY
+  output:
+    # $10,000 <= $10,000 limit
+    ky_ktap_resource_eligible: true
+
+- name: Case 47, post-2023 assets $10,001 is resource ineligible.
+  period: 2024-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1: {}
+    spm_units:
+      spm_unit:
+        members: [person1]
+        spm_unit_assets: 10_001
+    households:
+      household:
+        members: [person1]
+        state_code: KY
+  output:
+    # $10,001 > $10,000 limit
+    ky_ktap_resource_eligible: false
+
+###############################################################################
 # Zero-income special case (KRS 205.200(2)) across eras
 # Family with no income gets payment_maximum, not 0.55 * SoN
 ###############################################################################

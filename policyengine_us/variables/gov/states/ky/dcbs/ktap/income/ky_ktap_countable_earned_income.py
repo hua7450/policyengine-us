@@ -20,9 +20,7 @@ class ky_ktap_countable_earned_income(Variable):
         # (a) Work expense per person per MS 2840.A
         after_work_expense = max_(gross_earned - p.work_expense, 0)
         # (b) Dependent care per MS 2840.B
-        dep_care = person(
-            "ky_ktap_dependent_care_disregard_person", period
-        )
+        dep_care = person("ky_ktap_dependent_care_disregard_person", period)
         after_dep_care = max_(after_work_expense - dep_care, 0)
         # (e) Time-limited EID per person per MS 2857
         # Uses calendar month as proxy for participation months.

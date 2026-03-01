@@ -6,7 +6,7 @@ metadata:
   breakdown:
     - range(1, 8)
   breakdown_labels:
-    - Assistance group size
+    - Assistance unit size
   label: Kentucky K-TAP payment maximum
   reference:
     - title: 921 KAR 2:016 Section 9(2)(a)

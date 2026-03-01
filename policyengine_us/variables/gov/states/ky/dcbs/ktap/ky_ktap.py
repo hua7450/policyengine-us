@@ -9,7 +9,7 @@ class ky_ktap(Variable):
     definition_period = MONTH
     reference = (
         "https://apps.legislature.ky.gov/law/kar/titles/921/002/016/",
-        "https://law.justia.com/codes/kentucky/chapter-205/section-205-200/",
+        "https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=54926",
     )
     defined_for = "ky_ktap_eligible"
 
