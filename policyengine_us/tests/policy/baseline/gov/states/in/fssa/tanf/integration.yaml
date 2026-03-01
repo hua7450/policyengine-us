@@ -211,16 +211,15 @@
         state_code: IN
   output:
     spm_unit_size: [3, 3, 3]
-    in_tanf_countable_earned_income_for_eligibility: [127.3, 127.3, 127.3]
-    # Person1: $200 - $90 = $110
-    # Person2: $200 - $90 = $110
-    # Unit total: $220 - $30 = $190 → $190 * 0.67 = $127.30
-    in_tanf_countable_income_for_eligibility: [127.3, 127.3, 127.3]
+    in_tanf_countable_earned_income_for_eligibility: [107.2, 107.2, 107.2]
+    # Per earner: ($200-$90-$30)*0.67 = $80*0.67 = $53.60
+    # Unit total: $53.60 + $53.60 = $107.20
+    in_tanf_countable_income_for_eligibility: [107.2, 107.2, 107.2]
     in_tanf_countable_earned_income: [100, 100, 100]
     # ($200 + $200) × 0.25 = $100
     in_tanf_countable_income_for_payment: [100, 100, 100]
     in_tanf_countable_income_eligible: [true, true, true]
-    # Countable for elig ($127.30) < standard of need ($320) → eligible
+    # Countable for elig ($107.20) < FPG for 3 → eligible
     in_tanf_payment_eligible: [true, true, true]
     # Countable for benefit ($100) < standard of need ($320) → eligible
     in_tanf_payment_standard: [320, 320, 320]

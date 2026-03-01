@@ -50,12 +50,9 @@
         members: [person1, person2, person3]
         state_code: IN
   output:
-    in_tanf_countable_earned_income_for_eligibility: [127.3, 127.3, 127.3]
-    # Person1: $200 - $90 = $110
-    # Person2: $200 - $90 = $110
-    # Unit total: $220
-    # $220 - $30 = $190
-    # $190 * 0.67 = $127.30
+    in_tanf_countable_earned_income_for_eligibility: [107.2, 107.2, 107.2]
+    # Per earner: ($200-$90-$30)*0.67 = $80*0.67 = $53.60
+    # Unit total: $53.60 + $53.60 = $107.20
 
 - name: Case 3, enrolled single earner with low income.
   period: 2024-01
@@ -120,6 +117,34 @@
         state_code: IN
   output:
     in_tanf_countable_earned_income_for_eligibility: [0, 0]
+
+# --- Per-earner deductions (all three disregards apply per individual) ---
+
+- name: Case 5b, enrolled 2 earners vs 1 earner with same total.
+  period: 2024-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        tanf_gross_earned_income: 200
+      person2:
+        tanf_gross_earned_income: 200
+      person3:
+        age: 10
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        is_tanf_enrolled: true
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: IN
+  output:
+    in_tanf_countable_earned_income_for_eligibility: [107.2, 107.2, 107.2]
+    # Per earner: ($200-$90-$30)*0.67 = $80*0.67 = $53.60
+    # Unit total: $53.60 + $53.60 = $107.20
+    # Compare Case 1 (1 earner at $400): ($400-$90-$30)*0.67 = $187.60
+    # 2 earners get $60 more in deductions ($30 each vs $30 once)
 
 # --- Applicants (not enrolled, $90 work expense only) ---
 
