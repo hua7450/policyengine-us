@@ -49,6 +49,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
+        is_tanf_enrolled: true
         spm_unit_cash_assets: 800
     households:
       household:
@@ -85,6 +86,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
+        is_tanf_enrolled: true
         spm_unit_cash_assets: 700
     households:
       household:
@@ -109,7 +111,7 @@
     in_tanf: [80, 80]
     # Max benefit ($255) - countable income ($175) = $80
 
-- name: Case 4 - High earner exceeds eligibility threshold
+- name: Case 4 - Applicant high earner exceeds eligibility threshold
   period: 2024-01
   input:
     people:
@@ -123,6 +125,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
+        is_tanf_enrolled: false
         spm_unit_cash_assets: 900
     households:
       household:
@@ -130,14 +133,14 @@
         state_code: IN
   output:
     spm_unit_size: [3, 3, 3]
-    in_tanf_countable_earned_income_for_eligibility: [321.6, 321.6, 321.6]
-    # $600 - $90 = $510 → $510 - $30 = $480 → $480 * 0.67 = $321.60
-    in_tanf_countable_income_for_eligibility: [321.6, 321.6, 321.6]
+    in_tanf_countable_earned_income_for_eligibility: [510, 510, 510]
+    # Applicant: $600 - $90 = $510 ($90 work expense only)
+    in_tanf_countable_income_for_eligibility: [510, 510, 510]
     in_tanf_countable_earned_income: [150, 150, 150]
     # $600 × 0.25 = $150
     in_tanf_countable_income_for_payment: [150, 150, 150]
     in_tanf_countable_income_eligible: [false, false, false]
-    # Countable for elig ($321.60) >= standard of need ($320) → NOT eligible
+    # Applicant threshold = standard of need ($320); $510 >= $320 → NOT eligible
     in_tanf_payment_eligible: [true, true, true]
     # Countable for benefit ($150) < standard of need ($320) → eligible
     in_tanf_payment_standard: [320, 320, 320]
@@ -161,6 +164,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3, person4]
+        is_tanf_enrolled: true
         spm_unit_cash_assets: 1_500
     households:
       household:
@@ -199,6 +203,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
+        is_tanf_enrolled: true
         spm_unit_cash_assets: 500
     households:
       household:
@@ -247,3 +252,114 @@
     in_tanf_eligible: false
     # Single adult with no children → not demographically eligible
     in_tanf: 0
+
+- name: Case 8, enrolled family with 2018 historical parameters.
+  period: 2018
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        tanf_gross_earned_income: 3_600
+      person2:
+        age: 10
+      person3:
+        age: 8
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        is_tanf_enrolled: true
+        spm_unit_cash_assets: 500
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: IN
+  output:
+    in_tanf_countable_earned_income_for_eligibility: [1_922.4, 1_922.4, 1_922.4]
+    # Monthly gross: $3,600 / 12 = $300
+    # Months 1-4 (phase 1): ($300-$90-$30)*0.67 = $120.60 x 4 = $482.40
+    # Months 5-12 (phase 2): $300-$90-$30 = $180 x 8 = $1,440
+    # Annual: $482.40 + $1,440 = $1,922.40
+    in_tanf_countable_income_for_eligibility: [1_922.4, 1_922.4, 1_922.4]
+    in_tanf_countable_earned_income: [900, 900, 900]
+    # $300 x 0.25 = $75/month x 12 = $900
+    in_tanf_countable_income_for_payment: [900, 900, 900]
+    in_tanf_payment_standard: [3_456, 3_456, 3_456]
+    # Family of 3, 2018 (pre-2023): $288/month x 12 = $3,456
+    in_tanf: [2_556, 2_556, 2_556]
+    # ($288 - $75) x 12 = $213 x 12 = $2,556
+
+- name: Case 9, applicant with earned income.
+  period: 2024-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 28
+        tanf_gross_earned_income: 200
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        is_tanf_enrolled: false
+        spm_unit_cash_assets: 800
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IN
+  output:
+    spm_unit_size: [2, 2]
+    in_tanf_countable_earned_income_for_eligibility: [110, 110]
+    # Applicant: $200 - $90 = $110 ($90 work expense only)
+    in_tanf_countable_income_for_eligibility: [110, 110]
+    in_tanf_countable_earned_income: [50, 50]
+    # $200 x 0.25 = $50
+    in_tanf_countable_income_for_payment: [50, 50]
+    in_tanf_countable_income_eligible: [true, true]
+    # Applicant threshold = standard of need ($255); $110 < $255 → eligible
+    in_tanf_payment_eligible: [true, true]
+    in_tanf_payment_standard: [255, 255]
+    in_tanf_eligible: [true, true]
+    in_tanf: [205, 205]
+    # $255 - $50 = $205
+
+- name: Case 10, applicant with mixed income near threshold.
+  period: 2024-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 35
+        tanf_gross_earned_income: 300
+      person2:
+        age: 12
+        tanf_gross_unearned_income: 100
+      person3:
+        age: 8
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        is_tanf_enrolled: false
+        spm_unit_cash_assets: 500
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: IN
+  output:
+    spm_unit_size: [3, 3, 3]
+    in_tanf_countable_earned_income_for_eligibility: [210, 210, 210]
+    # Applicant: $300 - $90 = $210 ($90 work expense only)
+    in_tanf_countable_income_for_eligibility: [310, 310, 310]
+    # $210 (earned) + $100 (unearned) = $310
+    in_tanf_countable_earned_income: [75, 75, 75]
+    # $300 x 0.25 = $75
+    in_tanf_countable_income_for_payment: [175, 175, 175]
+    # $75 + $100 = $175
+    in_tanf_countable_income_eligible: [true, true, true]
+    # Applicant threshold = standard of need ($320); $310 < $320 → eligible
+    in_tanf_payment_eligible: [true, true, true]
+    in_tanf_payment_standard: [320, 320, 320]
+    in_tanf_eligible: [true, true, true]
+    in_tanf: [145, 145, 145]
+    # $320 - $175 = $145

@@ -37,7 +37,7 @@ metadata:
   breakdown:
     - range(1, 11)
   breakdown_labels:
-    - Household size
+    - Assistance unit size
   label: Indiana TANF standard of need amount
   reference:
     - title: 470 IAC 10.3-4-3(a)(1)
@@ -46,5 +46,3 @@ metadata:
       href: https://iga.in.gov/laws/2025/ic/titles/12/#12-14-2-5
     - title: Indiana DCS Assistance for Unlicensed Relative Placements (pre-2023 values)
       href: https://www.in.gov/dcs/files/16.2%20Assistance%20for%20Unlicensed%20Relative%20Placements.pdf#page=7
-    - title: 1997 Green Book, Section 7 (AFDC/TANF benefit tables)
-      href: https://www.govinfo.gov/content/pkg/GPO-CPRT-105WPRT37945/html/GPO-CPRT-105WPRT37945-2-7.htm

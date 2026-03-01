@@ -39,8 +39,8 @@
 
 # Transition boundary tests
 
-- name: Pre-reform 2023 enrolled at $5,000 fails (old $1,500 limit)
-  period: 2023-01
+- name: Pre-reform 2021 enrolled at $5,000 fails (old $1,500 limit)
+  period: 2021-01
   input:
     state_code: IN
     in_tanf_countable_resources: 5_000

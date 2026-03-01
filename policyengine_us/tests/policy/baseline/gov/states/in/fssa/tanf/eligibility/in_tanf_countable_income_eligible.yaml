@@ -39,6 +39,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
+        is_tanf_enrolled: true
     households:
       household:
         members: [person1, person2, person3]
@@ -52,7 +53,7 @@
     in_tanf_countable_income_eligible: [true, true, true]
     # Countable ($120.60) < standard of need ($320) → eligible
 
-- name: Family of 3 with moderate earned income - not eligible
+- name: Applicant family of 3 with moderate earned income - not eligible
   period: 2024-01
   input:
     people:
@@ -66,18 +67,17 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
+        is_tanf_enrolled: false
     households:
       household:
         members: [person1, person2, person3]
         state_code: IN
   output:
-    in_tanf_countable_earned_income_for_eligibility: [321.6, 321.6, 321.6]
-    # $600 - $90 = $510
-    # $510 - $30 = $480
-    # $480 * 0.67 = $321.60
-    in_tanf_countable_income_for_eligibility: [321.6, 321.6, 321.6]
+    in_tanf_countable_earned_income_for_eligibility: [510, 510, 510]
+    # Applicant: $600 - $90 = $510 ($90 work expense only)
+    in_tanf_countable_income_for_eligibility: [510, 510, 510]
     in_tanf_countable_income_eligible: [false, false, false]
-    # Countable ($321.60) >= standard of need ($320) → not eligible
+    # Applicant threshold = standard of need ($320); $510 >= $320 → not eligible
 
 - name: Family of 2 with earned income at threshold - not eligible
   period: 2024-01
@@ -91,6 +91,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
+        is_tanf_enrolled: true
     households:
       household:
         members: [person1, person2]
@@ -119,6 +120,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
+        is_tanf_enrolled: true
     households:
       household:
         members: [person1, person2, person3]

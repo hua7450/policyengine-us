@@ -42,6 +42,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
+        is_tanf_enrolled: true
         spm_unit_cash_assets: 800
     households:
       household:

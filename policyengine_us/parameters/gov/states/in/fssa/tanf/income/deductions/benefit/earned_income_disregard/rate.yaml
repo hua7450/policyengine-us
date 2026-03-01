@@ -2,7 +2,6 @@ description: Indiana excludes this share of earned income when calculating benef
 
 values:
   1997-10-01: 0.75
-  2023-07-01: 0.75
 
 metadata:
   unit: /1
@@ -11,3 +10,5 @@ metadata:
   reference:
     - title: 470 IAC 10.3-4-4(d)(1)
       href: https://iar.iga.in.gov/code/2026/470/10.3#470-10.3-4-4
+    - title: FSSA DFR Chapter 3400, Section 3450.35.05 (75% earned income disregard)
+      href: https://www.in.gov/fssa/dfr/files/3400.pdf#page=41

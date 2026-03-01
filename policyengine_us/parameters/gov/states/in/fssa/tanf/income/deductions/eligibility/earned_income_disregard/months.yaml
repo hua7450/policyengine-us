@@ -1,12 +1,12 @@
-description: Indiana excludes this share of earned income when determining eligibility under the Temporary Assistance for Needy Families program.
+description: Indiana applies the earned income disregard for this number of months under the Temporary Assistance for Needy Families program.
 
 values:
-  1997-10-01: 0.33
+  1997-10-01: 4
 
 metadata:
-  unit: /1
+  unit: month
   period: month
-  label: Indiana TANF eligibility earned income disregard rate
+  label: Indiana TANF eligibility earned income disregard months
   reference:
     - title: 470 IAC 10.3-4-4(c)(2)
       href: https://iar.iga.in.gov/code/2026/470/10.3#470-10.3-4-4
