@@ -1,5 +1,6 @@
 - name: Case 1, meet all check.
   period: 2024-01
+  absolute_error_margin: 0.1
   input:
     people:
       person1:
@@ -19,6 +20,7 @@
 
 - name: Case 2, not demographic eligible.
   period: 2024-01
+  absolute_error_margin: 0.1
   input:
     people:
       person1:
@@ -38,6 +40,7 @@
 
 - name: Case 3, not income eligible.
   period: 2024-01
+  absolute_error_margin: 0.1
   input:
     people:
       person1:
@@ -57,6 +60,7 @@
 
 - name: Case 4, not immigration status eligible.
   period: 2024-01
+  absolute_error_margin: 0.1
   input:
     people:
       person1:
@@ -76,6 +80,7 @@
 
 - name: Case 5, not resources eligible.
   period: 2024-01
+  absolute_error_margin: 0.1
   input:
     people:
       person1:

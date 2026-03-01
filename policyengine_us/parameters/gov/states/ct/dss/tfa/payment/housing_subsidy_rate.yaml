@@ -1,4 +1,4 @@
-description: Connecticut applies this share of the payment standard for households receiving a housing subsidy under the Temporary Family Assistance program.
+description: Connecticut sets this share of the payment standard for households receiving a housing subsidy under the Temporary Family Assistance program.
 
 values:
   1995-07-01: 0.92
@@ -10,5 +10,5 @@ metadata:
   reference:
     - title: Connecticut General Statutes § 17b-104(d)
       href: https://cga.ct.gov/current/pub/chap_319s.htm#sec_17b-104
-    - title: DSS Program Standards Chart, TFA Housing Subsidy
+    - title: DSS Program Standards Chart, TFA Grant with Housing Subsidy column
       href: https://portal.ct.gov/dss/-/media/departments-and-agencies/dss/fact-sheets-and-issue-briefs/fact-sheets/dss-program-standards-chart.pdf

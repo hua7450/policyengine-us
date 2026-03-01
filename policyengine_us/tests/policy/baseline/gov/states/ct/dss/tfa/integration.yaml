@@ -1,7 +1,7 @@
 # Integration tests for CT TFA program
 # Tests the complete benefit calculation pipeline with realistic household structures
 
-- name: Integration test - eligible family with two earners
+- name: Case 1, eligible family with two earners.
   period: 2024-01
   absolute_error_margin: 0.3
   input:
@@ -32,25 +32,25 @@
     ct_tfa_payment_standard: 831.77
     ct_tfa: 831.77
 
-- name: Integration test - single parent with one child, zero income
+- name: Case 2, single parent with one child, zero income.
   period: 2024-01
   absolute_error_margin: 0.3
   input:
     people:
-      parent:
+      person1:
         age: 30
-      child:
+      person2:
         age: 5
         is_tax_unit_dependent: true
     spm_units:
       spm_unit:
-        members: [parent, child]
+        members: [person1, person2]
     tax_units:
       tax_unit:
-        members: [parent, child]
+        members: [person1, person2]
     households:
       household:
-        members: [parent, child]
+        members: [person1, person2]
         state_code: CT
   output:
     ct_tfa_income_eligible: true
@@ -60,29 +60,29 @@
     ct_tfa_payment_standard: 659.80
     ct_tfa: 659.80
 
-- name: Integration test - existing recipient high earner gets 20% reduction
+- name: Case 3, existing recipient high earner gets 20 percent reduction.
   period: 2024-01
   absolute_error_margin: 0.3
   input:
     people:
-      parent:
+      person1:
         age: 30
         # 171% FPG for size 2 = 1,643.33 * 1.71 = 2,810.09
         # Monthly: 2,900 > 2,810.09, so high earner
         employment_income_before_lsr: 34_800
-      child:
+      person2:
         age: 5
         is_tax_unit_dependent: true
     spm_units:
       spm_unit:
-        members: [parent, child]
+        members: [person1, person2]
         is_tanf_enrolled: true
     tax_units:
       tax_unit:
-        members: [parent, child]
+        members: [person1, person2]
     households:
       household:
-        members: [parent, child]
+        members: [person1, person2]
         state_code: CT
   output:
     ct_tfa_eligible: true
@@ -91,42 +91,42 @@
     # 659.80 * 0.8 = 527.84
     ct_tfa: 527.84
 
-- name: Integration test - large household (8 people)
+- name: Case 4, large household with eight people.
   period: 2024-01
   absolute_error_margin: 0.3
   input:
     people:
-      parent1:
+      person1:
         age: 40
-      parent2:
+      person2:
         age: 38
-      child1:
+      person3:
         age: 16
         is_tax_unit_dependent: true
-      child2:
+      person4:
         age: 14
         is_tax_unit_dependent: true
-      child3:
+      person5:
         age: 12
         is_tax_unit_dependent: true
-      child4:
+      person6:
         age: 10
         is_tax_unit_dependent: true
-      child5:
+      person7:
         age: 8
         is_tax_unit_dependent: true
-      child6:
+      person8:
         age: 6
         is_tax_unit_dependent: true
     spm_units:
       spm_unit:
-        members: [parent1, parent2, child1, child2, child3, child4, child5, child6]
+        members: [person1, person2, person3, person4, person5, person6, person7, person8]
     tax_units:
       tax_unit:
-        members: [parent1, parent2, child1, child2, child3, child4, child5, child6]
+        members: [person1, person2, person3, person4, person5, person6, person7, person8]
     households:
       household:
-        members: [parent1, parent2, child1, child2, child3, child4, child5, child6]
+        members: [person1, person2, person3, person4, person5, person6, person7, person8]
         state_code: CT
   output:
     # 0.73 * 0.55 * (50,560/12) = 1,691.65
@@ -134,26 +134,26 @@
     ct_tfa_eligible: true
     ct_tfa: 1_691.65
 
-- name: Integration test - only unearned income, no earned
+- name: Case 5, only unearned income, no earned.
   period: 2024-01
   absolute_error_margin: 0.3
   input:
     people:
-      parent:
+      person1:
         age: 30
         social_security: 2_400  # $200/month unearned
-      child:
+      person2:
         age: 5
         is_tax_unit_dependent: true
     spm_units:
       spm_unit:
-        members: [parent, child]
+        members: [person1, person2]
     tax_units:
       tax_unit:
-        members: [parent, child]
+        members: [person1, person2]
     households:
       household:
-        members: [parent, child]
+        members: [person1, person2]
         state_code: CT
   output:
     ct_tfa_eligible: true
@@ -162,25 +162,26 @@
     # 659.80 - 200 = 459.80
     ct_tfa: 459.80
 
-- name: Integration test - ineligible due to resources exceeding limit
+- name: Case 6, ineligible due to resources exceeding limit.
   period: 2024-01
+  absolute_error_margin: 0.1
   input:
     people:
-      parent:
+      person1:
         age: 30
-      child:
+      person2:
         age: 5
         is_tax_unit_dependent: true
     spm_units:
       spm_unit:
-        members: [parent, child]
+        members: [person1, person2]
         spm_unit_assets: 6_001  # One dollar above $6,000 limit
     tax_units:
       tax_unit:
-        members: [parent, child]
+        members: [person1, person2]
     households:
       household:
-        members: [parent, child]
+        members: [person1, person2]
         state_code: CT
   output:
     ct_tfa_resources_eligible: false
@@ -189,7 +190,7 @@
 
 # --- Historical integration: regional period (2020) ---
 
-- name: Integration test - 2020 regional period, eligible family Region B
+- name: Case 7, 2020 regional period, eligible family Region B.
   period: 2020-01
   absolute_error_margin: 0.1
   input:
@@ -219,7 +220,7 @@
     ct_tfa_eligible: true
     ct_tfa: 487
 
-- name: Integration test - 2020 regional period, Region A with unearned income
+- name: Case 8, 2020 regional period, Region A with unearned income.
   period: 2020-01
   absolute_error_margin: 0.1
   input:
@@ -252,7 +253,7 @@
     # 698 - 150 = 548
     ct_tfa: 548
 
-- name: Integration test - 2020 ineligible due to old $3000 resource limit
+- name: Case 9, 2020 ineligible due to old 3000 resource limit.
   period: 2020-01
   absolute_error_margin: 0.1
   input:
@@ -280,7 +281,7 @@
 
 # --- Post-2014 regional amounts (effective 2014-07-01) ---
 
-- name: Integration test - 2015 post-2014 Region B amounts
+- name: Case 10, 2015 post-2014 Region B amounts.
   period: 2015-01
   absolute_error_margin: 0.1
   input:
@@ -294,7 +295,7 @@
     ct_tfa_payment_standard: 597
     ct_tfa: 597
 
-- name: Integration test - 2015 post-2014 Region A amounts
+- name: Case 11, 2015 post-2014 Region A amounts.
   period: 2015-01
   absolute_error_margin: 0.1
   input:
@@ -309,7 +310,7 @@
     ct_tfa_payment_standard: 698
     ct_tfa: 698
 
-- name: Integration test - 2015 post-2014 Region C with unearned income
+- name: Case 12, 2015 post-2014 Region C with unearned income.
   period: 2015-01
   absolute_error_margin: 0.1
   input:
@@ -327,7 +328,7 @@
 
 # --- Statewide period (2024) with full pipeline ---
 
-- name: Integration test - 2024 statewide eligible family
+- name: Case 13, 2024 statewide eligible family.
   period: 2024-01
   absolute_error_margin: 0.3
   input:
@@ -360,7 +361,7 @@
 
 # --- Housing subsidy integration tests ---
 
-- name: Integration test - 2024 housing subsidy with single parent
+- name: Case 14, 2024 housing subsidy with single parent.
   period: 2024-01
   absolute_error_margin: 0.3
   input:
@@ -389,7 +390,7 @@
     # 659.80 * 0.92 - 100 = 607.02 - 100 = 507.02
     ct_tfa: 507.02
 
-- name: Integration test - 2020 regional period with housing subsidy
+- name: Case 15, 2020 regional period with housing subsidy.
   period: 2020-01
   absolute_error_margin: 0.3
   input:

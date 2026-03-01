@@ -278,3 +278,39 @@
     ct_tfa_payment_standard: 770.55
     # high_earnings/in_effect is false before 2024, so no 20% reduction
     ct_tfa: 770.55
+
+# --- Boundary: earnings just below 171% FPG threshold ---
+
+- name: Case 19, earnings just below 171 percent FPG threshold.
+  period: 2024-01
+  absolute_error_margin: 0.3
+  input:
+    ct_tfa_eligible: true
+    spm_unit_size: 3
+    ct_tfa_countable_unearned_income: 0
+    # 171% FPG = 1.71 * 2,071.67 = 3,542.55
+    tanf_gross_earned_income: 3_542
+    state_code: CT
+  output:
+    ct_tfa_payment_standard: 831.77
+    # 3,542 < 3,542.55, so no high earner reduction
+    ct_tfa: 831.77
+
+# --- Triple combination: housing subsidy + high earner + unearned income ---
+
+- name: Case 20, housing subsidy with high earner and unearned income.
+  period: 2024-01
+  absolute_error_margin: 0.3
+  input:
+    ct_tfa_eligible: true
+    spm_unit_size: 3
+    ct_tfa_countable_unearned_income: 200
+    tanf_gross_earned_income: 3_600
+    receives_housing_assistance: true
+    state_code: CT
+  output:
+    ct_tfa_payment_standard: 831.77
+    # Housing adjusted: 831.77 * 0.92 = 765.23
+    # After unearned: max(765.23 - 200, 0) = 565.23
+    # High earner reduction: 565.23 * 0.8 = 452.18
+    ct_tfa: 452.18

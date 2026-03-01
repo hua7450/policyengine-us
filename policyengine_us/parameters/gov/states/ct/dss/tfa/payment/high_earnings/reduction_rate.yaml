@@ -1,4 +1,4 @@
-description: Connecticut reduces the benefit amount by this percentage for households with high gross earnings under the Temporary Family Assistance program.
+description: Connecticut deducts this share from the benefit amount for high-earning households under the Temporary Family Assistance program.
 
 values:
   2024-01-01: 0.2
