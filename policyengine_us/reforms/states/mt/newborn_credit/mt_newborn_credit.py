@@ -17,7 +17,6 @@ def create_mt_newborn_credit() -> Reform:
         label = "Montana newborn credit eligible child"
         definition_period = YEAR
         defined_for = StateCode.MT
-        reference = "https://github.com/PolicyEngine/policyengine-us/pull/7513"
 
         def formula(person, period, parameters):
             p = parameters(period).gov.contrib.states.mt.newborn_credit
@@ -32,7 +31,6 @@ def create_mt_newborn_credit() -> Reform:
         label = "Eligible for the Montana newborn credit"
         definition_period = YEAR
         defined_for = StateCode.MT
-        reference = "https://github.com/PolicyEngine/policyengine-us/pull/7513"
 
         def formula(tax_unit, period, parameters):
             has_earned_income = tax_unit("tax_unit_earned_income", period) > 0
@@ -59,7 +57,6 @@ def create_mt_newborn_credit() -> Reform:
         definition_period = YEAR
         unit = USD
         defined_for = "mt_newborn_credit_eligible"
-        reference = "https://github.com/PolicyEngine/policyengine-us/pull/7513"
 
         def formula(tax_unit, period, parameters):
             p = parameters(period).gov.contrib.states.mt.newborn_credit
