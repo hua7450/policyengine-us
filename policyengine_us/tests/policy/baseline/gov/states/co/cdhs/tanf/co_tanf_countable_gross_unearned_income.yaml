@@ -11,7 +11,7 @@
     unemployment_compensation: 0
     gi_cash_assistance: 0
     social_security: 0
-    ssi: 0
+
     child_support_received: 0
     is_tanf_enrolled: false
   output:
@@ -30,7 +30,7 @@
     unemployment_compensation: 0
     gi_cash_assistance: 0
     social_security: 0
-    ssi: 0
+
     child_support_received: 5_000
     is_tanf_enrolled: true
   output:
@@ -49,13 +49,13 @@
     unemployment_compensation: 0
     gi_cash_assistance: 0
     social_security: 0
-    ssi: 0
+
     child_support_received: 5_000
     is_tanf_enrolled: false
   output:
     co_tanf_countable_gross_unearned_income: 5_000
 
-- name: $1,000 of each unearned income and no child support, $5,000 per year
+- name: $1,000 of each unearned income and no child support, $9,000 per year.
   period: 2023
   input:
     state_code: CO
@@ -68,11 +68,10 @@
     unemployment_compensation: 1_000
     gi_cash_assistance: 1_000
     social_security: 1_000
-    ssi: 1_000
     child_support_received: 0
     is_tanf_enrolled: false
   output:
-    co_tanf_countable_gross_unearned_income: 10_000
+    co_tanf_countable_gross_unearned_income: 9_000
 
 # --- 2013 era (period 2014; unearned income rules unchanged) ---
 
