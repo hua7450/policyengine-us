@@ -11,6 +11,8 @@ values:
     - unemployment_compensation
     - gi_cash_assistance
     - social_security
+    - workers_compensation
+    - disability_benefits
 metadata:
   unit: list
   period: month
