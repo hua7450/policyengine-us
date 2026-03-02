@@ -975,3 +975,87 @@
         state_code: MT
   output:
     mt_newborn_credit: 0
+
+- name: Case 34, child with SSN card type NONE not eligible.
+  period: 2027
+  absolute_error_margin: 0.01
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head: true
+        employment_income: 40_000
+        ssn_card_type: CITIZEN
+      person2:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: NONE
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [person1, person2]
+        state_code: MT
+  output:
+    mt_newborn_credit: 0
+
+- name: Case 35, negative AGI with earned income still eligible.
+  period: 2027
+  absolute_error_margin: 0.01
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head: true
+        employment_income: 20_000
+        short_term_capital_gains: -100_000
+        ssn_card_type: CITIZEN
+      person2:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [person1, person2]
+        state_code: MT
+  output:
+    # AGI is negative due to capital losses, no phase-out applies
+    mt_newborn_credit: 1_000
+
+- name: Case 36, single exactly $1000 above threshold one increment.
+  period: 2027
+  absolute_error_margin: 0.01
+  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
+  input:
+    gov.contrib.states.mt.newborn_credit.in_effect: true
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head: true
+        employment_income: 61_000
+        ssn_card_type: CITIZEN
+      person2:
+        age: 0
+        is_tax_unit_dependent: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [person1, person2]
+        state_code: MT
+  output:
+    # ceil($1,000 / $1,000) = 1 increment, reduction = $50
+    mt_newborn_credit: 950
