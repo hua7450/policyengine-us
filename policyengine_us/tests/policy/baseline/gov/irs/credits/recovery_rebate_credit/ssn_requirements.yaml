@@ -1,0 +1,349 @@
+# Tests for SSN identification requirements in Recovery Rebate Credits
+# References:
+# - 26 USC 6428(g) - CARES
+# - 26 USC 6428A(d) - CAA
+# - 26 USC 6428B(e)(2) - ARPA
+
+# =============================================================================
+# ARPA (2021) - Single Filer Tests
+# =============================================================================
+
+- name: ARPA - Single filer with SSN gets full credit
+  period: 2021
+  input:
+    people:
+      person:
+        age: 30
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [person]
+  output:
+    rrc_arpa: 1_400
+
+- name: ARPA - Single filer without SSN (ITIN) gets no credit
+  period: 2021
+  input:
+    people:
+      person:
+        age: 30
+        ssn_card_type: OTHER_NON_CITIZEN
+    tax_units:
+      tax_unit:
+        members: [person]
+  output:
+    rrc_arpa: 0
+
+- name: ARPA - Single filer with no identification gets no credit
+  period: 2021
+  input:
+    people:
+      person:
+        age: 30
+        ssn_card_type: NONE
+    tax_units:
+      tax_unit:
+        members: [person]
+  output:
+    rrc_arpa: 0
+
+# =============================================================================
+# ARPA (2021) - Joint Filer Tests
+# =============================================================================
+
+- name: ARPA - Joint filers both with SSN get full credit
+  period: 2021
+  input:
+    people:
+      spouse1:
+        age: 30
+        ssn_card_type: CITIZEN
+      spouse2:
+        age: 30
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [spouse1, spouse2]
+        filing_status: JOINT
+  output:
+    rrc_arpa: 2_800
+
+- name: ARPA - Joint filers with one SSN get half credit
+  period: 2021
+  input:
+    people:
+      spouse1:
+        age: 30
+        ssn_card_type: CITIZEN
+      spouse2:
+        age: 30
+        ssn_card_type: OTHER_NON_CITIZEN
+    tax_units:
+      tax_unit:
+        members: [spouse1, spouse2]
+        filing_status: JOINT
+  output:
+    rrc_arpa: 1_400
+
+- name: ARPA - Joint filers neither with SSN get no credit
+  period: 2021
+  input:
+    people:
+      spouse1:
+        age: 30
+        ssn_card_type: OTHER_NON_CITIZEN
+      spouse2:
+        age: 30
+        ssn_card_type: OTHER_NON_CITIZEN
+    tax_units:
+      tax_unit:
+        members: [spouse1, spouse2]
+        filing_status: JOINT
+  output:
+    rrc_arpa: 0
+
+# =============================================================================
+# ARPA (2021) - Armed Forces Exception Tests
+# =============================================================================
+
+- name: ARPA - Armed Forces exception allows full credit with one SSN
+  period: 2021
+  input:
+    people:
+      military_spouse:
+        age: 30
+        ssn_card_type: CITIZEN
+        is_military: true
+      civilian_spouse:
+        age: 30
+        ssn_card_type: OTHER_NON_CITIZEN
+    tax_units:
+      tax_unit:
+        members: [military_spouse, civilian_spouse]
+        filing_status: JOINT
+  output:
+    rrc_arpa: 2_800
+
+- name: ARPA - Armed Forces exception requires military spouse to have SSN
+  period: 2021
+  input:
+    people:
+      military_spouse:
+        age: 30
+        ssn_card_type: OTHER_NON_CITIZEN
+        is_military: true
+      civilian_spouse:
+        age: 30
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [military_spouse, civilian_spouse]
+        filing_status: JOINT
+  output:
+    # No armed forces exception because military spouse lacks SSN
+    # But civilian spouse has SSN, so get half credit
+    rrc_arpa: 1_400
+
+# =============================================================================
+# ARPA (2021) - Dependent SSN Tests
+# =============================================================================
+
+- name: ARPA - Dependents with SSN are counted
+  period: 2021
+  input:
+    people:
+      parent:
+        age: 30
+        ssn_card_type: CITIZEN
+      child1:
+        age: 10
+        ssn_card_type: CITIZEN
+      child2:
+        age: 8
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child1, child2]
+  output:
+    rrc_arpa: 4_200  # 1*1400 + 2*1400
+
+- name: ARPA - Dependents without SSN are not counted
+  period: 2021
+  input:
+    people:
+      parent:
+        age: 30
+        ssn_card_type: CITIZEN
+      child1:
+        age: 10
+        ssn_card_type: OTHER_NON_CITIZEN
+      child2:
+        age: 8
+        ssn_card_type: OTHER_NON_CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child1, child2]
+  output:
+    rrc_arpa: 1_400  # Only parent, no children counted
+
+- name: ARPA - Mixed SSN status among dependents
+  period: 2021
+  input:
+    people:
+      parent:
+        age: 30
+        ssn_card_type: CITIZEN
+      child_with_ssn:
+        age: 10
+        ssn_card_type: CITIZEN
+      child_without_ssn:
+        age: 8
+        ssn_card_type: OTHER_NON_CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child_with_ssn, child_without_ssn]
+  output:
+    rrc_arpa: 2_800  # 1*1400 + 1*1400 (only child with SSN)
+
+# =============================================================================
+# CARES (2020) - Basic Tests
+# =============================================================================
+
+- name: CARES - Single filer with SSN gets full credit
+  period: 2020
+  input:
+    people:
+      person:
+        age: 30
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [person]
+  output:
+    rrc_cares: 1_200
+
+- name: CARES - Single filer without SSN gets no credit
+  period: 2020
+  input:
+    people:
+      person:
+        age: 30
+        ssn_card_type: OTHER_NON_CITIZEN
+    tax_units:
+      tax_unit:
+        members: [person]
+  output:
+    rrc_cares: 0
+
+- name: CARES - Joint filers with one SSN get half credit
+  period: 2020
+  input:
+    people:
+      spouse1:
+        age: 30
+        ssn_card_type: CITIZEN
+      spouse2:
+        age: 30
+        ssn_card_type: OTHER_NON_CITIZEN
+    tax_units:
+      tax_unit:
+        members: [spouse1, spouse2]
+        filing_status: JOINT
+  output:
+    rrc_cares: 1_200
+
+- name: CARES - Qualifying child with SSN counted
+  period: 2020
+  input:
+    people:
+      parent:
+        age: 30
+        ssn_card_type: CITIZEN
+      child:
+        age: 10
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+  output:
+    rrc_cares: 1_700  # 1200 + 500
+
+- name: CARES - Qualifying child without SSN not counted
+  period: 2020
+  input:
+    people:
+      parent:
+        age: 30
+        ssn_card_type: CITIZEN
+      child:
+        age: 10
+        ssn_card_type: OTHER_NON_CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+  output:
+    rrc_cares: 1_200  # Only parent
+
+# =============================================================================
+# CAA (2020) - Basic Tests
+# =============================================================================
+
+- name: CAA - Single filer with SSN gets full credit
+  period: 2020
+  input:
+    people:
+      person:
+        age: 30
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [person]
+  output:
+    rrc_caa: 600
+
+- name: CAA - Single filer without SSN gets no credit
+  period: 2020
+  input:
+    people:
+      person:
+        age: 30
+        ssn_card_type: OTHER_NON_CITIZEN
+    tax_units:
+      tax_unit:
+        members: [person]
+  output:
+    rrc_caa: 0
+
+- name: CAA - Joint filers with one SSN get half credit
+  period: 2020
+  input:
+    people:
+      spouse1:
+        age: 30
+        ssn_card_type: CITIZEN
+      spouse2:
+        age: 30
+        ssn_card_type: OTHER_NON_CITIZEN
+    tax_units:
+      tax_unit:
+        members: [spouse1, spouse2]
+        filing_status: JOINT
+  output:
+    rrc_caa: 600
+
+# =============================================================================
+# Non-citizen with valid EAD (has SSN) Tests
+# =============================================================================
+
+- name: ARPA - Non-citizen with valid EAD has SSN and gets credit
+  period: 2021
+  input:
+    people:
+      person:
+        age: 30
+        ssn_card_type: NON_CITIZEN_VALID_EAD
+    tax_units:
+      tax_unit:
+        members: [person]
+  output:
+    rrc_arpa: 1_400

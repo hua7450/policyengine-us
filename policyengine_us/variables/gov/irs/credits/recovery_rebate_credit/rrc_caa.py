@@ -13,9 +13,23 @@ class rrc_caa(Variable):
         rrc = parameters(period).gov.irs.credits.recovery_rebate_credit
         filing_status = tax_unit("filing_status", period)
         agi = tax_unit("adjusted_gross_income", period)
-        # (a)(2) specifies CTC eligibility for children
-        count_children = tax_unit("ctc_qualifying_children", period)
-        count_adults = where(tax_unit("tax_unit_is_joint", period), 2, 1)
+        # Count children with valid SSN per 26 USC 6428A(d)(2)
+        # CAA uses same qualifying child definition as CARES
+        count_children = tax_unit(
+            "rrc_cares_qualifying_children_with_valid_ssn", period
+        )
+        # Count adults with valid SSN per 26 USC 6428A(d)(1)
+        # Armed Forces exception per 26 USC 6428A(d)(2)(B)(ii)
+        armed_forces_exception = tax_unit(
+            "rrc_qualifies_for_armed_forces_exception", period
+        )
+        is_joint = tax_unit("tax_unit_is_joint", period)
+        adults_with_ssn = tax_unit("rrc_adult_count_with_valid_ssn", period)
+        count_adults = where(
+            armed_forces_exception,
+            2,
+            where(is_joint, adults_with_ssn, min_(adults_with_ssn, 1)),
+        )
         max_payment = (
             rrc.caa.max.adult * count_adults
             + rrc.caa.max.child * count_children
