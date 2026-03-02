@@ -7,3 +7,6 @@ metadata:
   unit: year
   period: year
   label: Montana newborn credit child age limit
+  reference:
+    - title: PolicyEngine Montana newborn credit reform design
+      href: https://github.com/PolicyEngine/policyengine-us/pull/7513

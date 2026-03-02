@@ -26,3 +26,6 @@ metadata:
   label: Montana newborn credit phase-out threshold
   breakdown:
     - filing_status
+  reference:
+    - title: PolicyEngine Montana newborn credit reform design
+      href: https://github.com/PolicyEngine/policyengine-us/pull/7513

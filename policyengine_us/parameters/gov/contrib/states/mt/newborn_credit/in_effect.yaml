@@ -7,3 +7,6 @@ metadata:
   unit: bool
   period: year
   label: Montana newborn credit in effect
+  reference:
+    - title: PolicyEngine Montana newborn credit reform design
+      href: https://github.com/PolicyEngine/policyengine-us/pull/7513

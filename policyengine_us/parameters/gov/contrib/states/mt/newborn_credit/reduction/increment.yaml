@@ -7,3 +7,6 @@ metadata:
   unit: currency-USD
   period: year
   label: Montana newborn credit reduction increment
+  reference:
+    - title: PolicyEngine Montana newborn credit reform design
+      href: https://github.com/PolicyEngine/policyengine-us/pull/7513

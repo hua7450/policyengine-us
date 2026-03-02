@@ -4,12 +4,20 @@ from policyengine_core.periods import instant
 
 
 def create_mt_newborn_credit() -> Reform:
+    """Montana newborn credit reform.
+
+    Provides a $1,000 refundable credit per qualifying child under
+    age 1 with phase-out based on AGI. This is a PolicyEngine-designed
+    contrib reform; no enacted legislation exists.
+    """
+
     class mt_newborn_credit_eligible_child(Variable):
         value_type = bool
         entity = Person
         label = "Montana newborn credit eligible child"
         definition_period = YEAR
         defined_for = StateCode.MT
+        reference = "https://github.com/PolicyEngine/policyengine-us/pull/7513"
 
         def formula(person, period, parameters):
             p = parameters(period).gov.contrib.states.mt.newborn_credit
@@ -24,6 +32,7 @@ def create_mt_newborn_credit() -> Reform:
         label = "Eligible for the Montana newborn credit"
         definition_period = YEAR
         defined_for = StateCode.MT
+        reference = "https://github.com/PolicyEngine/policyengine-us/pull/7513"
 
         def formula(tax_unit, period, parameters):
             has_earned_income = tax_unit("tax_unit_earned_income", period) > 0
@@ -38,6 +47,8 @@ def create_mt_newborn_credit() -> Reform:
             person = tax_unit.members
             head_or_spouse = person("is_tax_unit_head_or_spouse", period)
             has_ssn = person("meets_eitc_identification_requirements", period)
+            # Uses any() not all(): at least one filer needs SSN,
+            # unlike EITC which requires all filers to have SSN.
             filer_has_ssn = tax_unit.any(head_or_spouse & has_ssn)
             return has_earned_income & has_qualifying_children & filer_has_ssn
 
@@ -48,6 +59,7 @@ def create_mt_newborn_credit() -> Reform:
         definition_period = YEAR
         unit = USD
         defined_for = "mt_newborn_credit_eligible"
+        reference = "https://github.com/PolicyEngine/policyengine-us/pull/7513"
 
         def formula(tax_unit, period, parameters):
             p = parameters(period).gov.contrib.states.mt.newborn_credit
@@ -67,6 +79,9 @@ def create_mt_newborn_credit() -> Reform:
             return max_(base_credit - reduction, 0)
 
     def modify_parameters(parameters):
+        # NOTE: MT CTC reform hard-codes the refundable credits list,
+        # so this reform must run after MT CTC in reforms.py to
+        # correctly append mt_newborn_credit via read-then-append.
         refundable = parameters.gov.states.mt.tax.income.credits.refundable
         current_refundable = refundable(instant("2027-01-01"))
         if "mt_newborn_credit" not in current_refundable:
