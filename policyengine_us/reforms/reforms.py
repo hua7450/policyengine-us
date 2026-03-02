@@ -1,4 +1,5 @@
 from .congress.delauro import create_american_family_act_with_baby_bonus_reform
+from .states.al.hb527 import create_al_hb527_overtime_deduction_reform
 from .dc_kccatc import create_dc_kccatc_reform
 from .winship import create_eitc_winship_reform
 from .dc_tax_threshold_joint_ratio import (
@@ -372,6 +373,9 @@ def create_structural_reforms_from_parameters(parameters, period):
     ct_sb100 = create_ct_sb100_reform(parameters, period)
     ct_tax_rebate_2026 = create_ct_tax_rebate_2026_reform(parameters, period)
     ct_hb5009 = create_ct_hb5009_reform(parameters, period)
+    al_hb527_overtime_deduction = create_al_hb527_overtime_deduction_reform(
+        parameters, period
+    )
 
     reforms = [
         afa_reform,
@@ -451,6 +455,7 @@ def create_structural_reforms_from_parameters(parameters, period):
         ct_hb5009,
         ct_sb100,
         ct_tax_rebate_2026,
+        al_hb527_overtime_deduction,
     ]
     reforms = tuple(filter(lambda x: x is not None, reforms))
 
