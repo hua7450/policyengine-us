@@ -1,3 +1,10 @@
+## [1.590.0] - 2026-03-02
+
+### Added
+
+- Add Montana newborn credit reform.
+
+
 ## [1.589.1] - 2026-02-27
 
 ### Fixed
