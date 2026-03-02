@@ -1,4 +1,4 @@
-description: Kentucky caps the assistance unit size at this value for parameter lookups under the Kentucky Transitional Assistance Program.
+description: Kentucky limits the assistance unit size to this maximum for parameter lookups under the Kentucky Transitional Assistance Program.
 
 metadata:
   unit: person

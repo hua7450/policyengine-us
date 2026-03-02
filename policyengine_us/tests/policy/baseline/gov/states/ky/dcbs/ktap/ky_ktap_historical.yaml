@@ -1,7 +1,7 @@
 # Kentucky K-TAP Historical and Boundary Tests
 # Tests verify parameter values across three eras:
-#   ERA 1: Pre-2023 (1997-07-01 to 2023-02-28) - frozen AFDC-era values
-#   ERA 2: Post-2023 overhaul (2023-03-01 to 2025-10-31)
+#   ERA 1: Pre-2023 (1997-07-01 to 2023-02-15) - frozen AFDC-era values
+#   ERA 2: Post-2023 overhaul (2023-02-16 to 2025-10-31)
 #   ERA 3: November 2025 reduction (2025-11-01+)
 # Sources:
 #   - 921 KAR 2:016 (pre-2023): apps.legislature.ky.gov/law/kar/titles/921/002/016/10142/

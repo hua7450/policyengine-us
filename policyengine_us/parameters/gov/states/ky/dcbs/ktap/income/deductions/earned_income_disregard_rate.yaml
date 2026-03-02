@@ -8,21 +8,21 @@ description: Kentucky disregards this share of earned income based on months of 
 brackets:
   - threshold:
       1997-07-01: 1
-      2023-03-01: 1
     amount:
       1997-07-01: 0.333
-      2023-03-01: 0.5
+      2023-02-16: 0.5
   - threshold:
       1997-07-01: 5
-      2023-03-01: 7
+      2023-02-16: 7
     amount:
       1997-07-01: 0
-      2023-03-01: 0
+      2023-02-16: 0
 
 metadata:
   type: single_amount
   threshold_unit: month
   amount_unit: /1
+  period: month
   label: Kentucky K-TAP earned income disregard rate
   reference:
     - title: 921 KAR 2:016 Section 5(3)(e)
