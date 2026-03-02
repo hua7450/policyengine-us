@@ -7,14 +7,17 @@ class mn_mfip_transitional_standard(Variable):
     label = "Minnesota MFIP Transitional Standard (cash portion)"
     unit = USD
     definition_period = MONTH
-    reference = "https://www.house.mn.gov/hrd/pubs/ss/ssmfip.pdf#page=5"
+    reference = (
+        "https://www.revisor.mn.gov/statutes/cite/142G.17#stat.142G.17.5",
+        "https://www.house.mn.gov/hrd/pubs/ss/ssmfip.pdf#page=5",
+    )
     defined_for = StateCode.MN
 
     def formula(spm_unit, period, parameters):
         # Per MN Stat. 142G.17, Subd. 5:
         # Transitional Standard is the maximum MFIP grant by family size.
         # NOTE: Uses cash portion only; food portion is handled by federal SNAP.
-        p = parameters(period).gov.states.mn.dcyf.mfip.transitional_standard
+        p = parameters(period).gov.states.mn.dcyf.mfip.transitional_standard.cash
         size = spm_unit("spm_unit_size", period)
         capped_size = min_(size, p.max_unit_size)
         base_amount = p.amount[capped_size]

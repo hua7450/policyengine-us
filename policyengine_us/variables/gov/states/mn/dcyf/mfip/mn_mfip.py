@@ -7,7 +7,7 @@ class mn_mfip(Variable):
     label = "Minnesota MFIP"
     unit = USD
     definition_period = MONTH
-    reference = "https://www.revisor.mn.gov/statutes/cite/142G.16"
+    reference = "https://www.revisor.mn.gov/statutes/cite/142G.16#stat.142G.16.2"
     defined_for = "mn_mfip_eligible"
 
     def formula(spm_unit, period, parameters):
