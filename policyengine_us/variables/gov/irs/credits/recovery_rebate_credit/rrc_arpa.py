@@ -27,7 +27,7 @@ class rrc_arpa(Variable):
         adults_with_ssn = tax_unit("rrc_adult_count_with_valid_ssn", period)
         count_adults = where(
             armed_forces_exception,
-            2,
+            2,  # Joint filers always have 2 adults (structural constant)
             where(is_joint, adults_with_ssn, min_(adults_with_ssn, 1)),
         )
         max_payment = (

@@ -6,10 +6,15 @@ class rrc_qualifies_for_armed_forces_exception(Variable):
     entity = TaxUnit
     definition_period = YEAR
     label = "Tax unit qualifies for RRC Armed Forces SSN exception"
-    reference = "https://www.law.cornell.edu/uscode/text/26/6428B#e_2_E"
+    reference = (
+        "https://www.law.cornell.edu/uscode/text/26/6428#g_4",
+        "https://www.law.cornell.edu/uscode/text/26/6428A#g_5",
+        "https://www.law.cornell.edu/uscode/text/26/6428B#e_2_E",
+    )
 
     def formula(tax_unit, period, parameters):
-        # Per statute: "at least 1 spouse was a member of the Armed Forces...
+        # Per 26 USC 6428(g)(4), 6428A(g)(5), and 6428B(e)(2)(E):
+        # "at least 1 spouse was a member of the Armed Forces...
         # AND the valid identification number of at least 1 spouse is included"
         # These are TWO INDEPENDENT conditions - can be different people
         person = tax_unit.members

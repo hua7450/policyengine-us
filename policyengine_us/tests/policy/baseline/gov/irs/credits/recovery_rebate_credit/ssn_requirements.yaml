@@ -1,7 +1,7 @@
 # Tests for SSN identification requirements in Recovery Rebate Credits
 # References:
 # - 26 USC 6428(g) - CARES
-# - 26 USC 6428A(d) - CAA
+# - 26 USC 6428A(g) - CAA
 # - 26 USC 6428B(e)(2) - ARPA
 
 # =============================================================================
@@ -366,3 +366,229 @@
         members: [person]
   output:
     rrc_arpa: 1_400
+
+# =============================================================================
+# Phase-out Interaction Tests
+# =============================================================================
+
+- name: ARPA - Single filer with SSN and partial phase-out
+  period: 2021
+  input:
+    people:
+      person:
+        age: 30
+        ssn_card_type: CITIZEN
+        employment_income: 77_500
+    tax_units:
+      tax_unit:
+        members: [person]
+  output:
+    # Phase-out: threshold $75,000, length $5,000 for SINGLE
+    # At $77,500 income: ($77,500 - $75,000) / $5,000 = 50% reduction
+    # $1,400 * (1 - 0.5) = $700
+    rrc_arpa: 700
+
+- name: ARPA - Joint with one SSN and phase-out interaction
+  period: 2021
+  input:
+    people:
+      spouse1:
+        age: 30
+        ssn_card_type: CITIZEN
+        employment_income: 155_000
+      spouse2:
+        age: 30
+        ssn_card_type: OTHER_NON_CITIZEN
+    tax_units:
+      tax_unit:
+        members: [spouse1, spouse2]
+        filing_status: JOINT
+  output:
+    # One SSN = $1,400 max. Phase-out: threshold $150k, length $10k for JOINT
+    # ($155k - $150k) / $10k = 50% reduction
+    # $1,400 * (1 - 0.5) = $700
+    rrc_arpa: 700
+
+# =============================================================================
+# CARES vs ARPA Dependent Age Distinction Tests
+# =============================================================================
+
+- name: CARES - Adult dependent age 20 not counted as qualifying child
+  period: 2020
+  input:
+    people:
+      parent:
+        age: 45
+        ssn_card_type: CITIZEN
+        is_tax_unit_head: true
+      adult_child:
+        age: 20
+        ssn_card_type: CITIZEN
+        is_full_time_student: true
+        is_tax_unit_dependent: true
+        is_tax_unit_spouse: false
+    tax_units:
+      tax_unit:
+        members: [parent, adult_child]
+  output:
+    # Adult dependent does NOT qualify as CTC qualifying child (must be under 17)
+    # So only parent's $1,200 counted
+    rrc_cares: 1_200
+
+- name: ARPA - Adult dependent age 20 IS counted
+  period: 2021
+  input:
+    people:
+      parent:
+        age: 45
+        ssn_card_type: CITIZEN
+        is_tax_unit_head: true
+      adult_child:
+        age: 20
+        ssn_card_type: CITIZEN
+        is_full_time_student: true
+        is_tax_unit_dependent: true
+        is_tax_unit_spouse: false
+    tax_units:
+      tax_unit:
+        members: [parent, adult_child]
+  output:
+    # ARPA counts ALL dependents, not just qualifying children
+    # Parent: $1,400 + Adult dependent: $1,400 = $2,800
+    rrc_arpa: 2_800
+
+- name: CARES - Child at age 17 not counted as qualifying child
+  period: 2020
+  input:
+    people:
+      parent:
+        age: 45
+        ssn_card_type: CITIZEN
+      teen:
+        age: 17
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, teen]
+  output:
+    # Age 17 does not qualify as CTC qualifying child (must be under 17)
+    # Only parent's $1,200 counted
+    rrc_cares: 1_200
+
+# =============================================================================
+# Armed Forces Exception - CARES and CAA Tests
+# =============================================================================
+
+- name: CARES - Armed Forces exception allows full credit with one SSN
+  period: 2020
+  input:
+    people:
+      military_spouse:
+        age: 30
+        ssn_card_type: CITIZEN
+        is_military: true
+      civilian_spouse:
+        age: 30
+        ssn_card_type: OTHER_NON_CITIZEN
+    tax_units:
+      tax_unit:
+        members: [military_spouse, civilian_spouse]
+        filing_status: JOINT
+  output:
+    # Armed Forces exception per 26 USC 6428(g)(4)
+    rrc_cares: 2_400
+
+- name: CAA - Armed Forces exception allows full credit with one SSN
+  period: 2020
+  input:
+    people:
+      military_spouse:
+        age: 30
+        ssn_card_type: CITIZEN
+        is_military: true
+      civilian_spouse:
+        age: 30
+        ssn_card_type: OTHER_NON_CITIZEN
+    tax_units:
+      tax_unit:
+        members: [military_spouse, civilian_spouse]
+        filing_status: JOINT
+  output:
+    # Armed Forces exception per 26 USC 6428A(g)(5)
+    rrc_caa: 1_200
+
+- name: ARPA - Single military filer without SSN gets no credit
+  period: 2021
+  input:
+    people:
+      person:
+        age: 30
+        ssn_card_type: OTHER_NON_CITIZEN
+        is_military: true
+    tax_units:
+      tax_unit:
+        members: [person]
+  output:
+    # Armed Forces exception only applies to joint filers
+    # Single filer without SSN gets nothing
+    rrc_arpa: 0
+
+# =============================================================================
+# CAA - Additional Tests
+# =============================================================================
+
+- name: CAA - Qualifying child with SSN counted
+  period: 2020
+  input:
+    people:
+      parent:
+        age: 30
+        ssn_card_type: CITIZEN
+      child:
+        age: 10
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+  output:
+    # Parent: $600 + Child: $600 = $1,200
+    rrc_caa: 1_200
+
+- name: CAA - Qualifying child without SSN not counted
+  period: 2020
+  input:
+    people:
+      parent:
+        age: 30
+        ssn_card_type: CITIZEN
+      child:
+        age: 10
+        ssn_card_type: OTHER_NON_CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+  output:
+    # Only parent: $600 (child without SSN not counted)
+    rrc_caa: 600
+
+# =============================================================================
+# HEAD_OF_HOUSEHOLD Filing Status Test
+# =============================================================================
+
+- name: ARPA - Head of household with dependent gets credit
+  period: 2021
+  input:
+    people:
+      parent:
+        age: 35
+        ssn_card_type: CITIZEN
+      child:
+        age: 10
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+        filing_status: HEAD_OF_HOUSEHOLD
+  output:
+    # Parent: $1,400 + Child: $1,400 = $2,800
+    rrc_arpa: 2_800
