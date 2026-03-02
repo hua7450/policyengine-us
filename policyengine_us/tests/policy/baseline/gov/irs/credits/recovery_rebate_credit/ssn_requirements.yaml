@@ -592,3 +592,131 @@
   output:
     # Parent: $1,400 + Child: $1,400 = $2,800
     rrc_arpa: 2_800
+
+# =============================================================================
+# Filer SSN Precondition for Children - 26 USC 6428(g)(1)(C)(i)
+# Children only count if at least one FILER has SSN (CARES/CAA only, not ARPA)
+# =============================================================================
+
+- name: CARES - Joint filers both ITIN with child SSN get zero credit
+  period: 2020
+  input:
+    people:
+      spouse1:
+        age: 30
+        ssn_card_type: OTHER_NON_CITIZEN
+      spouse2:
+        age: 30
+        ssn_card_type: OTHER_NON_CITIZEN
+      child:
+        age: 10
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [spouse1, spouse2, child]
+        filing_status: JOINT
+  output:
+    # Per 26 USC 6428(g)(1)(C), child only counts if:
+    # (i) at least one filer has SSN AND (ii) child has SSN
+    # No filer has SSN, so child does NOT count even though child has SSN
+    rrc_cares: 0
+
+- name: CAA - Joint filers both ITIN with child SSN get zero credit
+  period: 2020
+  input:
+    people:
+      spouse1:
+        age: 30
+        ssn_card_type: OTHER_NON_CITIZEN
+      spouse2:
+        age: 30
+        ssn_card_type: OTHER_NON_CITIZEN
+      child:
+        age: 10
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [spouse1, spouse2, child]
+        filing_status: JOINT
+  output:
+    # Per 26 USC 6428A(g)(3), child only counts if:
+    # (i) at least one filer has SSN AND (ii) child has SSN
+    # No filer has SSN, so child does NOT count even though child has SSN
+    rrc_caa: 0
+
+- name: ARPA - Joint filers both ITIN with child SSN DO get child credit
+  period: 2021
+  input:
+    people:
+      spouse1:
+        age: 30
+        ssn_card_type: OTHER_NON_CITIZEN
+      spouse2:
+        age: 30
+        ssn_card_type: OTHER_NON_CITIZEN
+      child:
+        age: 10
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [spouse1, spouse2, child]
+        filing_status: JOINT
+  output:
+    # ARPA (26 USC 6428B) intentionally omits the filer-SSN precondition for dependents
+    # Child with SSN counts even if no filer has SSN
+    # Adults: $0 (no SSN) + Child: $1,400 = $1,400
+    rrc_arpa: 1_400
+
+- name: CARES - Single filer ITIN with child SSN gets zero credit
+  period: 2020
+  input:
+    people:
+      parent:
+        age: 30
+        ssn_card_type: OTHER_NON_CITIZEN
+      child:
+        age: 10
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+  output:
+    # Per 26 USC 6428(g)(1)(C)(i), child only counts if filer has SSN
+    # Filer has ITIN, not SSN, so child does NOT count
+    rrc_cares: 0
+
+- name: CAA - Single filer ITIN with child SSN gets zero credit
+  period: 2020
+  input:
+    people:
+      parent:
+        age: 30
+        ssn_card_type: OTHER_NON_CITIZEN
+      child:
+        age: 10
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+  output:
+    # Per 26 USC 6428A(g)(3), child only counts if filer has SSN
+    # Filer has ITIN, not SSN, so child does NOT count
+    rrc_caa: 0
+
+- name: ARPA - Single filer ITIN with child SSN gets child credit only
+  period: 2021
+  input:
+    people:
+      parent:
+        age: 30
+        ssn_card_type: OTHER_NON_CITIZEN
+      child:
+        age: 10
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+  output:
+    # ARPA intentionally omits filer-SSN precondition for dependents
+    # Parent: $0 (no SSN) + Child: $1,400 = $1,400
+    rrc_arpa: 1_400
