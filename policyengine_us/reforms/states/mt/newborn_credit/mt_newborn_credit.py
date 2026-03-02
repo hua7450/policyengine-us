@@ -60,8 +60,6 @@ def create_mt_newborn_credit() -> Reform:
 
         def formula(tax_unit, period, parameters):
             p = parameters(period).gov.contrib.states.mt.newborn_credit
-            if not p.in_effect:
-                return 0
             qualifying_children = add(
                 tax_unit, period, ["mt_newborn_credit_eligible_child"]
             )
