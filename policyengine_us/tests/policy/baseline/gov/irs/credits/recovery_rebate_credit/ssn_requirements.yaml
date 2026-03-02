@@ -124,7 +124,7 @@
   output:
     rrc_arpa: 2_800
 
-- name: ARPA - Armed Forces exception requires military spouse to have SSN
+- name: ARPA - Armed Forces exception applies when military and SSN are different spouses
   period: 2021
   input:
     people:
@@ -140,9 +140,28 @@
         members: [military_spouse, civilian_spouse]
         filing_status: JOINT
   output:
-    # No armed forces exception because military spouse lacks SSN
-    # But civilian spouse has SSN, so get half credit
-    rrc_arpa: 1_400
+    # Armed Forces exception: at least 1 spouse is military AND at least 1 spouse has SSN
+    # These can be different people per 26 USC 6428B(e)(2)(E)
+    rrc_arpa: 2_800
+
+- name: ARPA - Armed Forces exception does not apply when no spouse has SSN
+  period: 2021
+  input:
+    people:
+      military_spouse:
+        age: 30
+        ssn_card_type: OTHER_NON_CITIZEN
+        is_military: true
+      civilian_spouse:
+        age: 30
+        ssn_card_type: OTHER_NON_CITIZEN
+    tax_units:
+      tax_unit:
+        members: [military_spouse, civilian_spouse]
+        filing_status: JOINT
+  output:
+    # Military spouse exists but no spouse has SSN - exception does not apply
+    rrc_arpa: 0
 
 # =============================================================================
 # ARPA (2021) - Dependent SSN Tests
