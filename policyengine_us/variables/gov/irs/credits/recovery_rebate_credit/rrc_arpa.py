@@ -7,7 +7,10 @@ class rrc_arpa(Variable):
     label = "Recovery Rebate Credit (ARPA)"
     unit = USD
     definition_period = YEAR
-    reference = "https://www.law.cornell.edu/uscode/text/26/6428B"
+    reference = (
+        "https://www.law.cornell.edu/uscode/text/26/6428B",
+        "https://www.law.cornell.edu/uscode/text/26/6428B#e_2",
+    )
 
     def formula(tax_unit, period, parameters):
         rrc = parameters(period).gov.irs.credits.recovery_rebate_credit

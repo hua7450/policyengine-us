@@ -2,6 +2,9 @@ from policyengine_us.model_api import *
 
 
 class rrc_arpa_dependents_with_valid_ssn(Variable):
+    # Note: Unlike CARES (6428(g)(1)(C)) and CAA (6428A(g)(3)), ARPA
+    # intentionally omits the filer-SSN precondition for dependents per
+    # 26 USC 6428B(e)(2)(C). Dependents with SSN count even if no filer has SSN.
     value_type = int
     entity = TaxUnit
     definition_period = YEAR

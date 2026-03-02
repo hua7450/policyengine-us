@@ -7,7 +7,10 @@ class rrc_caa(Variable):
     label = "Recovery Rebate Credit (CAA)"
     unit = USD
     definition_period = YEAR
-    reference = "https://www.law.cornell.edu/uscode/text/26/6428A"
+    reference = (
+        "https://www.law.cornell.edu/uscode/text/26/6428A",
+        "https://www.law.cornell.edu/uscode/text/26/6428A#g",
+    )
 
     def formula(tax_unit, period, parameters):
         rrc = parameters(period).gov.irs.credits.recovery_rebate_credit

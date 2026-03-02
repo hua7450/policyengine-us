@@ -7,7 +7,10 @@ class rrc_cares(Variable):
     label = "Recovery Rebate Credit (CARES)"
     unit = USD
     definition_period = YEAR
-    reference = "https://www.law.cornell.edu/uscode/text/26/6428"
+    reference = (
+        "https://www.law.cornell.edu/uscode/text/26/6428",
+        "https://www.law.cornell.edu/uscode/text/26/6428#g",
+    )
 
     def formula(tax_unit, period, parameters):
         rrc = parameters(period).gov.irs.credits.recovery_rebate_credit

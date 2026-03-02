@@ -720,3 +720,154 @@
     # ARPA intentionally omits filer-SSN precondition for dependents
     # Parent: $0 (no SSN) + Child: $1,400 = $1,400
     rrc_arpa: 1_400
+
+# =============================================================================
+# CARES Phase-out + SSN Interaction Tests
+# =============================================================================
+
+- name: CARES - Single filer with SSN at phase-out threshold (exact boundary)
+  period: 2020
+  input:
+    people:
+      person:
+        age: 30
+        ssn_card_type: CITIZEN
+        employment_income: 75_000
+    tax_units:
+      tax_unit:
+        members: [person]
+  output:
+    # At exactly $75,000 threshold, no reduction yet
+    rrc_cares: 1_200
+
+- name: CARES - Single filer with SSN partial phase-out
+  period: 2020
+  input:
+    people:
+      person:
+        age: 30
+        ssn_card_type: CITIZEN
+        employment_income: 85_000
+    tax_units:
+      tax_unit:
+        members: [person]
+  output:
+    # $10,000 above threshold * 5% rate = $500 reduction
+    # $1,200 - $500 = $700
+    rrc_cares: 700
+
+- name: CARES - Single filer with SSN fully phased out
+  period: 2020
+  input:
+    people:
+      person:
+        age: 30
+        ssn_card_type: CITIZEN
+        employment_income: 99_000
+    tax_units:
+      tax_unit:
+        members: [person]
+  output:
+    # $24,000 above threshold * 5% rate = $1,200 reduction
+    # $1,200 - $1,200 = $0
+    rrc_cares: 0
+
+- name: CARES - Joint with one SSN partial phase-out
+  period: 2020
+  input:
+    people:
+      spouse1:
+        age: 30
+        ssn_card_type: CITIZEN
+        employment_income: 160_000
+      spouse2:
+        age: 30
+        ssn_card_type: OTHER_NON_CITIZEN
+    tax_units:
+      tax_unit:
+        members: [spouse1, spouse2]
+        filing_status: JOINT
+  output:
+    # One SSN = $1,200 max. Threshold $150k for JOINT
+    # $10,000 above threshold * 5% = $500 reduction
+    # $1,200 - $500 = $700
+    rrc_cares: 700
+
+# =============================================================================
+# CAA Phase-out + SSN Interaction Tests
+# =============================================================================
+
+- name: CAA - Single filer with SSN at phase-out threshold (exact boundary)
+  period: 2020
+  input:
+    people:
+      person:
+        age: 30
+        ssn_card_type: CITIZEN
+        employment_income: 75_000
+    tax_units:
+      tax_unit:
+        members: [person]
+  output:
+    # At exactly $75,000 threshold, no reduction yet
+    rrc_caa: 600
+
+- name: CAA - Single filer with SSN partial phase-out
+  period: 2020
+  input:
+    people:
+      person:
+        age: 30
+        ssn_card_type: CITIZEN
+        employment_income: 81_000
+    tax_units:
+      tax_unit:
+        members: [person]
+  output:
+    # $6,000 above threshold * 5% rate = $300 reduction
+    # $600 - $300 = $300
+    rrc_caa: 300
+
+- name: CAA - Single filer with SSN fully phased out
+  period: 2020
+  input:
+    people:
+      person:
+        age: 30
+        ssn_card_type: CITIZEN
+        employment_income: 87_000
+    tax_units:
+      tax_unit:
+        members: [person]
+  output:
+    # $12,000 above threshold * 5% rate = $600 reduction
+    # $600 - $600 = $0
+    rrc_caa: 0
+
+# =============================================================================
+# Helper Variable Direct Assertions
+# =============================================================================
+
+- name: ARPA - Direct helper variable assertion for adult count
+  period: 2021
+  input:
+    people:
+      spouse1:
+        age: 30
+        ssn_card_type: CITIZEN
+      spouse2:
+        age: 30
+        ssn_card_type: OTHER_NON_CITIZEN
+      child:
+        age: 10
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [spouse1, spouse2, child]
+        filing_status: JOINT
+  output:
+    # Direct assertions on helper variables
+    rrc_adult_count_with_valid_ssn: 1
+    rrc_arpa_dependents_with_valid_ssn: 1
+    # Final credit: 1 adult * $1,400 + 1 dependent * $1,400 = $2,800
+    rrc_arpa: 2_800
