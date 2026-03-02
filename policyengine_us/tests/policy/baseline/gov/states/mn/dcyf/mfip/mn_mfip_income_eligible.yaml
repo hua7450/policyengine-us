@@ -16,8 +16,8 @@
         state_code: MN
   output:
     # Countable income: $0
-    # FWL for 2: $706.2
-    # 0 < 706.2 = true
+    # FWL for 2: $1,195.7
+    # 0 < 1195.7 = true
     mn_mfip_income_eligible: true
 
 - name: Case 2, income just below family wage level.
@@ -40,8 +40,8 @@
   output:
     # Gross: $1,400/month
     # After disregard: (1400-65)*0.5 = $667.50
-    # FWL for 2: $706.2
-    # 667.50 < 706.2 = true
+    # FWL for 2: $1,195.7
+    # 667.50 < 1195.7 = true
     mn_mfip_income_eligible: true
 
 - name: Case 3, income above family wage level.
@@ -64,6 +64,6 @@
   output:
     # Gross: $3,000/month
     # After disregard: (3000-65)*0.5 = $1,467.50
-    # FWL for 2: $706.2
-    # 1,467.50 < 706.2 = false
+    # FWL for 2: $1,195.7
+    # 1,467.50 < 1195.7 = false
     mn_mfip_income_eligible: false

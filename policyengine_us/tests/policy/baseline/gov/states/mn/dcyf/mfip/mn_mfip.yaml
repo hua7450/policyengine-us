@@ -16,9 +16,11 @@
         members: [person1, person2]
         state_code: MN
   output:
-    # Cash TS for 2: $642
-    # FWL: 642 * 1.1 = $706.2
-    # Benefit = min(706.2-0, 642) - 0 = $642
+    # Cash TS for 2: $642, Food: $445, Full TS: $1,087
+    # FWL: 1087 * 1.1 = $1,195.7
+    # Earned-based: min(1195.7-0, 1087) = $1,087
+    # Gross: max(1087-0, 0) = $1,087
+    # Cash benefit: max(1087-445, 0) = $642
     mn_mfip: 642
 
 - name: Case 2, earned income reduces benefit.
@@ -40,13 +42,14 @@
         members: [person1, person2]
         state_code: MN
   output:
-    # Cash TS for 2: $642
-    # FWL: 642 * 1.1 = $706.2
+    # Cash TS for 2: $642, Food: $445, Full TS: $1,087
+    # FWL: $1,195.7
     # Gross earned: $500/month
     # Countable earned: (500-65)*0.5 = $217.50
-    # Earned-based: min(706.2-217.5, 642) = min(488.7, 642) = $488.70
-    # Benefit = max(488.7 - 0, 0) = $488.70
-    mn_mfip: 488.7
+    # Earned-based: min(1195.7-217.5, 1087) = min(978.2, 1087) = $978.20
+    # Gross: max(978.2-0, 0) = $978.20
+    # Cash benefit: max(978.2-445, 0) = $533.20
+    mn_mfip: 533.2
 
 - name: Case 3, unearned income reduces benefit.
   period: 2025-01
@@ -67,11 +70,12 @@
         members: [person1, person2]
         state_code: MN
   output:
-    # Cash TS for 2: $642
-    # FWL: $706.2
+    # Cash TS for 2: $642, Food: $445, Full TS: $1,087
+    # FWL: $1,195.7
     # Child support: $300, disregard: $100, countable: $200
-    # Earned-based: min(706.2-0, 642) = $642
-    # Benefit = max(642 - 200, 0) = $442
+    # Earned-based: min(1195.7-0, 1087) = $1,087
+    # Gross: max(1087-200, 0) = $887
+    # Cash benefit: max(887-445, 0) = $442
     mn_mfip: 442
 
 - name: Case 4, both earned and unearned income.
@@ -94,14 +98,15 @@
         members: [person1, person2]
         state_code: MN
   output:
-    # Cash TS for 2: $642
-    # FWL: 642 * 1.1 = $706.2
+    # Cash TS for 2: $642, Food: $445, Full TS: $1,087
+    # FWL: $1,195.7
     # Gross earned: $500/month
     # Countable earned: (500-65)*0.5 = $217.50
     # Child support: $200, disregard: $100, countable: $100
-    # Earned-based: min(706.2-217.5, 642) = min(488.7, 642) = $488.70
-    # Benefit = max(488.7 - 100, 0) = $388.70
-    mn_mfip: 388.7
+    # Earned-based: min(1195.7-217.5, 1087) = min(978.2, 1087) = $978.20
+    # Gross: max(978.2-100, 0) = $878.20
+    # Cash benefit: max(878.2-445, 0) = $433.20
+    mn_mfip: 433.2
 
 - name: Case 5, ineligible due to no children.
   period: 2025-01
@@ -141,5 +146,9 @@
         members: [person1, person2, person3]
         state_code: MN
   output:
-    # Cash TS for 3: $756
+    # Cash TS for 3: $756, Food: $638, Full TS: $1,394
+    # FWL: $1,533.4
+    # Earned-based: min(1533.4-0, 1394) = $1,394
+    # Gross: max(1394-0, 0) = $1,394
+    # Cash benefit: max(1394-638, 0) = $756
     mn_mfip: 756

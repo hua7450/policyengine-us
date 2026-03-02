@@ -13,7 +13,7 @@ metadata:
   period: month
   label: Minnesota MFIP Transitional Standard additional person cash increment
   reference:
-    - title: Minnesota Combined Manual MFIP/DWP Assistance Standards
+    - title: Minnesota Combined Manual MFIP/DWP Assistance Standards (latest version)
       href: https://www.dhs.state.mn.us/main/idcplg?IdcService=GET_DYNAMIC_CONVERSION&RevisionSelectionMethod=LatestReleased&dDocName=cm_002009
     - title: Minnesota DHS Combined Manual February 2020 - MFIP/DWP Assistance Standards
       href: https://www.dhs.state.mn.us/main/idcplg?IdcService=GET_DYNAMIC_CONVERSION&dID=128627
@@ -25,3 +25,5 @@ metadata:
       href: https://www.dhs.state.mn.us/main/idcplg?IdcService=GET_DYNAMIC_CONVERSION&dID=139469
     - title: Minnesota House Research - Minnesota Family Investment Program (2024)
       href: https://www.house.mn.gov/hrd/pubs/pap_mfip.pdf#page=17
+    - title: Minnesota DHS Combined Manual October 2025 - MFIP/DWP Assistance Standards
+      href: https://www.dhs.state.mn.us/main/idcplg?IdcService=GET_DYNAMIC_CONVERSION&dID=160643
