@@ -8,7 +8,7 @@ class mn_mfip_food_portion(Variable):
     unit = USD
     definition_period = MONTH
     reference = (
-        "https://www.revisor.mn.gov/statutes/cite/142G.17#stat.142G.17.5",
+        "https://www.revisor.mn.gov/statutes/cite/142G.17#stat.142G.17.5"
     )
     defined_for = StateCode.MN
 

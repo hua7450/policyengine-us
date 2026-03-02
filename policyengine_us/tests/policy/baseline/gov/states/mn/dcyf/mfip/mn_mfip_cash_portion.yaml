@@ -13,7 +13,7 @@
         members: [person1]
         state_code: MN
   output:
-    mn_mfip_transitional_standard: 419
+    mn_mfip_cash_portion: 419
 
 - name: Case 2, family of two.
   period: 2025-01
@@ -32,7 +32,7 @@
         members: [person1, person2]
         state_code: MN
   output:
-    mn_mfip_transitional_standard: 642
+    mn_mfip_cash_portion: 642
 
 - name: Case 3, family of three.
   period: 2025-01
@@ -53,7 +53,7 @@
         members: [person1, person2, person3]
         state_code: MN
   output:
-    mn_mfip_transitional_standard: 756
+    mn_mfip_cash_portion: 756
 
 - name: Case 4, family of ten at max table size.
   period: 2025-01
@@ -88,7 +88,7 @@
         members: [person1, person2, person3, person4, person5, person6, person7, person8, person9, person10]
         state_code: MN
   output:
-    mn_mfip_transitional_standard: 1_357
+    mn_mfip_cash_portion: 1_357
 
 - name: Case 5, family of twelve exceeds max table size.
   period: 2025-01
@@ -128,7 +128,7 @@
         state_code: MN
   output:
     # Size 10 base: $1,357 + 2 additional * $64 = $1,485
-    mn_mfip_transitional_standard: 1_485
+    mn_mfip_cash_portion: 1_485
 
 - name: Case 6, family of three in 2017 using frozen AFDC cash amounts.
   period: 2017-01
@@ -150,7 +150,7 @@
         state_code: MN
   output:
     # Cash portion frozen at AFDC level for family of 3: $532
-    mn_mfip_transitional_standard: 532
+    mn_mfip_cash_portion: 532
 
 - name: Case 7, family of twelve in 2017 using frozen AFDC cash amounts.
   period: 2017-01
@@ -190,7 +190,7 @@
         state_code: MN
   output:
     # Size 10 base: $1,035 + 2 additional * $53 = $1,141
-    mn_mfip_transitional_standard: 1_141
+    mn_mfip_cash_portion: 1_141
 
 - name: Case 8, family of three in 2018 using frozen AFDC cash amounts.
   period: 2018-01
@@ -212,7 +212,7 @@
         state_code: MN
   output:
     # Cash portion frozen at AFDC level for family of 3: $532
-    mn_mfip_transitional_standard: 532
+    mn_mfip_cash_portion: 532
 
 - name: Case 9, family of twelve in 2018 using frozen AFDC cash amounts.
   period: 2018-01
@@ -252,4 +252,4 @@
         state_code: MN
   output:
     # Size 10 base: $1,035 + 2 additional * $53 = $1,141
-    mn_mfip_transitional_standard: 1_141
+    mn_mfip_cash_portion: 1_141

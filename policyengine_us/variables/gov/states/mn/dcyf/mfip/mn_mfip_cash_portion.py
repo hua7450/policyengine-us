@@ -1,7 +1,7 @@
 from policyengine_us.model_api import *
 
 
-class mn_mfip_transitional_standard(Variable):
+class mn_mfip_cash_portion(Variable):
     value_type = float
     entity = SPMUnit
     label = "Minnesota MFIP Transitional Standard (cash portion)"

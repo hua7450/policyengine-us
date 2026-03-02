@@ -23,7 +23,7 @@
     mn_mfip_countable_earned_income: 0
     mn_mfip_countable_unearned_income: 0
     # Standards
-    mn_mfip_transitional_standard: 642
+    mn_mfip_cash_portion: 642
     mn_mfip_food_portion: 445
     mn_mfip_family_wage_level: 1_195.7
     # FWL = (642 + 445) * 1.10 = 1,195.70
@@ -67,7 +67,7 @@
     mn_mfip_countable_earned_income: 467.5
     mn_mfip_countable_unearned_income: 0
     # Standards for family of 3
-    mn_mfip_transitional_standard: 756
+    mn_mfip_cash_portion: 756
     mn_mfip_food_portion: 638
     mn_mfip_family_wage_level: 1_533.4
     # FWL = (756 + 638) * 1.10 = 1,533.40
@@ -118,7 +118,7 @@
     mn_mfip_countable_earned_income: 0
     mn_mfip_countable_unearned_income: 200
     # Standards for family of 3
-    mn_mfip_transitional_standard: 756
+    mn_mfip_cash_portion: 756
     mn_mfip_food_portion: 638
     mn_mfip_family_wage_level: 1_533.4
 
@@ -166,7 +166,7 @@
     # Child support: $250, exclusion $100, countable $150
     mn_mfip_countable_unearned_income: 150
     # Standards for family of 2
-    mn_mfip_transitional_standard: 642
+    mn_mfip_cash_portion: 642
     mn_mfip_food_portion: 445
     mn_mfip_family_wage_level: 1_195.7
 
@@ -279,7 +279,7 @@
     spm_unit_count_children: 8
 
     # Standards for family of 10
-    mn_mfip_transitional_standard: 1_357
+    mn_mfip_cash_portion: 1_357
     mn_mfip_food_portion: 1_844
     mn_mfip_family_wage_level: 3_521.1
     # FWL = (1357 + 1844) * 1.10 = 3,521.10

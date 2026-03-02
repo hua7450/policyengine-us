@@ -152,3 +152,57 @@
     # Gross: max(1394-0, 0) = $1,394
     # Cash benefit: max(1394-638, 0) = $756
     mn_mfip: 756
+
+- name: Case 7, high unearned income floors gross benefit to zero.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        child_support_received: 14_400  # $1,200/month
+      person2:
+        age: 8
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_assets: 5_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: MN
+  output:
+    # Cash TS for 2: $642, Food: $445, Full TS: $1,087
+    # FWL: $1,195.7
+    # Child support: $1,200, disregard: $100, countable unearned: $1,100
+    # Earned-based: min(1195.7-0, 1087) = $1,087
+    # Gross: max(1087-1100, 0) = $0 (unearned floor hit)
+    # Cash benefit: max(0-445, 0) = $0
+    mn_mfip: 0
+
+- name: Case 8, food subtraction floors cash benefit to zero.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        child_support_received: 9_600  # $800/month
+      person2:
+        age: 8
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_assets: 5_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: MN
+  output:
+    # Cash TS for 2: $642, Food: $445, Full TS: $1,087
+    # FWL: $1,195.7
+    # Child support: $800, disregard: $100, countable unearned: $700
+    # Earned-based: min(1195.7-0, 1087) = $1,087
+    # Gross: max(1087-700, 0) = $387
+    # Cash benefit: max(387-445, 0) = $0 (food subtraction floor hit)
+    mn_mfip: 0
