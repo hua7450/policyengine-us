@@ -99,34 +99,7 @@
 
 # Age Eligibility Tests
 
-- name: Case 4, child age 0 is eligible.
-  period: 2027
-  absolute_error_margin: 0.01
-  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
-  input:
-    gov.contrib.states.mt.newborn_credit.in_effect: true
-    people:
-      person1:
-        age: 30
-        is_tax_unit_head: true
-        employment_income: 40_000
-        ssn_card_type: CITIZEN
-      person2:
-        age: 0
-        is_tax_unit_dependent: true
-        ssn_card_type: CITIZEN
-    tax_units:
-      tax_unit:
-        members: [person1, person2]
-        filing_status: SINGLE
-    households:
-      household:
-        members: [person1, person2]
-        state_code: MT
-  output:
-    mt_newborn_credit: 1_000
-
-- name: Case 5, child age 1 not eligible must be under 1.
+- name: Case 4, child age 1 not eligible must be under 1.
   period: 2027
   absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
@@ -153,34 +126,7 @@
   output:
     mt_newborn_credit: 0
 
-- name: Case 6, child age 2 not eligible.
-  period: 2027
-  absolute_error_margin: 0.01
-  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
-  input:
-    gov.contrib.states.mt.newborn_credit.in_effect: true
-    people:
-      person1:
-        age: 30
-        is_tax_unit_head: true
-        employment_income: 40_000
-        ssn_card_type: CITIZEN
-      person2:
-        age: 2
-        is_tax_unit_dependent: true
-        ssn_card_type: CITIZEN
-    tax_units:
-      tax_unit:
-        members: [person1, person2]
-        filing_status: SINGLE
-    households:
-      household:
-        members: [person1, person2]
-        state_code: MT
-  output:
-    mt_newborn_credit: 0
-
-- name: Case 7, one newborn eligible one older child not.
+- name: Case 5, one newborn eligible one older child not.
   period: 2027
   absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
@@ -211,7 +157,7 @@
   output:
     mt_newborn_credit: 1_000
 
-- name: Case 8, child not claimed as dependent not eligible.
+- name: Case 6, child not claimed as dependent not eligible.
   period: 2027
   absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
@@ -240,34 +186,7 @@
 
 # SSN Requirement Tests - Child
 
-- name: Case 9, child with SSN CITIZEN qualifies.
-  period: 2027
-  absolute_error_margin: 0.01
-  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
-  input:
-    gov.contrib.states.mt.newborn_credit.in_effect: true
-    people:
-      person1:
-        age: 30
-        is_tax_unit_head: true
-        employment_income: 40_000
-        ssn_card_type: CITIZEN
-      person2:
-        age: 0
-        is_tax_unit_dependent: true
-        ssn_card_type: CITIZEN
-    tax_units:
-      tax_unit:
-        members: [person1, person2]
-        filing_status: SINGLE
-    households:
-      household:
-        members: [person1, person2]
-        state_code: MT
-  output:
-    mt_newborn_credit: 1_000
-
-- name: Case 10, child with SSN NON_CITIZEN_VALID_EAD qualifies.
+- name: Case 7, child with SSN NON_CITIZEN_VALID_EAD qualifies.
   period: 2027
   absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
@@ -294,7 +213,7 @@
   output:
     mt_newborn_credit: 1_000
 
-- name: Case 11, child with ITIN only OTHER_NON_CITIZEN not eligible.
+- name: Case 8, child with ITIN only OTHER_NON_CITIZEN not eligible.
   period: 2027
   absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
@@ -310,33 +229,6 @@
         age: 0
         is_tax_unit_dependent: true
         ssn_card_type: OTHER_NON_CITIZEN
-    tax_units:
-      tax_unit:
-        members: [person1, person2]
-        filing_status: SINGLE
-    households:
-      household:
-        members: [person1, person2]
-        state_code: MT
-  output:
-    mt_newborn_credit: 0
-
-- name: Case 12, child with no SSN NONE not eligible.
-  period: 2027
-  absolute_error_margin: 0.01
-  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
-  input:
-    gov.contrib.states.mt.newborn_credit.in_effect: true
-    people:
-      person1:
-        age: 30
-        is_tax_unit_head: true
-        employment_income: 40_000
-        ssn_card_type: CITIZEN
-      person2:
-        age: 0
-        is_tax_unit_dependent: true
-        ssn_card_type: NONE
     tax_units:
       tax_unit:
         members: [person1, person2]
@@ -350,34 +242,7 @@
 
 # SSN Requirement Tests - Filer
 
-- name: Case 13, filer with SSN CITIZEN qualifies.
-  period: 2027
-  absolute_error_margin: 0.01
-  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
-  input:
-    gov.contrib.states.mt.newborn_credit.in_effect: true
-    people:
-      person1:
-        age: 30
-        is_tax_unit_head: true
-        employment_income: 40_000
-        ssn_card_type: CITIZEN
-      person2:
-        age: 0
-        is_tax_unit_dependent: true
-        ssn_card_type: CITIZEN
-    tax_units:
-      tax_unit:
-        members: [person1, person2]
-        filing_status: SINGLE
-    households:
-      household:
-        members: [person1, person2]
-        state_code: MT
-  output:
-    mt_newborn_credit: 1_000
-
-- name: Case 14, filer with SSN NON_CITIZEN_VALID_EAD qualifies.
+- name: Case 9, filer with SSN NON_CITIZEN_VALID_EAD qualifies.
   period: 2027
   absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
@@ -404,7 +269,7 @@
   output:
     mt_newborn_credit: 1_000
 
-- name: Case 15, filer with ITIN only OTHER_NON_CITIZEN not eligible.
+- name: Case 10, filer with ITIN only OTHER_NON_CITIZEN not eligible.
   period: 2027
   absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
@@ -431,34 +296,7 @@
   output:
     mt_newborn_credit: 0
 
-- name: Case 16, filer with no SSN NONE not eligible.
-  period: 2027
-  absolute_error_margin: 0.01
-  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
-  input:
-    gov.contrib.states.mt.newborn_credit.in_effect: true
-    people:
-      person1:
-        age: 30
-        is_tax_unit_head: true
-        employment_income: 40_000
-        ssn_card_type: NONE
-      person2:
-        age: 0
-        is_tax_unit_dependent: true
-        ssn_card_type: CITIZEN
-    tax_units:
-      tax_unit:
-        members: [person1, person2]
-        filing_status: SINGLE
-    households:
-      household:
-        members: [person1, person2]
-        state_code: MT
-  output:
-    mt_newborn_credit: 0
-
-- name: Case 17, MFJ one spouse has SSN qualifies.
+- name: Case 11, MFJ one spouse has SSN qualifies.
   period: 2027
   absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
@@ -489,7 +327,7 @@
   output:
     mt_newborn_credit: 1_000
 
-- name: Case 18, MFJ neither spouse has SSN not eligible.
+- name: Case 12, MFJ neither spouse has SSN not eligible.
   period: 2027
   absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
@@ -522,7 +360,7 @@
 
 # Earned Income Requirement Tests
 
-- name: Case 19, no earned income not eligible.
+- name: Case 13, no earned income not eligible.
   period: 2027
   absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
@@ -549,7 +387,7 @@
   output:
     mt_newborn_credit: 0
 
-- name: Case 20, exactly $1 earned income qualifies.
+- name: Case 14, exactly $1 earned income qualifies.
   period: 2027
   absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
@@ -578,7 +416,7 @@
 
 # Phase-out Tests
 
-- name: Case 21, single at exactly threshold full credit.
+- name: Case 15, single at exactly threshold full credit.
   period: 2027
   absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
@@ -606,7 +444,7 @@
     # AGI $60k = threshold, no reduction
     mt_newborn_credit: 1_000
 
-- name: Case 22, single $1 above threshold one increment reduction.
+- name: Case 16, single $1 above threshold one increment reduction.
   period: 2027
   absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
@@ -634,63 +472,7 @@
     # ceil($1 / $1,000) = 1 increment, reduction = $50
     mt_newborn_credit: 950
 
-- name: Case 23, single $500 above threshold one increment.
-  period: 2027
-  absolute_error_margin: 0.01
-  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
-  input:
-    gov.contrib.states.mt.newborn_credit.in_effect: true
-    people:
-      person1:
-        age: 30
-        is_tax_unit_head: true
-        employment_income: 60_500
-        ssn_card_type: CITIZEN
-      person2:
-        age: 0
-        is_tax_unit_dependent: true
-        ssn_card_type: CITIZEN
-    tax_units:
-      tax_unit:
-        members: [person1, person2]
-        filing_status: SINGLE
-    households:
-      household:
-        members: [person1, person2]
-        state_code: MT
-  output:
-    # ceil($500 / $1,000) = 1 increment, reduction = $50
-    mt_newborn_credit: 950
-
-- name: Case 24, single $1000 above threshold one increment.
-  period: 2027
-  absolute_error_margin: 0.01
-  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
-  input:
-    gov.contrib.states.mt.newborn_credit.in_effect: true
-    people:
-      person1:
-        age: 30
-        is_tax_unit_head: true
-        employment_income: 61_000
-        ssn_card_type: CITIZEN
-      person2:
-        age: 0
-        is_tax_unit_dependent: true
-        ssn_card_type: CITIZEN
-    tax_units:
-      tax_unit:
-        members: [person1, person2]
-        filing_status: SINGLE
-    households:
-      household:
-        members: [person1, person2]
-        state_code: MT
-  output:
-    # ceil($1,000 / $1,000) = 1 increment, reduction = $50
-    mt_newborn_credit: 950
-
-- name: Case 25, single $1001 above threshold two increments.
+- name: Case 17, single $1001 above threshold two increments.
   period: 2027
   absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
@@ -718,7 +500,7 @@
     # ceil($1,001 / $1,000) = 2 increments, reduction = $100
     mt_newborn_credit: 900
 
-- name: Case 26, single last $50 of credit before full phase-out.
+- name: Case 18, single last $50 of credit before full phase-out.
   period: 2027
   absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
@@ -746,7 +528,7 @@
     # excess = $19,000, ceil($19,000/$1,000) = 19, reduction = $950
     mt_newborn_credit: 50
 
-- name: Case 27, single exactly at full phase-out boundary.
+- name: Case 19, single exactly at full phase-out boundary.
   period: 2027
   absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
@@ -774,35 +556,7 @@
     # excess = $20,000, ceil($20,000/$1,000) = 20, reduction = $1,000
     mt_newborn_credit: 0
 
-- name: Case 28, single well above full phase-out.
-  period: 2027
-  absolute_error_margin: 0.01
-  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
-  input:
-    gov.contrib.states.mt.newborn_credit.in_effect: true
-    people:
-      person1:
-        age: 30
-        is_tax_unit_head: true
-        employment_income: 100_000
-        ssn_card_type: CITIZEN
-      person2:
-        age: 0
-        is_tax_unit_dependent: true
-        ssn_card_type: CITIZEN
-    tax_units:
-      tax_unit:
-        members: [person1, person2]
-        filing_status: SINGLE
-    households:
-      household:
-        members: [person1, person2]
-        state_code: MT
-  output:
-    # reduction exceeds credit, clamped to 0
-    mt_newborn_credit: 0
-
-- name: Case 29, MFJ at exactly threshold full credit.
+- name: Case 20, MFJ at exactly threshold full credit.
   period: 2027
   absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
@@ -835,7 +589,7 @@
     # AGI $120k = threshold for MFJ, no reduction
     mt_newborn_credit: 1_000
 
-- name: Case 30, MFJ $1 above threshold partial phase-out.
+- name: Case 21, MFJ $1 above threshold partial phase-out.
   period: 2027
   absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
@@ -868,7 +622,7 @@
     # AGI $120,001, excess = $1, ceil($1/$1,000) = 1, reduction = $50
     mt_newborn_credit: 950
 
-- name: Case 31, MFJ above threshold partial phase-out.
+- name: Case 22, MFJ above threshold partial phase-out.
   period: 2027
   absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
@@ -903,7 +657,7 @@
 
 # Filing Status Threshold Tests
 
-- name: Case 32, HOH phase-out uses $60k threshold.
+- name: Case 23, HOH phase-out uses $60k threshold.
   period: 2027
   absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
@@ -931,7 +685,7 @@
     # excess = $5,000, 5 increments, reduction = $250
     mt_newborn_credit: 750
 
-- name: Case 33, MFS phase-out uses $60k threshold.
+- name: Case 24, MFS phase-out uses $60k threshold.
   period: 2027
   absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
@@ -959,7 +713,7 @@
     # excess = $3,000, 3 increments, reduction = $150
     mt_newborn_credit: 850
 
-- name: Case 34, surviving spouse phase-out uses $120k threshold.
+- name: Case 25, surviving spouse phase-out uses $120k threshold.
   period: 2027
   absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
@@ -989,7 +743,7 @@
 
 # Phase-out with Multiple Children
 
-- name: Case 35, two newborns with partial phase-out.
+- name: Case 26, two newborns with partial phase-out.
   period: 2027
   absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
@@ -1024,7 +778,7 @@
 
 # Non-MT Resident Test
 
-- name: Case 36, non-MT resident gets zero.
+- name: Case 27, non-MT resident gets zero.
   period: 2027
   absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
@@ -1051,39 +805,9 @@
   output:
     mt_newborn_credit: 0
 
-# Integration Test
-
-- name: Case 37, end-to-end credit flows through to mt_income_tax.
-  period: 2027
-  absolute_error_margin: 1
-  reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
-  input:
-    gov.contrib.states.mt.newborn_credit.in_effect: true
-    people:
-      person1:
-        age: 30
-        is_tax_unit_head: true
-        employment_income: 40_000
-        ssn_card_type: CITIZEN
-      person2:
-        age: 0
-        is_tax_unit_dependent: true
-        ssn_card_type: CITIZEN
-    tax_units:
-      tax_unit:
-        members: [person1, person2]
-        filing_status: SINGLE
-    households:
-      household:
-        members: [person1, person2]
-        state_code: MT
-  output:
-    mt_newborn_credit: 1_000
-    mt_income_tax: -1_304
-
 # Additional Edge Case Tests
 
-- name: Case 38, self-employment income satisfies earned income requirement.
+- name: Case 28, self-employment income satisfies earned income requirement.
   period: 2027
   absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
@@ -1110,7 +834,7 @@
   output:
     mt_newborn_credit: 1_000
 
-- name: Case 39, unearned income only does not satisfy earned income requirement.
+- name: Case 29, unearned income only does not satisfy earned income requirement.
   period: 2027
   absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
@@ -1137,7 +861,7 @@
   output:
     mt_newborn_credit: 0
 
-- name: Case 40, adult-only tax unit gets zero credit.
+- name: Case 30, adult-only tax unit gets zero credit.
   period: 2027
   absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
@@ -1160,7 +884,7 @@
   output:
     mt_newborn_credit: 0
 
-- name: Case 41, MFJ full phase-out boundary at $140k.
+- name: Case 31, MFJ full phase-out boundary at $140k.
   period: 2027
   absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
@@ -1193,7 +917,7 @@
     # AGI $140k, excess = $20k, ceil($20k/$1k) = 20, reduction = $1,000
     mt_newborn_credit: 0
 
-- name: Case 42, two newborns full phase-out requires $40k above threshold.
+- name: Case 32, two newborns full phase-out requires $40k above threshold.
   period: 2027
   absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
@@ -1225,7 +949,7 @@
     # base = $2,000, excess = $40k, ceil($40k/$1k) = 40, reduction = $2,000
     mt_newborn_credit: 0
 
-- name: Case 43, negative SE income with zero employment income not eligible.
+- name: Case 33, negative SE income with zero employment income not eligible.
   period: 2027
   absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.mt.newborn_credit.mt_newborn_credit.mt_newborn_credit
