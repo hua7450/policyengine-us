@@ -16,7 +16,7 @@ def create_al_hb527_overtime_deduction() -> Reform:
         def formula(tax_unit, period, parameters):
             p = parameters(period).gov.contrib.states.al.hb527
             person = tax_unit.members
-            # Use federal FLSA overtime premium calculation per 26 USC 225
+            # Use federal FLSA overtime premium calculation per 29 USC 207
             overtime_income = person("fsla_overtime_premium", period)
             total_overtime = tax_unit.sum(overtime_income)
             # Cap at $1,000 per taxpayer
@@ -34,9 +34,6 @@ def create_al_hb527_overtime_deduction() -> Reform:
         unit = USD
         definition_period = YEAR
         reference = "https://alisondb.legislature.state.al.us/alison/CodeOfAlabama/1975/Coatoc.htm"
-
-        adds = "gov.states.al.tax.income.agi.gross_income_sources"
-        subtracts = "gov.states.al.tax.income.agi.deductions"
 
         def formula(tax_unit, period, parameters):
             p = parameters(period).gov.contrib.states.al.hb527
