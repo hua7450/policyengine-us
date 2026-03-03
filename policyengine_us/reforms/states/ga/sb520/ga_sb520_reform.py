@@ -19,7 +19,7 @@ def create_ga_sb520() -> Reform:
             p_sb520 = parameters(period).gov.contrib.states.ga.sb520
             filing_status = tax_unit("filing_status", period)
 
-            sb520_active = p_sb520.active2026
+            sb520_active = p_sb520.in_effect
 
             sb520_base = p_sb520.deductions.standard.amount[filing_status]
             sb520_threshold = p_sb520.deductions.standard.phase_out.threshold[
@@ -58,11 +58,12 @@ def create_ga_sb520() -> Reform:
             p = parameters(period).gov.states.ga.tax.income.credits.ctc
             p_sb520 = parameters(period).gov.contrib.states.ga.sb520
 
-            sb520_active = p_sb520.active2026
+            sb520_active = p_sb520.in_effect
 
             person = tax_unit.members
             age = person("age", period)
             ctc_eligible_child = person("ctc_qualifying_child", period)
+            # SB 520 preserves baseline GA CTC age threshold (under 6)
             ga_child_age_eligible = age < p.age_threshold
             eligible_children = tax_unit.sum(
                 ctc_eligible_child & ga_child_age_eligible
@@ -90,7 +91,7 @@ def create_ga_sb520() -> Reform:
         def formula(tax_unit, period, parameters):
             p_sb520 = parameters(period).gov.contrib.states.ga.sb520
 
-            sb520_active = p_sb520.active2026
+            sb520_active = p_sb520.in_effect
 
             federal_eitc = tax_unit("eitc", period)
             match_rate = p_sb520.credits.eitc.match
@@ -110,7 +111,7 @@ def create_ga_sb520() -> Reform:
         def formula(tax_unit, period, parameters):
             p_sb520 = parameters(period).gov.contrib.states.ga.sb520
 
-            sb520_active = p_sb520.active2026
+            sb520_active = p_sb520.in_effect
 
             ga_ctc_amount = tax_unit("ga_ctc", period)
             ga_eitc_amount = tax_unit("ga_eitc", period)
@@ -133,7 +134,7 @@ def create_ga_sb520() -> Reform:
             ).gov.states.ga.tax.income.credits.non_refundable
             p_sb520 = parameters(period).gov.contrib.states.ga.sb520
 
-            sb520_active = p_sb520.active2026
+            sb520_active = p_sb520.in_effect
 
             baseline_credits = add(tax_unit, period, p)
 
@@ -160,7 +161,7 @@ def create_ga_sb520() -> Reform:
             p = parameters(period).gov.states.ga.tax.income.main
             p_sb520 = parameters(period).gov.contrib.states.ga.sb520
 
-            sb520_2027_active = p_sb520.active2027
+            sb520_2027_active = p_sb520.brackets.in_effect
 
             filing_status = tax_unit("filing_status", period)
             status = filing_status.possible_values
@@ -175,11 +176,11 @@ def create_ga_sb520() -> Reform:
                     filing_status == status.SURVIVING_SPOUSE,
                 ],
                 [
-                    p_sb520.tax.single.calc(income),
-                    p_sb520.tax.separate.calc(income),
-                    p_sb520.tax.joint.calc(income),
-                    p_sb520.tax.head_of_household.calc(income),
-                    p_sb520.tax.surviving_spouse.calc(income),
+                    p_sb520.brackets.single.calc(income),
+                    p_sb520.brackets.separate.calc(income),
+                    p_sb520.brackets.joint.calc(income),
+                    p_sb520.brackets.head_of_household.calc(income),
+                    p_sb520.brackets.surviving_spouse.calc(income),
                 ],
             )
 
@@ -224,10 +225,8 @@ def create_ga_sb520_reform(parameters, period, bypass: bool = False):
     current_period = period_(period)
 
     for i in range(5):
-        if (
-            p_sb520(current_period).active2026
-            or p_sb520(current_period).active2027
-        ):
+        p_at_period = p_sb520(current_period)
+        if p_at_period.in_effect or p_at_period.brackets.in_effect:
             reform_active = True
             break
         current_period = current_period.offset(1, "year")
