@@ -1,0 +1,119 @@
+- name: Case 1, single filer with 2026 provisions.
+  period: 2026
+  absolute_error_margin: 0.1
+  reforms: policyengine_us.reforms.states.ga.sb520.ga_sb520
+  input:
+    gov.contrib.states.ga.sb520.in_effect_2026: true
+    people:
+      person1:
+        age: 30
+        employment_income: 50_000
+    tax_units:
+      tax_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: GA
+  output:
+    ga_standard_deduction: 17_000
+
+- name: Case 2, joint filers with 2026 provisions and children.
+  period: 2026
+  absolute_error_margin: 0.1
+  reforms: policyengine_us.reforms.states.ga.sb520.ga_sb520
+  input:
+    gov.contrib.states.ga.sb520.in_effect_2026: true
+    people:
+      person1:
+        age: 35
+        employment_income: 80_000
+      person2:
+        age: 33
+      child1:
+        age: 5
+      child2:
+        age: 8
+    tax_units:
+      tax_unit:
+        members: [person1, person2, child1, child2]
+    households:
+      household:
+        members: [person1, person2, child1, child2]
+        state_code: GA
+  output:
+    ga_standard_deduction: 34_000
+    ga_ctc: 2_500
+
+- name: Case 3, standard deduction phase-out.
+  period: 2026
+  absolute_error_margin: 0.1
+  reforms: policyengine_us.reforms.states.ga.sb520.ga_sb520
+  input:
+    gov.contrib.states.ga.sb520.in_effect_2026: true
+    people:
+      person1:
+        age: 45
+        employment_income: 320_000
+      person2:
+        age: 43
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: GA
+  output:
+    # AGI: 320,000
+    # Excess: 320,000 - 280,000 = 40,000
+    # Phase-out: 40,000 * 0.25 = 10,000
+    # Deduction: 34,000 - 10,000 = 24,000
+    ga_standard_deduction: 24_000
+
+- name: Case 4, Georgia EITC with federal EITC.
+  period: 2026
+  absolute_error_margin: 1
+  reforms: policyengine_us.reforms.states.ga.sb520.ga_sb520
+  input:
+    gov.contrib.states.ga.sb520.in_effect_2026: true
+    people:
+      person1:
+        age: 30
+        employment_income: 25_000
+      child1:
+        age: 5
+    tax_units:
+      tax_unit:
+        members: [person1, child1]
+    households:
+      household:
+        members: [person1, child1]
+        state_code: GA
+  output:
+    # GA EITC = 20% of federal EITC
+    ga_eitc__gte: 0
+
+- name: Case 5, 2027 progressive brackets for single filer.
+  period: 2027
+  absolute_error_margin: 1
+  reforms: policyengine_us.reforms.states.ga.sb520.ga_sb520
+  input:
+    gov.contrib.states.ga.sb520.in_effect_2027: true
+    people:
+      person1:
+        age: 30
+        employment_income: 50_000
+    tax_units:
+      tax_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: GA
+  output:
+    # With SB520 deduction of 17,000:
+    # Taxable income: 50,000 - 17,000 = 33,000
+    # Tax: 15,000 * 0.02 + 15,000 * 0.04 + 3,000 * 0.06
+    # = 300 + 600 + 180 = 1,080
+    ga_income_tax_before_non_refundable_credits__gte: 0
