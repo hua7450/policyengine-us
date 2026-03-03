@@ -10,7 +10,7 @@ def create_ga_sb520() -> Reform:
         unit = USD
         definition_period = YEAR
         reference = (
-            "https://www.legis.ga.gov/api/legislation/document/20252026/232863#page=5",
+            "https://www.legis.ga.gov/api/legislation/document/20252026/242809#page=5",
         )
         defined_for = StateCode.GA
 
@@ -51,7 +51,7 @@ def create_ga_sb520() -> Reform:
         definition_period = YEAR
         defined_for = StateCode.GA
         reference = (
-            "https://www.legis.ga.gov/api/legislation/document/20252026/232863#page=7",
+            "https://www.legis.ga.gov/api/legislation/document/20252026/242809#page=6",
         )
 
         def formula(tax_unit, period, parameters):
@@ -85,7 +85,7 @@ def create_ga_sb520() -> Reform:
         definition_period = YEAR
         defined_for = StateCode.GA
         reference = (
-            "https://www.legis.ga.gov/api/legislation/document/20252026/232863#page=8",
+            "https://www.legis.ga.gov/api/legislation/document/20252026/242809#page=6",
         )
 
         def formula(tax_unit, period, parameters):
@@ -154,7 +154,7 @@ def create_ga_sb520() -> Reform:
         definition_period = YEAR
         defined_for = StateCode.GA
         reference = (
-            "https://www.legis.ga.gov/api/legislation/document/20252026/232863#page=2",
+            "https://www.legis.ga.gov/api/legislation/document/20252026/242809#page=3",
         )
 
         def formula(tax_unit, period, parameters):

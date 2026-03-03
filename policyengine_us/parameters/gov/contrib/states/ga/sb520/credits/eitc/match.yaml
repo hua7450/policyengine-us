@@ -1,7 +1,7 @@
 description: Georgia SB 520 provides a state EITC equal to this percentage of the federal EITC.
 
 values:
-  2026-01-01: 0.20
+  2026-01-01: 0.2
 
 metadata:
   unit: /1
@@ -9,4 +9,4 @@ metadata:
   label: Georgia SB 520 EITC match rate
   reference:
     - title: Georgia SB 520 Section 7 - 48-7-29.29(a)
-      href: https://www.legis.ga.gov/api/legislation/document/20252026/232863#page=6
+      href: https://www.legis.ga.gov/api/legislation/document/20252026/242809#page=6
