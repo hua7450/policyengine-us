@@ -1,0 +1,1 @@
+Fix OH CDCC to use the uncapped federal credit (cdcc_potential) only for filers with AGI below $20,000 per ORC § 5747.054(A); filers in the $20,000–$39,999 bracket now correctly use the § 26-limited cdcc.
