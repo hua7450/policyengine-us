@@ -1,3 +1,10 @@
+## [1.590.1] - 2026-03-03
+
+### Changed
+
+- Add SSN identification requirements to Recovery Rebate Credits (CARES, CAA, ARPA) per 26 USC 6428(g), 6428A(g), and 6428B(e)(2). Filers and dependents without valid SSN are now correctly excluded from credit calculations.
+
+
 ## [1.590.0] - 2026-03-02
 
 ### Added
