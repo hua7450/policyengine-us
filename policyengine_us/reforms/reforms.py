@@ -22,6 +22,7 @@ from .eitc import create_halve_joint_eitc_phase_out_rate_reform
 from .states.ny.wftc import create_ny_working_families_tax_credit_reform
 from .states.ny.a04038 import create_ny_a04038_enhanced_escc_infants_reform
 from .states.sc.h3492 import create_sc_h3492_eitc_refundable_reform
+from .states.sc.h4216 import create_sc_h4216_reform
 from .states.ny.a06774 import create_ny_a06774_enhanced_cdcc_reform
 from .states.ny.s04487 import create_ny_s04487_newborn_credit_reform
 from .harris.lift.middle_class_tax_credit import (
@@ -87,6 +88,9 @@ from .local.nyc.stc.phase_out import (
 from .states.mt.ctc import (
     create_mt_ctc_reform,
 )
+from .states.mt.newborn_credit import (
+    create_mt_newborn_credit_reform,
+)
 from .congress.golden import (
     create_fisc_act_reform,
 )
@@ -151,6 +155,9 @@ from .aca import (
 from .cdcc import (
     create_cdcc_single_parent_work_requirement_reform,
 )
+from .states.ky.graduated_income_tax import (
+    create_ky_graduated_income_tax_reform,
+)
 from .states.pa.ctc import (
     create_pa_ctc_flat_amount_reform,
     create_pa_ctc_match_reform,
@@ -212,6 +219,7 @@ def create_structural_reforms_from_parameters(parameters, period):
     sc_h3492_eitc_refundable = create_sc_h3492_eitc_refundable_reform(
         parameters, period
     )
+    sc_h4216 = create_sc_h4216_reform(parameters, period)
     ny_a06774_enhanced_cdcc = create_ny_a06774_enhanced_cdcc_reform(
         parameters, period
     )
@@ -276,6 +284,7 @@ def create_structural_reforms_from_parameters(parameters, period):
         create_nyc_school_tax_credit_with_phase_out_reform(parameters, period)
     )
     mt_ctc = create_mt_ctc_reform(parameters, period)
+    mt_newborn_credit = create_mt_newborn_credit_reform(parameters, period)
     fisc_act = create_fisc_act_reform(parameters, period)
     tax_employer_social_security_tax = (
         create_tax_employer_social_security_tax_reform(parameters, period)
@@ -355,6 +364,9 @@ def create_structural_reforms_from_parameters(parameters, period):
     cdcc_single_parent_work_requirement = (
         create_cdcc_single_parent_work_requirement_reform(parameters, period)
     )
+    ky_graduated_income_tax = create_ky_graduated_income_tax_reform(
+        parameters, period
+    )
     pa_ctc_flat_amount = create_pa_ctc_flat_amount_reform(parameters, period)
     pa_ctc_match = create_pa_ctc_match_reform(parameters, period)
     ct_sb100 = create_ct_sb100_reform(parameters, period)
@@ -378,6 +390,7 @@ def create_structural_reforms_from_parameters(parameters, period):
         ny_wftc,
         ny_a04038_enhanced_escc_infants,
         sc_h3492_eitc_refundable,
+        sc_h4216,
         ny_a06774_enhanced_cdcc,
         ny_s04487_newborn_credit,
         middle_class_tax_credit,
@@ -400,6 +413,7 @@ def create_structural_reforms_from_parameters(parameters, period):
         limit_salt_deduction_to_property_taxes,
         nyc_school_tax_credit_with_phase_out,
         mt_ctc,
+        mt_newborn_credit,
         fisc_act,
         tax_employer_social_security_tax,
         tax_employer_medicare_tax,
@@ -431,6 +445,7 @@ def create_structural_reforms_from_parameters(parameters, period):
         aca_ptc_simplified_bracket,
         aca_ptc_700_fpl_cliff,
         cdcc_single_parent_work_requirement,
+        ky_graduated_income_tax,
         pa_ctc_flat_amount,
         pa_ctc_match,
         ct_hb5009,
