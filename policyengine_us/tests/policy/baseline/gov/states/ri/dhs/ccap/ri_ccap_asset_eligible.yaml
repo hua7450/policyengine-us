@@ -1,0 +1,45 @@
+# Unit tests for ri_ccap_asset_eligible
+# 218-RICR-20-00-4.6.1(B)(1): Assets must not exceed $1,000,000
+# https://www.law.cornell.edu/regulations/rhode-island/218-RICR-20-00-4.3
+
+- name: Case 1, assets below limit is eligible.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_assets: 500_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # $500,000 <= $1,000,000 asset limit
+    ri_ccap_asset_eligible: true
+
+- name: Case 2, assets above limit is not eligible.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_assets: 1_500_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # $1,500,000 > $1,000,000 asset limit
+    ri_ccap_asset_eligible: false

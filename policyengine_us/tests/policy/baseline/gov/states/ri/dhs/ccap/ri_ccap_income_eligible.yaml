@@ -1,0 +1,107 @@
+# Unit tests for ri_ccap_income_eligible
+# 218-RICR-20-00-4.6.1(A)(1)(a): Income at or below 261% FPL for entry,
+# up to 300% FPL for transitional (currently enrolled).
+# https://www.law.cornell.edu/regulations/rhode-island/218-RICR-20-00-4.3
+
+# 2025 FPL for family of 3 (Contiguous US):
+#   first_person = $15,650; additional = $5,500
+#   FPL = $15,650 + 2 * $5,500 = $26,650
+#   261% FPL = $26,650 * 2.61 = $69,556.50/yr
+#   300% FPL = $26,650 * 3.00 = $79,950.00/yr
+
+- name: Case 1, family of 3 income well below 261 pct FPL is eligible.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 50_000
+      person2:
+        age: 28
+      person3:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: RI
+  output:
+    # $50,000/yr < $69,556.50 (261% FPL for family of 3)
+    ri_ccap_income_eligible: true
+
+- name: Case 2, family of 3 income above 261 pct FPL not enrolled is not eligible.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 75_000
+      person2:
+        age: 28
+      person3:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        is_ri_ccap_enrolled: false
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: RI
+  output:
+    # $75,000/yr > $69,556.50 (261% FPL) and NOT enrolled
+    # New applicants above 261% are NOT eligible
+    ri_ccap_income_eligible: false
+
+- name: Case 3, family of 3 income above 261 pct but below 300 pct FPL enrolled is eligible.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 75_000
+      person2:
+        age: 28
+      person3:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        is_ri_ccap_enrolled: true
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: RI
+  output:
+    # $75,000/yr > $69,556.50 (261%) but < $79,950 (300%)
+    # Currently enrolled -> transitional eligibility applies
+    ri_ccap_income_eligible: true
+
+- name: Case 4, family of 3 income above 300 pct FPL enrolled is not eligible.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 85_000
+      person2:
+        age: 28
+      person3:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        is_ri_ccap_enrolled: true
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: RI
+  output:
+    # $85,000/yr > $79,950 (300% FPL) -> exceeds even transitional limit
+    ri_ccap_income_eligible: false

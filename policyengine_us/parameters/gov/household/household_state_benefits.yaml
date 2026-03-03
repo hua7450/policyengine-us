@@ -22,6 +22,8 @@ values:
     # Massachusetts benefits
     - ma_eaedc
     - ma_tafdc
+    # Rhode Island benefits
+    - ri_ccap
   2024-01-01:
     # Massachusetts benefits
     - ma_state_supplement
@@ -46,6 +48,8 @@ values:
     # Massachusetts benefits
     - ma_eaedc
     - ma_tafdc
+    # Rhode Island benefits
+    - ri_ccap
 metadata:
   unit: list
   period: year

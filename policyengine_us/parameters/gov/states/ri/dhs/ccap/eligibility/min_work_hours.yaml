@@ -1,0 +1,13 @@
+description: Rhode Island requires this minimum number of weekly work hours under the Child Care Assistance Program.
+values:
+  2014-01-01: 20
+
+metadata:
+  unit: hour
+  period: week
+  label: Rhode Island CCAP minimum weekly work hours
+  reference:
+    - title: 218-RICR-20-00-4.6.2(A)(1)(a)
+      href: https://www.law.cornell.edu/regulations/rhode-island/218-RICR-20-00-4.3
+    - title: 218-RICR-20-00-4.6.2(A)(1)(b)(2)
+      href: https://www.law.cornell.edu/regulations/rhode-island/218-RICR-20-00-4.3

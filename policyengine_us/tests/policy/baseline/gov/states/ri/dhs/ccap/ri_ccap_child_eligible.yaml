@@ -1,0 +1,63 @@
+# Unit tests for ri_ccap_child_eligible
+# 218-RICR-20-00-4.2(A)(18): Dependent child under 13, or under 19 if disabled
+# https://www.law.cornell.edu/regulations/rhode-island/218-RICR-20-00-4.2
+
+- name: Case 1, child age 5 is eligible.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 5
+        is_disabled: false
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    ri_ccap_child_eligible: true
+
+- name: Case 2, child age 14 is not eligible.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 14
+        is_disabled: false
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    ri_ccap_child_eligible: false
+
+- name: Case 3, disabled child age 15 is eligible.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 15
+        is_disabled: true
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    ri_ccap_child_eligible: true
+
+- name: Case 4, disabled child age 20 is not eligible.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 20
+        is_disabled: true
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    ri_ccap_child_eligible: false
