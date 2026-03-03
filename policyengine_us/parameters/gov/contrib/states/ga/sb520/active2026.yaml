@@ -1,7 +1,7 @@
 description: Georgia applies SB 520 2026 provisions (standard deduction increase, child tax credit increase, state EITC).
 
 values:
-  2026-01-01: false
+  0000-01-01: false
 
 metadata:
   unit: bool

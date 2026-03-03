@@ -3,7 +3,7 @@
   absolute_error_margin: 0.1
   reforms: policyengine_us.reforms.states.ga.sb520.ga_sb520
   input:
-    gov.contrib.states.ga.sb520.in_effect_2026: true
+    gov.contrib.states.ga.sb520.active2026: true
     people:
       person1:
         age: 30
@@ -23,7 +23,7 @@
   absolute_error_margin: 0.1
   reforms: policyengine_us.reforms.states.ga.sb520.ga_sb520
   input:
-    gov.contrib.states.ga.sb520.in_effect_2026: true
+    gov.contrib.states.ga.sb520.active2026: true
     people:
       person1:
         age: 35
@@ -50,7 +50,7 @@
   absolute_error_margin: 0.1
   reforms: policyengine_us.reforms.states.ga.sb520.ga_sb520
   input:
-    gov.contrib.states.ga.sb520.in_effect_2026: true
+    gov.contrib.states.ga.sb520.active2026: true
     people:
       person1:
         age: 45
@@ -76,7 +76,7 @@
   absolute_error_margin: 1
   reforms: policyengine_us.reforms.states.ga.sb520.ga_sb520
   input:
-    gov.contrib.states.ga.sb520.in_effect_2026: true
+    gov.contrib.states.ga.sb520.active2026: true
     people:
       person1:
         age: 30
@@ -99,7 +99,7 @@
   absolute_error_margin: 1
   reforms: policyengine_us.reforms.states.ga.sb520.ga_sb520
   input:
-    gov.contrib.states.ga.sb520.in_effect_2027: true
+    gov.contrib.states.ga.sb520.active2027: true
     people:
       person1:
         age: 30
