@@ -12,7 +12,9 @@ class slcsp_rating_area_la_county(Variable):
         zip3 = household("three_digit_zip_code", period)
         p = parameters(period).gov.aca
         is_in_la = household("in_la", period)
-        result = np.empty(zip3.shape, dtype=int)
-        result[is_in_la] = p.la_county_rating_area[zip3[is_in_la]]
-        result[~is_in_la] = 0
+        has_zip = zip3 != ""
+        can_lookup = is_in_la & has_zip
+        result = np.zeros(zip3.shape, dtype=int)
+        if can_lookup.any():
+            result[can_lookup] = p.la_county_rating_area[zip3[can_lookup]]
         return result

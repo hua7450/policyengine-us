@@ -17,5 +17,8 @@ class slcsp_age_0(Variable):
         # Access the baseline costs from parameters
         p = parameters(period).gov.aca
 
-        # Return the cost for the specific state and rating area
-        return p.state_rating_area_cost[state_code][rating_area]
+        # Rating area 0 means unknown (e.g. no zip code data available)
+        known = rating_area > 0
+        safe_rating_area = where(known, rating_area, 1)
+        cost = p.state_rating_area_cost[state_code][safe_rating_area]
+        return where(known, cost, 0)
