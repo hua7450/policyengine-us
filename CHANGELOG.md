@@ -1,3 +1,10 @@
+## [1.590.2] - 2026-03-03
+
+### Fixed
+
+- Fixed MT newborn credit entity mismatch that caused credit to be applied to every household member instead of once per tax unit.
+
+
 ## [1.590.1] - 2026-03-03
 
 ### Changed
