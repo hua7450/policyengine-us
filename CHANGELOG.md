@@ -1,3 +1,10 @@
+## [1.591.1] - 2026-03-04
+
+### Changed
+
+- Reset Georgia income tax rate to constant 5.19%, removing premature conditional rate reductions scheduled for 2026-2028.
+
+
 ## [1.591.0] - 2026-03-04
 
 ### Added
