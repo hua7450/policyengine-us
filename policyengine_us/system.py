@@ -27,6 +27,7 @@ from policyengine_core.parameters.operations.uprate_parameters import (
     uprate_parameters,
 )
 from .tools.default_uprating import add_default_uprating
+from policyengine_us.data.dataset_schema import USSingleYearDataset, USMultiYearDataset
 
 from typing import Annotated
 
@@ -175,6 +176,49 @@ class Simulation(CoreSimulation):
             cg_holder.delete_arrays(known_period)
 
 
+def _resolve_dataset_path(dataset_str):
+    """Resolve a dataset string to a local file path, downloading if needed."""
+    if "hf://" in dataset_str:
+        from policyengine_core.tools.hugging_face import (
+            parse_hf_url,
+            download_huggingface_dataset,
+        )
+
+        owner, repo, filename, version = parse_hf_url(dataset_str)
+        return download_huggingface_dataset(
+            repo=f"{owner}/{repo}",
+            repo_filename=filename,
+            version=version,
+        )
+    elif Path(dataset_str).exists():
+        return dataset_str
+    return None
+
+
+def _is_hdfstore_format(file_path):
+    """Check if an HDF5 file uses entity-level HDFStore format.
+
+    Entity-level files have top-level keys like 'person', 'household', etc.
+    Variable-centric h5py files have variable names as top-level keys.
+    """
+    import h5py
+
+    entity_names = {
+        "person",
+        "household",
+        "tax_unit",
+        "spm_unit",
+        "family",
+        "marital_unit",
+    }
+    try:
+        with h5py.File(file_path, "r") as f:
+            top_keys = set(f.keys())
+            return bool(entity_names & top_keys)
+    except Exception:
+        return False
+
+
 class Microsimulation(CoreMicrosimulation):
     """
     A microsimulation of the tax-benefit system for the United States,
@@ -207,6 +251,26 @@ class Microsimulation(CoreMicrosimulation):
         dataset = kwargs.get("dataset")
         if dataset is not None and isinstance(dataset, str) and "cps_2023" in dataset:
             self.default_input_period = 2023
+
+        # Detect entity-level HDFStore format and load/extend if needed
+        dataset = kwargs.get("dataset")
+        if dataset is not None and isinstance(dataset, str):
+            local_path = _resolve_dataset_path(dataset)
+            if local_path is not None and _is_hdfstore_format(local_path):
+                from policyengine_us.data.economic_assumptions import (
+                    extend_single_year_dataset,
+                )
+
+                single = USSingleYearDataset(file_path=local_path)
+                multi = extend_single_year_dataset(single)
+                kwargs["dataset"] = multi
+        elif isinstance(dataset, USSingleYearDataset):
+            from policyengine_us.data.economic_assumptions import (
+                extend_single_year_dataset,
+            )
+
+            multi = extend_single_year_dataset(dataset)
+            kwargs["dataset"] = multi
 
         super().__init__(*args, **kwargs)
 
