@@ -1,3 +1,10 @@
+## [1.590.3] - 2026-03-04
+
+### Changed
+
+- Fix MN MFIP to use the full Transitional Standard (cash + food) for the Family Wage Level and benefit formula, then subtract the food portion to yield cash-only output and avoid double-counting with SNAP.
+
+
 ## [1.590.2] - 2026-03-03
 
 ### Fixed
