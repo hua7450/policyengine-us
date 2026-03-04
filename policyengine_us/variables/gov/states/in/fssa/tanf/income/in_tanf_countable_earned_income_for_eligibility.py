@@ -18,7 +18,8 @@ class in_tanf_countable_earned_income_for_eligibility(Variable):
     def formula(spm_unit, period, parameters):
         # NOTE: Uses calendar month as proxy for benefit duration.
         # Actual policy tracks cumulative months since enrollment.
-        # All deductions are per earner per 470 IAC 10.3-4-4(c).
+        # All deductions ($90 work expense, $30 flat, 1/3 disregard)
+        # are applied per earner per 470 IAC 10.3-4-4(c).
         p = parameters(period).gov.states["in"].fssa.tanf.income.deductions
         person = spm_unit.members
         gross_earned = person("tanf_gross_earned_income", period)
