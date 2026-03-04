@@ -43,6 +43,35 @@ def create_ga_sb520() -> Reform:
 
             return where(sb520_active, sb520_deduction, baseline_deduction)
 
+    class ga_deductions(Variable):
+        value_type = float
+        entity = TaxUnit
+        label = "Georgia deductions"
+        unit = USD
+        definition_period = YEAR
+        reference = (
+            # SB 520 Section 4 eliminates itemized deduction option
+            "https://www.legis.ga.gov/api/legislation/document/20252026/242809#page=5",
+        )
+        defined_for = StateCode.GA
+
+        def formula(tax_unit, period, parameters):
+            p_sb520 = parameters(period).gov.contrib.states.ga.sb520
+
+            sb520_active = p_sb520.in_effect
+
+            # SB 520 Section 4 eliminates the option to itemize - standard deduction only
+            sb520_deduction = tax_unit("ga_standard_deduction", period)
+
+            # Baseline: itemize if federal itemizes
+            itemizes = tax_unit("tax_unit_itemizes", period)
+            sd = tax_unit("ga_standard_deduction", period)
+            p = parameters(period).gov.irs.deductions
+            itemized = add(tax_unit, period, p.itemized_deductions)
+            baseline_deduction = where(itemizes, itemized, sd)
+
+            return where(sb520_active, sb520_deduction, baseline_deduction)
+
     class ga_ctc(Variable):
         value_type = float
         entity = TaxUnit
@@ -206,6 +235,7 @@ def create_ga_sb520() -> Reform:
     class reform(Reform):
         def apply(self):
             self.update_variable(ga_standard_deduction)
+            self.update_variable(ga_deductions)
             self.update_variable(ga_ctc)
             self.update_variable(ga_eitc)
             self.update_variable(ga_refundable_credits)
