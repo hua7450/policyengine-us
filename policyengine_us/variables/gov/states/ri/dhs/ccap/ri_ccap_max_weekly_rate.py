@@ -7,7 +7,7 @@ class ri_ccap_max_weekly_rate(Variable):
     unit = USD
     label = "Rhode Island CCAP maximum weekly reimbursement rate"
     definition_period = MONTH
-    reference = "https://dhs.ri.gov/media/9236/download?language=en#page=63"
+    reference = "https://dhs.ri.gov/media/9236/download?language=en#page=78"
     defined_for = StateCode.RI
 
     def formula(person, period, parameters):
