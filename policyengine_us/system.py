@@ -27,7 +27,10 @@ from policyengine_core.parameters.operations.uprate_parameters import (
     uprate_parameters,
 )
 from .tools.default_uprating import add_default_uprating
-from policyengine_us.data.dataset_schema import USSingleYearDataset, USMultiYearDataset
+from policyengine_us.data.dataset_schema import (
+    USSingleYearDataset,
+    USMultiYearDataset,
+)
 
 from typing import Annotated
 
@@ -134,8 +137,8 @@ class Simulation(CoreSimulation):
     default_input_period = CURRENT_YEAR
 
     def __init__(self, *args, **kwargs):
-        start_instant: Annotated[str, "ISO date format YYYY-MM-DD"] = kwargs.pop(
-            "start_instant", DEFAULT_START_DATE
+        start_instant: Annotated[str, "ISO date format YYYY-MM-DD"] = (
+            kwargs.pop("start_instant", DEFAULT_START_DATE)
         )
         super().__init__(*args, **kwargs)
 
@@ -156,13 +159,17 @@ class Simulation(CoreSimulation):
         self_employment_income = self.get_holder("self_employment_income")
         for known_period in employment_income.get_known_periods():
             array = self_employment_income.get_array(known_period)
-            self.set_input("self_employment_income_before_lsr", known_period, array)
+            self.set_input(
+                "self_employment_income_before_lsr", known_period, array
+            )
             self_employment_income.delete_arrays(known_period)
 
         weekly_hours = self.get_holder("weekly_hours_worked")
         for known_period in weekly_hours.get_known_periods():
             array = weekly_hours.get_array(known_period)
-            self.set_input("weekly_hours_worked_before_lsr", known_period, array)
+            self.set_input(
+                "weekly_hours_worked_before_lsr", known_period, array
+            )
             weekly_hours.delete_arrays(known_period)
 
         # Capital gains responses
@@ -244,12 +251,16 @@ class Microsimulation(CoreMicrosimulation):
     default_input_period = CURRENT_YEAR
 
     def __init__(self, *args, **kwargs):
-        start_instant: Annotated[str, "ISO date format YYYY-MM-DD"] = kwargs.pop(
-            "start_instant", DEFAULT_START_DATE
+        start_instant: Annotated[str, "ISO date format YYYY-MM-DD"] = (
+            kwargs.pop("start_instant", DEFAULT_START_DATE)
         )
 
         dataset = kwargs.get("dataset")
-        if dataset is not None and isinstance(dataset, str) and "cps_2023" in dataset:
+        if (
+            dataset is not None
+            and isinstance(dataset, str)
+            and "cps_2023" in dataset
+        ):
             self.default_input_period = 2023
 
         # Detect entity-level HDFStore format and load/extend if needed
@@ -291,13 +302,17 @@ class Microsimulation(CoreMicrosimulation):
         self_employment_income = self.get_holder("self_employment_income")
         for known_period in self_employment_income.get_known_periods():
             array = self_employment_income.get_array(known_period)
-            self.set_input("self_employment_income_before_lsr", known_period, array)
+            self.set_input(
+                "self_employment_income_before_lsr", known_period, array
+            )
             self_employment_income.delete_arrays(known_period)
 
         weekly_hours = self.get_holder("weekly_hours_worked")
         for known_period in weekly_hours.get_known_periods():
             array = weekly_hours.get_array(known_period)
-            self.set_input("weekly_hours_worked_before_lsr", known_period, array)
+            self.set_input(
+                "weekly_hours_worked_before_lsr", known_period, array
+            )
             weekly_hours.delete_arrays(known_period)
 
         # Capital gains responses

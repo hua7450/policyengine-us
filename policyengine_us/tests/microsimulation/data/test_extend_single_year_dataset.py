@@ -145,8 +145,13 @@ class TestApplySingleYearUprating:
         _apply_single_year_uprating(current, previous, mock_system)
 
         # Then
-        expected = EMPLOYMENT_INCOME_BASE * EMPLOYMENT_INCOME_GROWTH_FACTOR_2024_TO_2025
-        np.testing.assert_allclose(current.person["employment_income"].values, expected)
+        expected = (
+            EMPLOYMENT_INCOME_BASE
+            * EMPLOYMENT_INCOME_GROWTH_FACTOR_2024_TO_2025
+        )
+        np.testing.assert_allclose(
+            current.person["employment_income"].values, expected
+        )
 
     def test_given_variable_without_uprating_then_values_unchanged(
         self, base_dataset, mock_system
@@ -177,7 +182,9 @@ class TestApplySingleYearUprating:
         expected = RENT_BASE * CPI_U_GROWTH_FACTOR_2024_TO_2025
         np.testing.assert_allclose(current.household["rent"].values, expected)
 
-    def test_given_variable_not_in_system_then_values_unchanged(self, mock_system):
+    def test_given_variable_not_in_system_then_values_unchanged(
+        self, mock_system
+    ):
         # Given — add a column the system doesn't know about
         person_df = pd.DataFrame(
             {
@@ -211,7 +218,9 @@ class TestApplySingleYearUprating:
     def test_given_uprating_path_unresolvable_then_values_unchanged(self):
         # Given — variable has an uprating path that doesn't exist in params
         variables = {
-            "bad_variable": MockVariable("bad_variable", uprating=INVALID_UPRATING_PATH)
+            "bad_variable": MockVariable(
+                "bad_variable", uprating=INVALID_UPRATING_PATH
+            )
         }
         system = MockSystem(
             variables=variables,
@@ -245,7 +254,9 @@ class TestApplySingleYearUprating:
 
     def test_given_previous_param_value_zero_then_values_unchanged(self):
         # Given — parameter value is 0 for the previous year (avoid div-by-zero)
-        variables = {"some_income": MockVariable("some_income", uprating="test.param")}
+        variables = {
+            "some_income": MockVariable("some_income", uprating="test.param")
+        }
         system = MockSystem(
             variables=variables,
             parameters=build_mock_parameters(
@@ -375,7 +386,10 @@ class TestExtendSingleYearDataset:
 
         # Then
         year_one = result[BASE_YEAR + 1]
-        expected = EMPLOYMENT_INCOME_BASE * EMPLOYMENT_INCOME_GROWTH_FACTOR_2024_TO_2025
+        expected = (
+            EMPLOYMENT_INCOME_BASE
+            * EMPLOYMENT_INCOME_GROWTH_FACTOR_2024_TO_2025
+        )
         np.testing.assert_allclose(
             year_one.person["employment_income"].values, expected
         )
@@ -409,7 +423,9 @@ class TestExtendSingleYearDataset:
 
         # Then — age has no uprating, identical across all years
         for year in result.years:
-            np.testing.assert_array_equal(result[year].person["age"].values, AGE_BASE)
+            np.testing.assert_array_equal(
+                result[year].person["age"].values, AGE_BASE
+            )
 
     def test_given_extended_dataset_then_row_counts_preserved(
         self, base_dataset, mock_system
@@ -449,13 +465,17 @@ class TestExtendSingleYearDataset:
         assert isinstance(result, USMultiYearDataset)
         assert result.data_format == "time_period_arrays"
 
-    def test_given_extended_dataset_then_input_dataset_not_mutated(self, mock_system):
+    def test_given_extended_dataset_then_input_dataset_not_mutated(
+        self, mock_system
+    ):
         # Given
         dataset = build_single_year_dataset()
         original_values = dataset.person["employment_income"].values.copy()
 
         # When
-        _call_extend_with_mock_system(mock_system, dataset, end_year=END_YEAR_SHORT)
+        _call_extend_with_mock_system(
+            mock_system, dataset, end_year=END_YEAR_SHORT
+        )
 
         # Then — original dataset should be untouched
         np.testing.assert_array_equal(
@@ -475,7 +495,8 @@ class TestExtendSingleYearDataset:
         year_one = result[BASE_YEAR + 1]
         np.testing.assert_allclose(
             year_one.person["employment_income"].values,
-            EMPLOYMENT_INCOME_BASE * EMPLOYMENT_INCOME_GROWTH_FACTOR_2024_TO_2025,
+            EMPLOYMENT_INCOME_BASE
+            * EMPLOYMENT_INCOME_GROWTH_FACTOR_2024_TO_2025,
         )
         np.testing.assert_allclose(
             year_one.household["rent"].values,

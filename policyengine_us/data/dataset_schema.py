@@ -80,7 +80,9 @@ class USSingleYearDataset:
             self.person = person
             self.household = household
             self.tax_unit = tax_unit
-            self.spm_unit = spm_unit if spm_unit is not None else pd.DataFrame()
+            self.spm_unit = (
+                spm_unit if spm_unit is not None else pd.DataFrame()
+            )
             self.family = family if family is not None else pd.DataFrame()
             self.marital_unit = (
                 marital_unit if marital_unit is not None else pd.DataFrame()
@@ -138,7 +140,9 @@ class USSingleYearDataset:
         for name, df in zip(self.table_names, self.tables):
             for col in df.columns:
                 if df[col].isna().any():
-                    raise ValueError(f"Column '{col}' in {name} contains NaN values.")
+                    raise ValueError(
+                        f"Column '{col}' in {name} contains NaN values."
+                    )
 
 
 class USMultiYearDataset:
@@ -211,7 +215,9 @@ class USMultiYearDataset:
                 )
 
     def copy(self):
-        new_datasets = {year: dataset.copy() for year, dataset in self.datasets.items()}
+        new_datasets = {
+            year: dataset.copy() for year, dataset in self.datasets.items()
+        }
         return USMultiYearDataset(datasets=list(new_datasets.values()))
 
     def load(self):

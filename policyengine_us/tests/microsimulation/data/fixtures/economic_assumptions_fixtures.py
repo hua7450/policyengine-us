@@ -50,7 +50,18 @@ CPI_U_GROWTH_FACTOR_2024_TO_2025 = 309.0 / 300.0  # 1.03
 # Base-year column values
 PERSON_IDS = np.arange(1, NUM_PERSONS + 1)
 EMPLOYMENT_INCOME_BASE = np.array(
-    [50_000, 60_000, 70_000, 80_000, 90_000, 40_000, 30_000, 0, 100_000, 55_000],
+    [
+        50_000,
+        60_000,
+        70_000,
+        80_000,
+        90_000,
+        40_000,
+        30_000,
+        0,
+        100_000,
+        55_000,
+    ],
     dtype=float,
 )
 AGE_BASE = np.array([25, 30, 35, 40, 45, 50, 55, 60, 65, 70], dtype=float)
@@ -131,7 +142,9 @@ MOCK_AGE_VAR = MockVariable("age", uprating=None)
 MOCK_PERSON_ID_VAR = MockVariable("person_id", uprating=None)
 
 # Variable with an invalid uprating path
-MOCK_BAD_UPRATING_VAR = MockVariable("bad_variable", uprating=INVALID_UPRATING_PATH)
+MOCK_BAD_UPRATING_VAR = MockVariable(
+    "bad_variable", uprating=INVALID_UPRATING_PATH
+)
 
 
 def build_mock_variables() -> dict:
