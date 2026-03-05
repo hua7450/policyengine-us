@@ -2,7 +2,6 @@ import pandas as pd
 from pathlib import Path
 import h5py
 
-
 US_ENTITIES = [
     "person",
     "household",
@@ -139,9 +138,7 @@ class USSingleYearDataset:
         for name, df in zip(self.table_names, self.tables):
             for col in df.columns:
                 if df[col].isna().any():
-                    raise ValueError(
-                        f"Column '{col}' in {name} contains NaN values."
-                    )
+                    raise ValueError(f"Column '{col}' in {name} contains NaN values.")
 
 
 class USMultiYearDataset:
@@ -214,9 +211,7 @@ class USMultiYearDataset:
                 )
 
     def copy(self):
-        new_datasets = {
-            year: dataset.copy() for year, dataset in self.datasets.items()
-        }
+        new_datasets = {year: dataset.copy() for year, dataset in self.datasets.items()}
         return USMultiYearDataset(datasets=list(new_datasets.values()))
 
     def load(self):
