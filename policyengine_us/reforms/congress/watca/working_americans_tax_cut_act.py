@@ -7,20 +7,25 @@ from policyengine_core.periods import instant
 # co-sponsors. Introduced March 5, 2026.
 #
 # Sources:
+#   - Official bill summary (Sen. Van Hollen's office)
 #   - Washington Post (Jeff Stein, March 5, 2026):
 #     https://www.washingtonpost.com/business/2026/03/05/
 #     middle-class-tax-relief-senate-bill/
-#   - The Daily Record (March 5, 2026):
-#     https://thedailyrecord.com/2026/03/05/
-#     maryland-senator-van-hollen-tax-plan/
+#   - ITEP analysis: ~130M people receive a tax cut
+#   - Yale Budget Lab: surtax impacts 615K filers, raises
+#     ~$1.46 trillion over 10 years
 #
-# Key provisions:
-# 1. Cost of living exemption: Filing-status-indexed deduction
-#    from taxable income ($46K single, $64.4K HOH, $92K joint)
-#    with linear phase-out up to 175% of the exemption amount.
-# 2. Millionaire surtax: Tiered marginal surtax on AGI
-#    (single: 5%/$1M, 10%/$2M, 12%/$5M;
-#     joint: 5%/$1.5M, 10%/$3M, 12%/$7.5M).
+# Cost of living exemption:
+#   Single: $46,000 (2025 nationally aggregated living wage,
+#     MIT Living Wage Calculator). Phase-out at 175% = $80,500.
+#   HOH: $64,400 (140% of single). Phase-out at $112,700.
+#   MFJ: $92,000 (200% of single). Phase-out at $161,000.
+#   Benefits phase out linearly between the exemption amount
+#   and 175% of that amount.
+#
+# Millionaire surtax (on AGI, including wages and investment):
+#   Single: 5% > $1M, 10% > $2M, 12% > $5M
+#   Joint:  5% > $1.5M, 10% > $3M, 12% > $7.5M
 
 
 def create_watca() -> Reform:
