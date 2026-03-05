@@ -7,12 +7,11 @@ from policyengine_core.periods import instant
 # co-sponsors. Introduced March 5, 2026.
 #
 # Sources:
+#   - Bill summary (via Jeff Stein, WaPo):
+#     https://x.com/JStein_WaPo/status/2029621495295619363
 #   - Washington Post (Jeff Stein, March 5, 2026):
 #     https://www.washingtonpost.com/business/2026/03/05/
 #     middle-class-tax-relief-senate-bill/
-#   - The Daily Record (March 5, 2026):
-#     https://thedailyrecord.com/2026/03/05/
-#     maryland-senator-van-hollen-tax-plan/
 #
 # Cost of living exemption:
 #   Single: $46,000 (2025 nationally aggregated living wage,
