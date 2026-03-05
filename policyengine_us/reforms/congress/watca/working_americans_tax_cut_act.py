@@ -2,6 +2,26 @@ from policyengine_us.model_api import *
 from policyengine_core.periods import period as period_
 from policyengine_core.periods import instant
 
+# Working Americans' Tax Cut Act (WATCA)
+# Sponsor: Sen. Chris Van Hollen (D-MD), with 15 Senate Democratic
+# co-sponsors. Introduced March 5, 2026.
+#
+# Sources:
+#   - Washington Post (Jeff Stein, March 5, 2026):
+#     https://www.washingtonpost.com/business/2026/03/05/
+#     middle-class-tax-relief-senate-bill/
+#   - The Daily Record (March 5, 2026):
+#     https://thedailyrecord.com/2026/03/05/
+#     maryland-senator-van-hollen-tax-plan/
+#
+# Key provisions:
+# 1. Cost of living exemption: Filing-status-indexed deduction
+#    from taxable income ($46K single, $64.4K HOH, $92K joint)
+#    with linear phase-out up to 175% of the exemption amount.
+# 2. Millionaire surtax: Tiered marginal surtax on AGI
+#    (single: 5%/$1M, 10%/$2M, 12%/$5M;
+#     joint: 5%/$1.5M, 10%/$3M, 12%/$7.5M).
+
 
 def create_watca() -> Reform:
     class watca_cost_of_living_exemption(Variable):
