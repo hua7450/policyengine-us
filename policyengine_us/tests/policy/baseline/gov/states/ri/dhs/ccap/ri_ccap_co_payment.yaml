@@ -1,0 +1,179 @@
+- name: Family below 100% FPL - $0 copayment
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      parent:
+        employment_income: 15_000
+      child:
+        age: 3
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+        spm_unit_size: 2
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+    households:
+      household:
+        members: [parent, child]
+        state_code: RI
+  output:
+    ri_ccap_co_payment: 0
+
+- name: TANF enrolled family - $0 copayment regardless of income
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      parent:
+        employment_income: 40_000
+      child:
+        age: 3
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+        spm_unit_size: 2
+        is_tanf_enrolled: true
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+    households:
+      household:
+        members: [parent, child]
+        state_code: RI
+  output:
+    ri_ccap_co_payment: 0
+
+- name: Housing insecure family - $0 copayment
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      parent:
+        employment_income: 40_000
+      child:
+        age: 3
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+        spm_unit_size: 2
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+    households:
+      household:
+        members: [parent, child]
+        state_code: RI
+        is_homeless: true
+  output:
+    ri_ccap_co_payment: 0
+
+- name: Family at 110% FPL - 2% copayment
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      parent:
+        employment_income: 23_265
+      child:
+        age: 3
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+        spm_unit_size: 2
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+    households:
+      household:
+        members: [parent, child]
+        state_code: RI
+  output:
+    # Monthly income = 23,265 / 12 = 1,938.75
+    # FPG (family of 2) = 21,150 / 12 = 1,762.50
+    # FPL ratio = 1,938.75 / 1,762.50 = 1.10
+    # Rate = 2%
+    # Weekly copay = 23,265 * 0.02 / 52 = 8.95
+    ri_ccap_co_payment: 8.95
+
+- name: Family at 135% FPL - 5% copayment
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      parent:
+        employment_income: 28_553
+      child:
+        age: 3
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+        spm_unit_size: 2
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+    households:
+      household:
+        members: [parent, child]
+        state_code: RI
+  output:
+    # Monthly income = 28,553 / 12 = 2,379.42
+    # FPL ratio = 2,379.42 / 1,762.50 = 1.35
+    # Rate = 5%
+    # Weekly copay = 28,553 * 0.05 / 52 = 27.45
+    ri_ccap_co_payment: 27.45
+
+- name: Family at 200% FPL - 7% copayment
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      parent:
+        employment_income: 42_300
+      child:
+        age: 3
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+        spm_unit_size: 2
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+    households:
+      household:
+        members: [parent, child]
+        state_code: RI
+  output:
+    # Monthly income = 42,300 / 12 = 3,525
+    # FPL ratio = 3,525 / 1,762.50 = 2.00
+    # Rate = 7%
+    # Weekly copay = 42,300 * 0.07 / 52 = 56.90
+    ri_ccap_co_payment: 56.90
+
+- name: Transitional family at 280% FPL - 7% copayment
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      parent:
+        employment_income: 59_220
+      child:
+        age: 3
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+        spm_unit_size: 2
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+    households:
+      household:
+        members: [parent, child]
+        state_code: RI
+  output:
+    # Monthly income = 59,220 / 12 = 4,935
+    # FPL ratio = 4,935 / 1,762.50 = 2.80
+    # Rate = 7% (same as 150-261% bracket)
+    # Weekly copay = 59,220 * 0.07 / 52 = 79.72
+    ri_ccap_co_payment: 79.72

@@ -1,0 +1,51 @@
+description: Rhode Island provides these weekly quarter-time reimbursement rates for licensed family child care under the Child Care Assistance Program.
+metadata:
+  period: week
+  unit: currency-USD
+  label: Rhode Island CCAP licensed family child care quarter-time weekly rates
+  breakdown:
+    - ri_ccap_star_rating
+    - ri_ccap_family_age_group
+  reference:
+    - title: 218-RICR-20-00-4.12 CCAP Maximum Weekly Reimbursement Rates
+      href: https://dhs.ri.gov/media/7481/download?language=en
+
+STAR_1:
+  INFANT_TODDLER:
+    2024-07-01: 65.66
+  PRESCHOOL:
+    2024-07-01: 55.16
+  SCHOOL_AGE:
+    2024-07-01: 48.59
+
+STAR_2:
+  INFANT_TODDLER:
+    2024-07-01: 66.71
+  PRESCHOOL:
+    2024-07-01: 57.78
+  SCHOOL_AGE:
+    2024-07-01: 49.9
+
+STAR_3:
+  INFANT_TODDLER:
+    2024-07-01: 67.5
+  PRESCHOOL:
+    2024-07-01: 59.89
+  SCHOOL_AGE:
+    2024-07-01: 53.85
+
+STAR_4:
+  INFANT_TODDLER:
+    2024-07-01: 68.29
+  PRESCHOOL:
+    2024-07-01: 62.78
+  SCHOOL_AGE:
+    2024-07-01: 59.1
+
+STAR_5:
+  INFANT_TODDLER:
+    2024-07-01: 69.08
+  PRESCHOOL:
+    2024-07-01: 65.66
+  SCHOOL_AGE:
+    2024-07-01: 61.73

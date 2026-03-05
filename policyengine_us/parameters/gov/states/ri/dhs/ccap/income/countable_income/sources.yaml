@@ -1,0 +1,32 @@
+description: Rhode Island counts these income sources as countable income under the Child Care Assistance Program.
+values:
+  2020-01-01:
+    - employment_income
+    - self_employment_income
+    - social_security
+    - ssi
+    - dividend_income
+    - interest_income
+    - rental_income
+    - unemployment_compensation
+    - workers_compensation
+    - pension_income
+    - alimony_income
+    - child_support_received
+    - veterans_benefits
+    - capital_gains
+    - farm_income
+    # Gaps: TDI, estate/trust income, room/board income,
+    # health insurance cash-outs, adoption subsidies, royalties,
+    # strike benefits, trade readjustment allowance, in-kind
+    # assistance, non-citizen sponsor income, foster care payments
+    # (when child in unit), Americorps (not VISTA), regular
+    # contributions from non-household persons.
+
+metadata:
+  unit: list
+  period: year
+  label: Rhode Island CCAP countable income sources
+  reference:
+    - title: 218-RICR-20-00-4.2 Definition 29 (Income)
+      href: https://www.law.cornell.edu/regulations/rhode-island/218-RICR-20-00-4.2

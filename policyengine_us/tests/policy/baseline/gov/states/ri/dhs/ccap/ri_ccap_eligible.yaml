@@ -1,0 +1,117 @@
+- name: Eligible family - income below 261% FPL with eligible child
+  period: 2025-01
+  absolute_error_margin: 1
+  input:
+    people:
+      parent:
+        age: 30
+        employment_income: 40_000
+        is_tax_unit_head_or_spouse: true
+        is_tax_unit_dependent: false
+        immigration_status: CITIZEN
+      child:
+        age: 3
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+        spm_unit_size: 2
+        is_ri_ccap_enrolled: false
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+    households:
+      household:
+        members: [parent, child]
+        state_code: RI
+  output:
+    ri_ccap_eligible: true
+
+- name: Ineligible - income above 261% FPL, not enrolled
+  period: 2025-01
+  absolute_error_margin: 1
+  input:
+    people:
+      parent:
+        age: 30
+        employment_income: 100_000
+        is_tax_unit_head_or_spouse: true
+        is_tax_unit_dependent: false
+        immigration_status: CITIZEN
+      child:
+        age: 3
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+        spm_unit_size: 2
+        is_ri_ccap_enrolled: false
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+    households:
+      household:
+        members: [parent, child]
+        state_code: RI
+  output:
+    ri_ccap_eligible: false
+
+- name: Eligible - TANF enrolled bypasses income test
+  period: 2025-01
+  input:
+    people:
+      parent:
+        age: 30
+        employment_income: 100_000
+        is_tax_unit_head_or_spouse: true
+        is_tax_unit_dependent: false
+        immigration_status: CITIZEN
+      child:
+        age: 3
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+        spm_unit_size: 2
+        is_tanf_enrolled: true
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+    households:
+      household:
+        members: [parent, child]
+        state_code: RI
+  output:
+    ri_ccap_eligible: true
+
+- name: Ineligible - no eligible child (child too old)
+  period: 2025-01
+  input:
+    people:
+      parent:
+        age: 35
+        employment_income: 30_000
+        is_tax_unit_head_or_spouse: true
+        is_tax_unit_dependent: false
+        immigration_status: CITIZEN
+      child:
+        age: 14
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+        spm_unit_size: 2
+        is_ri_ccap_enrolled: false
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+    households:
+      household:
+        members: [parent, child]
+        state_code: RI
+  output:
+    ri_ccap_eligible: false

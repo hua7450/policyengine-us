@@ -1,0 +1,31 @@
+description: Rhode Island sets the copayment rate as this share of gross income under the Child Care Assistance Program.
+
+metadata:
+  type: single_amount
+  threshold_unit: /1
+  amount_unit: /1
+  period: month
+  label: Rhode Island CCAP copayment rate by FPL ratio
+  reference:
+    - title: 218-RICR-20-00-4.6.1(C)
+      href: https://www.law.cornell.edu/regulations/rhode-island/218-RICR-20-00-4.6
+    - title: CCAP 2026 Family Income Co-Pay Chart
+      href: https://dhs.ri.gov/media/10606/download?language=en
+
+brackets:
+  - threshold:
+      2020-01-01: 0
+    amount:
+      2020-01-01: 0
+  - threshold:
+      2020-01-01: 1.01
+    amount:
+      2020-01-01: 0.02
+  - threshold:
+      2020-01-01: 1.25
+    amount:
+      2020-01-01: 0.05
+  - threshold:
+      2020-01-01: 1.5
+    amount:
+      2020-01-01: 0.07

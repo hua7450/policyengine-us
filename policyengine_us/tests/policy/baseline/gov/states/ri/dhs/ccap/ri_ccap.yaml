@@ -1,0 +1,187 @@
+- name: Eligible family with childcare expenses - benefit capped at provider rate
+  period: 2026-01
+  absolute_error_margin: 1
+  input:
+    people:
+      parent:
+        age: 30
+        employment_income: 40_000
+        is_tax_unit_head_or_spouse: true
+        is_tax_unit_dependent: false
+        immigration_status: CITIZEN
+      child:
+        age: 3
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+        spm_unit_size: 2
+        spm_unit_pre_subsidy_childcare_expenses: 12_000
+        is_ri_ccap_enrolled: false
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+    households:
+      household:
+        members: [parent, child]
+        state_code: RI
+  output:
+    # FPG 2026 family of 2 = 15,960 + 5,680 = 21,640/yr
+    # Monthly income = 40,000/12 = 3,333.33; FPL ratio = 3,333.33 / 1,803.33 = 1.849
+    # Copay rate = 7%; weekly copay = 40,000 * 0.07 / 52 = 53.85
+    # Provider rate STAR_1/PRESCHOOL/FULL_TIME = 236/wk
+    # Weekly expense per child = 12,000/52 = 230.77
+    # Per-child payment = min(236, 230.77) = 230.77
+    # Weekly subsidy = 230.77 - 53.85 = 176.92
+    # Monthly = 176.92 * 52/12 = 767
+    ri_ccap_eligible: true
+    ri_ccap: 767
+
+- name: Ineligible family gets zero benefit
+  period: 2026-01
+  input:
+    people:
+      parent:
+        age: 30
+        employment_income: 100_000
+        is_tax_unit_head_or_spouse: true
+        is_tax_unit_dependent: false
+        immigration_status: CITIZEN
+      child:
+        age: 3
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+        spm_unit_size: 2
+        spm_unit_pre_subsidy_childcare_expenses: 12_000
+        is_ri_ccap_enrolled: false
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+    households:
+      household:
+        members: [parent, child]
+        state_code: RI
+  output:
+    ri_ccap: 0
+
+- name: TANF family with childcare expenses - $0 copayment
+  period: 2026-01
+  absolute_error_margin: 1
+  input:
+    people:
+      parent:
+        age: 30
+        employment_income: 20_000
+        is_tax_unit_head_or_spouse: true
+        is_tax_unit_dependent: false
+        immigration_status: CITIZEN
+      child:
+        age: 3
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+        spm_unit_size: 2
+        spm_unit_pre_subsidy_childcare_expenses: 10_000
+        is_tanf_enrolled: true
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+    households:
+      household:
+        members: [parent, child]
+        state_code: RI
+  output:
+    # TANF enrolled → copay = $0
+    # Provider rate STAR_1/PRESCHOOL/FULL_TIME = 236/wk
+    # Weekly expense per child = 10,000/52 = 192.31
+    # Per-child payment = min(236, 192.31) = 192.31
+    # Weekly subsidy = 192.31 - 0 = 192.31
+    # Monthly = 192.31 * 52/12 = 833
+    ri_ccap_eligible: true
+    ri_ccap: 833
+
+- name: Provider rate caps benefit below expense level
+  period: 2026-01
+  absolute_error_margin: 1
+  input:
+    people:
+      parent:
+        age: 30
+        employment_income: 15_000
+        is_tax_unit_head_or_spouse: true
+        is_tax_unit_dependent: false
+        immigration_status: CITIZEN
+      child:
+        age: 3
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+        spm_unit_size: 2
+        spm_unit_pre_subsidy_childcare_expenses: 20_000
+        is_ri_ccap_enrolled: false
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+    households:
+      household:
+        members: [parent, child]
+        state_code: RI
+  output:
+    # Below 100% FPL → copay = $0
+    # Provider rate STAR_1/PRESCHOOL/FULL_TIME = 236/wk
+    # Weekly expense per child = 20,000/52 = 384.62
+    # Per-child payment = min(236, 384.62) = 236 (CAPPED at provider rate)
+    # Weekly subsidy = 236 - 0 = 236
+    # Monthly = 236 * 52/12 = 1,023
+    ri_ccap: 1_023
+
+- name: Two children with provider rate lookup
+  period: 2026-01
+  absolute_error_margin: 1
+  input:
+    people:
+      parent:
+        age: 30
+        employment_income: 30_000
+        is_tax_unit_head_or_spouse: true
+        is_tax_unit_dependent: false
+        immigration_status: CITIZEN
+      child1:
+        age: 1
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+      child2:
+        age: 5
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+    spm_units:
+      spm_unit:
+        members: [parent, child1, child2]
+        spm_unit_size: 3
+        spm_unit_pre_subsidy_childcare_expenses: 24_000
+    tax_units:
+      tax_unit:
+        members: [parent, child1, child2]
+    households:
+      household:
+        members: [parent, child1, child2]
+        state_code: RI
+  output:
+    # FPG 2026 family of 3 = 15,960 + 5,680*2 = 27,320/yr
+    # Monthly income = 30,000/12 = 2,500; FPL ratio = 2,500/2,276.67 = 1.098
+    # Copay rate = 2%; weekly copay = 30,000 * 0.02 / 52 = 11.54
+    # Expenses split: 24,000/2 children = 12,000 each → weekly 230.77 each
+    # child1 age 1 → TODDLER, STAR_1/FULL_TIME = 278/wk → payment = min(278, 230.77) = 230.77
+    # child2 age 5 → PRESCHOOL, STAR_1/FULL_TIME = 236/wk → payment = min(236, 230.77) = 230.77
+    # Total weekly = 230.77 + 230.77 = 461.54
+    # Weekly subsidy = 461.54 - 11.54 = 450.00
+    # Monthly = 450.00 * 52/12 = 1,950
+    ri_ccap: 1_950

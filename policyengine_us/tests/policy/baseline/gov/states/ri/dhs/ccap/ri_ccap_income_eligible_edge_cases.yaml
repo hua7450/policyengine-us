@@ -1,0 +1,264 @@
+# Edge case tests for ri_ccap_income_eligible
+# FPG 2025 family of 2: $21,150
+# Entry threshold (261%): 2.61 * 21,150 = 55,201.50
+# Transitional threshold (300%): 3.00 * 21,150 = 63,450.00
+
+# --- Entry threshold boundary: 261% FPL ---
+
+- name: Case 1, new applicant income $1 below 261% FPL threshold.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        employment_income: 55_201
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_size: 2
+        is_ri_ccap_enrolled: false
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # 55,201 <= 55,201.50 -> true
+    ri_ccap_income_eligible: true
+
+- name: Case 2, new applicant income $1 above 261% FPL threshold.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        employment_income: 55_202
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_size: 2
+        is_ri_ccap_enrolled: false
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # 55,202 > 55,201.50 -> false
+    ri_ccap_income_eligible: false
+
+# --- Transitional threshold boundary: 300% FPL ---
+
+- name: Case 3, enrolled family income at exactly 300% FPL.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        employment_income: 63_450
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_size: 2
+        is_ri_ccap_enrolled: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # 63,450 <= 63,450 -> true
+    ri_ccap_income_eligible: true
+
+- name: Case 4, enrolled family income $1 above 300% FPL.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        employment_income: 63_451
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_size: 2
+        is_ri_ccap_enrolled: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # 63,451 > 63,450 -> false
+    ri_ccap_income_eligible: false
+
+# --- Enrolled family between 261% and 300% uses transitional ---
+
+- name: Case 5, enrolled family just above 261% FPL still eligible via transitional.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        employment_income: 55_202
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_size: 2
+        is_ri_ccap_enrolled: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # 55,202 <= 63,450 -> true (uses 300% transitional)
+    ri_ccap_income_eligible: true
+
+# --- Zero income ---
+
+- name: Case 6, zero income is eligible.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        employment_income: 0
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_size: 2
+        is_ri_ccap_enrolled: false
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    ri_ccap_income_eligible: true
+
+# --- Enrolled with zero income ---
+
+- name: Case 7, enrolled family with zero income is eligible.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        employment_income: 0
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_size: 2
+        is_ri_ccap_enrolled: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    ri_ccap_income_eligible: true
+
+# --- Family of 1: single-person unit ---
+# FPG family of 1: $15,650
+# Entry: 2.61 * 15,650 = 40,846.50
+
+- name: Case 8, single person at 261% FPL threshold.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        employment_income: 40_846
+    spm_units:
+      spm_unit:
+        members: [person1]
+        spm_unit_size: 1
+        is_ri_ccap_enrolled: false
+    tax_units:
+      tax_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    # 40,846 <= 40,846.50 -> true
+    ri_ccap_income_eligible: true
+
+- name: Case 9, single person $1 above 261% FPL threshold.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        employment_income: 40_847
+    spm_units:
+      spm_unit:
+        members: [person1]
+        spm_unit_size: 1
+        is_ri_ccap_enrolled: false
+    tax_units:
+      tax_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    # 40,847 > 40,846.50 -> false
+    ri_ccap_income_eligible: false
+
+# --- New applicant above 261% but below 300% uses entry threshold ---
+
+- name: Case 10, new applicant above 261% but below 300% is ineligible.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        employment_income: 60_000
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_size: 2
+        is_ri_ccap_enrolled: false
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # 60,000 > 55,201.50 -> false (uses 261% entry)
+    ri_ccap_income_eligible: false

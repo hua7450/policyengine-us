@@ -1,0 +1,70 @@
+# Edge case tests for ri_ccap_asset_eligible
+# Asset limit: $1,000,000
+
+# --- At exactly $1,000,000 ---
+
+- name: Case 1, assets at exactly $1,000,000.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 30
+    spm_units:
+      spm_unit:
+        members: [person1]
+        spm_unit_cash_assets: 1_000_000
+    tax_units:
+      tax_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    # 1,000,000 <= 1,000,000 -> true
+    ri_ccap_asset_eligible: true
+
+# --- At $1,000,001 ---
+
+- name: Case 2, assets at $1,000,001.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 30
+    spm_units:
+      spm_unit:
+        members: [person1]
+        spm_unit_cash_assets: 1_000_001
+    tax_units:
+      tax_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    # 1,000,001 > 1,000,000 -> false
+    ri_ccap_asset_eligible: false
+
+# --- Zero assets ---
+
+- name: Case 3, zero assets.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 30
+    spm_units:
+      spm_unit:
+        members: [person1]
+        spm_unit_cash_assets: 0
+    tax_units:
+      tax_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    ri_ccap_asset_eligible: true

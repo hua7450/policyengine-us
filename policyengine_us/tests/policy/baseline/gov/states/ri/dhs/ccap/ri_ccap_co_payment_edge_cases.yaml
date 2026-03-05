@@ -1,0 +1,270 @@
+# Edge case tests for ri_ccap_co_payment
+# FPG 2025 family of 2: $21,150/year
+# Copay = annual_income * copay_rate / 52
+# Brackets: <101% FPL -> 0%, >=101% -> 2%, >=125% -> 5%, >=150% -> 7%
+
+# --- Just below 100% FPL: $0 copayment ---
+
+- name: Case 1, income $1 below 100% FPL.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        employment_income: 21_149
+      person2:
+        age: 3
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_size: 2
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # FPL ratio = 21,149/21,150 < 1.0 -> rate = 0%
+    ri_ccap_co_payment: 0
+
+# --- At exactly 100% FPL: $0 copayment (bracket starts at 101% FPL) ---
+
+- name: Case 2, income at exactly 100% FPL.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        employment_income: 21_150
+      person2:
+        age: 3
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_size: 2
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # FPL ratio = 1.0 < 1.01 -> rate = 0%
+    ri_ccap_co_payment: 0
+
+# --- Just below 125% FPL: 2% rate ---
+
+- name: Case 3, income $1 below 125% FPL.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        employment_income: 26_437
+      person2:
+        age: 3
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_size: 2
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # FPL ratio = 26,437/21,150 = 1.24998 < 1.25 -> rate = 2%
+    # Weekly copay = 26,437 * 0.02 / 52 = 10.17
+    ri_ccap_co_payment: 10.17
+
+# --- At 125% FPL: 5% rate ---
+
+- name: Case 4, income at 125% FPL.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        # 125% of $21,150 = $26,437.50; use $26,438 to be just above
+        employment_income: 26_438
+      person2:
+        age: 3
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_size: 2
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # FPL ratio = 26,438/21,150 = 1.25002 >= 1.25 -> rate = 5%
+    # Weekly copay = 26,438 * 0.05 / 52 = 25.42
+    ri_ccap_co_payment: 25.42
+
+# --- Just below 150% FPL: 5% rate ---
+
+- name: Case 5, income $1 below 150% FPL.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        employment_income: 31_724
+      person2:
+        age: 3
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_size: 2
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # FPL ratio = 31,724/21,150 = 1.49995 < 1.5 -> rate = 5%
+    # Weekly copay = 31,724 * 0.05 / 52 = 30.50
+    ri_ccap_co_payment: 30.50
+
+# --- At 150% FPL: 7% rate ---
+
+- name: Case 6, income at 150% FPL.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        # 150% of $21,150 = $31,725
+        employment_income: 31_725
+      person2:
+        age: 3
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_size: 2
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # FPL ratio = 31,725/21,150 = 1.5 -> rate = 7%
+    # Weekly copay = 31,725 * 0.07 / 52 = 42.71
+    ri_ccap_co_payment: 42.71
+
+# --- Zero income: $0 copayment ---
+
+- name: Case 7, zero income produces $0 copayment.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        employment_income: 0
+      person2:
+        age: 3
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_size: 2
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    ri_ccap_co_payment: 0
+
+# --- TANF enrolled with high income: $0 copayment ---
+
+- name: Case 8, TANF enrolled with income above 150% FPL gets $0 copayment.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        employment_income: 50_000
+      person2:
+        age: 3
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_size: 2
+        is_tanf_enrolled: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    ri_ccap_co_payment: 0
+
+# --- Homeless with income: $0 copayment ---
+
+- name: Case 9, homeless family with income above 150% FPL gets $0 copayment.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        employment_income: 50_000
+      person2:
+        age: 3
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_size: 2
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+        is_homeless: true
+  output:
+    ri_ccap_co_payment: 0
+
+# --- Both TANF and homeless: $0 copayment ---
+
+- name: Case 10, both TANF enrolled and homeless gets $0 copayment.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        employment_income: 40_000
+      person2:
+        age: 3
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_size: 2
+        is_tanf_enrolled: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+        is_homeless: true
+  output:
+    ri_ccap_co_payment: 0
