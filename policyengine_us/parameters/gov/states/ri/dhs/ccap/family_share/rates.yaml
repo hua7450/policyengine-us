@@ -1,0 +1,33 @@
+description: Rhode Island sets the family share as this percentage of countable gross income under the Child Care Assistance Program.
+
+metadata:
+  type: single_amount
+  threshold_unit: /1
+  amount_unit: /1
+  period: year
+  label: Rhode Island CCAP family share rate by FPL
+  reference:
+    - title: 218-RICR-20-00-4 Section 4.6.1(C)(1)(c)
+      href: https://dhs.ri.gov/media/9236/download?language=en#page=38
+
+brackets:
+  - threshold:
+      2022-01-01: 0
+    amount:
+      2022-01-01: 0
+  - threshold:
+      2022-01-01: 1.0001
+    amount:
+      2022-01-01: 0.02
+  - threshold:
+      2022-01-01: 1.2501
+    amount:
+      2022-01-01: 0.05
+  - threshold:
+      2022-01-01: 1.5001
+    amount:
+      2022-01-01: 0.07
+  - threshold:
+      2022-01-01: 2.6101
+    amount:
+      2022-01-01: 0.07

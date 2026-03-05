@@ -1,0 +1,11 @@
+description: Rhode Island sets this minimum number of weekly work or training hours for parents under the Child Care Assistance Program.
+values:
+  2022-01-01: 20
+
+metadata:
+  unit: hour
+  period: week
+  label: Rhode Island CCAP minimum activity hours per week
+  reference:
+    - title: 218-RICR-20-00-4 Section 4.6.2(A)(1)
+      href: https://dhs.ri.gov/media/9236/download?language=en#page=39

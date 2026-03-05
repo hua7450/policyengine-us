@@ -1,0 +1,344 @@
+- name: Case 1, income below 100 percent FPL has zero co-pay.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 18_000
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # Family of 2 FPL 2025 = $21,150
+    # FPL ratio = 18,000 / 21,150 = 0.8511 -> Level 0 -> 0% share
+    # Weekly share = 0
+    # YEAR = 12 * 0 = $0
+    ri_ccap_family_share: 0
+
+- name: Case 2, income between 100 and 125 percent FPL has 2 percent co-pay.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 24_000
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ri_works_eligible: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # Family of 2 FPL 2025 = $21,150
+    # FPL ratio = 24,000 / 21,150 = 1.1348 -> bracket >= 1.0001 -> 2% rate
+    # Weekly income = 24,000 / 52 = $461.54
+    # Weekly share = 461.54 * 0.02 = $9.23
+    # YEAR = 12 * $9.23 = $110.77
+    ri_ccap_family_share: 110.77
+
+- name: Case 3, income between 125 and 150 percent FPL has 5 percent co-pay.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 30_000
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ri_works_eligible: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # Family of 2 FPL 2025 = $21,150
+    # FPL ratio = 30,000 / 21,150 = 1.4184 -> bracket >= 1.2501 -> 5% rate
+    # Weekly income = 30,000 / 52 = $576.92
+    # Weekly share = 576.92 * 0.05 = $28.85
+    # YEAR = 12 * $28.85 = $346.15
+    ri_ccap_family_share: 346.15
+
+- name: Case 4, income between 150 and 261 percent FPL has 7 percent co-pay.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 48_000
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ri_works_eligible: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # Family of 2 FPL 2025 = $21,150
+    # FPL ratio = 48,000 / 21,150 = 2.2695 -> bracket >= 1.5001 -> 7% rate
+    # Weekly income = 48,000 / 52 = $923.08
+    # Weekly share = 923.08 * 0.07 = $64.62
+    # YEAR = 12 * $64.62 = $775.38
+    ri_ccap_family_share: 775.38
+
+- name: Case 5, RI Works recipient has zero co-pay regardless of income.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 30_000
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ri_works_eligible: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    ri_ccap_family_share: 0
+
+- name: Case 6, housing insecure family has zero co-pay.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 30_000
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+        is_homeless: true
+  output:
+    ri_ccap_family_share: 0
+
+- name: Case 7, enrolled family in transitional range has 7 percent co-pay.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 60_000
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ri_ccap_enrolled: true
+        ri_works_eligible: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # Family of 2 FPL 2025 = $21,150
+    # FPL ratio = 60,000 / 21,150 = 2.8369 -> bracket >= 2.6101 -> 7% rate
+    # Weekly income = 60,000 / 52 = $1,153.85
+    # Weekly share = 1,153.85 * 0.07 = $80.77
+    # YEAR = 12 * $80.77 = $969.23
+    ri_ccap_family_share: 969.23
+
+- name: Case 8, income exactly at 100 percent FPL has zero co-pay.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 21_150
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # Family of 2 FPL 2025 = $21,150
+    # FPL ratio = 21,150 / 21,150 = 1.0 -> bracket 0 -> 0% rate
+    # (1.0 < 1.0001 threshold for 2% bracket)
+    ri_ccap_family_share: 0
+
+- name: Case 9, income just above 100 percent FPL crosses into 2 percent bracket.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 21_153
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ri_works_eligible: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # Family of 2 FPL 2025 = $21,150
+    # FPL ratio = 21,153 / 21,150 = 1.000142 >= 1.0001 -> 2% rate
+    # Weekly income = 21,153 / 52 = $406.79
+    # Weekly share = 406.79 * 0.02 = $8.14
+    # YEAR = 12 * $8.14 = $97.63
+    ri_ccap_family_share: 97.63
+
+- name: Case 10, income just below 125 percent FPL stays in 2 percent bracket.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 26_439
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ri_works_eligible: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # Family of 2 FPL 2025 = $21,150
+    # FPL ratio = 26,439 / 21,150 = 1.250071 < 1.2501 -> 2% rate
+    # Weekly income = 26,439 / 52 = $508.44
+    # Weekly share = 508.44 * 0.02 = $10.17
+    # YEAR = 12 * $10.17 = $122.03
+    ri_ccap_family_share: 122.03
+
+- name: Case 11, income crosses into 5 percent bracket at 125 percent FPL.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 26_440
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ri_works_eligible: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # Family of 2 FPL 2025 = $21,150
+    # FPL ratio = 26,440 / 21,150 = 1.250118 >= 1.2501 -> 5% rate
+    # Weekly income = 26,440 / 52 = $508.46
+    # Weekly share = 508.46 * 0.05 = $25.42
+    # YEAR = 12 * $25.42 = $305.08
+    ri_ccap_family_share: 305.08
+
+- name: Case 12, income crosses into 7 percent bracket at 150 percent FPL.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 31_728
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ri_works_eligible: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # Family of 2 FPL 2025 = $21,150
+    # FPL ratio = 31,728 / 21,150 = 1.500142 >= 1.5001 -> 7% rate
+    # Weekly income = 31,728 / 52 = $610.15
+    # Weekly share = 610.15 * 0.07 = $42.71
+    # YEAR = 12 * $42.71 = $512.53
+    ri_ccap_family_share: 512.53
+
+- name: Case 13, income just below 150 percent FPL stays in 5 percent bracket.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 31_727
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ri_works_eligible: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # Family of 2 FPL 2025 = $21,150
+    # FPL ratio = 31,727 / 21,150 = 1.500095 < 1.5001 -> 5% rate
+    # Weekly income = 31,727 / 52 = $610.13
+    # Weekly share = 610.13 * 0.05 = $30.51
+    # YEAR = 12 * $30.51 = $366.08
+    ri_ccap_family_share: 366.08
+
+- name: Case 14, zero income has zero co-pay.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 0
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # FPL ratio = 0 / 21,150 = 0 -> bracket 0 -> 0% rate
+    ri_ccap_family_share: 0

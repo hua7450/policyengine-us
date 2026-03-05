@@ -1,0 +1,33 @@
+description: Rhode Island sets this weekly rate for quarter-time school-age care at licensed family providers under the Child Care Assistance Program.
+
+metadata:
+  type: single_amount
+  threshold_unit: /1
+  amount_unit: currency-USD
+  period: week
+  label: Rhode Island CCAP licensed family school-age quarter-time rate
+  reference:
+    - title: DHS CCAP Licensed Family Child Care Weekly Rates, Effective July 1, 2024
+      href: https://dhs.ri.gov/programs-and-services/child-care/child-care-assistance-program-ccap/ccap-child-care-rates
+
+brackets:
+  - threshold:
+      2024-07-01: 1
+    amount:
+      2024-07-01: 48.59
+  - threshold:
+      2024-07-01: 2
+    amount:
+      2024-07-01: 49.90
+  - threshold:
+      2024-07-01: 3
+    amount:
+      2024-07-01: 53.85
+  - threshold:
+      2024-07-01: 4
+    amount:
+      2024-07-01: 59.10
+  - threshold:
+      2024-07-01: 5
+    amount:
+      2024-07-01: 61.73
