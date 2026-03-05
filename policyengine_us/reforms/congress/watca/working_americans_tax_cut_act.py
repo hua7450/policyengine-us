@@ -7,13 +7,12 @@ from policyengine_core.periods import instant
 # co-sponsors. Introduced March 5, 2026.
 #
 # Sources:
-#   - Official bill summary (Sen. Van Hollen's office)
 #   - Washington Post (Jeff Stein, March 5, 2026):
 #     https://www.washingtonpost.com/business/2026/03/05/
 #     middle-class-tax-relief-senate-bill/
-#   - ITEP analysis: ~130M people receive a tax cut
-#   - Yale Budget Lab: surtax impacts 615K filers, raises
-#     ~$1.46 trillion over 10 years
+#   - The Daily Record (March 5, 2026):
+#     https://thedailyrecord.com/2026/03/05/
+#     maryland-senator-van-hollen-tax-plan/
 #
 # Cost of living exemption:
 #   Single: $46,000 (2025 nationally aggregated living wage,
