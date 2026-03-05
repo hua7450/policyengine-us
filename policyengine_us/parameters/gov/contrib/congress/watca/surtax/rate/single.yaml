@@ -5,6 +5,9 @@ metadata:
   rate_unit: /1
   period: year
   label: WATCA millionaire surtax single rate
+  reference:
+    - title: Working Americans' Tax Cut Act bill summary (via Jeff Stein, WaPo)
+      href: https://x.com/JStein_WaPo/status/2029621495295619363
 
 brackets:
   - threshold:

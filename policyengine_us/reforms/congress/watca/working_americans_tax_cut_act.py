@@ -2,28 +2,19 @@ from policyengine_us.model_api import *
 from policyengine_core.periods import period as period_
 from policyengine_core.periods import instant
 
-# Working Americans' Tax Cut Act (WATCA)
-# Sponsor: Sen. Chris Van Hollen (D-MD), with 15 Senate Democratic
-# co-sponsors. Introduced March 5, 2026.
-#
-# Sources:
-#   - Bill summary (via Jeff Stein, WaPo):
-#     https://x.com/JStein_WaPo/status/2029621495295619363
-#   - Washington Post (Jeff Stein, March 5, 2026):
-#     https://www.washingtonpost.com/business/2026/03/05/
-#     middle-class-tax-relief-senate-bill/
-#
-# Cost of living exemption:
-#   Single: $46,000 (2025 nationally aggregated living wage,
-#     MIT Living Wage Calculator). Phase-out at 175% = $80,500.
-#   HOH: $64,400 (140% of single). Phase-out at $112,700.
-#   MFJ: $92,000 (200% of single). Phase-out at $161,000.
-#   Benefits phase out linearly between the exemption amount
-#   and 175% of that amount.
-#
-# Millionaire surtax (on AGI, including wages and investment):
-#   Single: 5% > $1M, 10% > $2M, 12% > $5M
-#   Joint:  5% > $1.5M, 10% > $3M, 12% > $7.5M
+WATCA_REFERENCES = [
+    {
+        "title": "Working Americans' Tax Cut Act bill summary"
+        " (via Jeff Stein, WaPo)",
+        "href": "https://x.com/JStein_WaPo/status/" "2029621495295619363",
+    },
+    {
+        "title": "Democrat's plan would eliminate federal income"
+        " taxes for half of U.S. workers",
+        "href": "https://www.washingtonpost.com/business/"
+        "2026/03/05/middle-class-tax-relief-senate-bill/",
+    },
+]
 
 
 def create_watca() -> Reform:
@@ -33,6 +24,7 @@ def create_watca() -> Reform:
         label = "WATCA cost of living exemption"
         definition_period = YEAR
         unit = USD
+        reference = WATCA_REFERENCES
 
         def formula(tax_unit, period, parameters):
             agi = tax_unit("adjusted_gross_income", period)
@@ -53,6 +45,7 @@ def create_watca() -> Reform:
         label = "WATCA millionaire surtax"
         definition_period = YEAR
         unit = USD
+        reference = WATCA_REFERENCES
 
         def formula(tax_unit, period, parameters):
             agi = tax_unit("adjusted_gross_income", period)
