@@ -85,6 +85,9 @@ from .local.nyc.stc.phase_out import (
     create_nyc_school_tax_credit_with_phase_out_reform,
 )
 
+from .states.mt.hb268 import (
+    create_mt_hb268_reform,
+)
 from .states.mt.ctc import (
     create_mt_ctc_reform,
 )
@@ -283,6 +286,7 @@ def create_structural_reforms_from_parameters(parameters, period):
     nyc_school_tax_credit_with_phase_out = (
         create_nyc_school_tax_credit_with_phase_out_reform(parameters, period)
     )
+    mt_hb268 = create_mt_hb268_reform(parameters, period)
     mt_ctc = create_mt_ctc_reform(parameters, period)
     mt_newborn_credit = create_mt_newborn_credit_reform(parameters, period)
     fisc_act = create_fisc_act_reform(parameters, period)
@@ -412,6 +416,7 @@ def create_structural_reforms_from_parameters(parameters, period):
         dc_property_tax_credit,
         limit_salt_deduction_to_property_taxes,
         nyc_school_tax_credit_with_phase_out,
+        mt_hb268,
         mt_ctc,
         mt_newborn_credit,
         fisc_act,
