@@ -1,3 +1,10 @@
+## [1.591.3] - 2026-03-05
+
+### Fixed
+
+- Fix VA TANF max payment cap scaling and enhance references.
+
+
 ## [1.591.2] - 2026-03-05
 
 ### Changed
