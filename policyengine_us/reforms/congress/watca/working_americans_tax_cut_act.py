@@ -36,7 +36,9 @@ def create_watca() -> Reform:
             agi = tax_unit("adjusted_gross_income", period)
             p = parameters(period).gov.contrib.congress.watca.surtax
             filing_status = tax_unit("filing_status", period)
-            joint = filing_status == filing_status.possible_values.JOINT
+            joint = (filing_status == filing_status.possible_values.JOINT) | (
+                filing_status == filing_status.possible_values.SURVIVING_SPOUSE
+            )
             return where(
                 joint,
                 p.rate.joint.calc(agi),
