@@ -20,15 +20,9 @@ def create_watca() -> Reform:
             amount = p.amount[filing_status]
             phase_out_end = amount * p.phase_out_multiple
             # Linear phase-out between amount and phase_out_end
-            fraction = where(
-                agi <= amount,
-                1,
-                where(
-                    agi >= phase_out_end,
-                    0,
-                    (phase_out_end - agi) / (phase_out_end - amount),
-                ),
-            )
+            phase_out_range = phase_out_end - amount
+            uncapped = (phase_out_end - agi) / phase_out_range
+            fraction = clip(uncapped, 0, 1)
             return amount * fraction
 
     class watca_millionaire_surtax(Variable):
