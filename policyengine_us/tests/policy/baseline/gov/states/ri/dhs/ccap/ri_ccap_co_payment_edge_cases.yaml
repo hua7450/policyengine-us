@@ -1,7 +1,7 @@
 # Edge case tests for ri_ccap_co_payment
 # FPG 2025 family of 2: $21,150/year
 # Copay = annual_income * copay_rate / 52
-# Brackets: <100% FPL -> 0%, >=100% -> 2%, >=125% -> 5%, >=150% -> 7%
+# Brackets: <101% FPL -> 0%, >=101% -> 2%, >=125% -> 5%, >=150% -> 7%
 
 # --- Just below 100% FPL: $0 copayment ---
 
@@ -29,7 +29,7 @@
     # FPL ratio = 21,149/21,150 < 1.0 -> rate = 0%
     ri_ccap_co_payment: 0
 
-# --- At exactly 100% FPL: 2% copayment ---
+# --- At exactly 100% FPL: $0 copayment (bracket starts at 101% FPL) ---
 
 - name: Case 2, income at exactly 100% FPL.
   period: 2025-01
@@ -52,9 +52,8 @@
         members: [person1, person2]
         state_code: RI
   output:
-    # FPL ratio = 1.0 -> rate = 2%
-    # Weekly copay = 21,150 * 0.02 / 52 = 8.13
-    ri_ccap_co_payment: 8.13
+    # FPL ratio = 1.0 < 1.01 -> rate = 0%
+    ri_ccap_co_payment: 0
 
 # --- Just below 125% FPL: 2% rate ---
 

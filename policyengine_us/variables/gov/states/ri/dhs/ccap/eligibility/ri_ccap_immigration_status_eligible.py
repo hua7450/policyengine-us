@@ -11,7 +11,7 @@ class ri_ccap_immigration_status_eligible(Variable):
 
     def formula(person, period, parameters):
         p = parameters(period).gov.states.ri.dhs.ccap
-        immigration_status = person("immigration_status", period)
+        immigration_status = person("immigration_status", period.this_year)
         immigration_status_str = immigration_status.decode_to_str()
         has_qualifying_status = np.isin(
             immigration_status_str,

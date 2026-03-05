@@ -17,10 +17,10 @@ class ri_ccap_child_eligible(Variable):
     def formula(person, period, parameters):
         p = parameters(period).gov.states.ri.dhs.ccap.age_limit
         age = person("monthly_age", period)
-        is_disabled = person("is_disabled", period)
+        is_disabled = person("is_disabled", period.this_year)
         age_limit = where(is_disabled, p.special_needs_child, p.child)
         age_eligible = age < age_limit
-        is_dependent = person("is_tax_unit_dependent", period)
+        is_dependent = person("is_tax_unit_dependent", period.this_year)
         immigration_eligible = person(
             "ri_ccap_immigration_status_eligible", period
         )

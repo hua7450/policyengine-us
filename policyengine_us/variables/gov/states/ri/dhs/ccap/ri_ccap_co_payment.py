@@ -25,6 +25,6 @@ class ri_ccap_co_payment(Variable):
         weekly_copay = annual_income * copay_rate / WEEKS_IN_YEAR
         # RI Works recipients and housing insecure pay $0
         is_tanf_enrolled = spm_unit("is_tanf_enrolled", period)
-        is_homeless = spm_unit.household("is_homeless", period)
+        is_homeless = spm_unit.household("is_homeless", period.this_year)
         exempt = is_tanf_enrolled | is_homeless
         return where(exempt, 0, weekly_copay)
