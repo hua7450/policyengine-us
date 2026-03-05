@@ -1,0 +1,314 @@
+# Integration tests for Rhode Island CCAP
+# 218-RICR-20-00-4: Starting RIght Child Care Assistance Program
+# https://www.law.cornell.edu/regulations/rhode-island/218-RICR-20-00-4.3
+#
+# 2025 FPL (Contiguous US):
+#   first_person = $15,650; additional_person = $5,500
+#   Family of 2: $21,150    Family of 3: $26,650    Family of 4: $32,150
+#
+# Income eligibility: <= 261% FPL (entry), <= 300% FPL (transitional)
+# Asset limit: $1,000,000
+# Child age: under 13 (under 19 if disabled)
+#
+# Co-payment schedule (% of gross countable monthly income):
+#   Level 0: <= 100% FPL -> 0%
+#   Level 1: > 100% to 125% FPL -> 2%
+#   Level 2: > 125% to 150% FPL -> 5%
+#   Level 3: > 150% to 261% FPL -> 7%
+#   Level 4: > 261% to 300% FPL -> 7% (transitional only)
+#
+# Benefit = max(childcare_expenses - co_payment, 0)
+
+- name: Case 1, low income single parent one child eligible no co-payment.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 18_000
+      person2:
+        age: 4
+        pre_subsidy_childcare_expenses: 12_000
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # Child eligibility: person2 age 4 < 13 -> eligible
+    ri_ccap_child_eligible: [false, true]
+
+    # Income: $18,000/yr -> monthly = $1,500
+    # Family of 2 FPL = $21,150
+    # $18,000 / $21,150 = 85.1% FPL -> below 261% -> income eligible
+    ri_ccap_income_eligible: true
+
+    # Assets: default $0 <= $1,000,000 -> asset eligible
+    ri_ccap_asset_eligible: true
+
+    # Overall eligibility
+    ri_ccap_eligible: true
+
+    # Countable income: $18,000/yr / 12 = $1,500/mo
+    ri_ccap_countable_income: 1_500
+
+    # Co-payment: 85.1% FPL -> Level 0 -> 0% of income
+    # $1,500 * 0.00 = $0
+    ri_ccap_co_payment: 0
+
+    # Benefit: childcare $12,000/yr / 12 = $1,000/mo - $0 co-pay = $1,000
+    ri_ccap: 1_000
+
+- name: Case 2, moderate income family two children 5 pct co-payment.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 35
+        employment_income: 36_000
+      person2:
+        age: 33
+      person3:
+        age: 7
+        pre_subsidy_childcare_expenses: 6_000
+      person4:
+        age: 3
+        pre_subsidy_childcare_expenses: 9_600
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3, person4]
+    households:
+      household:
+        members: [person1, person2, person3, person4]
+        state_code: RI
+  output:
+    # Child eligibility: person3 age 7 < 13 -> eligible; person4 age 3 < 13 -> eligible
+    ri_ccap_child_eligible: [false, false, true, true]
+
+    # Income: $36,000/yr
+    # Family of 4 FPL = $32,150
+    # $36,000 / $32,150 = 112.0% FPL -> below 261% -> income eligible
+    ri_ccap_income_eligible: true
+
+    # Assets: default $0 <= $1,000,000
+    ri_ccap_asset_eligible: true
+
+    ri_ccap_eligible: true
+
+    # Countable income: $36,000/yr / 12 = $3,000/mo
+    ri_ccap_countable_income: 3_000
+
+    # Co-payment: 112.0% FPL -> Level 1 (>100% to 125%) -> 2% of income
+    # $3,000 * 0.02 = $60
+    ri_ccap_co_payment: 60
+
+    # Benefit: total childcare ($6,000 + $9,600) / 12 = $1,300/mo - $60 = $1,240
+    ri_ccap: 1_240
+
+- name: Case 3, family above 261 pct FPL new applicant not eligible.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 40
+        employment_income: 75_000
+      person2:
+        age: 38
+      person3:
+        age: 6
+        pre_subsidy_childcare_expenses: 10_000
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        is_ri_ccap_enrolled: false
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: RI
+  output:
+    # Child: person3 age 6 < 13 -> eligible
+    ri_ccap_child_eligible: [false, false, true]
+
+    # Income: $75,000/yr
+    # Family of 3 FPL = $26,650
+    # $75,000 / $26,650 = 281.4% FPL -> above 261% and NOT enrolled
+    # New applicants above 261% are NOT eligible
+    ri_ccap_income_eligible: false
+
+    ri_ccap_asset_eligible: true
+    ri_ccap_eligible: false
+
+    # Countable income: $75,000/yr / 12 = $6,250/mo
+    ri_ccap_countable_income: 6_250
+
+    # Not eligible, so no benefit
+    ri_ccap_co_payment: 0
+    ri_ccap: 0
+
+- name: Case 4, family above 261 pct below 300 pct FPL enrolled transitional 7 pct co-payment.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 40
+        employment_income: 75_000
+      person2:
+        age: 38
+      person3:
+        age: 6
+        pre_subsidy_childcare_expenses: 18_000
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        is_ri_ccap_enrolled: true
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: RI
+  output:
+    # Child: person3 age 6 < 13 -> eligible
+    ri_ccap_child_eligible: [false, false, true]
+
+    # Income: $75,000/yr
+    # Family of 3 FPL = $26,650
+    # $75,000 / $26,650 = 281.4% -> above 261% but below 300% ($79,950)
+    # Currently enrolled -> transitional eligibility -> income eligible
+    ri_ccap_income_eligible: true
+
+    ri_ccap_asset_eligible: true
+    ri_ccap_eligible: true
+
+    # Countable income: $75,000/yr / 12 = $6,250/mo
+    ri_ccap_countable_income: 6_250
+
+    # Co-payment: 281.4% FPL -> Level 4 (>261% to 300%) -> 7% of income
+    # $6,250 * 0.07 = $437.50
+    ri_ccap_co_payment: 437.5
+
+    # Benefit: $18,000/yr / 12 = $1,500/mo - $437.50 = $1,062.50
+    ri_ccap: 1_062.5
+
+- name: Case 5, family with assets over 1M not eligible.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 35
+        employment_income: 24_000
+      person2:
+        age: 4
+        pre_subsidy_childcare_expenses: 12_000
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_assets: 1_500_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # Child: person2 age 4 < 13 -> eligible
+    ri_ccap_child_eligible: [false, true]
+
+    # Income: $24,000/yr
+    # Family of 2 FPL = $21,150
+    # $24,000 / $21,150 = 113.5% -> below 261% -> income eligible
+    ri_ccap_income_eligible: true
+
+    # Assets: $1,500,000 > $1,000,000 -> NOT asset eligible
+    ri_ccap_asset_eligible: false
+
+    ri_ccap_eligible: false
+
+    # Countable income: $24,000/yr / 12 = $2,000/mo
+    ri_ccap_countable_income: 2_000
+
+    # Not eligible -> no benefit
+    ri_ccap_co_payment: 0
+    ri_ccap: 0
+
+- name: Case 6, family with only teenager age 14 not eligible.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 42
+        employment_income: 30_000
+      person2:
+        age: 14
+        pre_subsidy_childcare_expenses: 6_000
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # Child: person2 age 14 >= 13 and not disabled -> NOT child eligible
+    ri_ccap_child_eligible: [false, false]
+
+    # Income: $30,000/yr
+    # Family of 2 FPL = $21,150
+    # $30,000 / $21,150 = 141.8% -> below 261% -> income eligible
+    ri_ccap_income_eligible: true
+
+    ri_ccap_asset_eligible: true
+
+    # No eligible children -> family not eligible
+    ri_ccap_eligible: false
+
+    ri_ccap_countable_income: 2_500
+
+    # Not eligible -> no benefit
+    ri_ccap_co_payment: 0
+    ri_ccap: 0
+
+- name: Case 7, family with disabled child age 16 eligible with 7 pct co-payment.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 45
+        employment_income: 48_000
+      person2:
+        age: 16
+        is_disabled: true
+        pre_subsidy_childcare_expenses: 15_600
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # Child: person2 age 16 < 19 and disabled -> eligible
+    ri_ccap_child_eligible: [false, true]
+
+    # Income: $48,000/yr
+    # Family of 2 FPL = $21,150
+    # $48,000 / $21,150 = 226.9% -> below 261% -> income eligible
+    ri_ccap_income_eligible: true
+
+    ri_ccap_asset_eligible: true
+    ri_ccap_eligible: true
+
+    # Countable income: $48,000/yr / 12 = $4,000/mo
+    ri_ccap_countable_income: 4_000
+
+    # Co-payment: 226.9% FPL -> Level 3 (>150% to 261%) -> 7% of income
+    # $4,000 * 0.07 = $280
+    ri_ccap_co_payment: 280
+
+    # Benefit: $15,600/yr / 12 = $1,300/mo - $280 = $1,020
+    ri_ccap: 1_020
