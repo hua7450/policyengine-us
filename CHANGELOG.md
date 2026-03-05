@@ -1,3 +1,24 @@
+## [1.591.3] - 2026-03-05
+
+### Fixed
+
+- Fix VA TANF max payment cap scaling and enhance references.
+
+
+## [1.591.2] - 2026-03-05
+
+### Changed
+
+- Backdate federal TANF earned and unearned income source parameters to 2010-07-01.
+
+
+## [1.591.1] - 2026-03-04
+
+### Changed
+
+- Reset Georgia income tax rate to constant 5.19%, removing premature conditional rate reductions scheduled for 2026-2028.
+
+
 ## [1.591.0] - 2026-03-04
 
 ### Added
