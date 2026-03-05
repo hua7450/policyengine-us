@@ -1,0 +1,13 @@
+description: Rhode Island limits the Child Care Assistance Program to special needs children younger than this age.
+values:
+  2020-01-01: 19
+
+metadata:
+  unit: year
+  period: year
+  label: Rhode Island CCAP special needs child age limit
+  reference:
+    - title: 218-RICR-20-00-4.3.1(C)
+      href: https://www.law.cornell.edu/regulations/rhode-island/218-RICR-20-00-4.3
+    - title: 218-RICR-20-00-4.2 Definition 14 (Eligible Child)
+      href: https://www.law.cornell.edu/regulations/rhode-island/218-RICR-20-00-4.2

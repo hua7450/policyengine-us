@@ -1,0 +1,11 @@
+description: Rhode Island limits liquid assets to this amount under the Child Care Assistance Program.
+values:
+  2020-01-01: 1_000_000
+
+metadata:
+  unit: currency-USD
+  period: year
+  label: Rhode Island CCAP asset limit
+  reference:
+    - title: 218-RICR-20-00-4.6.1(E)
+      href: https://www.law.cornell.edu/regulations/rhode-island/218-RICR-20-00-4.6

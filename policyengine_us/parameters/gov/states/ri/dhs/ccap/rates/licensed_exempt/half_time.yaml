@@ -1,0 +1,43 @@
+description: Rhode Island provides these weekly half-time reimbursement rates for licensed exempt child care under the Child Care Assistance Program.
+metadata:
+  period: week
+  unit: currency-USD
+  label: Rhode Island CCAP licensed exempt half-time weekly rates
+  breakdown:
+    - ri_ccap_step_rating
+    - ri_ccap_family_age_group
+  reference:
+    - title: 218-RICR-20-00-4.12 CCAP Maximum Weekly Reimbursement Rates
+      href: https://dhs.ri.gov/media/3556/download?language=en
+
+STEP_1:
+  INFANT_TODDLER:
+    2022-01-01: 50.48
+  PRESCHOOL:
+    2022-01-01: 29.95
+  SCHOOL_AGE:
+    2022-01-01: 29.4
+
+STEP_2:
+  INFANT_TODDLER:
+    2022-01-01: 50.98
+  PRESCHOOL:
+    2022-01-01: 30.26
+  SCHOOL_AGE:
+    2022-01-01: 29.69
+
+STEP_3:
+  INFANT_TODDLER:
+    2022-01-01: 51.48
+  PRESCHOOL:
+    2022-01-01: 30.54
+  SCHOOL_AGE:
+    2022-01-01: 29.98
+
+STEP_4:
+  INFANT_TODDLER:
+    2022-01-01: 51.98
+  PRESCHOOL:
+    2022-01-01: 30.84
+  SCHOOL_AGE:
+    2022-01-01: 30.28

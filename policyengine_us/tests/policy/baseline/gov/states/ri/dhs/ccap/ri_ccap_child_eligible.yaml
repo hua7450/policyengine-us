@@ -1,0 +1,81 @@
+- name: Eligible child - age 5, citizen, dependent
+  period: 2025-01
+  input:
+    people:
+      parent:
+        age: 30
+        is_tax_unit_dependent: false
+        immigration_status: CITIZEN
+      child:
+        age: 5
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+    households:
+      household:
+        members: [parent, child]
+        state_code: RI
+  output:
+    ri_ccap_child_eligible:
+      - false  # parent
+      - true   # child
+
+- name: Ineligible child - age 14, not disabled
+  period: 2025-01
+  input:
+    people:
+      parent:
+        age: 35
+        is_tax_unit_dependent: false
+        immigration_status: CITIZEN
+      child:
+        age: 14
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+    households:
+      household:
+        members: [parent, child]
+        state_code: RI
+  output:
+    ri_ccap_child_eligible:
+      - false  # parent
+      - false  # child over 13
+
+- name: Eligible disabled child - age 16
+  period: 2025-01
+  input:
+    people:
+      parent:
+        age: 40
+        is_tax_unit_dependent: false
+        immigration_status: CITIZEN
+      child:
+        age: 16
+        is_disabled: true
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+    households:
+      household:
+        members: [parent, child]
+        state_code: RI
+  output:
+    ri_ccap_child_eligible:
+      - false  # parent
+      - true   # disabled child under 19

@@ -1,0 +1,11 @@
+description: Rhode Island limits the Child Care Assistance Program to enrolled families at redetermination with income below this share of the federal poverty guideline.
+values:
+  2020-01-01: 3
+
+metadata:
+  unit: /1
+  period: month
+  label: Rhode Island CCAP transitional income limit rate
+  reference:
+    - title: 218-RICR-20-00-4.6.1(B)
+      href: https://www.law.cornell.edu/regulations/rhode-island/218-RICR-20-00-4.6

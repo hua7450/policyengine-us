@@ -1,0 +1,267 @@
+# Edge case tests for ri_ccap (benefit amount)
+# Benefit = max(sum(min(provider_rate, expense) per child) - copay, 0) * 52/12
+# FPG 2026 family of 2: 15,960 + 5,680 = $21,640/year
+
+# --- Zero childcare expenses: $0 benefit ---
+
+- name: Case 1, eligible family with zero childcare expenses gets $0 benefit.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 30_000
+        is_tax_unit_head_or_spouse: true
+        is_tax_unit_dependent: false
+        immigration_status: CITIZEN
+      person2:
+        age: 3
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_size: 2
+        spm_unit_pre_subsidy_childcare_expenses: 0
+        is_ri_ccap_enrolled: false
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # Weekly expense per child = 0/52 = 0
+    # min(provider_rate, 0) = 0
+    ri_ccap: 0
+
+# --- Copayment exceeds per-child payment: benefit capped at $0 ---
+
+- name: Case 2, copayment exceeds total weekly payment so benefit is $0.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        # Income at ~200% FPL 2026 -> 7% rate
+        # FPG 2026 fam 2 = 21,640; 200% = 43,280
+        employment_income: 43_280
+        is_tax_unit_head_or_spouse: true
+        is_tax_unit_dependent: false
+        immigration_status: CITIZEN
+      person2:
+        age: 3
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_size: 2
+        # Very low expenses: 2,400/yr -> weekly 46.15 per child
+        spm_unit_pre_subsidy_childcare_expenses: 2_400
+        is_ri_ccap_enrolled: false
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # Weekly expense = 2,400/52 = 46.15
+    # Provider rate STAR_1/PRESCHOOL/FT = 236 -> min(236, 46.15) = 46.15
+    # Weekly copay = 43,280 * 0.07 / 52 = 58.26
+    # Weekly subsidy = max(46.15 - 58.26, 0) = 0
+    ri_ccap: 0
+
+# --- TANF family: $0 copay so benefit = min(rate, expense) ---
+
+- name: Case 3, TANF family gets benefit capped at provider rate.
+  period: 2026-01
+  absolute_error_margin: 1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 20_000
+        is_tax_unit_head_or_spouse: true
+        is_tax_unit_dependent: false
+        immigration_status: CITIZEN
+      person2:
+        age: 3
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_size: 2
+        spm_unit_pre_subsidy_childcare_expenses: 18_000
+        is_tanf_enrolled: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # Copay = $0 (TANF exempt)
+    # Provider rate STAR_1/PRESCHOOL/FT = 236/wk
+    # Weekly expense = 18,000/52 = 346.15
+    # min(236, 346.15) = 236
+    # Monthly = 236 * 52/12 = 1,023
+    ri_ccap: 1_023
+
+# --- Homeless family: $0 copay ---
+
+- name: Case 4, homeless family gets benefit capped at provider rate.
+  period: 2026-01
+  absolute_error_margin: 1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 30_000
+        is_tax_unit_head_or_spouse: true
+        is_tax_unit_dependent: false
+        immigration_status: CITIZEN
+      person2:
+        age: 3
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_size: 2
+        spm_unit_pre_subsidy_childcare_expenses: 15_000
+        is_ri_ccap_enrolled: false
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+        is_homeless: true
+  output:
+    # Copay = $0 (homeless exempt)
+    # Provider rate STAR_1/PRESCHOOL/FT = 236/wk
+    # Weekly expense = 15,000/52 = 288.46
+    # min(236, 288.46) = 236
+    # Monthly = 236 * 52/12 = 1,023
+    ri_ccap: 1_023
+
+# --- Below 100% FPL: $0 copay ---
+
+- name: Case 5, income below 100% FPL gets $0 copay.
+  period: 2026-01
+  absolute_error_margin: 1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 18_000
+        is_tax_unit_head_or_spouse: true
+        is_tax_unit_dependent: false
+        immigration_status: CITIZEN
+      person2:
+        age: 3
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_size: 2
+        spm_unit_pre_subsidy_childcare_expenses: 12_000
+        is_ri_ccap_enrolled: false
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # FPL ratio = (18,000/12) / (21,640/12) = 0.832 < 1.0 -> rate = 0%
+    # Copay = $0
+    # Provider rate STAR_1/PRESCHOOL/FT = 236/wk
+    # Weekly expense = 12,000/52 = 230.77
+    # min(236, 230.77) = 230.77
+    # Monthly = 230.77 * 52/12 = 1,000
+    ri_ccap: 1_000
+
+# --- Ineligible family gets $0 even with expenses ---
+
+- name: Case 6, ineligible family gets $0 benefit despite childcare expenses.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 100_000
+        is_tax_unit_head_or_spouse: true
+        is_tax_unit_dependent: false
+        immigration_status: CITIZEN
+      person2:
+        age: 14
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_size: 2
+        spm_unit_pre_subsidy_childcare_expenses: 20_000
+        is_ri_ccap_enrolled: false
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    ri_ccap: 0
+
+# --- Benefit with 7% copay bracket ---
+
+- name: Case 7, family at 200% FPL with 7% copay rate.
+  period: 2026-01
+  absolute_error_margin: 1
+  input:
+    people:
+      person1:
+        age: 30
+        # 200% of FPG 2026 family of 2 = 21,640 * 2 = 43,280
+        employment_income: 43_280
+        is_tax_unit_head_or_spouse: true
+        is_tax_unit_dependent: false
+        immigration_status: CITIZEN
+      person2:
+        age: 3
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_size: 2
+        spm_unit_pre_subsidy_childcare_expenses: 18_000
+        is_ri_ccap_enrolled: false
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # FPL ratio = (43,280/12) / (21,640/12) = 2.0 -> rate = 7%
+    # Weekly copay = 43,280 * 0.07 / 52 = 58.26
+    # Provider rate STAR_1/PRESCHOOL/FT = 236/wk
+    # Weekly expense = 18,000/52 = 346.15
+    # min(236, 346.15) = 236 (capped at provider rate)
+    # Weekly subsidy = 236 - 58.26 = 177.74
+    # Monthly = 177.74 * 52/12 = 770
+    ri_ccap: 770

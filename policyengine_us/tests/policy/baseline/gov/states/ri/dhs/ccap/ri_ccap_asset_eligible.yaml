@@ -1,0 +1,39 @@
+- name: Assets below limit
+  period: 2025-01
+  input:
+    people:
+      parent:
+        age: 30
+    spm_units:
+      spm_unit:
+        members: [parent]
+        spm_unit_cash_assets: 500_000
+    tax_units:
+      tax_unit:
+        members: [parent]
+    households:
+      household:
+        members: [parent]
+        state_code: RI
+  output:
+    ri_ccap_asset_eligible: true
+
+- name: Assets above limit
+  period: 2025-01
+  input:
+    people:
+      parent:
+        age: 30
+    spm_units:
+      spm_unit:
+        members: [parent]
+        spm_unit_cash_assets: 1_500_000
+    tax_units:
+      tax_unit:
+        members: [parent]
+    households:
+      household:
+        members: [parent]
+        state_code: RI
+  output:
+    ri_ccap_asset_eligible: false

@@ -1,0 +1,61 @@
+description: Rhode Island provides these weekly half-time reimbursement rates for licensed child care centers under the Child Care Assistance Program.
+metadata:
+  period: week
+  unit: currency-USD
+  label: Rhode Island CCAP licensed center half-time weekly rates
+  breakdown:
+    - ri_ccap_star_rating
+    - ri_ccap_center_age_group
+  reference:
+    - title: 218-RICR-20-00-4.12 CCAP Maximum Weekly Reimbursement Rates
+      href: https://dhs.ri.gov/media/9356/download?language=en
+
+STAR_1:
+  INFANT:
+    2025-07-01: 167
+  TODDLER:
+    2025-07-01: 139
+  PRESCHOOL:
+    2025-07-01: 118
+  SCHOOL_AGE:
+    2025-07-01: 105
+
+STAR_2:
+  INFANT:
+    2025-07-01: 170.5
+  TODDLER:
+    2025-07-01: 142
+  PRESCHOOL:
+    2025-07-01: 123.5
+  SCHOOL_AGE:
+    2025-07-01: 107.5
+
+STAR_3:
+  INFANT:
+    2025-07-01: 152.5
+  TODDLER:
+    2025-07-01: 148
+  PRESCHOOL:
+    2025-07-01: 127.5
+  SCHOOL_AGE:
+    2025-07-01: 115.5
+
+STAR_4:
+  INFANT:
+    2025-07-01: 182
+  TODDLER:
+    2025-07-01: 151.5
+  PRESCHOOL:
+    2025-07-01: 131.5
+  SCHOOL_AGE:
+    2025-07-01: 125
+
+STAR_5:
+  INFANT:
+    2025-07-01: 189
+  TODDLER:
+    2025-07-01: 157.5
+  PRESCHOOL:
+    2025-07-01: 136.5
+  SCHOOL_AGE:
+    2025-07-01: 131.5
