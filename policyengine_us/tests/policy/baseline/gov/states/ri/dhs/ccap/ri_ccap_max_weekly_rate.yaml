@@ -1,0 +1,337 @@
+- name: Case 1, exempt provider infant full-time star 1.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 1
+        childcare_hours_per_week: 35
+        ri_ccap_provider_type: EXEMPT
+        ri_ccap_quality_rating: 1
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    # Exempt, infant/toddler (age < 3), FT (35 hrs -> tier 1), star 1
+    # Rate = $100.96/week
+    # YEAR output = 12 * $100.96 = $1,211.52
+    ri_ccap_max_weekly_rate: 1_211.52
+
+- name: Case 2, exempt provider preschool full-time star 3.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 4
+        childcare_hours_per_week: 40
+        ri_ccap_provider_type: EXEMPT
+        ri_ccap_quality_rating: 3
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    # Exempt, preschool (age 3-6), FT (40 hrs -> tier 1), star 3
+    # Rate = $61.09/week
+    # YEAR output = 12 * $61.09 = $733.08
+    ri_ccap_max_weekly_rate: 733.08
+
+- name: Case 3, exempt provider school-age half-time star 2.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 7
+        childcare_hours_per_week: 15
+        ri_ccap_provider_type: EXEMPT
+        ri_ccap_quality_rating: 2
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    # Exempt, school_age (age >= 6), HT (15 hrs -> tier 3), star 2
+    # Rate = $29.69/week
+    # YEAR output = 12 * $29.69 = $356.28
+    ri_ccap_max_weekly_rate: 356.28
+
+- name: Case 4, family provider infant-toddler full-time star 1.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 2
+        childcare_hours_per_week: 30
+        ri_ccap_provider_type: FAMILY
+        ri_ccap_quality_rating: 1
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    # Family, infant_toddler (age < 3), FT (30 hrs -> tier 1), star 1
+    # Rate = $262.66/week
+    # YEAR output = 12 * $262.66 = $3,151.92
+    ri_ccap_max_weekly_rate: 3_151.92
+
+- name: Case 5, family provider preschool full-time star 5.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 4
+        childcare_hours_per_week: 35
+        ri_ccap_provider_type: FAMILY
+        ri_ccap_quality_rating: 5
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    # Family, preschool (age 3-6), FT (35 hrs -> tier 1), star 5
+    # Rate = $262.66/week
+    # YEAR output = 12 * $262.66 = $3,151.92
+    ri_ccap_max_weekly_rate: 3_151.92
+
+- name: Case 6, exempt provider quarter-time infant star 1.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 1
+        childcare_hours_per_week: 5
+        ri_ccap_provider_type: EXEMPT
+        ri_ccap_quality_rating: 1
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    # Exempt, infant_toddler (age < 3), QT (5 hrs -> tier 4), star 1
+    # Rate = $25.24/week
+    # YEAR output = 12 * $25.24 = $302.88
+    ri_ccap_max_weekly_rate: 302.88
+
+- name: Case 7, hours at tier boundary 10 crosses from QT to HT.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 1
+        childcare_hours_per_week: 10
+        ri_ccap_provider_type: EXEMPT
+        ri_ccap_quality_rating: 1
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    # Exempt, infant_toddler, HT (10 hrs -> tier 3), star 1
+    # Rate = $50.48/week
+    # YEAR = 12 * $50.48 = $605.76
+    ri_ccap_max_weekly_rate: 605.76
+
+- name: Case 8, hours at 9 stays in QT tier.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 1
+        childcare_hours_per_week: 9
+        ri_ccap_provider_type: EXEMPT
+        ri_ccap_quality_rating: 1
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    # Exempt, infant_toddler, QT (9 hrs -> tier 4), star 1
+    # Rate = $25.24/week
+    # YEAR = 12 * $25.24 = $302.88
+    ri_ccap_max_weekly_rate: 302.88
+
+- name: Case 9, hours at tier boundary 20 crosses from HT to 3QT.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 1
+        childcare_hours_per_week: 20
+        ri_ccap_provider_type: EXEMPT
+        ri_ccap_quality_rating: 1
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    # Exempt, infant_toddler, 3QT (20 hrs -> tier 2), star 1
+    # Rate = $75.72/week
+    # YEAR = 12 * $75.72 = $908.64
+    ri_ccap_max_weekly_rate: 908.64
+
+- name: Case 10, hours at 19 stays in HT tier.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 1
+        childcare_hours_per_week: 19
+        ri_ccap_provider_type: EXEMPT
+        ri_ccap_quality_rating: 1
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    # Exempt, infant_toddler, HT (19 hrs -> tier 3), star 1
+    # Rate = $50.48/week
+    # YEAR = 12 * $50.48 = $605.76
+    ri_ccap_max_weekly_rate: 605.76
+
+- name: Case 11, hours at tier boundary 30 crosses from 3QT to FT.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 1
+        childcare_hours_per_week: 30
+        ri_ccap_provider_type: EXEMPT
+        ri_ccap_quality_rating: 1
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    # Exempt, infant_toddler, FT (30 hrs -> tier 1), star 1
+    # Rate = $100.96/week
+    # YEAR = 12 * $100.96 = $1,211.52
+    ri_ccap_max_weekly_rate: 1_211.52
+
+- name: Case 12, hours at 29 stays in 3QT tier.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 1
+        childcare_hours_per_week: 29
+        ri_ccap_provider_type: EXEMPT
+        ri_ccap_quality_rating: 1
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    # Exempt, infant_toddler, 3QT (29 hrs -> tier 2), star 1
+    # Rate = $75.72/week
+    # YEAR = 12 * $75.72 = $908.64
+    ri_ccap_max_weekly_rate: 908.64
+
+- name: Case 13, zero hours gets QT rate.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 4
+        childcare_hours_per_week: 0
+        ri_ccap_provider_type: EXEMPT
+        ri_ccap_quality_rating: 1
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    # Exempt, preschool (age 3-6), QT (0 hrs -> tier 4), star 1
+    # Rate = $14.71/week
+    # YEAR = 12 * $14.71 = $176.52
+    ri_ccap_max_weekly_rate: 176.52
+
+- name: Case 14, star rating 0 clamped to 1.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 4
+        childcare_hours_per_week: 35
+        ri_ccap_provider_type: EXEMPT
+        ri_ccap_quality_rating: 0
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    # Star 0 clamped to max_(0, 1) = 1
+    # Exempt, preschool FT star 1 = $59.91/week
+    # YEAR = 12 * $59.91 = $718.92
+    ri_ccap_max_weekly_rate: 718.92
+
+- name: Case 15, exempt star 4 is highest for exempt provider.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 4
+        childcare_hours_per_week: 35
+        ri_ccap_provider_type: EXEMPT
+        ri_ccap_quality_rating: 4
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    # Exempt, preschool FT star 4 = $61.68/week
+    # YEAR = 12 * $61.68 = $740.16
+    ri_ccap_max_weekly_rate: 740.16
+
+- name: Case 16, family provider star 5 highest tier.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 1
+        childcare_hours_per_week: 35
+        ri_ccap_provider_type: FAMILY
+        ri_ccap_quality_rating: 5
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    # Family, infant_toddler FT star 5 = $276.31/week
+    # YEAR = 12 * $276.31 = $3,315.72
+    ri_ccap_max_weekly_rate: 3_315.72
+
+- name: Case 17, family provider school-age half-time star 1.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 7
+        childcare_hours_per_week: 15
+        ri_ccap_provider_type: FAMILY
+        ri_ccap_quality_rating: 1
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    # Family, school_age (age >= 6), HT (15 hrs -> tier 3), star 1
+    # Rate = $97.19/week
+    # YEAR = 12 * $97.19 = $1,166.28
+    ri_ccap_max_weekly_rate: 1_166.28

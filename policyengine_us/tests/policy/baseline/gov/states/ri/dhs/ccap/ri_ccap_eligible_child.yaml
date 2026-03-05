@@ -1,0 +1,229 @@
+- name: Case 1, child age 5 is eligible.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+      person2:
+        age: 5
+        is_tax_unit_dependent: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    ri_ccap_eligible_child: [false, true]
+
+- name: Case 2, child age 13 is ineligible without disability.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 35
+        is_tax_unit_head_or_spouse: true
+      person2:
+        age: 13
+        is_tax_unit_dependent: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    ri_ccap_eligible_child: [false, false]
+
+- name: Case 3, child age 14 with disability is eligible.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 40
+        is_tax_unit_head_or_spouse: true
+      person2:
+        age: 14
+        is_tax_unit_dependent: true
+        is_disabled: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    ri_ccap_eligible_child: [false, true]
+
+- name: Case 4, child age 18 with disability is eligible.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 45
+        is_tax_unit_head_or_spouse: true
+      person2:
+        age: 18
+        is_tax_unit_dependent: true
+        is_disabled: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    ri_ccap_eligible_child: [false, true]
+
+- name: Case 5, child age 19 with disability is ineligible.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 45
+        is_tax_unit_head_or_spouse: true
+      person2:
+        age: 19
+        is_tax_unit_dependent: true
+        is_disabled: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    ri_ccap_eligible_child: [false, false]
+
+- name: Case 6, child who is not a dependent is ineligible.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+      person2:
+        age: 5
+        is_tax_unit_dependent: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    ri_ccap_eligible_child: [false, false]
+
+- name: Case 7, undocumented child is ineligible.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+      person2:
+        age: 5
+        is_tax_unit_dependent: true
+        immigration_status: UNDOCUMENTED
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    ri_ccap_eligible_child: [false, false]
+
+- name: Case 8, child age 12 is eligible.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 35
+        is_tax_unit_head_or_spouse: true
+      person2:
+        age: 12
+        is_tax_unit_dependent: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    ri_ccap_eligible_child: [false, true]
+
+- name: Case 9, newborn under 6 weeks is ineligible.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+      person2:
+        # monthly_age returns true age in years; age 0 = newborn
+        # min_age_weeks = 6, min_age_years = 6/52 = 0.1154
+        # age 0 < 0.1154 -> ineligible
+        age: 0
+        is_tax_unit_dependent: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    ri_ccap_eligible_child: [false, false]
+
+- name: Case 10, child age 1 is eligible.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+      person2:
+        # age 1 >= 6/52 = 0.1154 and < 13 -> eligible
+        age: 1
+        is_tax_unit_dependent: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    ri_ccap_eligible_child: [false, true]
+
+- name: Case 11, disabled child age 18 at upper boundary is eligible.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 45
+        is_tax_unit_head_or_spouse: true
+      person2:
+        # disabled_child limit = 19, age 18 < 19 -> eligible
+        age: 18
+        is_tax_unit_dependent: true
+        is_disabled: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    ri_ccap_eligible_child: [false, true]
+
+- name: Case 12, non-disabled child age 13 is ineligible.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 35
+        is_tax_unit_head_or_spouse: true
+      person2:
+        # child limit = 13, age 13 is NOT < 13 -> ineligible
+        age: 13
+        is_tax_unit_dependent: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    ri_ccap_eligible_child: [false, false]
+
+- name: Case 13, adult is never an eligible child.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+        is_tax_unit_dependent: false
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    ri_ccap_eligible_child: [false]

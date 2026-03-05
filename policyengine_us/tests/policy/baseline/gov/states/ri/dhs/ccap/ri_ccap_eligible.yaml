@@ -1,0 +1,241 @@
+- name: Case 1, working single parent with eligible child and income below threshold.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+        employment_income: 30_000
+        is_tax_unit_dependent: false
+      person2:
+        age: 5
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    ri_ccap_eligible: true
+
+- name: Case 2, no eligible child.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+        employment_income: 30_000
+        is_tax_unit_dependent: false
+      person2:
+        age: 15
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # Child age 15 without disability -> no eligible child
+    ri_ccap_eligible: false
+
+- name: Case 3, income above entry threshold for new applicant.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+        employment_income: 60_000
+        is_tax_unit_dependent: false
+      person2:
+        age: 5
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ri_works_eligible: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # Family of 2, 261% FPL = $55,201.50
+    # Income $60,000 > threshold -> ineligible
+    ri_ccap_eligible: false
+
+- name: Case 4, RI Works recipient bypasses income and activity tests.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+        employment_income: 0
+        is_tax_unit_dependent: false
+      person2:
+        age: 5
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ri_works_eligible: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # RI Works recipients bypass income and activity eligibility
+    ri_ccap_eligible: true
+
+- name: Case 5, parent not working and not a student fails activity test.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+        employment_income: 0
+        self_employment_income: 0
+        is_full_time_student: false
+        is_tax_unit_dependent: false
+      person2:
+        age: 5
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ri_works_eligible: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    ri_ccap_eligible: false
+
+- name: Case 6, assets above limit.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+        employment_income: 30_000
+        is_tax_unit_dependent: false
+      person2:
+        age: 5
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_assets: 1_500_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # Assets $1.5M > $1M limit -> ineligible
+    ri_ccap_eligible: false
+
+- name: Case 7, RI Works non-working parent bypasses activity test.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+        employment_income: 0
+        self_employment_income: 0
+        is_full_time_student: false
+        is_tax_unit_dependent: false
+      person2:
+        age: 5
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ri_works_eligible: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # Non-working, non-student parent normally fails activity test
+    # But RI Works recipients bypass income AND activity tests
+    ri_ccap_eligible: true
+
+- name: Case 8, enrolled family between 261 and 300 percent FPL remains eligible.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+        employment_income: 60_000
+        is_tax_unit_dependent: false
+      person2:
+        age: 5
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ri_ccap_enrolled: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # Family of 2: 261% FPL = $55,201.50, 300% FPL = $63,450
+    # $60,000 > 261% but enrolled -> exit threshold 300% applies
+    # $60,000 < $63,450 -> eligible
+    ri_ccap_eligible: true
+
+- name: Case 9, single child family with all conditions met.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+        employment_income: 30_000
+        is_tax_unit_dependent: false
+      person2:
+        age: 5
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    ri_ccap_eligible: true
+
+- name: Case 10, assets exactly at 1 million limit.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+        employment_income: 30_000
+        is_tax_unit_dependent: false
+      person2:
+        age: 5
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_assets: 1_000_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # Assets at exactly $1M -> eligible (<=)
+    ri_ccap_eligible: true

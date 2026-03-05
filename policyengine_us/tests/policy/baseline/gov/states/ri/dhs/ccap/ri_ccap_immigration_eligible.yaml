@@ -1,0 +1,90 @@
+- name: Case 1, US citizen is eligible.
+  period: 2025
+  input:
+    people:
+      person1:
+        immigration_status: CITIZEN
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    ri_ccap_immigration_eligible: [true]
+
+- name: Case 2, legal permanent resident is eligible.
+  period: 2025
+  input:
+    people:
+      person1:
+        immigration_status: LEGAL_PERMANENT_RESIDENT
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    ri_ccap_immigration_eligible: [true]
+
+- name: Case 3, refugee is eligible.
+  period: 2025
+  input:
+    people:
+      person1:
+        immigration_status: REFUGEE
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    ri_ccap_immigration_eligible: [true]
+
+- name: Case 4, asylee is eligible.
+  period: 2025
+  input:
+    people:
+      person1:
+        immigration_status: ASYLEE
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    ri_ccap_immigration_eligible: [true]
+
+- name: Case 5, undocumented is ineligible.
+  period: 2025
+  input:
+    people:
+      person1:
+        immigration_status: UNDOCUMENTED
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    ri_ccap_immigration_eligible: [false]
+
+- name: Case 6, DACA is ineligible.
+  period: 2025
+  input:
+    people:
+      person1:
+        immigration_status: DACA
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    ri_ccap_immigration_eligible: [false]
+
+- name: Case 7, Cuban/Haitian entrant is eligible.
+  period: 2025
+  input:
+    people:
+      person1:
+        immigration_status: CUBAN_HAITIAN_ENTRANT
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    ri_ccap_immigration_eligible: [true]

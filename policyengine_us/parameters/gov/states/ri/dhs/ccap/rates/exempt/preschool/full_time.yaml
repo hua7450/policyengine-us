@@ -1,0 +1,29 @@
+description: Rhode Island sets this weekly rate for full-time preschool care at license-exempt providers under the Child Care Assistance Program.
+
+metadata:
+  type: single_amount
+  threshold_unit: /1
+  amount_unit: currency-USD
+  period: week
+  label: Rhode Island CCAP license-exempt preschool full-time rate
+  reference:
+    - title: DHS CCAP Licensed Exempt Child Care Weekly Rates, Effective January 1, 2022
+      href: https://dhs.ri.gov/programs-and-services/child-care/child-care-assistance-program-ccap/ccap-child-care-rates
+
+brackets:
+  - threshold:
+      2022-01-01: 1
+    amount:
+      2022-01-01: 59.91
+  - threshold:
+      2022-01-01: 2
+    amount:
+      2022-01-01: 60.49
+  - threshold:
+      2022-01-01: 3
+    amount:
+      2022-01-01: 61.09
+  - threshold:
+      2022-01-01: 4
+    amount:
+      2022-01-01: 61.68

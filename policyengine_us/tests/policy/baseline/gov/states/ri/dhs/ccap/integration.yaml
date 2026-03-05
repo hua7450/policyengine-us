@@ -1,0 +1,645 @@
+- name: Case 1, single parent one child income below 100 percent FPL zero co-pay.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+        is_tax_unit_dependent: false
+        employment_income: 18_000
+      person2:
+        age: 4
+        is_tax_unit_dependent: true
+        childcare_hours_per_week: 35
+        ri_ccap_provider_type: EXEMPT
+        ri_ccap_quality_rating: 1
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ri_works_eligible: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # Family of 2, FPL 2025 = $21,150
+    # FPL ratio = 18,000 / 21,150 = 0.8511 -> Level 0 -> 0% rate
+
+    ri_ccap_eligible_child: [false, true]
+    ri_ccap_income_eligible: true
+    ri_ccap_activity_eligible: true
+    ri_ccap_asset_eligible: true
+    ri_ccap_eligible: true
+
+    # Weekly family share = 0% * (18,000 / 52) = $0
+    ri_ccap_family_share: 0
+
+    # Exempt preschool FT star 1 = $59.91/week
+    # YEAR = 12 * $59.91 = $718.92
+    ri_ccap_max_weekly_rate: [0, 718.92]
+
+    # Child: rate ($59.91) - copay ($0) = $59.91/week
+    # YEAR = [0, 12 * 59.91] = [0, 718.92]
+    ri_ccap_weekly_benefit: [0, 718.92]
+
+    # Monthly = 59.91 * 52 / 12 = $259.61
+    # YEAR = 12 * 259.61 = $3,115.32
+    ri_ccap: 3_115.32
+
+- name: Case 2, single parent two children income at 130 percent FPL copay on youngest.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+        is_tax_unit_dependent: false
+        employment_income: 34_645
+      person2:
+        age: 7
+        is_tax_unit_dependent: true
+        childcare_hours_per_week: 35
+        ri_ccap_provider_type: EXEMPT
+        ri_ccap_quality_rating: 1
+      person3:
+        age: 4
+        is_tax_unit_dependent: true
+        childcare_hours_per_week: 35
+        ri_ccap_provider_type: EXEMPT
+        ri_ccap_quality_rating: 1
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        ri_works_eligible: false
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: RI
+  output:
+    # Family of 3, FPL 2025 = $26,650
+    # FPL ratio = 34,645 / 26,650 = 1.3 -> bracket >= 1.2501 -> 5% rate
+    # Weekly income = 34,645 / 52 = $666.25
+    # Weekly share = 666.25 * 0.05 = $33.3125
+    # YEAR = 12 * 33.3125 = $399.75
+
+    ri_ccap_eligible_child: [false, true, true]
+    ri_ccap_income_eligible: true
+    ri_ccap_eligible: true
+    ri_ccap_family_share: 399.75
+
+    # Person2 (age 7): exempt school_age FT star 1 = $58.80/week
+    # Person3 (age 4): exempt preschool FT star 1 = $59.91/week
+    # YEAR = [0, 12*58.80, 12*59.91]
+    ri_ccap_max_weekly_rate: [0, 705.60, 718.92]
+
+    # Youngest eligible child = person3 (age 4) gets copay
+    # Person3: 59.91 - 33.3125 = $26.5975/week -> 12 * 26.5975 = 319.17
+    # Person2: 58.80/week -> 12 * 58.80 = 705.60
+    ri_ccap_weekly_benefit: [0, 705.60, 319.17]
+
+    # Monthly = (58.80 + 26.5975) * 52 / 12 = 85.3975 * 4.3333 = $370.06
+    # YEAR = 12 * 370.06 = $4,440.67
+    ri_ccap: 4_440.67
+
+- name: Case 3, two-parent family copay exceeds rate yielding zero benefit.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 35
+        is_tax_unit_head_or_spouse: true
+        is_tax_unit_dependent: false
+        employment_income: 40_000
+      person2:
+        age: 33
+        is_tax_unit_head_or_spouse: true
+        is_tax_unit_dependent: false
+        employment_income: 24_300
+      person3:
+        age: 4
+        is_tax_unit_dependent: true
+        childcare_hours_per_week: 35
+        ri_ccap_provider_type: EXEMPT
+        ri_ccap_quality_rating: 2
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        ri_works_eligible: false
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: RI
+  output:
+    # Family of 3, FPL 2025 = $26,650
+    # Total income = $64,300
+    # FPL ratio = 64,300 / 26,650 = 2.4128 -> bracket >= 1.5001 -> 7% rate
+    # Weekly income = 64,300 / 52 = $1,236.54
+    # Weekly share = 1,236.54 * 0.07 = $86.56
+    # YEAR = 12 * 86.56 = $1,038.69
+
+    ri_ccap_eligible_child: [false, false, true]
+    ri_ccap_income_eligible: true
+    ri_ccap_activity_eligible: true
+    ri_ccap_eligible: true
+    ri_ccap_family_share: 1_038.69
+
+    # Child (age 4): exempt preschool FT star 2 = $60.49/week
+    ri_ccap_max_weekly_rate: [0, 0, 725.88]
+
+    # Copay $86.56 > rate $60.49 -> max(60.49 - 86.56, 0) = $0
+    ri_ccap_weekly_benefit: [0, 0, 0]
+
+    # Benefit = $0 (copay exceeds provider rate)
+    ri_ccap: 0
+
+- name: Case 4, RI Works recipient zero co-pay bypasses income test.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 28
+        is_tax_unit_head_or_spouse: true
+        is_tax_unit_dependent: false
+        employment_income: 12_000
+      person2:
+        age: 2
+        is_tax_unit_dependent: true
+        childcare_hours_per_week: 40
+        ri_ccap_provider_type: EXEMPT
+        ri_ccap_quality_rating: 1
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ri_works_eligible: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # RI Works recipient -> bypasses income/activity -> $0 copay
+
+    ri_ccap_eligible_child: [false, true]
+    ri_ccap_eligible: true
+    ri_ccap_family_share: 0
+
+    # Exempt infant/toddler FT star 1 = $100.96/week
+    # YEAR = 12 * 100.96 = $1,211.52
+    ri_ccap_max_weekly_rate: [0, 1_211.52]
+
+    # Child: 100.96 - 0 = $100.96/week
+    ri_ccap_weekly_benefit: [0, 1_211.52]
+
+    # Monthly = 100.96 * 52 / 12 = $437.49
+    # YEAR = 12 * 437.49 = $5,249.92
+    ri_ccap: 5_249.92
+
+- name: Case 5, enrolled family income between 261 and 300 percent FPL transitional.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 35
+        is_tax_unit_head_or_spouse: true
+        is_tax_unit_dependent: false
+        employment_income: 58_000
+      person2:
+        age: 4
+        is_tax_unit_dependent: true
+        childcare_hours_per_week: 35
+        ri_ccap_provider_type: FAMILY
+        ri_ccap_quality_rating: 3
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ri_ccap_enrolled: true
+        ri_works_eligible: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # Family of 2, FPL 2025 = $21,150
+    # FPL ratio = 58,000 / 21,150 = 2.7423
+    # Enrolled -> exit threshold = 300% FPL = $63,450
+    # $58,000 < $63,450 -> income eligible (transitional)
+    # FPL ratio 2.7423 -> bracket >= 2.6101 -> 7% rate
+
+    ri_ccap_income_eligible: true
+    ri_ccap_eligible: true
+
+    # Weekly income = 58,000 / 52 = $1,115.38
+    # Weekly share = 1,115.38 * 0.07 = $78.08
+    # YEAR = 12 * 78.08 = $936.92
+    ri_ccap_family_share: 936.92
+
+    # Family preschool FT star 3 = $239.54/week
+    # YEAR = 12 * 239.54 = $2,874.48
+    ri_ccap_max_weekly_rate: [0, 2_874.48]
+
+    # Child: 239.54 - 78.08 = $161.46/week
+    # YEAR = 12 * 161.46 = $1,937.56
+    ri_ccap_weekly_benefit: [0, 1_937.56]
+
+    # Monthly = 161.46 * 52 / 12 = $699.67
+    # YEAR = 12 * 699.67 = $8,396.08
+    ri_ccap: 8_396.08
+
+- name: Case 6, income above 300 percent FPL ineligible.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 35
+        is_tax_unit_head_or_spouse: true
+        is_tax_unit_dependent: false
+        employment_income: 70_000
+      person2:
+        age: 4
+        is_tax_unit_dependent: true
+        childcare_hours_per_week: 35
+        ri_ccap_provider_type: EXEMPT
+        ri_ccap_quality_rating: 1
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ri_ccap_enrolled: true
+        ri_works_eligible: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # Family of 2, FPL 2025 = $21,150
+    # 300% FPL = $63,450
+    # $70,000 > $63,450 -> ineligible even when enrolled
+    ri_ccap_income_eligible: false
+    ri_ccap_eligible: false
+    ri_ccap: 0
+
+- name: Case 7, disabled child age 14 is eligible.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 45
+        is_tax_unit_head_or_spouse: true
+        is_tax_unit_dependent: false
+        employment_income: 40_000
+      person2:
+        age: 14
+        is_tax_unit_dependent: true
+        is_disabled: true
+        childcare_hours_per_week: 30
+        ri_ccap_provider_type: EXEMPT
+        ri_ccap_quality_rating: 1
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ri_works_eligible: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # Disabled child age 14 eligible (< 19 disabled limit)
+    # Family of 2, FPL 2025 = $21,150
+    # FPL ratio = 40,000 / 21,150 = 1.8913 -> bracket >= 1.5001 -> 7% rate
+
+    ri_ccap_eligible_child: [false, true]
+    ri_ccap_income_eligible: true
+    ri_ccap_eligible: true
+
+    # Weekly income = 40,000 / 52 = $769.23
+    # Weekly share = 769.23 * 0.07 = $53.85
+    # YEAR = 12 * 53.85 = $646.15
+    ri_ccap_family_share: 646.15
+
+    # Disabled age 14, school_age (age >= 6), exempt FT star 1 = $58.80/week
+    # YEAR = 12 * 58.80 = $705.60
+    ri_ccap_max_weekly_rate: [0, 705.60]
+
+    # Child: 58.80 - 53.85 = $4.95/week
+    # YEAR = 12 * 4.95 = $59.45
+    ri_ccap_weekly_benefit: [0, 59.45]
+
+    # Monthly = 4.95 * 52 / 12 = $21.47
+    # YEAR = 12 * 21.47 = $257.60
+    ri_ccap: 257.60
+
+- name: Case 8, housing insecure family zero co-pay.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+        is_tax_unit_dependent: false
+        employment_income: 30_000
+      person2:
+        age: 2
+        is_tax_unit_dependent: true
+        childcare_hours_per_week: 35
+        ri_ccap_provider_type: EXEMPT
+        ri_ccap_quality_rating: 1
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ri_works_eligible: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+        is_homeless: true
+  output:
+    # Housing insecure -> $0 copay regardless of income
+
+    ri_ccap_eligible: true
+    ri_ccap_family_share: 0
+
+    # Exempt infant/toddler FT star 1 = $100.96/week
+    # YEAR = 12 * 100.96 = $1,211.52
+    ri_ccap_max_weekly_rate: [0, 1_211.52]
+    ri_ccap_weekly_benefit: [0, 1_211.52]
+
+    # Monthly = 100.96 * 52 / 12 = $437.49
+    # YEAR = 12 * 437.49 = $5,249.92
+    ri_ccap: 5_249.92
+
+- name: Case 9, multiple children different ages and providers.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+        is_tax_unit_dependent: false
+        employment_income: 30_000
+      person2:
+        age: 1
+        is_tax_unit_dependent: true
+        childcare_hours_per_week: 25
+        ri_ccap_provider_type: FAMILY
+        ri_ccap_quality_rating: 3
+      person3:
+        age: 7
+        is_tax_unit_dependent: true
+        childcare_hours_per_week: 10
+        ri_ccap_provider_type: EXEMPT
+        ri_ccap_quality_rating: 1
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        ri_works_eligible: false
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: RI
+  output:
+    # Family of 3, FPL 2025 = $26,650
+    # FPL ratio = 30,000 / 26,650 = 1.1257 -> bracket >= 1.0001 -> 2% rate
+    # Weekly income = 30,000 / 52 = $576.92
+    # Weekly share = 576.92 * 0.02 = $11.54
+    # YEAR family_share = 12 * $11.54 = $138.46
+
+    ri_ccap_eligible_child: [false, true, true]
+    ri_ccap_eligible: true
+    ri_ccap_family_share: 138.46
+
+    # Person2 (age 1): family infant_toddler 3QT (25 hrs -> tier 2) star 3 = $202.51/week
+    # Person3 (age 7): exempt school_age HT (10 hrs -> tier 3) star 1 = $29.40/week
+    # YEAR = [0, 12*202.51, 12*29.40]
+    ri_ccap_max_weekly_rate: [0, 2_430.12, 352.80]
+
+    # Youngest child (person2 age 1) gets copay: max(202.51 - 11.54, 0) = $190.97/wk
+    # YEAR = [0, 12*190.97, 12*29.40]
+    ri_ccap_weekly_benefit: [0, 2_291.66, 352.80]
+
+    # Total weekly benefit = 190.97 + 29.40 = $220.37
+    # YEAR = 220.37 * 52 = $11,459.32
+    ri_ccap: 11_459.32
+
+- name: Case 10, income at exact entry threshold boundary.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+        is_tax_unit_dependent: false
+        employment_income: 55_201
+      person2:
+        age: 4
+        is_tax_unit_dependent: true
+        childcare_hours_per_week: 35
+        ri_ccap_provider_type: EXEMPT
+        ri_ccap_quality_rating: 1
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ri_works_eligible: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # Family of 2, FPL 2025 = $21,150
+    # 261% FPL = $55,201.50
+    # $55,201 <= $55,201.50 -> just barely eligible
+    # FPL ratio = 55,201/21,150 = 2.6100 -> bracket >= 1.5001 -> 7% rate
+
+    ri_ccap_income_eligible: true
+    ri_ccap_eligible: true
+
+    # Weekly income = 55,201/52 = $1,061.56
+    # Weekly share = 1,061.56 * 0.07 = $74.31
+    # YEAR family_share = 12 * $74.31 = $891.71
+    ri_ccap_family_share: 891.71
+
+    # Exempt preschool FT star 1 = $59.91/week
+    ri_ccap_max_weekly_rate: [0, 718.92]
+
+    # Copay $74.31 > rate $59.91 -> max(59.91 - 74.31, 0) = $0
+    ri_ccap: 0
+
+- name: Case 11, income one dollar above entry threshold is ineligible.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head_or_spouse: true
+        is_tax_unit_dependent: false
+        employment_income: 55_202
+      person2:
+        age: 4
+        is_tax_unit_dependent: true
+        childcare_hours_per_week: 35
+        ri_ccap_provider_type: EXEMPT
+        ri_ccap_quality_rating: 1
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ri_works_eligible: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # Family of 2: 261% FPL = $55,201.50
+    # $55,202 > $55,201.50 -> ineligible
+    ri_ccap_income_eligible: false
+    ri_ccap_eligible: false
+    ri_ccap: 0
+
+- name: Case 12, enrolled family at exactly 300 percent FPL exit boundary.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 35
+        is_tax_unit_head_or_spouse: true
+        is_tax_unit_dependent: false
+        employment_income: 63_450
+      person2:
+        age: 4
+        is_tax_unit_dependent: true
+        childcare_hours_per_week: 35
+        ri_ccap_provider_type: FAMILY
+        ri_ccap_quality_rating: 3
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ri_ccap_enrolled: true
+        ri_works_eligible: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # Family of 2, FPL 2025 = $21,150
+    # 300% FPL = $63,450
+    # $63,450 <= $63,450 -> eligible at exact boundary
+    # FPL ratio = 63,450/21,150 = 3.0 -> bracket >= 2.6101 -> 7% rate
+
+    ri_ccap_income_eligible: true
+    ri_ccap_eligible: true
+
+    # Weekly income = 63,450/52 = $1,220.19
+    # Weekly share = 1,220.19 * 0.07 = $85.41
+    # YEAR family_share = 12 * $85.41 = $1,024.96
+    ri_ccap_family_share: 1_024.96
+
+    # Family preschool FT star 3 = $239.54/week
+    ri_ccap_max_weekly_rate: [0, 2_874.48]
+
+    # Weekly benefit = max(239.54 - 85.4135, 0) = $154.1265
+    # Monthly = 154.1265 * 52/12 = $667.88
+    # YEAR = 12 * 667.88 = $8,014.58
+    ri_ccap: 8_014.58
+
+- name: Case 13, high income family copay exceeds low QT rate.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 35
+        is_tax_unit_head_or_spouse: true
+        is_tax_unit_dependent: false
+        employment_income: 39_978
+      person2:
+        age: 33
+        is_tax_unit_head_or_spouse: true
+        is_tax_unit_dependent: false
+        employment_income: 1
+      person3:
+        age: 10
+        is_tax_unit_dependent: true
+        childcare_hours_per_week: 5
+        ri_ccap_provider_type: EXEMPT
+        ri_ccap_quality_rating: 1
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        ri_works_eligible: false
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: RI
+  output:
+    # Family of 3, FPL 2025 = $26,650
+    # Total income = $39,979
+    # FPL ratio = 39,979/26,650 = 1.50015 >= 1.5001 -> 7% rate
+    # Only child in QT exempt care with low rate
+
+    ri_ccap_eligible_child: [false, false, true]
+    ri_ccap_activity_eligible: true
+    ri_ccap_eligible: true
+
+    # Weekly income = 39,979/52 = $769.02
+    # Weekly share = 769.02 * 0.07 = $53.82
+    # YEAR family_share = 12 * $53.82 = $645.81
+    ri_ccap_family_share: 645.81
+
+    # Person3 (age 10): exempt school_age QT (5 hrs -> tier 4) star 1 = $14.70/week
+    # YEAR = 12 * $14.70 = $176.40
+    ri_ccap_max_weekly_rate: [0, 0, 176.40]
+
+    # Copay $53.82 > rate $14.70 -> max(14.70 - 53.82, 0) = $0
+    ri_ccap_weekly_benefit: [0, 0, 0]
+
+    # Total weekly rate = $14.70
+    # Copay $53.82 > rate $14.70 -> max(14.70 - 53.82, 0) = $0
+    ri_ccap: 0
+
+- name: Case 14, zero income family with RI Works.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 25
+        is_tax_unit_head_or_spouse: true
+        is_tax_unit_dependent: false
+        employment_income: 0
+      person2:
+        age: 1
+        is_tax_unit_dependent: true
+        childcare_hours_per_week: 40
+        ri_ccap_provider_type: FAMILY
+        ri_ccap_quality_rating: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ri_works_eligible: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # RI Works -> bypasses income/activity -> $0 copay
+    # Zero income family
+
+    ri_ccap_eligible: true
+    ri_ccap_family_share: 0
+
+    # Family infant_toddler FT star 5 = $276.31/week
+    # YEAR = 12 * $276.31 = $3,315.72
+    ri_ccap_max_weekly_rate: [0, 3_315.72]
+    ri_ccap_weekly_benefit: [0, 3_315.72]
+
+    # Monthly = 276.31 * 52/12 = $1,197.34
+    # YEAR = 12 * 1,197.34 = $14,368.12
+    ri_ccap: 14_368.12
