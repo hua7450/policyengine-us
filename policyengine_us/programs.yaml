@@ -53,8 +53,8 @@ programs:
     has_state_variation: true
     variable: snap
     parameter_prefix: gov.usda.snap
-    verified_start_year: 2021
-    notes: Needs some special deductions in AK, AZ, HI, NY, TN, VA
+    verified_start_year: 2022
+    notes: SUA values start FY2022; needs some special deductions in AK, AZ, HI, NY, TN, VA
 
   - id: wic
     name: WIC
@@ -65,7 +65,8 @@ programs:
     coverage: US
     variable: wic
     parameter_prefix: gov.usda.wic
-    verified_start_year: 2021
+    verified_start_year: 2018
+    notes: WIC benefit values start 2018
 
   - id: school_meals
     name: Free and reduced school meals
@@ -148,7 +149,8 @@ programs:
     has_state_variation: true
     variable: aca_ptc
     parameter_prefix: gov.aca
-    verified_start_year: 2022
+    verified_start_year: 2024
+    notes: formula_2024 gate in aca_ptc.py; params exist from 2015 but variable returns 0 before 2024
 
   - id: tanf
     name: TANF
@@ -468,8 +470,8 @@ programs:
     coverage: US
     variable: head_start
     parameter_prefix: gov.hhs.head_start
-    verified_start_year: 2024
-    notes: Currently adding immigration rules
+    verified_start_year: 2022
+    notes: State enrollment/spending data from FY2022 (Sep 2021); currently adding immigration rules
 
   - id: liheap
     name: LIHEAP
@@ -510,6 +512,7 @@ programs:
     variable: ssi
     parameter_prefix: gov.ssa.ssi
     verified_start_year: 2021
+    notes: Most params from 1975; blind SGA threshold only encoded from 2025 (uprating extrapolates earlier)
 
   - id: ssi_state_supplement
     name: SSI state supplement
@@ -585,7 +588,8 @@ programs:
     coverage: US
     variable: lifeline
     parameter_prefix: gov.fcc.lifeline
-    verified_start_year: 2021
+    verified_start_year: 2017
+    notes: Eligibility rules start 2016-12-01; first full calendar year is 2017
 
   - id: acp
     name: Affordable Connectivity Program
@@ -610,8 +614,9 @@ programs:
     coverage: US
     variable: pell_grant
     parameter_prefix: gov.ed.pell_grant
-    verified_start_year: 2023
+    verified_start_year: 2024
     verified_end_year: 2025
+    notes: SAI formula from 2024; EFC formula (2009-2023) uses different params
 
   # --- Federal tax credits ---
   - id: education_tax_credits
