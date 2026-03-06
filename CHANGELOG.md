@@ -1,3 +1,10 @@
+## [1.592.3] - 2026-03-06
+
+### Changed
+
+- Replace modelled_policies.yaml with structured programs.yaml containing rich metadata for all 65 modelled programs.
+
+
 ## [1.592.2] - 2026-03-06
 
 ### Changed
