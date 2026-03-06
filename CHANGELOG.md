@@ -1,3 +1,52 @@
+## [1.592.4] - 2026-03-06
+
+### Changed
+
+- Update CLAUDE.md references from black to ruff.
+
+
+## [1.592.3] - 2026-03-06
+
+### Changed
+
+- Replace modelled_policies.yaml with structured programs.yaml containing rich metadata for all 65 modelled programs.
+
+
+## [1.592.2] - 2026-03-06
+
+### Changed
+
+- Switch from black (line-length 79) to ruff format (line-length 88).
+
+
+## [1.592.1] - 2026-03-06
+
+### Fixed
+
+- Fix double-counting of SS and UC in household_net_income by removing them from market_income_sources. Add CARE/FERA income sources list parameter tied to PG&E Form 01-9077 policy definition.
+
+
+## [1.592.0] - 2026-03-06
+
+### Added
+
+- Added the Working Americans' Tax Cut Act reform with cost of living exemption and millionaire surtax.
+
+
+## [1.591.3] - 2026-03-05
+
+### Fixed
+
+- Fix VA TANF max payment cap scaling and enhance references.
+
+
+## [1.591.2] - 2026-03-05
+
+### Changed
+
+- Backdate federal TANF earned and unearned income source parameters to 2010-07-01.
+
+
 ## [1.591.1] - 2026-03-04
 
 ### Changed
