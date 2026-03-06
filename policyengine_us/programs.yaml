@@ -14,7 +14,7 @@ programs:
     coverage: US
     variable: income_tax
     parameter_prefix: gov.irs
-    verified_years: "2018-2026"
+    verified_start_year: 2018
     notes: Validated against NBER TAXSIM for 2022
 
   - id: state_income_tax
@@ -27,7 +27,7 @@ programs:
     has_state_variation: true
     variable: state_income_tax
     parameter_prefix: gov.states
-    verified_years: "2021-2026"
+    verified_start_year: 2021
     notes: Validated against NBER TAXSIM for 2022
 
   - id: payroll_taxes
@@ -39,7 +39,7 @@ programs:
     coverage: US
     variable: employee_payroll_tax
     parameter_prefix: gov.irs.payroll
-    verified_years: "2018-2026"
+    verified_start_year: 2018
     notes: Social Security and Medicare
 
   # --- USDA programs ---
@@ -53,7 +53,7 @@ programs:
     has_state_variation: true
     variable: snap
     parameter_prefix: gov.usda.snap
-    verified_years: "2022-2026"
+    verified_start_year: 2022
     notes: Needs some special deductions in AK, AZ, HI, NY, TN, VA
 
   - id: wic
@@ -65,7 +65,7 @@ programs:
     coverage: US
     variable: wic
     parameter_prefix: gov.usda.wic
-    verified_years: "2022-2026"
+    verified_start_year: 2022
 
   - id: school_meals
     name: Free and reduced school meals
@@ -76,7 +76,7 @@ programs:
     coverage: US
     variable: free_school_meals
     parameter_prefix: gov.usda.school_meals
-    verified_years: "2022-2026"
+    verified_start_year: 2022
     notes: Nationwide rules
 
   - id: summer_ebt
@@ -96,7 +96,8 @@ programs:
     coverage: US
     variable: csfp
     parameter_prefix: gov.usda.csfp
-    verified_years: "2024-2026"
+    verified_start_year: 2024
+    verified_end_year: 2025
     notes: Nutritious foods for low-income pregnant/postpartum women, infants, children, and seniors
 
   - id: fdpir
@@ -104,12 +105,11 @@ programs:
     full_name: Food Distribution Program on Indian Reservations
     category: Benefits
     agency: USDA
-    status: complete
+    status: partial
     coverage: US
     variable: fdpir
     parameter_prefix: gov.usda.fdpir
-    verified_years: "2024-2026"
-    notes: USDA foods to low-income households on Indian reservations
+    notes: USDA foods to low-income households on Indian reservations; parameters need expansion
 
   # --- HHS programs ---
   - id: medicaid
@@ -122,7 +122,7 @@ programs:
     has_state_variation: true
     variable: medicaid
     parameter_prefix: gov.hhs.medicaid
-    verified_years: "2022-2026"
+    verified_start_year: 2022
     notes: 8 pathways
 
   - id: chip
@@ -135,7 +135,8 @@ programs:
     has_state_variation: true
     variable: chip
     parameter_prefix: gov.hhs.chip
-    verified_years: "2022-2026"
+    verified_start_year: 2022
+    verified_end_year: 2024
 
   - id: aca_subsidies
     name: ACA subsidies
@@ -147,7 +148,7 @@ programs:
     has_state_variation: true
     variable: aca_ptc
     parameter_prefix: gov.aca
-    verified_years: "2022-2026"
+    verified_start_year: 2022
 
   - id: tanf
     name: TANF
@@ -157,6 +158,7 @@ programs:
     status: in_progress
     coverage: US
     parameter_prefix: gov.hhs.tanf
+    verified_start_year: 2022
     state_implementations:
       - state: CA
         status: complete
@@ -466,7 +468,7 @@ programs:
     coverage: US
     variable: head_start
     parameter_prefix: gov.hhs.head_start
-    verified_years: "2024-2026"
+    verified_start_year: 2024
     notes: Currently adding immigration rules
 
   - id: liheap
@@ -507,7 +509,7 @@ programs:
     coverage: US
     variable: ssi
     parameter_prefix: gov.ssa.ssi
-    verified_years: "2022-2026"
+    verified_start_year: 2022
 
   - id: ssi_state_supplement
     name: SSI state supplement
@@ -544,12 +546,11 @@ programs:
     full_name: Social Security (Retirement, Disability, Survivors)
     category: Benefits
     agency: SSA
-    status: complete
+    status: partial
     coverage: US
     variable: social_security
     parameter_prefix: gov.ssa.ss
-    verified_years: "2022-2026"
-    notes: Includes retirement, disability (SSDI), survivors, and dependent benefits
+    notes: Benefits are input variables (not computed from earnings history); payroll taxes are fully modeled
 
   - id: medicare
     name: Medicare
@@ -560,7 +561,7 @@ programs:
     coverage: US
     variable: is_medicare_eligible
     parameter_prefix: gov.hhs.medicare
-    verified_years: "2022-2026"
+    verified_start_year: 2022
     notes: Includes Part A (hospital) and Part B (medical) premiums with IRMAA adjustments
 
   # --- HUD programs ---
@@ -584,7 +585,7 @@ programs:
     coverage: US
     variable: lifeline
     parameter_prefix: gov.fcc.lifeline
-    verified_years: "2022-2026"
+    verified_start_year: 2022
 
   - id: acp
     name: Affordable Connectivity Program
@@ -595,7 +596,8 @@ programs:
     coverage: US
     variable: acp
     parameter_prefix: gov.fcc.acp
-    verified_years: "2022-2024"
+    verified_start_year: 2022
+    verified_end_year: 2024
     notes: Program ended in 2024
 
   # --- ED programs ---
@@ -608,7 +610,8 @@ programs:
     coverage: US
     variable: pell_grant
     parameter_prefix: gov.ed.pell_grant
-    verified_years: "2022-2026"
+    verified_start_year: 2023
+    verified_end_year: 2025
 
   # --- Federal tax credits ---
   - id: education_tax_credits
@@ -620,7 +623,7 @@ programs:
     coverage: US
     variable: american_opportunity_credit
     parameter_prefix: gov.irs.credits.education
-    verified_years: "2022-2026"
+    verified_start_year: 2022
     notes: Includes American Opportunity Credit and Lifetime Learning Credit
 
   - id: clean_vehicle_credits
@@ -632,7 +635,7 @@ programs:
     coverage: US
     variable: clean_vehicle_credit
     parameter_prefix: gov.irs.credits.clean_vehicle
-    verified_years: "2023-2026"
+    verified_start_year: 2023
     notes: Includes new clean vehicle credit and previously owned clean vehicle credit
 
   - id: residential_clean_energy_credit
@@ -644,7 +647,7 @@ programs:
     coverage: US
     variable: residential_clean_energy_credit
     parameter_prefix: gov.irs.credits.residential_clean_energy
-    verified_years: "2022-2026"
+    verified_start_year: 2022
     notes: Credit for solar, wind, geothermal, and fuel cell property
 
   # --- IRA / DOE programs ---
@@ -657,7 +660,7 @@ programs:
     coverage: US
     variable: energy_efficient_home_improvement_credit
     parameter_prefix: gov.irs.credits
-    verified_years: "2023-2026"
+    verified_start_year: 2023
     notes: Energy Efficient Home Improvement Credit
 
   - id: doe_high_efficiency_rebate
@@ -669,7 +672,7 @@ programs:
     coverage: US
     variable: high_efficiency_electric_home_rebate
     parameter_prefix: gov.doe.high_efficiency_electric_home_rebate
-    verified_years: "2024-2026"
+    verified_start_year: 2024
     notes: Rebates for heat pumps, water heaters, electric stoves, insulation, wiring, electrical panels
 
   - id: doe_efficiency_rebate
@@ -681,7 +684,7 @@ programs:
     coverage: US
     variable: residential_efficiency_electrification_rebate
     parameter_prefix: gov.doe.residential_efficiency_electrification_rebate
-    verified_years: "2024-2026"
+    verified_start_year: 2024
 
   # --- State programs ---
   - id: co_oap
@@ -693,7 +696,7 @@ programs:
     coverage: CO
     variable: co_oap
     parameter_prefix: gov.states.co.ssa.oap
-    verified_years: "2024-2026"
+    verified_start_year: 2024
 
   - id: co_chp
     name: Colorado CHP
@@ -704,7 +707,7 @@ programs:
     coverage: CO
     variable: co_chp
     parameter_prefix: gov.states.co.hcpf.chp
-    verified_years: "2024-2026"
+    verified_start_year: 2024
 
   - id: dc_power
     name: DC Power
@@ -1015,7 +1018,7 @@ programs:
     coverage: New York City
     variable: nyc_income_tax
     parameter_prefix: gov.local.ny.nyc.tax.income
-    verified_years: "2022-2026"
+    verified_start_year: 2022
     notes: Local income tax for NYC residents
 
   - id: sf_wftc
