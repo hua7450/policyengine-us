@@ -150,7 +150,6 @@ programs:
     variable: aca_ptc
     parameter_prefix: gov.aca
     verified_start_year: 2024
-    notes: formula_2024 gate in aca_ptc.py; params exist from 2015 but variable returns 0 before 2024
 
   - id: tanf
     name: TANF
