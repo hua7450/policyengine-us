@@ -1025,7 +1025,7 @@ programs:
     variable: nyc_income_tax
     parameter_prefix: gov.local.ny.nyc.tax.income
     verified_start_year: 2022
-    notes: Tax rates from 2017 but all credit params (EITC, household, school, CDCC) start 2022-01-01
+    notes: Local income tax for NYC residents
 
   - id: sf_wftc
     name: San Francisco WFTC
