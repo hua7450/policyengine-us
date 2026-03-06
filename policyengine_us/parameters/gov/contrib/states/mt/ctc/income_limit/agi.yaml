@@ -1,7 +1,0 @@
-description: Montana limits its child tax credit to filers with federal adjusted gross income at or below this amount.
-values:
-  2023-01-01: 56_000
-metadata:
-  unit: currency-USD
-  period: year
-  label: Montana child tax credit adjusted gross income limit

@@ -1,7 +1,7 @@
 # Tests for flexible Montana Child Tax Credit reform
 
 # Age bracket tests
-- name: Child age 0-5 gets $1,200
+- name: Child age 0-5 gets $1,800
   period: 2023
   reforms: policyengine_us.reforms.states.mt.ctc.mt_ctc.mt_ctc
   input:
@@ -17,9 +17,9 @@
         mt_ctc_eligible: true
         adjusted_gross_income: 40_000
   output:
-    mt_ctc: 1_200
+    mt_ctc: 1_800
 
-- name: Child age 6-12 gets $1,000
+- name: Child age 6-17 gets $1,500
   period: 2023
   reforms: policyengine_us.reforms.states.mt.ctc.mt_ctc.mt_ctc
   input:
@@ -35,25 +35,7 @@
         mt_ctc_eligible: true
         adjusted_gross_income: 40_000
   output:
-    mt_ctc: 1_000
-
-- name: Child age 13-17 gets $800
-  period: 2023
-  reforms: policyengine_us.reforms.states.mt.ctc.mt_ctc.mt_ctc
-  input:
-    gov.contrib.states.mt.ctc.in_effect: true
-    people:
-      head:
-        age: 40
-      child:
-        age: 15
-    tax_units:
-      tax_unit:
-        members: [head, child]
-        mt_ctc_eligible: true
-        adjusted_gross_income: 40_000
-  output:
-    mt_ctc: 800
+    mt_ctc: 1_500
 
 - name: Child age 18+ gets $0
   period: 2023
@@ -93,8 +75,8 @@
         mt_ctc_eligible: true
         adjusted_gross_income: 40_000
   output:
-    mt_ctc: 3_000
-    # 1200 + 1000 + 800
+    mt_ctc: 4_800
+    # 1800 + 1500 + 1500
 
 # Earned income requirement tests
 - name: Earned income required - eligible with $1 income
@@ -136,8 +118,8 @@
   output:
     mt_ctc_eligible: true
 
-# AGI phase-out tests
-- name: AGI at reduction threshold - no reduction
+# AGI phase-out tests (single filer, threshold $60k)
+- name: AGI at reduction threshold - no reduction (single)
   period: 2023
   reforms: policyengine_us.reforms.states.mt.ctc.mt_ctc.mt_ctc
   input:
@@ -151,11 +133,12 @@
       tax_unit:
         members: [head, child]
         mt_ctc_eligible: true
-        adjusted_gross_income: 50_000
+        adjusted_gross_income: 60_000
+        filing_status: SINGLE
   output:
-    mt_ctc: 1_200
+    mt_ctc: 1_800
 
-- name: AGI $1k above threshold - first reduction
+- name: AGI $1k above threshold - first reduction (single)
   period: 2023
   reforms: policyengine_us.reforms.states.mt.ctc.mt_ctc.mt_ctc
   input:
@@ -169,12 +152,13 @@
       tax_unit:
         members: [head, child]
         mt_ctc_eligible: true
-        adjusted_gross_income: 51_000
+        adjusted_gross_income: 61_000
+        filing_status: SINGLE
   output:
-    mt_ctc: 1_110
-    # 1200 - 1*90 = 1110
+    mt_ctc: 1_750
+    # 1800 - 1*50 = 1750
 
-- name: AGI $5k above threshold - 5 reductions
+- name: AGI $500 above threshold - ceiling triggers reduction
   period: 2023
   reforms: policyengine_us.reforms.states.mt.ctc.mt_ctc.mt_ctc
   input:
@@ -188,22 +172,75 @@
       tax_unit:
         members: [head, child]
         mt_ctc_eligible: true
-        adjusted_gross_income: 55_000
+        adjusted_gross_income: 60_500
+        filing_status: SINGLE
   output:
-    mt_ctc: 750
-    # 1200 - 5*90 = 750
+    mt_ctc: 1_750
+    # 1800 - ceil(500/1000)*50 = 1800 - 50 = 1750
 
-- name: AGI ineligible - above limit
+- name: AGI $5k above threshold - 5 reductions (single)
   period: 2023
   reforms: policyengine_us.reforms.states.mt.ctc.mt_ctc.mt_ctc
   input:
     gov.contrib.states.mt.ctc.in_effect: true
-    tax_unit_earned_income: 60_000
-    adjusted_gross_income: 56_001
-    ctc_qualifying_children: 1
-    state_code: MT
+    people:
+      head:
+        age: 30
+      child:
+        age: 3
+    tax_units:
+      tax_unit:
+        members: [head, child]
+        mt_ctc_eligible: true
+        adjusted_gross_income: 65_000
+        filing_status: SINGLE
   output:
-    mt_ctc_eligible: false
+    mt_ctc: 1_550
+    # 1800 - 5*50 = 1550
+
+# Joint filer tests (threshold $120k)
+- name: Joint filer at threshold - no reduction
+  period: 2023
+  reforms: policyengine_us.reforms.states.mt.ctc.mt_ctc.mt_ctc
+  input:
+    gov.contrib.states.mt.ctc.in_effect: true
+    people:
+      head:
+        age: 30
+      spouse:
+        age: 30
+      child:
+        age: 3
+    tax_units:
+      tax_unit:
+        members: [head, spouse, child]
+        mt_ctc_eligible: true
+        adjusted_gross_income: 120_000
+        filing_status: JOINT
+  output:
+    mt_ctc: 1_800
+
+- name: Joint filer $10k above threshold - 10 reductions
+  period: 2023
+  reforms: policyengine_us.reforms.states.mt.ctc.mt_ctc.mt_ctc
+  input:
+    gov.contrib.states.mt.ctc.in_effect: true
+    people:
+      head:
+        age: 30
+      spouse:
+        age: 30
+      child:
+        age: 3
+    tax_units:
+      tax_unit:
+        members: [head, spouse, child]
+        mt_ctc_eligible: true
+        adjusted_gross_income: 130_000
+        filing_status: JOINT
+  output:
+    mt_ctc: 1_300
+    # 1800 - 10*50 = 1300
 
 # No qualifying children test
 - name: No CTC qualifying children - ineligible
@@ -241,4 +278,4 @@
         state_code: MT
   output:
     mt_ctc_eligible: true
-    mt_ctc: 1_200
+    mt_ctc: 1_800

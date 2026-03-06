@@ -10,6 +10,7 @@ def create_mt_ctc() -> Reform:
     - No investment income requirement
     - Earned income requirement is toggled via parameter
     - Three-bracket age-based credit amounts
+    - Phase-out by filing status (same as newborn credit)
     """
 
     class mt_ctc(Variable):
@@ -30,10 +31,13 @@ def create_mt_ctc() -> Reform:
             child_credit = p.amount.calc(age) * is_qualifying
             credit_amount = tax_unit.sum(child_credit)
             # Credit gets reduced by an amount for each increment
-            # that AGI exceeds the threshold
+            # that AGI exceeds the threshold (by filing status)
             agi = tax_unit("adjusted_gross_income", period)
-            excess = max_(agi - p.reduction.threshold, 0)
-            increments = excess // p.reduction.increment
+            filing_status = tax_unit("filing_status", period)
+            threshold = p.reduction.threshold[filing_status]
+            excess = max_(agi - threshold, 0)
+            # Ceiling: any fraction of an increment triggers reduction
+            increments = np.ceil(excess / p.reduction.increment)
             reduction = p.reduction.amount * increments
             return max_(credit_amount - reduction, 0)
 
@@ -50,9 +54,6 @@ def create_mt_ctc() -> Reform:
             has_qualifying_child = (
                 tax_unit("ctc_qualifying_children", period) > 0
             )
-            # AGI must be at or below the limit
-            agi = tax_unit("adjusted_gross_income", period)
-            agi_eligible = agi <= p.income_limit.agi
             # Earned income requirement is optional
             earned_income_required = p.earned_income_requirement.in_effect
             earned_income = tax_unit("tax_unit_earned_income", period)
@@ -62,7 +63,7 @@ def create_mt_ctc() -> Reform:
                 has_earned_income,
                 True,
             )
-            return has_qualifying_child & agi_eligible & earned_income_eligible
+            return has_qualifying_child & earned_income_eligible
 
     def modify_parameters(parameters):
         parameters.gov.states.mt.tax.income.credits.refundable.update(
