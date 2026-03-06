@@ -511,8 +511,8 @@ programs:
     coverage: US
     variable: ssi
     parameter_prefix: gov.ssa.ssi
-    verified_start_year: 2021
-    notes: Most params from 1975; blind SGA threshold only encoded from 2025 (uprating extrapolates earlier)
+    verified_start_year: 1985
+    notes: FBR amounts from 1975; resource limits from 1985; blind SGA param unused (blind exempt from SGA)
 
   - id: ssi_state_supplement
     name: SSI state supplement
