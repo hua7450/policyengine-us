@@ -1,3 +1,10 @@
+## [1.592.6] - 2026-03-06
+
+### Fixed
+
+- Fix verified_years in programs.yaml based on parameter and test audit.
+
+
 ## [1.592.5] - 2026-03-06
 
 ### Changed
