@@ -94,16 +94,12 @@ def create_ga_sb520() -> Reform:
             ctc_eligible_child = person("ctc_qualifying_child", period)
             # SB 520 preserves baseline GA CTC age threshold (under 6)
             ga_child_age_eligible = age < p.age_threshold
-            eligible_children = tax_unit.sum(
-                ctc_eligible_child & ga_child_age_eligible
-            )
+            eligible_children = tax_unit.sum(ctc_eligible_child & ga_child_age_eligible)
 
             sb520_amount = p_sb520.credits.ctc.amount
             baseline_amount = p.amount
 
-            amount_per_child = where(
-                sb520_active, sb520_amount, baseline_amount
-            )
+            amount_per_child = where(sb520_active, sb520_amount, baseline_amount)
             return eligible_children * amount_per_child
 
     class ga_eitc(Variable):
@@ -158,9 +154,7 @@ def create_ga_sb520() -> Reform:
         defined_for = StateCode.GA
 
         def formula(tax_unit, period, parameters):
-            p = parameters(
-                period
-            ).gov.states.ga.tax.income.credits.non_refundable
+            p = parameters(period).gov.states.ga.tax.income.credits.non_refundable
             p_sb520 = parameters(period).gov.contrib.states.ga.sb520
 
             sb520_active = p_sb520.in_effect
