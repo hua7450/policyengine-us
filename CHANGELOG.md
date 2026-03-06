@@ -1,3 +1,10 @@
+## [1.592.7] - 2026-03-06
+
+### Changed
+
+- Restructure Montana contributed reforms: rename mt_ctc to mt_hb268 for the bill-specific implementation, and create new flexible mt_ctc reform with three-bracket age amounts and toggleable earned income requirement.
+
+
 ## [1.592.6] - 2026-03-06
 
 ### Fixed
