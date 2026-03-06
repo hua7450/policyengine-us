@@ -1,3 +1,10 @@
+## [1.592.5] - 2026-03-06
+
+### Changed
+
+- Index WATCA cost-of-living exemption amounts with chained CPI (gov.irs.uprating), matching standard IRS inflation adjustments.
+
+
 ## [1.592.4] - 2026-03-06
 
 ### Changed
