@@ -41,16 +41,12 @@ def create_al_hb527_overtime_deduction() -> Reform:
             gross_sources = parameters(
                 period
             ).gov.states.al.tax.income.agi.gross_income_sources
-            deductions = parameters(
-                period
-            ).gov.states.al.tax.income.agi.deductions
+            deductions = parameters(period).gov.states.al.tax.income.agi.deductions
             gross_income = add(tax_unit, period, gross_sources)
             agi_deductions = add(tax_unit, period, deductions)
             base_al_agi = gross_income - agi_deductions
             # If HB527 is in effect, subtract the overtime deduction
-            overtime_deduction = tax_unit(
-                "al_hb527_overtime_deduction", period
-            )
+            overtime_deduction = tax_unit("al_hb527_overtime_deduction", period)
             return base_al_agi - overtime_deduction
 
     class reform(Reform):
@@ -61,9 +57,7 @@ def create_al_hb527_overtime_deduction() -> Reform:
     return reform
 
 
-def create_al_hb527_overtime_deduction_reform(
-    parameters, period, bypass: bool = False
-):
+def create_al_hb527_overtime_deduction_reform(parameters, period, bypass: bool = False):
     if bypass:
         return create_al_hb527_overtime_deduction()
 
