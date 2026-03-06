@@ -564,8 +564,8 @@ programs:
     coverage: US
     variable: is_medicare_eligible
     parameter_prefix: gov.hhs.medicare
-    verified_start_year: 2021
-    notes: Includes Part A (hospital) and Part B (medical) premiums with IRMAA adjustments
+    verified_start_year: 2024
+    notes: Part A premiums, IRMAA brackets, and MSP asset limits all start 2024-01-01; Part B base premium from 2021 but full model requires 2024
 
   # --- HUD programs ---
   - id: section_8
@@ -627,8 +627,8 @@ programs:
     coverage: US
     variable: american_opportunity_credit
     parameter_prefix: gov.irs.credits.education
-    verified_start_year: 2021
-    notes: Includes American Opportunity Credit and Lifetime Learning Credit
+    verified_start_year: 2022
+    notes: foreign_tax_credit in preceding_credits only tracked in non_refundable from 2022; AOTC params from 2009, LLC from 1998
 
   - id: clean_vehicle_credits
     name: Clean vehicle credits
@@ -676,8 +676,8 @@ programs:
     coverage: US
     variable: high_efficiency_electric_home_rebate
     parameter_prefix: gov.doe.high_efficiency_electric_home_rebate
-    verified_start_year: 2024
-    notes: Rebates for heat pumps, water heaters, electric stoves, insulation, wiring, electrical panels
+    verified_start_year: 2023
+    notes: All IRA rebate params start 2023-01-01; rebates for heat pumps, water heaters, electric stoves, insulation, wiring, electrical panels
 
   - id: doe_efficiency_rebate
     name: DOE efficiency rebate
@@ -688,7 +688,7 @@ programs:
     coverage: US
     variable: residential_efficiency_electrification_rebate
     parameter_prefix: gov.doe.residential_efficiency_electrification_rebate
-    verified_start_year: 2024
+    verified_start_year: 2023
 
   # --- State programs ---
   - id: co_oap
@@ -700,7 +700,8 @@ programs:
     coverage: CO
     variable: co_oap
     parameter_prefix: gov.states.co.ssa.oap
-    verified_start_year: 2024
+    verified_start_year: 2023
+    notes: All OAP params (grant_standard, age_range, resource limits) start 2023-01-01
 
   - id: co_chp
     name: Colorado CHP
@@ -711,7 +712,8 @@ programs:
     coverage: CO
     variable: co_chp
     parameter_prefix: gov.states.co.hcpf.chp
-    verified_start_year: 2024
+    verified_start_year: 2023
+    notes: Income limit from 2022-04-01; child age range and copay params from 2023-01-01
 
   - id: dc_power
     name: DC Power
@@ -1022,8 +1024,8 @@ programs:
     coverage: New York City
     variable: nyc_income_tax
     parameter_prefix: gov.local.ny.nyc.tax.income
-    verified_start_year: 2021
-    notes: Local income tax for NYC residents
+    verified_start_year: 2022
+    notes: Tax rates from 2017 but all credit params (EITC, household, school, CDCC) start 2022-01-01
 
   - id: sf_wftc
     name: San Francisco WFTC
