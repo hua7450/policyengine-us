@@ -1,3 +1,10 @@
+## [1.592.0] - 2026-03-06
+
+### Added
+
+- Added the Working Americans' Tax Cut Act reform with cost of living exemption and millionaire surtax.
+
+
 ## [1.591.3] - 2026-03-05
 
 ### Fixed
