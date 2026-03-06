@@ -51,9 +51,7 @@ def create_mt_ctc() -> Reform:
         def formula(tax_unit, period, parameters):
             p = parameters(period).gov.contrib.states.mt.ctc
             # Must have at least one CTC-qualifying child
-            has_qualifying_child = (
-                tax_unit("ctc_qualifying_children", period) > 0
-            )
+            has_qualifying_child = tax_unit("ctc_qualifying_children", period) > 0
             # Earned income requirement is optional
             earned_income_required = p.earned_income_requirement.in_effect
             earned_income = tax_unit("tax_unit_earned_income", period)
