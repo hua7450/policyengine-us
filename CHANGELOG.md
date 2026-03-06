@@ -1,3 +1,10 @@
+## [1.592.4] - 2026-03-06
+
+### Changed
+
+- Update CLAUDE.md references from black to ruff.
+
+
 ## [1.592.3] - 2026-03-06
 
 ### Changed
