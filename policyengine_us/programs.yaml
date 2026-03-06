@@ -110,7 +110,7 @@ programs:
     coverage: US
     variable: fdpir
     parameter_prefix: gov.usda.fdpir
-    notes: USDA foods to low-income households on Indian reservations; parameters need expansion
+    notes: Benefits are input variables (not computed from eligibility rules)
 
   # --- HHS programs ---
   - id: medicaid
