@@ -1,3 +1,10 @@
+## [1.592.8] - 2026-03-06
+
+### Fixed
+
+- Remove dead ZIP_CODE_DATASET infrastructure that never shipped and crashes CA state-level microsimulation.
+
+
 ## [1.592.7] - 2026-03-06
 
 ### Changed
