@@ -1,3 +1,10 @@
+## [1.592.2] - 2026-03-06
+
+### Changed
+
+- Switch from black (line-length 79) to ruff format (line-length 88).
+
+
 ## [1.592.1] - 2026-03-06
 
 ### Fixed
