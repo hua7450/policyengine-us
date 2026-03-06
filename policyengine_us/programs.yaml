@@ -28,7 +28,7 @@ programs:
     variable: state_income_tax
     parameter_prefix: gov.states
     verified_start_year: 2021
-    notes: Validated against NBER TAXSIM for 2022
+    notes: Validated against NBER TAXSIM for 2021+
 
   - id: payroll_taxes
     name: Payroll taxes
@@ -53,8 +53,8 @@ programs:
     has_state_variation: true
     variable: snap
     parameter_prefix: gov.usda.snap
-    verified_start_year: 2022
-    notes: SUA values start FY2022; needs some special deductions in AK, AZ, HI, NY, TN, VA
+    verified_start_year: 2021
+    notes: Min allotment params from 2021-01-01; SUA from 2021-10-01; needs some special deductions in AK, AZ, HI, NY, TN, VA
 
   - id: wic
     name: WIC
@@ -614,9 +614,8 @@ programs:
     coverage: US
     variable: pell_grant
     parameter_prefix: gov.ed.pell_grant
-    verified_start_year: 2024
-    verified_end_year: 2025
-    notes: SAI formula from 2024; EFC formula (2009-2023) uses different params
+    verified_start_year: 2023
+    notes: EFC params (head/dependent assessment rates, amount limits) from 2023; SAI formula from 2024
 
   # --- Federal tax credits ---
   - id: education_tax_credits
