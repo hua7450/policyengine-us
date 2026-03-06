@@ -230,3 +230,76 @@
     filing_status: SINGLE
   output:
     watca_millionaire_surtax: 25_000
+
+# === CPI Indexation (post-2026) ===
+
+- name: "2027: Single filer exemption indexed to $47,200"
+  period: 2027
+  reforms: policyengine_us.reforms.congress.watca.working_americans_tax_cut_act.watca_reform_object
+  input:
+    gov.contrib.congress.watca.in_effect: true
+    adjusted_gross_income: 30_000
+    filing_status: SINGLE
+  output:
+    watca_cost_of_living_exemption: 47_200
+
+- name: "2027: Joint filer exemption indexed to $94,400"
+  period: 2027
+  reforms: policyengine_us.reforms.congress.watca.working_americans_tax_cut_act.watca_reform_object
+  input:
+    gov.contrib.congress.watca.in_effect: true
+    adjusted_gross_income: 50_000
+    filing_status: JOINT
+  output:
+    watca_cost_of_living_exemption: 94_400
+
+- name: "2027: HOH filer exemption indexed to $66,100"
+  period: 2027
+  reforms: policyengine_us.reforms.congress.watca.working_americans_tax_cut_act.watca_reform_object
+  input:
+    gov.contrib.congress.watca.in_effect: true
+    adjusted_gross_income: 50_000
+    filing_status: HEAD_OF_HOUSEHOLD
+  output:
+    watca_cost_of_living_exemption: 66_100
+
+- name: "2030: Single filer exemption indexed to $50,200"
+  period: 2030
+  reforms: policyengine_us.reforms.congress.watca.working_americans_tax_cut_act.watca_reform_object
+  input:
+    gov.contrib.congress.watca.in_effect: true
+    adjusted_gross_income: 30_000
+    filing_status: SINGLE
+  output:
+    watca_cost_of_living_exemption: 50_200
+
+- name: "2030: Joint filer exemption indexed to $100,450"
+  period: 2030
+  reforms: policyengine_us.reforms.congress.watca.working_americans_tax_cut_act.watca_reform_object
+  input:
+    gov.contrib.congress.watca.in_effect: true
+    adjusted_gross_income: 50_000
+    filing_status: JOINT
+  output:
+    watca_cost_of_living_exemption: 100_450
+
+- name: "2035: Single filer exemption indexed to $55,400"
+  period: 2035
+  reforms: policyengine_us.reforms.congress.watca.working_americans_tax_cut_act.watca_reform_object
+  input:
+    gov.contrib.congress.watca.in_effect: true
+    adjusted_gross_income: 30_000
+    filing_status: SINGLE
+  output:
+    watca_cost_of_living_exemption: 55_400
+
+- name: "2027: Single filer phase-out end adjusts with indexed amount"
+  period: 2027
+  reforms: policyengine_us.reforms.congress.watca.working_americans_tax_cut_act.watca_reform_object
+  input:
+    gov.contrib.congress.watca.in_effect: true
+    adjusted_gross_income: 82_600
+    filing_status: SINGLE
+  output:
+    # Phase-out end: 47_200 * 1.75 = 82_600; fraction = 0
+    watca_cost_of_living_exemption: 0
