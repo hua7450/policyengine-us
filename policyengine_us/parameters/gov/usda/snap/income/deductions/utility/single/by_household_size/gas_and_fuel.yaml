@@ -1,0 +1,96 @@
+description: States that vary Supplemental Nutrition Assistance Program individual gas and fuel utility allowances by household size set these allowance values.
+GU:
+  1:
+    2023-10-01: 36
+    2024-10-01: 36
+    2025-10-01: 37
+  2:
+    2023-10-01: 36
+    2024-10-01: 36
+    2025-10-01: 37
+  3:
+    2023-10-01: 36
+    2024-10-01: 36
+    2025-10-01: 37
+  4:
+    2023-10-01: 72
+    2024-10-01: 72
+    2025-10-01: 74
+  5:
+    2023-10-01: 72
+    2024-10-01: 72
+    2025-10-01: 74
+  6:
+    2023-10-01: 72
+    2024-10-01: 72
+    2025-10-01: 74
+  7:
+    2023-10-01: 108
+    2024-10-01: 108
+    2025-10-01: 111
+  8:
+    2023-10-01: 108
+    2024-10-01: 108
+    2025-10-01: 111
+  9:
+    2023-10-01: 108
+    2024-10-01: 108
+    2025-10-01: 111
+  10:
+    2023-10-01: 108
+    2024-10-01: 108
+    2025-10-01: 111
+HI:
+  1:
+    2023-10-01: 300
+    2024-10-01: 291
+    2025-10-01: 299
+  2:
+    2023-10-01: 326
+    2024-10-01: 315
+    2025-10-01: 324
+  3:
+    2023-10-01: 378
+    2024-10-01: 366
+    2025-10-01: 376
+  4:
+    2023-10-01: 473
+    2024-10-01: 457
+    2025-10-01: 469
+  5:
+    2023-10-01: 473
+    2024-10-01: 457
+    2025-10-01: 469
+  6:
+    2023-10-01: 559
+    2024-10-01: 539
+    2025-10-01: 554
+  7:
+    2023-10-01: 632
+    2024-10-01: 609
+    2025-10-01: 625
+  8:
+    2023-10-01: 632
+    2024-10-01: 609
+    2025-10-01: 625
+  9:
+    2023-10-01: 632
+    2024-10-01: 609
+    2025-10-01: 625
+  10:
+    2023-10-01: 632
+    2024-10-01: 609
+    2025-10-01: 625
+
+metadata:
+  period: month
+  unit: currency-USD
+  label: SNAP individual gas and fuel utility allowance by household size
+  breakdown:
+    - [GU, HI]
+    - range(1, 10)
+  reference:
+    - title: USDA SNAP utility allowances by state spreadsheet (FY2024)
+      href: https://docs.google.com/spreadsheets/d/10otJJisAYUDyZ0d7XpZPn8rEql-rteVE/edit?gid=1837348310#gid=1837348310
+    - title: USDA SNAP utility allowances by state spreadsheet (FY2025)
+      href: https://www.fns.usda.gov/sites/default/files/resource-files/2024-09-30-SUA-Table-FY25-508-Update.xlsx

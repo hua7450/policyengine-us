@@ -1,4 +1,4 @@
-- name: SNAP utility region inferred from state.
+- name: SNAP utility region inferred from state (non-AK/NY).
   period: 2020
   absolute_error_margin: 0
   input:
