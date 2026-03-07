@@ -1,1 +1,1 @@
-Add FY2019 and FY2023 SNAP SUA values for all states.
+Add comprehensive SNAP utility allowance data: FY2019-FY2026 values for all states, AK/NY sub-regional allowances, household-size-based SUA/BUA for AZ/NC/TN/VA, and HI/GU household-size individual utility allowances.
