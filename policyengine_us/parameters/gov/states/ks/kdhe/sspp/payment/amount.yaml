@@ -1,0 +1,14 @@
+description: >-
+  Kansas provides this flat monthly State Supplemental Payment to eligible
+  SSI recipients residing in Medicaid-approved institutions.
+metadata:
+  unit: currency-USD
+  period: month
+  label: Kansas SSPP monthly payment amount
+  reference:
+    - title: K.S.A. 39-972 - State Supplemental Payment Program
+      href: https://ksrevisor.gov/statutes/chapters/ch39/039_009_0072.html
+    - title: KHPA Policy No. 2007-05-01 - State Supplemental Payment Program Policy Memo
+      href: https://khap.kdhe.ks.gov/kfmam/policydocs/state%20supplemental%20payment%20program%20policy%20memo.pdf
+values:
+  2006-07-01: 20

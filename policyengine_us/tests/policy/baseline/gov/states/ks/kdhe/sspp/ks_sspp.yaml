@@ -1,0 +1,59 @@
+- name: Eligible SSI recipient in Medicaid institution receives $240/year
+  period: 2024
+  input:
+    state_code: KS
+    ssi: 360
+    ks_sspp_in_medicaid_institution: true
+    age: 65
+  output:
+    ks_sspp: 240
+
+- name: SSI recipient not in Medicaid institution is ineligible
+  period: 2024
+  input:
+    state_code: KS
+    ssi: 360
+    ks_sspp_in_medicaid_institution: false
+    age: 65
+  output:
+    ks_sspp: 0
+
+- name: Person in Medicaid institution without SSI is ineligible
+  period: 2024
+  input:
+    state_code: KS
+    ssi: 0
+    ks_sspp_in_medicaid_institution: true
+    age: 65
+  output:
+    ks_sspp: 0
+
+- name: Minor in Medicaid institution with SSI is ineligible
+  period: 2024
+  input:
+    state_code: KS
+    ssi: 360
+    ks_sspp_in_medicaid_institution: true
+    age: 17
+  output:
+    ks_sspp: 0
+
+- name: Non-Kansas resident is ineligible
+  period: 2024
+  input:
+    state_code: CA
+    ssi: 360
+    ks_sspp_in_medicaid_institution: true
+    age: 65
+  output:
+    ks_sspp: 0
+
+- name: Eligible 18-year-old receives payment
+  period: 2024
+  input:
+    state_code: KS
+    ssi: 108
+    ks_sspp_in_medicaid_institution: true
+    age: 18
+  output:
+    ks_sspp: 240
