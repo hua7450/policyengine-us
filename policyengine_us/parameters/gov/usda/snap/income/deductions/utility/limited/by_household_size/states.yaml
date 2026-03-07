@@ -1,7 +1,9 @@
 description: These states vary their Supplemental Nutrition Assistance Program limited utility allowances by household size. 
 values:
   2024-01-01:
+    - AZ
     - NC
+    - TN
 
 metadata:
   unit: list
