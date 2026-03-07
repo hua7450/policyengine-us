@@ -1,6 +1,6 @@
 [project]
 name = "policyengine-us"
-version = "1.592.8"
+version = "1.593.0"
 description = "Add your description here."
 readme = "README.md"
 authors = [

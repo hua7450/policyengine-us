@@ -1,3 +1,10 @@
+## [1.593.0] - 2026-03-07
+
+### Added
+
+- Add TAXSIM35 validation tests for tax year 2018.
+
+
 ## [1.592.8] - 2026-03-06
 
 ### Fixed
