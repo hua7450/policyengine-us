@@ -486,7 +486,7 @@ metadata:
   - name: USDA utility allowances by state spreadsheet. Extracted by build_utility_allowances (FY2025)
     href: https://www.fns.usda.gov/sites/default/files/resource-files/2024-09-30-SUA-Table-FY25-508-Update.xlsx
   breakdown:
-  - state_code
+  - snap_utility_region
   label: SNAP standard utility allowance
   propagate_metadata_to_children: true
 
