@@ -1,0 +1,120 @@
+- name: Individual in OS-A facility receives DC OSSP
+  period: 2026
+  input:
+    people:
+      person:
+        dc_ossp_living_arrangement: OS_A
+        is_ssi_eligible_individual: true
+        ssi_countable_resources: {2026: 1_500}
+    families:
+      family:
+        members: [person]
+        is_married: {2026: false}
+    households:
+      household:
+        members: [person]
+        state_code: DC
+  output:
+    dc_ossp_eligible: [true]
+    dc_ossp: [8_172]  # $681/month * 12
+
+- name: Couple in OS-A facility receives DC OSSP
+  period: 2026
+  input:
+    people:
+      person1:
+        is_ssi_eligible_individual: true
+        ssi_countable_resources: {2026: 1_500}
+        dc_ossp_living_arrangement: OS_A
+      person2:
+        is_ssi_eligible_individual: true
+        ssi_countable_resources: {2026: 1_500}
+        dc_ossp_living_arrangement: OS_A
+    families:
+      family:
+        members: [person1, person2]
+        is_married: {2026: true}
+    households:
+      household:
+        members: [person1, person2]
+        state_code: DC
+  output:
+    dc_ossp: [10_302, 10_302]  # $1717/2 * 12
+
+- name: Individual in OS-B facility receives DC OSSP
+  period: 2026
+  input:
+    people:
+      person:
+        dc_ossp_living_arrangement: OS_B
+        is_ssi_eligible_individual: true
+        ssi_countable_resources: {2026: 1_000}
+    families:
+      family:
+        members: [person]
+        is_married: {2026: false}
+    households:
+      household:
+        members: [person]
+        state_code: DC
+  output:
+    dc_ossp: [9_492]  # $791/month * 12
+
+- name: Excess resources makes person ineligible for DC OSSP
+  period: 2026
+  input:
+    people:
+      person:
+        dc_ossp_living_arrangement: OS_A
+        is_ssi_eligible_individual: true
+        ssi_countable_resources: {2026: 2_500}
+    families:
+      family:
+        members: [person]
+        is_married: {2026: false}
+    households:
+      household:
+        members: [person]
+        state_code: DC
+  output:
+    dc_ossp_resource_eligible: [false]
+    dc_ossp: [0]
+
+- name: Individual in OS-G nursing facility receives DC OSSP
+  period: 2026
+  input:
+    people:
+      person:
+        dc_ossp_living_arrangement: OS_G
+        is_ssi_eligible_individual: true
+        ssi_countable_resources: {2026: 500}
+    families:
+      family:
+        members: [person]
+        is_married: {2026: false}
+    households:
+      household:
+        members: [person]
+        state_code: DC
+  output:
+    dc_ossp: [948]  # $79/month * 12
+
+- name: Person not in qualifying facility is ineligible
+  period: 2026
+  input:
+    people:
+      person:
+        dc_ossp_living_arrangement: NONE
+        is_ssi_eligible_individual: true
+        ssi_countable_resources: {2026: 500}
+    families:
+      family:
+        members: [person]
+        is_married: {2026: false}
+    households:
+      household:
+        members: [person]
+        state_code: DC
+  output:
+    dc_ossp_eligible: [false]
+    dc_ossp: [0]

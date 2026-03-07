@@ -1,0 +1,13 @@
+description: >-
+  Personal needs allowance for DC OSSP recipients in nursing facilities.
+metadata:
+  unit: currency-USD
+  period: month
+  label: DC OSSP nursing facility personal needs allowance
+  reference:
+    - title: DC Code § 4-208.02 - Personal needs allowance
+      href: https://code.dccouncil.gov/us/dc/council/code/sections/4-208.02
+    - title: DHCF Transmittal 26-02 - 2026 PNA increase
+      href: https://dhcf.dc.gov/
+values:
+  2026-01-01: 109
