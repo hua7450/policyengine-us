@@ -66,4 +66,4 @@ oryx-build-commands.txt
 .claude/settings.local.json
 
 # Claude Code temporary files
-tmpclaude-*-cwd
+tmpclaude-*-cwd.claude/worktrees/
