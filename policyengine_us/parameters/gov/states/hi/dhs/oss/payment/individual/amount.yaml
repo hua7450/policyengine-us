@@ -1,0 +1,26 @@
+description: >-
+  Hawaii provides this monthly Optional State Supplementation payment amount
+  to eligible individual SSI recipients based on their living arrangement.
+metadata:
+  unit: currency-USD
+  period: month
+  label: Hawaii OSS monthly payment amount for individuals
+  breakdown:
+    - hi_oss_living_arrangement
+  reference:
+    - title: SSA POMS SI 01415.057 - Federally Administered Optional Supplementary Payment Programs for January 2025
+      href: https://secure.ssa.gov/POMS.NSF/lnx/0501415057
+    - title: SSA POMS SI 01415.055 - Federally Administered Optional Supplemental Payment Programs for January 2023
+      href: https://secure.ssa.gov/apps10/poms.nsf/lnx/0501415055
+COMMUNITY_CARE:
+  2023-01-01: 651.90
+  2025-01-01: 784
+DOMICILIARY_CARE_I:
+  2023-01-01: 651.90
+  2025-01-01: 784
+DOMICILIARY_CARE_II:
+  2023-01-01: 759.90
+  2025-01-01: 892
+MEDICAID_INSTITUTION:
+  2023-01-01: 20
+  2025-01-01: 45
