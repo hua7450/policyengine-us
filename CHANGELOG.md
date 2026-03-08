@@ -1,3 +1,14 @@
+## [1.596.0] - 2026-03-08
+
+### Added
+
+- Add ms_cdcc to state CDCC aggregation list so Mississippi's child and dependent care credit flows through to state_cdcc totals.
+
+### Fixed
+
+- Fix Nebraska nonrefundable CDCC to use the actual claimed federal credit (`cdcc`) rather than the pre-liability-cap potential credit (`cdcc_potential`), consistent with Form 1040N instructions referencing Schedule 3 line 2.
+
+
 ## [1.595.0] - 2026-03-08
 
 ### Added

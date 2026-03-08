@@ -1,1 +1,0 @@
-Fix Nebraska nonrefundable CDCC to use the actual claimed federal credit (`cdcc`) rather than the pre-liability-cap potential credit (`cdcc_potential`), consistent with Form 1040N instructions referencing Schedule 3 line 2.
