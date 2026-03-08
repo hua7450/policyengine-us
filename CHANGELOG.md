@@ -1,3 +1,10 @@
+## [1.595.0] - 2026-03-08
+
+### Added
+
+- Added Georgia SB 520 contributed reform implementing progressive income tax brackets (2027), increased standard deduction with phase-out, enhanced child tax credit ($1,250 refundable), and new Georgia EITC (20% of federal).
+
+
 ## [1.594.0] - 2026-03-07
 
 ### Added
