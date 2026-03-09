@@ -1,3 +1,10 @@
+## [1.596.3] - 2026-03-09
+
+### Fixed
+
+- Removed adds from is_pregnant, making it a pure input variable.
+
+
 ## [1.596.2] - 2026-03-09
 
 ### Fixed
