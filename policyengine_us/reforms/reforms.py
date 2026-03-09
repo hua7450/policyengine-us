@@ -179,6 +179,9 @@ from .congress.watca import (
 )
 
 
+from .states.ga.sb520 import (
+    create_ga_sb520_reform,
+)
 from policyengine_core.reforms import Reform
 import warnings
 
@@ -341,6 +344,7 @@ def create_structural_reforms_from_parameters(parameters, period):
     ct_sb100 = create_ct_sb100_reform(parameters, period)
     ct_tax_rebate_2026 = create_ct_tax_rebate_2026_reform(parameters, period)
     ct_hb5009 = create_ct_hb5009_reform(parameters, period)
+    ga_sb520 = create_ga_sb520_reform(parameters, period)
     watca = create_watca_reform(parameters, period)
 
     reforms = [
@@ -422,6 +426,7 @@ def create_structural_reforms_from_parameters(parameters, period):
         ct_hb5009,
         ct_sb100,
         ct_tax_rebate_2026,
+        ga_sb520,
         watca,
     ]
     reforms = tuple(filter(lambda x: x is not None, reforms))
