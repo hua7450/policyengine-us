@@ -1,4 +1,4 @@
-description: Wisconsin maximum child and dependent care expense per qualifying individual. Zero means use the federal limit (§21(c) of the IRC). For 2024+, Wisconsin Act 101 of 2023 sets this to $10,000 per qualifying individual.
+description: Wisconsin caps child and dependent care expenses at this amount per qualifying individual.
 metadata:
   unit: currency-USD
   label: Wisconsin CDCC maximum expense per qualifying individual
