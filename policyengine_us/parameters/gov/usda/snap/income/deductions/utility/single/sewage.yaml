@@ -138,8 +138,10 @@ IL:
   2024-10-01: 76
   2025-10-01: 78
 IN:
+  # Indiana SUA is effective May 1, not the federal fiscal year.
+  # Starting FY2026 (10/1/2025), Indiana aligned with the federal cycle.
   2010-01-01: 0
-  2021-10-01: 57
+  2021-05-01: 57
   2023-05-01: 60
   2025-10-01: 62
 KS:
