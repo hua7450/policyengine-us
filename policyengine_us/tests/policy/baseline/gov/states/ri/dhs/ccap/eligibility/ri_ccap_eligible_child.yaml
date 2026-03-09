@@ -68,7 +68,7 @@
   output:
     ri_ccap_eligible_child: [false, true]
 
-- name: Case 4, disabled child age 18 ineligible.
+- name: Case 4, disabled child age 18 eligible (up through 18).
   period: 2025
   input:
     people:
@@ -90,7 +90,7 @@
         members: [person1, person2]
         state_code: RI
   output:
-    ri_ccap_eligible_child: [false, false]
+    ri_ccap_eligible_child: [false, true]
 
 - name: Case 5, child who is not a dependent is ineligible.
   period: 2025
