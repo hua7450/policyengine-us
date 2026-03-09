@@ -8,10 +8,10 @@ class wi_childcare_expense_credit(Variable):
     unit = USD
     definition_period = YEAR
     reference = (
-        "https://www.revenue.wi.gov/TaxForms2022/2022-Form1f.pdf#page=2"
-        "https://www.revenue.wi.gov/TaxForms2022/2022-Form1-Inst.pdf#page=17"
-        "https://docs.legis.wisconsin.gov/misc/lfb/informational_papers/january_2023/0002_individual_income_tax_informational_paper_2.pdf"
-        "https://docs.legis.wisconsin.gov/statutes/statutes/71/i/07/9g"
+        "https://www.revenue.wi.gov/TaxForms2022/2022-Form1f.pdf#page=2",
+        "https://www.revenue.wi.gov/TaxForms2022/2022-Form1-Inst.pdf#page=17",
+        "https://docs.legis.wisconsin.gov/misc/lfb/informational_papers/january_2023/0002_individual_income_tax_informational_paper_2.pdf",
+        "https://docs.legis.wisconsin.gov/statutes/statutes/71/i/07/9g",
     )
     defined_for = StateCode.WI
 
