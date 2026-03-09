@@ -1,0 +1,1 @@
+Fix Wisconsin CDCC to use the state's $10,000 per qualifying individual expense limit for tax years beginning after December 31, 2023, as enacted by 2023 Wisconsin Act 101 (§71.07(9g)(c)5). Previously the formula used the lower federal limits ($3,000/$6,000).
