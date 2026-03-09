@@ -1,0 +1,146 @@
+# Edge cases for ri_ccap_fpl_copay_rate
+# Copay rate brackets by FPL ratio:
+#   0 to 1.0 -> 0%
+#   1.0001 to 1.25 -> 2%
+#   1.2501 to 1.5 -> 5%
+#   1.5001+ -> 7%
+#
+# 2025 FPG family of 2: 21_150
+# Exact bracket boundaries:
+#   100% FPL = 21_150
+#   100.01% FPL = 21_150 * 1.0001 = 21_152.115
+#   125% FPL = 26_437.50
+#   125.01% FPL = 21_150 * 1.2501 = 26_439.615
+#   150% FPL = 31_725
+#   150.01% FPL = 21_150 * 1.5001 = 31_727.115
+
+- name: Case 1, income at exactly 100.01 percent FPL gets 2 percent rate.
+  period: 2025
+  absolute_error_margin: 0.001
+  input:
+    people:
+      person1:
+        age: 30
+        # income = 21_150 * 1.0001 = 21_152.115
+        # This is at the 1.0001 threshold
+        employment_income: 21_152.115
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # FPL ratio = 21_152.115 / 21_150 = 1.0001 -> 2%
+    ri_ccap_fpl_copay_rate: 0.02
+
+- name: Case 2, income one cent below 100.01 percent FPL gets 0 percent rate.
+  period: 2025
+  absolute_error_margin: 0.001
+  input:
+    people:
+      person1:
+        age: 30
+        # income just below 1.0001 threshold
+        employment_income: 21_152
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # FPL ratio = 21_152 / 21_150 = 1.0000946... < 1.0001 -> 0%
+    ri_ccap_fpl_copay_rate: 0
+
+- name: Case 3, income at exactly 125 percent FPL gets 2 percent rate.
+  period: 2025
+  absolute_error_margin: 0.001
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 26_437.50
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # FPL ratio = 26_437.50 / 21_150 = 1.25 -> still 2% (< 1.2501)
+    ri_ccap_fpl_copay_rate: 0.02
+
+- name: Case 4, income at exactly 125.01 percent FPL gets 5 percent rate.
+  period: 2025
+  absolute_error_margin: 0.001
+  input:
+    people:
+      person1:
+        age: 30
+        # income = 21_150 * 1.2501 = 26_439.615
+        employment_income: 26_439.615
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # FPL ratio = 26_439.615 / 21_150 = 1.2501 -> 5%
+    ri_ccap_fpl_copay_rate: 0.05
+
+- name: Case 5, income at exactly 150 percent FPL gets 5 percent rate.
+  period: 2025
+  absolute_error_margin: 0.001
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 31_725
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # FPL ratio = 31_725 / 21_150 = 1.5 -> still 5% (< 1.5001)
+    ri_ccap_fpl_copay_rate: 0.05
+
+- name: Case 6, income at exactly 150.01 percent FPL gets 7 percent rate.
+  period: 2025
+  absolute_error_margin: 0.001
+  input:
+    people:
+      person1:
+        age: 30
+        # income = 21_150 * 1.5001 = 31_727.115
+        employment_income: 31_727.115
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # FPL ratio = 31_727.115 / 21_150 = 1.5001 -> 7%
+    ri_ccap_fpl_copay_rate: 0.07

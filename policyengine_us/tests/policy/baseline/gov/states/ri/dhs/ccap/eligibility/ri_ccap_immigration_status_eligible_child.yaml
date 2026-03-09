@@ -1,0 +1,129 @@
+- name: Case 1, citizen child is eligible.
+  period: 2025
+  input:
+    people:
+      person1:
+        immigration_status: CITIZEN
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    ri_ccap_immigration_status_eligible_child: [true]
+
+- name: Case 2, legal permanent resident child is eligible.
+  period: 2025
+  input:
+    people:
+      person1:
+        immigration_status: LEGAL_PERMANENT_RESIDENT
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    ri_ccap_immigration_status_eligible_child: [true]
+
+- name: Case 3, refugee child is eligible.
+  period: 2025
+  input:
+    people:
+      person1:
+        immigration_status: REFUGEE
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    ri_ccap_immigration_status_eligible_child: [true]
+
+- name: Case 4, asylee child is eligible.
+  period: 2025
+  input:
+    people:
+      person1:
+        immigration_status: ASYLEE
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    ri_ccap_immigration_status_eligible_child: [true]
+
+- name: Case 5, undocumented child is not eligible.
+  period: 2025
+  input:
+    people:
+      person1:
+        immigration_status: UNDOCUMENTED
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    ri_ccap_immigration_status_eligible_child: [false]
+
+- name: Case 6, DACA child is not eligible.
+  period: 2025
+  input:
+    people:
+      person1:
+        immigration_status: DACA
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    ri_ccap_immigration_status_eligible_child: [false]
+
+- name: Case 7, Cuban Haitian entrant child is eligible.
+  period: 2025
+  input:
+    people:
+      person1:
+        immigration_status: CUBAN_HAITIAN_ENTRANT
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    ri_ccap_immigration_status_eligible_child: [true]
+
+- name: Case 8, conditional entrant child is eligible.
+  period: 2025
+  input:
+    people:
+      person1:
+        immigration_status: CONDITIONAL_ENTRANT
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    ri_ccap_immigration_status_eligible_child: [true]
+
+- name: Case 9, paroled for one year child is eligible.
+  period: 2025
+  input:
+    people:
+      person1:
+        immigration_status: PAROLED_ONE_YEAR
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    ri_ccap_immigration_status_eligible_child: [true]
+
+- name: Case 10, TPS child is not eligible.
+  period: 2025
+  input:
+    people:
+      person1:
+        immigration_status: TPS
+    households:
+      household:
+        members: [person1]
+        state_code: RI
+  output:
+    ri_ccap_immigration_status_eligible_child: [false]

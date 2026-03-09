@@ -1,0 +1,18 @@
+description: Rhode Island counts these asset sources under the Child Care Assistance Program.
+values:
+  2020-01-01:
+    - spm_unit_cash_assets
+    # Assets include vehicles (excl. primary), real estate (excl. primary
+    # residence), cash, bank accounts, investments.
+    # Assets exclude educational savings, retirement accounts, joint
+    # accounts with non-household adults.
+    # assessed_property_value is person-level; not included because
+    # it includes primary residence which is excluded.
+
+metadata:
+  unit: list
+  period: year
+  label: Rhode Island CCAP asset sources
+  reference:
+    - title: 218-RICR-20-00-4, Section 4.6.1.B
+      href: https://rules.sos.ri.gov/regulations/part/218-20-00-4#4.6.1
