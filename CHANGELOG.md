@@ -1,3 +1,10 @@
+## [1.596.4] - 2026-03-10
+
+### Fixed
+
+- Fixed NJ gross income formula that broke API reform calculations by replacing ParameterNode iteration with explicit category references.
+
+
 ## [1.596.3] - 2026-03-09
 
 ### Fixed
