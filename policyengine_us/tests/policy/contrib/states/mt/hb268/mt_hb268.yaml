@@ -16,7 +16,7 @@
         mt_hb268_eligible: true
         adjusted_gross_income: 55_000
   output:
-    mt_hb268: 750
+    mt_hb268: [750, 0, 0]
     # 1200 - 5*90 = 750
 
 - name: 2 children under 6 without reduction
@@ -37,7 +37,7 @@
         mt_hb268_eligible: true
         adjusted_gross_income: 49_999
   output:
-    mt_hb268: 2_400
+    mt_hb268: [2_400, 0, 0]
     # 1200 * 2
 
 - name: One child over 6 - ineligible
@@ -60,7 +60,7 @@
         mt_hb268_eligible: true
         adjusted_gross_income: 49_999
   output:
-    mt_hb268: 2_400
+    mt_hb268: [2_400, 0, 0, 0]
     # 1200 * 2
 
 - name: Ineligible
@@ -83,7 +83,7 @@
         mt_hb268_eligible: false
         adjusted_gross_income: 49_999
   output:
-    mt_hb268: 0
+    mt_hb268: [0, 0, 0, 0]
 
 - name: Eligible
   period: 2023
@@ -192,7 +192,7 @@
         mt_hb268_eligible: true
         adjusted_gross_income: 50_000
   output:
-    mt_hb268: 1_200
+    mt_hb268: [1_200, 0]
     # No reduction at exactly $50,000
 
 - name: AGI just above reduction threshold - first reduction
@@ -211,7 +211,7 @@
         mt_hb268_eligible: true
         adjusted_gross_income: 51_000
   output:
-    mt_hb268: 1_110
+    mt_hb268: [1_110, 0]
     # 1200 - 1*90 = 1110
 
 - name: End-to-end eligible with credit
@@ -236,4 +236,4 @@
         state_code: MT
   output:
     mt_hb268_eligible: true
-    mt_hb268: 1_200
+    mt_hb268: [1_200, 0]

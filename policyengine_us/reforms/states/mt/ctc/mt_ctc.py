@@ -15,31 +15,33 @@ def create_mt_ctc() -> Reform:
 
     class mt_ctc(Variable):
         value_type = float
-        entity = TaxUnit
+        entity = Person
         label = "Montana Child Tax Credit"
         definition_period = YEAR
         unit = USD
-        defined_for = "mt_ctc_eligible"
+        defined_for = StateCode.MT
 
-        def formula(tax_unit, period, parameters):
+        def formula(person, period, parameters):
+            eligible = person.tax_unit("mt_ctc_eligible", period)
             p = parameters(period).gov.contrib.states.mt.ctc
-            person = tax_unit.members
             # Only count qualifying children (inherits SSN requirements)
             is_qualifying = person("ctc_qualifying_child", period)
             age = person("age", period)
             # Calculate credit amount based on age brackets
             child_credit = p.amount.calc(age) * is_qualifying
-            credit_amount = tax_unit.sum(child_credit)
+            credit_amount = person.tax_unit.sum(child_credit)
             # Credit gets reduced by an amount for each increment
             # that AGI exceeds the threshold (by filing status)
-            agi = tax_unit("adjusted_gross_income", period)
-            filing_status = tax_unit("filing_status", period)
+            agi = person.tax_unit("adjusted_gross_income", period)
+            filing_status = person.tax_unit("filing_status", period)
             threshold = p.reduction.threshold[filing_status]
             excess = max_(agi - threshold, 0)
             # Ceiling: any fraction of an increment triggers reduction
             increments = np.ceil(excess / p.reduction.increment)
             reduction = p.reduction.amount * increments
-            return max_(credit_amount - reduction, 0)
+            credit = max_(credit_amount - reduction, 0)
+            is_head = person("is_tax_unit_head", period)
+            return is_head * eligible * credit
 
     class mt_ctc_eligible(Variable):
         value_type = bool
