@@ -166,9 +166,10 @@ MA:
   2023-10-01: 0
   2025-10-01: 556
 MD:
+  # Maryland SUA is effective January 1, not the federal fiscal year.
+  # Starting FY2026 (10/1/2025), Maryland aligned with the federal cycle.
   2010-01-01: 0
-  2021-10-01: 0
-  2024-01-01: 0
+  2021-01-01: 0
   2023-01-01: 0
   2025-10-01: 0
 ME:

@@ -57,3 +57,45 @@
     spm_unit_size: 11
   output:
     snap_standard_utility_allowance: 10_728 # 888*9 (FY25) + 912*3 (FY26)
+
+- name: Case 6, AK Anchorage end-to-end county to SUA amount.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+    households:
+      household:
+        members: [person1]
+        state_code: AK
+        county_str: ANCHORAGE_MUNICIPALITY_AK
+    spm_units:
+      spm_unit:
+        members: [person1]
+        snap_utility_allowance_type: SUA
+  output:
+    snap_utility_region: AK_C
+    snap_standard_utility_allowance: 609
+    # AK_C SUA FY25 (2024-10-01): $609/month
+
+- name: Case 7, wrong allowance type returns zero for SUA.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    snap_utility_allowance_type: IUA
+    snap_utility_region_str: CO
+  output:
+    snap_standard_utility_allowance: 0
+    # SUA formula returns 0 when allowance type is not SUA
+
+- name: Case 8, household size zero edge case.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    snap_utility_allowance_type: SUA
+    snap_utility_region_str: NC
+    spm_unit_size: 0
+  output:
+    snap_standard_utility_allowance: 620
+    # max_(1, min_(10, 0)) = 1; NC size-1 FY25 (2024-10-01): $620/month

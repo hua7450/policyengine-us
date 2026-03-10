@@ -21,7 +21,7 @@ class snap_individual_utility_allowance(Variable):
         is_hh_size_state = is_in(region, hh_size_states)
         spm_size = spm_unit("spm_unit_size", period)
         MAX_SPM_SIZE = 10
-        capped_size = min_(MAX_SPM_SIZE, spm_size)
+        capped_size = max_(1, min_(MAX_SPM_SIZE, spm_size))
         # Use HI as safe default key for non-HH-size states
         safe_region = where(is_hh_size_state, region, "HI")
 

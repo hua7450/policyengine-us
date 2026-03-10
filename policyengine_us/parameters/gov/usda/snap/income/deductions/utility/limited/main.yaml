@@ -163,7 +163,8 @@ MA:
   2024-10-01: 542
   2025-10-01: 0
 MD:
-  # Maryland does not follow the fiscal year; LUA is effective January 1.
+  # Maryland SUA is effective January 1, not the federal fiscal year.
+  # Starting FY2026 (10/1/2025), Maryland aligned with the federal cycle.
   2010-01-01: 0
   2020-01-01: 240
   2021-01-01: 238

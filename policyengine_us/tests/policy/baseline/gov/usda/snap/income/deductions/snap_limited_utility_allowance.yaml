@@ -53,3 +53,13 @@
     water_expense: 1
   output:
     snap_limited_utility_allowance: 6_633 # 549*9 (FY25) + 564*3 (FY26)
+
+- name: Case 6, wrong allowance type returns zero for LUA.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    snap_utility_allowance_type: SUA
+    snap_utility_region_str: CO
+  output:
+    snap_limited_utility_allowance: 0
+    # LUA formula returns 0 when allowance type is not LUA
