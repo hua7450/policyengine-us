@@ -10,6 +10,8 @@ metadata:
   uprating: gov.usda.snap.uprating
   propagate_metadata_to_children: true
   reference:
+  - title: USDA utility allowances by state spreadsheet (FY2019)
+    href: https://docs.google.com/spreadsheets/d/1JWtEF0wRlQqM3ajMFnUYs_lGwEzSXGit/edit?usp=sharing&ouid=116242521439357911562&rtpof=true&sd=true
   - title: USDA utility allowances by state spreadsheet. Extracted by build_utility_allowances (FY2024)
     href: https://docs.google.com/spreadsheets/d/10otJJisAYUDyZ0d7XpZPn8rEql-rteVE/edit?gid=1837348310#gid=1837348310
   - title: USDA utility allowances by state spreadsheet. Extracted by build_utility_allowances (FY2025)
