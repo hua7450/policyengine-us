@@ -1,3 +1,10 @@
+## [1.596.5] - 2026-03-10
+
+### Fixed
+
+- Fixed Montana CTC and HB268 entity level causing cost inflation in microsimulation.
+
+
 ## [1.596.4] - 2026-03-10
 
 ### Fixed
