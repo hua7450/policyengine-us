@@ -1,4 +1,4 @@
-description: Alabama applies the HB527 overtime compensation deduction reform, if this is true.
+description: Alabama uses the HB527 overtime compensation deduction reform for tax years 2025-2027.
 
 values:
   0000-01-01: false
@@ -8,5 +8,5 @@ metadata:
   period: year
   label: Alabama HB527 overtime compensation deduction reform in effect
   reference:
-    - title: Alabama HB527 - Overtime Compensation Deduction
-      href: https://alison.legislature.state.al.us/files/pdf/SearchableInstruments/2026RS/HB527-int.pdf#page=1
+    - title: Alabama HB527, Section 40-18-15(a)(29) - Overtime deduction effective for tax years 2025-2027
+      href: https://alison.legislature.state.al.us/files/pdf/SearchableInstruments/2026RS/HB527-int.pdf#page=9

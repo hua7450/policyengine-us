@@ -10,7 +10,7 @@ def create_al_hb527_overtime_deduction() -> Reform:
         label = "Alabama HB527 overtime compensation deduction"
         unit = USD
         definition_period = YEAR
-        reference = "https://alison.legislature.state.al.us/files/pdf/SearchableInstruments/2026RS/HB527-int.pdf"
+        reference = "https://alison.legislature.state.al.us/files/pdf/SearchableInstruments/2026RS/HB527-int.pdf#page=9"
         defined_for = StateCode.AL
 
         def formula(tax_unit, period, parameters):
@@ -18,13 +18,9 @@ def create_al_hb527_overtime_deduction() -> Reform:
             person = tax_unit.members
             # Use federal FLSA overtime premium calculation per 29 USC 207
             overtime_income = person("fsla_overtime_premium", period)
-            total_overtime = tax_unit.sum(overtime_income)
-            # Cap at $1,000 per taxpayer
-            # For joint filers, each spouse can claim up to $1,000
-            filing_status = tax_unit("filing_status", period)
-            joint = filing_status == filing_status.possible_values.JOINT
-            cap = where(joint, p.cap * 2, p.cap)
-            return min_(total_overtime, cap)
+            # Cap at per-taxpayer limit per AL HB527 Section 40-18-15(a)(29)
+            person_capped = min_(overtime_income, p.cap)
+            return tax_unit.sum(person_capped)
 
     class al_agi(Variable):
         value_type = float
@@ -33,11 +29,12 @@ def create_al_hb527_overtime_deduction() -> Reform:
         defined_for = StateCode.AL
         unit = USD
         definition_period = YEAR
-        reference = "https://alisondb.legislature.state.al.us/alison/CodeOfAlabama/1975/Coatoc.htm"
+        reference = "https://alisondb.legislature.state.al.us/alison/CodeOfAlabama/1975/Coatoc.htm#page=1"
 
         def formula(tax_unit, period, parameters):
             p = parameters(period).gov.contrib.states.al.hb527
             # Get the base AL AGI using adds/subtracts
+            # NOTE: This mirrors baseline al_agi calculation - update if baseline changes
             gross_sources = parameters(
                 period
             ).gov.states.al.tax.income.agi.gross_income_sources

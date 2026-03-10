@@ -197,5 +197,5 @@
         members: [person1, person2]
         state_name: AL
   output:
-    # Person1 has ~$4,727 overtime (capped at joint $2,000), person2 has $0
-    al_hb527_overtime_deduction: 2_000
+    # Person1 overtime capped at $1,000, person2 has $0 overtime
+    al_hb527_overtime_deduction: 1_000
