@@ -5,7 +5,6 @@ class snap_standard_utility_allowance_by_household_size(Variable):
     value_type = bool
     entity = SPMUnit
     label = "SNAP Standard Utility Allowance by household size"
-    unit = USD
     definition_period = MONTH
 
     def formula(spm_unit, period, parameters):

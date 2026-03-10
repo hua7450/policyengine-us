@@ -370,13 +370,13 @@ metadata:
   period: month
   label: SNAP limited utility allowance
   reference:
-  - name: USDA | Food and Nutrition Service | SNAP | Standard Utility Allowances
+  - title: USDA | Food and Nutrition Service | SNAP | Standard Utility Allowances
     href: https://www.fns.usda.gov/snap/eligibility/deduction/standard-utility-allowances
-  - name: SNAP Screener | SNAP Eligibility Parameters
+  - title: SNAP Screener | SNAP Eligibility Parameters
     href: https://www.snapscreener.com/?p=table
-  - name: USDA utility allowances by state spreadsheet. Extracted by build_utility_allowances (FY2024)
+  - title: USDA utility allowances by state spreadsheet. Extracted by build_utility_allowances (FY2024)
     href: https://docs.google.com/spreadsheets/d/10otJJisAYUDyZ0d7XpZPn8rEql-rteVE/edit?gid=1837348310#gid=1837348310
-  - name: USDA utility allowances by state spreadsheet. Extracted by build_utility_allowances (FY2025)
+  - title: USDA utility allowances by state spreadsheet. Extracted by build_utility_allowances (FY2025)
     href: https://www.fns.usda.gov/sites/default/files/resource-files/2024-09-30-SUA-Table-FY25-508-Update.xlsx
   breakdown:
   - snap_utility_region
