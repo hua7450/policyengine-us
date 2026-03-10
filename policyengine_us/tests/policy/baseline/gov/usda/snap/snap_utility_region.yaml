@@ -75,7 +75,7 @@
   output:
     snap_utility_region: AK_SE
 
-- name: Case 7, Alaska Southwest region.
+- name: Case 7, Alaska Southwest region (Bristol Bay per FSP-77).
   period: 2025
   input:
     people:
