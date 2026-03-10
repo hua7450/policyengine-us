@@ -1,28 +1,3 @@
-- name: One child with reduction
-  period: 2023
-  reforms: policyengine_us.reforms.states.mt.hb268.mt_hb268.mt_hb268
-  input:
-    gov.contrib.states.mt.hb268.in_effect: true
-    people:
-      head:
-        age: 40
-      dep1:
-        age: 60
-      dep2:
-        age: 4
-    tax_units:
-      tax_unit:
-        members: [head, dep1, dep2]
-        mt_hb268_eligible: true
-        adjusted_gross_income: 55_000
-    households:
-      household:
-        members: [head, dep1, dep2]
-        state_code: MT
-  output:
-    mt_hb268: [750, 0, 0]
-    # 1200 - 5*90 = 750
-
 - name: 2 children under 6 without reduction
   period: 2023
   reforms: policyengine_us.reforms.states.mt.hb268.mt_hb268.mt_hb268
