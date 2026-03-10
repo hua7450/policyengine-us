@@ -362,7 +362,7 @@
   output:
     mt_ctc: [1_500, 0]
 
-- name: Age 16 (upper boundary of qualifying children) gets $1,500
+- name: Age 17 (upper boundary of 6-17 bracket) gets $1,500
   period: 2023
   reforms: policyengine_us.reforms.states.mt.ctc.mt_ctc.mt_ctc
   input:
@@ -371,7 +371,7 @@
       head:
         age: 40
       child:
-        age: 16
+        age: 17
     tax_units:
       tax_unit:
         members: [head, child]

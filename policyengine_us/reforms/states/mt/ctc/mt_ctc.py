@@ -24,9 +24,11 @@ def create_mt_ctc() -> Reform:
         def formula(person, period, parameters):
             eligible = person.tax_unit("mt_ctc_eligible", period)
             p = parameters(period).gov.contrib.states.mt.ctc
-            # Only count qualifying children (inherits SSN requirements)
-            is_qualifying = person("ctc_qualifying_child", period)
             age = person("age", period)
+            # Include ctc_qualifying_child (0-16) plus 17-year-old dependents
+            is_ctc_child = person("ctc_qualifying_child", period)
+            is_17_dependent = (age == 17) & person("is_tax_unit_dependent", period)
+            is_qualifying = is_ctc_child | is_17_dependent
             # Calculate credit amount based on age brackets
             child_credit = p.amount.calc(age) * is_qualifying
             credit_amount = person.tax_unit.sum(child_credit)
@@ -52,8 +54,14 @@ def create_mt_ctc() -> Reform:
 
         def formula(tax_unit, period, parameters):
             p = parameters(period).gov.contrib.states.mt.ctc
-            # Must have at least one CTC-qualifying child
-            has_qualifying_child = tax_unit("ctc_qualifying_children", period) > 0
+            # Must have at least one qualifying child (0-17)
+            has_ctc_child = tax_unit("ctc_qualifying_children", period) > 0
+            person = tax_unit.members
+            age = person("age", period)
+            has_17_dependent = tax_unit.any(
+                (age == 17) & person("is_tax_unit_dependent", period)
+            )
+            has_qualifying_child = has_ctc_child | has_17_dependent
             # Earned income requirement is optional
             earned_income_required = p.earned_income_requirement.in_effect
             earned_income = tax_unit("tax_unit_earned_income", period)
