@@ -16,12 +16,16 @@ def create_mt_hb268() -> Reform:
         def formula(person, period, parameters):
             eligible = person.tax_unit("mt_hb268_eligible", period)
             p = parameters(period).gov.contrib.states.mt.hb268
+            # Only count qualifying children
+            is_qualifying = person("ctc_qualifying_child", period)
             age = person("age", period)
-            credit_amount = person.tax_unit.sum(p.amount.calc(age))
+            child_credit = p.amount.calc(age) * is_qualifying
+            credit_amount = person.tax_unit.sum(child_credit)
             # Credit gets reduced by an amount for each increment that AGI exceeds a certain threshold
             agi = person.tax_unit("adjusted_gross_income", period)
             excess = max_(agi - p.reduction.threshold, 0)
-            increments = excess // p.reduction.increment
+            # Ceiling: any fraction of an increment triggers reduction
+            increments = np.ceil(excess / p.reduction.increment)
             reduction = p.reduction.amount * increments
             credit = max_(credit_amount - reduction, 0)
             is_head = person("is_tax_unit_head", period)

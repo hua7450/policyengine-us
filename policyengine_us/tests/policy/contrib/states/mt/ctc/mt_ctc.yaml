@@ -295,6 +295,165 @@
   output:
     mt_ctc_eligible: false
 
+# Age boundary tests
+- name: Newborn (age 0) gets $1,800
+  period: 2023
+  reforms: policyengine_us.reforms.states.mt.ctc.mt_ctc.mt_ctc
+  input:
+    gov.contrib.states.mt.ctc.in_effect: true
+    people:
+      head:
+        age: 25
+      child:
+        age: 0
+    tax_units:
+      tax_unit:
+        members: [head, child]
+        mt_ctc_eligible: true
+        adjusted_gross_income: 40_000
+    households:
+      household:
+        members: [head, child]
+        state_code: MT
+  output:
+    mt_ctc: [1_800, 0]
+
+- name: Age 5 (upper boundary of 0-5 bracket) gets $1,800
+  period: 2023
+  reforms: policyengine_us.reforms.states.mt.ctc.mt_ctc.mt_ctc
+  input:
+    gov.contrib.states.mt.ctc.in_effect: true
+    people:
+      head:
+        age: 30
+      child:
+        age: 5
+    tax_units:
+      tax_unit:
+        members: [head, child]
+        mt_ctc_eligible: true
+        adjusted_gross_income: 40_000
+    households:
+      household:
+        members: [head, child]
+        state_code: MT
+  output:
+    mt_ctc: [1_800, 0]
+
+- name: Age 6 (lower boundary of 6-17 bracket) gets $1,500
+  period: 2023
+  reforms: policyengine_us.reforms.states.mt.ctc.mt_ctc.mt_ctc
+  input:
+    gov.contrib.states.mt.ctc.in_effect: true
+    people:
+      head:
+        age: 30
+      child:
+        age: 6
+    tax_units:
+      tax_unit:
+        members: [head, child]
+        mt_ctc_eligible: true
+        adjusted_gross_income: 40_000
+    households:
+      household:
+        members: [head, child]
+        state_code: MT
+  output:
+    mt_ctc: [1_500, 0]
+
+- name: Age 17 (upper boundary of 6-17 bracket) gets $1,500
+  period: 2023
+  reforms: policyengine_us.reforms.states.mt.ctc.mt_ctc.mt_ctc
+  input:
+    gov.contrib.states.mt.ctc.in_effect: true
+    people:
+      head:
+        age: 40
+      child:
+        age: 17
+    tax_units:
+      tax_unit:
+        members: [head, child]
+        mt_ctc_eligible: true
+        adjusted_gross_income: 40_000
+    households:
+      household:
+        members: [head, child]
+        state_code: MT
+  output:
+    mt_ctc: [1_500, 0]
+
+# Filing status tests
+- name: Head of household filer at threshold - no reduction
+  period: 2023
+  reforms: policyengine_us.reforms.states.mt.ctc.mt_ctc.mt_ctc
+  input:
+    gov.contrib.states.mt.ctc.in_effect: true
+    people:
+      head:
+        age: 35
+      child:
+        age: 3
+    tax_units:
+      tax_unit:
+        members: [head, child]
+        mt_ctc_eligible: true
+        adjusted_gross_income: 60_000
+        filing_status: HEAD_OF_HOUSEHOLD
+    households:
+      household:
+        members: [head, child]
+        state_code: MT
+  output:
+    mt_ctc: [1_800, 0]
+
+- name: Separate filer at threshold - no reduction
+  period: 2023
+  reforms: policyengine_us.reforms.states.mt.ctc.mt_ctc.mt_ctc
+  input:
+    gov.contrib.states.mt.ctc.in_effect: true
+    people:
+      head:
+        age: 35
+      child:
+        age: 3
+    tax_units:
+      tax_unit:
+        members: [head, child]
+        mt_ctc_eligible: true
+        adjusted_gross_income: 60_000
+        filing_status: SEPARATE
+    households:
+      household:
+        members: [head, child]
+        state_code: MT
+  output:
+    mt_ctc: [1_800, 0]
+
+- name: Surviving spouse filer at threshold - no reduction
+  period: 2023
+  reforms: policyengine_us.reforms.states.mt.ctc.mt_ctc.mt_ctc
+  input:
+    gov.contrib.states.mt.ctc.in_effect: true
+    people:
+      head:
+        age: 35
+      child:
+        age: 3
+    tax_units:
+      tax_unit:
+        members: [head, child]
+        mt_ctc_eligible: true
+        adjusted_gross_income: 120_000
+        filing_status: SURVIVING_SPOUSE
+    households:
+      household:
+        members: [head, child]
+        state_code: MT
+  output:
+    mt_ctc: [1_800, 0]
+
 # End-to-end test
 - name: End-to-end eligible with credit
   period: 2023

@@ -213,6 +213,96 @@
     mt_hb268: [1_110, 0]
     # 1200 - 1*90 = 1110
 
+- name: AGI $500 above threshold - ceiling triggers reduction
+  period: 2023
+  reforms: policyengine_us.reforms.states.mt.hb268.mt_hb268.mt_hb268
+  input:
+    gov.contrib.states.mt.hb268.in_effect: true
+    people:
+      head:
+        age: 30
+      child:
+        age: 3
+    tax_units:
+      tax_unit:
+        members: [head, child]
+        mt_hb268_eligible: true
+        adjusted_gross_income: 50_500
+    households:
+      household:
+        members: [head, child]
+        state_code: MT
+  output:
+    mt_hb268: [1_110, 0]
+    # 1200 - ceil(500/1000)*90 = 1200 - 90 = 1110
+
+# Age boundary tests
+- name: Newborn (age 0) gets $1,200
+  period: 2023
+  reforms: policyengine_us.reforms.states.mt.hb268.mt_hb268.mt_hb268
+  input:
+    gov.contrib.states.mt.hb268.in_effect: true
+    people:
+      head:
+        age: 25
+      child:
+        age: 0
+    tax_units:
+      tax_unit:
+        members: [head, child]
+        mt_hb268_eligible: true
+        adjusted_gross_income: 40_000
+    households:
+      household:
+        members: [head, child]
+        state_code: MT
+  output:
+    mt_hb268: [1_200, 0]
+
+- name: Age 5 (upper boundary) gets $1,200
+  period: 2023
+  reforms: policyengine_us.reforms.states.mt.hb268.mt_hb268.mt_hb268
+  input:
+    gov.contrib.states.mt.hb268.in_effect: true
+    people:
+      head:
+        age: 30
+      child:
+        age: 5
+    tax_units:
+      tax_unit:
+        members: [head, child]
+        mt_hb268_eligible: true
+        adjusted_gross_income: 40_000
+    households:
+      household:
+        members: [head, child]
+        state_code: MT
+  output:
+    mt_hb268: [1_200, 0]
+
+- name: Age 6 (just above boundary) gets $0
+  period: 2023
+  reforms: policyengine_us.reforms.states.mt.hb268.mt_hb268.mt_hb268
+  input:
+    gov.contrib.states.mt.hb268.in_effect: true
+    people:
+      head:
+        age: 30
+      child:
+        age: 6
+    tax_units:
+      tax_unit:
+        members: [head, child]
+        mt_hb268_eligible: true
+        adjusted_gross_income: 40_000
+    households:
+      household:
+        members: [head, child]
+        state_code: MT
+  output:
+    mt_hb268: [0, 0]
+
 - name: End-to-end eligible with credit
   period: 2023
   reforms: policyengine_us.reforms.states.mt.hb268.mt_hb268.mt_hb268
