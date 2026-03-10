@@ -180,6 +180,9 @@ from .congress.watca import (
 )
 
 
+from .states.ga.sb520 import (
+    create_ga_sb520_reform,
+)
 from policyengine_core.reforms import Reform
 import warnings
 
@@ -345,6 +348,7 @@ def create_structural_reforms_from_parameters(parameters, period):
     al_hb527_overtime_deduction = create_al_hb527_overtime_deduction_reform(
         parameters, period
     )
+    ga_sb520 = create_ga_sb520_reform(parameters, period)
     watca = create_watca_reform(parameters, period)
 
     reforms = [
@@ -427,6 +431,7 @@ def create_structural_reforms_from_parameters(parameters, period):
         ct_sb100,
         ct_tax_rebate_2026,
         al_hb527_overtime_deduction,
+        ga_sb520,
         watca,
     ]
     reforms = tuple(filter(lambda x: x is not None, reforms))
