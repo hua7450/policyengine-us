@@ -113,38 +113,43 @@ AK_SOUTHWEST = [
 ]
 
 # Build reverse lookup: county_str -> region code
-AK_COUNTY_TO_REGION = {}
-for county_name in AK_CENTRAL:
-    AK_COUNTY_TO_REGION[county_name] = "AK_C"
-for county_name in AK_NORTHERN:
-    AK_COUNTY_TO_REGION[county_name] = "AK_N"
-for county_name in AK_NORTHWEST:
-    AK_COUNTY_TO_REGION[county_name] = "AK_NW"
-for county_name in AK_SOUTHCENTRAL:
-    AK_COUNTY_TO_REGION[county_name] = "AK_SC"
-for county_name in AK_SOUTHEAST:
-    AK_COUNTY_TO_REGION[county_name] = "AK_SE"
-for county_name in AK_SOUTHWEST:
-    AK_COUNTY_TO_REGION[county_name] = "AK_SW"
+AK_COUNTY_TO_REGION = {
+    county: region
+    for counties, region in [
+        (AK_CENTRAL, "AK_C"),
+        (AK_NORTHERN, "AK_N"),
+        (AK_NORTHWEST, "AK_NW"),
+        (AK_SOUTHCENTRAL, "AK_SC"),
+        (AK_SOUTHEAST, "AK_SE"),
+        (AK_SOUTHWEST, "AK_SW"),
+    ]
+    for county in counties
+}
 
 # New York county-to-region mapping
-NY_NYC_COUNTIES = [
-    "BRONX_COUNTY_NY",
-    "KINGS_COUNTY_NY",
-    "NEW_YORK_COUNTY_NY",
-    "QUEENS_COUNTY_NY",
-    "RICHMOND_COUNTY_NY",
-]
-NY_NASSAU_SUFFOLK = [
-    "NASSAU_COUNTY_NY",
-    "SUFFOLK_COUNTY_NY",
-]
-
-NY_COUNTY_TO_REGION = {}
-for county_name in NY_NYC_COUNTIES:
-    NY_COUNTY_TO_REGION[county_name] = "NY_NYC"
-for county_name in NY_NASSAU_SUFFOLK:
-    NY_COUNTY_TO_REGION[county_name] = "NY_NAS"
+NY_COUNTY_TO_REGION = {
+    county: region
+    for counties, region in [
+        (
+            [
+                "BRONX_COUNTY_NY",
+                "KINGS_COUNTY_NY",
+                "NEW_YORK_COUNTY_NY",
+                "QUEENS_COUNTY_NY",
+                "RICHMOND_COUNTY_NY",
+            ],
+            "NY_NYC",
+        ),
+        (
+            [
+                "NASSAU_COUNTY_NY",
+                "SUFFOLK_COUNTY_NY",
+            ],
+            "NY_NAS",
+        ),
+    ]
+    for county in counties
+}
 
 
 class snap_utility_region(Variable):
