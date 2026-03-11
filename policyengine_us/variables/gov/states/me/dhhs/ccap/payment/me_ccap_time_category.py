@@ -14,7 +14,7 @@ class me_ccap_time_category(Variable):
     definition_period = MONTH
     defined_for = StateCode.ME
     label = "Maine CCAP time category"
-    reference = "https://www.maine.gov/sos/cec/rules/10/ch6.pdf#page=3"
+    reference = "https://www.maine.gov/dhhs/sites/maine.gov.dhhs/files/inline-files/CCAP%20Full%20Rule%208.18.2025_1.pdf#page=28"
 
     def formula(person, period, parameters):
         hours = person("childcare_hours_per_week", period.this_year)

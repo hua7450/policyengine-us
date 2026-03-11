@@ -8,7 +8,7 @@ class me_ccap(Variable):
     unit = USD
     definition_period = MONTH
     defined_for = "me_ccap_eligible"
-    reference = "https://www.maine.gov/sos/cec/rules/10/ch6.pdf#page=26"
+    reference = "https://www.maine.gov/dhhs/sites/maine.gov.dhhs/files/inline-files/CCAP%20Full%20Rule%208.18.2025_1.pdf#page=26"
 
     def formula(spm_unit, period, parameters):
         parent_fee = spm_unit("me_ccap_parent_fee", period)

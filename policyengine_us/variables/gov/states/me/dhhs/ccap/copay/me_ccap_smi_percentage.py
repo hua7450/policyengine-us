@@ -8,7 +8,7 @@ class me_ccap_smi_percentage(Variable):
     unit = "/1"
     definition_period = MONTH
     defined_for = StateCode.ME
-    reference = "https://www.maine.gov/sos/cec/rules/10/ch6.pdf#page=27"
+    reference = "https://www.maine.gov/dhhs/sites/maine.gov.dhhs/files/inline-files/CCAP%20Full%20Rule%208.18.2025_1.pdf#page=27"
 
     def formula(spm_unit, period, parameters):
         countable_income = spm_unit("me_ccap_countable_income", period)

@@ -8,7 +8,7 @@ class me_ccap_immigration_status_eligible(Variable):
     definition_period = MONTH
     defined_for = StateCode.ME
     reference = (
-        "https://www.maine.gov/sos/cec/rules/10/ch6.pdf#page=5",
+        "https://www.maine.gov/dhhs/sites/maine.gov.dhhs/files/inline-files/CCAP%20Full%20Rule%208.18.2025_1.pdf#page=11",
         "https://www.law.cornell.edu/uscode/text/8/1641",
     )
 
