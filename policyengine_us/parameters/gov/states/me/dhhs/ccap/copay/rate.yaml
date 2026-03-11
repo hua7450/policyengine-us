@@ -4,7 +4,7 @@ metadata:
   type: single_amount
   threshold_unit: /1
   amount_unit: /1
-  period: week
+  period: year
   label: Maine CCAP copay rate by SMI percentage
   reference:
     - title: 10-148 C.M.R. Chapter 6 §5.B.1

@@ -1,1 +1,1 @@
-Implement Maine CCAP (Child Care Assistance Program). Closes #7756.
+Implement Maine CCAP (Child Care Affordability Program). Closes #7756.
