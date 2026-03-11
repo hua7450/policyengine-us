@@ -1,6 +1,6 @@
 description: Maine sets this threshold in months as the upper bound for the infant age group under the Child Care Affordability Program.
 values:
-  2024-07-01: 12
+  2024-01-01: 12
 
 metadata:
   unit: month

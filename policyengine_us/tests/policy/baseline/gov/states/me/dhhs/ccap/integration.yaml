@@ -55,24 +55,22 @@
     me_ccap_region: REGION_1
 
     # SMI percentage:
-    # Countable income includes employment + computed TANF.
-    # Employment $20,000/yr = $1,667/mo + TANF ~$669/mo = ~$2,336/mo.
-    # SMI% = 2336 / 6690 = 34.9% => 30-35% bracket => 1% fee.
-    # Weekly income = 2336 * 12/52 = 539.
-    # Raw weekly = floor(539 * 0.01) = 5.
-    # Monthly = 5 * 52/12 = $21.67.
-    me_ccap_parent_fee: 22
+    # Countable income = employment only ($20,000/yr).
+    # TANF excluded from countable income to avoid circular dependency.
+    # Monthly = $20,000/12 = $1,667.
+    # SMI% = 1667 / 6690 = 24.9% => under 30% bracket => 0% fee.
+    me_ccap_parent_fee: 0
 
     # Market rate: Region 1 Licensed Center Preschool FT = $300/week
     me_ccap_market_rate: [0, 300]
 
     # Benefit:
     # Expenses (monthly): 15000/12 = $1,250
-    # Parent fee (monthly): ~$22
-    # Uncapped: max(1250 - 22, 0) = $1,228
+    # Parent fee (monthly): $0
+    # Uncapped: max(1250 - 0, 0) = $1,250
     # Max reimbursement: 300 * 52/12 = $1,300
-    # Benefit = min(1228, 1300) = $1,228
-    me_ccap: 1_228
+    # Benefit = min(1250, 1300) = $1,250
+    me_ccap: 1_250
 
 - name: Case 2, moderate-income family with two children, Region 2, licensed family, 4% copay.
   period: 2026-01

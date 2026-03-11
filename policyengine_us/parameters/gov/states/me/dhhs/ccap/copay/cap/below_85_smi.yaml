@@ -1,6 +1,6 @@
 description: Maine limits total parent fees to this share of eligibility income for families below 85% of State Median Income under the Child Care Affordability Program.
 values:
-  2024-07-01: 0.07
+  2024-01-01: 0.07
 
 metadata:
   unit: /1
