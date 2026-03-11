@@ -1,0 +1,33 @@
+from policyengine_us.model_api import *
+
+
+class me_ccap_parent_fee(Variable):
+    value_type = float
+    entity = SPMUnit
+    label = "Maine CCAP monthly parent fee"
+    unit = USD
+    definition_period = MONTH
+    defined_for = StateCode.ME
+    reference = (
+        "https://www.maine.gov/sos/cec/rules/10/ch6.pdf#page=26",
+        "https://www.maine.gov/sos/cec/rules/10/ch6.pdf#page=27",
+    )
+
+    def formula(spm_unit, period, parameters):
+        p = parameters(period).gov.states.me.dhhs.ccap.copay
+        smi_percentage = spm_unit("me_ccap_smi_percentage", period)
+        countable_income = spm_unit("me_ccap_countable_income", period)
+        weekly_income = countable_income * MONTHS_IN_YEAR / WEEKS_IN_YEAR
+
+        fee_rate = p.rate.calc(smi_percentage)
+        raw_weekly_fee = np.floor(weekly_income * fee_rate)
+
+        cap_rate = where(
+            smi_percentage < p.cap_threshold,
+            p.cap.below_85_smi,
+            p.cap.above_85_smi,
+        )
+        capped_weekly_fee = np.floor(weekly_income * cap_rate)
+
+        weekly_fee = min_(raw_weekly_fee, capped_weekly_fee)
+        return weekly_fee * WEEKS_IN_YEAR / MONTHS_IN_YEAR

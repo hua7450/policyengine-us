@@ -1,0 +1,87 @@
+- name: Case 1, US citizen, eligible.
+  period: 2025-01
+  input:
+    immigration_status: CITIZEN
+    state_code: ME
+  output:
+    me_ccap_immigration_status_eligible: true
+
+- name: Case 2, legal permanent resident, eligible.
+  period: 2025-01
+  input:
+    immigration_status: LEGAL_PERMANENT_RESIDENT
+    state_code: ME
+  output:
+    me_ccap_immigration_status_eligible: true
+
+- name: Case 3, refugee, eligible.
+  period: 2025-01
+  input:
+    immigration_status: REFUGEE
+    state_code: ME
+  output:
+    me_ccap_immigration_status_eligible: true
+
+- name: Case 4, asylee, eligible.
+  period: 2025-01
+  input:
+    immigration_status: ASYLEE
+    state_code: ME
+  output:
+    me_ccap_immigration_status_eligible: true
+
+- name: Case 5, undocumented, ineligible.
+  period: 2025-01
+  input:
+    immigration_status: UNDOCUMENTED
+    state_code: ME
+  output:
+    me_ccap_immigration_status_eligible: false
+
+- name: Case 6, DACA, ineligible.
+  period: 2025-01
+  input:
+    immigration_status: DACA
+    state_code: ME
+  output:
+    me_ccap_immigration_status_eligible: false
+
+- name: Case 7, TPS, ineligible.
+  period: 2025-01
+  input:
+    immigration_status: TPS
+    state_code: ME
+  output:
+    me_ccap_immigration_status_eligible: false
+
+- name: Case 8, Cuban/Haitian entrant, eligible.
+  period: 2025-01
+  input:
+    immigration_status: CUBAN_HAITIAN_ENTRANT
+    state_code: ME
+  output:
+    me_ccap_immigration_status_eligible: true
+
+- name: Case 9, conditional entrant, eligible.
+  period: 2025-01
+  input:
+    immigration_status: CONDITIONAL_ENTRANT
+    state_code: ME
+  output:
+    me_ccap_immigration_status_eligible: true
+
+- name: Case 10, paroled one year, eligible.
+  period: 2025-01
+  input:
+    immigration_status: PAROLED_ONE_YEAR
+    state_code: ME
+  output:
+    me_ccap_immigration_status_eligible: true
+
+- name: Case 11, deportation withheld, eligible.
+  period: 2025-01
+  input:
+    immigration_status: DEPORTATION_WITHHELD
+    state_code: ME
+  output:
+    me_ccap_immigration_status_eligible: true

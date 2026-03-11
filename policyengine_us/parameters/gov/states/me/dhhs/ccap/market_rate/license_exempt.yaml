@@ -1,0 +1,56 @@
+description: Maine provides these weekly reimbursement rates for license-exempt child care under the Child Care Affordability Program.
+
+metadata:
+  period: week
+  unit: currency-USD
+  label: Maine CCAP license-exempt weekly rates
+  breakdown:
+    - me_ccap_region
+    - me_ccap_age_group
+    - me_ccap_time_category
+  reference:
+    - title: 10-148 C.M.R. Chapter 6 §3
+      href: https://www.maine.gov/sos/cec/rules/10/ch6.pdf#page=12
+
+REGION_1:
+  INFANT:
+    FULL_TIME:
+      2025-05-19: 171.5
+    PART_TIME:
+      2025-05-19: 128.63
+  TODDLER:
+    FULL_TIME:
+      2025-05-19: 161.54
+    PART_TIME:
+      2025-05-19: 121.15
+  PRESCHOOL:
+    FULL_TIME:
+      2025-05-19: 157.5
+    PART_TIME:
+      2025-05-19: 118.13
+  SCHOOL_AGE:
+    FULL_TIME:
+      2025-05-19: 122.5
+    PART_TIME:
+      2025-05-19: 98.33
+REGION_2:
+  INFANT:
+    FULL_TIME:
+      2025-05-19: 147
+    PART_TIME:
+      2025-05-19: 110.25
+  TODDLER:
+    FULL_TIME:
+      2025-05-19: 140
+    PART_TIME:
+      2025-05-19: 105
+  PRESCHOOL:
+    FULL_TIME:
+      2025-05-19: 133
+    PART_TIME:
+      2025-05-19: 99.75
+  SCHOOL_AGE:
+    FULL_TIME:
+      2025-05-19: 119
+    PART_TIME:
+      2025-05-19: 95.51

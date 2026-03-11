@@ -1,0 +1,82 @@
+# Tests for me_ccap_smi_percentage edge cases.
+# SMI for ME size 2 (2025-10-01) = 118,065 * 0.68 = $80,284.20/yr = $6,690.35/mo.
+# Use me_ccap_countable_income as direct input to isolate SMI percentage calculation.
+
+- name: Case 1, zero income, zero percentage.
+  period: 2026-01
+  absolute_error_margin: 0.001
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        me_ccap_countable_income: 0
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: ME
+  output:
+    # income = 0, SMI = $6,690.35/mo.
+    # 0 / 6690.35 = 0.
+    me_ccap_smi_percentage: 0
+
+- name: Case 2, income at 50% SMI.
+  period: 2026-01
+  absolute_error_margin: 0.001
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        # 50% of $80,284.20/yr = $40,142.10/yr => monthly = $3,345.18.
+        me_ccap_countable_income: 3_345.18
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: ME
+  output:
+    # Monthly income = 3345.18.
+    # Monthly SMI = 80284.20/12 = 6690.35.
+    # 3345.18 / 6690.35 = 0.5000.
+    me_ccap_smi_percentage: 0.5000
+
+- name: Case 3, income at 125% SMI.
+  period: 2026-01
+  absolute_error_margin: 0.001
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        # 125% of $80,284.20/yr = $100,355.25/yr => monthly = $8,362.94.
+        me_ccap_countable_income: 8_362.94
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: ME
+  output:
+    # Monthly income = 8362.94.
+    # Monthly SMI = 6690.35.
+    # 8362.94 / 6690.35 = 1.2500.
+    me_ccap_smi_percentage: 1.2500

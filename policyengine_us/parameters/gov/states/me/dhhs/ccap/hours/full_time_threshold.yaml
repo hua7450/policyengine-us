@@ -1,0 +1,11 @@
+description: Maine sets this threshold for full-time child care hours per week under the Child Care Affordability Program.
+values:
+  2025-05-19: 30
+
+metadata:
+  unit: /1
+  period: week
+  label: Maine CCAP full-time hours threshold
+  reference:
+    - title: 10-148 C.M.R. Chapter 6 §1 Definitions 16, 22
+      href: https://www.maine.gov/sos/cec/rules/10/ch6.pdf#page=3

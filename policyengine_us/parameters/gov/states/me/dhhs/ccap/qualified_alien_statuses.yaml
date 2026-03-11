@@ -1,0 +1,20 @@
+description: Maine uses these statuses as qualified alien statuses under the Child Care Affordability Program.
+values:
+  2024-07-01:
+    - LEGAL_PERMANENT_RESIDENT
+    - REFUGEE
+    - ASYLEE
+    - DEPORTATION_WITHHELD
+    - CUBAN_HAITIAN_ENTRANT
+    - CONDITIONAL_ENTRANT
+    - PAROLED_ONE_YEAR
+
+metadata:
+  unit: list
+  period: year
+  label: Maine CCAP qualified alien statuses
+  reference:
+    - title: 10-148 C.M.R. Chapter 6 §2.A.2
+      href: https://www.maine.gov/sos/cec/rules/10/ch6.pdf#page=5
+    - title: 8 U.S.C. §1641
+      href: https://www.law.cornell.edu/uscode/text/8/1641

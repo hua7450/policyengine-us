@@ -1,0 +1,11 @@
+description: Maine limits total parent fees to this share of eligibility income for families at or above 85% of State Median Income under the Child Care Affordability Program.
+values:
+  2024-07-01: 0.1
+
+metadata:
+  unit: /1
+  period: year
+  label: Maine CCAP copay cap above 85% SMI
+  reference:
+    - title: 10-148 C.M.R. Chapter 6 §5.A.2.b
+      href: https://www.maine.gov/sos/cec/rules/10/ch6.pdf#page=26

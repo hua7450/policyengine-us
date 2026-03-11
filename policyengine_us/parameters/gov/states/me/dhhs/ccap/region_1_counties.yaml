@@ -1,0 +1,14 @@
+description: Maine sets these counties as Region 1 for market rate purposes under the Child Care Affordability Program.
+values:
+  2024-07-01:
+    - CUMBERLAND_COUNTY_ME
+    - SAGADAHOC_COUNTY_ME
+    - YORK_COUNTY_ME
+
+metadata:
+  unit: list
+  period: year
+  label: Maine CCAP Region 1 counties
+  reference:
+    - title: 10-148 C.M.R. Chapter 6 §3
+      href: https://www.maine.gov/sos/cec/rules/10/ch6.pdf#page=12
