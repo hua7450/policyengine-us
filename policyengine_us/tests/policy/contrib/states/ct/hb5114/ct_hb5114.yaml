@@ -281,3 +281,162 @@
     # Credit = $2,000 - $0 = $2,000
     ct_hb5114_eligible: true
     ct_hb5114_renters_credit: 2_000
+
+- name: Single filer with income exactly at threshold is eligible
+  absolute_error_margin: 1
+  period: 2027
+  reforms: policyengine_us.reforms.states.ct.hb5114.ct_hb5114.ct_hb5114
+  input:
+    gov.contrib.states.ct.hb5114.in_effect: true
+    people:
+      person1:
+        age: 35
+        employment_income: 75_000
+        rent: 18_000
+    tax_units:
+      tax_unit:
+        members: [person1]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    # Income exactly at $75,000 threshold - eligible (uses <=)
+    # Credit = 20% of $18,000 - 4% of $75,000
+    # Credit = $3,600 - $3,000 = $600
+    ct_hb5114_eligible: true
+    ct_hb5114_renters_credit: 600
+
+- name: Single filer with income one dollar above threshold is not eligible
+  absolute_error_margin: 1
+  period: 2027
+  reforms: policyengine_us.reforms.states.ct.hb5114.ct_hb5114.ct_hb5114
+  input:
+    gov.contrib.states.ct.hb5114.in_effect: true
+    people:
+      person1:
+        age: 35
+        employment_income: 75_001
+        rent: 18_000
+    tax_units:
+      tax_unit:
+        members: [person1]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    # Income $75,001 > threshold $75,000 - not eligible
+    ct_hb5114_eligible: false
+    ct_hb5114_renters_credit: 0
+
+- name: Joint filer with income exactly at threshold is eligible
+  absolute_error_margin: 1
+  period: 2027
+  reforms: policyengine_us.reforms.states.ct.hb5114.ct_hb5114.ct_hb5114
+  input:
+    gov.contrib.states.ct.hb5114.in_effect: true
+    people:
+      person1:
+        age: 35
+        employment_income: 100_000
+        rent: 12_000
+      person2:
+        age: 33
+        employment_income: 50_000
+        rent: 12_000
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+        filing_status: JOINT
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Joint income exactly at $150,000 threshold - eligible
+    # Credit = 20% of $24,000 - 4% of $150,000
+    # Credit = $4,800 - $6,000 = -$1,200, floored at $0
+    ct_hb5114_eligible: true
+    ct_hb5114_renters_credit: 0
+
+- name: Joint filer with income one dollar above threshold is not eligible
+  absolute_error_margin: 1
+  period: 2027
+  reforms: policyengine_us.reforms.states.ct.hb5114.ct_hb5114.ct_hb5114
+  input:
+    gov.contrib.states.ct.hb5114.in_effect: true
+    people:
+      person1:
+        age: 35
+        employment_income: 100_001
+        rent: 12_000
+      person2:
+        age: 33
+        employment_income: 50_000
+        rent: 12_000
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+        filing_status: JOINT
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Joint income $150,001 > threshold $150,000 - not eligible
+    ct_hb5114_eligible: false
+    ct_hb5114_renters_credit: 0
+
+- name: Surviving spouse with income below threshold is eligible
+  absolute_error_margin: 1
+  period: 2027
+  reforms: policyengine_us.reforms.states.ct.hb5114.ct_hb5114.ct_hb5114
+  input:
+    gov.contrib.states.ct.hb5114.in_effect: true
+    people:
+      person1:
+        age: 50
+        employment_income: 100_000
+        rent: 24_000
+    tax_units:
+      tax_unit:
+        members: [person1]
+        filing_status: SURVIVING_SPOUSE
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    # SURVIVING_SPOUSE income $100,000 < threshold $150,000 - eligible
+    # Credit = 20% of $24,000 - 4% of $100,000
+    # Credit = $4,800 - $4,000 = $800
+    ct_hb5114_eligible: true
+    ct_hb5114_renters_credit: 800
+
+- name: Dependent filer is not eligible even with qualifying income and rent
+  absolute_error_margin: 1
+  period: 2027
+  reforms: policyengine_us.reforms.states.ct.hb5114.ct_hb5114.ct_hb5114
+  input:
+    gov.contrib.states.ct.hb5114.in_effect: true
+    people:
+      person1:
+        age: 20
+        employment_income: 30_000
+        rent: 12_000
+    tax_units:
+      tax_unit:
+        members: [person1]
+        filing_status: SINGLE
+        head_is_dependent_elsewhere: true
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    # Head is claimed as dependent elsewhere - not eligible
+    ct_hb5114_eligible: false
+    ct_hb5114_renters_credit: 0
