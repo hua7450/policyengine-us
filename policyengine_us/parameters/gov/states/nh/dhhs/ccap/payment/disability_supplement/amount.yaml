@@ -1,0 +1,18 @@
+description: New Hampshire provides this weekly supplement for children with disabilities or significant special needs under the Child Care Scholarship Program.
+
+metadata:
+  period: week
+  unit: currency-USD
+  label: New Hampshire CCAP disability supplement weekly amount
+  breakdown:
+    - nh_ccap_service_level
+  reference:
+    - title: He-C 6910.17(g)
+      href: https://www.gencourt.state.nh.us/rules/filing_history/sourcehe-c6910.html
+
+FULL_TIME:
+  2024-07-01: 100
+HALF_TIME:
+  2024-07-01: 75
+PART_TIME:
+  2024-07-01: 50

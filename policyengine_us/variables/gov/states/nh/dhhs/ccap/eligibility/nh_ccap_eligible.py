@@ -1,0 +1,19 @@
+from policyengine_us.model_api import *
+
+
+class nh_ccap_eligible(Variable):
+    value_type = bool
+    entity = SPMUnit
+    label = "Eligible for New Hampshire Child Care Scholarship Program"
+    definition_period = MONTH
+    defined_for = StateCode.NH
+    reference = (
+        "https://www.gencourt.state.nh.us/rules/filing_history/sourcehe-c6910.html"
+    )
+
+    def formula(spm_unit, period, parameters):
+        has_eligible_child = add(spm_unit, period, ["nh_ccap_eligible_child"]) > 0
+        income_eligible = spm_unit("nh_ccap_income_eligible", period)
+        asset_eligible = spm_unit("is_ccdf_asset_eligible", period.this_year)
+        activity_eligible = spm_unit("meets_ccdf_activity_test", period.this_year)
+        return has_eligible_child & income_eligible & asset_eligible & activity_eligible

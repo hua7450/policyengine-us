@@ -1,0 +1,11 @@
+description: New Hampshire sets this threshold as the minimum weekly hours for full-time child care under the Child Care Scholarship Program.
+values:
+  2024-07-01: 30
+
+metadata:
+  unit: /1
+  period: year
+  label: New Hampshire CCAP full-time hours threshold
+  reference:
+    - title: He-C 6910.07(m), He-C 6910.16
+      href: https://www.gencourt.state.nh.us/rules/filing_history/sourcehe-c6910.html

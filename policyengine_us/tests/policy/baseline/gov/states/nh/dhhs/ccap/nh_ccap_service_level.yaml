@@ -1,0 +1,171 @@
+# Tests for nh_ccap_service_level (Person, MONTH)
+# Service level based on childcare hours per week.
+# He-C 6910.07(m)-(o), He-C 6910.16
+# Full-time: >= 30 hours/week (He-C 6910.07(m): "30 or more hours per week")
+# Half-time: >= 15 and < 30 hours/week
+# Part-time: < 15 hours/week
+
+- name: Case 1, 40 hours per week, full-time.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        childcare_hours_per_week: 40
+    households:
+      household:
+        members: [person1]
+        state_code: NH
+  output:
+    nh_ccap_service_level: FULL_TIME
+
+- name: Case 2, 31 hours per week, full-time.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        childcare_hours_per_week: 31
+    households:
+      household:
+        members: [person1]
+        state_code: NH
+  output:
+    nh_ccap_service_level: FULL_TIME
+
+- name: Case 3, 30 hours per week, full-time.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        childcare_hours_per_week: 30
+    households:
+      household:
+        members: [person1]
+        state_code: NH
+  output:
+    # He-C 6910.07(m): "30 or more hours" = full-time
+    nh_ccap_service_level: FULL_TIME
+
+- name: Case 4, 20 hours per week, half-time.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        childcare_hours_per_week: 20
+    households:
+      household:
+        members: [person1]
+        state_code: NH
+  output:
+    nh_ccap_service_level: HALF_TIME
+
+- name: Case 5, 15 hours per week, half-time.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        childcare_hours_per_week: 15
+    households:
+      household:
+        members: [person1]
+        state_code: NH
+  output:
+    # He-C 6910.07(n): "15 or more hours" includes 15 → HALF_TIME
+    nh_ccap_service_level: HALF_TIME
+
+- name: Case 6, 10 hours per week, part-time.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        childcare_hours_per_week: 10
+    households:
+      household:
+        members: [person1]
+        state_code: NH
+  output:
+    nh_ccap_service_level: PART_TIME
+
+- name: Case 7, 16 hours per week, half-time.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        childcare_hours_per_week: 16
+    households:
+      household:
+        members: [person1]
+        state_code: NH
+  output:
+    nh_ccap_service_level: HALF_TIME
+
+# --- Edge Cases: Exact boundary hours ---
+
+- name: Case 8, exactly 15 hours per week, half-time boundary.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        childcare_hours_per_week: 15
+    households:
+      household:
+        members: [person1]
+        state_code: NH
+  output:
+    # half_time_hours = 15, hours >= 15 → true → HALF_TIME
+    nh_ccap_service_level: HALF_TIME
+
+- name: Case 9, exactly 30 hours per week, full-time boundary.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        childcare_hours_per_week: 30
+    households:
+      household:
+        members: [person1]
+        state_code: NH
+  output:
+    # full_time_hours = 30, hours >= 30 → true → FULL_TIME
+    nh_ccap_service_level: FULL_TIME
+
+- name: Case 10, zero hours per week, part-time.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        childcare_hours_per_week: 0
+    households:
+      household:
+        members: [person1]
+        state_code: NH
+  output:
+    # 0 >= 30 → false, 0 >= 15 → false → default PART_TIME
+    nh_ccap_service_level: PART_TIME
+
+- name: Case 11, 14 hours per week, part-time.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        childcare_hours_per_week: 14
+    households:
+      household:
+        members: [person1]
+        state_code: NH
+  output:
+    # 14 >= 30 → false, 14 >= 15 → false → default PART_TIME
+    nh_ccap_service_level: PART_TIME
+
+- name: Case 12, 29 hours per week, half-time.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        childcare_hours_per_week: 29
+    households:
+      household:
+        members: [person1]
+        state_code: NH
+  output:
+    # 29 >= 30 → false, 29 >= 15 → true → HALF_TIME
+    nh_ccap_service_level: HALF_TIME

@@ -1,0 +1,251 @@
+# Tests for nh_ccap_payment_rate (Person, MONTH)
+# Weekly payment rate by provider type, age category, and service level.
+# He-C 6910.17(a)-(d)
+#
+# Provider types and rate basis:
+#   LICENSED_CENTER: 75th percentile MRS
+#   LICENSED_FAMILY: 75th percentile MRS
+#   LICENSE_EXEMPT_IN_HOME: 70% of licensed family rate (He-C 6910.17(c))
+#   LICENSE_EXEMPT_CENTER: 50% of licensed center rate (He-C 6910.17(d))
+#
+# NOTE: nh_ccap_payment_rate does NOT include disability supplement.
+# Disability supplement is added separately in nh_ccap.py.
+
+- name: Case 1, licensed center, infant, full-time.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        nh_ccap_eligible_child: true
+        nh_ccap_child_age_category: INFANT
+        nh_ccap_service_level: FULL_TIME
+        nh_ccap_provider_type: LICENSED_CENTER
+    households:
+      household:
+        members: [person1]
+        state_code: NH
+  output:
+    # Licensed center infant full-time: $344/week
+    nh_ccap_payment_rate: 344
+
+- name: Case 2, licensed family, toddler, half-time.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        nh_ccap_eligible_child: true
+        nh_ccap_child_age_category: TODDLER
+        nh_ccap_service_level: HALF_TIME
+        nh_ccap_provider_type: LICENSED_FAMILY
+    households:
+      household:
+        members: [person1]
+        state_code: NH
+  output:
+    # Licensed family toddler half-time: $125/week
+    nh_ccap_payment_rate: 125
+
+- name: Case 3, licensed center, school age, part-time.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        nh_ccap_eligible_child: true
+        nh_ccap_child_age_category: SCHOOL_AGE
+        nh_ccap_service_level: PART_TIME
+        nh_ccap_provider_type: LICENSED_CENTER
+    households:
+      household:
+        members: [person1]
+        state_code: NH
+  output:
+    # Licensed center school-age part-time: $67/week
+    nh_ccap_payment_rate: 67
+
+- name: Case 4, license-exempt in-home, preschool, full-time.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        nh_ccap_eligible_child: true
+        nh_ccap_child_age_category: PRESCHOOL
+        nh_ccap_service_level: FULL_TIME
+        nh_ccap_provider_type: LICENSE_EXEMPT_IN_HOME
+    households:
+      household:
+        members: [person1]
+        state_code: NH
+  output:
+    # 70% of licensed family preschool full-time ($250) = $175
+    nh_ccap_payment_rate: 175
+
+- name: Case 5, license-exempt center, toddler, full-time.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        nh_ccap_eligible_child: true
+        nh_ccap_child_age_category: TODDLER
+        nh_ccap_service_level: FULL_TIME
+        nh_ccap_provider_type: LICENSE_EXEMPT_CENTER
+    households:
+      household:
+        members: [person1]
+        state_code: NH
+  output:
+    # 50% of licensed center toddler full-time ($317) = $158.50
+    nh_ccap_payment_rate: 158.50
+
+- name: Case 6, licensed center, infant, full-time, disabled child (rate excludes supplement).
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        nh_ccap_eligible_child: true
+        nh_ccap_child_age_category: INFANT
+        nh_ccap_service_level: FULL_TIME
+        nh_ccap_provider_type: LICENSED_CENTER
+        is_disabled: true
+    households:
+      household:
+        members: [person1]
+        state_code: NH
+  output:
+    # Base rate only; disability supplement is in nh_ccap_disability_supplement
+    # Licensed center infant full-time: $344/week
+    nh_ccap_payment_rate: 344
+
+- name: Case 7, licensed family, preschool, half-time, disabled child (rate excludes supplement).
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        nh_ccap_eligible_child: true
+        nh_ccap_child_age_category: PRESCHOOL
+        nh_ccap_service_level: HALF_TIME
+        nh_ccap_provider_type: LICENSED_FAMILY
+        is_disabled: true
+    households:
+      household:
+        members: [person1]
+        state_code: NH
+  output:
+    # Base rate only; disability supplement is in nh_ccap_disability_supplement
+    # Licensed family preschool half-time: $125/week
+    nh_ccap_payment_rate: 125
+
+- name: Case 8, license-exempt in-home, school age, part-time, disabled child (rate excludes supplement).
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        nh_ccap_eligible_child: true
+        nh_ccap_child_age_category: SCHOOL_AGE
+        nh_ccap_service_level: PART_TIME
+        nh_ccap_provider_type: LICENSE_EXEMPT_IN_HOME
+        is_disabled: true
+    households:
+      household:
+        members: [person1]
+        state_code: NH
+  output:
+    # 70% of licensed family school-age part-time ($63) = $44.10
+    nh_ccap_payment_rate: 44.10
+
+- name: Case 9, licensed family, infant, full-time.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        nh_ccap_eligible_child: true
+        nh_ccap_child_age_category: INFANT
+        nh_ccap_service_level: FULL_TIME
+        nh_ccap_provider_type: LICENSED_FAMILY
+    households:
+      household:
+        members: [person1]
+        state_code: NH
+  output:
+    # Licensed family infant full-time: $250/week
+    nh_ccap_payment_rate: 250
+
+- name: Case 10, license-exempt in-home, infant, full-time.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        nh_ccap_eligible_child: true
+        nh_ccap_child_age_category: INFANT
+        nh_ccap_service_level: FULL_TIME
+        nh_ccap_provider_type: LICENSE_EXEMPT_IN_HOME
+    households:
+      household:
+        members: [person1]
+        state_code: NH
+  output:
+    # 70% of licensed family infant full-time ($250) = $175
+    nh_ccap_payment_rate: 175
+
+- name: Case 11, license-exempt center, infant, full-time.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        nh_ccap_eligible_child: true
+        nh_ccap_child_age_category: INFANT
+        nh_ccap_service_level: FULL_TIME
+        nh_ccap_provider_type: LICENSE_EXEMPT_CENTER
+    households:
+      household:
+        members: [person1]
+        state_code: NH
+  output:
+    # 50% of licensed center infant full-time ($344) = $172
+    nh_ccap_payment_rate: 172
+
+- name: Case 12, licensed center, school age, half-time.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        nh_ccap_eligible_child: true
+        nh_ccap_child_age_category: SCHOOL_AGE
+        nh_ccap_service_level: HALF_TIME
+        nh_ccap_provider_type: LICENSED_CENTER
+    households:
+      household:
+        members: [person1]
+        state_code: NH
+  output:
+    # Licensed center school-age half-time: $134/week
+    nh_ccap_payment_rate: 134
+
+- name: Case 13, license-exempt center, school age, part-time.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        nh_ccap_eligible_child: true
+        nh_ccap_child_age_category: SCHOOL_AGE
+        nh_ccap_service_level: PART_TIME
+        nh_ccap_provider_type: LICENSE_EXEMPT_CENTER
+    households:
+      household:
+        members: [person1]
+        state_code: NH
+  output:
+    # 50% of licensed center school-age part-time ($67) = $33.50
+    nh_ccap_payment_rate: 33.50

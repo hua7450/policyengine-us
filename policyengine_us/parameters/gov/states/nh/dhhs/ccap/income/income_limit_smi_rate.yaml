@@ -1,0 +1,11 @@
+description: New Hampshire limits gross income to this share of the state median income under the Child Care Scholarship Program.
+values:
+  2024-07-01: 0.85
+
+metadata:
+  unit: /1
+  period: year
+  label: New Hampshire CCAP income limit SMI rate
+  reference:
+    - title: He-C 6910.06(b)
+      href: https://www.gencourt.state.nh.us/rules/filing_history/sourcehe-c6910.html

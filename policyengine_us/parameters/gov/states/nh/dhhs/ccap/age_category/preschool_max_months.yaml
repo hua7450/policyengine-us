@@ -1,0 +1,11 @@
+description: New Hampshire defines the preschool age category as up to this age in months under the Child Care Scholarship Program.
+values:
+  2024-07-01: 79
+
+metadata:
+  unit: month
+  period: year
+  label: New Hampshire CCAP preschool age category upper bound in months
+  reference:
+    - title: He-C 6910.17(i)
+      href: https://www.gencourt.state.nh.us/rules/filing_history/sourcehe-c6910.html

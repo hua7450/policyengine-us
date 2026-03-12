@@ -1,0 +1,17 @@
+description: New Hampshire limits the Child Care Scholarship Program to children of these immigration statuses.
+values:
+  2024-07-01:
+    - CITIZEN
+    - LEGAL_PERMANENT_RESIDENT
+    - REFUGEE
+    - ASYLEE
+    - PAROLED_ONE_YEAR
+    - DEPORTATION_WITHHELD
+
+metadata:
+  unit: list
+  period: year
+  label: New Hampshire CCAP qualified immigration statuses
+  reference:
+    - title: He-C 6910.07(b)(2)
+      href: https://www.gencourt.state.nh.us/rules/filing_history/sourcehe-c6910.html

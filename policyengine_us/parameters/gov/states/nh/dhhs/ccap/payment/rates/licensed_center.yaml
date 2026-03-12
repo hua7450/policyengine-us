@@ -1,0 +1,43 @@
+description: New Hampshire provides these weekly standard rates for licensed child care centers under the Child Care Scholarship Program.
+
+metadata:
+  period: week
+  unit: currency-USD
+  label: New Hampshire CCAP licensed center weekly rates
+  breakdown:
+    - nh_ccap_child_age_category
+    - nh_ccap_service_level
+  reference:
+    - title: He-C 6910.17(a)
+      href: https://www.gencourt.state.nh.us/rules/filing_history/sourcehe-c6910.html
+    - title: CCDF Provider Payment Rates by State (January 2025) - Tables 2-4
+      href: https://acf.gov/sites/default/files/documents/occ/CCDF-Provider-Payment-Rates-by-State.pdf#page=6
+
+INFANT:
+  FULL_TIME:
+    2024-08-26: 344
+  HALF_TIME:
+    2024-08-26: 172
+  PART_TIME:
+    2024-08-26: 86
+TODDLER:
+  FULL_TIME:
+    2024-08-26: 317
+  HALF_TIME:
+    2024-08-26: 159
+  PART_TIME:
+    2024-08-26: 79
+PRESCHOOL:
+  FULL_TIME:
+    2024-08-26: 280
+  HALF_TIME:
+    2024-08-26: 140
+  PART_TIME:
+    2024-08-26: 70
+SCHOOL_AGE:
+  FULL_TIME:
+    2024-08-26: 267
+  HALF_TIME:
+    2024-08-26: 134
+  PART_TIME:
+    2024-08-26: 67

@@ -1,0 +1,11 @@
+description: New Hampshire provides this amount as the flat weekly cost share for families between 100% and 138% of the federal poverty guideline under the Child Care Scholarship Program.
+values:
+  2024-07-01: 5
+
+metadata:
+  unit: currency-USD
+  period: year
+  label: New Hampshire CCAP step 2 weekly cost share amount
+  reference:
+    - title: He-C 6910.18, Table 6910.19
+      href: https://www.gencourt.state.nh.us/rules/filing_history/sourcehe-c6910.html

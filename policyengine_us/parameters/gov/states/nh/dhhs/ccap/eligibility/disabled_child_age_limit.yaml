@@ -1,0 +1,11 @@
+description: New Hampshire limits the Child Care Scholarship Program to disabled children younger than this age.
+values:
+  2024-07-01: 18
+
+metadata:
+  unit: year
+  period: year
+  label: New Hampshire CCAP disabled child age limit
+  reference:
+    - title: He-C 6910.07(e)
+      href: https://www.gencourt.state.nh.us/rules/filing_history/sourcehe-c6910.html
