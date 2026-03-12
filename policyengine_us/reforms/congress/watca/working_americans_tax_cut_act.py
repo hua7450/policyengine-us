@@ -11,20 +11,64 @@ WATCA_REFERENCES = [
 
 
 def create_watca() -> Reform:
+    class watca_alternative_tax_magi(Variable):
+        value_type = float
+        entity = TaxUnit
+        label = "WATCA alternative tax modified AGI"
+        definition_period = YEAR
+        unit = USD
+        reference = WATCA_REFERENCES
+        documentation = "Section 1A(d): AGI + foreign income exclusions (sec 911, 931, 933) + non-taxable Social Security."
+
+        def formula(tax_unit, period, parameters):
+            agi = tax_unit("adjusted_gross_income", period)
+            foreign_earned_income = tax_unit("foreign_earned_income_exclusion", period)
+            possession_income = tax_unit("specified_possession_income", period)
+            puerto_rico = tax_unit("puerto_rico_income", period)
+            nontaxable_ss = tax_unit("tax_exempt_social_security", period)
+            return (
+                agi
+                + foreign_earned_income
+                + possession_income
+                + puerto_rico
+                + nontaxable_ss
+            )
+
+    class watca_surtax_magi(Variable):
+        value_type = float
+        entity = TaxUnit
+        label = "WATCA surtax modified AGI"
+        definition_period = YEAR
+        unit = USD
+        reference = WATCA_REFERENCES
+        documentation = (
+            "Section 59B(d): AGI - investment interest deduction (sec 163(d))."
+        )
+
+        def formula(tax_unit, period, parameters):
+            agi = tax_unit("adjusted_gross_income", period)
+            investment_interest = add(tax_unit, period, ["investment_interest_expense"])
+            return agi - investment_interest
+
     class watca_alternative_tax_eligible(Variable):
         value_type = bool
         entity = TaxUnit
         label = "Eligible for WATCA alternative maximum tax"
         definition_period = YEAR
         reference = WATCA_REFERENCES
+        documentation = "Section 1A(b): MAGI < 175% of exemption, and not claimed as dependent on another return."
 
         def formula(tax_unit, period, parameters):
-            agi = tax_unit("adjusted_gross_income", period)
+            magi = tax_unit("watca_alternative_tax_magi", period)
             filing_status = tax_unit("filing_status", period)
             p = parameters(period).gov.contrib.congress.watca.cost_of_living_exemption
             exemption_amount = p.amount[filing_status]
             income_limit = exemption_amount * p.income_limit_multiple
-            return agi < income_limit
+            income_eligible = magi < income_limit
+            head_dependent = tax_unit("head_is_dependent_elsewhere", period)
+            spouse_dependent = tax_unit("spouse_is_dependent_elsewhere", period)
+            not_dependent = ~head_dependent & ~spouse_dependent
+            return income_eligible & not_dependent
 
     class watca_alternative_max_tax(Variable):
         value_type = float
@@ -33,15 +77,17 @@ def create_watca() -> Reform:
         definition_period = YEAR
         unit = USD
         reference = WATCA_REFERENCES
-        documentation = "The alternative maximum tax under WATCA: 25.5% of MAGI above the cost of living exemption."
+        documentation = (
+            "Section 1A(a): 25.5% of MAGI above the cost of living exemption."
+        )
 
         def formula(tax_unit, period, parameters):
-            agi = tax_unit("adjusted_gross_income", period)
+            magi = tax_unit("watca_alternative_tax_magi", period)
             filing_status = tax_unit("filing_status", period)
             p = parameters(period).gov.contrib.congress.watca.cost_of_living_exemption
             exemption_amount = p.amount[filing_status]
             rate = p.alternative_tax_rate
-            return max_(0, agi - exemption_amount) * rate
+            return max_(0, magi - exemption_amount) * rate
 
     class watca_millionaire_surtax(Variable):
         value_type = float
@@ -50,9 +96,12 @@ def create_watca() -> Reform:
         definition_period = YEAR
         unit = USD
         reference = WATCA_REFERENCES
+        documentation = (
+            "Section 59B: Surtax on high income individuals based on modified AGI."
+        )
 
         def formula(tax_unit, period, parameters):
-            agi = tax_unit("adjusted_gross_income", period)
+            magi = tax_unit("watca_surtax_magi", period)
             p = parameters(period).gov.contrib.congress.watca.surtax
             filing_status = tax_unit("filing_status", period)
             joint = (filing_status == filing_status.possible_values.JOINT) | (
@@ -60,8 +109,8 @@ def create_watca() -> Reform:
             )
             return where(
                 joint,
-                p.rate.joint.calc(agi),
-                p.rate.single.calc(agi),
+                p.rate.joint.calc(magi),
+                p.rate.single.calc(magi),
             )
 
     class income_tax_before_credits(Variable):
@@ -98,6 +147,8 @@ def create_watca() -> Reform:
 
     class reform(Reform):
         def apply(self):
+            self.update_variable(watca_alternative_tax_magi)
+            self.update_variable(watca_surtax_magi)
             self.update_variable(watca_alternative_tax_eligible)
             self.update_variable(watca_alternative_max_tax)
             self.update_variable(watca_millionaire_surtax)
