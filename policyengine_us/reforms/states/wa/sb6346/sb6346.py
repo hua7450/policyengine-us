@@ -95,6 +95,53 @@ def create_wa_sb6346() -> Reform:
             refundable_credits = tax_unit("wa_refundable_credits", period)
             return sb6346_tax + capital_gains_tax - refundable_credits
 
+    class wa_working_families_tax_credit(Variable):
+        value_type = float
+        entity = TaxUnit
+        label = "Washington Working Families Tax Credit"
+        unit = USD
+        definition_period = YEAR
+        reference = (
+            "https://app.leg.wa.gov/RCW/default.aspx?cite=82.08.0206",
+            "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Senate%20Bills/6346-S.pdf#page=52",
+        )
+        defined_for = StateCode.WA
+
+        def formula(tax_unit, period, parameters):
+            eitc = tax_unit("eitc", period)
+            eitc_eligible = eitc > 0
+            # SSB 6346 Sec. 901(2)(a)(ii)(C): individuals who do not meet
+            # the EITC age requirement but are at least age 18.
+            sb6346_p = parameters(period).gov.contrib.states.wa.sb6346.wftc
+            age_head = tax_unit("age_head", period)
+            age_spouse = tax_unit("age_spouse", period)
+            filer_at_least_min_age = (age_head >= sb6346_p.min_age) | (
+                age_spouse >= sb6346_p.min_age
+            )
+            earned_income = tax_unit("filer_adjusted_earnings", period)
+            has_earned_income = earned_income > 0
+            eligible = eitc_eligible | (filer_at_least_min_age & has_earned_income)
+            p = parameters(
+                period
+            ).gov.states.wa.tax.income.credits.working_families_tax_credit
+            eitc_child_count = tax_unit("eitc_child_count", period)
+            max_amount = p.amount.calc(eitc_child_count)
+            eitc_agi_limit = tax_unit("eitc_agi_limit", period)
+            phase_out_start_reduction = p.phase_out.start_below_eitc.calc(
+                eitc_child_count
+            )
+            phase_out_start = eitc_agi_limit - phase_out_start_reduction
+            phase_out_rate = (max_amount - p.min_amount) / phase_out_start_reduction
+            excess = max_(0, earned_income - phase_out_start)
+            reduction = max_(0, excess * phase_out_rate)
+            phased_out_amount = max_amount - reduction
+            amount_if_eligible = where(
+                phased_out_amount > 0,
+                max_(p.min_amount, phased_out_amount),
+                0,
+            )
+            return amount_if_eligible * eligible
+
     class reform(Reform):
         def apply(self):
             self.add_variable(wa_income_tax_base_income)
@@ -102,6 +149,7 @@ def create_wa_sb6346() -> Reform:
             self.add_variable(wa_income_tax_standard_deduction)
             self.add_variable(wa_income_tax_taxable_income)
             self.update_variable(wa_income_tax)
+            self.update_variable(wa_working_families_tax_credit)
 
     return reform
 
