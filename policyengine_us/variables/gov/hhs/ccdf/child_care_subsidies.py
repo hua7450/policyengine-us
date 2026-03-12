@@ -6,7 +6,6 @@ STATE_CHILD_CARE_SUBSIDY_VARIABLES = [
     "co_child_care_subsidies",  # Colorado Child Care Assistance Program
     "ma_child_care_subsidies",  # Massachusetts Child Care Financial Assistance
     "ne_child_care_subsidies",  # Nebraska Child Care Subsidy
-    "tx_ccs",  # Texas Child Care Services
 ]
 
 
