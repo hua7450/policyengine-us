@@ -1,1 +1,1 @@
-Add Vermont Child Care Assistance Program (CCAP).
+Add Vermont Child Care Financial Assistance Program (CCFAP).
