@@ -14,7 +14,7 @@ class in_overtime_income_deduction(Variable):
     defined_for = StateCode.IN
 
     def formula(tax_unit, period, parameters):
-        p = parameters(period).gov.states.in_.tax.income.deductions.obbba_conformity
+        p = parameters(period).gov.states["in"].tax.income.deductions.obbba_conformity
         available = p.overtime_income_deduction_available
         federal_deduction = tax_unit("overtime_income_deduction", period)
         return available * federal_deduction

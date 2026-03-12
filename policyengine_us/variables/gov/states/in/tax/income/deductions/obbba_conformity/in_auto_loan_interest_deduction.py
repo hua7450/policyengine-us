@@ -14,7 +14,7 @@ class in_auto_loan_interest_deduction(Variable):
     defined_for = StateCode.IN
 
     def formula(tax_unit, period, parameters):
-        p = parameters(period).gov.states.in_.tax.income.deductions.obbba_conformity
+        p = parameters(period).gov.states["in"].tax.income.deductions.obbba_conformity
         available = p.auto_loan_interest_deduction_available
         federal_deduction = tax_unit("auto_loan_interest_deduction", period)
         return available * federal_deduction
