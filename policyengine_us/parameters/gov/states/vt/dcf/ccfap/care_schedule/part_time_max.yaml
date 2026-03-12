@@ -1,0 +1,11 @@
+description: Vermont sets this amount as the maximum weekly hours for part-time care under the Child Care Financial Assistance Program.
+values:
+  2024-04-01: 25
+
+metadata:
+  unit: hour
+  period: week
+  label: Vermont CCFAP part-time maximum hours
+  reference:
+    - title: CCFAP State Rates
+      href: https://outside.vermont.gov/dept/DCF/Shared%20Documents/CDD/CCFAP/State-Rates.pdf

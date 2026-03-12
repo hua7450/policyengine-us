@@ -1,0 +1,56 @@
+description: Vermont provides these weekly reimbursement rates for licensed child care centers under the Child Care Financial Assistance Program.
+
+metadata:
+  period: week
+  unit: currency-USD
+  label: Vermont CCFAP licensed center weekly rates
+  breakdown:
+    - vt_ccfap_care_schedule
+    - vt_ccfap_age_group
+  reference:
+    - title: CCFAP State Rates (June 30, 2024)
+      href: https://outside.vermont.gov/dept/DCF/Shared%20Documents/CDD/CCFAP/State-Rates.pdf
+    - title: CCFAP Capped State Rates (July 13, 2025)
+      href: https://outside.vermont.gov/dept/DCF/Shared%20Documents/CDD/CCFAP/Capped-State-Rates.pdf
+
+FULL_TIME:
+  INFANT:
+    2024-06-30: 471
+    2025-07-13: 495
+  TODDLER:
+    2024-06-30: 443
+    2025-07-13: 465
+  PRESCHOOL:
+    2024-06-30: 439
+    2025-07-13: 439
+  SCHOOL_AGE:
+    2024-06-30: 371
+    2025-07-13: 371
+
+PART_TIME:
+  INFANT:
+    2024-06-30: 258
+    2025-07-13: 271
+  TODDLER:
+    2024-06-30: 243
+    2025-07-13: 255
+  PRESCHOOL:
+    2024-06-30: 240
+    2025-07-13: 240
+  SCHOOL_AGE:
+    2024-06-30: 204
+    2025-07-13: 204
+
+EXTENDED_CARE:
+  INFANT:
+    2024-06-30: 640
+    2025-07-13: 672
+  TODDLER:
+    2024-06-30: 602
+    2025-07-13: 632
+  PRESCHOOL:
+    2024-06-30: 597
+    2025-07-13: 597
+  SCHOOL_AGE:
+    2024-06-30: 505
+    2025-07-13: 505

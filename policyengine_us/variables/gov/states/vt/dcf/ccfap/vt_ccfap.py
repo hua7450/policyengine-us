@@ -1,0 +1,23 @@
+from policyengine_us.model_api import *
+
+
+class vt_ccfap(Variable):
+    value_type = float
+    entity = SPMUnit
+    unit = USD
+    definition_period = YEAR
+    defined_for = "vt_ccfap_eligible"
+    label = "Vermont Child Care Financial Assistance Program benefit"
+    reference = (
+        "https://outside.vermont.gov/dept/DCF/Shared%20Documents/CDD/CCFAP/CCFAP-Regulations.pdf",
+        "https://legislature.vermont.gov/statutes/section/33/035/03512",
+    )
+
+    def formula(spm_unit, period, parameters):
+        person = spm_unit.members
+        eligible_child = person("vt_ccfap_eligible_child", period)
+        weekly_rate = person("vt_ccfap_state_rate", period)
+        total_weekly_rate = spm_unit.sum(weekly_rate * eligible_child)
+        total_annual_rate = total_weekly_rate * WEEKS_IN_YEAR
+        family_share = spm_unit("vt_ccfap_family_share", period)
+        return max_(total_annual_rate - family_share, 0)

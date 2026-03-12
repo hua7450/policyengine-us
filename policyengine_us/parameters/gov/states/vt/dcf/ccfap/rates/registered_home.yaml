@@ -1,0 +1,56 @@
+description: Vermont provides these weekly reimbursement rates for registered family child care homes under the Child Care Financial Assistance Program.
+
+metadata:
+  period: week
+  unit: currency-USD
+  label: Vermont CCFAP registered home weekly rates
+  breakdown:
+    - vt_ccfap_care_schedule
+    - vt_ccfap_age_group
+  reference:
+    - title: CCFAP State Rates (June 30, 2024)
+      href: https://outside.vermont.gov/dept/DCF/Shared%20Documents/CDD/CCFAP/State-Rates.pdf
+    - title: CCFAP Capped State Rates (July 13, 2025)
+      href: https://outside.vermont.gov/dept/DCF/Shared%20Documents/CDD/CCFAP/Capped-State-Rates.pdf
+
+FULL_TIME:
+  INFANT:
+    2024-06-30: 387
+    2025-07-13: 407
+  TODDLER:
+    2024-06-30: 364
+    2025-07-13: 382
+  PRESCHOOL:
+    2024-06-30: 361
+    2025-07-13: 361
+  SCHOOL_AGE:
+    2024-06-30: 321
+    2025-07-13: 321
+
+PART_TIME:
+  INFANT:
+    2024-06-30: 212
+    2025-07-13: 223
+  TODDLER:
+    2024-06-30: 200
+    2025-07-13: 210
+  PRESCHOOL:
+    2024-06-30: 198
+    2025-07-13: 198
+  SCHOOL_AGE:
+    2024-06-30: 176
+    2025-07-13: 176
+
+EXTENDED_CARE:
+  INFANT:
+    2024-06-30: 527
+    2025-07-13: 553
+  TODDLER:
+    2024-06-30: 494
+    2025-07-13: 519
+  PRESCHOOL:
+    2024-06-30: 491
+    2025-07-13: 491
+  SCHOOL_AGE:
+    2024-06-30: 436
+    2025-07-13: 436

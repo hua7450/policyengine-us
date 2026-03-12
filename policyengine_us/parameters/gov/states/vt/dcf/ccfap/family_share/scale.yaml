@@ -1,0 +1,83 @@
+description: Vermont sets this amount as the weekly family share based on income as a share of the federal poverty guideline under the Child Care Financial Assistance Program.
+
+metadata:
+  type: single_amount
+  threshold_unit: /1
+  amount_unit: currency-USD
+  period: week
+  label: Vermont CCFAP weekly family share scale
+  reference:
+    - title: CCFAP Income Guidelines (effective October 6, 2024)
+      href: https://outside.vermont.gov/dept/DCF/Shared%20Documents/CDD/CCFAP/Income-Guidelines.pdf
+    - title: CCFAP Regulations Section IX
+      href: https://outside.vermont.gov/dept/DCF/Shared%20Documents/CDD/CCFAP/CCFAP-Regulations.pdf
+
+brackets:
+  - threshold:
+      2024-10-01: 0
+    amount:
+      2024-10-01: 0
+  - threshold:
+      2024-10-01: 1.7501
+    amount:
+      2024-10-01: 50
+  - threshold:
+      2024-10-01: 2.0001
+    amount:
+      2024-10-01: 75
+  - threshold:
+      2024-10-01: 2.2501
+    amount:
+      2024-10-01: 100
+  - threshold:
+      2024-10-01: 2.5001
+    amount:
+      2024-10-01: 125
+  - threshold:
+      2024-10-01: 2.7501
+    amount:
+      2024-10-01: 150
+  - threshold:
+      2024-10-01: 3.0001
+    amount:
+      2024-10-01: 175
+  - threshold:
+      2024-10-01: 3.2501
+    amount:
+      2024-10-01: 200
+  - threshold:
+      2024-10-01: 3.5001
+    amount:
+      2024-10-01: 225
+  - threshold:
+      2024-10-01: 3.7501
+    amount:
+      2024-10-01: 250
+  - threshold:
+      2024-10-01: 4.0001
+    amount:
+      2024-10-01: 275
+  - threshold:
+      2024-10-01: 4.2501
+    amount:
+      2024-10-01: 300
+  - threshold:
+      2024-10-01: 4.5001
+    amount:
+      2024-10-01: 325
+  - threshold:
+      2024-10-01: 4.7501
+    amount:
+      2024-10-01: 350
+  - threshold:
+      2024-10-01: 5.0001
+    amount:
+      2024-10-01: 375
+  - threshold:
+      2024-10-01: 5.2501
+    amount:
+      2024-10-01: 400
+  - threshold:
+      2024-10-01: 5.5001
+    amount:
+      2024-10-01: 425
