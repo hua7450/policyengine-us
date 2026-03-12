@@ -23,8 +23,8 @@ class nh_ccap_service_level(Variable):
 
         return select(
             [
-                hours >= p.full_time_hours,
-                hours >= p.half_time_hours,
+                hours > p.full_time_hours,
+                hours > p.half_time_hours,
             ],
             [
                 NHCCAPServiceLevel.FULL_TIME,
