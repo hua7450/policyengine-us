@@ -62,8 +62,8 @@
         members: [person1]
         state_code: NH
   output:
-    # Licensed center school-age part-time: $67/week
-    nh_ccap_payment_rate: 67
+    # Licensed center school-age part-time: $59.06/week
+    nh_ccap_payment_rate: 59.06
 
 - name: Case 4, license-exempt in-home, preschool, full-time.
   period: 2025-01
@@ -157,8 +157,8 @@
         members: [person1]
         state_code: NH
   output:
-    # 70% of licensed family school-age part-time ($63) = $44.10
-    nh_ccap_payment_rate: 44.10
+    # 70% of licensed family school-age part-time ($50) = $35
+    nh_ccap_payment_rate: 35
 
 - name: Case 9, licensed family, infant, full-time.
   period: 2025-01
@@ -229,8 +229,8 @@
         members: [person1]
         state_code: NH
   output:
-    # Licensed center school-age half-time: $134/week
-    nh_ccap_payment_rate: 134
+    # Licensed center school-age half-time: $118.13/week
+    nh_ccap_payment_rate: 118.13
 
 - name: Case 13, license-exempt center, school age, part-time.
   period: 2025-01
@@ -247,5 +247,5 @@
         members: [person1]
         state_code: NH
   output:
-    # 50% of licensed center school-age part-time ($67) = $33.50
-    nh_ccap_payment_rate: 33.50
+    # 50% of licensed center school-age part-time ($59.06) = $29.53
+    nh_ccap_payment_rate: 29.53

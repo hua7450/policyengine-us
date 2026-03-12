@@ -151,9 +151,41 @@
     # min($50, $50) - $70/1 = $50 - $70 = -$20 → $0
     nh_ccap: 0
 
+- name: Case 6, disabled child, disability supplement adds to rate in benefit.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 5
+        is_disabled: true
+        nh_ccap_eligible_child: true
+        nh_ccap_payment_rate: 280
+        nh_ccap_disability_supplement: 100
+        pre_subsidy_childcare_expenses: 20_800
+        # $20,800/yr = $400/week (> $280 + $100 = $380 total rate)
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        nh_ccap_eligible: true
+        nh_ccap_cost_share: 10
+    households:
+      household:
+        members: [person1, person2]
+        state_code: NH
+  output:
+    # total_weekly_rate = $280 + $100 = $380
+    # min($400/wk charge, $380 total rate) = $380
+    # 1 eligible child: per-child cost share = $10/1 = $10
+    # Weekly: $380 - $10 = $370
+    # Monthly: $370 * (52/12) = $1,603.33
+    nh_ccap: 1_603.33
+
 # --- Edge Cases ---
 
-- name: Case 6, zero childcare expenses, zero benefit.
+- name: Case 7, zero childcare expenses, zero benefit.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
@@ -179,7 +211,7 @@
     # min($0, $300) = $0; $0 - $0 = $0/week → $0/month
     nh_ccap: 0
 
-- name: Case 7, cost share exactly equals capped rate, zero benefit.
+- name: Case 8, cost share exactly equals capped rate, zero benefit.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
@@ -205,7 +237,7 @@
     # min($300/wk, $200) = $200; $200 - $200/1 = $0 → $0/month
     nh_ccap: 0
 
-- name: Case 8, three eligible children, cost share split three ways.
+- name: Case 9, three eligible children, cost share split three ways.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
@@ -248,7 +280,7 @@
     # Monthly: $700 * (52/12) = $700 * 4.3333 = $3,033.33
     nh_ccap: 3_033.33
 
-- name: Case 9, no eligible children in spm unit, zero benefit.
+- name: Case 10, no eligible children in spm unit, zero benefit.
   period: 2025-01
   absolute_error_margin: 0.01
   input:

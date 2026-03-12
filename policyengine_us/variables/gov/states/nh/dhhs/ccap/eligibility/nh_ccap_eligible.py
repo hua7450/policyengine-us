@@ -7,9 +7,7 @@ class nh_ccap_eligible(Variable):
     label = "Eligible for New Hampshire Child Care Scholarship Program"
     definition_period = MONTH
     defined_for = StateCode.NH
-    reference = (
-        "https://www.gencourt.state.nh.us/rules/filing_history/sourcehe-c6910.html"
-    )
+    reference = "https://www.law.cornell.edu/regulations/new-hampshire/N.H.Code.Admin.R.He-C.6910.07"
 
     def formula(spm_unit, period, parameters):
         has_eligible_child = add(spm_unit, period, ["nh_ccap_eligible_child"]) > 0

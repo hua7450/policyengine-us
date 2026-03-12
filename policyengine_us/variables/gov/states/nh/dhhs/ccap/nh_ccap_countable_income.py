@@ -8,8 +8,6 @@ class nh_ccap_countable_income(Variable):
     definition_period = MONTH
     unit = USD
     defined_for = StateCode.NH
-    reference = (
-        "https://www.gencourt.state.nh.us/rules/filing_history/sourcehe-c6910.html"
-    )
+    reference = "https://www.law.cornell.edu/regulations/new-hampshire/N.H.Code.Admin.R.He-C.6910.06"
 
     adds = "gov.states.nh.dhhs.ccap.income.countable_income.sources"

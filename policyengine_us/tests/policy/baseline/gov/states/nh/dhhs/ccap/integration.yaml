@@ -243,7 +243,95 @@
     nh_ccap_income_eligible: true
     nh_ccap_eligible: true
 
-- name: Case 7, income above 85% SMI, not TANF enrolled, ineligible.
+- name: Case 7, positive benefit end-to-end, preschool licensed center, income below 100% FPG.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 28
+        employment_income: 20_400
+        # $20,400/yr = $1,700/mo < $1,762.50 (100% FPG for 2)
+      person2:
+        age: 4
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+        childcare_hours_per_week: 40
+        nh_ccap_provider_type: LICENSED_CENTER
+        pre_subsidy_childcare_expenses: 18_720
+        # $18,720/yr = $360/week
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        meets_ccdf_activity_test: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: NH
+  output:
+    nh_ccap_eligible_child: [false, true]
+    nh_ccap_income_eligible: true
+    nh_ccap_eligible: true
+    nh_ccap_cost_share: 0
+    # Preschool, full-time, licensed center: $280/week
+    # min($360/wk charge, $280 rate) = $280
+    # Cost share: $0 → per-child: $0
+    # Weekly payment: $280 - $0 = $280
+    # Monthly: $280 * (52/12) = $1,213.33
+    nh_ccap: 1_213.33
+
+- name: Case 8, disabled child, disability supplement flows through to benefit.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 35
+        employment_income: 24_000
+        # $24,000/yr = $2,000/mo
+        # Family of 3: 100% FPG = $2,220.83
+        # $2,000 < $2,220.83 → Step 1 → $0 cost share
+      person2:
+        age: 35
+        employment_income: 0
+      person3:
+        age: 5
+        is_disabled: true
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+        childcare_hours_per_week: 40
+        nh_ccap_provider_type: LICENSED_CENTER
+        pre_subsidy_childcare_expenses: 20_800
+        # $20,800/yr = $400/week
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        meets_ccdf_activity_test: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: NH
+  output:
+    nh_ccap_eligible_child: [false, false, true]
+    nh_ccap_income_eligible: true
+    nh_ccap_eligible: true
+    nh_ccap_cost_share: 0
+    # Preschool, full-time, licensed center: $280/week base rate
+    # Disability supplement full-time: $100/week
+    # Total rate: $280 + $100 = $380
+    # min($400/wk charge, $380 total rate) = $380
+    # Cost share: $0 → per-child: $0
+    # Weekly payment: $380 - $0 = $380
+    # Monthly: $380 * (52/12) = $1,646.67
+    nh_ccap: 1_646.67
+
+- name: Case 9, income above 85% SMI, not TANF enrolled, ineligible (original Case 7).
   period: 2025-01
   absolute_error_margin: 0.01
   input:

@@ -16,9 +16,7 @@ class nh_ccap_child_age_category(Variable):
     definition_period = MONTH
     defined_for = StateCode.NH
     label = "New Hampshire Child Care Scholarship Program child age category"
-    reference = (
-        "https://www.gencourt.state.nh.us/rules/filing_history/sourcehe-c6910.html"
-    )
+    reference = "https://www.law.cornell.edu/regulations/new-hampshire/N.H.Code.Admin.R.He-C.6910.17"
 
     def formula(person, period, parameters):
         p = parameters(period).gov.states.nh.dhhs.ccap.age_category

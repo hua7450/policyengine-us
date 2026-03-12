@@ -9,7 +9,7 @@ metadata:
     - nh_ccap_service_level
   reference:
     - title: He-C 6910.17(b)
-      href: https://www.gencourt.state.nh.us/rules/filing_history/sourcehe-c6910.html
+      href: https://www.law.cornell.edu/regulations/new-hampshire/N.H.Code.Admin.R.He-C.6910.17
     - title: CCDF Provider Payment Rates by State (January 2025) - Tables 2-4
       href: https://acf.gov/sites/default/files/documents/occ/CCDF-Provider-Payment-Rates-by-State.pdf#page=6
 
@@ -36,8 +36,8 @@ PRESCHOOL:
     2024-08-26: 63
 SCHOOL_AGE:
   FULL_TIME:
-    2024-08-26: 250
+    2024-08-26: 200
   HALF_TIME:
-    2024-08-26: 125
+    2024-08-26: 100
   PART_TIME:
-    2024-08-26: 63
+    2024-08-26: 50

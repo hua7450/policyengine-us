@@ -7,9 +7,7 @@ class nh_ccap_immigration_status_eligible_person(Variable):
     label = "Eligible person for New Hampshire Child Care Scholarship Program based on immigration status"
     definition_period = MONTH
     defined_for = StateCode.NH
-    reference = (
-        "https://www.gencourt.state.nh.us/rules/filing_history/sourcehe-c6910.html"
-    )
+    reference = "https://www.law.cornell.edu/regulations/new-hampshire/N.H.Code.Admin.R.He-C.6910.07"
 
     def formula(person, period, parameters):
         p = parameters(period).gov.states.nh.dhhs.ccap
