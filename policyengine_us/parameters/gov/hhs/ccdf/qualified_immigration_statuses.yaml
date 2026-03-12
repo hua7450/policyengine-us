@@ -1,0 +1,21 @@
+description: The United States limits the Child Care and Development Fund to children of these immigration statuses.
+values:
+  2014-11-19:
+    - CITIZEN
+    - LEGAL_PERMANENT_RESIDENT
+    - REFUGEE
+    - ASYLEE
+    - DEPORTATION_WITHHELD
+    - CUBAN_HAITIAN_ENTRANT
+    - CONDITIONAL_ENTRANT
+    - PAROLED_ONE_YEAR
+
+metadata:
+  unit: list
+  period: year
+  label: CCDF qualified immigration statuses
+  reference:
+    - title: 8 USC 1641 - Definitions (qualified aliens)
+      href: https://www.law.cornell.edu/uscode/text/8/1641
+    - title: 45 CFR 98.20(c) - A Lead Agency shall not prohibit eligibility based on a child's citizenship
+      href: https://www.law.cornell.edu/cfr/text/45/section-98.20#c
