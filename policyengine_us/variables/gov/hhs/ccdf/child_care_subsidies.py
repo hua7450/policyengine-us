@@ -2,7 +2,7 @@ from policyengine_us.model_api import *
 
 # All implemented state child care subsidy programs.
 STATE_CHILD_CARE_SUBSIDY_VARIABLES = [
-    "ca_child_care_subsidies",  # California child care (CalWORKs Stages 2-3 + CAPP)
+    "ca_child_care_subsidies",  # California Child Care
     "co_child_care_subsidies",  # Colorado Child Care Assistance Program
     "ma_child_care_subsidies",  # Massachusetts Child Care Financial Assistance
     "ne_child_care_subsidies",  # Nebraska Child Care Subsidy
