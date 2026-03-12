@@ -1,0 +1,13 @@
+description: The Working Americans' Tax Cut Act alternative maximum tax rate. A qualifying filer's income tax liability cannot exceed this rate multiplied by MAGI above the cost of living exemption.
+metadata:
+  label: WATCA alternative maximum tax rate
+  period: year
+  unit: /1
+  reference:
+    - title: Working Americans' Tax Cut Act bill summary (via Jeff Stein, WaPo)
+      href: https://x.com/JStein_WaPo/status/2029621495295619363
+    - title: Yale Budget Lab WATCA Analysis
+      href: https://budgetlab.yale.edu/
+
+values:
+  2026-01-01: 0.255
