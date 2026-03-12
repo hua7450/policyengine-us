@@ -210,14 +210,9 @@
   reforms: policyengine_us.reforms.congress.watca.working_americans_tax_cut_act.watca_reform_object
   input:
     gov.contrib.congress.watca.in_effect: true
-    adjusted_gross_income: 2_000_000
-    people:
-      person1:
-        investment_interest_expense: 50_000
-    tax_units:
-      tax_unit1:
-        members: [person1]
-        filing_status: SINGLE
+    employment_income: 2_000_000
+    investment_interest_expense: 50_000
+    filing_status: SINGLE
   output:
     # Surtax MAGI = 2_000_000 - 50_000 = 1_950_000
     watca_surtax_magi: 1_950_000
