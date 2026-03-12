@@ -284,7 +284,7 @@
     # Annual: $100 * 52 = $5,200
     vt_ccfap_family_share: 5_200
 
-- name: Case 12, income at 400 percent FPL has 275 dollar weekly share.
+- name: Case 12, income at 400 percent FPL has 250 dollar weekly share.
   absolute_error_margin: 0.01
   period: 2025
   input:
