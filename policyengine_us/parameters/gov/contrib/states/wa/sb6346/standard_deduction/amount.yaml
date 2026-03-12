@@ -1,0 +1,12 @@
+description: Washington provides this amount as the standard deduction under the SSB 6346 reform.
+
+values:
+  2028-01-01: 1_000_000
+
+metadata:
+  unit: currency-USD
+  period: year
+  label: WA SSB 6346 standard deduction
+  reference:
+    - title: SSB 6346, Sec. 310 - Standard Deduction
+      href: https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Senate%20Bills/6346-S.pdf#page=22
