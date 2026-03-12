@@ -9,8 +9,8 @@ metadata:
   uprating:
     parameter: gov.bls.cpi.cpi_u
   reference:
-    - title: Working Americans' Tax Cut Act Section 1A(c)(2)
-      href: https://www.congress.gov/bill/119th-congress/senate-bill/watca
+    - title: Working Americans' Tax Cut Act Section 1A(c)
+      href: https://www.vanhollen.senate.gov/imo/media/doc/working_americans_tax_cut_act_bill_text.pdf
 
 SINGLE:
   2026-01-01: 46_000

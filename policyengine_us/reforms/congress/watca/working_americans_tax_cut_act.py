@@ -4,14 +4,8 @@ from policyengine_core.periods import instant
 
 WATCA_REFERENCES = [
     {
-        "title": "Working Americans' Tax Cut Act bill summary (via Jeff Stein, WaPo)",
-        "href": "https://x.com/JStein_WaPo/status/2029621495295619363",
-    },
-    {
-        "title": "Democrat's plan would eliminate federal income"
-        " taxes for half of U.S. workers",
-        "href": "https://www.washingtonpost.com/business/"
-        "2026/03/05/middle-class-tax-relief-senate-bill/",
+        "title": "Working Americans' Tax Cut Act",
+        "href": "https://www.vanhollen.senate.gov/imo/media/doc/working_americans_tax_cut_act_bill_text.pdf",
     },
 ]
 
