@@ -1,0 +1,178 @@
+# StayNJ Budget Reform Tests
+# Reform reduces income limit from $500K to $250K and max benefit from $6,500 to $4,000
+# Formula: StayNJ = max(min(property_taxes * 50%, max_benefit) - ANCHOR - Senior_Freeze, 0)
+# Eligibility: age 65+, homeowner, income < $250K (reform limit)
+
+- name: Case 1, eligible senior homeowner under new $250K income limit.
+  period: 2027
+  absolute_error_margin: 1
+  reforms: policyengine_us.reforms.states.nj.stay_nj.nj_stay_nj_reform.nj_stay_nj_budget_reform
+  input:
+    gov.contrib.states.nj.stay_nj.in_effect: true
+    people:
+      person1:
+        age: 70
+        employment_income: 200_000
+        real_estate_taxes: 10_000
+        is_tax_unit_head: true
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+        spm_unit_tenure_type: OWNER_WITH_MORTGAGE
+    households:
+      household:
+        members: [person1]
+        state_code: NJ
+  output:
+    # Income $200K < $250K reform limit - eligible
+    # min($10,000 * 50%, $4,000) = min($5,000, $4,000) = $4,000
+    # ANCHOR = $1,250 (senior homeowner, income $150K-$250K, post-bonus: $1,000)
+    # But ANCHOR reform is NOT active here, so baseline ANCHOR = $1,250
+    # max($4,000 - $1,250 - $0, 0) = $2,750
+    nj_staynj: 2_750
+
+- name: Case 2, ineligible under new $250K limit but would be eligible under baseline $500K.
+  period: 2027
+  absolute_error_margin: 1
+  reforms: policyengine_us.reforms.states.nj.stay_nj.nj_stay_nj_reform.nj_stay_nj_budget_reform
+  input:
+    gov.contrib.states.nj.stay_nj.in_effect: true
+    people:
+      person1:
+        age: 70
+        employment_income: 300_000
+        real_estate_taxes: 15_000
+        is_tax_unit_head: true
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+        spm_unit_tenure_type: OWNER_WITH_MORTGAGE
+    households:
+      household:
+        members: [person1]
+        state_code: NJ
+  output:
+    # Income $300K >= $250K reform limit - ineligible
+    # (Would be eligible under baseline $500K limit)
+    nj_staynj_eligible: false
+    nj_staynj: 0
+
+- name: Case 3, max benefit capped at $4,000 with high property taxes.
+  period: 2027
+  absolute_error_margin: 1
+  reforms: policyengine_us.reforms.states.nj.stay_nj.nj_stay_nj_reform.nj_stay_nj_budget_reform
+  input:
+    gov.contrib.states.nj.stay_nj.in_effect: true
+    people:
+      person1:
+        age: 68
+        employment_income: 100_000
+        real_estate_taxes: 20_000
+        is_tax_unit_head: true
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+        spm_unit_tenure_type: OWNER_WITH_MORTGAGE
+    households:
+      household:
+        members: [person1]
+        state_code: NJ
+  output:
+    # min($20,000 * 50%, $4,000) = min($10,000, $4,000) = $4,000 (capped at reform max)
+    # Baseline max would be $6,500 - reform caps at $4,000
+    # ANCHOR = $1,750 (senior homeowner, income <= $150K)
+    # max($4,000 - $1,750 - $0, 0) = $2,250
+    nj_staynj: 2_250
+
+- name: Case 4, senior renter ineligible for StayNJ.
+  period: 2027
+  absolute_error_margin: 1
+  reforms: policyengine_us.reforms.states.nj.stay_nj.nj_stay_nj_reform.nj_stay_nj_budget_reform
+  input:
+    gov.contrib.states.nj.stay_nj.in_effect: true
+    people:
+      person1:
+        age: 70
+        employment_income: 100_000
+        rent: 18_000
+        is_tax_unit_head: true
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+        spm_unit_tenure_type: RENTER
+    households:
+      household:
+        members: [person1]
+        state_code: NJ
+  output:
+    # Renter - not homeowner - ineligible for StayNJ
+    nj_staynj_eligible: false
+    nj_staynj: 0
+
+- name: Case 5, under-65 homeowner ineligible for StayNJ.
+  period: 2027
+  absolute_error_margin: 1
+  reforms: policyengine_us.reforms.states.nj.stay_nj.nj_stay_nj_reform.nj_stay_nj_budget_reform
+  input:
+    gov.contrib.states.nj.stay_nj.in_effect: true
+    people:
+      person1:
+        age: 60
+        employment_income: 100_000
+        real_estate_taxes: 10_000
+        is_tax_unit_head: true
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+        spm_unit_tenure_type: OWNER_WITH_MORTGAGE
+    households:
+      household:
+        members: [person1]
+        state_code: NJ
+  output:
+    # Age 60 < 65 - ineligible for StayNJ
+    nj_staynj_eligible: false
+    nj_staynj: 0
+
+- name: Case 6, income exactly at $250K reform threshold is ineligible.
+  period: 2027
+  absolute_error_margin: 1
+  reforms: policyengine_us.reforms.states.nj.stay_nj.nj_stay_nj_reform.nj_stay_nj_budget_reform
+  input:
+    gov.contrib.states.nj.stay_nj.in_effect: true
+    people:
+      person1:
+        age: 70
+        employment_income: 250_000
+        real_estate_taxes: 10_000
+        is_tax_unit_head: true
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+        spm_unit_tenure_type: OWNER_WITH_MORTGAGE
+    households:
+      household:
+        members: [person1]
+        state_code: NJ
+  output:
+    # Income $250K NOT < $250K (strict less than) - ineligible under reform
+    nj_staynj_eligible: false
+    nj_staynj: 0
