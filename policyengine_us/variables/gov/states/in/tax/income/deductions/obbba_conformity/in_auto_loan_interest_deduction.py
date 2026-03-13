@@ -14,6 +14,9 @@ class in_auto_loan_interest_deduction(Variable):
     defined_for = StateCode.IN
 
     def formula(tax_unit, period, parameters):
+        # IC 6-3-2-33(c) requires IN residency (covered by defined_for)
+        # and has spouse attribution rules for joint filers. IC 6-3-2-33(d)
+        # excludes estates/trusts. These are not separately modeled.
         p = parameters(period).gov.states["in"].tax.income.deductions.obbba_conformity
         available = p.auto_loan_interest_deduction_available
         federal_deduction = tax_unit("auto_loan_interest_deduction", period)

@@ -33,3 +33,15 @@
     employment_income: 50_000
   output:
     in_tip_income_deduction: 0
+
+- name: Integration - OBBBA deductions flow through in_deductions
+  period: 2026
+  absolute_error_margin: 1
+  input:
+    state_code: IN
+    tip_income: 5_000
+    employment_income: 50_000
+  output:
+    in_tip_income_deduction: 5_000
+    # Verify the deduction is included in the Indiana deductions aggregate
+    in_deductions: 5_000
