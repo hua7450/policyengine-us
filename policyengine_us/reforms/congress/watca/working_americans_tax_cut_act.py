@@ -1,6 +1,5 @@
 from policyengine_us.model_api import *
 from policyengine_core.periods import period as period_
-from policyengine_core.periods import instant
 
 WATCA_REFERENCES = [
     {
@@ -41,6 +40,9 @@ def create_watca() -> Reform:
 
         def formula(tax_unit, period, parameters):
             agi = tax_unit("adjusted_gross_income", period)
+            # Sec 163(d) limits the deduction to net investment income;
+            # PolicyEngine does not yet model that limitation, so gross
+            # investment interest expense is used as a proxy.
             investment_interest = add(tax_unit, period, ["investment_interest_expense"])
             return max_(0, agi - investment_interest)
 

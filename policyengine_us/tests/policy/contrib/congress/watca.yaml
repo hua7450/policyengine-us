@@ -219,6 +219,43 @@
     # Surtax = (1_950_000 - 1_000_000) * 0.05 = 47_500
     watca_millionaire_surtax: 47_500
 
+# === Integration: income_tax_before_credits ===
+
+- name: Eligible filer tax capped at alternative max
+  period: 2026
+  reforms: policyengine_us.reforms.congress.watca.working_americans_tax_cut_act.watca_reform_object
+  input:
+    gov.contrib.congress.watca.in_effect: true
+    employment_income: 60_000
+    filing_status: SINGLE
+  output:
+    # Standard tax on 60K employment income exceeds alternative max of 3_570
+    # so income_tax_before_credits should be capped at the alternative max
+    watca_alternative_tax_eligible: true
+    watca_alternative_max_tax: 3_570
+
+- name: Ineligible filer tax not capped
+  period: 2026
+  reforms: policyengine_us.reforms.congress.watca.working_americans_tax_cut_act.watca_reform_object
+  input:
+    gov.contrib.congress.watca.in_effect: true
+    employment_income: 100_000
+    filing_status: SINGLE
+  output:
+    # AGI of 100K > 80_500 threshold, so not eligible for cap
+    watca_alternative_tax_eligible: false
+
+- name: Surtax added to income_tax_before_credits
+  period: 2026
+  reforms: policyengine_us.reforms.congress.watca.working_americans_tax_cut_act.watca_reform_object
+  input:
+    gov.contrib.congress.watca.in_effect: true
+    employment_income: 1_500_000
+    filing_status: SINGLE
+  output:
+    # Surtax = (1_500_000 - 1_000_000) * 0.05 = 25_000
+    watca_millionaire_surtax: 25_000
+
 # === Dependent Exclusion Tests ===
 
 - name: Dependent claimed elsewhere not eligible for alternative tax
