@@ -1,0 +1,13 @@
+description: Connecticut defines these counties as the Eastern region under the Care 4 Kids program.
+values:
+  2020-01-01:
+    - NEW_LONDON_COUNTY_CT
+    - WINDHAM_COUNTY_CT
+
+metadata:
+  unit: list
+  period: year
+  label: Connecticut C4K Eastern region counties
+  reference:
+    - title: C4K Rate Schedules - Towns Served by Region
+      href: https://www.ctoec.org/care-4-kids/c4k-providers/c4k-rates/

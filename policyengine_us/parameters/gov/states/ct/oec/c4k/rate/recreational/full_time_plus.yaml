@@ -1,0 +1,62 @@
+description: Connecticut provides these weekly rates for recreational summer program full-time plus care under the Care 4 Kids program.
+metadata:
+  period: week
+  unit: currency-USD
+  label: Connecticut C4K recreational full-time plus weekly rates
+  breakdown:
+    - ct_c4k_region
+    - ct_c4k_age_group
+  reference:
+    - title: C4K Rate Schedules
+      href: https://www.ctoec.org/care-4-kids/c4k-providers/c4k-rates/
+
+EASTERN:
+  INFANT_TODDLER:
+    2025-01-01: 382
+    2025-07-01: 424
+  PRE_SCHOOL:
+    2025-01-01: 305
+    2025-07-01: 339
+  SCHOOL_AGE:
+    2025-01-01: 214
+    2025-07-01: 238
+NORTH_CENTRAL:
+  INFANT_TODDLER:
+    2025-01-01: 504
+    2025-07-01: 559
+  PRE_SCHOOL:
+    2025-01-01: 335
+    2025-07-01: 372
+  SCHOOL_AGE:
+    2025-01-01: 236
+    2025-07-01: 262
+NORTHWEST:
+  INFANT_TODDLER:
+    2025-01-01: 428
+    2025-07-01: 475
+  PRE_SCHOOL:
+    2025-01-01: 330
+    2025-07-01: 366
+  SCHOOL_AGE:
+    2025-01-01: 248
+    2025-07-01: 275
+SOUTH_CENTRAL:
+  INFANT_TODDLER:
+    2025-01-01: 495
+    2025-07-01: 549
+  PRE_SCHOOL:
+    2025-01-01: 346
+    2025-07-01: 384
+  SCHOOL_AGE:
+    2025-01-01: 272
+    2025-07-01: 302
+SOUTHWEST:
+  INFANT_TODDLER:
+    2025-01-01: 627
+    2025-07-01: 696
+  PRE_SCHOOL:
+    2025-01-01: 403
+    2025-07-01: 447
+  SCHOOL_AGE:
+    2025-01-01: 283
+    2025-07-01: 314

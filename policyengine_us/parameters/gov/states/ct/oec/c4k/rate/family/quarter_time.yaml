@@ -1,0 +1,62 @@
+description: Connecticut provides these weekly rates for licensed family child care quarter-time care under the Care 4 Kids program.
+metadata:
+  period: week
+  unit: currency-USD
+  label: Connecticut C4K family quarter-time weekly rates
+  breakdown:
+    - ct_c4k_region
+    - ct_c4k_age_group
+  reference:
+    - title: C4K Rate Schedules
+      href: https://www.ctoec.org/care-4-kids/c4k-providers/c4k-rates/
+
+EASTERN:
+  INFANT_TODDLER:
+    2025-01-01: 87
+    2025-07-01: 97
+  PRE_SCHOOL:
+    2025-01-01: 64
+    2025-07-01: 71
+  SCHOOL_AGE:
+    2025-01-01: 58
+    2025-07-01: 64
+NORTH_CENTRAL:
+  INFANT_TODDLER:
+    2025-01-01: 94
+    2025-07-01: 104
+  PRE_SCHOOL:
+    2025-01-01: 77
+    2025-07-01: 85
+  SCHOOL_AGE:
+    2025-01-01: 64
+    2025-07-01: 71
+NORTHWEST:
+  INFANT_TODDLER:
+    2025-01-01: 101
+    2025-07-01: 112
+  PRE_SCHOOL:
+    2025-01-01: 82
+    2025-07-01: 91
+  SCHOOL_AGE:
+    2025-01-01: 68
+    2025-07-01: 75
+SOUTH_CENTRAL:
+  INFANT_TODDLER:
+    2025-01-01: 103
+    2025-07-01: 114
+  PRE_SCHOOL:
+    2025-01-01: 85
+    2025-07-01: 94
+  SCHOOL_AGE:
+    2025-01-01: 72
+    2025-07-01: 80
+SOUTHWEST:
+  INFANT_TODDLER:
+    2025-01-01: 114
+    2025-07-01: 127
+  PRE_SCHOOL:
+    2025-01-01: 91
+    2025-07-01: 101
+  SCHOOL_AGE:
+    2025-01-01: 82
+    2025-07-01: 91

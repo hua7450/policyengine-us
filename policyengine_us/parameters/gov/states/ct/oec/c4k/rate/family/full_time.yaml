@@ -1,0 +1,62 @@
+description: Connecticut provides these weekly rates for licensed family child care full-time care under the Care 4 Kids program.
+metadata:
+  period: week
+  unit: currency-USD
+  label: Connecticut C4K family full-time weekly rates
+  breakdown:
+    - ct_c4k_region
+    - ct_c4k_age_group
+  reference:
+    - title: C4K Rate Schedules
+      href: https://www.ctoec.org/care-4-kids/c4k-providers/c4k-rates/
+
+EASTERN:
+  INFANT_TODDLER:
+    2025-01-01: 254
+    2025-07-01: 282
+  PRE_SCHOOL:
+    2025-01-01: 195
+    2025-07-01: 216
+  SCHOOL_AGE:
+    2025-01-01: 183
+    2025-07-01: 203
+NORTH_CENTRAL:
+  INFANT_TODDLER:
+    2025-01-01: 280
+    2025-07-01: 311
+  PRE_SCHOOL:
+    2025-01-01: 215
+    2025-07-01: 239
+  SCHOOL_AGE:
+    2025-01-01: 201
+    2025-07-01: 223
+NORTHWEST:
+  INFANT_TODDLER:
+    2025-01-01: 291
+    2025-07-01: 323
+  PRE_SCHOOL:
+    2025-01-01: 228
+    2025-07-01: 253
+  SCHOOL_AGE:
+    2025-01-01: 212
+    2025-07-01: 235
+SOUTH_CENTRAL:
+  INFANT_TODDLER:
+    2025-01-01: 306
+    2025-07-01: 340
+  PRE_SCHOOL:
+    2025-01-01: 240
+    2025-07-01: 266
+  SCHOOL_AGE:
+    2025-01-01: 222
+    2025-07-01: 246
+SOUTHWEST:
+  INFANT_TODDLER:
+    2025-01-01: 333
+    2025-07-01: 370
+  PRE_SCHOOL:
+    2025-01-01: 258
+    2025-07-01: 286
+  SCHOOL_AGE:
+    2025-01-01: 243
+    2025-07-01: 270

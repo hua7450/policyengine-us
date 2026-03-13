@@ -1,0 +1,62 @@
+description: Connecticut provides these weekly rates for unlicensed relative full-time plus care under the Care 4 Kids program.
+metadata:
+  period: week
+  unit: currency-USD
+  label: Connecticut C4K relative full-time plus weekly rates
+  breakdown:
+    - ct_c4k_region
+    - ct_c4k_age_group
+  reference:
+    - title: C4K Rate Schedules
+      href: https://www.ctoec.org/care-4-kids/c4k-providers/c4k-rates/
+
+EASTERN:
+  INFANT_TODDLER:
+    2025-01-01: 325
+    2025-07-01: 345
+  PRE_SCHOOL:
+    2025-01-01: 325
+    2025-07-01: 345
+  SCHOOL_AGE:
+    2025-01-01: 325
+    2025-07-01: 345
+NORTH_CENTRAL:
+  INFANT_TODDLER:
+    2025-01-01: 325
+    2025-07-01: 345
+  PRE_SCHOOL:
+    2025-01-01: 325
+    2025-07-01: 345
+  SCHOOL_AGE:
+    2025-01-01: 325
+    2025-07-01: 345
+NORTHWEST:
+  INFANT_TODDLER:
+    2025-01-01: 325
+    2025-07-01: 345
+  PRE_SCHOOL:
+    2025-01-01: 325
+    2025-07-01: 345
+  SCHOOL_AGE:
+    2025-01-01: 325
+    2025-07-01: 345
+SOUTH_CENTRAL:
+  INFANT_TODDLER:
+    2025-01-01: 325
+    2025-07-01: 345
+  PRE_SCHOOL:
+    2025-01-01: 325
+    2025-07-01: 345
+  SCHOOL_AGE:
+    2025-01-01: 325
+    2025-07-01: 345
+SOUTHWEST:
+  INFANT_TODDLER:
+    2025-01-01: 325
+    2025-07-01: 345
+  PRE_SCHOOL:
+    2025-01-01: 325
+    2025-07-01: 345
+  SCHOOL_AGE:
+    2025-01-01: 325
+    2025-07-01: 345
