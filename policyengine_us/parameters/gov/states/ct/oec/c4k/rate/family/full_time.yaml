@@ -7,8 +7,10 @@ metadata:
     - ct_c4k_region
     - ct_c4k_age_group
   reference:
-    - title: C4K Rate Schedules
-      href: https://www.ctoec.org/care-4-kids/c4k-providers/c4k-rates/
+    - title: C4K Weekly Payment Rates Jan-Jun 2025
+      href: https://www.ctcare4kids.com/wp-content/uploads/2024/12/Care-4-Kids-Weekly-Payment-Rates-jan-june.2025.pdf#page=1
+    - title: C4K Weekly Payment Rates Jul 2025-Jun 2026
+      href: https://www.ctcare4kids.com/wp-content/uploads/2024/12/Care-4-Kids-Weekly-Payment-Rates-jul-june.2026.pdf#page=1
 
 EASTERN:
   INFANT_TODDLER:
