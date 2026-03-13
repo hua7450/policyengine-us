@@ -8,8 +8,6 @@ metadata:
   reference:
     - title: Working Americans' Tax Cut Act Section 59B(a), (c)
       href: https://www.vanhollen.senate.gov/imo/media/doc/working_americans_tax_cut_act_bill_text.pdf#page=5
-  uprating:
-    parameter: gov.bls.cpi.cpi_u
 
 brackets:
   - threshold:
