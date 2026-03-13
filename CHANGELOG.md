@@ -1,3 +1,10 @@
+## [1.597.0] - 2026-03-13
+
+### Added
+
+- Add Connecticut HB-5114 renter's tax credit reform.
+
+
 ## [1.596.6] - 2026-03-13
 
 ### Fixed
