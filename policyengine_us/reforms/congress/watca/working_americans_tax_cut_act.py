@@ -20,19 +20,13 @@ def create_watca() -> Reform:
         reference = WATCA_REFERENCES
         documentation = "Section 1A(d): AGI + foreign income exclusions (sec 911, 931, 933) + non-taxable Social Security."
 
-        def formula(tax_unit, period, parameters):
-            agi = tax_unit("adjusted_gross_income", period)
-            foreign_earned_income = tax_unit("foreign_earned_income_exclusion", period)
-            possession_income = tax_unit("specified_possession_income", period)
-            puerto_rico = tax_unit("puerto_rico_income", period)
-            nontaxable_ss = tax_unit("tax_exempt_social_security", period)
-            return (
-                agi
-                + foreign_earned_income
-                + possession_income
-                + puerto_rico
-                + nontaxable_ss
-            )
+        adds = [
+            "adjusted_gross_income",
+            "foreign_earned_income_exclusion",
+            "specified_possession_income",
+            "puerto_rico_income",
+            "tax_exempt_social_security",
+        ]
 
     class watca_surtax_magi(Variable):
         value_type = float
@@ -48,7 +42,7 @@ def create_watca() -> Reform:
         def formula(tax_unit, period, parameters):
             agi = tax_unit("adjusted_gross_income", period)
             investment_interest = add(tax_unit, period, ["investment_interest_expense"])
-            return agi - investment_interest
+            return max_(0, agi - investment_interest)
 
     class watca_alternative_tax_eligible(Variable):
         value_type = bool

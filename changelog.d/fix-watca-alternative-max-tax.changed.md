@@ -1,1 +1,1 @@
-Fix WATCA alternative maximum tax implementation to match Yale Budget Lab analysis: use 25.5%% tax cap on MAGI above exemption instead of deduction, implement binary eligibility at 175%% threshold, and add inflation indexing to millionaire surtax brackets.
+Fix WATCA alternative maximum tax implementation to match bill text: use 25.5% tax cap on MAGI above exemption instead of deduction, implement binary eligibility at 175% threshold, and add inflation indexing to millionaire surtax brackets.
