@@ -1,6 +1,3 @@
-# Known limitation: Sec 59B(b) requires CPI-U indexing of bracket
-# thresholds after 2026, but policyengine-core's uprating mechanism
-# inflates both thresholds and rates. Thresholds are fixed at 2026 values.
 description: The Working Americans' Tax Cut Act millionaire surtax rate for single filers, based on modified AGI.
 metadata:
   type: marginal_rate
@@ -18,14 +15,23 @@ brackets:
     rate:
       2026-01-01: 0
   - threshold:
-      2026-01-01: 1_000_000
+      values:
+        2026-01-01: 1_000_000
+      metadata:
+        uprating: gov.bls.cpi.cpi_u
     rate:
       2026-01-01: 0.05
   - threshold:
-      2026-01-01: 2_000_000
+      values:
+        2026-01-01: 2_000_000
+      metadata:
+        uprating: gov.bls.cpi.cpi_u
     rate:
       2026-01-01: 0.10
   - threshold:
-      2026-01-01: 5_000_000
+      values:
+        2026-01-01: 5_000_000
+      metadata:
+        uprating: gov.bls.cpi.cpi_u
     rate:
       2026-01-01: 0.12
