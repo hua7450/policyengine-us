@@ -1,3 +1,10 @@
+## [1.598.0] - 2026-03-13
+
+### Added
+
+- Add federal CCDF immigration eligibility variable and child care subsidies aggregator.
+
+
 ## [1.597.0] - 2026-03-13
 
 ### Added
