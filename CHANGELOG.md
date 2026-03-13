@@ -1,3 +1,10 @@
+## [1.596.6] - 2026-03-13
+
+### Fixed
+
+- Restore three_digit_zip_code formula removed in #7695, fixing ACA PTC for LA County households.
+
+
 ## [1.596.5] - 2026-03-10
 
 ### Fixed
