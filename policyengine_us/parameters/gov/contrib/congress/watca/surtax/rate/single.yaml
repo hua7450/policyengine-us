@@ -1,4 +1,4 @@
-description: The Working Americans' Tax Cut Act millionaire surtax rate for single filers, based on adjusted gross income.
+description: The Working Americans' Tax Cut Act millionaire surtax rate for single filers, based on modified AGI.
 metadata:
   type: marginal_rate
   threshold_unit: currency-USD
@@ -7,7 +7,7 @@ metadata:
   label: WATCA millionaire surtax single rate
   reference:
     - title: Working Americans' Tax Cut Act Section 59B(a)
-      href: https://www.vanhollen.senate.gov/imo/media/doc/working_americans_tax_cut_act_bill_text.pdf
+      href: https://www.vanhollen.senate.gov/imo/media/doc/working_americans_tax_cut_act_bill_text.pdf#page=5
   uprating:
     parameter: gov.bls.cpi.cpi_u
 
