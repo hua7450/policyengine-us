@@ -7,6 +7,10 @@ metadata:
     - ct_c4k_region
     - ct_c4k_age_group
   reference:
+    - title: C4K Weekly Payment Rates Jan-Jun 2024
+      href: https://www.ctcare4kids.com/wp-content/uploads/2024/01/Care-4-Kids-Weekly-Payment-Rates-Jan-1-Jun-30-2024.pdf#page=2
+    - title: C4K Weekly Payment Rates Jul 2024
+      href: https://www.ctcare4kids.com/wp-content/uploads/2024/01/Care-4-Kids-Weekly-Payment-Rates-2024.pdf#page=2
     - title: C4K Weekly Payment Rates Jan-Jun 2025
       href: https://www.ctcare4kids.com/wp-content/uploads/2024/12/Care-4-Kids-Weekly-Payment-Rates-jan-june.2025.pdf#page=2
     - title: C4K Weekly Payment Rates Jul 2025-Jun 2026
@@ -14,51 +18,81 @@ metadata:
 
 EASTERN:
   INFANT_TODDLER:
+    2024-01-01: 134
+    2024-07-01: 135
     2025-01-01: 148
     2025-07-01: 157
   PRE_SCHOOL:
+    2024-01-01: 134
+    2024-07-01: 135
     2025-01-01: 148
     2025-07-01: 157
   SCHOOL_AGE:
+    2024-01-01: 134
+    2024-07-01: 135
     2025-01-01: 148
     2025-07-01: 157
 NORTH_CENTRAL:
   INFANT_TODDLER:
+    2024-01-01: 134
+    2024-07-01: 135
     2025-01-01: 148
     2025-07-01: 157
   PRE_SCHOOL:
+    2024-01-01: 134
+    2024-07-01: 135
     2025-01-01: 148
     2025-07-01: 157
   SCHOOL_AGE:
+    2024-01-01: 134
+    2024-07-01: 135
     2025-01-01: 148
     2025-07-01: 157
 NORTHWEST:
   INFANT_TODDLER:
+    2024-01-01: 134
+    2024-07-01: 135
     2025-01-01: 148
     2025-07-01: 157
   PRE_SCHOOL:
+    2024-01-01: 134
+    2024-07-01: 135
     2025-01-01: 148
     2025-07-01: 157
   SCHOOL_AGE:
+    2024-01-01: 134
+    2024-07-01: 135
     2025-01-01: 148
     2025-07-01: 157
 SOUTH_CENTRAL:
   INFANT_TODDLER:
+    2024-01-01: 134
+    2024-07-01: 135
     2025-01-01: 148
     2025-07-01: 157
   PRE_SCHOOL:
+    2024-01-01: 134
+    2024-07-01: 135
     2025-01-01: 148
     2025-07-01: 157
   SCHOOL_AGE:
+    2024-01-01: 134
+    2024-07-01: 135
     2025-01-01: 148
     2025-07-01: 157
 SOUTHWEST:
   INFANT_TODDLER:
+    2024-01-01: 134
+    2024-07-01: 135
     2025-01-01: 148
     2025-07-01: 157
   PRE_SCHOOL:
+    2024-01-01: 134
+    2024-07-01: 135
     2025-01-01: 148
     2025-07-01: 157
   SCHOOL_AGE:
+    2024-01-01: 134
+    2024-07-01: 135
     2025-01-01: 148
     2025-07-01: 157

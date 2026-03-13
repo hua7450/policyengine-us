@@ -7,6 +7,10 @@ metadata:
     - ct_c4k_region
     - ct_c4k_age_group
   reference:
+    - title: C4K Weekly Payment Rates Jan-Jun 2024
+      href: https://www.ctcare4kids.com/wp-content/uploads/2024/01/Care-4-Kids-Weekly-Payment-Rates-Jan-1-Jun-30-2024.pdf#page=2
+    - title: C4K Weekly Payment Rates Jul 2024
+      href: https://www.ctcare4kids.com/wp-content/uploads/2024/01/Care-4-Kids-Weekly-Payment-Rates-2024.pdf#page=2
     - title: C4K Weekly Payment Rates Jan-Jun 2025
       href: https://www.ctcare4kids.com/wp-content/uploads/2024/12/Care-4-Kids-Weekly-Payment-Rates-jan-june.2025.pdf#page=2
     - title: C4K Weekly Payment Rates Jul 2025-Jun 2026
@@ -14,51 +18,68 @@ metadata:
 
 EASTERN:
   INFANT_TODDLER:
-    2025-01-01: 87
+    2024-01-01: 78
+    2024-07-01: 87
     2025-07-01: 97
   PRE_SCHOOL:
-    2025-01-01: 64
+    2024-01-01: 58
+    2024-07-01: 64
     2025-07-01: 71
   SCHOOL_AGE:
-    2025-01-01: 58
+    2024-01-01: 52
+    2024-07-01: 58
     2025-07-01: 64
 NORTH_CENTRAL:
   INFANT_TODDLER:
-    2025-01-01: 94
+    2024-01-01: 85
+    2024-07-01: 94
     2025-07-01: 104
   PRE_SCHOOL:
-    2025-01-01: 77
+    2024-01-01: 69
+    2024-07-01: 77
     2025-07-01: 85
   SCHOOL_AGE:
+    2024-01-01: 58
+    2024-07-01: 68
     2025-01-01: 64
     2025-07-01: 71
 NORTHWEST:
   INFANT_TODDLER:
-    2025-01-01: 101
+    2024-01-01: 91
+    2024-07-01: 101
     2025-07-01: 112
   PRE_SCHOOL:
-    2025-01-01: 82
+    2024-01-01: 74
+    2024-07-01: 82
     2025-07-01: 91
   SCHOOL_AGE:
+    2024-01-01: 61
+    2024-07-01: 64
     2025-01-01: 68
     2025-07-01: 75
 SOUTH_CENTRAL:
   INFANT_TODDLER:
-    2025-01-01: 103
+    2024-01-01: 93
+    2024-07-01: 103
     2025-07-01: 114
   PRE_SCHOOL:
-    2025-01-01: 85
+    2024-01-01: 77
+    2024-07-01: 85
     2025-07-01: 94
   SCHOOL_AGE:
-    2025-01-01: 72
+    2024-01-01: 65
+    2024-07-01: 72
     2025-07-01: 80
 SOUTHWEST:
   INFANT_TODDLER:
-    2025-01-01: 114
+    2024-01-01: 103
+    2024-07-01: 114
     2025-07-01: 127
   PRE_SCHOOL:
-    2025-01-01: 91
+    2024-01-01: 82
+    2024-07-01: 91
     2025-07-01: 101
   SCHOOL_AGE:
-    2025-01-01: 82
+    2024-01-01: 74
+    2024-07-01: 82
     2025-07-01: 91
