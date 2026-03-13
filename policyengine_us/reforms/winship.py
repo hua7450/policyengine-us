@@ -12,28 +12,6 @@ def create_individual_eitc() -> Reform:
     Reference: https://ifstudies.org/blog/reforming-the-eitc-to-reduce-single-parenthood-and-ease-work-family-balance
     """
 
-    class individual_eitc_base(Variable):
-        """Helper variable for computing EITC in simulation branches.
-
-        This variable calculates EITC based on the current simulation's
-        filer_adjusted_earnings and adjusted_gross_income inputs.
-        Used by get_branch() to compute individual EITC for head/spouse.
-        """
-
-        value_type = float
-        entity = TaxUnit
-        definition_period = YEAR
-        label = "Individual EITC base calculation"
-        unit = USD
-        defined_for = "eitc_eligible"
-
-        def formula(tax_unit, period, parameters):
-            maximum = tax_unit("eitc_maximum", period)
-            phased_in = tax_unit("eitc_phased_in", period)
-            reduction = tax_unit("eitc_reduction", period)
-            limitation = max_(0, maximum - reduction)
-            return min_(phased_in, limitation)
-
     class eitc(Variable):
         value_type = float
         entity = TaxUnit
@@ -59,33 +37,38 @@ def create_individual_eitc() -> Reform:
 
             # Reform: compute EITC separately for head and spouse
             person = tax_unit.members
-            simulation = tax_unit.simulation
             adj_earnings = person("adjusted_earnings", period)
             is_head = person("is_tax_unit_head", period)
             is_spouse = person("is_tax_unit_spouse", period)
 
-            filer_earned_head_only = tax_unit.sum(adj_earnings * is_head)
-            filer_earned_spouse_only = tax_unit.sum(adj_earnings * is_spouse)
+            head_earnings = tax_unit.sum(adj_earnings * is_head)
+            spouse_earnings = tax_unit.sum(adj_earnings * is_spouse)
 
-            # Calculate head's individual EITC using branch
-            head_branch = simulation.get_branch("head_only")
-            head_branch.set_input(
-                "filer_adjusted_earnings", period, filer_earned_head_only
-            )
-            head_branch.set_input(
-                "adjusted_gross_income", period, filer_earned_head_only
-            )
-            head_eitc = head_branch.calculate("individual_eitc_base", period)
+            # Get EITC parameters for direct computation
+            child_count = tax_unit("eitc_child_count", period)
+            eitc_params = parameters(period).gov.irs.credits.eitc
 
-            # Calculate spouse's individual EITC using branch
-            spouse_branch = simulation.get_branch("spouse_only")
-            spouse_branch.set_input(
-                "filer_adjusted_earnings", period, filer_earned_spouse_only
-            )
-            spouse_branch.set_input(
-                "adjusted_gross_income", period, filer_earned_spouse_only
-            )
-            spouse_eitc = spouse_branch.calculate("individual_eitc_base", period)
+            eitc_maximum = eitc_params.max.calc(child_count)
+            phase_in_rate = eitc_params.phase_in_rate.calc(child_count)
+            phase_out_rate = eitc_params.phase_out.rate.calc(child_count)
+            # Use joint phase-out start (matching original behavior)
+            phase_out_start = eitc_params.phase_out.start.calc(
+                child_count
+            ) + eitc_params.phase_out.joint_bonus.calc(child_count)
+
+            # Compute head's individual EITC
+            head_phased_in = min_(eitc_maximum, head_earnings * phase_in_rate)
+            head_phase_out = max_(0, head_earnings - phase_out_start)
+            head_reduction = phase_out_rate * head_phase_out
+            head_limitation = max_(0, eitc_maximum - head_reduction)
+            head_eitc = min_(head_phased_in, head_limitation)
+
+            # Compute spouse's individual EITC
+            spouse_phased_in = min_(eitc_maximum, spouse_earnings * phase_in_rate)
+            spouse_phase_out = max_(0, spouse_earnings - phase_out_start)
+            spouse_reduction = phase_out_rate * spouse_phase_out
+            spouse_limitation = max_(0, eitc_maximum - spouse_reduction)
+            spouse_eitc = min_(spouse_phased_in, spouse_limitation)
 
             individual_eitc = head_eitc + spouse_eitc
 
@@ -100,7 +83,6 @@ def create_individual_eitc() -> Reform:
 
     class reform(Reform):
         def apply(self):
-            self.update_variable(individual_eitc_base)
             self.update_variable(eitc)
 
     return reform
