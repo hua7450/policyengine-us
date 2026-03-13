@@ -1,3 +1,6 @@
+# Known limitation: Sec 59B(b) requires CPI-U indexing of bracket
+# thresholds after 2026, but policyengine-core's uprating mechanism
+# inflates both thresholds and rates. Thresholds are fixed at 2026 values.
 description: The Working Americans' Tax Cut Act millionaire surtax rate for joint filers, based on modified AGI.
 metadata:
   type: marginal_rate

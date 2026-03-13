@@ -456,6 +456,86 @@
   output:
     watca_alternative_tax_eligible: false
 
+# === Edge Cases ===
+
+- name: Zero income filer eligible for alternative tax
+  period: 2026
+  reforms: policyengine_us.reforms.congress.watca.working_americans_tax_cut_act.watca_reform_object
+  input:
+    gov.contrib.congress.watca.in_effect: true
+    adjusted_gross_income: 0
+    filing_status: SINGLE
+  output:
+    watca_alternative_tax_eligible: true
+    watca_alternative_max_tax: 0
+    watca_alternative_tax_magi: 0
+
+- name: Negative AGI floors alternative max tax at zero
+  period: 2026
+  reforms: policyengine_us.reforms.congress.watca.working_americans_tax_cut_act.watca_reform_object
+  input:
+    gov.contrib.congress.watca.in_effect: true
+    adjusted_gross_income: -10_000
+    filing_status: SINGLE
+  output:
+    watca_alternative_tax_eligible: true
+    # max(0, -10_000 - 46_000) * 0.255 = 0
+    watca_alternative_max_tax: 0
+
+- name: MAGI add-backs push filer over eligibility threshold
+  period: 2026
+  reforms: policyengine_us.reforms.congress.watca.working_americans_tax_cut_act.watca_reform_object
+  input:
+    gov.contrib.congress.watca.in_effect: true
+    adjusted_gross_income: 75_000
+    foreign_earned_income_exclusion: 6_000
+    filing_status: SINGLE
+  output:
+    # MAGI = 75_000 + 6_000 = 81_000 > 80_500 threshold
+    watca_alternative_tax_magi: 81_000
+    watca_alternative_tax_eligible: false
+
+- name: Investment interest pushes millionaire below surtax threshold
+  period: 2026
+  reforms: policyengine_us.reforms.congress.watca.working_americans_tax_cut_act.watca_reform_object
+  input:
+    gov.contrib.congress.watca.in_effect: true
+    employment_income: 1_050_000
+    investment_interest_expense: 100_000
+    filing_status: SINGLE
+  output:
+    # Surtax MAGI = 1_050_000 - 100_000 = 950_000 < $1M threshold
+    watca_surtax_magi: 950_000
+    watca_millionaire_surtax: 0
+
+- name: Combined MAGI add-backs all non-zero
+  period: 2026
+  reforms: policyengine_us.reforms.congress.watca.working_americans_tax_cut_act.watca_reform_object
+  input:
+    gov.contrib.congress.watca.in_effect: true
+    adjusted_gross_income: 50_000
+    foreign_earned_income_exclusion: 5_000
+    specified_possession_income: 3_000
+    puerto_rico_income: 2_000
+    tax_unit_social_security: 10_000
+    tax_unit_taxable_social_security: 4_000
+    filing_status: SINGLE
+  output:
+    # MAGI = 50_000 + 5_000 + 3_000 + 2_000 + (10_000 - 4_000) = 66_000
+    watca_alternative_tax_magi: 66_000
+
+- name: Both head and spouse claimed as dependents
+  period: 2026
+  reforms: policyengine_us.reforms.congress.watca.working_americans_tax_cut_act.watca_reform_object
+  input:
+    gov.contrib.congress.watca.in_effect: true
+    adjusted_gross_income: 30_000
+    filing_status: JOINT
+    head_is_dependent_elsewhere: true
+    spouse_is_dependent_elsewhere: true
+  output:
+    watca_alternative_tax_eligible: false
+
 # === Surtax Toggle Test ===
 
 - name: Surtax disabled via surtax.in_effect parameter

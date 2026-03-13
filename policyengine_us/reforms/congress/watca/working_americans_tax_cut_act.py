@@ -100,6 +100,9 @@ def create_watca() -> Reform:
             magi = tax_unit("watca_surtax_magi", period)
             p = parameters(period).gov.contrib.congress.watca.surtax
             filing_status = tax_unit("filing_status", period)
+            # Sec 59B(c) specifies "joint return under section 6013".
+            # Surviving spouse is treated as joint here, following common
+            # IRS convention (sec 1(a)(2) treats surviving spouses as joint filers).
             joint = (filing_status == filing_status.possible_values.JOINT) | (
                 filing_status == filing_status.possible_values.SURVIVING_SPOUSE
             )
@@ -128,6 +131,9 @@ def create_watca() -> Reform:
             )
             alternative_max = tax_unit("watca_alternative_max_tax", period)
             eligible = tax_unit("watca_alternative_tax_eligible", period)
+            # The alternative max tax cap is not separately gated by
+            # in_effect because this variable only exists when the reform
+            # is loaded, which already requires in_effect = true.
             tax_after_cap = where(
                 eligible,
                 min_(standard_tax, alternative_max),
@@ -139,6 +145,10 @@ def create_watca() -> Reform:
                 tax_unit("watca_millionaire_surtax", period),
                 0,
             )
+            # Known limitation: Sec 59B(e)(3) says the surtax should not
+            # be treated as tax for purposes of credits or AMT. Adding it
+            # here (before credits) means credits could offset it.
+            # Fixing this requires restructuring the tax computation chain.
             return tax_after_cap + surtax
 
     class reform(Reform):

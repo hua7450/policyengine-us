@@ -21,8 +21,11 @@ HEAD_OF_HOUSEHOLD:
 JOINT:
   2026-01-01: 92_000
 
+# Surviving spouse treated as joint (sec 1(a)(2)). Not explicitly in bill.
 SURVIVING_SPOUSE:
   2026-01-01: 92_000
 
+# Married filing separately falls under "not described in (B) or (C)",
+# i.e., the 100% default category. Not explicitly in bill.
 SEPARATE:
   2026-01-01: 46_000
