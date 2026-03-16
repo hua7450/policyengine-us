@@ -1,0 +1,56 @@
+# Tests for Hawaii HB 2306 CDCC reform rate schedule
+# When reform is active, uses expanded rate schedule with higher percentages
+
+- name: HB 2306 CDCC rate - low income ($50k AGI) - reform inactive
+  period: 2027
+  input:
+    state_code: HI
+  output:
+    # Reform defaults to inactive, baseline rate applies
+    # Baseline: 15% at $50k+ AGI
+    gov.contrib.states.hi.hb2306.cdcc.in_effect: false
+
+- name: HB 2306 CDCC rate - reform rate at $0 AGI
+  period: 2027
+  input:
+    state_code: HI
+    adjusted_gross_income: 0
+  output:
+    # 50% rate for AGI < $80k under HB 2306
+    gov.contrib.states.hi.hb2306.cdcc.rate: 0.50
+
+- name: HB 2306 CDCC rate - reform rate at $85k AGI
+  period: 2027
+  input:
+    state_code: HI
+    adjusted_gross_income: 85_000
+  output:
+    # 45% rate for $80k <= AGI < $90k under HB 2306
+    gov.contrib.states.hi.hb2306.cdcc.rate: 0.45
+
+- name: HB 2306 CDCC rate - reform rate at $100k AGI
+  period: 2027
+  input:
+    state_code: HI
+    adjusted_gross_income: 100_000
+  output:
+    # 35% rate for $100k <= AGI < $110k under HB 2306
+    gov.contrib.states.hi.hb2306.cdcc.rate: 0.35
+
+- name: HB 2306 CDCC rate - reform rate at $130k AGI
+  period: 2027
+  input:
+    state_code: HI
+    adjusted_gross_income: 130_000
+  output:
+    # 20% rate for $130k <= AGI < $140k under HB 2306
+    gov.contrib.states.hi.hb2306.cdcc.rate: 0.20
+
+- name: HB 2306 CDCC rate - reform rate at $160k+ AGI
+  period: 2027
+  input:
+    state_code: HI
+    adjusted_gross_income: 200_000
+  output:
+    # 5% rate for AGI >= $160k under HB 2306
+    gov.contrib.states.hi.hb2306.cdcc.rate: 0.05

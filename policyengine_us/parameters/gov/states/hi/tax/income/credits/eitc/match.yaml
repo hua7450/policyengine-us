@@ -2,6 +2,8 @@ description: Hawaii matches this percent of the federal EITC.
 values:
   2017-01-01: 0.2
   2023-01-01: 0.4
+  # Act 163 (SLH 2023) sunsets on December 31, 2027
+  2028-01-01: 0.2
 metadata:
   unit: /1
   label: Hawaii EITC match rate
