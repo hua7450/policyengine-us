@@ -13,7 +13,7 @@ class ri_ccap_step_rating(Variable):
     entity = Person
     possible_values = RICCAPStepRating
     default_value = RICCAPStepRating.STEP_1
-    definition_period = YEAR
+    definition_period = MONTH
     label = "Rhode Island CCAP license-exempt provider step rating"
     defined_for = StateCode.RI
     reference = "https://dhs.ri.gov/media/3556/download?language=en"

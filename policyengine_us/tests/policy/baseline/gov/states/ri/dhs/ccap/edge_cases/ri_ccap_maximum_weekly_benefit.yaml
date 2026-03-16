@@ -2,7 +2,7 @@
 # Tests rate lookup at time category boundaries
 
 - name: Case 1, center full time star 1 school age with exactly 30 hours.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -26,7 +26,7 @@
     ri_ccap_maximum_weekly_benefit: [0, 210]
 
 - name: Case 2, center three quarter time star 1 school age with exactly 29 hours.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -50,7 +50,7 @@
     ri_ccap_maximum_weekly_benefit: [0, 157.50]
 
 - name: Case 3, center half time star 1 school age with exactly 19 hours.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -74,7 +74,7 @@
     ri_ccap_maximum_weekly_benefit: [0, 105]
 
 - name: Case 4, center half time star 1 school age with exactly 10 hours.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -98,7 +98,7 @@
     ri_ccap_maximum_weekly_benefit: [0, 105]
 
 - name: Case 5, center quarter time star 1 school age with exactly 9 hours.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -122,7 +122,7 @@
     ri_ccap_maximum_weekly_benefit: [0, 52.50]
 
 - name: Case 6, licensed family full time star 1 school age.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -146,7 +146,7 @@
     ri_ccap_maximum_weekly_benefit: [0, 194.37]
 
 - name: Case 7, license exempt full time step 4 infant toddler.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -169,7 +169,7 @@
     ri_ccap_maximum_weekly_benefit: [0, 103.96]
 
 - name: Case 8, center full time star 5 school age highest star.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:

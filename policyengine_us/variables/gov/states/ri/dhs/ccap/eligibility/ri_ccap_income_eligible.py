@@ -5,7 +5,7 @@ class ri_ccap_income_eligible(Variable):
     value_type = bool
     entity = SPMUnit
     label = "Eligible for Rhode Island CCAP based on income"
-    definition_period = YEAR
+    definition_period = MONTH
     defined_for = StateCode.RI
     reference = "https://rules.sos.ri.gov/regulations/part/218-20-00-4#4.6.1"
 

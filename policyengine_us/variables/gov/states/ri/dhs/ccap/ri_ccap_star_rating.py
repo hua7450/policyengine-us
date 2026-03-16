@@ -14,7 +14,7 @@ class ri_ccap_star_rating(Variable):
     entity = Person
     possible_values = RICCAPStarRating
     default_value = RICCAPStarRating.STAR_1
-    definition_period = YEAR
+    definition_period = MONTH
     label = "Rhode Island CCAP provider star rating"
     defined_for = StateCode.RI
     reference = "https://rules.sos.ri.gov/regulations/part/218-20-00-4#4.7.1"

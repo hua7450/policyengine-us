@@ -13,12 +13,12 @@ class ri_ccap_time_category(Variable):
     entity = Person
     possible_values = RICCAPTimeCategory
     default_value = RICCAPTimeCategory.FULL_TIME
-    definition_period = YEAR
+    definition_period = MONTH
     label = "Rhode Island CCAP time authorization category"
     defined_for = StateCode.RI
     reference = "https://rules.sos.ri.gov/regulations/part/218-20-00-4#4.7.1"
 
     def formula(person, period, parameters):
-        hours = person("childcare_hours_per_week", period)
+        hours = person("childcare_hours_per_week", period.this_year)
         p = parameters(period).gov.states.ri.dhs.ccap.time_authorization
         return p.thresholds.calc(hours)

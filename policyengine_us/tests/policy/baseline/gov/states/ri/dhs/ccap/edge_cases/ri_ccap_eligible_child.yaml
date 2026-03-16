@@ -3,7 +3,7 @@
 # Disabled child age threshold: <= 18
 
 - name: Case 1, child age 12 is last eligible year.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -27,7 +27,7 @@
     ri_ccap_eligible_child: [false, true]
 
 - name: Case 2, non-disabled child age 13 is ineligible.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -51,7 +51,7 @@
     ri_ccap_eligible_child: [false, false]
 
 - name: Case 3, disabled child age 18 is last eligible year.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -76,7 +76,7 @@
     ri_ccap_eligible_child: [false, true]
 
 - name: Case 4, disabled child age 19 is ineligible.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -101,7 +101,7 @@
     ri_ccap_eligible_child: [false, false]
 
 - name: Case 5, disabled child age 13 is still eligible.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -126,7 +126,7 @@
     ri_ccap_eligible_child: [false, true]
 
 - name: Case 6, age 0 infant is eligible.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:

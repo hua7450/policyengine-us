@@ -5,7 +5,7 @@
 #   School Age: in K-12 school
 
 - name: Case 1, infant age 1.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -18,7 +18,7 @@
     ri_ccap_center_age_group: INFANT
 
 - name: Case 2, toddler age 2.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -31,7 +31,7 @@
     ri_ccap_center_age_group: TODDLER
 
 - name: Case 3, preschool age 4 not in school.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -45,7 +45,7 @@
     ri_ccap_center_age_group: PRESCHOOL
 
 - name: Case 4, school age child in K-12.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -59,7 +59,7 @@
     ri_ccap_center_age_group: SCHOOL_AGE
 
 - name: Case 5, preschool age 3 not in school.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -73,7 +73,7 @@
     ri_ccap_center_age_group: PRESCHOOL
 
 - name: Case 6, age 5 in school is school age.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -87,7 +87,7 @@
     ri_ccap_center_age_group: SCHOOL_AGE
 
 - name: Case 7, age 0 is infant.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:

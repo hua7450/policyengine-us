@@ -3,7 +3,7 @@
 # Person-level variable; parent output is 0 (default), child gets rate
 
 - name: Case 1, licensed center full time star 1 preschool.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -27,7 +27,7 @@
     ri_ccap_maximum_weekly_benefit: [0, 236]
 
 - name: Case 2, licensed center full time star 5 infant.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -50,7 +50,7 @@
     ri_ccap_maximum_weekly_benefit: [0, 378]
 
 - name: Case 3, licensed center three quarter time star 3 toddler.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -73,7 +73,7 @@
     ri_ccap_maximum_weekly_benefit: [0, 222]
 
 - name: Case 4, licensed center half time star 4 school age.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -97,7 +97,7 @@
     ri_ccap_maximum_weekly_benefit: [0, 125]
 
 - name: Case 5, licensed family full time star 2 infant toddler.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -120,7 +120,7 @@
     ri_ccap_maximum_weekly_benefit: [0, 266.86]
 
 - name: Case 6, licensed family quarter time star 4 preschool.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -144,7 +144,7 @@
     ri_ccap_maximum_weekly_benefit: [0, 62.78]
 
 - name: Case 7, licensed family three quarter time star 5 school age.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -168,7 +168,7 @@
     ri_ccap_maximum_weekly_benefit: [0, 185.18]
 
 - name: Case 8, license exempt full time step 1 infant toddler.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -191,7 +191,7 @@
     ri_ccap_maximum_weekly_benefit: [0, 100.96]
 
 - name: Case 9, license exempt half time step 3 preschool.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -215,7 +215,7 @@
     ri_ccap_maximum_weekly_benefit: [0, 30.54]
 
 - name: Case 10, license exempt quarter time step 4 school age.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -239,7 +239,7 @@
     ri_ccap_maximum_weekly_benefit: [0, 15.13]
 
 - name: Case 11, licensed center quarter time star 2 infant.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -262,7 +262,7 @@
     ri_ccap_maximum_weekly_benefit: [0, 85.25]
 
 - name: Case 12, license exempt three quarter time step 2 school age.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:

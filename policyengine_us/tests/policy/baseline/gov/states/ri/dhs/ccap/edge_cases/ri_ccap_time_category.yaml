@@ -6,7 +6,7 @@
 #   30+ hrs -> FULL_TIME
 
 - name: Case 1, boundary at 19 hours is half time.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -20,7 +20,7 @@
     ri_ccap_time_category: HALF_TIME
 
 - name: Case 2, exactly 1 hour is quarter time.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -33,7 +33,7 @@
     ri_ccap_time_category: QUARTER_TIME
 
 - name: Case 3, very high hours still full time.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:

@@ -1,5 +1,5 @@
 - name: Case 1, single parent working 20 hours meets requirement.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -18,7 +18,7 @@
     ri_ccap_activity_eligible: true
 
 - name: Case 2, single parent working 19 hours does not meet requirement.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -37,7 +37,7 @@
     ri_ccap_activity_eligible: false
 
 - name: Case 3, full time student parent qualifies.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -57,7 +57,7 @@
     ri_ccap_activity_eligible: true
 
 - name: Case 4, two parents both working 20 plus hours.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -82,7 +82,7 @@
     ri_ccap_activity_eligible: true
 
 - name: Case 5, two parents one below 20 hours.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -107,7 +107,7 @@
     ri_ccap_activity_eligible: false
 
 - name: Case 6, one parent works and one is a full time student.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:

@@ -12,7 +12,7 @@ class ri_ccap_provider_type(Variable):
     entity = Person
     possible_values = RICCAPProviderType
     default_value = RICCAPProviderType.LICENSED_CENTER
-    definition_period = YEAR
+    definition_period = MONTH
     label = "Rhode Island CCAP child care provider type"
     defined_for = StateCode.RI
     reference = "https://rules.sos.ri.gov/regulations/part/218-20-00-4#4.7.1"

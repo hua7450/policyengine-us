@@ -2,7 +2,7 @@
 # 261% FPL = 69_556.50
 
 - name: Case 1, eligible family with child under 13 and low income.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -27,7 +27,7 @@
     ri_ccap_eligible: true
 
 - name: Case 2, ineligible due to income above 261 percent FPL.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -55,7 +55,7 @@
     ri_ccap_eligible: false
 
 - name: Case 3, ineligible with no eligible child.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -77,7 +77,7 @@
     ri_ccap_eligible: false
 
 - name: Case 4, ineligible due to assets above limit.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -103,7 +103,7 @@
     ri_ccap_eligible: false
 
 - name: Case 5, ineligible when child is undocumented.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:

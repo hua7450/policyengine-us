@@ -7,7 +7,7 @@
 # 300% FPL (family of 2): 21_150 * 3.00 = 63_450.00
 
 - name: Case 1, new applicant income below 261 percent FPL.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -27,7 +27,7 @@
     ri_ccap_income_eligible: true
 
 - name: Case 2, new applicant income above 261 percent FPL.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -47,7 +47,7 @@
     ri_ccap_income_eligible: false
 
 - name: Case 3, new applicant income well below 261 percent FPL.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -67,7 +67,7 @@
     ri_ccap_income_eligible: true
 
 - name: Case 4, enrolled family income exactly at 300 percent FPL.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -88,7 +88,7 @@
     ri_ccap_income_eligible: true
 
 - name: Case 5, enrolled family income one cent above 300 percent FPL.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -109,7 +109,7 @@
     ri_ccap_income_eligible: false
 
 - name: Case 6, enrolled family income one cent below 300 percent FPL.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -130,7 +130,7 @@
     ri_ccap_income_eligible: true
 
 - name: Case 7, enrolled family exactly at 261 percent FPL uses transitional limit.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -151,7 +151,7 @@
     ri_ccap_income_eligible: true
 
 - name: Case 8, non-enrolled between 261 and 300 percent is ineligible.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -172,7 +172,7 @@
     ri_ccap_income_eligible: false
 
 - name: Case 9, large family of 8 at 261 percent FPL.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:

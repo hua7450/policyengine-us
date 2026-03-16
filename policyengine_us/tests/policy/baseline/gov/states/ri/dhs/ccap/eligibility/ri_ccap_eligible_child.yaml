@@ -1,5 +1,5 @@
 - name: Case 1, child under 13 who is a citizen and dependent.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -22,7 +22,7 @@
     ri_ccap_eligible_child: [false, true]
 
 - name: Case 2, child age 13 ineligible without disability.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -45,7 +45,7 @@
     ri_ccap_eligible_child: [false, false]
 
 - name: Case 3, disabled child age 15 eligible.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -69,7 +69,7 @@
     ri_ccap_eligible_child: [false, true]
 
 - name: Case 4, disabled child age 18 eligible (up through 18).
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -93,7 +93,7 @@
     ri_ccap_eligible_child: [false, true]
 
 - name: Case 5, child who is not a dependent is ineligible.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -116,7 +116,7 @@
     ri_ccap_eligible_child: [false, false]
 
 - name: Case 6, undocumented child ineligible.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -139,7 +139,7 @@
     ri_ccap_eligible_child: [false, false]
 
 - name: Case 7, adult is never an eligible child.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:

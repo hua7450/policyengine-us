@@ -9,7 +9,7 @@ class ri_ccap_maximum_weekly_benefit(Variable):
     entity = Person
     unit = USD
     label = "Rhode Island CCAP maximum weekly benefit per child"
-    definition_period = YEAR
+    definition_period = MONTH
     defined_for = "ri_ccap_eligible_child"
     reference = (
         "https://dhs.ri.gov/media/9356/download?language=en",

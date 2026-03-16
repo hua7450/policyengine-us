@@ -2,7 +2,7 @@
 # Tests activity requirements, degenerate cases
 
 - name: Case 1, zero income family with eligible child is eligible.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -27,7 +27,7 @@
     ri_ccap_eligible: true
 
 - name: Case 2, parent not working enough hours is ineligible.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -54,7 +54,7 @@
     ri_ccap_eligible: false
 
 - name: Case 3, single adult without child is ineligible.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -75,7 +75,7 @@
     ri_ccap_eligible: false
 
 - name: Case 4, income eligible but assets ineligible.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -102,7 +102,7 @@
     ri_ccap_eligible: false
 
 - name: Case 5, assets eligible but income ineligible.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:

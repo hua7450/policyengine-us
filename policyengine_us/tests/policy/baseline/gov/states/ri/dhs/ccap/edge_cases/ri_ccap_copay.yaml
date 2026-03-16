@@ -3,7 +3,7 @@
 # Tests homeless exemption, zero income
 
 - name: Case 1, housing insecure family with moderate income gets zero copay.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -25,7 +25,7 @@
     ri_ccap_copay: 0
 
 - name: Case 2, zero income gives zero copay.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -45,7 +45,7 @@
     ri_ccap_copay: 0
 
 - name: Case 3, very high income at 7 percent rate.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -63,5 +63,6 @@
         state_code: RI
   output:
     # FPL ratio = 55_000 / 21_150 = 2.6005 -> 7% rate
-    # copay = 55_000 * 0.07 = 3_850
-    ri_ccap_copay: 3_850
+    # annual copay = 55_000 * 0.07 = 3_850
+    # monthly copay = 3_850 / 12 = 320.83
+    ri_ccap_copay: 320.83

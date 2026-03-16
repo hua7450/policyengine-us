@@ -13,15 +13,15 @@ class ri_ccap_center_age_group(Variable):
     entity = Person
     possible_values = RICCAPCenterAgeGroup
     default_value = RICCAPCenterAgeGroup.PRESCHOOL
-    definition_period = YEAR
+    definition_period = MONTH
     label = "Rhode Island CCAP licensed center age group"
     defined_for = StateCode.RI
     reference = "https://dhs.ri.gov/media/9356/download?language=en"
 
     def formula(person, period, parameters):
         p = parameters(period).gov.states.ri.dhs.ccap.age_group.center
-        age = person("age", period)
-        is_in_school = person("is_in_k12_school", period)
+        age = person("age", period.this_year)
+        is_in_school = person("is_in_k12_school", period.this_year)
         return select(
             [
                 age < p.infant_max,
