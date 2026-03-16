@@ -46,7 +46,7 @@
     ri_ccap_income_eligible: true
 
     # Assets default 0 <= 1,000,000 -> asset eligible
-    ri_ccap_asset_eligible: true
+    is_ccdf_asset_eligible: true
 
     ri_ccap_eligible: true
 
@@ -112,7 +112,7 @@
     # FPG family of 3: 26,650
     # 18,000 <= 26,650 * 2.61 = 69,556.50 -> eligible
     ri_ccap_income_eligible: true
-    ri_ccap_asset_eligible: true
+    is_ccdf_asset_eligible: true
     ri_ccap_eligible: true
 
     # === Copay ===
@@ -173,7 +173,7 @@
     # 72,000 > 63,450 -> ineligible even for transitional
     ri_ccap_income_eligible: false
 
-    ri_ccap_asset_eligible: true
+    is_ccdf_asset_eligible: true
     ri_ccap_eligible: false
 
     # === Benefit ===
@@ -217,7 +217,7 @@
     # 300% = 63,450
     # enrolled: 60,000 <= 63,450 -> eligible
     ri_ccap_income_eligible: true
-    ri_ccap_asset_eligible: true
+    is_ccdf_asset_eligible: true
     ri_ccap_eligible: true
 
     # === Copay ===
@@ -271,12 +271,12 @@
   output:
     # === Eligibility ===
     ri_ccap_eligible_child: [false, true]
-    ri_ccap_immigration_status_eligible_child: [true, true]
+    is_ccdf_immigration_eligible_child: [true, true]
 
     # FPG family of 2: 21,150
     # 35,000 <= 55,201.50 (261%) -> eligible
     ri_ccap_income_eligible: true
-    ri_ccap_asset_eligible: true
+    is_ccdf_asset_eligible: true
     ri_ccap_eligible: true
 
     # === Copay ===
@@ -334,7 +334,7 @@
     # FPG family of 2: 21,150
     # 45,000 <= 55,201.50 -> income eligible
     ri_ccap_income_eligible: true
-    ri_ccap_asset_eligible: true
+    is_ccdf_asset_eligible: true
     ri_ccap_eligible: true
 
     # === Copay ===

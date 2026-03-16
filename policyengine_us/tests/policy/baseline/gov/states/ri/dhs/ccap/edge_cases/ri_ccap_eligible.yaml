@@ -1,13 +1,12 @@
 # Edge cases for ri_ccap_eligible
-# Tests categorical eligibility, TANF + homeless overlap, degenerate cases
+# Tests activity requirements, degenerate cases
 
-- name: Case 1, TANF enrolled bypasses income and asset tests.
+- name: Case 1, zero income family with eligible child is eligible.
   period: 2025
   input:
     people:
       person1:
         age: 30
-        employment_income: 100_000
         immigration_status: CITIZEN
       person2:
         age: 5
@@ -19,18 +18,15 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled: true
-        spm_unit_cash_assets: 2_000_000
     households:
       household:
         members: [person1, person2]
         state_code: RI
   output:
-    # Income 100k > 261% FPL and assets 2M > 1M limit
-    # But TANF enrolled -> categorically eligible (bypasses both tests)
+    # $0 income < 261% FPL, assets < $1M, weekly_hours_worked defaults to 40
     ri_ccap_eligible: true
 
-- name: Case 2, TANF enrolled still needs eligible child.
+- name: Case 2, parent not working enough hours is ineligible.
   period: 2025
   input:
     people:
@@ -38,19 +34,23 @@
         age: 30
         employment_income: 20_000
         immigration_status: CITIZEN
+        weekly_hours_worked: 15
+      person2:
+        age: 5
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
     tax_units:
       tax_unit:
-        members: [person1]
+        members: [person1, person2]
     spm_units:
       spm_unit:
-        members: [person1]
-        is_tanf_enrolled: true
+        members: [person1, person2]
     households:
       household:
-        members: [person1]
+        members: [person1, person2]
         state_code: RI
   output:
-    # TANF enrolled but no child -> has_eligible_child = false -> ineligible
+    # 15 hours < 20 minimum -> activity ineligible
     ri_ccap_eligible: false
 
 - name: Case 3, single adult without child is ineligible.
@@ -92,7 +92,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        spm_unit_cash_assets: 1_500_000
+        spm_unit_assets: 1_500_000
     households:
       household:
         members: [person1, person2]

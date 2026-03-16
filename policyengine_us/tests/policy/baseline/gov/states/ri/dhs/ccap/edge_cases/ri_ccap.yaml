@@ -45,17 +45,16 @@
     # child2: Family 3QT Star 2 Preschool = $173.35/wk
     # max annual = (355 + 173.35) * 52 = 528.35 * 52 = 27_474.20
     # uncapped = max(20_000 - 0, 0) = 20_000
-    # benefit = min(20_000, 27_474.72) = 20_000
+    # benefit = min(20_000, 27_474.20) = 20_000
     ri_ccap: 20_000
 
-- name: Case 2, TANF enrolled with high income bypasses income test.
+- name: Case 2, zero income family gets full subsidy with zero copay.
   period: 2025
   absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 30
-        employment_income: 100_000
         immigration_status: CITIZEN
       person2:
         age: 4
@@ -71,14 +70,13 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled: true
         spm_unit_pre_subsidy_childcare_expenses: 5_000
     households:
       household:
         members: [person1, person2]
         state_code: RI
   output:
-    # TANF enrolled -> categorically eligible, $0 copay
+    # $0 income -> FPL ratio = 0 -> copay rate = 0% -> copay = 0
     # Center FT Star 1 Preschool = $236/wk
     # max annual = 236 * 52 = 12_272
     # uncapped = max(5_000 - 0, 0) = 5_000

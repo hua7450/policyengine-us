@@ -14,13 +14,8 @@ class ri_ccap_copay(Variable):
     )
 
     def formula(spm_unit, period, parameters):
-        # RI Works recipients and housing insecure families pay $0.
-        is_tanf_enrolled = spm_unit("is_tanf_enrolled", period)
         is_homeless = spm_unit.household("is_homeless", period)
-        exempt_from_copay = is_tanf_enrolled | is_homeless
-
         copay_rate = spm_unit("ri_ccap_fpl_copay_rate", period)
         countable_income = spm_unit("ri_ccap_countable_income", period)
         copay = countable_income * copay_rate
-
-        return where(exempt_from_copay, 0, copay)
+        return where(is_homeless, 0, copay)

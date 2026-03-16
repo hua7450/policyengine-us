@@ -17,7 +17,5 @@ class ri_ccap_eligible_child(Variable):
         # Disabled: "up through eighteen (18)" -> age <= 18
         age_eligible = where(is_disabled, age <= p.disabled_child, age < p.child)
         is_dependent = person("is_tax_unit_dependent", period)
-        immigration_eligible = person(
-            "ri_ccap_immigration_status_eligible_child", period
-        )
+        immigration_eligible = person("is_ccdf_immigration_eligible_child", period)
         return age_eligible & is_dependent & immigration_eligible
