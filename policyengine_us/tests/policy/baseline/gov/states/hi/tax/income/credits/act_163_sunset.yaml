@@ -1,123 +1,70 @@
 # Tests for Act 163 (SLH 2023) sunset on December 31, 2027
 # Act 163 enhanced CDCC expense limits, EITC match rate, and Food/Excise credit amounts
-# These tests verify credit amounts change after the sunset
 
 - name: Hawaii EITC - during Act 163 period (2027) - 40% match
   period: 2027
   absolute_error_margin: 1
   input:
-    people:
-      person:
-        age: 30
-        is_tax_unit_head: true
-        employment_income: 15_000
-    tax_units:
-      tax_unit:
-        members: [person]
-    spm_units:
-      spm_unit:
-        members: [person]
-    households:
-      household:
-        members: [person]
-        state_code: HI
+    eitc: 1_000
+    state_code: HI
   output:
-    # With 40% match rate during Act 163, HI EITC should be higher
-    hi_eitc: 261.6  # 40% of federal EITC ($654)
+    hi_eitc: 400
 
 - name: Hawaii EITC - after Act 163 sunset (2028) - 20% match
   period: 2028
   absolute_error_margin: 1
   input:
-    people:
-      person:
-        age: 30
-        is_tax_unit_head: true
-        employment_income: 15_000
-    tax_units:
-      tax_unit:
-        members: [person]
-    spm_units:
-      spm_unit:
-        members: [person]
-    households:
-      household:
-        members: [person]
-        state_code: HI
+    eitc: 1_000
+    state_code: HI
   output:
-    # With 20% match rate after sunset, HI EITC should be lower
-    hi_eitc: 130.8  # 20% of federal EITC ($654)
+    hi_eitc: 200
 
 - name: Hawaii Food/Excise credit - joint filer during Act 163 (2027)
   period: 2027
   absolute_error_margin: 1
   input:
-    people:
-      person1:
-        age: 30
-        is_tax_unit_head: true
-      person2:
-        age: 28
-        is_tax_unit_spouse: true
     tax_units:
       tax_unit:
-        members: [person1, person2]
+        adjusted_gross_income: 10_000
         filing_status: JOINT
-    spm_units:
-      spm_unit:
-        members: [person1, person2]
+        exemptions_count: 2
+        head_is_dependent_elsewhere: false
     households:
       household:
-        members: [person1, person2]
         state_code: HI
   output:
     # $220 for AGI < $15k threshold during Act 163
-    hi_food_excise_credit: 220
+    hi_food_excise_credit: 440
 
 - name: Hawaii Food/Excise credit - joint filer after sunset (2028)
   period: 2028
   absolute_error_margin: 1
   input:
-    people:
-      person1:
-        age: 30
-        is_tax_unit_head: true
-      person2:
-        age: 28
-        is_tax_unit_spouse: true
     tax_units:
       tax_unit:
-        members: [person1, person2]
+        adjusted_gross_income: 4_000
         filing_status: JOINT
-    spm_units:
-      spm_unit:
-        members: [person1, person2]
+        exemptions_count: 2
+        head_is_dependent_elsewhere: false
     households:
       household:
-        members: [person1, person2]
         state_code: HI
   output:
-    # $110 for AGI < $5k threshold after sunset
-    hi_food_excise_credit: 110
+    # $110 per exemption for AGI < $5k threshold after sunset
+    hi_food_excise_credit: 220
 
 - name: Hawaii Food/Excise credit - single filer during Act 163 (2027)
   period: 2027
   absolute_error_margin: 1
   input:
-    people:
-      person:
-        age: 30
-        is_tax_unit_head: true
     tax_units:
       tax_unit:
-        members: [person]
+        adjusted_gross_income: 10_000
         filing_status: SINGLE
-    spm_units:
-      spm_unit:
-        members: [person]
+        exemptions_count: 1
+        head_is_dependent_elsewhere: false
     households:
       household:
-        members: [person]
         state_code: HI
   output:
     # $220 for AGI < $15k threshold during Act 163
@@ -127,20 +74,14 @@
   period: 2028
   absolute_error_margin: 1
   input:
-    people:
-      person:
-        age: 30
-        is_tax_unit_head: true
     tax_units:
       tax_unit:
-        members: [person]
+        adjusted_gross_income: 4_000
         filing_status: SINGLE
-    spm_units:
-      spm_unit:
-        members: [person]
+        exemptions_count: 1
+        head_is_dependent_elsewhere: false
     households:
       household:
-        members: [person]
         state_code: HI
   output:
     # $110 for AGI < $5k threshold after sunset
