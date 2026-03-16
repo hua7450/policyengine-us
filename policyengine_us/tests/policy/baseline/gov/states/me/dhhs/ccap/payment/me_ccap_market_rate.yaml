@@ -952,7 +952,7 @@
     # Knox/Waldo Licensed Center School Age FT = $220/week (2024 rate)
     me_ccap_market_rate: [220]
 
-- name: Case 51, Knox Licensed Center School Age FT 2025 rate converges to Region 2.
+- name: Case 51, Knox Licensed Center School Age FT 2025 rate retained.
   period: 2026-01
   absolute_error_margin: 0.01
   input:
@@ -968,5 +968,62 @@
         state_code: ME
         me_ccap_region: KNOX_WALDO
   output:
-    # Knox/Waldo Licensed Center School Age FT = $180/week (converged to Region 2)
-    me_ccap_market_rate: [180]
+    # Knox/Waldo Licensed Center School Age FT = $220/week (retains unique rate per May 2025 PDF)
+    me_ccap_market_rate: [220]
+
+- name: Case 52, Kennebec Licensed Center Preschool FT 2025 rate retained.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        me_ccap_age_group: PRESCHOOL
+        me_ccap_time_category: FULL_TIME
+        me_ccap_provider_type: LICENSED_CENTER
+        me_ccap_eligible_child: true
+    households:
+      household:
+        members: [person1]
+        state_code: ME
+        me_ccap_region: KENNEBEC
+  output:
+    # Kennebec Licensed Center Preschool FT = $267/week (retains unique rate per May 2025 PDF)
+    me_ccap_market_rate: [267]
+
+- name: Case 53, Penobscot Licensed Center School Age FT 2024 rate.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        me_ccap_age_group: SCHOOL_AGE
+        me_ccap_time_category: FULL_TIME
+        me_ccap_provider_type: LICENSED_CENTER
+        me_ccap_eligible_child: true
+    households:
+      household:
+        members: [person1]
+        state_code: ME
+        me_ccap_region: PENOBSCOT
+  output:
+    # Penobscot Licensed Center School Age FT = $200/week (2024 rate)
+    me_ccap_market_rate: [200]
+
+- name: Case 54, Penobscot Licensed Center School Age FT 2025 rate retained.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        me_ccap_age_group: SCHOOL_AGE
+        me_ccap_time_category: FULL_TIME
+        me_ccap_provider_type: LICENSED_CENTER
+        me_ccap_eligible_child: true
+    households:
+      household:
+        members: [person1]
+        state_code: ME
+        me_ccap_region: PENOBSCOT
+  output:
+    # Penobscot Licensed Center School Age FT = $200/week (retains unique rate per May 2025 PDF)
+    me_ccap_market_rate: [200]

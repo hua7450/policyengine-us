@@ -15,8 +15,9 @@ class me_ccap_parent_fee(Variable):
 
     def formula(spm_unit, period, parameters):
         p = parameters(period).gov.states.me.dhhs.ccap.copay
-        smi_percentage = spm_unit("me_ccap_smi_percentage", period)
         countable_income = spm_unit("me_ccap_countable_income", period)
+        monthly_smi = spm_unit("me_ccap_smi", period)
+        smi_percentage = where(monthly_smi > 0, countable_income / monthly_smi, 0)
         weekly_income = countable_income * MONTHS_IN_YEAR / WEEKS_IN_YEAR
 
         fee_rate = p.rate.calc(smi_percentage)
