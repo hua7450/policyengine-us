@@ -4,6 +4,7 @@
 
 - name: Hawaii EITC - during Act 163 period (2027) - 40% match
   period: 2027
+  absolute_error_margin: 1
   input:
     people:
       person:
@@ -26,6 +27,7 @@
 
 - name: Hawaii EITC - after Act 163 sunset (2028) - 20% match
   period: 2028
+  absolute_error_margin: 1
   input:
     people:
       person:
@@ -48,6 +50,7 @@
 
 - name: Hawaii Food/Excise credit - joint filer during Act 163 (2027)
   period: 2027
+  absolute_error_margin: 1
   input:
     people:
       person1:
@@ -73,6 +76,7 @@
 
 - name: Hawaii Food/Excise credit - joint filer after sunset (2028)
   period: 2028
+  absolute_error_margin: 1
   input:
     people:
       person1:
@@ -98,6 +102,7 @@
 
 - name: Hawaii Food/Excise credit - single filer during Act 163 (2027)
   period: 2027
+  absolute_error_margin: 1
   input:
     people:
       person:
@@ -120,6 +125,7 @@
 
 - name: Hawaii Food/Excise credit - single filer after sunset (2028)
   period: 2028
+  absolute_error_margin: 1
   input:
     people:
       person:

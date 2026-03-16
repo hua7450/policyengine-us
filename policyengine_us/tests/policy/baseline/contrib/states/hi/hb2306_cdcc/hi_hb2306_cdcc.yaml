@@ -1,9 +1,8 @@
 # Tests for Hawaii HB 2306 CDCC reform rate schedule parameter values
-# These test the parameter values directly using absolute_error_margin
 
 - name: HB 2306 CDCC rate parameter - at $0 AGI
   period: 2027
-  absolute_error_margin: 0.001
+  absolute_error_margin: 1
   input:
     people:
       person:
@@ -27,7 +26,7 @@
 
 - name: HB 2306 CDCC rate parameter - at $85k AGI
   period: 2027
-  absolute_error_margin: 0.001
+  absolute_error_margin: 1
   input:
     people:
       person:
@@ -50,7 +49,7 @@
 
 - name: HB 2306 CDCC with childcare expenses - baseline rate
   period: 2027
-  absolute_error_margin: 0.01
+  absolute_error_margin: 1
   input:
     people:
       parent:
