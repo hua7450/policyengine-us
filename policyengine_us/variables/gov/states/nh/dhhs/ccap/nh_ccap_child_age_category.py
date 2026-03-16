@@ -20,8 +20,7 @@ class nh_ccap_child_age_category(Variable):
 
     def formula(person, period, parameters):
         p = parameters(period).gov.states.nh.dhhs.ccap.age_category
-        age_years = person("age", period.this_year)
-        age_months = age_years * MONTHS_IN_YEAR
+        age_months = person("age", period.this_year) * MONTHS_IN_YEAR
 
         return select(
             [

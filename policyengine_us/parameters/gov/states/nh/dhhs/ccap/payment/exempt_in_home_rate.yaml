@@ -7,5 +7,7 @@ metadata:
   period: year
   label: New Hampshire CCAP license-exempt in-home rate factor
   reference:
-    - title: He-C 6910.17(c)
+    - title: He-C 6910.17(c) (eff. 4-30-24, #13951)
       href: https://www.law.cornell.edu/regulations/new-hampshire/N-H-Admin-Code-SS-He-C-6910.17
+    - title: New Hampshire CCDF State Plan 2025-2027, Section 4.3.2
+      href: https://www.dhhs.nh.gov/sites/g/files/ehbemt476/files/documents2/ccdf-state-plan-2025-2027.pdf#page=52
