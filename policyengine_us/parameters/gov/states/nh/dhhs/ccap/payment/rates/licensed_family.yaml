@@ -1,4 +1,5 @@
 description: New Hampshire provides these weekly standard rates for licensed family child care homes under the Child Care Scholarship Program.
+# NOTE: Actual effective date is 2024-08-26 per MRS; using 2024-01-01 for microsimulation compatibility.
 
 metadata:
   period: week
@@ -17,29 +18,29 @@ metadata:
 
 INFANT:
   FULL_TIME:
-    2024-08-26: 250
+    2024-01-01: 250
   HALF_TIME:
-    2024-08-26: 125
+    2024-01-01: 125
   PART_TIME:
-    2024-08-26: 63
+    2024-01-01: 63
 TODDLER:
   FULL_TIME:
-    2024-08-26: 250
+    2024-01-01: 250
   HALF_TIME:
-    2024-08-26: 125
+    2024-01-01: 125
   PART_TIME:
-    2024-08-26: 63
+    2024-01-01: 63
 PRESCHOOL:
   FULL_TIME:
-    2024-08-26: 250
+    2024-01-01: 250
   HALF_TIME:
-    2024-08-26: 125
+    2024-01-01: 125
   PART_TIME:
-    2024-08-26: 63
+    2024-01-01: 63
 SCHOOL_AGE:
   FULL_TIME:
-    2024-08-26: 200
+    2024-01-01: 200
   HALF_TIME:
-    2024-08-26: 100
+    2024-01-01: 100
   PART_TIME:
-    2024-08-26: 50
+    2024-01-01: 50
