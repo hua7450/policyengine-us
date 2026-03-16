@@ -1,0 +1,11 @@
+description: Maine sets this threshold for half-time child care hours per week under the Child Care Affordability Program.
+values:
+  2024-07-06: 10
+
+metadata:
+  unit: /1
+  period: week
+  label: Maine CCAP half-time hours threshold
+  reference:
+    - title: Maine Child Care Market Rates July 6, 2024
+      href: https://www.maine.gov/dhhs/sites/maine.gov.dhhs/files/inline-files/July%206%202024%20Market%20Rates_5_0.pdf

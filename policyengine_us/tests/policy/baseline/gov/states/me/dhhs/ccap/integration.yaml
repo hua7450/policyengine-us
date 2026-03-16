@@ -42,7 +42,7 @@
 
     # Assets:
     # - $5,000 <= $1,000,000 => asset eligible
-    me_ccap_asset_eligible: true
+    is_ccdf_asset_eligible: true
     me_ccap_eligible: true
 
     # Age group: age 4 => PRESCHOOL
@@ -122,11 +122,11 @@
     # - 125% SMI = $147,581.25
     # - $55,000 <= $147,581 => income eligible
     me_ccap_income_eligible: true
-    me_ccap_asset_eligible: true
+    is_ccdf_asset_eligible: true
     me_ccap_eligible: true
 
-    # Region: Penobscot => REGION_2
-    me_ccap_region: REGION_2
+    # Region: Penobscot => PENOBSCOT
+    me_ccap_region: PENOBSCOT
 
     # Age groups: person3 age 2 => TODDLER; person4 age 7 => SCHOOL_AGE
     me_ccap_age_group: [SCHOOL_AGE, SCHOOL_AGE, TODDLER, SCHOOL_AGE]
@@ -147,8 +147,8 @@
     me_ccap_parent_fee: 182
 
     # Market rates (weekly):
-    # person3: Region 2 Licensed Family Toddler FT = $200/week
-    # person4: Region 2 Licensed Family School Age PT = $136.45/week
+    # person3: Penobscot Licensed Family Toddler FT = $200/week (same as Region 2)
+    # person4: Penobscot Licensed Family School Age PT = $136.45/week (same as Region 2)
     me_ccap_market_rate: [0, 0, 200, 136.45]
 
     # Benefit:
@@ -229,7 +229,7 @@
         county_str: CUMBERLAND_COUNTY_ME
   output:
     # Child is undocumented => not immigration eligible => not eligible child
-    me_ccap_immigration_status_eligible: [true, false]
+    is_ccdf_immigration_eligible_child: [true, false]
     me_ccap_eligible_child: [false, false]
     me_ccap_eligible: false
     me_ccap: 0
@@ -397,7 +397,7 @@
         county_str: KENNEBEC_COUNTY_ME
   output:
     # Assets $1,500,000 > $1,000,000 => asset ineligible
-    me_ccap_asset_eligible: false
+    is_ccdf_asset_eligible: false
     me_ccap_eligible: false
     me_ccap: 0
 
@@ -433,7 +433,7 @@
         county_str: YORK_COUNTY_ME
   output:
     # Assets $1,000,000 <= $1,000,000 => asset eligible.
-    me_ccap_asset_eligible: true
+    is_ccdf_asset_eligible: true
     me_ccap_eligible_child: [false, true]
     me_ccap_income_eligible: true
     me_ccap_eligible: true
@@ -587,8 +587,8 @@
     me_ccap_income_eligible: true
     me_ccap_eligible: true
 
-    # Region 2 (Penobscot).
-    me_ccap_region: REGION_2
+    # Penobscot region (Penobscot county).
+    me_ccap_region: PENOBSCOT
 
     # person3: age 0 => INFANT. person4: age 10 => SCHOOL_AGE.
     me_ccap_age_group: [SCHOOL_AGE, SCHOOL_AGE, INFANT, SCHOOL_AGE]
@@ -612,8 +612,8 @@
     me_ccap_parent_fee: 1_079
 
     # Market rates (weekly):
-    # person3: Region 2 Licensed Center Infant FT = $275.
-    # person4: Region 2 License-Exempt School Age PT = $95.51.
+    # person3: Penobscot Licensed Center Infant FT = $275 (same as Region 2).
+    # person4: Penobscot License-Exempt School Age PT = $95.51 (same as Region 2).
     me_ccap_market_rate: [0, 0, 275, 95.51]
 
     # Max reimbursement: (275 + 95.51) * 52/12 = 370.51 * 4.333 = $1,605.54.

@@ -22,11 +22,7 @@ class me_ccap_parent_fee(Variable):
         fee_rate = p.rate.calc(smi_percentage)
         raw_weekly_fee = np.floor(weekly_income * fee_rate)
 
-        cap_rate = where(
-            smi_percentage < p.cap_threshold,
-            p.cap.below_85_smi,
-            p.cap.above_85_smi,
-        )
+        cap_rate = p.cap.calc(smi_percentage)
         capped_weekly_fee = np.floor(weekly_income * cap_rate)
 
         weekly_fee = min_(raw_weekly_fee, capped_weekly_fee)

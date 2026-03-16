@@ -4,6 +4,9 @@ from policyengine_us.model_api import *
 class MECCAPRegion(Enum):
     REGION_1 = "Region 1"
     REGION_2 = "Region 2"
+    KENNEBEC = "Kennebec"
+    KNOX_WALDO = "Knox/Waldo"
+    PENOBSCOT = "Penobscot"
 
 
 class me_ccap_region(Variable):
@@ -14,14 +17,25 @@ class me_ccap_region(Variable):
     definition_period = MONTH
     defined_for = StateCode.ME
     label = "Maine CCAP geographic region"
-    reference = "https://www.maine.gov/dhhs/sites/maine.gov.dhhs/files/inline-files/CCAP%20Full%20Rule%208.18.2025_1.pdf#page=25"
+    reference = (
+        "https://www.maine.gov/dhhs/sites/maine.gov.dhhs/files/inline-files/CCAP%20Full%20Rule%208.18.2025_1.pdf#page=25",
+        "https://www.maine.gov/dhhs/sites/maine.gov.dhhs/files/inline-files/July%206%202024%20Market%20Rates_5_0.pdf",
+    )
 
     def formula(household, period, parameters):
         county = household("county_str", period)
         p = parameters(period).gov.states.me.dhhs.ccap
         is_region_1 = np.isin(county, p.region_1_counties)
-        return where(
-            is_region_1,
-            MECCAPRegion.REGION_1,
-            MECCAPRegion.REGION_2,
+        is_kennebec = np.isin(county, ["KENNEBEC_COUNTY_ME"])
+        is_knox_waldo = np.isin(county, ["KNOX_COUNTY_ME", "WALDO_COUNTY_ME"])
+        is_penobscot = np.isin(county, ["PENOBSCOT_COUNTY_ME"])
+        return select(
+            [is_region_1, is_kennebec, is_knox_waldo, is_penobscot],
+            [
+                MECCAPRegion.REGION_1,
+                MECCAPRegion.KENNEBEC,
+                MECCAPRegion.KNOX_WALDO,
+                MECCAPRegion.PENOBSCOT,
+            ],
+            default=MECCAPRegion.REGION_2,
         )

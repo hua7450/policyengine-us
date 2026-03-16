@@ -911,3 +911,62 @@
   output:
     # Region 2 License-Exempt School Age PT = $95.51/week
     me_ccap_market_rate: [95.51]
+
+# === County-specific region rate tests ===
+
+- name: Case 49, Kennebec Licensed Center Preschool FT 2024 rate.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        me_ccap_age_group: PRESCHOOL
+        me_ccap_time_category: FULL_TIME
+        me_ccap_provider_type: LICENSED_CENTER
+        me_ccap_eligible_child: true
+    households:
+      household:
+        members: [person1]
+        state_code: ME
+        me_ccap_region: KENNEBEC
+  output:
+    # Kennebec Licensed Center Preschool FT = $267/week (2024 rate)
+    me_ccap_market_rate: [267]
+
+- name: Case 50, Knox Licensed Center School Age FT 2024 rate.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        me_ccap_age_group: SCHOOL_AGE
+        me_ccap_time_category: FULL_TIME
+        me_ccap_provider_type: LICENSED_CENTER
+        me_ccap_eligible_child: true
+    households:
+      household:
+        members: [person1]
+        state_code: ME
+        me_ccap_region: KNOX_WALDO
+  output:
+    # Knox/Waldo Licensed Center School Age FT = $220/week (2024 rate)
+    me_ccap_market_rate: [220]
+
+- name: Case 51, Knox Licensed Center School Age FT 2025 rate converges to Region 2.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        me_ccap_age_group: SCHOOL_AGE
+        me_ccap_time_category: FULL_TIME
+        me_ccap_provider_type: LICENSED_CENTER
+        me_ccap_eligible_child: true
+    households:
+      household:
+        members: [person1]
+        state_code: ME
+        me_ccap_region: KNOX_WALDO
+  output:
+    # Knox/Waldo Licensed Center School Age FT = $180/week (converged to Region 2)
+    me_ccap_market_rate: [180]
