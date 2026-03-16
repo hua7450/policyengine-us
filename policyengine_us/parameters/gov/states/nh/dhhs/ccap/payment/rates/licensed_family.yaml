@@ -9,10 +9,10 @@ metadata:
     - nh_ccap_child_age_category
     - nh_ccap_service_level
   reference:
-    - title: He-C 6910.17(b) (eff. 4-30-24, #13951)
+    - title: He-C 6910.17(b)
       href: https://www.law.cornell.edu/regulations/new-hampshire/N-H-Admin-Code-SS-He-C-6910.17
-    - title: CCDF Provider Payment Rates by State (January 2025) - Tables 2-4
-      href: https://acf.gov/sites/default/files/documents/occ/CCDF-Provider-Payment-Rates-by-State.pdf#page=6
+    - title: BCDHSC Form 2533, Maximum Weekly Standard Rates (August 2024)
+      href: https://www.dhhs.nh.gov/sites/g/files/ehbemt476/files/documents2/bcdhsc-form-2533.pdf#page=1
     - title: New Hampshire CCDF State Plan 2025-2027, Section 4.3.2, Table 1
       href: https://www.dhhs.nh.gov/sites/g/files/ehbemt476/files/documents2/ccdf-state-plan-2025-2027.pdf#page=53
 
@@ -20,27 +20,27 @@ INFANT:
   FULL_TIME:
     2024-01-01: 250
   HALF_TIME:
-    2024-01-01: 125
+    2024-01-01: 193.55
   PART_TIME:
-    2024-01-01: 63
+    2024-01-01: 96.78
 TODDLER:
   FULL_TIME:
     2024-01-01: 250
   HALF_TIME:
-    2024-01-01: 125
+    2024-01-01: 193.55
   PART_TIME:
-    2024-01-01: 63
+    2024-01-01: 96.78
 PRESCHOOL:
   FULL_TIME:
     2024-01-01: 250
   HALF_TIME:
-    2024-01-01: 125
+    2024-01-01: 193.55
   PART_TIME:
-    2024-01-01: 63
+    2024-01-01: 96.78
 SCHOOL_AGE:
   FULL_TIME:
     2024-01-01: 200
   HALF_TIME:
-    2024-01-01: 100
+    2024-01-01: 154.84
   PART_TIME:
-    2024-01-01: 50
+    2024-01-01: 77.42

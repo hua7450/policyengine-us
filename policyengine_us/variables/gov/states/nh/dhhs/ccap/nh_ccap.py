@@ -14,17 +14,15 @@ class nh_ccap(Variable):
         person = spm_unit.members
         weeks_per_month = WEEKS_IN_YEAR / MONTHS_IN_YEAR
 
-        # Per-child weekly rate (includes disability supplement)
         weekly_rate = person("nh_ccap_payment_rate", period)
         disability_supplement = person("nh_ccap_disability_supplement", period)
-        total_weekly_rate = weekly_rate + disability_supplement
 
         # Per-child pre-subsidy weekly expense
         annual_expense = person("pre_subsidy_childcare_expenses", period.this_year)
         weekly_expense = annual_expense / WEEKS_IN_YEAR
 
-        # He-C 6910.17(e): payment = min(charge, rate) - cost share
-        capped_rate = min_(weekly_expense, total_weekly_rate)
+        # He-C 6910.17(e): payment = min(charge, WSR) - cost share
+        capped_rate = min_(weekly_expense, weekly_rate)
 
         # He-C 6910.18(f): cost share divided equally among eligible children
         is_eligible_child = person("nh_ccap_eligible_child", period)
@@ -35,7 +33,9 @@ class nh_ccap(Variable):
         per_child_cost_share[mask] = family_cost_share[mask] / n_eligible_children[mask]
         per_child_cost_share_broadcast = spm_unit.project(per_child_cost_share)
 
-        per_child_weekly_payment = max_(capped_rate - per_child_cost_share_broadcast, 0)
+        # He-C 6910.17(g): disability supplement is additional, outside the min
+        base_payment = max_(capped_rate - per_child_cost_share_broadcast, 0)
+        per_child_weekly_payment = base_payment + disability_supplement
         per_child_monthly_payment = (
             per_child_weekly_payment * weeks_per_month * is_eligible_child
         )

@@ -15,20 +15,12 @@ class nh_ccap_service_level(Variable):
     definition_period = MONTH
     defined_for = StateCode.NH
     label = "New Hampshire Child Care Scholarship Program service level"
-    reference = "https://www.law.cornell.edu/regulations/new-hampshire/N-H-Admin-Code-SS-He-C-6910.07"
+    reference = (
+        "https://www.law.cornell.edu/regulations/new-hampshire/N-H-Admin-Code-SS-He-C-6910.07",
+        "https://www.dhhs.nh.gov/sites/g/files/ehbemt476/files/documents2/bcdhsc-form-2533.pdf#page=2",
+    )
 
     def formula(person, period, parameters):
         p = parameters(period).gov.states.nh.dhhs.ccap.service_level
-        hours = person("childcare_hours_per_week", period.this_year)
-
-        return select(
-            [
-                hours > p.full_time_hours,
-                hours > p.half_time_hours,
-            ],
-            [
-                NHCCAPServiceLevel.FULL_TIME,
-                NHCCAPServiceLevel.HALF_TIME,
-            ],
-            default=NHCCAPServiceLevel.PART_TIME,
-        )
+        authorized_hours = person.spm_unit("nh_ccap_authorized_activity_hours", period)
+        return p.authorized_hours.calc(authorized_hours)
