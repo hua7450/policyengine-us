@@ -8,7 +8,7 @@ class nh_ccap_disability_supplement(Variable):
     label = "New Hampshire Child Care Scholarship Program weekly disability supplement"
     definition_period = MONTH
     defined_for = "nh_ccap_eligible_child"
-    reference = "https://www.law.cornell.edu/regulations/new-hampshire/N.H.Code.Admin.R.He-C.6910.17"
+    reference = "https://www.law.cornell.edu/regulations/new-hampshire/N-H-Admin-Code-SS-He-C-6910.17"
 
     def formula(person, period, parameters):
         p = parameters(period).gov.states.nh.dhhs.ccap.payment

@@ -16,4 +16,4 @@ class nh_ccap_provider_type(Variable):
     definition_period = MONTH
     defined_for = StateCode.NH
     label = "New Hampshire Child Care Scholarship Program provider type"
-    reference = "https://www.law.cornell.edu/regulations/new-hampshire/N.H.Code.Admin.R.He-C.6910.17"
+    reference = "https://www.law.cornell.edu/regulations/new-hampshire/N-H-Admin-Code-SS-He-C-6910.17"

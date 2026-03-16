@@ -26,8 +26,8 @@
         members: [person1]
         state_code: NH
   output:
-    # Licensed center infant full-time: $344/week
-    nh_ccap_payment_rate: 344
+    # Licensed center infant full-time: $344.42/week
+    nh_ccap_payment_rate: 344.42
 
 - name: Case 2, licensed family, toddler, half-time.
   period: 2025-01
@@ -98,8 +98,8 @@
         members: [person1]
         state_code: NH
   output:
-    # 50% of licensed center toddler full-time ($317) = $158.50
-    nh_ccap_payment_rate: 158.50
+    # 50% of licensed center toddler full-time ($317.36) = $158.68
+    nh_ccap_payment_rate: 158.68
 
 - name: Case 6, licensed center, infant, full-time, disabled child (rate excludes supplement).
   period: 2025-01
@@ -118,8 +118,8 @@
         state_code: NH
   output:
     # Base rate only; disability supplement is in nh_ccap_disability_supplement
-    # Licensed center infant full-time: $344/week
-    nh_ccap_payment_rate: 344
+    # Licensed center infant full-time: $344.42/week
+    nh_ccap_payment_rate: 344.42
 
 - name: Case 7, licensed family, preschool, half-time, disabled child (rate excludes supplement).
   period: 2025-01
@@ -211,8 +211,8 @@
         members: [person1]
         state_code: NH
   output:
-    # 50% of licensed center infant full-time ($344) = $172
-    nh_ccap_payment_rate: 172
+    # 50% of licensed center infant full-time ($344.42) = $172.21
+    nh_ccap_payment_rate: 172.21
 
 - name: Case 12, licensed center, school age, half-time.
   period: 2025-01

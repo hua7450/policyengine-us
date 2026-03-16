@@ -8,7 +8,7 @@ class nh_ccap_cost_share(Variable):
     label = "New Hampshire Child Care Scholarship Program weekly family cost share"
     definition_period = MONTH
     defined_for = StateCode.NH
-    reference = "https://www.law.cornell.edu/regulations/new-hampshire/N.H.Code.Admin.R.He-C.6910.18"
+    reference = "https://www.law.cornell.edu/regulations/new-hampshire/N-H-Admin-Code-SS-He-C-6910.18"
 
     def formula(spm_unit, period, parameters):
         p = parameters(period).gov.states.nh.dhhs.ccap.cost_share

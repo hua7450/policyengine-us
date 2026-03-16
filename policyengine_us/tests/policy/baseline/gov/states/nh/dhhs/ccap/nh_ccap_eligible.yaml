@@ -17,7 +17,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        meets_ccdf_activity_test: true
+
     households:
       household:
         members: [person1, person2]
@@ -40,7 +40,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        meets_ccdf_activity_test: true
+
     households:
       household:
         members: [person1, person2]
@@ -62,7 +62,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        meets_ccdf_activity_test: true
+
     households:
       household:
         members: [person1, person2]
@@ -77,6 +77,7 @@
       person1:
         age: 30
         employment_income: 36_000
+        weekly_hours_worked: 0
       person2:
         age: 5
         is_tax_unit_dependent: true
@@ -84,7 +85,6 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        meets_ccdf_activity_test: false
     households:
       household:
         members: [person1, person2]
@@ -106,7 +106,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        meets_ccdf_activity_test: true
+
         spm_unit_assets: 1_100_000
     households:
       household:
@@ -129,7 +129,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        meets_ccdf_activity_test: true
+
     households:
       household:
         members: [person1, person2]
@@ -154,7 +154,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        meets_ccdf_activity_test: true
+
     households:
       household:
         members: [person1, person2]
@@ -178,7 +178,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        meets_ccdf_activity_test: true
+
     households:
       household:
         members: [person1, person2]
@@ -202,7 +202,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        meets_ccdf_activity_test: true
+
     households:
       household:
         members: [person1, person2]
@@ -225,7 +225,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        meets_ccdf_activity_test: true
+
     households:
       household:
         members: [person1, person2]
@@ -247,7 +247,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        meets_ccdf_activity_test: true
+
         spm_unit_assets: 1_000_000
     households:
       household:

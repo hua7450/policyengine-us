@@ -15,7 +15,7 @@ class nh_ccap_service_level(Variable):
     definition_period = MONTH
     defined_for = StateCode.NH
     label = "New Hampshire Child Care Scholarship Program service level"
-    reference = "https://www.law.cornell.edu/regulations/new-hampshire/N.H.Code.Admin.R.He-C.6910.07"
+    reference = "https://www.law.cornell.edu/regulations/new-hampshire/N-H-Admin-Code-SS-He-C-6910.07"
 
     def formula(person, period, parameters):
         p = parameters(period).gov.states.nh.dhhs.ccap.service_level

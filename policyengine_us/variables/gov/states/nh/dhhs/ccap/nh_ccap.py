@@ -8,7 +8,7 @@ class nh_ccap(Variable):
     label = "New Hampshire Child Care Scholarship Program benefit amount"
     definition_period = MONTH
     defined_for = "nh_ccap_eligible"
-    reference = "https://www.law.cornell.edu/regulations/new-hampshire/N.H.Code.Admin.R.He-C.6910.17"
+    reference = "https://www.law.cornell.edu/regulations/new-hampshire/N-H-Admin-Code-SS-He-C-6910.17"
 
     def formula(spm_unit, period, parameters):
         person = spm_unit.members

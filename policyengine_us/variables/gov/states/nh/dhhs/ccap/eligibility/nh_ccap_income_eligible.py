@@ -7,7 +7,7 @@ class nh_ccap_income_eligible(Variable):
     label = "Income eligible for New Hampshire Child Care Scholarship Program"
     definition_period = MONTH
     defined_for = StateCode.NH
-    reference = "https://www.law.cornell.edu/regulations/new-hampshire/N.H.Code.Admin.R.He-C.6910.06"
+    reference = "https://www.law.cornell.edu/regulations/new-hampshire/N-H-Admin-Code-SS-He-C-6910.06"
 
     def formula(spm_unit, period, parameters):
         p = parameters(period).gov.states.nh.dhhs.ccap.income
