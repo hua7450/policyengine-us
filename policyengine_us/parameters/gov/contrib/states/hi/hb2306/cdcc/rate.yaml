@@ -1,48 +1,46 @@
-description: >-
-  Hawaii HB 2306 CDCC applicable percentage schedule.
-  This expanded schedule applies to taxable years beginning after December 31, 2026.
-  The bill increases the applicable percentage and expands AGI thresholds.
+description: Hawaii HB 2306 CDCC applicable percentage schedule.
+
 brackets:
   - threshold:
-      2001-01-01: 0
+      2027-01-01: 0
     amount:
-      2001-01-01: 0.50
+      2027-01-01: 0.50
   - threshold:
-      2001-01-01: 80_000
+      2027-01-01: 80_000
     amount:
-      2001-01-01: 0.45
+      2027-01-01: 0.45
   - threshold:
-      2001-01-01: 90_000
+      2027-01-01: 90_000
     amount:
-      2001-01-01: 0.40
+      2027-01-01: 0.40
   - threshold:
-      2001-01-01: 100_000
+      2027-01-01: 100_000
     amount:
-      2001-01-01: 0.35
+      2027-01-01: 0.35
   - threshold:
-      2001-01-01: 110_000
+      2027-01-01: 110_000
     amount:
-      2001-01-01: 0.30
+      2027-01-01: 0.30
   - threshold:
-      2001-01-01: 120_000
+      2027-01-01: 120_000
     amount:
-      2001-01-01: 0.25
+      2027-01-01: 0.25
   - threshold:
-      2001-01-01: 130_000
+      2027-01-01: 130_000
     amount:
-      2001-01-01: 0.20
+      2027-01-01: 0.20
   - threshold:
-      2001-01-01: 140_000
+      2027-01-01: 140_000
     amount:
-      2001-01-01: 0.15
+      2027-01-01: 0.15
   - threshold:
-      2001-01-01: 150_000
+      2027-01-01: 150_000
     amount:
-      2001-01-01: 0.10
+      2027-01-01: 0.10
   - threshold:
-      2001-01-01: 160_000
+      2027-01-01: 160_000
     amount:
-      2001-01-01: 0.05
+      2027-01-01: 0.05
 metadata:
   type: single_amount
   threshold_period: year

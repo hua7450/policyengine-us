@@ -29,7 +29,6 @@ def create_hi_hb2306_cdcc() -> Reform:
         )
 
         def formula(tax_unit, period, parameters):
-            p_baseline = parameters(period).gov.states.hi.tax.income.credits.cdcc
             p_reform = parameters(period).gov.contrib.states.hi.hb2306.cdcc
 
             # Calculate smaller of dependent care benefits and minimum earnings
@@ -42,12 +41,7 @@ def create_hi_hb2306_cdcc() -> Reform:
             # Get AGI for rate calculation
             agi = tax_unit("hi_agi", period)
 
-            # Use reform rate if in effect, otherwise use baseline rate
-            reform_active = p_reform.in_effect
-            reform_rate = p_reform.rate.calc(agi, right=True)
-            baseline_rate = p_baseline.rate.calc(agi, right=True)
-
-            rate = where(reform_active, reform_rate, baseline_rate)
+            rate = p_reform.rate.calc(agi, right=True)
 
             return rate * min_earned
 

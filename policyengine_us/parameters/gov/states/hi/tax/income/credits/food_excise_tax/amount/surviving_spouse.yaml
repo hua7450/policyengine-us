@@ -15,6 +15,8 @@ metadata:
       href: https://files.hawaii.gov/tax/forms/2023/n311_i.pdf#page=1
     - title: 2025 Hawaii Form N-311 Instructions
       href: https://files.hawaii.gov/tax/forms/current/n311_i.pdf#page=1
+    - title: Act 163 (SLH 2023) Section 4 - Sunset provision
+      href: https://www.capitol.hawaii.gov/slh/Years/SLH2023/SLH2023_Act163.pdf
 brackets:
   - threshold:
       2021-01-01: -.inf
