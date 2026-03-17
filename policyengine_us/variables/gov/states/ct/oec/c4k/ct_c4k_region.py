@@ -14,12 +14,18 @@ class ct_c4k_region(Variable):
     entity = Household
     possible_values = CTC4KRegion
     default_value = CTC4KRegion.NORTH_CENTRAL
-    definition_period = YEAR
+    definition_period = MONTH
     defined_for = StateCode.CT
     label = "Connecticut Care 4 Kids geographic region"
     reference = "https://www.ctoec.org/care-4-kids/c4k-providers/c4k-rates/"
 
     def formula(household, period, parameters):
+        # C4K regions are defined by town, not county. CT abolished county
+        # government and towns from the same county can fall in different C4K
+        # regions (e.g., Danbury is Northwest but Bridgeport is Southwest,
+        # both in Fairfield County). This uses a county approximation since
+        # PolicyEngine lacks town-level geography. Some families near region
+        # boundaries may receive incorrect rates.
         county = household("county_str", period)
         p = parameters(period).gov.states.ct.oec.c4k.region
 

@@ -5,7 +5,7 @@ class ct_c4k_family_fee(Variable):
     value_type = float
     entity = SPMUnit
     unit = USD
-    definition_period = YEAR
+    definition_period = MONTH
     defined_for = StateCode.CT
     label = "Connecticut Care 4 Kids family fee"
     reference = (

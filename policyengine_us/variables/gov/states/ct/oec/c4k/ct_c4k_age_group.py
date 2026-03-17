@@ -12,7 +12,7 @@ class ct_c4k_age_group(Variable):
     entity = Person
     possible_values = CTC4KAgeGroup
     default_value = CTC4KAgeGroup.SCHOOL_AGE
-    definition_period = YEAR
+    definition_period = MONTH
     defined_for = StateCode.CT
     label = "Connecticut Care 4 Kids age group"
     reference = "https://www.ctoec.org/care-4-kids/c4k-providers/c4k-rates/"

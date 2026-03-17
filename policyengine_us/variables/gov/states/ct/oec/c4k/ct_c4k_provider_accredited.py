@@ -4,7 +4,7 @@ from policyengine_us.model_api import *
 class ct_c4k_provider_accredited(Variable):
     value_type = bool
     entity = Person
-    definition_period = YEAR
+    definition_period = MONTH
     defined_for = StateCode.CT
     label = "Whether the child's Care 4 Kids provider is accredited"
     reference = (

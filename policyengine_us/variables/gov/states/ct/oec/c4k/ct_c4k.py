@@ -5,7 +5,7 @@ class ct_c4k(Variable):
     value_type = float
     entity = SPMUnit
     unit = USD
-    definition_period = YEAR
+    definition_period = MONTH
     defined_for = "ct_c4k_eligible"
     label = "Connecticut Care 4 Kids subsidy amount"
     reference = (

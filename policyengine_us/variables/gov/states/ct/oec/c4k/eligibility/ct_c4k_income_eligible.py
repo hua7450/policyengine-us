@@ -4,7 +4,7 @@ from policyengine_us.model_api import *
 class ct_c4k_income_eligible(Variable):
     value_type = bool
     entity = SPMUnit
-    definition_period = YEAR
+    definition_period = MONTH
     defined_for = StateCode.CT
     label = "Income eligible for Connecticut Care 4 Kids"
     reference = (

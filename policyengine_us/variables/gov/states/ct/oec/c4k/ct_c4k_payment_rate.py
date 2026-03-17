@@ -5,7 +5,7 @@ class ct_c4k_payment_rate(Variable):
     value_type = float
     entity = Person
     unit = USD
-    definition_period = YEAR
+    definition_period = MONTH
     defined_for = "ct_c4k_eligible_child"
     label = "Connecticut Care 4 Kids weekly payment rate per child"
     reference = "https://www.ctoec.org/care-4-kids/c4k-providers/c4k-rates/"

@@ -13,7 +13,7 @@ class ct_c4k_care_level(Variable):
     entity = Person
     possible_values = CTC4KCareLevel
     default_value = CTC4KCareLevel.FULL_TIME
-    definition_period = YEAR
+    definition_period = MONTH
     defined_for = StateCode.CT
     label = "Connecticut Care 4 Kids care level"
     reference = "https://www.ctoec.org/care-4-kids/c4k-providers/c4k-rates/"
@@ -21,4 +21,4 @@ class ct_c4k_care_level(Variable):
     def formula(person, period, parameters):
         hours = person("childcare_hours_per_week", period)
         p = parameters(period).gov.states.ct.oec.c4k.care_level
-        return p.calc(hours) - 1
+        return p.calc(hours)

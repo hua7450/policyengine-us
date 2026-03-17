@@ -4,7 +4,7 @@ from policyengine_us.model_api import *
 class ct_c4k_eligible_child(Variable):
     value_type = bool
     entity = Person
-    definition_period = YEAR
+    definition_period = MONTH
     defined_for = StateCode.CT
     label = "Eligible child for Connecticut Care 4 Kids"
     reference = (
