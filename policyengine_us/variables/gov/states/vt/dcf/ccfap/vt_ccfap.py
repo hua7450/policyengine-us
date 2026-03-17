@@ -9,7 +9,7 @@ class vt_ccfap(Variable):
     defined_for = "vt_ccfap_eligible"
     label = "Vermont Child Care Financial Assistance Program benefit"
     reference = (
-        "https://outside.vermont.gov/dept/DCF/Shared%20Documents/CDD/CCFAP/CCFAP-Regulations.pdf",
+        "https://outside.vermont.gov/dept/DCF/Shared%20Documents/CDD/CCFAP/CCFAP-Regulations.pdf#page=17",
         "https://legislature.vermont.gov/statutes/section/33/035/03512",
     )
 

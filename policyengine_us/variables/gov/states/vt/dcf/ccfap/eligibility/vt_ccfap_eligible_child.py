@@ -8,7 +8,7 @@ class vt_ccfap_eligible_child(Variable):
     defined_for = StateCode.VT
     label = "Eligible child for Vermont CCFAP"
     reference = (
-        "https://outside.vermont.gov/dept/DCF/Shared%20Documents/CDD/CCFAP/CCFAP-Regulations.pdf",
+        "https://outside.vermont.gov/dept/DCF/Shared%20Documents/CDD/CCFAP/CCFAP-Regulations.pdf#page=4",
         "https://legislature.vermont.gov/statutes/section/33/035/03512",
     )
 

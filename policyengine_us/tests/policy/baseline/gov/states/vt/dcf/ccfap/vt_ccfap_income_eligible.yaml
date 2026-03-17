@@ -220,7 +220,63 @@
     # Income 311,362.50 <= 311,362.50 => eligible
     vt_ccfap_income_eligible: true
 
-- name: Case 9, multiple income sources combined.
+- name: Case 9, pre-Oct-2024 at 350 percent FPL limit, income above threshold.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 95_000
+      person2:
+        age: 5
+        is_tax_unit_dependent: true
+      person3:
+        age: 3
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        meets_ccdf_activity_test: true
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: VT
+  output:
+    # 2024 FPG for family of 3 = 15,060 + 2 * 5,380 = 25,820
+    # Pre-April 2024 FPL limit = 350%
+    # 350% FPL = 25,820 * 3.5 = 90,370
+    # Income 95,000 > 90,370 => ineligible
+    vt_ccfap_income_eligible: false
+
+- name: Case 10, pre-Oct-2024 at 350 percent FPL limit, income below threshold.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 80_000
+      person2:
+        age: 5
+        is_tax_unit_dependent: true
+      person3:
+        age: 3
+        is_tax_unit_dependent: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        meets_ccdf_activity_test: true
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: VT
+  output:
+    # 2024 FPG for family of 3 = 25,820
+    # Pre-April 2024 FPL limit = 350%
+    # 350% FPL = 90,370
+    # Income 80,000 <= 90,370 => eligible
+    vt_ccfap_income_eligible: true
+
+- name: Case 11, multiple income sources combined.
   period: 2025-01
   input:
     people:

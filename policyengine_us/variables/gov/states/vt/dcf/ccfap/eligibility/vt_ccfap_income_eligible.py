@@ -8,7 +8,7 @@ class vt_ccfap_income_eligible(Variable):
     defined_for = StateCode.VT
     label = "Income eligible for Vermont CCFAP"
     reference = (
-        "https://outside.vermont.gov/dept/DCF/Shared%20Documents/CDD/CCFAP/CCFAP-Regulations.pdf",
+        "https://outside.vermont.gov/dept/DCF/Shared%20Documents/CDD/CCFAP/CCFAP-Regulations.pdf#page=9",
         "https://dcf.vermont.gov/benefits/ccfap/act76-faqs",
     )
 

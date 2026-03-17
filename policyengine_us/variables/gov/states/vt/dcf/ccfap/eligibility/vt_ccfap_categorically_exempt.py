@@ -8,7 +8,7 @@ class vt_ccfap_categorically_exempt(Variable):
     defined_for = StateCode.VT
     label = "Categorically exempt from Vermont CCFAP income test"
     reference = (
-        "https://outside.vermont.gov/dept/DCF/Shared%20Documents/CDD/CCFAP/CCFAP-Regulations.pdf#page=9",
+        "https://outside.vermont.gov/dept/DCF/Shared%20Documents/CDD/CCFAP/CCFAP-Regulations.pdf#page=11",
         "https://legislature.vermont.gov/statutes/section/33/035/03512",
     )
 

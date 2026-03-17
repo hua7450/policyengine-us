@@ -18,9 +18,7 @@ class vt_ccfap_state_rate(Variable):
         provider_type = person("vt_ccfap_provider_type", period)
         care_schedule = person("vt_ccfap_care_schedule", period)
         age_group = person("vt_ccfap_age_group", period)
-        is_center = (
-            provider_type == provider_type.possible_values.LICENSED_CENTER
-        )
+        is_center = provider_type == provider_type.possible_values.LICENSED_CENTER
         center_rate = p.licensed_center[care_schedule][age_group]
         home_rate = p.registered_home[care_schedule][age_group]
         return where(is_center, center_rate, home_rate)

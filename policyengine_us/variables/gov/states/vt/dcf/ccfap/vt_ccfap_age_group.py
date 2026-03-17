@@ -16,7 +16,7 @@ class vt_ccfap_age_group(Variable):
     definition_period = MONTH
     defined_for = StateCode.VT
     label = "Vermont CCFAP age group"
-    reference = "https://outside.vermont.gov/dept/DCF/Shared%20Documents/CDD/CCFAP/CCFAP-Regulations.pdf"
+    reference = "https://outside.vermont.gov/dept/DCF/Shared%20Documents/CDD/CCFAP/CCFAP-Regulations.pdf#page=3"
 
     def formula(person, period, parameters):
         p = parameters(period).gov.states.vt.dcf.ccfap.age_group

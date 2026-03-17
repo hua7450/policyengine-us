@@ -7,6 +7,10 @@ metadata:
   period: week
   label: Vermont CCFAP weekly family share scale
   reference:
+    - title: Report on Adjustment of CCFAP Rates (Jan 15, 2024) Family Contributions
+      href: https://legislature.vermont.gov/assets/Legislative-Reports/Act-76-CCFAP-Rates-Jan-2024.pdf#page=15
+    - title: Act 76 Section 5
+      href: https://legislature.vermont.gov/Documents/2024/Docs/ACTS/ACT076/ACT076%20As%20Enacted.pdf
     - title: CCFAP Income Guidelines (effective October 6, 2024)
       href: https://outside.vermont.gov/dept/DCF/Shared%20Documents/Benefits/CCFAP-Income-Guidelines.pdf
     - title: CCFAP Regulations Section IX
@@ -14,70 +18,82 @@ metadata:
 
 brackets:
   - threshold:
-      2024-01-01: 0
+      2009-02-09: 0
     amount:
-      2024-01-01: 0
+      2009-02-09: 0
   - threshold:
-      2024-01-01: 1.7501
+      2009-02-09: 1.5001
     amount:
-      2024-01-01: 50
+      2009-02-09: 25
+      2024-04-07: 0
   - threshold:
-      2024-01-01: 2.0001
+      2009-02-09: 1.7501
     amount:
-      2024-01-01: 75
+      2009-02-09: 50
   - threshold:
-      2024-01-01: 2.2501
+      2009-02-09: 2.0001
     amount:
-      2024-01-01: 100
+      2009-02-09: 75
   - threshold:
-      2024-01-01: 2.5001
+      2009-02-09: 2.2501
     amount:
-      2024-01-01: 125
+      2009-02-09: 100
   - threshold:
-      2024-01-01: 2.7501
+      2009-02-09: 2.5001
     amount:
-      2024-01-01: 150
+      2009-02-09: 125
   - threshold:
-      2024-01-01: 3.0001
+      2009-02-09: 2.7501
     amount:
-      2024-01-01: 175
+      2009-02-09: 150
   - threshold:
-      2024-01-01: 3.2501
+      2009-02-09: 3.0001
     amount:
-      2024-01-01: 200
+      2009-02-09: 175
   - threshold:
-      2024-01-01: 3.5001
+      2009-02-09: 3.2501
     amount:
-      2024-01-01: 225
+      2009-02-09: 200
   - threshold:
-      2024-01-01: 3.7501
+      2009-02-09: 3.5001
     amount:
-      2024-01-01: 250
+      2009-02-09: 225
   - threshold:
-      2024-01-01: 4.0001
+      2009-02-09: 3.7501
     amount:
-      2024-01-01: 275
+      2009-02-09: 250
   - threshold:
-      2024-01-01: 4.2501
+      2009-02-09: .inf
+      2024-10-06: 4.0001
     amount:
-      2024-01-01: 300
+      2009-02-09: 275
   - threshold:
-      2024-01-01: 4.5001
+      2009-02-09: .inf
+      2024-10-06: 4.2501
     amount:
-      2024-01-01: 325
+      2009-02-09: 300
   - threshold:
-      2024-01-01: 4.7501
+      2009-02-09: .inf
+      2024-10-06: 4.5001
     amount:
-      2024-01-01: 350
+      2009-02-09: 325
   - threshold:
-      2024-01-01: 5.0001
+      2009-02-09: .inf
+      2024-10-06: 4.7501
     amount:
-      2024-01-01: 375
+      2009-02-09: 350
   - threshold:
-      2024-01-01: 5.2501
+      2009-02-09: .inf
+      2024-10-06: 5.0001
     amount:
-      2024-01-01: 400
+      2009-02-09: 375
   - threshold:
-      2024-01-01: 5.5001
+      2009-02-09: .inf
+      2024-10-06: 5.2501
     amount:
-      2024-01-01: 425
+      2009-02-09: 400
+  - threshold:
+      2009-02-09: .inf
+      2024-10-06: 5.5001
+    amount:
+      2009-02-09: 425

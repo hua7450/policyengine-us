@@ -10,7 +10,7 @@ class vt_ccfap_family_share(Variable):
     label = "Vermont CCFAP monthly family share (copayment)"
     reference = (
         "https://outside.vermont.gov/dept/DCF/Shared%20Documents/Benefits/CCFAP-Income-Guidelines.pdf",
-        "https://outside.vermont.gov/dept/DCF/Shared%20Documents/CDD/CCFAP/CCFAP-Regulations.pdf",
+        "https://outside.vermont.gov/dept/DCF/Shared%20Documents/CDD/CCFAP/CCFAP-Regulations.pdf#page=17",
     )
 
     def formula(spm_unit, period, parameters):
