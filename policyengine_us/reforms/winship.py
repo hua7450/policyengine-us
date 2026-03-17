@@ -25,14 +25,6 @@ def create_individual_eitc() -> Reform:
             p = parameters(period).gov.contrib.individual_eitc
             takes_up_eitc = tax_unit("takes_up_eitc", period)
 
-            # Check if reform is active
-            if not p.in_effect:
-                # Return baseline EITC
-                maximum = tax_unit("eitc_maximum", period)
-                phased_in = tax_unit("eitc_phased_in", period)
-                reduction = tax_unit("eitc_reduction", period)
-                limitation = max_(0, maximum - reduction)
-                return min_(phased_in, limitation) * takes_up_eitc
 
             # Compute EITC separately for head and spouse
             person = tax_unit.members
