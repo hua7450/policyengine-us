@@ -19,6 +19,15 @@ class relative_capital_gains_mtr_change(Variable):
         baseline_branch.tax_benefit_system.neutralize_variable(
             "capital_gains_behavioral_response"
         )
+        # Neutralize LSR responses to prevent compounding feedback
+        # when both CG and LSR behavioral responses are enabled.
+        # See #7785.
+        baseline_branch.tax_benefit_system.neutralize_variable(
+            "employment_income_behavioral_response"
+        )
+        baseline_branch.tax_benefit_system.neutralize_variable(
+            "self_employment_income_behavioral_response"
+        )
         baseline_branch.set_input(
             "long_term_capital_gains_before_response",
             period,
@@ -30,6 +39,13 @@ class relative_capital_gains_mtr_change(Variable):
         measurement_branch = simulation.get_branch("cgr_measurement", clone_system=True)
         measurement_branch.tax_benefit_system.neutralize_variable(
             "capital_gains_behavioral_response"
+        )
+        # Neutralize LSR responses in measurement branch too.
+        measurement_branch.tax_benefit_system.neutralize_variable(
+            "employment_income_behavioral_response"
+        )
+        measurement_branch.tax_benefit_system.neutralize_variable(
+            "self_employment_income_behavioral_response"
         )
         measurement_branch.set_input(
             "long_term_capital_gains_before_response",

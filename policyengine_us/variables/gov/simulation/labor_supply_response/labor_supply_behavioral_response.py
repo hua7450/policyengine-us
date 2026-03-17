@@ -48,6 +48,12 @@ class labor_supply_behavioral_response(Variable):
                 branch.tax_benefit_system.neutralize_variable(
                     "self_employment_income_behavioral_response"
                 )
+                # Neutralize CG responses to prevent compounding
+                # feedback when both LSR and CG behavioral responses
+                # are enabled. See #7785.
+                branch.tax_benefit_system.neutralize_variable(
+                    "capital_gains_behavioral_response"
+                )
                 branch.set_input(
                     "employment_income_before_lsr",
                     period,
