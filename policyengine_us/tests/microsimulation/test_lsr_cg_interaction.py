@@ -7,6 +7,8 @@ between the individual impacts — not orders of magnitude larger.
 Fixes #7785.
 """
 
+import os
+
 import pytest
 from policyengine_core.reforms import Reform
 from policyengine_us import Microsimulation
@@ -64,7 +66,10 @@ def _make_cg_reform():
     )
 
 
-@pytest.mark.microsim
+@pytest.mark.skipif(
+    os.environ.get("RUN_HEAVY_TESTS") != "1",
+    reason="Requires ~60min for 3 microsimulations; set RUN_HEAVY_TESTS=1",
+)
 def test_combined_lsr_cg_impact_is_bounded():
     """Combined LSR+CG impact should not exceed sum of individual impacts.
 
