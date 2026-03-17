@@ -6,8 +6,6 @@ metadata:
   amount_unit: /1
   label: Hawaii CDCC rate
   reference:
-    - title: Hawaii Revised Statutes Section 235-55.6 - Child and dependent care expenses
-      href: https://law.justia.com/codes/hawaii/title-14/chapter-235/section-235-55-6/
     - title: Hawaii Income Tax Law, Chapter 235, Section 235-55.6, (a)(2)
       href: https://files.hawaii.gov/tax/legal/hrs/hrs_235.pdf#page=40
     - title: Hawaii SCHEDULE X 2023
