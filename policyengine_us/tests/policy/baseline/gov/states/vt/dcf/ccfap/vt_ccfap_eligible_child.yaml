@@ -1,5 +1,5 @@
 - name: Case 1, child under 13 who is a dependent and citizen.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -13,7 +13,7 @@
     vt_ccfap_eligible_child: [true]
 
 - name: Case 2, child at age 13 is ineligible.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -27,7 +27,7 @@
     vt_ccfap_eligible_child: [false]
 
 - name: Case 3, child with special needs under 19 is eligible.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -42,7 +42,7 @@
     vt_ccfap_eligible_child: [true]
 
 - name: Case 4, child with special needs at age 19 is ineligible.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -57,7 +57,7 @@
     vt_ccfap_eligible_child: [false]
 
 - name: Case 5, child under 13 who is not a dependent is ineligible.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -71,7 +71,7 @@
     vt_ccfap_eligible_child: [false]
 
 - name: Case 6, infant is eligible.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -85,7 +85,7 @@
     vt_ccfap_eligible_child: [true]
 
 - name: Case 7, child at age 12 is eligible.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -99,7 +99,7 @@
     vt_ccfap_eligible_child: [true]
 
 - name: Case 8, special needs child at age 18 is eligible.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -115,7 +115,7 @@
     vt_ccfap_eligible_child: [true]
 
 - name: Case 9, non-disabled child at age 12 who is not a dependent.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -130,7 +130,7 @@
     vt_ccfap_eligible_child: [false]
 
 - name: Case 10, multiple children with mixed eligibility.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:

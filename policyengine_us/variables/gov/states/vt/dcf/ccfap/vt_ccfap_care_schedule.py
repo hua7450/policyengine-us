@@ -12,14 +12,14 @@ class vt_ccfap_care_schedule(Variable):
     entity = Person
     possible_values = VTCCFAPCareSchedule
     default_value = VTCCFAPCareSchedule.FULL_TIME
-    definition_period = YEAR
+    definition_period = MONTH
     defined_for = StateCode.VT
     label = "Vermont CCFAP care schedule"
-    reference = "https://outside.vermont.gov/dept/DCF/Shared%20Documents/CDD/CCFAP/State-Rates.pdf"
+    reference = "https://outside.vermont.gov/dept/DCF/Shared%20Documents/CDD/CCFAP/CCFAP-State-Rates.pdf"
 
     def formula(person, period, parameters):
         p = parameters(period).gov.states.vt.dcf.ccfap.care_schedule
-        hours = person("childcare_hours_per_week", period)
+        hours = person("childcare_hours_per_week", period.this_year)
         return select(
             [
                 hours <= p.part_time_max,

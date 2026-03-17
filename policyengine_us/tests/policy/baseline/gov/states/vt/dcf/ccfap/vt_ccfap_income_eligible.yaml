@@ -1,5 +1,5 @@
 - name: Case 1, family of 3 with income below 575 percent FPL.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -14,6 +14,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
+        meets_ccdf_activity_test: true
     households:
       household:
         members: [person1, person2, person3]
@@ -25,7 +26,7 @@
     vt_ccfap_income_eligible: true
 
 - name: Case 2, family of 3 with income above 575 percent FPL.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -40,6 +41,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
+        meets_ccdf_activity_test: true
     households:
       household:
         members: [person1, person2, person3]
@@ -51,7 +53,7 @@
     vt_ccfap_income_eligible: false
 
 - name: Case 3, family of 4 with income at 575 percent FPL.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -68,6 +70,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3, person4]
+        meets_ccdf_activity_test: true
     households:
       household:
         members: [person1, person2, person3, person4]
@@ -79,7 +82,7 @@
     vt_ccfap_income_eligible: true
 
 - name: Case 4, family of 4 with income just above 575 percent FPL.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -96,6 +99,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3, person4]
+        meets_ccdf_activity_test: true
     households:
       household:
         members: [person1, person2, person3, person4]
@@ -107,7 +111,7 @@
     vt_ccfap_income_eligible: false
 
 - name: Case 5, zero income is eligible.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -118,6 +122,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
+        meets_ccdf_activity_test: true
     households:
       household:
         members: [person1, person2]
@@ -127,7 +132,7 @@
     vt_ccfap_income_eligible: true
 
 - name: Case 6, single parent family of 2 at exactly 575 percent FPL.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -139,6 +144,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
+        meets_ccdf_activity_test: true
     households:
       household:
         members: [person1, person2]
@@ -150,7 +156,7 @@
     vt_ccfap_income_eligible: true
 
 - name: Case 7, single parent family of 2 one dollar above 575 percent FPL.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -162,6 +168,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
+        meets_ccdf_activity_test: true
     households:
       household:
         members: [person1, person2]
@@ -173,7 +180,7 @@
     vt_ccfap_income_eligible: false
 
 - name: Case 8, large family of 8 at 575 percent FPL.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -202,6 +209,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3, person4, person5, person6, person7, person8]
+        meets_ccdf_activity_test: true
     households:
       household:
         members: [person1, person2, person3, person4, person5, person6, person7, person8]
@@ -213,7 +221,7 @@
     vt_ccfap_income_eligible: true
 
 - name: Case 9, multiple income sources combined.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -228,6 +236,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
+        meets_ccdf_activity_test: true
     households:
       household:
         members: [person1, person2]

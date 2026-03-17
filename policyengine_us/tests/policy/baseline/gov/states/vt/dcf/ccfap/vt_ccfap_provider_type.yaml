@@ -1,5 +1,5 @@
 - name: Case 1, day care center maps to licensed center.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -12,7 +12,7 @@
     vt_ccfap_provider_type: [LICENSED_CENTER]
 
 - name: Case 2, family day care maps to registered home.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -25,7 +25,7 @@
     vt_ccfap_provider_type: [REGISTERED_HOME]
 
 - name: Case 3, legally exempt group maps to registered home.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -38,7 +38,7 @@
     vt_ccfap_provider_type: [REGISTERED_HOME]
 
 - name: Case 4, informal standard maps to registered home.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -51,7 +51,7 @@
     vt_ccfap_provider_type: [REGISTERED_HOME]
 
 - name: Case 5, informal enhanced maps to registered home.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:

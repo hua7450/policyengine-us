@@ -5,7 +5,7 @@ class vt_ccfap(Variable):
     value_type = float
     entity = SPMUnit
     unit = USD
-    definition_period = YEAR
+    definition_period = MONTH
     defined_for = "vt_ccfap_eligible"
     label = "Vermont Child Care Financial Assistance Program benefit"
     reference = (
@@ -18,6 +18,6 @@ class vt_ccfap(Variable):
         eligible_child = person("vt_ccfap_eligible_child", period)
         weekly_rate = person("vt_ccfap_state_rate", period)
         total_weekly_rate = spm_unit.sum(weekly_rate * eligible_child)
-        total_annual_rate = total_weekly_rate * WEEKS_IN_YEAR
+        monthly_rate = total_weekly_rate * WEEKS_IN_YEAR / MONTHS_IN_YEAR
         family_share = spm_unit("vt_ccfap_family_share", period)
-        return max_(total_annual_rate - family_share, 0)
+        return max_(monthly_rate - family_share, 0)

@@ -4,7 +4,7 @@ from policyengine_us.model_api import *
 class vt_ccfap_income_eligible(Variable):
     value_type = bool
     entity = SPMUnit
-    definition_period = YEAR
+    definition_period = MONTH
     defined_for = StateCode.VT
     label = "Income eligible for Vermont CCFAP"
     reference = (

@@ -1,5 +1,5 @@
 - name: Case 1, part time at 20 hours per week.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -13,7 +13,7 @@
     vt_ccfap_care_schedule: [PART_TIME]
 
 - name: Case 2, part time at exactly 25 hours per week.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -27,7 +27,7 @@
     vt_ccfap_care_schedule: [PART_TIME]
 
 - name: Case 3, full time at 26 hours per week.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -41,7 +41,7 @@
     vt_ccfap_care_schedule: [FULL_TIME]
 
 - name: Case 4, full time at 40 hours per week.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -55,7 +55,7 @@
     vt_ccfap_care_schedule: [FULL_TIME]
 
 - name: Case 5, full time at exactly 50 hours per week.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -69,7 +69,7 @@
     vt_ccfap_care_schedule: [FULL_TIME]
 
 - name: Case 6, extended care at 51 hours per week.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -83,7 +83,7 @@
     vt_ccfap_care_schedule: [EXTENDED_CARE]
 
 - name: Case 7, extended care at 60 hours per week.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -97,7 +97,7 @@
     vt_ccfap_care_schedule: [EXTENDED_CARE]
 
 - name: Case 8, minimal part time at 1 hour per week.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -111,7 +111,7 @@
     vt_ccfap_care_schedule: [PART_TIME]
 
 - name: Case 9, zero childcare hours per week.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -126,7 +126,7 @@
     vt_ccfap_care_schedule: [PART_TIME]
 
 - name: Case 10, fractional hours just above 25 boundary.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -141,7 +141,7 @@
     vt_ccfap_care_schedule: [FULL_TIME]
 
 - name: Case 11, fractional hours just above 50 boundary.
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:

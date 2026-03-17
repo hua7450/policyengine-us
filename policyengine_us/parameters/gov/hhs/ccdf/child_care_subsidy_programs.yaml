@@ -5,6 +5,7 @@ values:
     - co_child_care_subsidies  # Colorado Child Care Assistance Program
     - ma_child_care_subsidies  # Massachusetts Child Care Financial Assistance
     - ne_child_care_subsidies  # Nebraska Child Care Subsidy
+    - vt_child_care_subsidies  # Vermont Child Care Financial Assistance Program
 
 metadata:
   unit: list

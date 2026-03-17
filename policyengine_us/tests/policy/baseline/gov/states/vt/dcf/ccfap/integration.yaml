@@ -1,6 +1,6 @@
 - name: Case 1, low income single parent with one infant in full time licensed center.
   absolute_error_margin: 0.01
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -16,6 +16,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
+        meets_ccdf_activity_test: true
     households:
       household:
         members: [person1, person2]
@@ -45,24 +46,27 @@
     # Income
     # FPG for family of 2 = 15,650 + 5,500 = 21,150
     # FPL ratio = 30,000 / 21,150 = 1.418
+    vt_ccfap_countable_income: 2_500.00
+    # 30,000 / 12 = $2,500.00/mo
     vt_ccfap_income_eligible: true
 
     # Family share
     # FPL ratio 1.418 < 1.7501 => $0/wk
-    # Annual: $0 * 52 = $0
+    # Monthly: $0 * 52 / 12 = $0
     vt_ccfap_family_share: 0
 
     # Overall eligibility
     vt_ccfap_eligible: true
 
     # Benefit
-    # Total annual rate = $471 * 52 = $24,492
-    # Benefit = max(24,492 - 0, 0) = $24,492
-    vt_ccfap: 24_492
+    # Weekly rate = $471/wk
+    # Monthly rate = $471 * 52 / 12 = $2,041.00
+    # Benefit = max(2,041.00 - 0, 0) = $2,041.00
+    vt_ccfap: 2_041.00
 
 - name: Case 2, moderate income two parent family with two children in different settings.
   absolute_error_margin: 0.01
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -88,6 +92,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3, person4]
+        meets_ccdf_activity_test: true
     households:
       household:
         members: [person1, person2, person3, person4]
@@ -118,25 +123,27 @@
     # Countable income = 70,000 + 10,000 = 80,000
     # FPG for family of 4 = 15,650 + 3 * 5,500 = 32,150
     # FPL ratio = 80,000 / 32,150 = 2.488
-    vt_ccfap_countable_income: 80_000
+    vt_ccfap_countable_income: 6_666.67
+    # 80,000 / 12 = $6,666.67/mo
     vt_ccfap_income_eligible: true
 
     # Family share
     # FPL ratio 2.488 > 2.2501 => $100/wk
-    # Annual: $100 * 52 = $5,200
-    vt_ccfap_family_share: 5_200
+    # Monthly: $100 * 52 / 12 = $433.33
+    vt_ccfap_family_share: 433.33
 
     # Overall eligibility
     vt_ccfap_eligible: true
 
     # Benefit
-    # Total annual rate = ($439 + $176) * 52 = $615 * 52 = $31,980
-    # Benefit = max(31,980 - 5,200, 0) = $26,780
-    vt_ccfap: 26_780
+    # Total weekly rate = ($439 + $176) = $615/wk
+    # Monthly rate = $615 * 52 / 12 = $2,665.00
+    # Benefit = max(2,665.00 - 433.33, 0) = $2,231.67
+    vt_ccfap: 2_231.67
 
 - name: Case 3, high income family just below 575 percent FPL threshold.
   absolute_error_margin: 0.01
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -155,6 +162,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
+        meets_ccdf_activity_test: true
     households:
       household:
         members: [person1, person2, person3]
@@ -179,24 +187,26 @@
     # FPG for family of 3 = 26,650
     # FPL ratio = 153,000 / 26,650 = 5.741
     # 5.741 > 5.5001 => weekly share = $425
-    vt_ccfap_countable_income: 153_000
+    vt_ccfap_countable_income: 12_750.00
+    # 153,000 / 12 = $12,750.00/mo
     vt_ccfap_income_eligible: true
 
     # Family share
-    # Annual: $425 * 52 = $22,100
-    vt_ccfap_family_share: 22_100
+    # Monthly: $425 * 52 / 12 = $1,841.67
+    vt_ccfap_family_share: 1_841.67
 
     # Overall eligibility
     vt_ccfap_eligible: true
 
     # Benefit
-    # Total annual rate = $371 * 52 = $19,292
-    # Benefit = max(19,292 - 22,100, 0) = $0
+    # Weekly rate = $371/wk
+    # Monthly rate = $371 * 52 / 12 = $1,607.67
+    # Benefit = max(1,607.67 - 1,841.67, 0) = $0
     vt_ccfap: 0
 
 - name: Case 4, foster child in registered home with high income parent.
   absolute_error_margin: 0.01
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -249,13 +259,14 @@
     vt_ccfap_eligible: true
 
     # Benefit
-    # Total annual rate = $361 * 52 = $18,772
-    # Benefit = max(18,772 - 0, 0) = $18,772
-    vt_ccfap: 18_772
+    # Weekly rate = $361/wk
+    # Monthly rate = $361 * 52 / 12 = $1,564.33
+    # Benefit = max(1,564.33 - 0, 0) = $1,564.33
+    vt_ccfap: 1_564.33
 
 - name: Case 5, disabled teenager eligible as special needs child.
   absolute_error_margin: 0.01
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -272,6 +283,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
+        meets_ccdf_activity_test: true
     households:
       household:
         members: [person1, person2]
@@ -295,24 +307,27 @@
     # Income
     # FPG for family of 2 = 21,150
     # FPL ratio = 60,000 / 21,150 = 2.837
+    vt_ccfap_countable_income: 5_000.00
+    # 60,000 / 12 = $5,000.00/mo
     vt_ccfap_income_eligible: true
 
     # Family share
     # FPL ratio 2.837 > 2.7501 => $150/wk
-    # Annual: $150 * 52 = $7,800
-    vt_ccfap_family_share: 7_800
+    # Monthly: $150 * 52 / 12 = $650.00
+    vt_ccfap_family_share: 650.00
 
     # Overall eligibility
     vt_ccfap_eligible: true
 
     # Benefit
-    # Total annual rate = $371 * 52 = $19,292
-    # Benefit = max(19,292 - 7,800, 0) = $11,492
-    vt_ccfap: 11_492
+    # Weekly rate = $371/wk
+    # Monthly rate = $371 * 52 / 12 = $1,607.67
+    # Benefit = max(1,607.67 - 650.00, 0) = $957.67
+    vt_ccfap: 957.67
 
 - name: Case 6, extended care infant in registered home with two parents.
   absolute_error_margin: 0.01
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -331,6 +346,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
+        meets_ccdf_activity_test: true
     households:
       household:
         members: [person1, person2, person3]
@@ -357,25 +373,27 @@
     # Countable income = 35,000 + 10,000 = 45,000
     # FPG for family of 3 = 26,650
     # FPL ratio = 45,000 / 26,650 = 1.688
-    vt_ccfap_countable_income: 45_000
+    vt_ccfap_countable_income: 3_750.00
+    # 45,000 / 12 = $3,750.00/mo
     vt_ccfap_income_eligible: true
 
     # Family share
     # FPL ratio 1.688 < 1.7501 => $0/wk
-    # Annual: $0 * 52 = $0
+    # Monthly: $0 * 52 / 12 = $0
     vt_ccfap_family_share: 0
 
     # Overall eligibility
     vt_ccfap_eligible: true
 
     # Benefit
-    # Total annual rate = $527 * 52 = $27,404
-    # Benefit = max(27,404 - 0, 0) = $27,404
-    vt_ccfap: 27_404
+    # Weekly rate = $527/wk
+    # Monthly rate = $527 * 52 / 12 = $2,283.67
+    # Benefit = max(2,283.67 - 0, 0) = $2,283.67
+    vt_ccfap: 2_283.67
 
 - name: Case 7, ineligible family above 575 percent FPL gets zero benefit.
   absolute_error_margin: 0.01
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -412,7 +430,7 @@
 
 - name: Case 8, family at exactly 575 percent FPL boundary with maximum family share.
   absolute_error_margin: 0.01
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -428,6 +446,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
+        meets_ccdf_activity_test: true
     households:
       household:
         members: [person1, person2]
@@ -457,25 +476,27 @@
     # FPG for family of 2 = 21,150
     # FPL ratio = 121,612.50 / 21,150 = 5.75
     # 121,612.50 <= 121,612.50
-    vt_ccfap_countable_income: 121_612.50
+    vt_ccfap_countable_income: 10_134.38
+    # 121,612.50 / 12 = $10,134.38/mo
     vt_ccfap_income_eligible: true
 
     # Family share
     # FPL ratio 5.75 >= 5.5001 => $425/wk
-    # Annual: $425 * 52 = $22,100
-    vt_ccfap_family_share: 22_100
+    # Monthly: $425 * 52 / 12 = $1,841.67
+    vt_ccfap_family_share: 1_841.67
 
     # Overall eligibility
     vt_ccfap_eligible: true
 
     # Benefit
-    # Total annual rate = $640 * 52 = $33,280
-    # Benefit = max(33,280 - 22,100, 0) = $11,180
-    vt_ccfap: 11_180
+    # Weekly rate = $640/wk
+    # Monthly rate = $640 * 52 / 12 = $2,773.33
+    # Benefit = max(2,773.33 - 1,841.67, 0) = $931.67
+    vt_ccfap: 931.67
 
 - name: Case 9, large family of 8 with three eligible children in different settings.
   absolute_error_margin: 0.01
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -524,6 +545,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3, person4, person5, person6, person7, person8]
+        meets_ccdf_activity_test: true
     households:
       household:
         members: [person1, person2, person3, person4, person5, person6, person7, person8]
@@ -559,26 +581,27 @@
     # Income
     # FPG for family of 8 = 15,650 + 7 * 5,500 = 54,150
     # FPL ratio = 80,000 / 54,150 = 1.477
-    vt_ccfap_countable_income: 80_000
+    vt_ccfap_countable_income: 6_666.67
+    # 80,000 / 12 = $6,666.67/mo
     vt_ccfap_income_eligible: true
 
     # Family share
     # FPL ratio 1.477 < 1.7501 => $0/wk
-    # Annual: $0 * 52 = $0
+    # Monthly: $0 * 52 / 12 = $0
     vt_ccfap_family_share: 0
 
     # Overall eligibility
     vt_ccfap_eligible: true
 
     # Benefit
-    # Total weekly rate = $387 + $243 + $439 + $176 + $204 = $1,449
-    # Total annual rate = $1,449 * 52 = $75,348
-    # Benefit = max(75,348 - 0, 0) = $75,348
-    vt_ccfap: 75_348
+    # Total weekly rate = $387 + $243 + $439 + $176 + $204 = $1,449/wk
+    # Monthly rate = $1,449 * 52 / 12 = $6,279.00
+    # Benefit = max(6,279.00 - 0, 0) = $6,279.00
+    vt_ccfap: 6_279.00
 
 - name: Case 10, enrollment based benefit with moderate family share.
   absolute_error_margin: 0.01
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -593,6 +616,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
+        meets_ccdf_activity_test: true
     households:
       household:
         members: [person1, person2]
@@ -615,25 +639,27 @@
     # Income
     # FPG for family of 2 = 21,150
     # FPL ratio = 55,000 / 21,150 = 2.600
-    vt_ccfap_countable_income: 55_000
+    vt_ccfap_countable_income: 4_583.33
+    # 55,000 / 12 = $4,583.33/mo
     vt_ccfap_income_eligible: true
 
     # Family share
     # FPL ratio 2.600 >= 2.5001 => $125/wk
-    # Annual: $125 * 52 = $6,500
-    vt_ccfap_family_share: 6_500
+    # Monthly: $125 * 52 / 12 = $541.67
+    vt_ccfap_family_share: 541.67
 
     # Overall eligibility
     vt_ccfap_eligible: true
 
     # Benefit
-    # Total annual rate = $640 * 52 = $33,280
-    # Benefit = max(33,280 - 6,500, 0) = $26,780
-    vt_ccfap: 26_780
+    # Weekly rate = $640/wk
+    # Monthly rate = $640 * 52 / 12 = $2,773.33
+    # Benefit = max(2,773.33 - 541.67, 0) = $2,231.67
+    vt_ccfap: 2_231.67
 
 - name: Case 11, protective services child with mixed eligible and ineligible children.
   absolute_error_margin: 0.01
-  period: 2025
+  period: 2025-01
   input:
     people:
       person1:
@@ -674,6 +700,8 @@
     # FPG for family of 3 = 26,650
     # 575% FPL = 153,237.50
     # Income 200,000 > 153,237.50
+    vt_ccfap_countable_income: 16_666.67
+    # 200,000 / 12 = $16,666.67/mo
     vt_ccfap_income_eligible: false
 
     # Protective services => categorically eligible
@@ -683,6 +711,7 @@
     vt_ccfap_family_share: 0
 
     # Benefit
-    # Total annual rate = $439 * 52 = $22,828
-    # Benefit = max(22,828 - 0, 0) = $22,828
-    vt_ccfap: 22_828
+    # Weekly rate = $439/wk
+    # Monthly rate = $439 * 52 / 12 = $1,902.33
+    # Benefit = max(1,902.33 - 0, 0) = $1,902.33
+    vt_ccfap: 1_902.33

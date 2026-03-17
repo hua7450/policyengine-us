@@ -9,48 +9,48 @@ metadata:
     - vt_ccfap_age_group
   reference:
     - title: CCFAP State Rates (June 30, 2024)
-      href: https://outside.vermont.gov/dept/DCF/Shared%20Documents/CDD/CCFAP/State-Rates.pdf
+      href: https://outside.vermont.gov/dept/DCF/Shared%20Documents/CDD/CCFAP/CCFAP-State-Rates.pdf
     - title: CCFAP Capped State Rates (July 13, 2025)
-      href: https://outside.vermont.gov/dept/DCF/Shared%20Documents/CDD/CCFAP/Capped-State-Rates.pdf
+      href: https://outside.vermont.gov/dept/DCF/Policies%20Procedures%20Guidance/CDD-Guidance-CCFAP-Capped-Rates.pdf
 
 FULL_TIME:
   INFANT:
-    2024-06-30: 471
+    2024-01-01: 471
     2025-07-13: 495
   TODDLER:
-    2024-06-30: 443
+    2024-01-01: 443
     2025-07-13: 465
   PRESCHOOL:
-    2024-06-30: 439
+    2024-01-01: 439
     2025-07-13: 439
   SCHOOL_AGE:
-    2024-06-30: 371
+    2024-01-01: 371
     2025-07-13: 371
 
 PART_TIME:
   INFANT:
-    2024-06-30: 258
+    2024-01-01: 258
     2025-07-13: 271
   TODDLER:
-    2024-06-30: 243
+    2024-01-01: 243
     2025-07-13: 255
   PRESCHOOL:
-    2024-06-30: 240
+    2024-01-01: 240
     2025-07-13: 240
   SCHOOL_AGE:
-    2024-06-30: 204
+    2024-01-01: 204
     2025-07-13: 204
 
 EXTENDED_CARE:
   INFANT:
-    2024-06-30: 640
+    2024-01-01: 640
     2025-07-13: 672
   TODDLER:
-    2024-06-30: 602
+    2024-01-01: 602
     2025-07-13: 632
   PRESCHOOL:
-    2024-06-30: 597
+    2024-01-01: 597
     2025-07-13: 597
   SCHOOL_AGE:
-    2024-06-30: 505
+    2024-01-01: 505
     2025-07-13: 505

@@ -8,76 +8,76 @@ metadata:
   label: Vermont CCFAP weekly family share scale
   reference:
     - title: CCFAP Income Guidelines (effective October 6, 2024)
-      href: https://outside.vermont.gov/dept/DCF/Shared%20Documents/CDD/CCFAP/Income-Guidelines.pdf
+      href: https://outside.vermont.gov/dept/DCF/Shared%20Documents/Benefits/CCFAP-Income-Guidelines.pdf
     - title: CCFAP Regulations Section IX
       href: https://outside.vermont.gov/dept/DCF/Shared%20Documents/CDD/CCFAP/CCFAP-Regulations.pdf#page=17
 
 brackets:
   - threshold:
-      2024-10-01: 0
+      2024-01-01: 0
     amount:
-      2024-10-01: 0
+      2024-01-01: 0
   - threshold:
-      2024-10-01: 1.7501
+      2024-01-01: 1.7501
     amount:
-      2024-10-01: 50
+      2024-01-01: 50
   - threshold:
-      2024-10-01: 2.0001
+      2024-01-01: 2.0001
     amount:
-      2024-10-01: 75
+      2024-01-01: 75
   - threshold:
-      2024-10-01: 2.2501
+      2024-01-01: 2.2501
     amount:
-      2024-10-01: 100
+      2024-01-01: 100
   - threshold:
-      2024-10-01: 2.5001
+      2024-01-01: 2.5001
     amount:
-      2024-10-01: 125
+      2024-01-01: 125
   - threshold:
-      2024-10-01: 2.7501
+      2024-01-01: 2.7501
     amount:
-      2024-10-01: 150
+      2024-01-01: 150
   - threshold:
-      2024-10-01: 3.0001
+      2024-01-01: 3.0001
     amount:
-      2024-10-01: 175
+      2024-01-01: 175
   - threshold:
-      2024-10-01: 3.2501
+      2024-01-01: 3.2501
     amount:
-      2024-10-01: 200
+      2024-01-01: 200
   - threshold:
-      2024-10-01: 3.5001
+      2024-01-01: 3.5001
     amount:
-      2024-10-01: 225
+      2024-01-01: 225
   - threshold:
-      2024-10-01: 3.7501
+      2024-01-01: 3.7501
     amount:
-      2024-10-01: 250
+      2024-01-01: 250
   - threshold:
-      2024-10-01: 4.0001
+      2024-01-01: 4.0001
     amount:
-      2024-10-01: 275
+      2024-01-01: 275
   - threshold:
-      2024-10-01: 4.2501
+      2024-01-01: 4.2501
     amount:
-      2024-10-01: 300
+      2024-01-01: 300
   - threshold:
-      2024-10-01: 4.5001
+      2024-01-01: 4.5001
     amount:
-      2024-10-01: 325
+      2024-01-01: 325
   - threshold:
-      2024-10-01: 4.7501
+      2024-01-01: 4.7501
     amount:
-      2024-10-01: 350
+      2024-01-01: 350
   - threshold:
-      2024-10-01: 5.0001
+      2024-01-01: 5.0001
     amount:
-      2024-10-01: 375
+      2024-01-01: 375
   - threshold:
-      2024-10-01: 5.2501
+      2024-01-01: 5.2501
     amount:
-      2024-10-01: 400
+      2024-01-01: 400
   - threshold:
-      2024-10-01: 5.5001
+      2024-01-01: 5.5001
     amount:
-      2024-10-01: 425
+      2024-01-01: 425
