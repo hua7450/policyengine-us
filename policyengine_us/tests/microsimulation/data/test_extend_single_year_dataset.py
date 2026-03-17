@@ -5,10 +5,6 @@ Uses mock system objects to avoid loading the full policyengine-us
 tax-benefit system, keeping tests fast and deterministic.
 """
 
-import sys as _sys
-from types import ModuleType
-from unittest.mock import patch
-
 import numpy as np
 import pandas as pd
 import pytest
@@ -47,22 +43,12 @@ from policyengine_us.tests.microsimulation.data.fixtures.economic_assumptions_fi
 
 
 def _call_extend_with_mock_system(mock_system, dataset, **kwargs):
-    """Call extend_single_year_dataset with a mock system module.
+    """Call extend_single_year_dataset passing mock system directly."""
+    from policyengine_us.data.economic_assumptions import (
+        extend_single_year_dataset,
+    )
 
-    The real ``_apply_uprating`` does ``from policyengine_us.system import
-    system`` at call time.  We intercept that import by temporarily
-    injecting a fake ``policyengine_us.system`` module into ``sys.modules``
-    so the real (expensive) tax-benefit system is never loaded.
-    """
-    fake_module = ModuleType("policyengine_us.system")
-    fake_module.system = mock_system
-
-    with patch.dict(_sys.modules, {"policyengine_us.system": fake_module}):
-        from policyengine_us.data.economic_assumptions import (
-            extend_single_year_dataset,
-        )
-
-        return extend_single_year_dataset(dataset, **kwargs)
+    return extend_single_year_dataset(dataset, system=mock_system, **kwargs)
 
 
 @pytest.fixture
@@ -474,6 +460,15 @@ class TestExtendSingleYearDataset:
             RENT_BASE * CPI_U_GROWTH_FACTOR_2024_TO_2025,
         )
 
+    def test_given_end_year_before_start_year_then_raises_value_error(
+        self, base_dataset, mock_system
+    ):
+        # When / Then
+        with pytest.raises(ValueError, match="end_year.*must be >= dataset base year"):
+            _call_extend_with_mock_system(
+                mock_system, base_dataset, end_year=BASE_YEAR - 1
+            )
+
 
 # ---------------------------------------------------------------------------
 # USMultiYearDataset.__init__ validation
@@ -542,6 +537,39 @@ class TestSingleYearDatasetLoad:
         assert "rent" in data
         assert "tax_unit_id" in data
         np.testing.assert_array_equal(data["employment_income"], EMPLOYMENT_INCOME_BASE)
+
+
+# ---------------------------------------------------------------------------
+# USMultiYearDataset.load() duplicate column detection
+# ---------------------------------------------------------------------------
+
+
+class TestMultiYearDatasetLoad:
+    def test_load_raises_on_duplicate_column_across_entities(self):
+        # Given — both person and household have column 'shared_col'
+        person_df = pd.DataFrame(
+            {
+                "person_id": [1, 2],
+                "shared_col": [100.0, 200.0],
+            }
+        )
+        household_df = pd.DataFrame(
+            {
+                "household_id": [1],
+                "shared_col": [999.0],
+            }
+        )
+        ds = USSingleYearDataset(
+            person=person_df,
+            household=household_df,
+            tax_unit=pd.DataFrame({"tax_unit_id": [1]}),
+            time_period=2024,
+        )
+        multi = USMultiYearDataset(datasets=[ds])
+
+        # When / Then
+        with pytest.raises(ValueError, match="Duplicate column 'shared_col'"):
+            multi.load()
 
 
 # ---------------------------------------------------------------------------

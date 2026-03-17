@@ -3,10 +3,13 @@ from policyengine_us.data.dataset_schema import (
     USMultiYearDataset,
 )
 
+DEFAULT_END_YEAR = 2035
+
 
 def extend_single_year_dataset(
     dataset: USSingleYearDataset,
-    end_year: int = 2035,
+    end_year: int = DEFAULT_END_YEAR,
+    system=None,
 ) -> USMultiYearDataset:
     """Extend a single-year US dataset to multiple years via uprating.
 
@@ -17,6 +20,10 @@ def extend_single_year_dataset(
     Variables without an uprating parameter are carried forward unchanged.
     """
     start_year = int(dataset.time_period)
+    if end_year < start_year:
+        raise ValueError(
+            f"end_year ({end_year}) must be >= dataset base year ({start_year})."
+        )
     datasets = [dataset]
     for year in range(start_year + 1, end_year + 1):
         next_year = dataset.copy()
@@ -24,12 +31,13 @@ def extend_single_year_dataset(
         datasets.append(next_year)
 
     multi_year_dataset = USMultiYearDataset(datasets=datasets)
-    return _apply_uprating(multi_year_dataset)
+    return _apply_uprating(multi_year_dataset, system=system)
 
 
-def _apply_uprating(dataset: USMultiYearDataset) -> USMultiYearDataset:
+def _apply_uprating(dataset: USMultiYearDataset, system=None) -> USMultiYearDataset:
     """Apply year-over-year uprating to all years in a multi-year dataset."""
-    from policyengine_us.system import system
+    if system is None:
+        from policyengine_us.system import system
 
     dataset = dataset.copy()
 

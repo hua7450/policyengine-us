@@ -28,6 +28,7 @@ from policyengine_core.parameters.operations.uprate_parameters import (
 )
 from .tools.default_uprating import add_default_uprating
 from policyengine_us.data.dataset_schema import (
+    US_ENTITIES,
     USSingleYearDataset,
     USMultiYearDataset,
 )
@@ -207,19 +208,12 @@ def _is_hdfstore_format(file_path):
     """
     import pandas as pd
 
-    entity_names = {
-        "person",
-        "household",
-        "tax_unit",
-        "spm_unit",
-        "family",
-        "marital_unit",
-    }
+    entity_names = set(US_ENTITIES)
     try:
         with pd.HDFStore(file_path, mode="r") as store:
             keys = {k.strip("/").split("/")[0] for k in store.keys()}
             return bool(entity_names & keys)
-    except Exception:
+    except (OSError, IOError, KeyError, ValueError):
         return False
 
 
@@ -257,10 +251,9 @@ class Microsimulation(CoreMicrosimulation):
             self.default_input_period = 2023
 
         # Detect entity-level HDFStore format and load/extend if needed
-        dataset = kwargs.get("dataset")
         if dataset is not None and isinstance(dataset, str):
             local_path = _resolve_dataset_path(dataset)
-            if local_path is not None and _is_hdfstore_format(local_path):
+            if _is_hdfstore_format(local_path):
                 from policyengine_us.data.economic_assumptions import (
                     extend_single_year_dataset,
                 )

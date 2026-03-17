@@ -42,7 +42,7 @@ class USSingleYearDataset:
                                 f"Dataset '{name}' not found in: {file_path}"
                             )
                         return False
-        except Exception:
+        except (OSError, IOError, KeyError, ValueError):
             if raise_exception:
                 raise
             return False
@@ -63,13 +63,15 @@ class USSingleYearDataset:
         file_path = str(file_path) if file_path else None
         if file_path is not None:
             self.validate_file_path(file_path)
-            with pd.HDFStore(file_path) as f:
+            with pd.HDFStore(file_path, mode="r") as f:
                 self.person = f["person"]
                 self.household = f["household"]
                 self.tax_unit = f["tax_unit"]
-                self.spm_unit = f["spm_unit"]
-                self.family = f["family"]
-                self.marital_unit = f["marital_unit"]
+                self.spm_unit = f["spm_unit"] if "spm_unit" in f else pd.DataFrame()
+                self.family = f["family"] if "family" in f else pd.DataFrame()
+                self.marital_unit = (
+                    f["marital_unit"] if "marital_unit" in f else pd.DataFrame()
+                )
                 if "_time_period" in f:
                     self.time_period = str(int(f["_time_period"].iloc[0]))
                 else:
@@ -142,12 +144,6 @@ class USSingleYearDataset:
             time_period=int(self.time_period),
         )
 
-    def validate(self):
-        for name, df in zip(self.table_names, self.tables):
-            for col in df.columns:
-                if df[col].isna().any():
-                    raise ValueError(f"Column '{col}' in {name} contains NaN values.")
-
 
 class USMultiYearDataset:
     def __init__(
@@ -168,7 +164,7 @@ class USMultiYearDataset:
                 year = int(dataset.time_period)
                 self.datasets[year] = dataset
         elif file_path is not None:
-            with pd.HDFStore(file_path) as f:
+            with pd.HDFStore(file_path, mode="r") as f:
                 self.datasets = {}
                 for key in f.keys():
                     if key.startswith("/person/"):
@@ -229,9 +225,15 @@ class USMultiYearDataset:
     def load(self):
         data = {}
         for year, dataset in self.datasets.items():
-            for df in dataset.tables:
+            for table_name, df in zip(dataset.table_names, dataset.tables):
                 for col in df.columns:
                     if col not in data:
                         data[col] = {}
+                    elif year in data[col]:
+                        raise ValueError(
+                            f"Duplicate column '{col}' found across "
+                            f"entities for year {year}. "
+                            f"Cannot flatten to a single dict."
+                        )
                     data[col][year] = df[col].values
         return data
