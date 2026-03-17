@@ -25,17 +25,7 @@ def create_individual_eitc() -> Reform:
             p = parameters(period).gov.contrib.individual_eitc
             takes_up_eitc = tax_unit("takes_up_eitc", period)
 
-            # Check if reform is active
-            reform_active = p.in_effect
-
-            # Baseline EITC calculation
-            maximum = tax_unit("eitc_maximum", period)
-            phased_in = tax_unit("eitc_phased_in", period)
-            reduction = tax_unit("eitc_reduction", period)
-            limitation = max_(0, maximum - reduction)
-            baseline_eitc = min_(phased_in, limitation)
-
-            # Reform: compute EITC separately for head and spouse
+            # Compute EITC separately for head and spouse
             person = tax_unit.members
             adj_earnings = person("adjusted_earnings", period)
             is_head = person("is_tax_unit_head", period)
@@ -77,9 +67,7 @@ def create_individual_eitc() -> Reform:
             agi = tax_unit("adjusted_gross_income", period)
             agi_eligible = where(agi_limit > 0, agi < agi_limit, True)
 
-            reform_eitc = individual_eitc * agi_eligible
-
-            return where(reform_active, reform_eitc, baseline_eitc) * takes_up_eitc
+            return individual_eitc * agi_eligible * takes_up_eitc
 
     class reform(Reform):
         def apply(self):
