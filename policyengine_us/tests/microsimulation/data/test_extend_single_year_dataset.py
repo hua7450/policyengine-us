@@ -57,20 +57,12 @@ def _call_extend_with_mock_system(mock_system, dataset, **kwargs):
     fake_module = ModuleType("policyengine_us.system")
     fake_module.system = mock_system
 
-    saved = _sys.modules.get("policyengine_us.system")
-    _sys.modules["policyengine_us.system"] = fake_module
-    try:
-        # Import here so the patched module is used
+    with patch.dict(_sys.modules, {"policyengine_us.system": fake_module}):
         from policyengine_us.data.economic_assumptions import (
             extend_single_year_dataset,
         )
 
         return extend_single_year_dataset(dataset, **kwargs)
-    finally:
-        if saved is not None:
-            _sys.modules["policyengine_us.system"] = saved
-        else:
-            _sys.modules.pop("policyengine_us.system", None)
 
 
 @pytest.fixture
@@ -501,4 +493,210 @@ class TestExtendSingleYearDataset:
         np.testing.assert_allclose(
             year_one.household["rent"].values,
             RENT_BASE * CPI_U_GROWTH_FACTOR_2024_TO_2025,
+        )
+
+
+# ---------------------------------------------------------------------------
+# USMultiYearDataset.__init__ validation
+# ---------------------------------------------------------------------------
+
+
+class TestUSMultiYearDatasetInit:
+    def test_given_neither_arg_then_raises_value_error(self):
+        # When / Then
+        with pytest.raises(
+            ValueError, match="Must provide either datasets or file_path"
+        ):
+            USMultiYearDataset()
+
+    def test_given_both_args_then_raises_value_error(
+        self, base_dataset, tmp_path
+    ):
+        # Given
+        path = str(tmp_path / "test.h5")
+        base_dataset.save(path)
+
+        # When / Then
+        with pytest.raises(
+            ValueError,
+            match="Provide either datasets or file_path, not both",
+        ):
+            USMultiYearDataset(datasets=[base_dataset], file_path=path)
+
+
+# ---------------------------------------------------------------------------
+# USSingleYearDataset.load() duplicate column detection
+# ---------------------------------------------------------------------------
+
+
+class TestSingleYearDatasetLoad:
+    def test_load_raises_on_duplicate_column_names(self):
+        # Given — both person and household have column 'shared_col'
+        person_df = pd.DataFrame(
+            {
+                "person_id": [1, 2],
+                "shared_col": [100.0, 200.0],
+            }
+        )
+        household_df = pd.DataFrame(
+            {
+                "household_id": [1],
+                "shared_col": [999.0],
+            }
+        )
+        ds = USSingleYearDataset(
+            person=person_df,
+            household=household_df,
+            tax_unit=pd.DataFrame({"tax_unit_id": [1]}),
+        )
+
+        # When / Then
+        with pytest.raises(ValueError, match="Duplicate column 'shared_col'"):
+            ds.load()
+
+    def test_load_returns_all_entity_columns(self, base_dataset):
+        # When
+        data = base_dataset.load()
+
+        # Then
+        assert "person_id" in data
+        assert "employment_income" in data
+        assert "household_id" in data
+        assert "rent" in data
+        assert "tax_unit_id" in data
+        np.testing.assert_array_equal(
+            data["employment_income"], EMPLOYMENT_INCOME_BASE
+        )
+
+
+# ---------------------------------------------------------------------------
+# _is_hdfstore_format
+# ---------------------------------------------------------------------------
+
+
+class TestIsHdfstoreFormat:
+    def test_entity_level_file_returns_true(self, base_dataset, tmp_path):
+        # Given
+        path = str(tmp_path / "entity_level.h5")
+        base_dataset.save(path)
+
+        # When / Then
+        from policyengine_us.system import _is_hdfstore_format
+
+        assert _is_hdfstore_format(path) is True
+
+    def test_variable_level_file_returns_false(self, tmp_path):
+        # Given — create a variable-centric h5py file
+        import h5py
+
+        path = str(tmp_path / "variable_level.h5")
+        with h5py.File(path, "w") as f:
+            f.create_dataset("employment_income", data=np.array([50_000.0]))
+            f.create_dataset("age", data=np.array([25.0]))
+
+        # When / Then
+        from policyengine_us.system import _is_hdfstore_format
+
+        assert _is_hdfstore_format(path) is False
+
+    def test_nonexistent_file_returns_false(self):
+        # When / Then
+        from policyengine_us.system import _is_hdfstore_format
+
+        assert _is_hdfstore_format("/nonexistent/path.h5") is False
+
+
+# ---------------------------------------------------------------------------
+# _resolve_dataset_path
+# ---------------------------------------------------------------------------
+
+
+class TestResolveDatasetPath:
+    def test_nonexistent_path_raises_file_not_found(self):
+        # When / Then
+        from policyengine_us.system import _resolve_dataset_path
+
+        with pytest.raises(FileNotFoundError, match="Dataset file not found"):
+            _resolve_dataset_path("/nonexistent/path/file.h5")
+
+    def test_existing_path_returns_path(self, base_dataset, tmp_path):
+        # Given
+        path = str(tmp_path / "test.h5")
+        base_dataset.save(path)
+
+        # When
+        from policyengine_us.system import _resolve_dataset_path
+
+        result = _resolve_dataset_path(path)
+
+        # Then
+        assert result == path
+
+
+# ---------------------------------------------------------------------------
+# File I/O roundtrips
+# ---------------------------------------------------------------------------
+
+
+class TestFileIORoundtrips:
+    def test_single_year_save_and_load_roundtrip(self, base_dataset, tmp_path):
+        # Given
+        path = str(tmp_path / "single_year.h5")
+
+        # When
+        base_dataset.save(path)
+        loaded = USSingleYearDataset(file_path=path)
+
+        # Then
+        assert loaded.time_period == base_dataset.time_period
+        for name in base_dataset.table_names:
+            original = getattr(base_dataset, name)
+            reloaded = getattr(loaded, name)
+            if len(original) > 0:
+                pd.testing.assert_frame_equal(reloaded, original)
+
+    def test_multi_year_save_and_load_roundtrip(
+        self, base_dataset, mock_system, tmp_path
+    ):
+        # Given
+        multi = _call_extend_with_mock_system(
+            mock_system, base_dataset, end_year=END_YEAR_SHORT
+        )
+        path = str(tmp_path / "multi_year.h5")
+
+        # When
+        multi.save(path)
+        loaded = USMultiYearDataset(file_path=path)
+
+        # Then
+        assert loaded.years == multi.years
+        for year in multi.years:
+            original = multi[year]
+            reloaded = loaded[year]
+            assert reloaded.time_period == original.time_period
+            for name in original.table_names:
+                orig_df = getattr(original, name)
+                load_df = getattr(reloaded, name)
+                if len(orig_df) > 0:
+                    pd.testing.assert_frame_equal(load_df, orig_df)
+
+    def test_multi_year_load_returns_time_period_arrays(
+        self, base_dataset, mock_system
+    ):
+        # Given
+        multi = _call_extend_with_mock_system(
+            mock_system, base_dataset, end_year=END_YEAR_SHORT
+        )
+
+        # When
+        data = multi.load()
+
+        # Then — keys are column names, values are {year: array}
+        assert "employment_income" in data
+        assert set(data["employment_income"].keys()) == set(
+            range(BASE_YEAR, END_YEAR_SHORT + 1)
+        )
+        np.testing.assert_array_equal(
+            data["employment_income"][BASE_YEAR],
+            EMPLOYMENT_INCOME_BASE,
         )

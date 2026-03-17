@@ -199,7 +199,8 @@ def _resolve_dataset_path(dataset_str):
         )
     elif Path(dataset_str).exists():
         return dataset_str
-    return None
+    else:
+        raise FileNotFoundError(f"Dataset file not found: {dataset_str}")
 
 
 def _is_hdfstore_format(file_path):
@@ -208,7 +209,7 @@ def _is_hdfstore_format(file_path):
     Entity-level files have top-level keys like 'person', 'household', etc.
     Variable-centric h5py files have variable names as top-level keys.
     """
-    import h5py
+    import pandas as pd
 
     entity_names = {
         "person",
@@ -219,9 +220,9 @@ def _is_hdfstore_format(file_path):
         "marital_unit",
     }
     try:
-        with h5py.File(file_path, "r") as f:
-            top_keys = set(f.keys())
-            return bool(entity_names & top_keys)
+        with pd.HDFStore(file_path, mode="r") as store:
+            keys = {k.strip("/").split("/")[0] for k in store.keys()}
+            return bool(entity_names & keys)
     except Exception:
         return False
 
@@ -282,6 +283,8 @@ class Microsimulation(CoreMicrosimulation):
 
             multi = extend_single_year_dataset(dataset)
             kwargs["dataset"] = multi
+        elif isinstance(dataset, USMultiYearDataset):
+            pass  # Already extended, use as-is
 
         super().__init__(*args, **kwargs)
 

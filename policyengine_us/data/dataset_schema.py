@@ -1,6 +1,5 @@
 import pandas as pd
 from pathlib import Path
-import h5py
 
 US_ENTITIES = [
     "person",
@@ -33,16 +32,20 @@ class USSingleYearDataset:
                 raise FileNotFoundError(f"File not found: {file_path}")
             return False
 
-        with h5py.File(file_path, "r") as f:
-            required_datasets = ["person", "household", "tax_unit"]
-            for dataset in required_datasets:
-                if dataset not in f:
-                    if raise_exception:
-                        raise ValueError(
-                            f"Dataset '{dataset}' not found in the file: {file_path}"
-                        )
-                    else:
+        try:
+            with pd.HDFStore(file_path, mode="r") as store:
+                keys = {k.strip("/") for k in store.keys()}
+                for name in ["person", "household", "tax_unit"]:
+                    if name not in keys:
+                        if raise_exception:
+                            raise ValueError(
+                                f"Dataset '{name}' not found in: {file_path}"
+                            )
                         return False
+        except Exception:
+            if raise_exception:
+                raise
+            return False
 
         return True
 
@@ -120,8 +123,13 @@ class USSingleYearDataset:
 
     def load(self):
         data = {}
-        for df in self.tables:
+        for table_name, df in zip(self.table_names, self.tables):
             for col in df.columns:
+                if col in data:
+                    raise ValueError(
+                        f"Duplicate column '{col}' found across "
+                        f"entities. Cannot flatten to a single dict."
+                    )
                 data[col] = df[col].values
         return data
 
@@ -151,6 +159,9 @@ class USMultiYearDataset:
         file_path: str = None,
         datasets: list[USSingleYearDataset] | None = None,
     ):
+        if datasets is not None and file_path is not None:
+            raise ValueError("Provide either datasets or file_path, not both.")
+
         if datasets is not None:
             self.datasets = {}
             for dataset in datasets:
@@ -160,8 +171,7 @@ class USMultiYearDataset:
                     )
                 year = int(dataset.time_period)
                 self.datasets[year] = dataset
-
-        if file_path is not None:
+        elif file_path is not None:
             with pd.HDFStore(file_path) as f:
                 self.datasets = {}
                 for key in f.keys():
@@ -178,6 +188,8 @@ class USMultiYearDataset:
                             **entity_dfs,
                             time_period=year,
                         )
+        else:
+            raise ValueError("Must provide either datasets or file_path.")
 
         self.data_format = "time_period_arrays"
         self.time_period = str(min(self.datasets.keys()))
