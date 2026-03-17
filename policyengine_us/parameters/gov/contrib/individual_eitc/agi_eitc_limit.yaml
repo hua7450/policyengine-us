@@ -1,4 +1,4 @@
-description: Tax filers with combined AGI at or above this amount cannot claim the individual-income EITC; 0 means no AGI limit (default behavior under the Winship proposal).
+description: Under the Winship proposal, tax filers with combined adjusted gross income at or above this amount cannot claim the individual-income earned income tax credit.
 values:
   2023-01-01: 0
 
