@@ -5,14 +5,12 @@ brackets:
     amount:
       2018-01-01: 2_400
       2023-01-01: 10_000
-      # Act 163 (SLH 2023) sunsets on December 31, 2027
       2028-01-01: 2_400
   - threshold:
       2018-01-01: 2
     amount:
       2018-01-01: 4_800
       2023-01-01: 20_000
-      # Act 163 (SLH 2023) sunsets on December 31, 2027
       2028-01-01: 4_800
 metadata:
   type: single_amount

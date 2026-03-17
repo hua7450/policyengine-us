@@ -23,72 +23,58 @@ brackets:
     amount:
       2021-01-01: 110
       2023-01-01: 220
-      # Act 163 (SLH 2023) sunsets on December 31, 2027
       2028-01-01: 110
   - threshold:
       2021-01-01: 5_000
       2023-01-01: 15_000
-      # Act 163 (SLH 2023) sunsets on December 31, 2027
       2028-01-01: 5_000
     amount:
       2021-01-01: 100
       2023-01-01: 200
-      # Act 163 (SLH 2023) sunsets on December 31, 2027
       2028-01-01: 100
   - threshold:
       2021-01-01: 10_000
       2023-01-01: 20_000
-      # Act 163 (SLH 2023) sunsets on December 31, 2027
       2028-01-01: 10_000
     amount:
       2021-01-01: 85
       2023-01-01: 170
-      # Act 163 (SLH 2023) sunsets on December 31, 2027
       2028-01-01: 85
   - threshold:
       2021-01-01: 15_000
       2023-01-01: 25_000
-      # Act 163 (SLH 2023) sunsets on December 31, 2027
       2028-01-01: 15_000
     amount:
       2021-01-01: 70
       2023-01-01: 140
-      # Act 163 (SLH 2023) sunsets on December 31, 2027
       2028-01-01: 70
   - threshold:
       2021-01-01: 20_000
       2023-01-01: 30_000
-      # Act 163 (SLH 2023) sunsets on December 31, 2027
       2028-01-01: 20_000
     amount:
       2021-01-01: 55
       2023-01-01: 110
-      # Act 163 (SLH 2023) sunsets on December 31, 2027
       2028-01-01: 55
   - threshold:
       2021-01-01: 30_000
       2023-01-01: 40_000
-      # Act 163 (SLH 2023) sunsets on December 31, 2027
       2028-01-01: 30_000
     amount:
       2021-01-01: 45
       2023-01-01: 90
-      # Act 163 (SLH 2023) sunsets on December 31, 2027
       2028-01-01: 45
   - threshold:
       2021-01-01: 40_000
       2023-01-01: 50_000
-      # Act 163 (SLH 2023) sunsets on December 31, 2027
       2028-01-01: 40_000
     amount:
       2021-01-01: 35
       2023-01-01: 70
-      # Act 163 (SLH 2023) sunsets on December 31, 2027
       2028-01-01: 35
   - threshold:
       2021-01-01: 50_000
       2023-01-01: 60_000
-      # Act 163 (SLH 2023) sunsets on December 31, 2027
       2028-01-01: 50_000
     amount:
       2021-01-01: 0
