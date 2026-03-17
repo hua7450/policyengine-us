@@ -16,7 +16,17 @@
   output:
     in_tip_income_deduction: 0
 
-- name: Integration - OBBBA deductions flow through in_deductions
+- name: Indiana tip income deduction not in in_deductions before 2026
+  period: 2025
+  input:
+    state_code: IN
+    tip_income: 10_000
+    employment_income: 50_000
+  output:
+    in_tip_income_deduction: 10_000
+    in_deductions: 0
+
+- name: Integration - OBBBA deductions flow through in_deductions in 2026
   period: 2026
   absolute_error_margin: 1
   input:
@@ -25,5 +35,14 @@
     employment_income: 50_000
   output:
     in_tip_income_deduction: 5_000
-    # Verify the deduction is included in the Indiana deductions aggregate
     in_deductions: 5_000
+
+- name: Indiana tip income deduction not in in_deductions after 2026 (sunset)
+  period: 2027
+  input:
+    state_code: IN
+    tip_income: 10_000
+    employment_income: 50_000
+  output:
+    in_tip_income_deduction: 10_000
+    in_deductions: 0

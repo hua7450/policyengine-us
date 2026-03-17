@@ -10,4 +10,10 @@ class in_deductions(Variable):
     reference = "http://iga.in.gov/legislative/laws/2021/ic/titles/006#6-3"
     defined_for = StateCode.IN
 
-    adds = "gov.states.in.tax.income.deductions.deductions"
+    def formula(tax_unit, period, parameters):
+        p = parameters(period).gov.states["in"].tax.income.deductions
+        base = add(tax_unit, period, p.deductions)
+        obbba_vars = p.obbba_conformity_deductions
+        if len(obbba_vars) > 0:
+            base = base + add(tax_unit, period, obbba_vars)
+        return base
