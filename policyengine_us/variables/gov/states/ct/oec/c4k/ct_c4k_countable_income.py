@@ -10,5 +10,8 @@ class ct_c4k_countable_income(Variable):
     label = "Connecticut Care 4 Kids countable income"
     reference = "https://eregulations.ct.gov/eRegsPortal/Browse/RCSA/Title_17bSubtitle_17b-749Section_17b-749-05/"
 
-    adds = "gov.states.ct.oec.c4k.income.sources"
-    subtracts = "gov.states.ct.oec.c4k.income.deductions"
+    def formula(spm_unit, period, parameters):
+        p = parameters(period).gov.states.ct.oec.c4k.income
+        income = add(spm_unit, period, p.sources)
+        deductions = add(spm_unit, period, p.deductions)
+        return max_(income - deductions, 0)

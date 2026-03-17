@@ -15,11 +15,11 @@ class ct_c4k(Variable):
 
     def formula(spm_unit, period, parameters):
         weekly_rate_total = add(spm_unit, period, ["ct_c4k_payment_rate"])
-        annual_approved_cost = weekly_rate_total * WEEKS_IN_YEAR
+        monthly_approved_cost = weekly_rate_total * WEEKS_IN_YEAR / MONTHS_IN_YEAR
 
         # Cap at actual childcare expenses
         actual_expenses = spm_unit("spm_unit_pre_subsidy_childcare_expenses", period)
-        capped_cost = min_(annual_approved_cost, actual_expenses)
+        capped_cost = min_(monthly_approved_cost, actual_expenses)
 
         family_fee = spm_unit("ct_c4k_family_fee", period)
         return max_(capped_cost - family_fee, 0)

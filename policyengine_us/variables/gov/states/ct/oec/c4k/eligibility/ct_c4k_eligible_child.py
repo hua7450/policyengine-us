@@ -14,10 +14,12 @@ class ct_c4k_eligible_child(Variable):
 
     def formula(person, period, parameters):
         p = parameters(period).gov.states.ct.oec.c4k.age_threshold
-        age = person("age", period)
-        is_disabled = person("is_disabled", period)
+        age = person("age", period.this_year)
+        is_disabled = person("is_disabled", period.this_year)
         age_limit = where(is_disabled, p.special_needs_child, p.child)
         age_eligible = age < age_limit
-        is_dependent = person("is_tax_unit_dependent", period)
-        immigration_eligible = person("is_ccdf_immigration_eligible_child", period)
+        is_dependent = person("is_tax_unit_dependent", period.this_year)
+        immigration_eligible = person(
+            "is_ccdf_immigration_eligible_child", period.this_year
+        )
         return age_eligible & is_dependent & immigration_eligible

@@ -18,5 +18,5 @@ class ct_c4k_eligible(Variable):
         regular_eligible = (
             has_eligible_child & income_eligible & asset_eligible & activity_eligible
         )
-        tfa_eligible = spm_unit("ct_tfa_eligible", period.first_month)
+        tfa_eligible = spm_unit("ct_tfa_eligible", period)
         return regular_eligible | tfa_eligible

@@ -15,77 +15,8 @@ class ct_c4k_payment_rate(Variable):
         provider_type = person("ct_c4k_provider_type", period)
         types = provider_type.possible_values
         care_level = person("ct_c4k_care_level", period)
-        levels = care_level.possible_values
         region = person.household("ct_c4k_region", period)
         age_group = person("ct_c4k_age_group", period)
-
-        rate = p.rate
-
-        center_ftp = rate.center.full_time_plus[region][age_group]
-        center_ft = rate.center.full_time[region][age_group]
-        center_ht = rate.center.half_time[region][age_group]
-        center_qt = rate.center.quarter_time[region][age_group]
-
-        family_ftp = rate.family.full_time_plus[region][age_group]
-        family_ft = rate.family.full_time[region][age_group]
-        family_ht = rate.family.half_time[region][age_group]
-        family_qt = rate.family.quarter_time[region][age_group]
-
-        relative_ftp = rate.relative.full_time_plus[region][age_group]
-        relative_ft = rate.relative.full_time[region][age_group]
-        relative_ht = rate.relative.half_time[region][age_group]
-        relative_qt = rate.relative.quarter_time[region][age_group]
-
-        recreational_ftp = rate.recreational.full_time_plus[region][age_group]
-        recreational_ft = rate.recreational.full_time[region][age_group]
-        recreational_ht = rate.recreational.half_time[region][age_group]
-        recreational_qt = rate.recreational.quarter_time[region][age_group]
-
-        center_rate = select(
-            [
-                care_level == levels.FULL_TIME_PLUS,
-                care_level == levels.FULL_TIME,
-                care_level == levels.HALF_TIME,
-                care_level == levels.QUARTER_TIME,
-            ],
-            [center_ftp, center_ft, center_ht, center_qt],
-            default=center_ft,
-        )
-        family_rate = select(
-            [
-                care_level == levels.FULL_TIME_PLUS,
-                care_level == levels.FULL_TIME,
-                care_level == levels.HALF_TIME,
-                care_level == levels.QUARTER_TIME,
-            ],
-            [family_ftp, family_ft, family_ht, family_qt],
-            default=family_ft,
-        )
-        relative_rate = select(
-            [
-                care_level == levels.FULL_TIME_PLUS,
-                care_level == levels.FULL_TIME,
-                care_level == levels.HALF_TIME,
-                care_level == levels.QUARTER_TIME,
-            ],
-            [relative_ftp, relative_ft, relative_ht, relative_qt],
-            default=relative_ft,
-        )
-        recreational_rate = select(
-            [
-                care_level == levels.FULL_TIME_PLUS,
-                care_level == levels.FULL_TIME,
-                care_level == levels.HALF_TIME,
-                care_level == levels.QUARTER_TIME,
-            ],
-            [
-                recreational_ftp,
-                recreational_ft,
-                recreational_ht,
-                recreational_qt,
-            ],
-            default=recreational_ft,
-        )
 
         weekly_rate = select(
             [
@@ -94,8 +25,13 @@ class ct_c4k_payment_rate(Variable):
                 provider_type == types.RELATIVE,
                 provider_type == types.RECREATIONAL,
             ],
-            [center_rate, family_rate, relative_rate, recreational_rate],
-            default=center_rate,
+            [
+                p.rate.center[care_level][region][age_group],
+                p.rate.family[care_level][region][age_group],
+                p.rate.relative[care_level][region][age_group],
+                p.rate.recreational[care_level][region][age_group],
+            ],
+            default=p.rate.center[care_level][region][age_group],
         )
 
         is_disabled = person("is_disabled", period)

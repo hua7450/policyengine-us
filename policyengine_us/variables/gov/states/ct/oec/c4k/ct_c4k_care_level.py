@@ -19,6 +19,6 @@ class ct_c4k_care_level(Variable):
     reference = "https://www.ctoec.org/care-4-kids/c4k-providers/c4k-rates/"
 
     def formula(person, period, parameters):
-        hours = person("childcare_hours_per_week", period)
+        hours = person("childcare_hours_per_week", period.this_year)
         p = parameters(period).gov.states.ct.oec.c4k.care_level
         return p.calc(hours)
