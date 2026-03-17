@@ -3,7 +3,7 @@ values:
   2024-07-06: 30
 
 metadata:
-  unit: /1
+  unit: hour
   period: week
   label: Maine CCAP full-time hours threshold
   reference:

@@ -12,7 +12,7 @@ class me_ccap_age_group(Variable):
     value_type = Enum
     entity = Person
     possible_values = MECCAPAgeGroup
-    default_value = MECCAPAgeGroup.INFANT
+    default_value = MECCAPAgeGroup.SCHOOL_AGE
     definition_period = MONTH
     defined_for = StateCode.ME
     label = "Maine CCAP child age group"

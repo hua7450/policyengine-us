@@ -26,9 +26,9 @@ class me_ccap_region(Variable):
         county = household("county_str", period)
         p = parameters(period).gov.states.me.dhhs.ccap
         is_region_1 = np.isin(county, p.region_1_counties)
-        is_kennebec = np.isin(county, ["KENNEBEC_COUNTY_ME"])
-        is_knox_waldo = np.isin(county, ["KNOX_COUNTY_ME", "WALDO_COUNTY_ME"])
-        is_penobscot = np.isin(county, ["PENOBSCOT_COUNTY_ME"])
+        is_kennebec = np.isin(county, p.kennebec_counties)
+        is_knox_waldo = np.isin(county, p.knox_waldo_counties)
+        is_penobscot = np.isin(county, p.penobscot_counties)
         return select(
             [is_region_1, is_kennebec, is_knox_waldo, is_penobscot],
             [

@@ -12,7 +12,7 @@ class me_ccap_time_category(Variable):
     value_type = Enum
     entity = Person
     possible_values = MECCAPTimeCategory
-    default_value = MECCAPTimeCategory.FULL_TIME
+    default_value = MECCAPTimeCategory.PART_TIME
     definition_period = MONTH
     defined_for = StateCode.ME
     label = "Maine CCAP time category"
