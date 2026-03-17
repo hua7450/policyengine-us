@@ -20,14 +20,4 @@ class vt_ccfap_care_schedule(Variable):
     def formula(person, period, parameters):
         p = parameters(period).gov.states.vt.dcf.ccfap.care_schedule
         hours = person("childcare_hours_per_week", period.this_year)
-        return select(
-            [
-                hours <= p.part_time_max,
-                hours <= p.full_time_max,
-            ],
-            [
-                VTCCFAPCareSchedule.PART_TIME,
-                VTCCFAPCareSchedule.FULL_TIME,
-            ],
-            default=VTCCFAPCareSchedule.EXTENDED_CARE,
-        )
+        return p.hours.calc(hours)

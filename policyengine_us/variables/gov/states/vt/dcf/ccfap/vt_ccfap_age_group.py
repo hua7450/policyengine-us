@@ -22,16 +22,4 @@ class vt_ccfap_age_group(Variable):
         p = parameters(period).gov.states.vt.dcf.ccfap.age_group
         age = person("age", period.this_year)
         age_months = age * MONTHS_IN_YEAR
-        return select(
-            [
-                age_months < p.infant_max,
-                age_months < p.toddler_max,
-                age_months < p.preschool_max,
-            ],
-            [
-                VTCCFAPAgeGroup.INFANT,
-                VTCCFAPAgeGroup.TODDLER,
-                VTCCFAPAgeGroup.PRESCHOOL,
-            ],
-            default=VTCCFAPAgeGroup.SCHOOL_AGE,
-        )
+        return p.months.calc(age_months)

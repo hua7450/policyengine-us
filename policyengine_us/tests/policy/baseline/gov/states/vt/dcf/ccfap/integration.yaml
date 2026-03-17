@@ -657,7 +657,117 @@
     # Benefit = max(2,773.33 - 541.67, 0) = $2,231.67
     vt_ccfap: 2_231.67
 
-- name: Case 11, protective services child with mixed eligible and ineligible children.
+- name: Case 11, Jane Smith example from Understanding Payments guide.
+  # Source: CCFAP Understanding Payments (Rev Feb 7, 2025), page 2.
+  # Registered Family Child Home, infant, full-time, family share $50/wk.
+  # State rate = $387. State pays $387 - $50 = $337/wk.
+  absolute_error_margin: 0.01
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 38_000
+      person2:
+        age: 1
+        is_tax_unit_dependent: true
+        childcare_provider_type_group: FDC_GFDC
+        childcare_days_per_week: 5
+        childcare_hours_per_day: 8
+        pre_subsidy_childcare_expenses: 13_000
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        meets_ccdf_activity_test: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: VT
+  output:
+    # Age group
+    vt_ccfap_age_group: [SCHOOL_AGE, INFANT]
+
+    # Care schedule: 5 * 8 = 40 hrs/wk => full time
+    vt_ccfap_care_schedule: [PART_TIME, FULL_TIME]
+
+    # Provider type: FDC_GFDC => registered home
+    vt_ccfap_provider_type: [LICENSED_CENTER, REGISTERED_HOME]
+
+    # State rate: registered home, full time, infant = $387/wk
+    vt_ccfap_state_rate: [0, 387]
+
+    # Income
+    # FPG for family of 2 = 21,150
+    # FPL ratio = 38,000 / 21,150 = 1.797
+    vt_ccfap_countable_income: 3_166.67
+    vt_ccfap_income_eligible: true
+
+    # Family share
+    # FPL ratio 1.797 >= 1.7501 => $50/wk (matches PDF example)
+    # Monthly: $50 * 52 / 12 = $216.67
+    vt_ccfap_family_share: 216.67
+
+    # Benefit
+    # Weekly: $387 - $50 = $337/wk (matches PDF: "State will pay the provider $337")
+    # Monthly: $337 * 52 / 12 = $1,460.33
+    vt_ccfap: 1_460.33
+
+- name: Case 12, Honey Child Care example from Understanding Payments guide.
+  # Source: CCFAP Understanding Payments (Rev Feb 7, 2025), page 2.
+  # Center Based, toddler, part-time, family share $50/wk.
+  # State rate = $243. State pays $243 - $50 = $193/wk.
+  absolute_error_margin: 0.01
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 38_000
+      person2:
+        age: 2
+        is_tax_unit_dependent: true
+        childcare_provider_type_group: DCC_SACC
+        childcare_days_per_week: 5
+        childcare_hours_per_day: 4
+        pre_subsidy_childcare_expenses: 13_520
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        meets_ccdf_activity_test: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: VT
+  output:
+    # Age group: age 2 = 24 months => toddler (24-35 months)
+    vt_ccfap_age_group: [SCHOOL_AGE, TODDLER]
+
+    # Care schedule: 5 * 4 = 20 hrs/wk => part time (<=25)
+    vt_ccfap_care_schedule: [PART_TIME, PART_TIME]
+
+    # Provider type: DCC_SACC => licensed center
+    vt_ccfap_provider_type: [LICENSED_CENTER, LICENSED_CENTER]
+
+    # State rate: licensed center, part time, toddler = $243/wk
+    vt_ccfap_state_rate: [0, 243]
+
+    # Income
+    # FPG for family of 2 = 21,150
+    # FPL ratio = 38,000 / 21,150 = 1.797
+    vt_ccfap_countable_income: 3_166.67
+    vt_ccfap_income_eligible: true
+
+    # Family share
+    # FPL ratio 1.797 >= 1.7501 => $50/wk (matches PDF example)
+    # Monthly: $50 * 52 / 12 = $216.67
+    vt_ccfap_family_share: 216.67
+
+    # Benefit
+    # Weekly: $243 - $50 = $193/wk (matches PDF: "State will pay the provider $193")
+    # Monthly: $193 * 52 / 12 = $836.33
+    vt_ccfap: 836.33
+
+- name: Case 13, protective services child with mixed eligible and ineligible children.
   absolute_error_margin: 0.01
   period: 2025-01
   input:
