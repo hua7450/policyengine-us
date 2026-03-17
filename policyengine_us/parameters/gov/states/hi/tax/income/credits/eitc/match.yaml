@@ -7,8 +7,8 @@ metadata:
   unit: /1
   label: Hawaii EITC match rate
   reference:
-    - title: Hawaii Income Tax Law, Chapter 235, Section 235-55.675
-      href: https://www.capitol.hawaii.gov/hrscurrent/Vol04_Ch0201-0257/HRS0235/HRS_0235-0055_0075.htm
+    - title: Hawaii Revised Statutes Section 235-55.75 - Earned income tax credit
+      href: https://law.justia.com/codes/hawaii/title-14/chapter-235/section-235-55-75/
     - title: Hawaii Tax Form N-356 2022
       href: https://files.hawaii.gov/tax/forms/2022/n356_i.pdf
     - title: Hawaii Tax Form N-356 2023

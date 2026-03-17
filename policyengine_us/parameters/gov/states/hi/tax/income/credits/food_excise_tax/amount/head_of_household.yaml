@@ -5,6 +5,8 @@ metadata:
   amount_unit: currency-USD
   label: Hawaii Food/Excise Tax Credit head of household amount
   reference:
+    - title: Hawaii Revised Statutes Section 235-55.85 - Food/excise tax credit
+      href: https://law.justia.com/codes/hawaii/title-14/chapter-235/section-235-55-85/
     - title: Hawaii Income Tax Law, Chapter 235, Section 235-55.85, (b)
       href: https://files.hawaii.gov/tax/legal/hrs/hrs_235.pdf#page=44
     - title: Hawaii Tax Form N-311 2022 
