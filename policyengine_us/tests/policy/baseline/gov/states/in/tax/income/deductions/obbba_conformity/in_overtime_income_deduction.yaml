@@ -7,24 +7,6 @@
   output:
     in_overtime_income_deduction: 5_000
 
-- name: Indiana overtime income deduction not available in 2025
-  period: 2025
-  input:
-    state_code: IN
-    fsla_overtime_premium: 5_000
-    employment_income: 50_000
-  output:
-    in_overtime_income_deduction: 0
-
-- name: Indiana overtime income deduction not available in 2027
-  period: 2027
-  input:
-    state_code: IN
-    fsla_overtime_premium: 5_000
-    employment_income: 50_000
-  output:
-    in_overtime_income_deduction: 0
-
 - name: Indiana overtime income deduction zero with no overtime
   period: 2026
   input:

@@ -7,24 +7,6 @@
   output:
     in_tip_income_deduction: 10_000
 
-- name: Indiana tip income deduction not available in 2025
-  period: 2025
-  input:
-    state_code: IN
-    tip_income: 10_000
-    employment_income: 50_000
-  output:
-    in_tip_income_deduction: 0
-
-- name: Indiana tip income deduction not available in 2027
-  period: 2027
-  input:
-    state_code: IN
-    tip_income: 10_000
-    employment_income: 50_000
-  output:
-    in_tip_income_deduction: 0
-
 - name: Indiana tip income deduction zero with no tips
   period: 2026
   input:

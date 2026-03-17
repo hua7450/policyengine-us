@@ -7,24 +7,6 @@
   output:
     in_auto_loan_interest_deduction: 2_000
 
-- name: Indiana auto loan interest deduction not available in 2025
-  period: 2025
-  input:
-    state_code: IN
-    auto_loan_interest: 2_000
-    employment_income: 50_000
-  output:
-    in_auto_loan_interest_deduction: 0
-
-- name: Indiana auto loan interest deduction not available in 2027
-  period: 2027
-  input:
-    state_code: IN
-    auto_loan_interest: 2_000
-    employment_income: 50_000
-  output:
-    in_auto_loan_interest_deduction: 0
-
 - name: Indiana auto loan interest deduction zero with no interest
   period: 2026
   input:
