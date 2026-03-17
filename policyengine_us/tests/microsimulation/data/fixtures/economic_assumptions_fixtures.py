@@ -142,9 +142,7 @@ MOCK_AGE_VAR = MockVariable("age", uprating=None)
 MOCK_PERSON_ID_VAR = MockVariable("person_id", uprating=None)
 
 # Variable with an invalid uprating path
-MOCK_BAD_UPRATING_VAR = MockVariable(
-    "bad_variable", uprating=INVALID_UPRATING_PATH
-)
+MOCK_BAD_UPRATING_VAR = MockVariable("bad_variable", uprating=INVALID_UPRATING_PATH)
 
 
 def build_mock_variables() -> dict:
