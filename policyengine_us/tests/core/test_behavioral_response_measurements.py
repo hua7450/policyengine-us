@@ -86,9 +86,7 @@ class FakePerson:
         self.values = {
             "employment_income_before_lsr": np.array([50_000.0, 20_000.0]),
             "self_employment_income_before_lsr": np.array([0.0, 5_000.0]),
-            "long_term_capital_gains_before_response": np.array(
-                [10_000.0, 500.0]
-            ),
+            "long_term_capital_gains_before_response": np.array([10_000.0, 500.0]),
         }
 
     def __call__(self, variable, period):
@@ -144,8 +142,7 @@ def test_behavioral_response_measurements_use_one_neutralized_pass():
     assert simulation.macro_cache_write is False
     assert BEHAVIORAL_RESPONSE_MEASUREMENT_BRANCH not in simulation.branches
     assert (
-        BASELINE_BEHAVIORAL_RESPONSE_MEASUREMENT_BRANCH
-        not in baseline_parent.branches
+        BASELINE_BEHAVIORAL_RESPONSE_MEASUREMENT_BRANCH not in baseline_parent.branches
     )
 
     cached = get_behavioral_response_measurements(person, period)

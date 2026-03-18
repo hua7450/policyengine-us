@@ -127,16 +127,12 @@ def calculate_relative_wage_change(measurements, bounds):
 
 def calculate_relative_capital_gains_mtr_change(measurements):
     min_rate = 0.001
-    baseline_mtr = np.maximum(
-        measurements["baseline_capital_gains_mtr"], min_rate
-    )
+    baseline_mtr = np.maximum(measurements["baseline_capital_gains_mtr"], min_rate)
     reform_mtr = np.maximum(measurements["reform_capital_gains_mtr"], min_rate)
     return np.log(reform_mtr) - np.log(baseline_mtr)
 
 
-def calculate_income_lsr_effect(
-    person, period, parameters, measurements=None
-):
+def calculate_income_lsr_effect(person, period, parameters, measurements=None):
     if measurements is None:
         measurements = get_behavioral_response_measurements(person, period)
     lsr_parameters = parameters(period).gov.simulation.labor_supply_responses
@@ -147,9 +143,7 @@ def calculate_income_lsr_effect(
     )
 
 
-def calculate_substitution_lsr_effect(
-    person, period, parameters, measurements=None
-):
+def calculate_substitution_lsr_effect(person, period, parameters, measurements=None):
     if measurements is None:
         measurements = get_behavioral_response_measurements(person, period)
     lsr_parameters = parameters(period).gov.simulation.labor_supply_responses
