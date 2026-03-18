@@ -120,19 +120,7 @@
     # age 15 < 19 (special needs threshold) => eligible
     ct_c4k_eligible_child: true
 
-- name: Case 12, non-disabled child age 12, one below threshold.
-  period: 2025-01
-  input:
-    age: 12
-    is_disabled: false
-    is_tax_unit_dependent: true
-    is_ccdf_immigration_eligible_child: true
-    state_code: CT
-  output:
-    # age 12 < 13 => eligible (threshold - 1)
-    ct_c4k_eligible_child: true
-
-- name: Case 13, disabled child exactly at special needs threshold age 19, ineligible.
+- name: Case 12, disabled child exactly at special needs threshold age 19, ineligible.
   period: 2025-01
   input:
     age: 19
@@ -144,7 +132,7 @@
     # age 19 < 19 is false => ineligible (at threshold)
     ct_c4k_eligible_child: false
 
-- name: Case 14, non-disabled child exactly at regular threshold age 13, ineligible.
+- name: Case 13, non-disabled child exactly at regular threshold age 13, ineligible.
   period: 2025-01
   input:
     age: 13

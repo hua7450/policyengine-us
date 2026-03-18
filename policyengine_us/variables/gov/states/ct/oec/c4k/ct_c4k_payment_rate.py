@@ -34,7 +34,7 @@ class ct_c4k_payment_rate(Variable):
             default=p.rate.center[care_level][region][age_group],
         )
 
-        is_disabled = person("is_disabled", period)
+        is_disabled = person("is_disabled", period.this_year)
         special_needs_add = where(is_disabled, p.special_needs_supplement, 0)
         is_accredited = person("ct_c4k_provider_accredited", period)
         accreditation_add = where(is_accredited, p.accreditation_bonus, 0)

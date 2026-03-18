@@ -304,3 +304,35 @@
     state_code: CT
   output:
     ct_c4k_payment_rate: 54
+
+- name: Case 21, Jul 2025 rate period, center, full-time plus, infant/toddler, Eastern.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    ct_c4k_eligible_child: true
+    ct_c4k_provider_type: CENTER
+    ct_c4k_care_level: FULL_TIME_PLUS
+    ct_c4k_age_group: INFANT_TODDLER
+    ct_c4k_region: EASTERN
+    is_disabled: false
+    ct_c4k_provider_accredited: false
+    state_code: CT
+  output:
+    # Jul 2025 center FTP Eastern infant/toddler = $424
+    ct_c4k_payment_rate: 424
+
+- name: Case 22, pre-2025 rate period, center, full-time plus, infant/toddler, Eastern.
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    ct_c4k_eligible_child: true
+    ct_c4k_provider_type: CENTER
+    ct_c4k_care_level: FULL_TIME_PLUS
+    ct_c4k_age_group: INFANT_TODDLER
+    ct_c4k_region: EASTERN
+    is_disabled: false
+    ct_c4k_provider_accredited: false
+    state_code: CT
+  output:
+    # Jan 2024 center FTP Eastern infant/toddler = $344
+    ct_c4k_payment_rate: 344

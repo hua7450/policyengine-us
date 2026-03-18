@@ -319,3 +319,29 @@
     # Fee rate for 0 ratio = 0% (first bracket)
     # Fee = 0
     ct_c4k_family_fee: 0
+
+- name: Case 14, pre-2025 fee brackets, income 25% SMI, 4% fee.
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 25_000
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ct_c4k_countable_income: 2_083.33
+        hhs_smi: 99_180
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Monthly income: 2,083.33; SMI at month: 8,265
+    # Ratio: 2,083.33/8,265 = 0.2520 (20%-30% SMI bracket, pre-2025)
+    # Pre-2025 fee rate = 4%
+    # Fee = 2,083.33 * 0.04 = 83.33
+    ct_c4k_family_fee: 83.33
