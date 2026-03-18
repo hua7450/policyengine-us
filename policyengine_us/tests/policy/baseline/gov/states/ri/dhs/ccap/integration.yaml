@@ -431,7 +431,71 @@
     # monthly = 14,400 / 12 = 1,200
     ri_ccap: 1_200
 
-- name: Case 8, zero income family at licensed family care gets full subsidy.
+- name: Case 8, activity ineligible parent gets zero benefit.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 35
+        employment_income: 30_000
+        immigration_status: CITIZEN
+        weekly_hours_worked: 15
+        is_full_time_student: false
+      person2:
+        age: 4
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+        is_in_k12_school: false
+        childcare_hours_per_week: 35
+        ri_ccap_provider_type: LICENSED_CENTER
+        ri_ccap_star_rating: STAR_3
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_pre_subsidy_childcare_expenses: 13_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: RI
+  output:
+    # Parent works 15 hrs/wk < 20 minimum, not a student
+    ri_ccap_activity_eligible: false
+    ri_ccap_eligible: false
+    ri_ccap: 0
+
+- name: Case 9, non-RI family gets zero benefit.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 35
+        employment_income: 30_000
+      person2:
+        age: 4
+        is_tax_unit_dependent: true
+        childcare_hours_per_week: 35
+        ri_ccap_provider_type: LICENSED_CENTER
+        ri_ccap_star_rating: STAR_3
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_pre_subsidy_childcare_expenses: 13_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: MA
+  output:
+    ri_ccap: 0
+
+- name: Case 10, zero income family at licensed family care gets full subsidy.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
