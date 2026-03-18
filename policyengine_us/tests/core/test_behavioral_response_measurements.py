@@ -5,6 +5,7 @@ import pytest
 
 import policyengine_us.variables.gov.simulation.capital_gains_responses as capital_gains_module
 import policyengine_us.variables.gov.simulation.labor_supply_response.income_elasticity_lsr as income_lsr_module
+import policyengine_us.variables.gov.simulation.labor_supply_response.labor_supply_behavioral_response as labor_supply_module
 import policyengine_us.variables.gov.simulation.labor_supply_response.substitution_elasticity_lsr as substitution_lsr_module
 from policyengine_us.variables.gov.simulation.behavioral_response_measurements import (
     BASELINE_BEHAVIORAL_RESPONSE_MEASUREMENT_BRANCH,
@@ -20,11 +21,16 @@ from policyengine_us.variables.gov.simulation.behavioral_response_measurements i
     get_behavioral_response_measurements,
 )
 from policyengine_us.variables.gov.simulation.capital_gains_responses import (
+    adult_index_cg,
+    capital_gains_elasticity,
     capital_gains_behavioral_response,
     relative_capital_gains_mtr_change,
 )
 from policyengine_us.variables.gov.simulation.labor_supply_response.income_elasticity_lsr import (
     income_elasticity_lsr,
+)
+from policyengine_us.variables.gov.simulation.labor_supply_response.labor_supply_behavioral_response import (
+    labor_supply_behavioral_response,
 )
 from policyengine_us.variables.gov.simulation.labor_supply_response.substitution_elasticity_lsr import (
     substitution_elasticity_lsr,
@@ -124,15 +130,21 @@ def make_parameters(
     income_change_bound=0.3,
     wage_change_bound=0.4,
     capital_gains_elasticity=-0.62,
+    lsr_income_elasticity=-0.05,
+    lsr_substitution_elasticity=0.25,
 ):
     return lambda period: SimpleNamespace(
         gov=SimpleNamespace(
             simulation=SimpleNamespace(
                 labor_supply_responses=SimpleNamespace(
+                    elasticities=SimpleNamespace(
+                        income=lsr_income_elasticity,
+                        substitution=SimpleNamespace(all=lsr_substitution_elasticity),
+                    ),
                     bounds=SimpleNamespace(
                         income_change=income_change_bound,
                         effective_wage_rate_change=wage_change_bound,
-                    )
+                    ),
                 ),
                 capital_gains_responses=SimpleNamespace(
                     elasticity=capital_gains_elasticity
@@ -318,6 +330,47 @@ def test_lsr_wrapper_variables_delegate_to_shared_helpers(monkeypatch):
     )
 
 
+def test_labor_supply_behavioral_response_formula_covers_guards_and_success(
+    monkeypatch,
+):
+    parameters = make_parameters()
+    person = FakePerson(simulation=SimpleNamespace(baseline=None))
+    assert labor_supply_behavioral_response.formula(person, 2026, parameters) == 0
+
+    person.simulation.baseline = object()
+    zero_parameters = make_parameters(
+        lsr_income_elasticity=0.0,
+        lsr_substitution_elasticity=0.0,
+    )
+    assert labor_supply_behavioral_response.formula(person, 2026, zero_parameters) == 0
+
+    person.simulation._lsr_calculating = True
+    assert labor_supply_behavioral_response.formula(person, 2026, parameters) == 0
+    person.simulation._lsr_calculating = False
+
+    monkeypatch.setattr(
+        labor_supply_module,
+        "get_behavioral_response_measurements",
+        lambda person, period: {"placeholder": True},
+    )
+    monkeypatch.setattr(
+        labor_supply_module,
+        "calculate_income_lsr_effect",
+        lambda person, period, parameters, measurements: np.array([1.0, 2.0]),
+    )
+    monkeypatch.setattr(
+        labor_supply_module,
+        "calculate_substitution_lsr_effect",
+        lambda person, period, parameters, measurements: np.array([3.0, 4.0]),
+    )
+
+    assert np.array_equal(
+        labor_supply_behavioral_response.formula(person, 2026, parameters),
+        np.array([4.0, 6.0]),
+    )
+    assert person.simulation._lsr_calculating is False
+
+
 def test_capital_gains_response_returns_zero_without_baseline_or_elasticity():
     person = FakePerson(simulation=SimpleNamespace(baseline=None))
     parameters = make_parameters(capital_gains_elasticity=-0.62)
@@ -331,6 +384,22 @@ def test_capital_gains_response_returns_zero_without_baseline_or_elasticity():
         )
         == 0
     )
+
+
+def test_capital_gains_elasticity_and_adult_index_formulas():
+    person = FakePerson(simulation=SimpleNamespace())
+    person.household = object()
+    person.values.update(
+        {
+            "is_adult": np.array([True, True]),
+            "long_term_capital_gains_before_response": np.array([1_000.0, 500.0]),
+        }
+    )
+    person.get_rank = lambda household, values, condition=None: np.array([0, 1])
+    parameters = make_parameters(capital_gains_elasticity=-0.7)
+
+    assert capital_gains_elasticity.formula(person, 2026, parameters) == -0.7
+    assert np.array_equal(adult_index_cg.formula(person, 2026, parameters), [1, 2])
 
 
 def test_capital_gains_response_and_relative_mtr_change_use_shared_measurements(
