@@ -1,1 +1,1 @@
-Add a `person_receives_aca` variable for ACA-eligible people in tax units that take up ACA coverage.
+Add `person_receives_aca` and `assigned_aca_ptc` variables, and keep `aca_ptc` as the pre-takeup ACA premium tax credit amount.
