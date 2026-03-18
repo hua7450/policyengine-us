@@ -8,8 +8,8 @@ class al_ssp_eligible(Variable):
     definition_period = MONTH
     defined_for = StateCode.AL
     reference = (
-        "https://admincode.legislature.state.al.us/api/chapter/660-2-4#page=6",
-        "https://admincode.legislature.state.al.us/api/chapter/660-2-4#page=8",
+        "https://admincode.legislature.state.al.us/api/chapter/660-2-4#page=9",
+        "https://help.workworldapp.com/wwwebhelp/ssi_state_supplement_alabama.htm",
     )
 
     def formula(person, period, parameters):

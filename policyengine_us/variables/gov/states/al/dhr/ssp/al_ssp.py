@@ -15,7 +15,8 @@ class al_ssp(Variable):
         living_arrangement = person("al_ssp_living_arrangement", period)
         la = living_arrangement.possible_values
         # Look up monthly amount by living arrangement.
-        # Specialized IHC uses same amount as Level A.
+        # Specialized IHC uses Level A amount per WorkWorld SSI
+        # State Supplement -- Alabama (2010 payment levels).
         monthly_amount = select(
             [
                 living_arrangement == la.IHC_LEVEL_A,

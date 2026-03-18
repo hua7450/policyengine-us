@@ -17,4 +17,8 @@ class al_ssp_living_arrangement(Variable):
     definition_period = MONTH
     possible_values = ALSSPLivingArrangement
     default_value = ALSSPLivingArrangement.NONE
-    reference = "https://admincode.legislature.state.al.us/api/chapter/660-2-4#page=6"
+    reference = (
+        "https://admincode.legislature.state.al.us/api/chapter/660-2-4#page=9",
+        "https://admincode.legislature.state.al.us/api/chapter/660-2-4#page=10",
+        "https://admincode.legislature.state.al.us/api/chapter/660-2-4#page=14",
+    )
