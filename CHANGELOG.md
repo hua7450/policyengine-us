@@ -1,3 +1,20 @@
+## [1.599.0] - 2026-03-18
+
+### Added
+
+- Implement Maine CCAP (Child Care Affordability Program). Closes #7756.
+- Add deploy hook to rebuild model site on release.
+- Add Rhode Island Child Care Assistance Program (CCAP).
+- Hawaii: Add Act 163 (SLH 2023) sunset dates for CDCC, EITC, and Food/Excise credit (December 31, 2027), and create HB 2306 CDCC rate reform as a contributed reform.
+- Indiana SB 243 OBBBA tax conformity: tip income, overtime income, and auto loan interest deductions for tax year 2026.
+
+### Changed
+
+- Fix WATCA alternative maximum tax implementation to match bill text: use 25.5% tax cap on MAGI above exemption instead of deduction, implement binary eligibility at 175% threshold, switch cost-of-living exemption to CPI-U indexing, and add proper MAGI definitions for both the alternative tax and surtax.
+- Update CSFP per-slot cost parameters for FY 2019-2025.
+- Switch push workflow from PAT (POLICYENGINE_GITHUB) to GitHub App token for authentication.
+
+
 ## [1.598.0] - 2026-03-13
 
 ### Added
