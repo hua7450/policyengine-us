@@ -16,6 +16,7 @@ metadata:
     - title: 2025 Hawaii Form N-356 Instructions
       href: https://files.hawaii.gov/tax/forms/current/n356_i.pdf#page=1
     - title: Act 163 (SLH 2023) Section 4 - Sunset provision
+      # Act 163 is enacted law (Session Laws of Hawaii 2023).
       href: https://www.capitol.hawaii.gov/slh/Years/SLH2023/SLH2023_Act163.pdf
     - title: Hawaii Tax Information Release No. 2023-04 - Act 163 Tax Law Changes
       href: https://files.hawaii.gov/tax/news/announce/ann23-04.pdf
