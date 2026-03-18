@@ -109,7 +109,7 @@
     gov.contrib.individual_eitc.agi_eitc_limit: 0
     people:
       person1:
-        employment_income: 100_000
+        employment_income: 20_000
         is_tax_unit_head: true
       person2:
         employment_income: 0
@@ -122,6 +122,6 @@
       tax_unit:
         members: [person1, person2, person3, person4]
   output:
-    # AGI limit of 0 means no limit - should still get individual EITC
-    # Head with 100k income is past EITC phase-out, so 0
-    eitc: 0
+    # AGI limit of 0 means no limit - should get individual EITC
+    # Head with 20k income gets full EITC (same as Case 3)
+    eitc: 6_604

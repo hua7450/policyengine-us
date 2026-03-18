@@ -41,10 +41,12 @@ def create_individual_eitc() -> Reform:
             eitc_maximum = eitc_params.max.calc(child_count)
             phase_in_rate = eitc_params.phase_in_rate.calc(child_count)
             phase_out_rate = eitc_params.phase_out.rate.calc(child_count)
-            # Use joint phase-out start (matching original behavior)
-            phase_out_start = eitc_params.phase_out.start.calc(
-                child_count
-            ) + eitc_params.phase_out.joint_bonus.calc(child_count)
+            # Joint bonus only applies to joint filers
+            is_joint = tax_unit("tax_unit_is_joint", period)
+            joint_bonus = eitc_params.phase_out.joint_bonus.calc(child_count)
+            phase_out_start = (
+                eitc_params.phase_out.start.calc(child_count) + is_joint * joint_bonus
+            )
 
             # Compute head's individual EITC
             head_phased_in = min_(eitc_maximum, head_earnings * phase_in_rate)
