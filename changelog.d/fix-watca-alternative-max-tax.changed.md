@@ -1,0 +1,1 @@
+Fix WATCA alternative maximum tax implementation to match bill text: use 25.5% tax cap on MAGI above exemption instead of deduction, implement binary eligibility at 175% threshold, switch cost-of-living exemption to CPI-U indexing, and add proper MAGI definitions for both the alternative tax and surtax.
