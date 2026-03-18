@@ -1,4 +1,4 @@
-description: Minimum age for WFTC eligibility under SSB 6346, for individuals who do not meet the federal EITC age requirement.
+description: Washington sets this age threshold for expanded Working Families Tax Credit eligibility under the SSB 6346 reform.
 
 values:
   2028-01-01: 18
@@ -6,7 +6,7 @@ values:
 metadata:
   unit: year
   period: year
-  label: SSB 6346 WFTC minimum age for expanded eligibility
+  label: Washington SSB 6346 WFTC minimum age threshold
   reference:
     - title: SSB 6346, Sec. 901(2)(a)(ii)(C)
       href: https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Senate%20Bills/6346-S.pdf#page=52

@@ -297,3 +297,100 @@
     # Age 30 qualifies for federal EITC (age 25-64), earned income > 0.
     # Should receive WFTC via existing eitc > 0 path (~$359 uprated to 2028).
     wa_working_families_tax_credit: 359
+
+- name: Case 12, married joint filer with charitable exceeding joint cap.
+  period: 2028
+  absolute_error_margin: 1
+  reforms: policyengine_us.reforms.states.wa.sb6346.sb6346.wa_sb6346
+  input:
+    gov.contrib.states.wa.sb6346.in_effect: true
+    people:
+      person1:
+        age: 45
+        is_tax_unit_head: true
+        employment_income: 1_500_000
+        charitable_cash_donations: 60_000
+      person2:
+        age: 43
+        is_tax_unit_spouse: true
+        employment_income: 1_500_000
+        charitable_cash_donations: 60_000
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+        filing_status: JOINT
+    households:
+      household:
+        members: [person1, person2]
+        state_code: WA
+  output:
+    # Charitable: $60,000 + $60,000 = $120,000 > $100,000 joint cap.
+    wa_income_tax_charitable_deduction: 100_000
+    # Taxable: $3,000,000 - $100,000 - $1,000,000 = $1,900,000
+    wa_income_tax_taxable_income: 1_900_000
+    # Tax: $1,900,000 * 0.099 = $188,100
+    wa_income_tax: 188_100
+
+- name: Case 13, WFTC age expansion - single age 17, no children, $10,000 earnings.
+  period: 2028
+  absolute_error_margin: 1
+  reforms: policyengine_us.reforms.states.wa.sb6346.sb6346.wa_sb6346
+  input:
+    gov.contrib.states.wa.sb6346.in_effect: true
+    people:
+      person1:
+        age: 17
+        employment_income: 10_000
+    tax_units:
+      tax_unit:
+        members: [person1]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [person1]
+        state_code: WA
+  output:
+    # Age 17 is below the SSB 6346 minimum age threshold.
+    wa_working_families_tax_credit: 0
+
+- name: Case 14, WFTC age expansion - single age 18, no children, $10,000 earnings.
+  period: 2028
+  absolute_error_margin: 1
+  reforms: policyengine_us.reforms.states.wa.sb6346.sb6346.wa_sb6346
+  input:
+    gov.contrib.states.wa.sb6346.in_effect: true
+    people:
+      person1:
+        age: 18
+        employment_income: 10_000
+    tax_units:
+      tax_unit:
+        members: [person1]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [person1]
+        state_code: WA
+  output:
+    # Age 18 qualifies for the SSB 6346 WFTC expansion.
+    wa_working_families_tax_credit: 359
+
+- name: Case 15, disabled reform parameters leave WA income tax unchanged.
+  period: 2028
+  absolute_error_margin: 1
+  input:
+    gov.contrib.states.wa.sb6346.in_effect: false
+    people:
+      person1:
+        age: 40
+        employment_income: 2_000_000
+    tax_units:
+      tax_unit:
+        members: [person1]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [person1]
+        state_code: WA
+  output:
+    wa_income_tax: 0
