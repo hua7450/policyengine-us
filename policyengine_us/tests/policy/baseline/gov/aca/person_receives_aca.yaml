@@ -1,0 +1,55 @@
+- name: Case 1, eligible person receives ACA when the tax unit has positive ACA PTC.
+  period: 2025
+  input:
+    people:
+      person1:
+        is_aca_ptc_eligible: true
+    tax_units:
+      tax_unit:
+        members: [person1]
+        aca_ptc: 200
+  output:
+    person_receives_aca: true
+
+- name: Case 2, eligible person does not receive ACA when the tax unit has zero ACA PTC.
+  period: 2025
+  input:
+    people:
+      person1:
+        is_aca_ptc_eligible: true
+    tax_units:
+      tax_unit:
+        members: [person1]
+        aca_ptc: 0
+  output:
+    person_receives_aca: false
+
+- name: Case 3, ineligible person does not receive ACA in a tax unit with positive ACA PTC.
+  period: 2025
+  input:
+    people:
+      person1:
+        is_aca_ptc_eligible: false
+    tax_units:
+      tax_unit:
+        members: [person1]
+        aca_ptc: 200
+  output:
+    person_receives_aca: false
+
+- name: Case 4, only eligible members receive ACA in a mixed-eligibility tax unit with positive ACA PTC.
+  period: 2025
+  input:
+    people:
+      person1:
+        is_aca_ptc_eligible: true
+      person2:
+        is_aca_ptc_eligible: false
+      person3:
+        is_aca_ptc_eligible: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+        aca_ptc: 200
+  output:
+    person_receives_aca: [true, false, true]
