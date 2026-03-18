@@ -19,12 +19,8 @@
         members: [person1]
         state_code: RI
   output:
-    # Income below threshold - only baseline tax applies
-    # Surtax = 0
-    # Using baseline 2025 brackets (will be inflated for 2027):
-    # ~82,550*0.0375 + ~105,100*0.0475 + ~312,350*0.0599 ≈ baseline only
-    # Just check surtax portion is 0 by comparing to baseline
-    ri_income_tax_before_non_refundable_credits: 27_791.29
+    # Income below $640k threshold - only baseline tax applies, surtax = 0
+    ri_income_tax_before_non_refundable_credits: 26_898.54
 
 - name: RI high earner tax - income above threshold
   period: 2027
@@ -44,10 +40,10 @@
         members: [person1]
         state_code: RI
   output:
-    # Baseline tax + 3% surtax on income above ~$661,200 threshold
-    # Surtax portion: (750000 - 661200) * 0.03 = 88800 * 0.03 = 2664
-    # Total = baseline + surtax
-    ri_income_tax_before_non_refundable_credits: 45_438.79
+    # Baseline tax (41,873.54) + 3% surtax on income above $640k threshold
+    # Surtax: (750,000 - 640,000) * 0.03 = 110,000 * 0.03 = 3,300
+    # Total: 41,873.54 + 3,300 = 45,173.54
+    ri_income_tax_before_non_refundable_credits: 45_173.54
 
 - name: RI high earner tax - income well above threshold
   period: 2027
@@ -67,9 +63,10 @@
         members: [person1]
         state_code: RI
   output:
-    # Baseline tax + 3% surtax on income above ~$661,200 threshold
-    # Surtax portion: (1000000 - 661200) * 0.03 = 338800 * 0.03 = 10164
-    ri_income_tax_before_non_refundable_credits: 62_438.79
+    # Baseline tax (56,848.54) + 3% surtax on income above $640k threshold
+    # Surtax: (1,000,000 - 640,000) * 0.03 = 360,000 * 0.03 = 10,800
+    # Total: 56,848.54 + 10,800 = 67,648.54
+    ri_income_tax_before_non_refundable_credits: 67_648.54
 
 - name: RI high earner tax - reform not in effect
   period: 2027
@@ -90,4 +87,4 @@
         state_code: RI
   output:
     # Reform not in effect - only baseline tax applies (no surtax)
-    ri_income_tax_before_non_refundable_credits: 42_774.79
+    ri_income_tax_before_non_refundable_credits: 41_873.54
