@@ -20,9 +20,7 @@ def create_wa_sb6346() -> Reform:
         definition_period = YEAR
         reference = "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Senate%20Bills/6346-S.pdf#page=17"
         defined_for = StateCode.WA
-
-        def formula(tax_unit, period, parameters):
-            return tax_unit("adjusted_gross_income", period)
+        adds = ["adjusted_gross_income"]
 
     class wa_income_tax_charitable_deduction(Variable):
         value_type = float
@@ -53,10 +51,7 @@ def create_wa_sb6346() -> Reform:
         definition_period = YEAR
         reference = "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Senate%20Bills/6346-S.pdf#page=22"
         defined_for = StateCode.WA
-
-        def formula(tax_unit, period, parameters):
-            p = parameters(period).gov.contrib.states.wa.sb6346.standard_deduction
-            return p.amount
+        adds = ["gov.contrib.states.wa.sb6346.standard_deduction.amount"]
 
     class wa_income_tax_taxable_income(Variable):
         value_type = float

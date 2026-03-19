@@ -15,7 +15,7 @@ metadata:
     type: nearest
     interval: 1000
   reference:
-    - title: SSB 6346, Sec. 310 - Standard Deduction
+    - title: SSB 6346, Sec. 310 - One million dollar standard deduction
       href: https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Senate%20Bills/6346-S.pdf#page=22
-    - title: SSB 6346, Sec. 312 - Inflation Adjustment
+    - title: SSB 6346, Sec. 312(1) - Index for inflation
       href: https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Senate%20Bills/6346-S.pdf#page=23
