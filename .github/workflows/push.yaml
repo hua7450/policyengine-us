@@ -203,6 +203,11 @@ jobs:
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          owner: PolicyEngine
+          repositories: |
+            policyengine-us
+            policyengine-api
+            policyengine-household-api
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
