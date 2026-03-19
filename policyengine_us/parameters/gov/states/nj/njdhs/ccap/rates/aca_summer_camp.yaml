@@ -1,0 +1,47 @@
+description: New Jersey provides these weekly reimbursement rates for ACA summer youth camps under the Child Care Assistance Program.
+metadata:
+  period: week
+  unit: currency-USD
+  label: New Jersey CCAP ACA summer camp weekly rates
+  breakdown:
+    - nj_ccap_time_category
+    - nj_ccap_age_group
+  reference:
+    - title: CC-230 Maximum Child Care Payment Rates, ACA Summer Youth Camps
+      href: https://www.childcarenj.gov/ChildCareNJ/media/media_library/Max_CC_Payment_Rates.pdf#page=4
+
+FULL_TIME:
+  INFANT:
+    2025-03-01: 0
+  INFANT_SN:
+    2025-03-01: 0
+  TODDLER:
+    2025-03-01: 0
+  TODDLER_SN:
+    2025-03-01: 0
+  PRESCHOOL:
+    2025-03-01: 0
+  PRESCHOOL_SN:
+    2025-03-01: 0
+  SCHOOL_AGE:
+    2025-03-01: 288.70
+  SCHOOL_AGE_SN:
+    2025-03-01: 366.65
+
+PART_TIME:
+  INFANT:
+    2025-03-01: 0
+  INFANT_SN:
+    2025-03-01: 0
+  TODDLER:
+    2025-03-01: 0
+  TODDLER_SN:
+    2025-03-01: 0
+  PRESCHOOL:
+    2025-03-01: 0
+  PRESCHOOL_SN:
+    2025-03-01: 0
+  SCHOOL_AGE:
+    2025-03-01: 144.35
+  SCHOOL_AGE_SN:
+    2025-03-01: 183.33

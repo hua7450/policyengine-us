@@ -1,0 +1,47 @@
+description: New Jersey provides these weekly reimbursement rates for approved home providers under the Child Care Assistance Program.
+metadata:
+  period: week
+  unit: currency-USD
+  label: New Jersey CCAP approved home weekly rates
+  breakdown:
+    - nj_ccap_time_category
+    - nj_ccap_age_group
+  reference:
+    - title: CC-230 Maximum Child Care Payment Rates, Approved Homes (FFN and In-Home)
+      href: https://www.childcarenj.gov/ChildCareNJ/media/media_library/Max_CC_Payment_Rates.pdf#page=3
+
+FULL_TIME:
+  INFANT:
+    2025-03-01: 139.39
+  INFANT_SN:
+    2025-03-01: 158.79
+  TODDLER:
+    2025-03-01: 139.39
+  TODDLER_SN:
+    2025-03-01: 158.79
+  PRESCHOOL:
+    2025-03-01: 118.79
+  PRESCHOOL_SN:
+    2025-03-01: 139.39
+  SCHOOL_AGE:
+    2025-03-01: 118.79
+  SCHOOL_AGE_SN:
+    2025-03-01: 139.39
+
+PART_TIME:
+  INFANT:
+    2025-03-01: 69.70
+  INFANT_SN:
+    2025-03-01: 79.39
+  TODDLER:
+    2025-03-01: 69.70
+  TODDLER_SN:
+    2025-03-01: 79.39
+  PRESCHOOL:
+    2025-03-01: 59.39
+  PRESCHOOL_SN:
+    2025-03-01: 69.70
+  SCHOOL_AGE:
+    2025-03-01: 59.39
+  SCHOOL_AGE_SN:
+    2025-03-01: 69.70

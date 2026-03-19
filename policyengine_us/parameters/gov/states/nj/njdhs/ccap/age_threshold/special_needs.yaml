@@ -1,0 +1,11 @@
+description: New Jersey limits the Child Care Assistance Program to children with special needs younger than this age.
+values:
+  2024-01-01: 19
+
+metadata:
+  unit: year
+  period: year
+  label: New Jersey CCAP special needs child age threshold
+  reference:
+    - title: N.J.A.C. 10:15-5.2
+      href: https://www.law.cornell.edu/regulations/new-jersey/N-J-A-C-10-15-5-2

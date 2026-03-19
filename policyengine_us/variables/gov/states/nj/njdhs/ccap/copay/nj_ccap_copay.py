@@ -1,0 +1,53 @@
+from policyengine_us.model_api import *
+from policyengine_us.variables.gov.states.nj.njdhs.ccap.nj_ccap_time_category import (
+    NJCCAPTimeCategory,
+)
+
+
+class nj_ccap_copay(Variable):
+    value_type = float
+    entity = SPMUnit
+    unit = USD
+    label = "New Jersey CCAP family co-payment"
+    definition_period = MONTH
+    defined_for = StateCode.NJ
+    reference = (
+        "https://www.childcarenj.gov/ChildCareNJ/media/media_library/Copayment_Schedule.pdf#page=1",
+        "https://www.childcarenj.gov/ChildCareNJ/media/media_library/CCDF_State_Plan_for_New_Jersey_FFY25-27.pdf#page=40",
+    )
+
+    def formula(spm_unit, period, parameters):
+        p = parameters(period).gov.states.nj.njdhs.ccap.copay
+        is_homeless = spm_unit.household("is_homeless", period.this_year)
+        countable_income = spm_unit("nj_ccap_countable_income", period)
+        fpg = spm_unit("spm_unit_fpg", period)
+        fpl_ratio = where(fpg > 0, countable_income / fpg, 0)
+
+        person = spm_unit.members
+        is_eligible_child = person("nj_ccap_eligible_child", period)
+        time_category = person("nj_ccap_time_category", period)
+        is_ft = time_category == NJCCAPTimeCategory.FULL_TIME
+
+        n_eligible = spm_unit.sum(is_eligible_child)
+        n_ft = spm_unit.sum(is_eligible_child & is_ft)
+        has_second_child = n_eligible >= 2
+
+        # First child rate: use FT rate if any child is FT, else PT
+        first_child_rate = where(
+            n_ft > 0,
+            p.first_child_ft_rate.calc(fpl_ratio),
+            p.first_child_pt_rate.calc(fpl_ratio),
+        )
+
+        # Second child rate: FT only if 2+ FT children, otherwise PT
+        second_child_rate = where(
+            n_ft >= 2,
+            p.second_child_ft_rate.calc(fpl_ratio),
+            p.second_child_pt_rate.calc(fpl_ratio),
+        )
+
+        total_rate = first_child_rate + where(has_second_child, second_child_rate, 0)
+        capped_rate = min_(total_rate, p.max_rate)
+        # copay = annual_income * rate / 12 = monthly_income * rate
+        monthly_copay = countable_income * capped_rate
+        return where(is_homeless, 0, monthly_copay)
