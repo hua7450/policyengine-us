@@ -60,9 +60,7 @@ def create_ctc_linear_phase_out() -> Reform:
     return reform
 
 
-def create_ctc_linear_phase_out_reform(
-    parameters, period, bypass: bool = False
-):
+def create_ctc_linear_phase_out_reform(parameters, period, bypass: bool = False):
     if bypass:
         return create_ctc_linear_phase_out()
 
@@ -83,6 +81,4 @@ def create_ctc_linear_phase_out_reform(
         return None
 
 
-ctc_linear_phase_out = create_ctc_linear_phase_out_reform(
-    None, None, bypass=True
-)
+ctc_linear_phase_out = create_ctc_linear_phase_out_reform(None, None, bypass=True)

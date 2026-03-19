@@ -347,9 +347,7 @@ def create_structural_reforms_from_parameters(parameters, period):
         create_cdcc_single_parent_work_requirement_reform(parameters, period)
     )
     streamlined_eitc = create_streamlined_eitc_reform(parameters, period)
-    ctc_linear_phase_out = create_ctc_linear_phase_out_reform(
-        parameters, period
-    )
+    ctc_linear_phase_out = create_ctc_linear_phase_out_reform(parameters, period)
     ky_graduated_income_tax = create_ky_graduated_income_tax_reform(parameters, period)
     pa_ctc_flat_amount = create_pa_ctc_flat_amount_reform(parameters, period)
     pa_ctc_match = create_pa_ctc_match_reform(parameters, period)
