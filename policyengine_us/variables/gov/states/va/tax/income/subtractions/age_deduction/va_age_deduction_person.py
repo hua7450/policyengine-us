@@ -11,9 +11,7 @@ class va_age_deduction_person(Variable):
     defined_for = StateCode.VA
 
     def formula(person, period, parameters):
-        p = parameters(
-            period
-        ).gov.states.va.tax.income.subtractions.age_deduction
+        p = parameters(period).gov.states.va.tax.income.subtractions.age_deduction
 
         total_deduction = person.tax_unit("va_age_deduction", period)
 

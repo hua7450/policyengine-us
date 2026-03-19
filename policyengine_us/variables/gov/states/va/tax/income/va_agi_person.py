@@ -18,20 +18,13 @@ class va_agi_person(Variable):
         # Prorate non-age subtractions by federal AGI share
         total_subtractions = person.tax_unit("va_subtractions", period)
         total_age_deduction = person.tax_unit("va_age_deduction", period)
-        non_age_subtractions = max_(
-            total_subtractions - total_age_deduction, 0
-        )
+        non_age_subtractions = max_(total_subtractions - total_age_deduction, 0)
         total_federal_agi = person.tax_unit.sum(person_fagi)
-        prorate = where(
-            total_federal_agi > 0, person_fagi / total_federal_agi, 0
-        )
+        prorate = where(total_federal_agi > 0, person_fagi / total_federal_agi, 0)
         person_non_age_subtractions = non_age_subtractions * prorate
         # Prorate additions the same way
         additions = person.tax_unit("va_additions", period)
         person_additions = additions * prorate
         return (
-            person_fagi
-            + person_additions
-            - age_deduction
-            - person_non_age_subtractions
+            person_fagi + person_additions - age_deduction - person_non_age_subtractions
         )
