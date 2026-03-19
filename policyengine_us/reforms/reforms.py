@@ -190,6 +190,9 @@ from .states.ga.sb520 import (
 from .states.hi.hb2306_cdcc import (
     create_hi_hb2306_cdcc_reform,
 )
+from .states.nc.eitc import (
+    create_nc_eitc_reform,
+)
 from policyengine_core.reforms import Reform
 import warnings
 
@@ -357,6 +360,7 @@ def create_structural_reforms_from_parameters(parameters, period):
     ct_hb5114 = create_ct_hb5114_reform(parameters, period)
     ga_sb520 = create_ga_sb520_reform(parameters, period)
     hi_hb2306_cdcc = create_hi_hb2306_cdcc_reform(parameters, period)
+    nc_eitc = create_nc_eitc_reform(parameters, period)
     watca = create_watca_reform(parameters, period)
 
     reforms = [
@@ -443,6 +447,7 @@ def create_structural_reforms_from_parameters(parameters, period):
         ct_tax_rebate_2026,
         ga_sb520,
         hi_hb2306_cdcc,
+        nc_eitc,
         watca,
     ]
     reforms = tuple(filter(lambda x: x is not None, reforms))
