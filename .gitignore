@@ -52,8 +52,8 @@ docs/book/_build
 # Personal utility scripts
 .*.py
 
-# Claude settings
-.claude/settings.local.json
+# Claude Code
+.claude/
 
 # GitHub Codespaces.
 venv/**
@@ -61,9 +61,6 @@ oryx-build-commands.txt
 
 **/*.csv.gz
 **/*.pkl
-
-# Claude Code settings
-.claude/settings.local.json
 
 # Claude Code temporary files
 tmpclaude-*-cwd
