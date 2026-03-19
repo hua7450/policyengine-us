@@ -1,3 +1,10 @@
+## [1.601.0] - 2026-03-19
+
+### Added
+
+- Backdate school meal reimbursement amounts (NSLP/SBP) to 2015 and add 2024 rates.
+
+
 ## [1.600.0] - 2026-03-19
 
 ### Added
