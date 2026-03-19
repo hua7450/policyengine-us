@@ -1,3 +1,10 @@
+## [1.599.2] - 2026-03-19
+
+### Fixed
+
+- Fix LSR and CG behavioral responses compounding when combined.
+
+
 ## [1.599.1] - 2026-03-18
 
 ### Changed
