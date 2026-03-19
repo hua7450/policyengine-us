@@ -22,8 +22,9 @@ class va_age_deduction_person(Variable):
         eligible = is_head_or_spouse & (age >= p.age_minimum)
 
         count_eligible = person.tax_unit.sum(eligible)
+        safe_count = max_(count_eligible, 1)
         return where(
-            eligible & (count_eligible > 0),
-            total_deduction / count_eligible,
+            eligible,
+            total_deduction / safe_count,
             0,
         )
