@@ -1,3 +1,10 @@
+## [1.602.0] - 2026-03-19
+
+### Added
+
+- Backdate blind SGA parameter values to 1975.
+
+
 ## [1.601.0] - 2026-03-19
 
 ### Added
