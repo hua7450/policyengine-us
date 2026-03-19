@@ -31,6 +31,7 @@ def create_fisc_act() -> Reform:
         reference = "https://golden.house.gov/sites/evo-subsites/golden.house.gov/files/evo-media-document/GoldenFISC.pdf"
 
         def formula(tax_unit, period, parameters):
+
             p = parameters(
                 period
             ).gov.contrib.congress.golden.fisc_act.family_income_supplement

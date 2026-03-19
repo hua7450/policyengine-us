@@ -11,6 +11,7 @@ class is_aca_eshi_eligible(Variable):
     definition_period = YEAR
 
     def formula(person, period, parameters):
+
         has = person("has_esi", period)  # has ESI
         offered = person(
             "offered_aca_disqualifying_esi", period

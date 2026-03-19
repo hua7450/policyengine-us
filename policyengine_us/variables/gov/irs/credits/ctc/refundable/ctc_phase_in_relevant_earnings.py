@@ -14,6 +14,7 @@ class ctc_phase_in_relevant_earnings(Variable):
     )
 
     def formula(tax_unit, period, parameters):
+
         ctc = parameters(period).gov.irs.credits.ctc
 
         # IRC 24(d)(1)(B)(i) defines earned income for the ACTC phase-in
