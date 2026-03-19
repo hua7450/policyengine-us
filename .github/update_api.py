@@ -11,7 +11,7 @@ def main():
     # Then, clone the https://github.com/policyengine/policyengine-api repo using the GitHub CLI
     pat = os.environ["GITHUB_TOKEN"]
     os.system(
-        f"git clone https://x-access-token:{pat}@github.com/policyengine/policyengine-api"
+        f"git clone --depth 1 https://x-access-token:{pat}@github.com/policyengine/policyengine-api"
     )
     # Then, cd inside and run gcp/bump_country_package.py --country policyengine-uk --version {version}
     os.system(
@@ -20,7 +20,7 @@ def main():
 
     # Repeat the above for https://github.com/policyengine/policyengine-household-api
     os.system(
-        f"git clone https://x-access-token:{pat}@github.com/policyengine/policyengine-household-api"
+        f"git clone --depth 1 https://x-access-token:{pat}@github.com/policyengine/policyengine-household-api"
     )
 
     os.system(
