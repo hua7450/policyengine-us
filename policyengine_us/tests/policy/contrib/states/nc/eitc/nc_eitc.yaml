@@ -1,9 +1,9 @@
 - name: NC EITC with 10% match when in effect
   period: 2026
-  reforms:
+  reforms: policyengine_us.reforms.states.nc.eitc.nc_eitc
+  input:
     gov.contrib.states.nc.eitc.in_effect: true
     gov.contrib.states.nc.eitc.match: 0.1
-  input:
     state_code: NC
     eitc: 1000
   output:
@@ -12,13 +12,12 @@
 
 - name: NC EITC with 20% match when in effect
   period: 2026
-  reforms:
+  reforms: policyengine_us.reforms.states.nc.eitc.nc_eitc
+  input:
     gov.contrib.states.nc.eitc.in_effect: true
     gov.contrib.states.nc.eitc.match: 0.2
-  input:
     state_code: NC
     eitc: 2500
   output:
     nc_eitc: 500
     nc_refundable_credits: 500
-
