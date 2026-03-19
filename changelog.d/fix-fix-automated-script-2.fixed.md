@@ -1,1 +1,1 @@
-Fixed automated API update script by scoping GitHub App token to target repositories and using correct git clone authentication.
+Remove broken Deploy job that attempted cross-repo API bumps; downstream repos now self-update via cron workflows.
