@@ -53,7 +53,8 @@ docs/book/_build
 .*.py
 
 # Claude Code
-.claude/
+.claude/settings.local.json
+.claude/worktrees/
 
 # GitHub Codespaces.
 venv/**
