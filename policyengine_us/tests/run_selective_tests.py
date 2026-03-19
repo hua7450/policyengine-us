@@ -19,6 +19,12 @@ class SelectiveTestRunner:
         self.repo_root = Path.cwd()
 
         # Define regex patterns for matching files to tests
+        # Paths that contain only aggregation lists and should not
+        # trigger any tests (the Full Suite already covers them).
+        self.skip_patterns = [
+            r"policyengine_us/parameters/gov/states/household/",
+        ]
+
         self.test_patterns = [
             # Rule 1: Match gov folders (excluding states and contrib) to their test directories
             {
@@ -35,10 +41,26 @@ class SelectiveTestRunner:
                 "file_pattern": r"policyengine_us/(parameters|variables)/gov/local/([^/]+)",
                 "test_pattern": r"policyengine_us/tests/policy/baseline/gov/local/\2",
             },
-            # Match reforms in specific organization folders to their contrib test folders
+            # Match state-specific reforms to state-specific contrib tests
             {
-                "file_pattern": r"policyengine_us/reforms/([^/]+)/",
+                "file_pattern": r"policyengine_us/reforms/states/([^/]+)",
+                "test_pattern": r"policyengine_us/tests/policy/contrib/states/\1",
+            },
+            # Match reforms in specific organization folders to their contrib test folders
+            # (exclude states/, congress/, and local/ which have their own patterns below)
+            {
+                "file_pattern": r"policyengine_us/reforms/(?!states/|congress/|local/)([^/]+)/",
                 "test_pattern": r"policyengine_us/tests/policy/contrib/\1",
+            },
+            # Match reforms in specific congress member folders
+            {
+                "file_pattern": r"policyengine_us/reforms/congress/([^/]+)",
+                "test_pattern": r"policyengine_us/tests/policy/contrib/congress/\1",
+            },
+            # Match reforms in specific local jurisdiction folders
+            {
+                "file_pattern": r"policyengine_us/reforms/local/([^/]+)",
+                "test_pattern": r"policyengine_us/tests/policy/contrib/local/\1",
             },
             # Match general reforms to reform tests
             {
@@ -50,9 +72,14 @@ class SelectiveTestRunner:
                 "file_pattern": r"policyengine_us/parameters/contrib/",
                 "test_pattern": r"policyengine_us/tests/policy/contrib",
             },
+            # Match gov/contrib/states parameters to state-specific contrib tests
+            {
+                "file_pattern": r"policyengine_us/parameters/gov/contrib/states/([^/]+)",
+                "test_pattern": r"policyengine_us/tests/policy/contrib/states/\1",
+            },
             # Match gov/contrib parameters to their specific contrib subfolder tests
             {
-                "file_pattern": r"policyengine_us/parameters/gov/contrib/([^/]+)/",
+                "file_pattern": r"policyengine_us/parameters/gov/contrib/(?!states/)([^/]+)/",
                 "test_pattern": r"policyengine_us/tests/policy/contrib/\1",
             },
             # Match household variables to household tests
@@ -114,9 +141,7 @@ class SelectiveTestRunner:
             )
 
             if git_dir_result.returncode != 0:
-                print(
-                    f"Error: Not in a git repository. Error: {git_dir_result.stderr}"
-                )
+                print(f"Error: Not in a git repository. Error: {git_dir_result.stderr}")
                 return set()
 
             # Check if we're in GitHub Actions
@@ -125,9 +150,7 @@ class SelectiveTestRunner:
 
             if github_event_name == "pull_request" and github_base_ref:
                 # We're in a GitHub Actions PR build
-                print(
-                    f"Detected GitHub Actions PR build against {github_base_ref}"
-                )
+                print(f"Detected GitHub Actions PR build against {github_base_ref}")
 
                 # GitHub Actions already has the base branch fetched
                 result = subprocess.run(
@@ -158,9 +181,7 @@ class SelectiveTestRunner:
             )
 
             if fetch_result.returncode != 0:
-                print(
-                    f"Warning: Could not fetch from origin (working offline?)"
-                )
+                print(f"Warning: Could not fetch from origin (working offline?)")
 
             # Try different methods to get changed files
             changed_files = set()
@@ -271,9 +292,7 @@ class SelectiveTestRunner:
         for file in changed_files:
             # Skip non-Python and non-YAML files unless they're critical
             if not (
-                file.endswith(".py")
-                or file.endswith(".yaml")
-                or file.endswith(".yml")
+                file.endswith(".py") or file.endswith(".yaml") or file.endswith(".yml")
             ):
                 if not any(
                     critical in file
@@ -284,6 +303,11 @@ class SelectiveTestRunner:
                     ]
                 ):
                     continue
+
+            # Skip files that are aggregation-only and need no
+            # selective tests (the Full Suite already covers them).
+            if any(re.search(sp, file) for sp in self.skip_patterns):
+                continue
 
             # Check against regex patterns
             for pattern in self.test_patterns:
@@ -305,9 +329,7 @@ class SelectiveTestRunner:
             # Special handling for test files themselves
             if "tests" in file and file.endswith(".py"):
                 # Skip test infrastructure files that shouldn't trigger all tests
-                if file.endswith(
-                    ("run_selective_tests.py", "test_batched.py")
-                ):
+                if file.endswith(("run_selective_tests.py", "test_batched.py")):
                     continue
                 # Add the directory containing the test file
                 test_dir = os.path.dirname(file)
@@ -362,9 +384,7 @@ class SelectiveTestRunner:
                 print(f"Coverage version: {coverage.__version__}")
             except ImportError as e:
                 print(f"ERROR: Coverage module not found: {e}")
-                print(
-                    "Please ensure coverage is installed: pip install coverage"
-                )
+                print("Please ensure coverage is installed: pip install coverage")
                 return 1
 
             # Only track coverage for the specific files that changed in the PR
@@ -372,9 +392,7 @@ class SelectiveTestRunner:
             if changed_files:
                 # Only include Python files that were actually changed (excluding test directories)
                 changed_py_files = [
-                    f
-                    for f in changed_files
-                    if f.endswith(".py") and "/tests/" not in f
+                    f for f in changed_files if f.endswith(".py") and "/tests/" not in f
                 ]
                 if changed_py_files:
                     include_patterns = changed_py_files
@@ -389,9 +407,7 @@ class SelectiveTestRunner:
                         include_patterns.append(f"{var_path}/**/*.py")
                         include_patterns.append(f"{var_path}/*.py")
                     elif "tests/policy/reform/" in test_path:
-                        include_patterns.append(
-                            "policyengine_us/reforms/**/*.py"
-                        )
+                        include_patterns.append("policyengine_us/reforms/**/*.py")
                         include_patterns.append("policyengine_us/reforms/*.py")
                     elif "tests/policy/contrib/" in test_path:
                         include_patterns.append(
@@ -448,17 +464,13 @@ class SelectiveTestRunner:
         result = subprocess.run(["pytest", "policyengine_us/tests"])
         return result.returncode
 
-    def generate_test_plan(
-        self, changed_files: Set[str]
-    ) -> Dict[str, List[str]]:
+    def generate_test_plan(self, changed_files: Set[str]) -> Dict[str, List[str]]:
         """Generate a detailed test plan showing which tests will run for which files."""
         test_plan = {}
 
         for file in changed_files:
             if not (
-                file.endswith(".py")
-                or file.endswith(".yaml")
-                or file.endswith(".yml")
+                file.endswith(".py") or file.endswith(".yaml") or file.endswith(".yml")
             ):
                 continue
 
@@ -486,9 +498,7 @@ def main():
         action="store_true",
         help="Run all tests regardless of changes",
     )
-    parser.add_argument(
-        "--verbose", "-v", action="store_true", help="Verbose output"
-    )
+    parser.add_argument("--verbose", "-v", action="store_true", help="Verbose output")
     parser.add_argument(
         "--base-branch",
         default="master",
