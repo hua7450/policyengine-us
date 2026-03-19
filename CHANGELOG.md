@@ -1,3 +1,10 @@
+## [1.600.0] - 2026-03-19
+
+### Added
+
+- Add Streamlined EITC and CTC Linear Phase-Out structural reforms.
+
+
 ## [1.599.2] - 2026-03-19
 
 ### Fixed
