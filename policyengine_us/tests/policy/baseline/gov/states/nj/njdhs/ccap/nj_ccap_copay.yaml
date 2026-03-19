@@ -1,7 +1,7 @@
 # nj_ccap_copay: SPMUnit, float, MONTH
 # Copay = annual_income * copay_percentage / 12
 # Copay percentage depends on FPL tier, care type (FT/PT), and child count (1 or 2+).
-# Third+ child = $0 additional. Capped at 5% of gross income.
+# Third+ child = $0 additional.
 #
 # 2026 FPG family of 2: 21_640; family of 4: 33_000; family of 5: 38_680
 # Copay rates (bracket thresholds at FPL ratio):
@@ -117,10 +117,8 @@
   output:
     # FPG family of 4: 33_000; FPL ratio = 55_000/33_000 = 1.667
     # 2 children both FT at 101-200% -> first child 4% + second child 2% = 6%
-    # Uncapped: 55_000 * 0.06 / 12 = 275
-    # Cap: 55_000 * 0.05 / 12 = 229.17
-    # copay = min(275, 229.17) = 229.17
-    nj_ccap_copay: 229.17
+    # copay = 55_000 * 0.06 / 12 = 275
+    nj_ccap_copay: 275
 
 - name: Case 4, one child PT at 101-200% FPL.
   period: 2026-01
@@ -233,10 +231,8 @@
   output:
     # FPG family of 4: 33_000; FPL ratio = 80_000/33_000 = 2.424
     # 2 children both FT at 201%+ -> first child 5% + second child 2% = 7%
-    # Uncapped: 80_000 * 0.07 / 12 = 466.67
-    # Cap: 80_000 * 0.05 / 12 = 333.33
-    # copay = min(466.67, 333.33) = 333.33
-    nj_ccap_copay: 333.33
+    # copay = 80_000 * 0.07 / 12 = 466.67
+    nj_ccap_copay: 466.67
 
 - name: Case 7, mixed care one FT one PT at 101-200% FPL.
   period: 2026-01
@@ -327,12 +323,10 @@
   output:
     # FPG family of 5: 38_680; FPL ratio = 91_000/38_680 = 2.352
     # 3 children all FT at 201%+ -> first child 5% + second child 2% + third child 0% = 7%
-    # Uncapped: 91_000 * 0.07 / 12 = 530.83
-    # Cap: 91_000 * 0.05 / 12 = 379.17
-    # copay = min(530.83, 379.17) = 379.17
-    nj_ccap_copay: 379.17
+    # copay = 91_000 * 0.07 / 12 = 530.83
+    nj_ccap_copay: 530.83
 
-- name: Case 9, copay capped at 5% of gross income.
+- name: Case 9, two children mixed care at 201% FPL.
   period: 2026-01
   absolute_error_margin: 0.01
   input:
@@ -372,10 +366,8 @@
   output:
     # FPG family of 4: 33_000; FPL ratio = 80_000/33_000 = 2.424
     # 1 FT + 1 PT at 201%+ -> first child FT 5% + second child PT 1% = 6%
-    # Uncapped: 80_000 * 0.06 / 12 = 400
-    # Cap: 80_000 * 0.05 / 12 = 333.33
-    # copay = min(400, 333.33) = 333.33
-    nj_ccap_copay: 333.33
+    # copay = 80_000 * 0.06 / 12 = 400
+    nj_ccap_copay: 400
 
 - name: Case 10, zero income gives zero copay.
   period: 2026-01

@@ -226,10 +226,8 @@
     # FPL ratio = 66_000 / 33_000 = 2.0 -> at 200% exactly
     # Threshold for higher tier is 2.0001, so 2.0 < 2.0001 -> 101-200% tier
     # 2 children both FT -> first child FT 4% + second child FT 2% = 6%
-    # Uncapped: 66_000 * 0.06 / 12 = 330
-    # Cap: 66_000 * 0.05 / 12 = 275
-    # copay = min(330, 275) = 275
-    nj_ccap_copay: 275
+    # copay = 66_000 * 0.06 / 12 = 330
+    nj_ccap_copay: 330
 
     # === Provider rates ===
     # Person1 (age 35 = 420 mo >= 60) -> SCHOOL_AGE; Person2 (age 32 = 384 mo >= 60) -> SCHOOL_AGE
@@ -241,11 +239,11 @@
 
     # === Benefit ===
     # max annual = (312.71 + 274.96) * 52 = 587.67 * 52 = 30_558.84
-    # annual copay = 66_000 * 0.05 = 3_300 (capped)
-    # uncapped = max(20_000 - 3_300, 0) = 16_700
-    # annual benefit = min(16_700, 30_558.84) = 16_700
-    # monthly = 16_700 / 12 = 1_391.67
-    nj_ccap: 1_391.67
+    # annual copay = 66_000 * 0.06 = 3_960
+    # uncapped = max(20_000 - 3_960, 0) = 16_040
+    # annual benefit = min(16_040, 30_558.84) = 16_040
+    # monthly = 16_040 / 12 = 1_336.67
+    nj_ccap: 1_336.67
 
 - name: Case 5, enrolled family at 240% FPL continuing eligible.
   period: 2026-01

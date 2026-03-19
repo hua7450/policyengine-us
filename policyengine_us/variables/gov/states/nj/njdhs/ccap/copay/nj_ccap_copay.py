@@ -18,7 +18,6 @@ class nj_ccap_copay(Variable):
 
     def formula(spm_unit, period, parameters):
         p = parameters(period).gov.states.nj.njdhs.ccap.copay
-        is_homeless = spm_unit.household("is_homeless", period.this_year)
         countable_income = spm_unit("nj_ccap_countable_income", period)
         fpg = spm_unit("spm_unit_fpg", period)
         fpl_ratio = where(fpg > 0, countable_income / fpg, 0)
@@ -47,7 +46,4 @@ class nj_ccap_copay(Variable):
         )
 
         total_rate = first_child_rate + where(has_second_child, second_child_rate, 0)
-        capped_rate = min_(total_rate, p.max_rate)
-        # copay = annual_income * rate / 12 = monthly_income * rate
-        monthly_copay = countable_income * capped_rate
-        return where(is_homeless, 0, monthly_copay)
+        return countable_income * total_rate
