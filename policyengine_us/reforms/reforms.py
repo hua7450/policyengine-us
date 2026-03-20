@@ -182,6 +182,9 @@ from .states.ct.hb5114 import (
 from .congress.watca import (
     create_watca_reform,
 )
+from .states.wa.sb6346.sb6346 import (
+    create_wa_sb6346_reform,
+)
 
 
 from .states.ga.sb520 import (
@@ -362,6 +365,7 @@ def create_structural_reforms_from_parameters(parameters, period):
     hi_hb2306_cdcc = create_hi_hb2306_cdcc_reform(parameters, period)
     nc_eitc = create_nc_eitc_reform(parameters, period)
     watca = create_watca_reform(parameters, period)
+    wa_sb6346 = create_wa_sb6346_reform(parameters, period)
 
     reforms = [
         afa_reform,
@@ -449,6 +453,7 @@ def create_structural_reforms_from_parameters(parameters, period):
         hi_hb2306_cdcc,
         nc_eitc,
         watca,
+        wa_sb6346,
     ]
     reforms = tuple(filter(lambda x: x is not None, reforms))
 
