@@ -1,3 +1,10 @@
+## [1.604.1] - 2026-03-20
+
+### Fixed
+
+- Fix MSP married couple income test to aggregate both spouses' incomes before applying SSI exclusions, preventing the effective doubling of the household income limit.
+
+
 ## [1.604.0] - 2026-03-20
 
 ### Added
