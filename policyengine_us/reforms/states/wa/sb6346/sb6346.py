@@ -18,7 +18,7 @@ def create_wa_sb6346() -> Reform:
         label = "Washington base income under SSB 6346"
         unit = USD
         definition_period = YEAR
-        reference = "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Senate%20Bills/6346-S.pdf#page=7"
+        reference = "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Senate%20Bills/6346-S.pdf#page=5"
         defined_for = StateCode.WA
         adds = ["adjusted_gross_income"]
 
@@ -66,12 +66,17 @@ def create_wa_sb6346() -> Reform:
         defined_for = StateCode.WA
 
         def formula(tax_unit, period, parameters):
+            in_effect = parameters(period).gov.contrib.states.wa.sb6346.in_effect
             base_income = tax_unit("wa_income_tax_base_income", period)
             charitable_deduction = tax_unit(
                 "wa_income_tax_charitable_deduction", period
             )
             standard_deduction = tax_unit("wa_income_tax_standard_deduction", period)
-            return max_(base_income - charitable_deduction - standard_deduction, 0)
+            return where(
+                in_effect,
+                max_(base_income - charitable_deduction - standard_deduction, 0),
+                0,
+            )
 
     class wa_income_tax_before_refundable_credits(Variable):
         value_type = float
@@ -84,10 +89,11 @@ def create_wa_sb6346() -> Reform:
 
         def formula(tax_unit, period, parameters):
             p = parameters(period).gov.contrib.states.wa.sb6346
+            in_effect = p.in_effect
             taxable_income = tax_unit("wa_income_tax_taxable_income", period)
             sb6346_tax = taxable_income * p.rate
             capital_gains_tax = tax_unit("wa_capital_gains_tax", period)
-            return sb6346_tax + capital_gains_tax
+            return where(in_effect, sb6346_tax + capital_gains_tax, capital_gains_tax)
 
     class wa_income_tax(Variable):
         value_type = float
@@ -97,11 +103,8 @@ def create_wa_sb6346() -> Reform:
         definition_period = YEAR
         reference = "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Senate%20Bills/6346-S.pdf#page=6"
         defined_for = StateCode.WA
-
-        def formula(tax_unit, period, parameters):
-            before_credits = tax_unit("wa_income_tax_before_refundable_credits", period)
-            refundable_credits = tax_unit("wa_refundable_credits", period)
-            return max_(before_credits - refundable_credits, 0)
+        adds = ["wa_income_tax_before_refundable_credits"]
+        subtracts = ["wa_refundable_credits"]
 
     class wa_working_families_tax_credit(Variable):
         value_type = float
@@ -120,11 +123,13 @@ def create_wa_sb6346() -> Reform:
             eitc_eligible = eitc > 0
             # SSB 6346 Sec. 901(2)(a)(ii)(C): individuals who do not meet
             # the EITC age requirement but are at least age 18.
+            reform_in_effect = parameters(period).gov.contrib.states.wa.sb6346.in_effect
             sb6346_p = parameters(period).gov.contrib.states.wa.sb6346.wftc
+            expansion_in_effect = reform_in_effect & sb6346_p.in_effect
             age_head = tax_unit("age_head", period)
             age_spouse = tax_unit("age_spouse", period)
-            filer_at_least_min_age = (age_head >= sb6346_p.min_age) | (
-                age_spouse >= sb6346_p.min_age
+            filer_at_least_min_age = expansion_in_effect & (
+                (age_head >= sb6346_p.min_age) | (age_spouse >= sb6346_p.min_age)
             )
             earned_income = tax_unit("filer_adjusted_earnings", period)
             has_earned_income = earned_income > 0
@@ -172,6 +177,8 @@ def create_wa_sb6346_reform(parameters, period, bypass=False):
     reform_active = False
     current_period = period_(period)
 
+    # Match the standard five-year structural reform lookahead used across
+    # the repo so future-year simulations can pick up contributed reforms.
     for _ in range(5):
         if p(current_period).in_effect:
             reform_active = True

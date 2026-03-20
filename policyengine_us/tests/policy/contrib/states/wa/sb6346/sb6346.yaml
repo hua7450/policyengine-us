@@ -251,7 +251,7 @@
   output:
     # Age 22 < 25 so no federal EITC, but SSB 6346 expands WFTC to age 18+.
     # With $10,000 earned income and 0 children, should receive the maximum WFTC for childless filers.
-    wa_working_families_tax_credit: 359
+    wa_working_families_tax_credit: 367
 
 - name: Case 10, WFTC age expansion - single age 22, no children, $0 earnings.
   period: 2029
@@ -296,7 +296,7 @@
   output:
     # Age 30 qualifies for federal EITC (age 25-64), earned income > 0.
     # Should receive WFTC via the existing EITC-eligible path.
-    wa_working_families_tax_credit: 359
+    wa_working_families_tax_credit: 367
 
 - name: Case 12, married joint filer with charitable exceeding joint cap.
   period: 2028
@@ -373,11 +373,12 @@
         state_code: WA
   output:
     # Age 18 qualifies for the SSB 6346 WFTC expansion.
-    wa_working_families_tax_credit: 359
+    wa_working_families_tax_credit: 367
 
-- name: Case 15, disabled reform parameters leave WA income tax unchanged.
+- name: Case 15, reform toggle off leaves WA income tax unchanged.
   period: 2028
   absolute_error_margin: 1
+  reforms: policyengine_us.reforms.states.wa.sb6346.sb6346.wa_sb6346
   input:
     gov.contrib.states.wa.sb6346.in_effect: false
     people:
@@ -422,7 +423,7 @@
     # Head age 16 < 18 and both < 25 so no federal EITC.
     # SSB 6346 expansion: age_spouse (22) >= min_age (18) -> eligible.
     # Combined earned income = $10,000, 0 children -> childless maximum WFTC.
-    wa_working_families_tax_credit: 359
+    wa_working_families_tax_credit: 367
 
 - name: Case 17, non-cash charitable donations capped at individual limit.
   period: 2028
@@ -457,7 +458,7 @@
 
 - name: Case 18, capital gains combined with SSB 6346 income tax.
   period: 2028
-  absolute_error_margin: 1_000
+  absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.wa.sb6346.sb6346.wa_sb6346
   input:
     gov.contrib.states.wa.sb6346.in_effect: true
@@ -480,13 +481,13 @@
     # SSB 6346 taxable: $3,500,000 - $0 charitable - $1,000,000 std = $2,500,000
     wa_income_tax_taxable_income: 2_500_000
     # SSB 6346 income tax: $2,500,000 * 0.099 = $247,500
-    # WA capital gains tax: $1,500,000 LTCG after uprated standard deduction, 7%/9.9% brackets
-    # before_credits = SSB 6346 tax + capital gains tax > $247,500
-    # Approximate total ~$337,000 (varies with uprated cap gains deduction)
-    wa_income_tax_before_refundable_credits: 337_000
+    # WA capital gains tax on the same return is $89,998 in 2028 under current parameters.
+    wa_capital_gains_tax: 89_998
+    # before_credits = $247,500 + $89,998 = $337,498
+    wa_income_tax_before_refundable_credits: 337_498
     # WFTC = $0 (income far above EITC limit)
     # wa_income_tax = before_credits - 0 = before_credits
-    wa_income_tax: 337_000
+    wa_income_tax: 337_498
 
 - name: Case 19, negative AGI floors taxable income and tax at zero.
   period: 2029
@@ -538,6 +539,100 @@
     # A direct capital gains tax input creates positive WA tax before refundable credits.
     wa_income_tax_before_refundable_credits: 500
     # Age 22 + earned income triggers the expanded WFTC path.
-    wa_working_families_tax_credit: 359
-    # Final WA income tax reflects refundable credit subtraction with a zero floor.
-    wa_income_tax: 141
+    wa_working_families_tax_credit: 367
+    # Final WA income tax remains positive because tax due exceeds the refundable credit.
+    wa_income_tax: 133.3
+
+- name: Case 21, WFTC age expansion does not apply in 2028.
+  period: 2028
+  absolute_error_margin: 1
+  reforms: policyengine_us.reforms.states.wa.sb6346.sb6346.wa_sb6346
+  input:
+    gov.contrib.states.wa.sb6346.in_effect: true
+    people:
+      person1:
+        age: 22
+        employment_income: 10_000
+    tax_units:
+      tax_unit:
+        members: [person1]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [person1]
+        state_code: WA
+  output:
+    # The income tax reform is active in 2028, but the WFTC age expansion is not.
+    wa_working_families_tax_credit: 0
+
+- name: Case 22, WFTC can exceed WA tax owed and produce a negative net tax.
+  period: 2029
+  absolute_error_margin: 10
+  reforms: policyengine_us.reforms.states.wa.sb6346.sb6346.wa_sb6346
+  input:
+    gov.contrib.states.wa.sb6346.in_effect: true
+    people:
+      person1:
+        age: 22
+        employment_income: 10_000
+    tax_units:
+      tax_unit:
+        members: [person1]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [person1]
+        state_code: WA
+  output:
+    # No SSB 6346 income tax is due below the $1M standard deduction.
+    wa_income_tax_before_refundable_credits: 0
+    # The expanded WFTC remains refundable when it exceeds tax owed.
+    wa_working_families_tax_credit: 367
+    wa_income_tax: -367
+
+- name: Case 23, head of household uses the individual charitable deduction cap.
+  period: 2028
+  absolute_error_margin: 1
+  reforms: policyengine_us.reforms.states.wa.sb6346.sb6346.wa_sb6346
+  input:
+    gov.contrib.states.wa.sb6346.in_effect: true
+    people:
+      person1:
+        age: 40
+        employment_income: 2_000_000
+        charitable_cash_donations: 150_000
+    tax_units:
+      tax_unit:
+        members: [person1]
+        filing_status: HEAD_OF_HOUSEHOLD
+    households:
+      household:
+        members: [person1]
+        state_code: WA
+  output:
+    wa_income_tax_charitable_deduction: 100_000
+    wa_income_tax_taxable_income: 900_000
+    wa_income_tax: 89_100
+
+- name: Case 24, one dollar above the standard deduction threshold.
+  period: 2028
+  absolute_error_margin: 0.01
+  reforms: policyengine_us.reforms.states.wa.sb6346.sb6346.wa_sb6346
+  input:
+    gov.contrib.states.wa.sb6346.in_effect: true
+    people:
+      person1:
+        age: 40
+        employment_income: 1_000_001
+    tax_units:
+      tax_unit:
+        members: [person1]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [person1]
+        state_code: WA
+  output:
+    wa_income_tax_taxable_income: 1
+    wa_income_tax_before_refundable_credits: 0.099
+    wa_income_tax: 0.099

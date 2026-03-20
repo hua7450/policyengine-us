@@ -6,7 +6,7 @@ values:
 metadata:
   unit: /1
   period: year
-  label: WA SSB 6346 income tax rate
+  label: Washington SSB 6346 income tax rate
   reference:
     - title: SSB 6346, Sec. 201(1) - Tax Imposed
       href: https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Senate%20Bills/6346-S.pdf#page=6
