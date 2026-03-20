@@ -1,3 +1,10 @@
+## [1.603.1] - 2026-03-20
+
+### Fixed
+
+- Fix Virginia spouse tax adjustment to calculate separate VAGI per person instead of prorating combined VAGI.
+
+
 ## [1.603.0] - 2026-03-20
 
 ### Added
