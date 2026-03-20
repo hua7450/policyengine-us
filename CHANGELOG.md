@@ -1,3 +1,10 @@
+## [1.602.1] - 2026-03-20
+
+### Fixed
+
+- Remove broken Deploy job that attempted cross-repo API bumps; downstream repos now self-update via cron workflows.
+
+
 ## [1.602.0] - 2026-03-19
 
 ### Added
