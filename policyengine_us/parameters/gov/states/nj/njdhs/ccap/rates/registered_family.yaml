@@ -13,6 +13,9 @@ metadata:
     - title: CC-230 (02/24) Maximum Child Care Payment Rates, Registered Family Child Care Homes
       href: http://www.bccap.org/wp-content/uploads/2024/03/Maximum-Child-Care-Payment-Rates-March-2024.pdf#page=2
 
+# 2024-01-01 values are CC-230 (02/24) rates effective March 1, 2024,
+# backdated to January 1 for microsimulation coverage.
+# The prior (March 2023) rates could not be sourced.
 FULL_TIME:
   NONE:
     INFANT:

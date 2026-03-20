@@ -12,25 +12,22 @@ metadata:
     - title: CC-230 (02/24) Maximum Child Care Payment Rates, ACA Summer Youth Camps
       href: http://www.bccap.org/wp-content/uploads/2024/03/Maximum-Child-Care-Payment-Rates-March-2024.pdf#page=4
 
+# 2024-01-01 values are CC-230 (02/24) rates effective March 1, 2024,
+# backdated to January 1 for microsimulation coverage.
+# The prior (March 2023) rates could not be sourced.
 FULL_TIME:
   INFANT:
     2024-01-01: 0
-    2025-03-01: 0
   INFANT_SN:
     2024-01-01: 0
-    2025-03-01: 0
   TODDLER:
     2024-01-01: 0
-    2025-03-01: 0
   TODDLER_SN:
     2024-01-01: 0
-    2025-03-01: 0
   PRESCHOOL:
     2024-01-01: 0
-    2025-03-01: 0
   PRESCHOOL_SN:
     2024-01-01: 0
-    2025-03-01: 0
   SCHOOL_AGE:
     2024-01-01: 287.27
     2025-03-01: 288.70
@@ -41,22 +38,16 @@ FULL_TIME:
 PART_TIME:
   INFANT:
     2024-01-01: 0
-    2025-03-01: 0
   INFANT_SN:
     2024-01-01: 0
-    2025-03-01: 0
   TODDLER:
     2024-01-01: 0
-    2025-03-01: 0
   TODDLER_SN:
     2024-01-01: 0
-    2025-03-01: 0
   PRESCHOOL:
     2024-01-01: 0
-    2025-03-01: 0
   PRESCHOOL_SN:
     2024-01-01: 0
-    2025-03-01: 0
   SCHOOL_AGE:
     2024-01-01: 143.63
     2025-03-01: 144.35
