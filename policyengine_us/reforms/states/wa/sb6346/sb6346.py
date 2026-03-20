@@ -18,7 +18,7 @@ def create_wa_sb6346() -> Reform:
         label = "Washington base income under SSB 6346"
         unit = USD
         definition_period = YEAR
-        reference = "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Senate%20Bills/6346-S.pdf#page=17"
+        reference = "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Senate%20Bills/6346-S.pdf#page=7"
         defined_for = StateCode.WA
         adds = ["adjusted_gross_income"]
 
@@ -28,7 +28,7 @@ def create_wa_sb6346() -> Reform:
         label = "Washington income tax charitable deduction under SSB 6346"
         unit = USD
         definition_period = YEAR
-        reference = "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Senate%20Bills/6346-S.pdf#page=21"
+        reference = "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Senate%20Bills/6346-S.pdf#page=10"
         defined_for = StateCode.WA
 
         def formula(tax_unit, period, parameters):
@@ -49,7 +49,7 @@ def create_wa_sb6346() -> Reform:
         label = "Washington income tax standard deduction under SSB 6346"
         unit = USD
         definition_period = YEAR
-        reference = "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Senate%20Bills/6346-S.pdf#page=22"
+        reference = "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Senate%20Bills/6346-S.pdf#page=10"
         defined_for = StateCode.WA
         adds = ["gov.contrib.states.wa.sb6346.standard_deduction.amount"]
 
@@ -60,8 +60,8 @@ def create_wa_sb6346() -> Reform:
         unit = USD
         definition_period = YEAR
         reference = (
-            "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Senate%20Bills/6346-S.pdf#page=21",
-            "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Senate%20Bills/6346-S.pdf#page=22",
+            "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Senate%20Bills/6346-S.pdf#page=10",
+            "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Senate%20Bills/6346-S.pdf#page=11",
         )
         defined_for = StateCode.WA
 
@@ -73,13 +73,13 @@ def create_wa_sb6346() -> Reform:
             standard_deduction = tax_unit("wa_income_tax_standard_deduction", period)
             return max_(base_income - charitable_deduction - standard_deduction, 0)
 
-    class wa_income_tax(Variable):
+    class wa_income_tax_before_refundable_credits(Variable):
         value_type = float
         entity = TaxUnit
-        label = "Washington income tax"
+        label = "Washington income tax before refundable credits"
         unit = USD
         definition_period = YEAR
-        reference = "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Senate%20Bills/6346-S.pdf#page=16"
+        reference = "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Senate%20Bills/6346-S.pdf#page=6"
         defined_for = StateCode.WA
 
         def formula(tax_unit, period, parameters):
@@ -87,8 +87,21 @@ def create_wa_sb6346() -> Reform:
             taxable_income = tax_unit("wa_income_tax_taxable_income", period)
             sb6346_tax = taxable_income * p.rate
             capital_gains_tax = tax_unit("wa_capital_gains_tax", period)
+            return sb6346_tax + capital_gains_tax
+
+    class wa_income_tax(Variable):
+        value_type = float
+        entity = TaxUnit
+        label = "Washington income tax"
+        unit = USD
+        definition_period = YEAR
+        reference = "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Senate%20Bills/6346-S.pdf#page=6"
+        defined_for = StateCode.WA
+
+        def formula(tax_unit, period, parameters):
+            before_credits = tax_unit("wa_income_tax_before_refundable_credits", period)
             refundable_credits = tax_unit("wa_refundable_credits", period)
-            return sb6346_tax + capital_gains_tax - refundable_credits
+            return max_(before_credits - refundable_credits, 0)
 
     class wa_working_families_tax_credit(Variable):
         value_type = float
@@ -98,7 +111,7 @@ def create_wa_sb6346() -> Reform:
         definition_period = YEAR
         reference = (
             "https://app.leg.wa.gov/RCW/default.aspx?cite=82.08.0206",
-            "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Senate%20Bills/6346-S.pdf#page=52",
+            "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Senate%20Bills/6346-S.pdf#page=53",
         )
         defined_for = StateCode.WA
 
@@ -139,10 +152,11 @@ def create_wa_sb6346() -> Reform:
 
     class reform(Reform):
         def apply(self):
-            self.add_variable(wa_income_tax_base_income)
-            self.add_variable(wa_income_tax_charitable_deduction)
-            self.add_variable(wa_income_tax_standard_deduction)
-            self.add_variable(wa_income_tax_taxable_income)
+            self.update_variable(wa_income_tax_base_income)
+            self.update_variable(wa_income_tax_charitable_deduction)
+            self.update_variable(wa_income_tax_standard_deduction)
+            self.update_variable(wa_income_tax_taxable_income)
+            self.update_variable(wa_income_tax_before_refundable_credits)
             self.update_variable(wa_income_tax)
             self.update_variable(wa_working_families_tax_credit)
 
