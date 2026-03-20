@@ -6,3 +6,9 @@ class has_esi(Variable):
     entity = Person
     label = "Person currently has ESI"
     definition_period = YEAR
+
+    def formula(person, period, parameters):
+        return person(
+            "reported_has_employer_sponsored_health_coverage_at_interview",
+            period,
+        )

@@ -15,3 +15,9 @@ class receives_medicaid(Variable):
     This differs from medicaid_enrolled which is computed based on
     eligibility and takeup rate.
     """
+
+    def formula(person, period, parameters):
+        return person(
+            "reported_has_medicaid_health_coverage_at_interview",
+            period,
+        )

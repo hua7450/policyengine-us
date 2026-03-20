@@ -1,0 +1,13 @@
+- name: Case 1, reported Medicaid coverage feeds current Medicaid receipt.
+  period: 2026
+  input:
+    reported_has_medicaid_health_coverage_at_interview: true
+  output:
+    receives_medicaid: true
+
+- name: Case 2, Medicaid receipt defaults to false without a reported flag.
+  period: 2026
+  input:
+    reported_has_medicaid_health_coverage_at_interview: false
+  output:
+    receives_medicaid: false
