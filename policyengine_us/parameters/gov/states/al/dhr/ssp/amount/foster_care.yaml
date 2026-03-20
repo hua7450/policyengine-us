@@ -1,0 +1,14 @@
+description: Alabama provides this amount as the monthly supplement for Foster Home Care under the State Supplementary Payment program.
+
+values:
+  1995-01-01: 110
+
+metadata:
+  unit: currency-USD
+  period: month
+  label: Alabama SSP Foster Home Care supplement amount
+  reference:
+    - title: Ala. Admin. Code r. 660-2-4-.19a -- Attachment, Special Needs of Applicants and Recipients
+      href: https://admincode.legislature.state.al.us/api/chapter/660-2-4#page=24
+    - title: WorkWorld SSI State Supplement -- Alabama
+      href: https://help.workworldapp.com/wwwebhelp/ssi_state_supplement_alabama.htm
