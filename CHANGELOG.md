@@ -1,3 +1,10 @@
+## [1.603.2] - 2026-03-20
+
+### Fixed
+
+- Fixed individual_eitc (Winship) reform not responding to parameter changes in the app.
+
+
 ## [1.603.1] - 2026-03-20
 
 ### Fixed
