@@ -110,15 +110,11 @@ class reported_has_public_health_coverage_at_interview(
     label = "Reported public health coverage at interview"
 
 
-class reported_is_insured_at_interview(
-    ReportedHealthCoverageAtInterview, Variable
-):
+class reported_is_insured_at_interview(ReportedHealthCoverageAtInterview, Variable):
     label = "Reported insured at interview"
 
 
-class reported_is_uninsured_at_interview(
-    ReportedHealthCoverageAtInterview, Variable
-):
+class reported_is_uninsured_at_interview(ReportedHealthCoverageAtInterview, Variable):
     label = "Reported uninsured at interview"
 
 
