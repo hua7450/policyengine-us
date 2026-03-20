@@ -10,8 +10,7 @@ class taxable_earnings_for_federal_unemployment_tax(Variable):
     unit = USD
 
     def formula(person, period, parameters):
-        wage_base = (
-            parameters(period)
-            .gov.irs.payroll.federal_unemployment.taxable_wage_base
-        )
+        wage_base = parameters(
+            period
+        ).gov.irs.payroll.federal_unemployment.taxable_wage_base
         return min_(person("payroll_tax_gross_wages", period), wage_base)

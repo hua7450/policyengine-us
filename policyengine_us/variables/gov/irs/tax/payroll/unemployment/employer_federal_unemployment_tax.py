@@ -13,6 +13,6 @@ class employer_federal_unemployment_tax(Variable):
     unit = USD
 
     def formula(person, period, parameters):
-        return person(
-            "employer_federal_unemployment_tax_rate", period
-        ) * person("taxable_earnings_for_federal_unemployment_tax", period)
+        return person("employer_federal_unemployment_tax_rate", period) * person(
+            "taxable_earnings_for_federal_unemployment_tax", period
+        )

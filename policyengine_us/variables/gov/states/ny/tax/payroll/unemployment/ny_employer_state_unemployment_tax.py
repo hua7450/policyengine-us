@@ -5,14 +5,12 @@ class ny_employer_state_unemployment_tax(Variable):
     value_type = float
     entity = Person
     label = "New York employer state unemployment tax"
-    documentation = (
-        "Employer-side unemployment tax liability for New York."
-    )
+    documentation = "Employer-side unemployment tax liability for New York."
     unit = USD
     definition_period = YEAR
     defined_for = StateCode.NY
 
     def formula(person, period, parameters):
-        return person(
-            "employer_state_unemployment_tax_rate", period
-        ) * person("taxable_earnings_for_state_unemployment_tax", period)
+        return person("employer_state_unemployment_tax_rate", period) * person(
+            "taxable_earnings_for_state_unemployment_tax", period
+        )

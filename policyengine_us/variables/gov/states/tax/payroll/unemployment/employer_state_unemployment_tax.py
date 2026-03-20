@@ -17,6 +17,4 @@ class employer_state_unemployment_tax(Variable):
     unit = USD
 
     def formula(person, period, parameters):
-        return add(
-            person, period, STATE_EMPLOYER_UNEMPLOYMENT_TAX_VARIABLES
-        )
+        return add(person, period, STATE_EMPLOYER_UNEMPLOYMENT_TAX_VARIABLES)
