@@ -1,3 +1,10 @@
+## [1.604.0] - 2026-03-20
+
+### Added
+
+- Added WA SSB 6346 reform: 9.9% income tax on high earners.
+
+
 ## [1.603.2] - 2026-03-20
 
 ### Fixed
