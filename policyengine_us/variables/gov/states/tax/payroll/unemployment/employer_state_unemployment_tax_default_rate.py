@@ -1,4 +1,7 @@
 from policyengine_us.model_api import *
+from policyengine_us.variables.gov.states.tax.payroll.unemployment._jurisdictions import (
+    select_state_unemployment_tax_parameter,
+)
 
 
 class employer_state_unemployment_tax_default_rate(Variable):
@@ -15,6 +18,6 @@ class employer_state_unemployment_tax_default_rate(Variable):
     unit = "/1"
 
     def formula(person, period, parameters):
-        p = parameters(period).gov.states.tax.payroll.unemployment
-        state_code = person.household("state_code", period)
-        return p.default_rate[state_code]
+        return select_state_unemployment_tax_parameter(
+            person, period, parameters, "default_rate"
+        )

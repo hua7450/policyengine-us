@@ -1,5 +1,5 @@
 from policyengine_us.model_api import *
-from policyengine_us.variables.gov.states.tax.payroll.unemployment._generate_state_employer_unemployment_tax_variables import (
+from policyengine_us.variables.gov.states.tax.payroll.unemployment._jurisdictions import (
     STATE_EMPLOYER_UNEMPLOYMENT_TAX_VARIABLES,
 )
 
