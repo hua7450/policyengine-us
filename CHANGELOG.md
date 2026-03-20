@@ -1,3 +1,10 @@
+## [1.604.2] - 2026-03-20
+
+### Fixed
+
+- Gate Minnesota M1CWFC child tax credit on EIC investment income eligibility, matching form instructions.
+
+
 ## [1.604.1] - 2026-03-20
 
 ### Fixed
