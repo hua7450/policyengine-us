@@ -14,6 +14,9 @@ class employer_federal_unemployment_tax_rate(Variable):
     unit = "/1"
 
     def formula(person, period, parameters):
-        p = parameters(period).gov.irs.payroll.federal_unemployment
+        federal_unemployment = parameters(period).gov.irs.payroll.federal_unemployment
         state_code = person.household("state_code", period)
-        return p.effective_rate + p.credit_reduction_rate[state_code]
+        return (
+            federal_unemployment.effective_rate
+            + federal_unemployment.credit_reduction_rate[state_code]
+        )

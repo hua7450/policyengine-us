@@ -1,5 +1,12 @@
 from policyengine_us.model_api import *
 
+EMPLOYER_PAYROLL_TAX_COMPONENTS = [
+    "employer_social_security_tax",
+    "employer_medicare_tax",
+    "employer_federal_unemployment_tax",
+    "employer_state_unemployment_tax",
+]
+
 
 class employer_payroll_tax(Variable):
     value_type = float
@@ -13,13 +20,4 @@ class employer_payroll_tax(Variable):
     unit = USD
 
     def formula(person, period, parameters):
-        return add(
-            person,
-            period,
-            [
-                "employer_social_security_tax",
-                "employer_medicare_tax",
-                "employer_federal_unemployment_tax",
-                "employer_state_unemployment_tax",
-            ],
-        )
+        return add(person, period, EMPLOYER_PAYROLL_TAX_COMPONENTS)
