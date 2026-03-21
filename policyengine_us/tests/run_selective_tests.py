@@ -4,19 +4,21 @@ Selective test runner for PolicyEngine US.
 Runs only tests relevant to changed files to reduce test execution time.
 """
 
+import argparse
 import os
+import re
 import subprocess
 import sys
 from pathlib import Path
-from typing import Set, List, Dict
-import re
-import argparse
+from typing import Dict, List, Set
 
 
 class SelectiveTestRunner:
     def __init__(self, base_branch: str = "master"):
         self.base_branch = base_branch
         self.repo_root = Path.cwd()
+        self.max_test_targets = int(os.environ.get("SELECTIVE_TEST_MAX_TARGETS", "25"))
+        self.max_test_files = int(os.environ.get("SELECTIVE_TEST_MAX_FILES", "250"))
 
         # Define regex patterns for matching files to tests
         # Paths that contain only aggregation lists and should not
@@ -134,6 +136,23 @@ class SelectiveTestRunner:
                 "test_pattern": r"policyengine_us/tests/policy/baseline/gov/hhs/tanf",
             },
         ]
+
+    @staticmethod
+    def is_test_file(path: str) -> bool:
+        return path.startswith("policyengine_us/tests/") and path.endswith(
+            (".py", ".yaml", ".yml")
+        )
+
+    @staticmethod
+    def is_test_infrastructure_file(path: str) -> bool:
+        return path.endswith(("run_selective_tests.py", "test_batched.py"))
+
+    def get_direct_changed_tests(self, changed_files: Set[str]) -> Set[str]:
+        return {
+            file
+            for file in changed_files
+            if self.is_test_file(file) and not self.is_test_infrastructure_file(file)
+        }
 
     def get_changed_files(self) -> Set[str]:
         """Get list of changed files compared to base branch."""
@@ -295,6 +314,12 @@ class SelectiveTestRunner:
         test_paths = set()
 
         for file in changed_files:
+            # Changed test files are already the most precise signal.
+            if self.is_test_file(file):
+                if not self.is_test_infrastructure_file(file):
+                    test_paths.add(file)
+                continue
+
             # Skip non-Python and non-YAML files unless they're critical
             if not (
                 file.endswith(".py") or file.endswith(".yaml") or file.endswith(".yml")
@@ -331,16 +356,6 @@ class SelectiveTestRunner:
                         if re.search(comp_pattern["file_pattern"], file):
                             test_paths.add(comp_pattern["test_pattern"])
 
-            # Special handling for test files themselves
-            if "tests" in file and file.endswith(".py"):
-                # Skip test infrastructure files that shouldn't trigger all tests
-                if file.endswith(("run_selective_tests.py", "test_batched.py")):
-                    continue
-                # Add the directory containing the test file
-                test_dir = os.path.dirname(file)
-                if test_dir:
-                    test_paths.add(test_dir)
-
         # Directories that the parent walk must never climb above
         stop_dirs = {
             Path("policyengine_us/tests/policy/baseline"),
@@ -371,6 +386,52 @@ class SelectiveTestRunner:
                     path_obj = path_obj.parent
 
         return existing_test_paths
+
+    def count_test_files(self, test_paths: Set[str]) -> int:
+        total = 0
+        for path in test_paths:
+            path_obj = Path(path)
+            if path_obj.is_file():
+                total += 1
+            elif path_obj.is_dir():
+                total += sum(
+                    1
+                    for file in path_obj.rglob("*")
+                    if file.is_file() and file.suffix in {".py", ".yaml", ".yml"}
+                )
+        return total
+
+    def limit_test_paths(
+        self, test_paths: Set[str], changed_files: Set[str]
+    ) -> Set[str]:
+        total_test_files = self.count_test_files(test_paths)
+        if (
+            len(test_paths) <= self.max_test_targets
+            and total_test_files <= self.max_test_files
+        ):
+            return test_paths
+
+        direct_changed_tests = self.get_direct_changed_tests(changed_files)
+        bounded_test_paths = direct_changed_tests | {
+            path for path in test_paths if Path(path).is_file()
+        }
+
+        print(
+            "\nSelective test scope is too broad for quick feedback "
+            f"({len(test_paths)} targets / ~{total_test_files} test files)."
+        )
+        if bounded_test_paths:
+            print(
+                "Running only directly changed tests and explicit file targets; "
+                "the full suite jobs provide exhaustive coverage."
+            )
+            return bounded_test_paths
+
+        print(
+            "No directly changed tests were found, so Quick Feedback will skip "
+            "broad directory-level selective tests and defer to the full suites."
+        )
+        return set()
 
     def run_tests(
         self,
@@ -415,17 +476,20 @@ class SelectiveTestRunner:
             else:
                 # Fallback to directory-based patterns if no changed files provided
                 for test_path in test_paths:
+                    base_test_path = test_path
+                    if Path(test_path).is_file():
+                        base_test_path = str(Path(test_path).parent)
                     # Convert test path to variable path
-                    if "tests/policy/baseline/" in test_path:
-                        var_path = test_path.replace(
+                    if "tests/policy/baseline/" in base_test_path:
+                        var_path = base_test_path.replace(
                             "tests/policy/baseline/", "variables/"
                         )
                         include_patterns.append(f"{var_path}/**/*.py")
                         include_patterns.append(f"{var_path}/*.py")
-                    elif "tests/policy/reform/" in test_path:
+                    elif "tests/policy/reform/" in base_test_path:
                         include_patterns.append("policyengine_us/reforms/**/*.py")
                         include_patterns.append("policyengine_us/reforms/*.py")
-                    elif "tests/policy/contrib/" in test_path:
+                    elif "tests/policy/contrib/" in base_test_path:
                         include_patterns.append(
                             "policyengine_us/parameters/contrib/**/*.py"
                         )
@@ -639,9 +703,11 @@ def main():
     # Map to test paths and run tests
     test_paths = runner.map_files_to_tests(changed_files)
 
+    test_paths = runner.limit_test_paths(test_paths, changed_files)
+
     if not test_paths:
         print("\nNo relevant tests found for changed files.")
-        print("Consider running all tests with --all flag.")
+        print("Quick Feedback deferred to the full suite jobs for exhaustive coverage.")
         sys.exit(0)
 
     sys.exit(
