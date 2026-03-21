@@ -1,3 +1,10 @@
+## [1.605.0] - 2026-03-21
+
+### Added
+
+- Add employer-side FUTA and state unemployment payroll taxes, and include them in employer payroll tax and cost of employment outputs.
+
+
 ## [1.604.2] - 2026-03-20
 
 ### Fixed
