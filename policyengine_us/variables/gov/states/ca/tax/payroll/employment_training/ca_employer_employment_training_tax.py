@@ -11,7 +11,7 @@ class ca_employer_employment_training_tax(Variable):
     defined_for = StateCode.CA
 
     def formula(person, period, parameters):
-        rate = (
-            parameters(period).gov.states.ca.tax.payroll.employment_training.employer_rate
-        )
+        rate = parameters(
+            period
+        ).gov.states.ca.tax.payroll.employment_training.employer_rate
         return rate * person("taxable_earnings_for_state_unemployment_tax", period)

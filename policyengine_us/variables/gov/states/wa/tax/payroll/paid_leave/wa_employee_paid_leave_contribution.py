@@ -5,7 +5,9 @@ class wa_employee_paid_leave_contribution(Variable):
     value_type = float
     entity = Person
     label = "Washington employee paid leave contribution"
-    documentation = "Employee-side Washington Paid Family and Medical Leave contribution."
+    documentation = (
+        "Employee-side Washington Paid Family and Medical Leave contribution."
+    )
     definition_period = YEAR
     unit = USD
     defined_for = StateCode.WA

@@ -12,6 +12,8 @@ class or_employee_statewide_transit_tax(Variable):
 
     def formula(person, period, parameters):
         rate = (
-            parameters(period).gov.states["or"].tax.payroll.statewide_transit.employee_rate
+            parameters(period)
+            .gov.states["or"]
+            .tax.payroll.statewide_transit.employee_rate
         )
         return rate * person("payroll_tax_gross_wages", period)

@@ -13,9 +13,7 @@ class de_paid_leave_contribution_rate(Variable):
     def formula(person, period, parameters):
         p = parameters(period).gov.states.de.tax.payroll.paid_leave
         headcount = person("employer_headcount", period)
-        full_coverage_rate = (
-            p.family_caregiver_rate + p.medical_rate + p.parental_rate
-        )
+        full_coverage_rate = p.family_caregiver_rate + p.medical_rate + p.parental_rate
         return select(
             [
                 headcount < p.small_employer_threshold,
