@@ -1,3 +1,10 @@
+## [1.606.0] - 2026-03-22
+
+### Added
+
+- Add state and local payroll-funded contribution modeling for employee and employer taxes, including integration of employee-side payroll contributions into household net income.
+
+
 ## [1.605.0] - 2026-03-21
 
 ### Added
