@@ -8,8 +8,8 @@ class mo_head_of_household_exemption(Variable):
     unit = USD
     definition_period = YEAR
     reference = (
+        "https://www.revisor.mo.gov/main/OneSection.aspx?section=143.161",
         "https://dor.mo.gov/forms/MO-1040%20Instructions_2024.pdf#page=9",
-        "https://www.revisor.mo.gov/main/OneSection.aspx?section=143.151&bid=7201&hl=",
     )
     defined_for = StateCode.MO
 
