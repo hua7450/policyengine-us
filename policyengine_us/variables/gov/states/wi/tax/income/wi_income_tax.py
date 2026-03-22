@@ -20,8 +20,6 @@ class wi_income_tax(Variable):
         # wi_income_tax_before_refundable_credits so that
         # state_income_tax (before_refundable - refundable)
         # correctly reflects the min(standard, exclusion) comparison.
-        before_refundable = tax_unit(
-            "wi_income_tax_before_refundable_credits", period
-        )
+        before_refundable = tax_unit("wi_income_tax_before_refundable_credits", period)
         refundable = tax_unit("wi_refundable_credits", period)
         return before_refundable - refundable
