@@ -1,0 +1,11 @@
+description: Employee-side Maine paid leave contribution rate.
+values:
+  2025-01-01: 0.005
+
+metadata:
+  period: year
+  unit: /1
+  label: Maine paid leave employee rate
+  reference:
+    - title: Employers Guide to Maine PFML Contributions
+      href: https://www.maine.gov/paidleave/docs/2024/EmployersGuidetoMainePFMLContributions.pdf#page=11

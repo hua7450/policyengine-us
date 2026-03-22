@@ -1,0 +1,11 @@
+description: Default employee share of Delaware paid leave contributions.
+values:
+  2025-01-01: 0.5
+
+metadata:
+  period: year
+  unit: /1
+  label: Delaware paid leave employee share
+  reference:
+    - title: Delaware Paid Leave
+      href: https://labor.delaware.gov/delaware-paid-leave/

@@ -1,0 +1,12 @@
+description: Employer share of Washington Paid Family and Medical Leave contributions.
+values:
+  2025-01-01: 0.2848
+  2026-01-01: 0.2857
+
+metadata:
+  period: year
+  unit: /1
+  label: Washington paid leave employer share
+  reference:
+    - title: Washington Paid Leave premium calculator
+      href: https://paidleave.wa.gov/estimate-your-paid-leave-payments/

@@ -1,0 +1,11 @@
+description: Employee-side Oregon Paid Leave contribution rate.
+values:
+  2023-01-01: 0.006
+
+metadata:
+  period: year
+  unit: /1
+  label: Oregon Paid Leave employee rate
+  reference:
+    - title: Paid Leave Oregon brochure
+      href: https://paidleave.oregon.gov/assets/resources/PaidLeave-Brochure-EN.pdf#page=2

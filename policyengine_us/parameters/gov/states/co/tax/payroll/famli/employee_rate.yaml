@@ -1,0 +1,14 @@
+description: Employee-side Colorado FAMLI contribution rate.
+values:
+  2023-01-01: 0.0045
+  2026-01-01: 0.0044
+
+metadata:
+  period: year
+  unit: /1
+  label: Colorado employee FAMLI rate
+  reference:
+    - title: FAMLI payroll deductions are here
+      href: https://famli.colorado.gov/news-article/famli-payroll-deductions-are-here
+    - title: Senate Bill 25-144
+      href: https://leg.colorado.gov/bills/sb25-144

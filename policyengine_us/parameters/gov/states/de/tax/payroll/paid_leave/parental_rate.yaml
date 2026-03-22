@@ -1,0 +1,11 @@
+description: Delaware paid leave parental contribution rate.
+values:
+  2025-01-01: 0.0032
+
+metadata:
+  period: year
+  unit: /1
+  label: Delaware parental leave contribution rate
+  reference:
+    - title: Delaware Paid Leave small business FAQs
+      href: https://laborfiles.delaware.gov/main/pfl/DDOL40327_Small_Business_FAQs_v3.pdf#page=2

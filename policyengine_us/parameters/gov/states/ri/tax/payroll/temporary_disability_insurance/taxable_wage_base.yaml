@@ -1,0 +1,11 @@
+description: Taxable wage base for Rhode Island TDI employee contributions.
+values:
+  2026-01-01: 100_000
+
+metadata:
+  period: year
+  unit: currency-USD
+  label: Rhode Island TDI wage base
+  reference:
+    - title: Rhode Island Employer Handbook
+      href: https://dlt.ri.gov/media/13411/download?language=en

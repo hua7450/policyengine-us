@@ -1,0 +1,11 @@
+description: Taxable wage base for New Jersey TDI and FLI employee contributions.
+values:
+  2026-01-01: 171_100
+
+metadata:
+  period: year
+  unit: currency-USD
+  label: New Jersey TDI and FLI taxable wage base
+  reference:
+    - title: NJ Temporary Disability and Family Leave Insurance - Information for Employers
+      href: https://www.nj.gov/labor/myleavebenefits/employer/

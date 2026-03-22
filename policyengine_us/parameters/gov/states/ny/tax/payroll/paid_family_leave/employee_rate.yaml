@@ -1,0 +1,11 @@
+description: Employee-side New York Paid Family Leave contribution rate.
+values:
+  2026-01-01: 0.00388
+
+metadata:
+  period: year
+  unit: /1
+  label: New York Paid Family Leave employee rate
+  reference:
+    - title: New York Paid Family Leave
+      href: https://paidfamilyleave.ny.gov/

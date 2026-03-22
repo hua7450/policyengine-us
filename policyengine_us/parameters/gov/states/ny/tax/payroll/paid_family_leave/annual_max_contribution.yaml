@@ -1,0 +1,11 @@
+description: Maximum annual New York Paid Family Leave employee contribution.
+values:
+  2026-01-01: 354.53
+
+metadata:
+  period: year
+  unit: currency-USD
+  label: New York Paid Family Leave annual maximum contribution
+  reference:
+    - title: New York Paid Family Leave
+      href: https://paidfamilyleave.ny.gov/

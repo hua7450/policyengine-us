@@ -1,0 +1,11 @@
+description: Employer-side California Employment Training Tax rate.
+values:
+  0000-01-01: 0.001
+
+metadata:
+  period: year
+  unit: /1
+  label: California employer ETT rate
+  reference:
+    - title: 2026 California Payroll Taxes (DE 201)
+      href: https://edd.ca.gov/siteassets/files/pdf_pub_ctr/de201.pdf#page=1

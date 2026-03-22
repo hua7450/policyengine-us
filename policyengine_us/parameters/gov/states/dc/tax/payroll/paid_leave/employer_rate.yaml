@@ -1,0 +1,12 @@
+description: Employer-side District of Columbia Paid Family Leave tax rate.
+values:
+  2019-01-01: 0.0062
+  2025-01-01: 0.0075
+
+metadata:
+  period: year
+  unit: /1
+  label: District of Columbia paid leave tax rate
+  reference:
+    - title: DOES PFL Employer Toolkit
+      href: https://does.dc.gov/sites/default/files/dc/sites/does/publication/attachments/DOES_PFL_EmployerToolkit.pdf#page=3

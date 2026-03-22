@@ -1,0 +1,11 @@
+description: Minimum employer headcount for Oregon employer paid leave contributions.
+values:
+  2023-01-01: 25
+
+metadata:
+  period: year
+  unit: person
+  label: Oregon paid leave employer size threshold
+  reference:
+    - title: Paid Leave Oregon brochure
+      href: https://paidleave.oregon.gov/assets/resources/PaidLeave-Brochure-EN.pdf#page=2

@@ -1,0 +1,11 @@
+description: Minimum headcount for mandatory Delaware paid leave participation.
+values:
+  2025-01-01: 10
+
+metadata:
+  period: year
+  unit: person
+  label: Delaware paid leave minimum employer size
+  reference:
+    - title: Delaware Paid Leave
+      href: https://labor.delaware.gov/delaware-paid-leave/

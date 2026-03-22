@@ -1,0 +1,11 @@
+description: Minimum employer size for Maine paid leave employer contributions.
+values:
+  2025-01-01: 15
+
+metadata:
+  period: year
+  unit: person
+  label: Maine paid leave employer size threshold
+  reference:
+    - title: Employers Guide to Maine PFML Contributions
+      href: https://www.maine.gov/paidleave/docs/2024/EmployersGuidetoMainePFMLContributions.pdf#page=11

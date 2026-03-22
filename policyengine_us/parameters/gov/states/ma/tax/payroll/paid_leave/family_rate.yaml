@@ -1,0 +1,11 @@
+description: Massachusetts PFML family leave contribution rate.
+values:
+  2026-01-01: 0.0018
+
+metadata:
+  period: year
+  unit: /1
+  label: Massachusetts PFML family leave rate
+  reference:
+    - title: 2026 PFML mandatory workplace poster
+      href: https://www.mass.gov/doc/2026-pfml-mandatory-workplace-poster-english/download

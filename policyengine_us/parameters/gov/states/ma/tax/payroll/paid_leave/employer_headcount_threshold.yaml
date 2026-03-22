@@ -1,0 +1,11 @@
+description: Minimum employer size for Massachusetts PFML employer contributions.
+values:
+  2026-01-01: 25
+
+metadata:
+  period: year
+  unit: person
+  label: Massachusetts PFML covered-individual threshold proxy
+  reference:
+    - title: Employer toolkit for Paid Family and Medical Leave
+      href: https://www.mass.gov/doc/employer-toolkit-for-paid-family-and-medical-leave/download

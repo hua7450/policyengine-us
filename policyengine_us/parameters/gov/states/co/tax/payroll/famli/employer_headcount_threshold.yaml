@@ -1,0 +1,11 @@
+description: Minimum employer headcount for Colorado employer FAMLI contributions.
+values:
+  0000-01-01: 10
+
+metadata:
+  period: year
+  unit: person
+  label: Colorado FAMLI employer headcount threshold
+  reference:
+    - title: FAMLI payroll deductions are here
+      href: https://famli.colorado.gov/news-article/famli-payroll-deductions-are-here

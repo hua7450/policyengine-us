@@ -1,0 +1,11 @@
+description: Minimum headcount for full Delaware paid leave coverage.
+values:
+  2025-01-01: 25
+
+metadata:
+  period: year
+  unit: person
+  label: Delaware paid leave full coverage employer size threshold
+  reference:
+    - title: Delaware Paid Leave
+      href: https://labor.delaware.gov/delaware-paid-leave/

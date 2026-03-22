@@ -1,0 +1,12 @@
+description: Total Washington Paid Family and Medical Leave contribution rate.
+values:
+  2025-01-01: 0.0092
+  2026-01-01: 0.0113
+
+metadata:
+  period: year
+  unit: /1
+  label: Washington paid leave total rate
+  reference:
+    - title: Washington Paid Leave reporting guidance
+      href: https://paidleave.wa.gov/reporting/

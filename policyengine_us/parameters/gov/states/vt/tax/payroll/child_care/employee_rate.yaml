@@ -1,0 +1,11 @@
+description: Employee-side Vermont Child Care Contribution rate.
+values:
+  2024-07-01: 0.0011
+
+metadata:
+  period: year
+  unit: /1
+  label: Vermont child care employee contribution rate
+  reference:
+    - title: The Vermont Child Care Contribution
+      href: https://tax.vermont.gov/sites/tax/files/documents/GB-1326.pdf#page=1

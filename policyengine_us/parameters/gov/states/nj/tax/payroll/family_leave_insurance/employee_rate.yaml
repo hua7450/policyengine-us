@@ -1,0 +1,11 @@
+description: Employee-side New Jersey family leave insurance contribution rate.
+values:
+  2026-01-01: 0.0023
+
+metadata:
+  period: year
+  unit: /1
+  label: New Jersey employee FLI rate
+  reference:
+    - title: NJ Temporary Disability and Family Leave Insurance - Information for Employers
+      href: https://www.nj.gov/labor/myleavebenefits/employer/

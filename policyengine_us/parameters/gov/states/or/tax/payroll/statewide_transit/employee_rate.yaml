@@ -1,0 +1,11 @@
+description: Employee-side Oregon statewide transit tax rate.
+values:
+  2018-07-01: 0.001
+
+metadata:
+  period: year
+  unit: /1
+  label: Oregon statewide transit tax rate
+  reference:
+    - title: Oregon Department of Revenue - Statewide Transit Tax
+      href: https://www.oregon.gov/dor/programs/businesses/pages/statewide-transit-tax.aspx
