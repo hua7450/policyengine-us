@@ -1,4 +1,4 @@
-description: Missouri additional exemption for head of household or qualifying surviving spouse filers (MO-1040 Line 15). Per RSMo 143.161(2), effective for taxable years beginning on or after January 1, 1999. Unlike the dependent exemption in 143.161(1), this provision does not require the federal exemption amount under 26 USC 151 to be non-zero, so it applies during TCJA years. The MO-1040 form added a dedicated Line 15 starting in tax year 2022.
+description: Missouri provides this amount as an additional exemption for head of household or qualifying surviving spouse filers (MO-1040 Line 15) under the Missouri income tax per RSMo 143.161(2).
 metadata:
   unit: currency-USD
   period: year
@@ -6,12 +6,6 @@ metadata:
   reference:
     - title: RSMo 143.161(2) — Head of household additional exemption
       href: https://www.revisor.mo.gov/main/OneSection.aspx?section=143.161
-    - title: 2021 MO-1040 Instructions (no dedicated line; statute still in effect)
-      href: https://dor.mo.gov/forms/MO-1040%20Instructions_2021.pdf#page=8
-    - title: 2022 MO-1040 Instructions, Line 15
-      href: https://dor.mo.gov/forms/MO-1040%20Instructions_2022.pdf#page=8
-    - title: 2023 MO-1040 Instructions, Line 15
-      href: https://dor.mo.gov/forms/MO-1040%20Instructions_2023.pdf#page=9
     - title: 2024 MO-1040 Instructions, Line 15
       href: https://dor.mo.gov/forms/MO-1040%20Instructions_2024.pdf#page=9
 values:

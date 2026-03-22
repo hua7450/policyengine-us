@@ -8,10 +8,10 @@ class mo_taxable_income(Variable):
     unit = USD
     definition_period = YEAR
     reference = (
-        "https://dor.mo.gov/forms/MO-A_2021.pdf"
-        "https://dor.mo.gov/forms/MO-1040%20Instructions_2021.pdf#page=8"
-        "https://dor.mo.gov/forms/MO-1040%20Instructions_2022.pdf#page=8"
-        "https://www.revisor.mo.gov/main/OneSection.aspx?section=143.111&bid=7201&hl="
+        "https://dor.mo.gov/forms/MO-A_2021.pdf",
+        "https://dor.mo.gov/forms/MO-1040%20Instructions_2021.pdf#page=8",
+        "https://dor.mo.gov/forms/MO-1040%20Instructions_2022.pdf#page=8",
+        "https://www.revisor.mo.gov/main/OneSection.aspx?section=143.111&bid=7201&hl=",
     )
     defined_for = StateCode.MO
 
