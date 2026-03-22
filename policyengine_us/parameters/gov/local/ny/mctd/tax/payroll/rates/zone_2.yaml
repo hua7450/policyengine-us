@@ -6,6 +6,8 @@ metadata:
   period: year
   label: New York MCTMT employer tax rates for Zone 2
   reference:
+    - title: New York Tax Law Section 801
+      href: https://www.nysenate.gov/legislation/laws/TAX/801
     - title: New York MCTMT for employers
       href: https://www.tax.ny.gov/bus/mctmt/emp.htm
 brackets:

@@ -8,5 +8,9 @@ metadata:
   unit: /1
   label: District of Columbia paid leave tax rate
   reference:
-    - title: DOES PFL Employer Toolkit
-      href: https://does.dc.gov/sites/default/files/dc/sites/does/publication/attachments/DOES_PFL_EmployerToolkit.pdf#page=3
+    - title: District of Columbia Code Section 32-541.03
+      href: https://code.dccouncil.gov/us/dc/council/code/sections/32-541.03%28Perm%29
+    - title: Fiscal Year 2024 Revised Local Budget Adjustment Emergency Act of 2024
+      href: https://code.dccouncil.gov/us/dc/council/acts/25-499
+    - title: District of Columbia Paid Family Leave employer information
+      href: https://dcpaidfamilyleave.dc.gov/employer-information/

@@ -7,5 +7,7 @@ metadata:
   unit: /1
   label: Oregon Paid Leave employee rate
   reference:
-    - title: Paid Leave Oregon brochure
-      href: https://paidleave.oregon.gov/assets/resources/PaidLeave-Brochure-EN.pdf#page=2
+    - title: Oregon Revised Statutes Section 657B.150
+      href: https://www.oregonlegislature.gov/bills_laws/ors/ors657B.html
+    - title: Paid Leave Oregon contributions calculator
+      href: https://paidleave.oregon.gov/employers/contributions-calculator.html

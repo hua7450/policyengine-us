@@ -49,6 +49,62 @@ def calculate(sim: Simulation, variable: str) -> float:
     return sim.calculate(variable, PERIOD)[0]
 
 
+def make_employer_total_simulation(
+    state_code: str,
+    *,
+    employer_headcount: int = 100,
+    employer_state_unemployment_tax_rate_override: float = -1,
+    employer_total_payroll_tax_gross_wages: float = WAGES,
+    employer_total_taxable_earnings_for_social_security: float = WAGES,
+    employer_total_taxable_earnings_for_federal_unemployment_tax: float = 7_000,
+    employer_total_taxable_earnings_for_state_unemployment_tax: float = 9_000,
+    employer_ny_mctmt_zone_1_quarterly_payroll_expense: float = 0,
+    employer_ny_mctmt_zone_2_quarterly_payroll_expense: float = 0,
+) -> Simulation:
+    return Simulation(
+        tax_benefit_system=SYSTEM,
+        situation={
+            "people": {
+                "person": {
+                    "age": {PERIOD: 30},
+                    "employer_headcount": {PERIOD: employer_headcount},
+                    "employer_state_unemployment_tax_rate_override": {
+                        PERIOD: employer_state_unemployment_tax_rate_override
+                    },
+                    "employer_total_payroll_tax_gross_wages": {
+                        PERIOD: employer_total_payroll_tax_gross_wages
+                    },
+                    "employer_total_taxable_earnings_for_social_security": {
+                        PERIOD: employer_total_taxable_earnings_for_social_security
+                    },
+                    "employer_total_taxable_earnings_for_federal_unemployment_tax": {
+                        PERIOD: employer_total_taxable_earnings_for_federal_unemployment_tax
+                    },
+                    "employer_total_taxable_earnings_for_state_unemployment_tax": {
+                        PERIOD: employer_total_taxable_earnings_for_state_unemployment_tax
+                    },
+                    "employer_ny_mctmt_zone_1_quarterly_payroll_expense": {
+                        PERIOD: employer_ny_mctmt_zone_1_quarterly_payroll_expense
+                    },
+                    "employer_ny_mctmt_zone_2_quarterly_payroll_expense": {
+                        PERIOD: employer_ny_mctmt_zone_2_quarterly_payroll_expense
+                    },
+                }
+            },
+            "households": {
+                "household": {
+                    "members": ["person"],
+                    "state_code": {PERIOD: state_code},
+                }
+            },
+            "tax_units": {"tax_unit": {"members": ["person"]}},
+            "spm_units": {"spm_unit": {"members": ["person"]}},
+            "families": {"family": {"members": ["person"]}},
+            "marital_units": {"marital_unit": {"members": ["person"]}},
+        },
+    )
+
+
 @pytest.mark.parametrize(
     ("state_code", "expected"),
     [
@@ -119,10 +175,10 @@ def calculate(sim: Simulation, variable: str) -> float:
         pytest.param(
             "NY",
             {
-                "ny_employee_paid_family_leave_contribution": 354.53,
+                "ny_employee_paid_family_leave_contribution": 411.91,
                 "ny_employee_disability_benefits_contribution": 31.2,
-                "ny_employee_state_payroll_tax": 385.73,
-                "employee_state_payroll_tax": 385.73,
+                "ny_employee_state_payroll_tax": 443.11,
+                "employee_state_payroll_tax": 443.11,
             },
             id="NY",
         ),
@@ -413,6 +469,82 @@ def test_new_york_mctmt_employer_tax(
     assert calculate(sim, "employer_local_payroll_tax") == pytest.approx(
         expected_tax, abs=0.01
     )
+
+
+@pytest.mark.parametrize(
+    ("state_code", "headcount", "ss_taxable", "state_ui_taxable", "expected"),
+    [
+        pytest.param("CA", 100, WAGES, 7_000, 7, id="CA"),
+        pytest.param("CO", 100, WAGES, 9_000, 440, id="CO"),
+        pytest.param("DC", 100, WAGES, 9_000, 750, id="DC"),
+        pytest.param("DE", 100, WAGES, 9_000, 400, id="DE"),
+        pytest.param("MA", 100, WAGES, 9_000, 420, id="MA"),
+        pytest.param("ME", 100, WAGES, 9_000, 500, id="ME"),
+        pytest.param("OR", 100, WAGES, 9_000, 400, id="OR"),
+        pytest.param("RI", 100, WAGES, 29_200, 61.32, id="RI"),
+        pytest.param("VT", 100, WAGES, 9_000, 330, id="VT"),
+        pytest.param("WA", 100, WAGES, 9_000, 322.841, id="WA"),
+    ],
+)
+def test_employer_total_additional_state_payroll_tax(
+    state_code: str,
+    headcount: int,
+    ss_taxable: float,
+    state_ui_taxable: float,
+    expected: float,
+):
+    sim = make_employer_total_simulation(
+        state_code,
+        employer_headcount=headcount,
+        employer_total_taxable_earnings_for_social_security=ss_taxable,
+        employer_total_taxable_earnings_for_state_unemployment_tax=state_ui_taxable,
+    )
+
+    assert calculate(
+        sim, "employer_total_additional_state_payroll_tax"
+    ) == pytest.approx(expected, abs=0.01)
+
+
+@pytest.mark.parametrize(
+    ("zone_1_quarterly_payroll", "zone_2_quarterly_payroll", "expected"),
+    [
+        pytest.param(3_000_000, 0, 107_400, id="zone-1"),
+        pytest.param(0, 3_000_000, 76_200, id="zone-2"),
+        pytest.param(2_500_000, 0, 60_000, id="top-threshold-exclusive"),
+    ],
+)
+def test_ny_mctmt_total_employer_tax(
+    zone_1_quarterly_payroll: float,
+    zone_2_quarterly_payroll: float,
+    expected: float,
+):
+    sim = make_employer_total_simulation(
+        "NY",
+        employer_total_taxable_earnings_for_state_unemployment_tax=0,
+        employer_ny_mctmt_zone_1_quarterly_payroll_expense=zone_1_quarterly_payroll,
+        employer_ny_mctmt_zone_2_quarterly_payroll_expense=zone_2_quarterly_payroll,
+    )
+
+    assert calculate(sim, "ny_mctmt_total_employer_tax") == pytest.approx(
+        expected, abs=0.01
+    )
+    assert calculate(sim, "employer_total_local_payroll_tax") == pytest.approx(
+        expected, abs=0.01
+    )
+
+
+def test_employer_total_payroll_tax_aggregates_employer_inputs():
+    sim = make_employer_total_simulation("TX")
+
+    assert calculate(sim, "employer_total_social_security_tax") == pytest.approx(6_200)
+    assert calculate(sim, "employer_total_medicare_tax") == pytest.approx(1_450)
+    assert calculate(sim, "employer_total_federal_unemployment_tax") == pytest.approx(
+        42
+    )
+    assert calculate(sim, "employer_total_state_unemployment_tax") == pytest.approx(243)
+    assert calculate(sim, "employer_total_state_payroll_tax") == pytest.approx(243)
+    assert calculate(sim, "employer_total_payroll_tax") == pytest.approx(7_935)
+    assert calculate(sim, "employer_total_cost_of_employment") == pytest.approx(107_935)
 
 
 def test_employee_state_payroll_tax_flows_into_household_net_income():

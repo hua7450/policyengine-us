@@ -7,5 +7,5 @@ metadata:
   unit: person
   label: Washington paid leave employer size threshold
   reference:
-    - title: Washington Paid Leave premium calculator
-      href: https://paidleave.wa.gov/estimate-your-paid-leave-payments/
+    - title: Revised Code of Washington Section 50A.10.030
+      href: https://app.leg.wa.gov/rcw/default.aspx?cite=50A.10.030

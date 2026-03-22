@@ -7,5 +7,7 @@ metadata:
   unit: /1
   label: Oregon statewide transit tax rate
   reference:
+    - title: Oregon Revised Statutes Section 320.550
+      href: https://www.oregonlegislature.gov/bills_laws/ors/ors320.html
     - title: Oregon Department of Revenue - Statewide Transit Tax
       href: https://www.oregon.gov/dor/programs/businesses/pages/statewide-transit-tax.aspx
