@@ -1,4 +1,5 @@
 import pytest
+from policyengine_core.reforms import Reform
 
 from policyengine_us import CountryTaxBenefitSystem, Simulation
 
@@ -242,6 +243,40 @@ def test_employee_state_payroll_contributions(
     assert calculate(sim, "employee_payroll_tax") == pytest.approx(
         employee_payroll_components
     )
+
+
+def test_employee_payroll_tax_zero_when_payroll_tax_abolished():
+    reform = Reform.from_dict(
+        {
+            "gov.contrib.ubi_center.flat_tax.abolish_payroll_tax": {
+                "2026-01-01.2026-12-31": True,
+            }
+        },
+        country_id="us",
+    )
+    sim = Simulation(
+        tax_benefit_system=CountryTaxBenefitSystem(reform=(reform,)),
+        situation={
+            "people": {
+                "person": {
+                    "age": {PERIOD: 30},
+                    "employment_income": {PERIOD: WAGES},
+                }
+            },
+            "households": {
+                "household": {
+                    "members": ["person"],
+                    "state_code": {PERIOD: "CA"},
+                }
+            },
+            "tax_units": {"tax_unit": {"members": ["person"]}},
+            "spm_units": {"spm_unit": {"members": ["person"]}},
+            "families": {"family": {"members": ["person"]}},
+            "marital_units": {"marital_unit": {"members": ["person"]}},
+        },
+    )
+
+    assert calculate(sim, "employee_payroll_tax") == 0
 
 
 @pytest.mark.parametrize(
