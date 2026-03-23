@@ -14,9 +14,7 @@ class ca_tanf_countable_income_applicant(Variable):
         # Known simplification: per WIC 11450.12, the $450 disregard
         # should be applied per employed person, not as a flat total.
         # Current implementation subtracts a single flat amount.
-        p = parameters(
-            period
-        ).gov.states.ca.cdss.tanf.cash.income.disregards.applicant
+        p = parameters(period).gov.states.ca.cdss.tanf.cash.income.disregards.applicant
         yearly_disregard = p.flat * MONTHS_IN_YEAR
         countable_earned = max_(
             spm_unit("ca_tanf_earned_income", period) - yearly_disregard, 0
