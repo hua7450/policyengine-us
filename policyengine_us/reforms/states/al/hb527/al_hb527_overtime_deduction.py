@@ -44,7 +44,7 @@ def create_al_hb527_overtime_deduction() -> Reform:
             base_al_agi = gross_income - agi_deductions
             # If HB527 is in effect, subtract the overtime deduction
             overtime_deduction = tax_unit("al_hb527_overtime_deduction", period)
-            return base_al_agi - overtime_deduction
+            return max_(0, base_al_agi - overtime_deduction)
 
     class reform(Reform):
         def apply(self):
