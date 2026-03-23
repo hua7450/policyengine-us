@@ -245,7 +245,7 @@ MI:
   2025-10-01: 682
 MN:
   2010-01-01: 0
-  2018-10-01: 556
+  2018-10-01: 493
   2021-10-01: 488
   2022-10-01: 586
   2023-10-01: 651
@@ -502,6 +502,8 @@ metadata:
     href: https://docs.google.com/spreadsheets/d/10otJJisAYUDyZ0d7XpZPn8rEql-rteVE/edit?gid=1837348310#gid=1837348310
   - title: USDA utility allowances by state spreadsheet. Extracted by build_utility_allowances (FY2025)
     href: https://www.fns.usda.gov/sites/default/files/resource-files/2024-09-30-SUA-Table-FY25-508-Update.xlsx
+  - title: FY 2019 SNAP QC Technical Documentation, Table F.7
+    href: https://snapqcdata.net/sites/default/files/2020-12/FY%202019%20SNAP%20QC%20Technical%20Documentation.pdf#page=171
   breakdown:
   - snap_utility_region
   label: SNAP standard utility allowance
