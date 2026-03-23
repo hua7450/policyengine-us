@@ -79,7 +79,7 @@
   output:
     ca_tanf_income_limit: 853 * 12
 
-- name: Region 2 MBSAC for 10-person household in 2025 uses 2024-07-01 value ($3,731/mo).
+- name: Region 2 MBSAC for 10-person household in 2025 uses 2024-07-01 value ($3,730/mo).
   period: 2025
   input:
     state_code: CA
