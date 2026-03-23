@@ -15,7 +15,7 @@ def create_mi_ctc() -> Reform:
         def formula(tax_unit, period, parameters):
             p = parameters(period).gov.contrib.states.mi.ctc
             federal_ctc = tax_unit("ctc", period)
-            return where(p.in_effect, federal_ctc * p.match, 0)
+            return federal_ctc * p.match
 
     class mi_refundable_credits(Variable):
         value_type = float
@@ -26,7 +26,6 @@ def create_mi_ctc() -> Reform:
         defined_for = StateCode.MI
 
         def formula(tax_unit, period, parameters):
-            p = parameters(period).gov.contrib.states.mi.ctc
             base_credits = add(
                 tax_unit,
                 period,
@@ -37,7 +36,7 @@ def create_mi_ctc() -> Reform:
                 ],
             )
             mi_ctc_amount = tax_unit("mi_ctc", period)
-            return where(p.in_effect, base_credits + mi_ctc_amount, base_credits)
+            return base_credits + mi_ctc_amount
 
     class reform(Reform):
         def apply(self):
