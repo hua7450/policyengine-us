@@ -15,7 +15,5 @@ class wa_tanf(Variable):
 
     def formula(spm_unit, period, parameters):
         payment_standard = spm_unit("wa_tanf_payment_standard", period)
-        countable_income = max_(
-            spm_unit("wa_tanf_countable_income", period), 0
-        )
+        countable_income = max_(spm_unit("wa_tanf_countable_income", period), 0)
         return max_(payment_standard - countable_income, 0)
