@@ -1,0 +1,58 @@
+# Unit tests for pa_ccw_region
+# Tests the MCCA payment region assignment (bare input, int, default 1)
+# 19 regions per CCDF State Plan Section 4.2
+
+- name: Case 1, default region is 1.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 30
+    households:
+      household:
+        members: [person1]
+        state_code: PA
+  output:
+    pa_ccw_region: 1
+
+- name: Case 2, region 5 assignment.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 30
+    households:
+      household:
+        members: [person1]
+        state_code: PA
+        pa_ccw_region: 5
+  output:
+    pa_ccw_region: 5
+
+- name: Case 3, region 17 assignment.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 30
+    households:
+      household:
+        members: [person1]
+        state_code: PA
+        pa_ccw_region: 17
+  output:
+    pa_ccw_region: 17
+
+- name: Case 4, region 19 assignment.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 30
+    households:
+      household:
+        members: [person1]
+        state_code: PA
+        pa_ccw_region: 19
+  output:
+    pa_ccw_region: 19

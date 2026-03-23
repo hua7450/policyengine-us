@@ -1,0 +1,11 @@
+description: Pennsylvania defines full-time care as this many hours per day or more under the Child Care Works program.
+values:
+  2023-12-16: 5
+
+metadata:
+  unit: hour
+  period: year
+  label: Pennsylvania CCW full-time care hours per day threshold
+  reference:
+    - title: 55 Pa. Code § 3042.3
+      href: https://www.pacodeandbulletin.gov/secure/pacode/data/055/chapter3042/055_3042.pdf#page=4
