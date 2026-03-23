@@ -23,7 +23,5 @@ class mo_capital_gains_subtraction_person(Variable):
         # Use mask to avoid divide-by-zero, default to zero allocation
         person_share = np.zeros_like(tax_unit_positive_cg)
         mask = tax_unit_positive_cg > 0
-        person_share[mask] = (
-            person_positive_cg[mask] / tax_unit_positive_cg[mask]
-        )
+        person_share[mask] = person_positive_cg[mask] / tax_unit_positive_cg[mask]
         return person_share * tax_unit_subtraction
