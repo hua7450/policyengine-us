@@ -2,9 +2,9 @@ description: Kentucky sets this payment maximum under the Kentucky Transitional 
 # NOTE: Nov 2025 values are sourced from the KY FACES state web application,
 # not a regulatory instrument (KAR amendment or administrative order).
 # The KY FACES table uses "Number of Children" while the KAR regulation uses
-# "Number of Eligible Persons." We map children counts to assistance unit sizes
-# assuming one parent is included (e.g., 1 child = size 2). This mapping should
-# be verified when the official regulatory source becomes available.
+# "Number of Eligible Persons." FACES "Number of Children" values are mapped
+# directly to assistance unit size (e.g., 1 child = size 1). This mapping
+# should be verified when the official regulatory source becomes available.
 
 metadata:
   unit: currency-USD

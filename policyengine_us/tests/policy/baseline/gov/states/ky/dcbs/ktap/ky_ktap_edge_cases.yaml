@@ -1253,3 +1253,83 @@
     # Max for age 5: $175/month, actual: $50/month
     # Disregard = min($50, $175) = $50 (expenses are binding)
     ky_ktap_dependent_care_disregard: 50
+
+###############################################################################
+# Non-dependent child under 13 gets $0 dependent care disregard
+###############################################################################
+
+- name: Case 48, child under 13 who is not a tax unit dependent gets zero disregard.
+  period: 2024-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      parent:
+        age: 35
+        is_tax_unit_dependent: false
+      child:
+        age: 5
+        is_tax_unit_dependent: false
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+        childcare_expenses: 6_000
+    households:
+      household:
+        members: [parent, child]
+        state_code: KY
+  output:
+    # Child age 5 would normally get $175 cap, but is_tax_unit_dependent = false
+    # max_per_child = $175 * 0 = $0 for the child
+    # Parent is not dependent either, so max_per_child = $0
+    # total_max_disregard = $0
+    # min($500/month, $0) = $0
+    ky_ktap_dependent_care_disregard: 0
+
+###############################################################################
+# Negative earned income floors at zero countable earned income
+###############################################################################
+
+- name: Case 49, negative earned income results in zero countable earned.
+  period: 2024-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        tanf_gross_earned_income: -500
+    spm_units:
+      spm_unit:
+        members: [person1]
+        childcare_expenses: 0
+    households:
+      household:
+        members: [person1]
+        state_code: KY
+  output:
+    # max_(-500 - 175, 0) = 0 (floored by max_)
+    # No work expense or EID applied when gross is negative
+    ky_ktap_countable_earned_income: 0
+
+###############################################################################
+# Child support exclusion exceeds gross unearned income (floor at 0)
+###############################################################################
+
+- name: Case 50, child support disregard exceeds gross unearned income.
+  period: 2024-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        tanf_gross_unearned_income: 30
+        child_support_received: 600
+    households:
+      household:
+        members: [person1]
+        state_code: KY
+  output:
+    # child_support = $600/yr = $50/mo
+    # exclusion = min($50, $50) = $50
+    # countable = max($30 - $50, 0) = $0 (floored at 0)
+    ky_ktap_countable_unearned_income: 0

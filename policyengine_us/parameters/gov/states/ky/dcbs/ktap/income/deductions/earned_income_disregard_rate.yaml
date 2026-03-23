@@ -1,4 +1,4 @@
-description: Kentucky disregards this share of earned income based on months of K-TAP participation under the Kentucky Transitional Assistance Program.
+description: Kentucky excludes this share of earned income under the Kentucky Transitional Assistance Program.
 # NOTE: Uses calendar month as a proxy for participation months.
 # The disregard cycle resets each January (month 1).
 # In reality, the disregard tracks cumulative participation months.

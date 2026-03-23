@@ -7,7 +7,10 @@ class ky_ktap_countable_income(Variable):
     label = "Kentucky K-TAP countable income"
     unit = USD
     definition_period = MONTH
-    reference = "https://apps.legislature.ky.gov/law/kar/titles/921/002/016/"
+    reference = (
+        "https://apps.legislature.ky.gov/law/kar/titles/921/002/016/",
+        "https://apps.legislature.ky.gov/law/kar/titles/921/002/016/10142/",
+    )
     defined_for = StateCode.KY
 
     adds = [
