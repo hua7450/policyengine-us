@@ -9,8 +9,8 @@ metadata:
     - pa_ccw_age_group
     - pa_ccw_time_category
   reference:
-    - title: PA DHS OCDEL Maximum Child Care Allowance (MCCA) Daily Rates, Effective January 1, 2025
-      href: https://www.pacodeandbulletin.gov/secure/pacode/data/055/chapter3042/055_3042.pdf#page=32
+    - title: PA DHS OCDEL, Maximum Child Care Allowance (MCCA) Daily Rates, effective January 1, 2025
+    - title: PA DHS OCDEL, Maximum Child Care Allowance (MCCA) Daily Rates, effective March 1, 2023
 
 CENTER:
   INFANT:
