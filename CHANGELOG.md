@@ -1,3 +1,10 @@
+## [1.609.0] - 2026-03-23
+
+### Added
+
+- Add Alabama HB527 overtime compensation deduction reform.
+
+
 ## [1.608.0] - 2026-03-23
 
 ### Added
