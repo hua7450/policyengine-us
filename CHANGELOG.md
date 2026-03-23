@@ -1,3 +1,10 @@
+## [1.607.0] - 2026-03-23
+
+### Added
+
+- Add contributed reform for Michigan Child Tax Credit (HB 4055).
+
+
 ## [1.606.1] - 2026-03-23
 
 ### Changed
