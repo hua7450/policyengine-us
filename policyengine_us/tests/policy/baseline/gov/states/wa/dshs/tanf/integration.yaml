@@ -916,3 +916,77 @@
     wa_tanf_eligible: true
     # Benefit: $569 - $250 = $319
     wa_tanf: 319
+
+- name: Case 26, 2017-01 single parent with 2 children, no income.
+  period: 2017-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 5
+        is_tax_unit_dependent: true
+      person3:
+        age: 3
+        is_tax_unit_dependent: true
+    families:
+      family:
+        members: [person1, person2, person3]
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: WA
+  output:
+    # 2016-01-15 payment standard for family of 3: $521
+    wa_tanf_payment_standard: 521
+    wa_tanf_countable_income: 0
+    wa_tanf_income_eligible: true
+    wa_tanf_eligible: true
+    wa_tanf: 521
+
+- name: Case 27, 2021-01 single parent with 2 children, verifies 2018 values persist.
+  period: 2021-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income_before_lsr: 6_000
+      person2:
+        age: 5
+        is_tax_unit_dependent: true
+      person3:
+        age: 3
+        is_tax_unit_dependent: true
+    families:
+      family:
+        members: [person1, person2, person3]
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: WA
+  output:
+    # 2018-07-01 payment standard for family of 3: $569 (before Jul 2021 increase)
+    wa_tanf_payment_standard: 569
+    # Monthly earned: $6,000 / 12 = $500
+    # Countable earned: $500 × 0.5 = $250 (no $500 flat disregard pre-Aug 2024)
+    wa_tanf_countable_earned_income: 250
+    wa_tanf_countable_income: 250
+    # 2018-07-01 income limit for family of 3: $1,138
+    wa_tanf_income_eligible: true
+    wa_tanf_eligible: true
+    # Benefit: $569 - $250 = $319
+    wa_tanf: 319

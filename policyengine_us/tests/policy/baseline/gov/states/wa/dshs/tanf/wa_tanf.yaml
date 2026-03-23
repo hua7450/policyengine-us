@@ -104,7 +104,19 @@
   output:
     wa_tanf: 0
 
-- name: Case 10, eligible with no income in 2018-01.
+- name: Case 10, negative countable income caps benefit at payment standard.
+  period: 2024-01
+  absolute_error_margin: 0.1
+  input:
+    state_code: WA
+    wa_tanf_eligible: true
+    wa_tanf_payment_standard: 706
+    wa_tanf_countable_income: -500
+  output:
+    # Benefit capped at payment standard, not $706 - (-$500) = $1,206
+    wa_tanf: 706
+
+- name: Case 11, eligible with no income in 2018-01.
   period: 2018-01
   absolute_error_margin: 0.1
   input:
@@ -116,7 +128,7 @@
     # Benefit = $521 - $0 = $521 (2016 value for size 3)
     wa_tanf: 521
 
-- name: Case 11, eligible with partial income in 2018-01.
+- name: Case 12, eligible with partial income in 2018-01.
   period: 2018-01
   absolute_error_margin: 0.1
   input:
