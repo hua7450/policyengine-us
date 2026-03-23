@@ -196,6 +196,9 @@ from .states.hi.hb2306_cdcc import (
 from .states.nc.eitc import (
     create_nc_eitc_reform,
 )
+from .states.mi.ctc import (
+    create_mi_ctc_reform,
+)
 from policyengine_core.reforms import Reform
 import warnings
 
@@ -364,6 +367,7 @@ def create_structural_reforms_from_parameters(parameters, period):
     ga_sb520 = create_ga_sb520_reform(parameters, period)
     hi_hb2306_cdcc = create_hi_hb2306_cdcc_reform(parameters, period)
     nc_eitc = create_nc_eitc_reform(parameters, period)
+    mi_ctc = create_mi_ctc_reform(parameters, period)
     watca = create_watca_reform(parameters, period)
     wa_sb6346 = create_wa_sb6346_reform(parameters, period)
 
@@ -452,6 +456,7 @@ def create_structural_reforms_from_parameters(parameters, period):
         ga_sb520,
         hi_hb2306_cdcc,
         nc_eitc,
+        mi_ctc,
         watca,
         wa_sb6346,
     ]
