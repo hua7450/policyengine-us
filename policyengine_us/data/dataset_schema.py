@@ -10,6 +10,13 @@ US_ENTITIES = [
     "marital_unit",
 ]
 
+# Only the 3 entities required for a minimal valid simulation.
+# spm_unit, family, marital_unit are optional and default to empty.
+_REQUIRED_ENTITIES = ("person", "household", "tax_unit")
+
+# Sync with CURRENT_YEAR in system.py
+_DEFAULT_TIME_PERIOD = 2024
+
 
 class USSingleYearDataset:
     person: pd.DataFrame
@@ -35,7 +42,7 @@ class USSingleYearDataset:
         try:
             with pd.HDFStore(file_path, mode="r") as store:
                 keys = {k.strip("/") for k in store.keys()}
-                for name in ["person", "household", "tax_unit"]:
+                for name in _REQUIRED_ENTITIES:
                     if name not in keys:
                         if raise_exception:
                             raise ValueError(
@@ -58,7 +65,7 @@ class USSingleYearDataset:
         spm_unit: pd.DataFrame = None,
         family: pd.DataFrame = None,
         marital_unit: pd.DataFrame = None,
-        time_period: int = 2024,
+        time_period: int = _DEFAULT_TIME_PERIOD,
     ):
         file_path = str(file_path) if file_path else None
         if file_path is not None:
@@ -110,7 +117,22 @@ class USSingleYearDataset:
             "marital_unit",
         )
 
+    @property
+    def name(self):
+        return f"us_single_year_{self.time_period}"
+
+    @property
+    def label(self):
+        return f"US Single Year Dataset ({self.time_period})"
+
+    @property
+    def file_path(self):
+        """Stub for core compatibility. Returns None — callers that
+        need a real path (e.g. macro_cache) should check first."""
+        return None
+
     def save(self, file_path: str):
+        Path(file_path).unlink(missing_ok=True)
         with pd.HDFStore(file_path) as f:
             for name, df in zip(self.table_names, self.tables):
                 if len(df) > 0:
@@ -185,6 +207,22 @@ class USMultiYearDataset:
 
         self.data_format = "time_period_arrays"
         self.time_period = str(min(self.datasets.keys()))
+
+    @property
+    def name(self):
+        years = self.years
+        return f"us_multi_year_{years[0]}_{years[-1]}"
+
+    @property
+    def label(self):
+        years = self.years
+        return f"US Multi Year Dataset ({years[0]}-{years[-1]})"
+
+    @property
+    def file_path(self):
+        """Stub for core compatibility. Returns None — callers that
+        need a real path (e.g. macro_cache) should check first."""
+        return None
 
     def get_year(self, year: int) -> USSingleYearDataset:
         if year in self.datasets:

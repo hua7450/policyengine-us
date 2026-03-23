@@ -37,7 +37,9 @@ def extend_single_year_dataset(
 def _apply_uprating(dataset: USMultiYearDataset, system=None) -> USMultiYearDataset:
     """Apply year-over-year uprating to all years in a multi-year dataset."""
     if system is None:
-        from policyengine_us.system import system
+        from policyengine_us.system import system as _system
+
+        system = _system
 
     dataset = dataset.copy()
 

@@ -250,7 +250,13 @@ class Microsimulation(CoreMicrosimulation):
         if dataset is not None and isinstance(dataset, str) and "cps_2023" in dataset:
             self.default_input_period = 2023
 
-        # Detect entity-level HDFStore format and load/extend if needed
+        # Dataset interception for entity-level HDFStore format.
+        #
+        # USSingleYearDataset and USMultiYearDataset duck-type the
+        # policyengine-core Dataset interface (load(), data_format,
+        # time_period, name) so that core's build_from_dataset() can
+        # consume them.  Long-term, core should natively support
+        # entity-level datasets, making this interception unnecessary.
         if dataset is not None and isinstance(dataset, str):
             local_path = _resolve_dataset_path(dataset)
             if _is_hdfstore_format(local_path):
@@ -268,8 +274,8 @@ class Microsimulation(CoreMicrosimulation):
 
             multi = extend_single_year_dataset(dataset)
             kwargs["dataset"] = multi
-        elif isinstance(dataset, USMultiYearDataset):
-            pass  # Already extended, use as-is
+        # USMultiYearDataset instances are already extended and pass
+        # through to core unchanged.
 
         super().__init__(*args, **kwargs)
 

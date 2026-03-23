@@ -703,3 +703,343 @@ class TestFileIORoundtrips:
             data["employment_income"][BASE_YEAR],
             EMPLOYMENT_INCOME_BASE,
         )
+
+
+# ---------------------------------------------------------------------------
+# USSingleYearDataset edge cases (Suggestion 13)
+# ---------------------------------------------------------------------------
+
+
+class TestUSSingleYearDatasetEdgeCases:
+    def test_missing_required_person_df_raises(self):
+        with pytest.raises(ValueError, match="Must provide either a file path"):
+            USSingleYearDataset(
+                household=pd.DataFrame({"household_id": [1]}),
+                tax_unit=pd.DataFrame({"tax_unit_id": [1]}),
+            )
+
+    def test_missing_required_household_df_raises(self):
+        with pytest.raises(ValueError, match="Must provide either a file path"):
+            USSingleYearDataset(
+                person=pd.DataFrame({"person_id": [1]}),
+                tax_unit=pd.DataFrame({"tax_unit_id": [1]}),
+            )
+
+    def test_missing_required_tax_unit_df_raises(self):
+        with pytest.raises(ValueError, match="Must provide either a file path"):
+            USSingleYearDataset(
+                person=pd.DataFrame({"person_id": [1]}),
+                household=pd.DataFrame({"household_id": [1]}),
+            )
+
+    def test_non_h5_extension_raises(self):
+        with pytest.raises(ValueError, match="must end with '.h5'"):
+            USSingleYearDataset.validate_file_path("foo.csv")
+
+    def test_validate_file_path_with_raise_exception_false_returns_false(self):
+        assert (
+            USSingleYearDataset.validate_file_path("foo.csv", raise_exception=False)
+            is False
+        )
+
+    def test_file_not_found_raises(self):
+        with pytest.raises(FileNotFoundError, match="File not found"):
+            USSingleYearDataset.validate_file_path("/nonexistent/path.h5")
+
+    def test_file_not_found_with_raise_exception_false_returns_false(self):
+        assert (
+            USSingleYearDataset.validate_file_path(
+                "/nonexistent/path.h5", raise_exception=False
+            )
+            is False
+        )
+
+    def test_name_property(self):
+        ds = USSingleYearDataset(
+            person=pd.DataFrame({"person_id": [1]}),
+            household=pd.DataFrame({"household_id": [1]}),
+            tax_unit=pd.DataFrame({"tax_unit_id": [1]}),
+            time_period=2025,
+        )
+        assert ds.name == "us_single_year_2025"
+
+    def test_label_property(self):
+        ds = USSingleYearDataset(
+            person=pd.DataFrame({"person_id": [1]}),
+            household=pd.DataFrame({"household_id": [1]}),
+            tax_unit=pd.DataFrame({"tax_unit_id": [1]}),
+            time_period=2025,
+        )
+        assert ds.label == "US Single Year Dataset (2025)"
+
+    def test_file_path_property_returns_none(self):
+        ds = USSingleYearDataset(
+            person=pd.DataFrame({"person_id": [1]}),
+            household=pd.DataFrame({"household_id": [1]}),
+            tax_unit=pd.DataFrame({"tax_unit_id": [1]}),
+        )
+        assert ds.file_path is None
+
+
+# ---------------------------------------------------------------------------
+# USMultiYearDataset edge cases (Suggestion 13)
+# ---------------------------------------------------------------------------
+
+
+class TestUSMultiYearDatasetEdgeCases:
+    def test_non_single_year_dataset_in_list_raises_type_error(self):
+        with pytest.raises(
+            TypeError,
+            match="All items in datasets must be of type USSingleYearDataset",
+        ):
+            USMultiYearDataset(datasets=[{"not": "a dataset"}])
+
+    def test_get_year_nonexistent_raises_value_error(self):
+        ds = USSingleYearDataset(
+            person=pd.DataFrame({"person_id": [1]}),
+            household=pd.DataFrame({"household_id": [1]}),
+            tax_unit=pd.DataFrame({"tax_unit_id": [1]}),
+            time_period=2024,
+        )
+        multi = USMultiYearDataset(datasets=[ds])
+        with pytest.raises(ValueError, match="No dataset found for year 9999"):
+            multi.get_year(9999)
+
+    def test_name_property(self):
+        ds_a = USSingleYearDataset(
+            person=pd.DataFrame({"person_id": [1]}),
+            household=pd.DataFrame({"household_id": [1]}),
+            tax_unit=pd.DataFrame({"tax_unit_id": [1]}),
+            time_period=2024,
+        )
+        ds_b = USSingleYearDataset(
+            person=pd.DataFrame({"person_id": [1]}),
+            household=pd.DataFrame({"household_id": [1]}),
+            tax_unit=pd.DataFrame({"tax_unit_id": [1]}),
+            time_period=2026,
+        )
+        multi = USMultiYearDataset(datasets=[ds_a, ds_b])
+        assert multi.name == "us_multi_year_2024_2026"
+
+    def test_label_property(self):
+        ds = USSingleYearDataset(
+            person=pd.DataFrame({"person_id": [1]}),
+            household=pd.DataFrame({"household_id": [1]}),
+            tax_unit=pd.DataFrame({"tax_unit_id": [1]}),
+            time_period=2024,
+        )
+        multi = USMultiYearDataset(datasets=[ds])
+        assert multi.label == "US Multi Year Dataset (2024-2024)"
+
+    def test_file_path_property_returns_none(self):
+        ds = USSingleYearDataset(
+            person=pd.DataFrame({"person_id": [1]}),
+            household=pd.DataFrame({"household_id": [1]}),
+            tax_unit=pd.DataFrame({"tax_unit_id": [1]}),
+            time_period=2024,
+        )
+        multi = USMultiYearDataset(datasets=[ds])
+        assert multi.file_path is None
+
+
+# ---------------------------------------------------------------------------
+# _resolve_dataset_path: hf:// URL mock test
+# ---------------------------------------------------------------------------
+
+
+class TestResolveDatasetPathHfUrl:
+    def test_hf_url_calls_download(self, monkeypatch):
+        """Verify hf:// URLs dispatch to the HuggingFace download path."""
+        from policyengine_us import system as system_module
+
+        mock_local_path = "/tmp/mock_downloaded.h5"
+
+        monkeypatch.setattr(
+            system_module,
+            "_resolve_dataset_path",
+            lambda ds: self._patched_resolve(ds, monkeypatch, mock_local_path),
+        )
+
+        # Test the actual function directly instead
+        import policyengine_core.tools.hugging_face as hf_module
+
+        monkeypatch.setattr(
+            hf_module,
+            "parse_hf_url",
+            lambda url: ("policyengine", "test-repo", "file.h5", None),
+        )
+        monkeypatch.setattr(
+            hf_module,
+            "download_huggingface_dataset",
+            lambda repo, repo_filename, version: mock_local_path,
+        )
+
+        from policyengine_us.system import _resolve_dataset_path
+
+        result = _resolve_dataset_path("hf://policyengine/test-repo/file.h5")
+        assert result == mock_local_path
+
+    @staticmethod
+    def _patched_resolve(ds, monkeypatch, mock_path):
+        """Helper — not used directly, kept for clarity."""
+        return mock_path
+
+
+# ---------------------------------------------------------------------------
+# Legacy h5py format backward compatibility
+# ---------------------------------------------------------------------------
+
+
+class TestLegacyH5pyFormatCompat:
+    def test_variable_centric_file_not_treated_as_entity_level(self, tmp_path):
+        """End-to-end: a legacy h5py variable-centric file should not
+        be detected as entity-level HDFStore format, ensuring it passes
+        through to core's default dataset handling unchanged."""
+        import h5py
+        from policyengine_us.system import (
+            _resolve_dataset_path,
+            _is_hdfstore_format,
+        )
+
+        path = str(tmp_path / "legacy.h5")
+        with h5py.File(path, "w") as f:
+            f.create_dataset("employment_income/2024", data=np.array([50_000.0]))
+            f.create_dataset("age/2024", data=np.array([30.0]))
+
+        resolved = _resolve_dataset_path(path)
+        assert resolved == path
+        assert _is_hdfstore_format(resolved) is False
+
+
+# ---------------------------------------------------------------------------
+# Microsimulation.__init__ dataset routing integration tests
+# ---------------------------------------------------------------------------
+
+
+class _MockHolder:
+    """Minimal holder stub — reports no known periods."""
+
+    def get_known_periods(self):
+        return []
+
+
+def _make_mock_super_init(system_module, captured=None):
+    """Return a mock CoreMicrosimulation.__init__ that sets up just enough
+    state for the rest of Microsimulation.__init__ to run."""
+
+    def mock_super_init(self, *args, **kwargs):
+        ds = kwargs.get("dataset")
+        if captured is not None:
+            captured[0] = ds
+        self.dataset = ds
+        self.tax_benefit_system = system_module.system
+        self.is_over_dataset = True
+        self.input_variables = []
+        self.get_holder = lambda name: _MockHolder()
+        self.set_input = lambda *a, **kw: None
+        self.apply_reform = lambda r: None
+
+    return mock_super_init
+
+
+class TestMicrosimulationDatasetRouting:
+    """Verify the 3 dataset input paths in Microsimulation.__init__
+    reach the correct branch without loading the full tax-benefit system."""
+
+    def test_string_hdfstore_path_triggers_extend(
+        self, base_dataset, tmp_path, monkeypatch
+    ):
+        path = str(tmp_path / "entity_level.h5")
+        base_dataset.save(path)
+
+        extend_called = {"value": False}
+        original_dataset = [None]
+
+        def mock_extend(ds, **kwargs):
+            extend_called["value"] = True
+            original_dataset[0] = ds
+            return USMultiYearDataset(datasets=[ds])
+
+        monkeypatch.setattr(
+            "policyengine_us.data.economic_assumptions.extend_single_year_dataset",
+            mock_extend,
+        )
+
+        from policyengine_us import system as system_module
+
+        monkeypatch.setattr(
+            system_module.CoreMicrosimulation,
+            "__init__",
+            _make_mock_super_init(system_module),
+        )
+
+        sim = system_module.Microsimulation(dataset=path)
+        assert extend_called["value"] is True
+        assert isinstance(original_dataset[0], USSingleYearDataset)
+
+    def test_single_year_dataset_triggers_extend(self, base_dataset, monkeypatch):
+        extend_called = {"value": False}
+
+        def mock_extend(ds, **kwargs):
+            extend_called["value"] = True
+            return USMultiYearDataset(datasets=[ds])
+
+        monkeypatch.setattr(
+            "policyengine_us.data.economic_assumptions.extend_single_year_dataset",
+            mock_extend,
+        )
+
+        from policyengine_us import system as system_module
+
+        monkeypatch.setattr(
+            system_module.CoreMicrosimulation,
+            "__init__",
+            _make_mock_super_init(system_module),
+        )
+
+        sim = system_module.Microsimulation(dataset=base_dataset)
+        assert extend_called["value"] is True
+
+    def test_multi_year_dataset_passes_through(self, base_dataset, monkeypatch):
+        multi = USMultiYearDataset(datasets=[base_dataset])
+
+        extend_called = {"value": False}
+
+        def mock_extend(ds, **kwargs):
+            extend_called["value"] = True
+            return multi
+
+        monkeypatch.setattr(
+            "policyengine_us.data.economic_assumptions.extend_single_year_dataset",
+            mock_extend,
+        )
+
+        from policyengine_us import system as system_module
+
+        captured_dataset = [None]
+
+        monkeypatch.setattr(
+            system_module.CoreMicrosimulation,
+            "__init__",
+            _make_mock_super_init(system_module, captured=captured_dataset),
+        )
+
+        sim = system_module.Microsimulation(dataset=multi)
+        assert extend_called["value"] is False
+        assert captured_dataset[0] is multi
+
+
+# ---------------------------------------------------------------------------
+# save() append-mode regression
+# ---------------------------------------------------------------------------
+
+
+class TestSaveAppendRegression:
+    def test_save_twice_does_not_duplicate_rows(self, base_dataset, tmp_path):
+        """Saving to the same path twice should overwrite, not append."""
+        path = str(tmp_path / "test.h5")
+        base_dataset.save(path)
+        base_dataset.save(path)
+
+        loaded = USSingleYearDataset(file_path=path)
+        assert len(loaded.person) == len(base_dataset.person)
