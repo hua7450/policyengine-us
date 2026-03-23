@@ -64,3 +64,14 @@
   output:
     # 30% * (14_580 + 3 * 5_140) / 12 = 30% * 2_500 = 750.00
     mt_tanf_benefit_standard: 750.0
+
+- name: Case 8, AU size 3 in 2022 - pre-2023 FPL pinned to 2011.
+  period: 2022-01
+  absolute_error_margin: 0.1
+  input:
+    state_code: MT
+    mt_tanf_assistance_unit_size: 3
+  output:
+    # benefit_fpg_year = 2011, rate = 0.3
+    # 30% * (10_890 + 2 * 3_820) / 12 = 30% * 1_544.17 = 463.25
+    mt_tanf_benefit_standard: 463.25

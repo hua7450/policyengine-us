@@ -65,3 +65,14 @@
   output:
     # 35% * (14_580 + 3 * 5_140) / 12 = 35% * 2_500 = 875.00
     mt_tanf_payment_standard: 875.0
+
+- name: Case 8, AU size 3 in 2022 - pre-2023 FPL pinned to 2011, rate 33%.
+  period: 2022-01
+  absolute_error_margin: 0.1
+  input:
+    state_code: MT
+    mt_tanf_assistance_unit_size: 3
+  output:
+    # payment_fpg_year = 2011, rate = 0.33
+    # 33% * (10_890 + 2 * 3_820) / 12 = 33% * 1_544.17 = 509.58
+    mt_tanf_payment_standard: 509.58

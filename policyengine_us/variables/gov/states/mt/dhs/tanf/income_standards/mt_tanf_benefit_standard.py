@@ -12,16 +12,16 @@ class mt_tanf_benefit_standard(Variable):
 
     def formula(spm_unit, period, parameters):
         p = parameters(period).gov.states.mt.dhs.tanf
-        p_standards = p.income_standards
-        # Montana pins the benefit standard to a specific historical FPL year.
-        pinned_year = int(p_standards.benefit_fpg_year)
-        instant_str = f"{pinned_year}-01-01"
-        p_fpg = parameters(instant_str).gov.hhs.fpg
-        n = spm_unit("mt_tanf_assistance_unit_size", period)
-        capped_size = min_(n, p.max_unit_size)
+        p_fpg = parameters(
+            f"{int(p.income_standards.benefit_fpg_year)}-01-01"
+        ).gov.hhs.fpg
+        capped_size = min_(
+            spm_unit("mt_tanf_assistance_unit_size", period),
+            p.max_unit_size,
+        )
         state_group = spm_unit.household("state_group_str", period)
         monthly_fpg = (
             p_fpg.first_person[state_group]
             + p_fpg.additional_person[state_group] * (capped_size - 1)
         ) / MONTHS_IN_YEAR
-        return monthly_fpg * p_standards.benefit_fpg_rate
+        return monthly_fpg * p.income_standards.benefit_fpg_rate
