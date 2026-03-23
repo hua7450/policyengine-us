@@ -1,1 +1,1 @@
-Add Pennsylvania CCAP (Child Care Assistance Program).
+Add Pennsylvania Child Care Works (CCW) child care subsidy program.
