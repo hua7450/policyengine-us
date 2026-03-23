@@ -29,7 +29,7 @@ def create_al_hb527_overtime_deduction() -> Reform:
         defined_for = StateCode.AL
         unit = USD
         definition_period = YEAR
-        reference = "https://alisondb.legislature.state.al.us/alison/CodeOfAlabama/1975/Coatoc.htm#page=1"
+        reference = "https://alison.legislature.state.al.us/files/pdf/SearchableInstruments/2026RS/HB527-int.pdf#page=9"
 
         def formula(tax_unit, period, parameters):
             p = parameters(period).gov.contrib.states.al.hb527
