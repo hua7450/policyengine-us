@@ -206,20 +206,20 @@
   reforms: policyengine_us.reforms.states.al.hb527.al_hb527_overtime_deduction.al_hb527_overtime_deduction
   input:
     gov.contrib.states.al.hb527.in_effect: true
-    gov.contrib.states.al.hb527.cap: 10_000
     people:
       person:
         age: 35
-        employment_income: 5_000
-        hours_worked_last_week: 50
+        irs_employment_income: 5_000
     tax_units:
       tax_unit:
         members: [person]
         filing_status: SINGLE
+        # Provide deduction directly to test AGI floor at 0
+        al_hb527_overtime_deduction: 10_000
     households:
       household:
         members: [person]
         state_name: AL
   output:
-    # Deduction would exceed income, AGI should be capped at 0
+    # Deduction ($10k) exceeds base AGI ($5k), result should be capped at 0
     al_agi: 0
