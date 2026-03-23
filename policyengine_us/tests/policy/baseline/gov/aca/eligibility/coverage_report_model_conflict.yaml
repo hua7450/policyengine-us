@@ -1,8 +1,8 @@
-- name: Case 1, reported Marketplace plus Medicaid conflict is flagged.
+- name: Case 1, Marketplace plus Medicaid conflict is flagged.
   period: 2025
   input:
-    reported_has_marketplace_health_coverage_at_interview: true
-    medicaid_enrolled: true
+    has_marketplace_health_coverage: true
+    has_medicaid_health_coverage_at_interview: true
   output:
     coverage_report_model_conflict: true
 
@@ -14,13 +14,14 @@
     is_chip_eligible: false
     medicare_enrolled: false
     has_esi: false
-    reported_has_marketplace_health_coverage_at_interview: true
+    has_marketplace_health_coverage: true
   output:
     coverage_report_model_conflict: false
 
 - name: Case 3, non-Marketplace coverage without reported Marketplace is not flagged.
   period: 2025
   input:
-    reported_has_non_marketplace_direct_purchase_health_coverage_at_interview: true
+    has_marketplace_health_coverage: false
+    has_non_marketplace_direct_purchase_health_coverage_at_interview: true
   output:
     coverage_report_model_conflict: false
