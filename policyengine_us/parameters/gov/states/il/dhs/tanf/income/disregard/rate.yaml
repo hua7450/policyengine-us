@@ -1,6 +1,7 @@
 description: Illinois excludes this share of earnings from the Temporary Assistance for Needy Families program countable income, when computing the benefit value.
 
 values:
+  1993-11-01: 0.6667
   2010-07-01: 0.75
 
 metadata:
