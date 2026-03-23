@@ -8,6 +8,7 @@ class mo_capital_gains_subtraction(Variable):
     unit = USD
     definition_period = YEAR
     reference = (
+        "https://www.revisor.mo.gov/main/OneSection.aspx?section=143.121&bid=57543",
         "https://dor.mo.gov/faq/taxation/individual/capital-gains-subtraction.html",  # MO form MO-A
     )
     defined_for = StateCode.MO
