@@ -1,3 +1,10 @@
+## [1.606.1] - 2026-03-23
+
+### Changed
+
+- Add employer-side local payroll taxes for Seattle, St. Louis, Oregon transit districts, and Colorado occupational privilege taxes using aggregate employer inputs.
+
+
 ## [1.606.0] - 2026-03-22
 
 ### Added
