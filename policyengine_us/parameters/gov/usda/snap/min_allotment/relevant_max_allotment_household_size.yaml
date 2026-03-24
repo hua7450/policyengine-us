@@ -1,7 +1,7 @@
 description: In calculating a SNAP minimum allotment, the household size to look up the relevant maximum allotment
 
 values:
-  2021-01-01: 1
+  2015-10-01: 1
 
 metadata:
   unit: persons

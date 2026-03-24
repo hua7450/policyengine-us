@@ -12,7 +12,7 @@ metadata:
       href: https://www.fns.usda.gov/snap/work-requirements
 brackets:
   - threshold:
-      2019-01-01: 0
+      2015-10-01: 0
     amount: 
       2019-01-01: true
   - threshold: 
