@@ -1,3 +1,10 @@
+## [1.611.1] - 2026-03-24
+
+### Fixed
+
+- Add Missouri $1,400 head of household additional exemption (MO-1040 Line 15).
+
+
 ## [1.611.0] - 2026-03-24
 
 ### Added
