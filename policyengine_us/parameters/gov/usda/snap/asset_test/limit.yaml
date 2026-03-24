@@ -2,6 +2,11 @@ description: The USDA restricts SNAP to households with assets not exceeding thi
 standard:
   description: Maximum value of SNAP-visible assets for households without elderly or disabled members
   values:
+    2015-10-01:
+      value: 2_250
+      reference:
+        - title: SNAP FY2016 Maximum Allotments and Deductions
+          href: https://fns-prod.azureedge.us/sites/default/files/snap/FY16-Maximun-Allotments-Deductions.pdf
     2020-10-01:
       value: 2_250
       reference:
@@ -30,6 +35,16 @@ standard:
 elderly_disabled:
   description: Maximum value of SNAP-visible assets for households with elderly or disabled members
   values:
+    2015-10-01:
+      value: 3_250
+      reference:
+        - title: SNAP FY2017 COLA Memo
+          href: https://fns-prod.azureedge.us/sites/default/files/snap/FY16-Maximun-Allotments-Deductions.pdf
+    2017-10-01:
+      value: 3_500
+      reference:
+        - title: SNAP FY2018 COLA Memo
+          href: https://fns-prod.azureedge.us/sites/default/files/snap/FY18-Maximum-Allotments-Deductions.pdf
     2020-10-01:
       value: 3_500
       reference:
