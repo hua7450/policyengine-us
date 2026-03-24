@@ -1,3 +1,10 @@
+## [1.611.0] - 2026-03-24
+
+### Added
+
+- Backdate California TANF (CalWORKs) parameters.
+
+
 ## [1.610.3] - 2026-03-24
 
 ### Changed
