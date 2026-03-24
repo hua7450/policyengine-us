@@ -1,0 +1,1 @@
+Add comprehensive SNAP utility allowance data: FY2019-FY2026 values for all states, split Alaska into 6 sub-regions and New York into 3 sub-regions with county mapping, add household-size-based SUA/BUA for AZ/NC/TN/VA, and add HI/GU individual utility allowances (electricity, gas, water) varying by household size.
