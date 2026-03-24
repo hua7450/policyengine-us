@@ -1,3 +1,11 @@
+## [1.610.2] - 2026-03-24
+
+### Fixed
+
+- Fix Missouri's 2025 capital gains subtraction to use federally reported capital gains, including positive short-term gains.
+- Keep Oklahoma's pension subtraction cap at $10,000 per person for 2024+ and fix related Oklahoma income tax regressions.
+
+
 ## [1.610.1] - 2026-03-24
 
 ### Changed
