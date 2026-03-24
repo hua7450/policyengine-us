@@ -1,3 +1,10 @@
+## [1.610.0] - 2026-03-24
+
+### Added
+
+- Add NY S9110 personal income tax rate reform.
+
+
 ## [1.609.1] - 2026-03-24
 
 ### Changed
