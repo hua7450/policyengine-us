@@ -9,7 +9,7 @@ class mo_head_of_household_exemption(Variable):
     definition_period = YEAR
     reference = (
         "https://www.revisor.mo.gov/main/OneSection.aspx?section=143.161",
-        "https://dor.mo.gov/forms/MO-1040%20Instructions_2024.pdf#page=9",
+        "https://dor.mo.gov/forms/MO-1040%20Instructions_2024.pdf#page=8",
     )
     defined_for = StateCode.MO
 
