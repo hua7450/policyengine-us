@@ -10,7 +10,7 @@
     trash_expense: 400
     sewage_expense: 1
   output:
-    snap_standard_utility_allowance: 5_844 # 487 * 12
+    snap_standard_utility_allowance: 6_063 # 487*9 (FY22) + 560*3 (FY23)
 
 - name: Standard Utility Allowance 2
   period: 2021

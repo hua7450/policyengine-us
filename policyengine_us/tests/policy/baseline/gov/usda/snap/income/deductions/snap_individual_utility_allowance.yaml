@@ -25,7 +25,8 @@
     snap_utility_region_str: AK_C
     trash_expense: 20
   output:
-    snap_individual_utility_allowance: 299
+    snap_individual_utility_allowance: 380
+    # AK_C FY22: elec=110 + gas=114 + water=56 + sewer=55 + trash=30 + phone=15
 
 - name: Test in 2024 with trash expenses
   period: 2024-01
