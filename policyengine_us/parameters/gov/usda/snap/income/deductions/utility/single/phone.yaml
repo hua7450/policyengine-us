@@ -16,8 +16,14 @@ metadata:
     href: https://docs.google.com/spreadsheets/d/10otJJisAYUDyZ0d7XpZPn8rEql-rteVE/edit?gid=1837348310#gid=1837348310
   - title: USDA utility allowances by state spreadsheet. Extracted by build_utility_allowances (FY2025)
     href: https://www.fns.usda.gov/sites/default/files/resource-files/2024-09-30-SUA-Table-FY25-508-Update.xlsx
+  - title: FY 2018 SNAP QC Technical Documentation, Table F.7
+    href: https://snapqcdata.net/sites/default/files/2020-07/FY_2018_Tech_Doc.pdf#page=177
   - title: FY 2019 SNAP QC Technical Documentation, Table F.7
     href: https://snapqcdata.net/sites/default/files/2020-12/FY%202019%20SNAP%20QC%20Technical%20Documentation.pdf#page=171
+  - title: FY 2020 SNAP QC Technical Documentation, Table F.7
+    href: https://snapqcdata.net/sites/default/files/2022-12/FY%202020%20SNAP%20QC%20Technical%20Documentation.pdf#page=175
+  - title: FY 2021 SNAP QC Technical Documentation, Table F.7
+    href: https://snapqcdata.net/sites/default/files/2024-05/FY%202021%20Tech%20Doc.pdf#page=138
 AK_C:
   2010-01-01: 0
   2017-10-01: 40
