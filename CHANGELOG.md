@@ -1,3 +1,10 @@
+## [1.610.3] - 2026-03-24
+
+### Changed
+
+- Backdate Montana TANF parameters and fix FPL year pinning.
+
+
 ## [1.610.2] - 2026-03-24
 
 ### Fixed
