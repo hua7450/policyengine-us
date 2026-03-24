@@ -1,4 +1,5 @@
 from .congress.delauro import create_american_family_act_with_baby_bonus_reform
+from .states.al.hb527 import create_al_hb527_overtime_deduction_reform
 from .dc_kccatc import create_dc_kccatc_reform
 from .winship import create_eitc_winship_reform
 from .dc_tax_threshold_joint_ratio import (
@@ -22,6 +23,7 @@ from .eitc import create_halve_joint_eitc_phase_out_rate_reform
 from .eitc import create_streamlined_eitc_reform
 from .states.ny.wftc import create_ny_working_families_tax_credit_reform
 from .states.ny.a04038 import create_ny_a04038_enhanced_escc_infants_reform
+from .states.ny.s9110 import create_ny_s9110_reform
 from .states.sc.h3492 import create_sc_h3492_eitc_refundable_reform
 from .states.sc.h4216 import create_sc_h4216_reform
 from .states.ny.a06774 import create_ny_a06774_enhanced_cdcc_reform
@@ -238,6 +240,7 @@ def create_structural_reforms_from_parameters(parameters, period):
     ny_a04038_enhanced_escc_infants = create_ny_a04038_enhanced_escc_infants_reform(
         parameters, period
     )
+    ny_s9110 = create_ny_s9110_reform(parameters, period)
     sc_h3492_eitc_refundable = create_sc_h3492_eitc_refundable_reform(
         parameters, period
     )
@@ -364,6 +367,9 @@ def create_structural_reforms_from_parameters(parameters, period):
     ct_tax_rebate_2026 = create_ct_tax_rebate_2026_reform(parameters, period)
     ct_hb5009 = create_ct_hb5009_reform(parameters, period)
     ct_hb5114 = create_ct_hb5114_reform(parameters, period)
+    al_hb527_overtime_deduction = create_al_hb527_overtime_deduction_reform(
+        parameters, period
+    )
     ga_sb520 = create_ga_sb520_reform(parameters, period)
     hi_hb2306_cdcc = create_hi_hb2306_cdcc_reform(parameters, period)
     nc_eitc = create_nc_eitc_reform(parameters, period)
@@ -387,6 +393,7 @@ def create_structural_reforms_from_parameters(parameters, period):
         halve_joint_eitc_phase_out_rate,
         ny_wftc,
         ny_a04038_enhanced_escc_infants,
+        ny_s9110,
         sc_h3492_eitc_refundable,
         sc_h4216,
         ny_a06774_enhanced_cdcc,
@@ -453,6 +460,7 @@ def create_structural_reforms_from_parameters(parameters, period):
         ct_hb5114,
         ct_sb100,
         ct_tax_rebate_2026,
+        al_hb527_overtime_deduction,
         ga_sb520,
         hi_hb2306_cdcc,
         nc_eitc,

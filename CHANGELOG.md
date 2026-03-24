@@ -1,3 +1,25 @@
+## [1.610.0] - 2026-03-24
+
+### Added
+
+- Add NY S9110 personal income tax rate reform.
+
+
+## [1.609.1] - 2026-03-24
+
+### Changed
+
+- Backdate MA TAFDC clothing allowance, WY POWER payment standards, and fix NV TANF broken references.
+- Backdate Mississippi TANF parameters to 2017.
+
+
+## [1.609.0] - 2026-03-23
+
+### Added
+
+- Add Alabama HB527 overtime compensation deduction reform.
+
+
 ## [1.608.0] - 2026-03-23
 
 ### Added
