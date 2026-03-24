@@ -112,6 +112,9 @@ metadata:
   breakdown:
   - state_code
   reference:
-    # SNAP screener provides information starting in 2021.
-    - title: SNAP Screener SNAP Self-Employment Simplified Deductions by State
-      href: https://www.snapscreener.com/blog/self-employment
+    - title: 7 CFR § 273.11(b)(3) - Self-employment income, cost of doing business
+      href: https://www.law.cornell.edu/cfr/text/7/273.11#b_3
+    - title: USDA FNS SNAP State Options Report, 13th Edition (Oct 2016) - Simplified Self-Employment Determination
+      href: https://fns-prod.azureedge.us/sites/default/files/snap/13-State_Options-revised.pdf
+    - title: USDA FNS SNAP State Options Report, 16th Edition (June 2024) - Treatment of Self-Employment Income
+      href: https://fns-prod.azureedge.us/sites/default/files/resource-files/snap-16th-state-options-report-june24.pdf#page=10
