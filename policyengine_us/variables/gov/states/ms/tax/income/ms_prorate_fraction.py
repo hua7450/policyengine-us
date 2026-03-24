@@ -5,9 +5,13 @@ class ms_prorate_fraction(Variable):
     value_type = float
     entity = Person
     label = "Share of allocable Mississippi joint deductions and exemptions"
-    unit = USD
+    unit = "/1"
     definition_period = YEAR
     defined_for = StateCode.MS
+    reference = (
+        "https://law.justia.com/codes/mississippi/title-27/chapter-7/article-1/section-27-7-17/",  # MS Code 27-7-17: deductions may be divided in any manner
+        "https://law.justia.com/codes/mississippi/title-27/chapter-7/article-1/section-27-7-21/",  # MS Code 27-7-21: exemptions may be divided in any manner
+    )
 
     def formula(person, period, parameters):
         tax_unit = person.tax_unit
