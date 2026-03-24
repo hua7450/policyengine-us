@@ -1,3 +1,10 @@
+## [1.610.1] - 2026-03-24
+
+### Changed
+
+- Update Nevada TANF need standard with 2025-04-01 values.
+
+
 ## [1.610.0] - 2026-03-24
 
 ### Added
