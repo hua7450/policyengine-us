@@ -1,4 +1,5 @@
 from policyengine_us.model_api import *
+from policyengine_core.periods import period as period_
 
 
 def create_ny_s9110() -> Reform:
@@ -58,9 +59,18 @@ def create_ny_s9110_reform(parameters, period, bypass: bool = False):
     if bypass:
         return create_ny_s9110()
 
-    p = parameters(period).gov.contrib.states.ny.s9110
+    p = parameters.gov.contrib.states.ny.s9110
 
-    if p.in_effect:
+    reform_active = False
+    current_period = period_(period)
+
+    for i in range(5):
+        if p(current_period).in_effect:
+            reform_active = True
+            break
+        current_period = current_period.offset(1, "year")
+
+    if reform_active:
         return create_ny_s9110()
     else:
         return None
