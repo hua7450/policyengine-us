@@ -1,3 +1,11 @@
+## [1.609.1] - 2026-03-24
+
+### Changed
+
+- Backdate MA TAFDC clothing allowance, WY POWER payment standards, and fix NV TANF broken references.
+- Backdate Mississippi TANF parameters to 2017.
+
+
 ## [1.609.0] - 2026-03-23
 
 ### Added
