@@ -1,3 +1,74 @@
+## [1.613.1] - 2026-03-25
+
+### Fixed
+
+- Fix Mississippi joint-filer deduction and exemption allocation to minimize combined tax.
+
+
+## [1.613.0] - 2026-03-25
+
+### Added
+
+- Backdate Massachusetts SSP parameters to 2002.
+
+
+## [1.612.1] - 2026-03-25
+
+### Changed
+
+- Backdate Nebraska ADC parameters.
+
+
+## [1.612.0] - 2026-03-24
+
+### Added
+
+- Add comprehensive SNAP utility allowance data: FY2019-FY2026 values for all states, split Alaska into 6 sub-regions and New York into 3 sub-regions with county mapping, add household-size-based SUA/BUA for AZ/NC/TN/VA, and add HI/GU individual utility allowances (electricity, gas, water) varying by household size.
+
+
+## [1.611.2] - 2026-03-24
+
+### Changed
+
+- Update DC CDCC match rate to 24.25% for tax year 2026+ per DC Code 47-1806.04(c)(1)(B), as amended by the FY2025 Budget Support Act (D.C. Act 25-506, sec. 7032).
+
+
+## [1.611.1] - 2026-03-24
+
+### Fixed
+
+- Add Missouri $1,400 head of household additional exemption (MO-1040 Line 15).
+
+
+## [1.611.0] - 2026-03-24
+
+### Added
+
+- Backdate California TANF (CalWORKs) parameters.
+
+
+## [1.610.3] - 2026-03-24
+
+### Changed
+
+- Backdate Montana TANF parameters and fix FPL year pinning.
+
+
+## [1.610.2] - 2026-03-24
+
+### Fixed
+
+- Fix Missouri's 2025 capital gains subtraction to use federally reported capital gains, including positive short-term gains.
+- Keep Oklahoma's pension subtraction cap at $10,000 per person for 2024+ and fix related Oklahoma income tax regressions.
+
+
+## [1.610.1] - 2026-03-24
+
+### Changed
+
+- Update Nevada TANF need standard with 2025-04-01 values.
+
+
 ## [1.610.0] - 2026-03-24
 
 ### Added
