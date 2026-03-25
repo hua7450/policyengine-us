@@ -17,23 +17,17 @@ class ct_tfa(Variable):
         payment_standard = spm_unit("ct_tfa_payment_standard", period)
         # Per CGS § 17b-104(d), families in subsidized housing have
         # a share of the payment standard attributed as income.
-        receives_housing = spm_unit(
-            "receives_housing_assistance", period.this_year
-        )
+        receives_housing = spm_unit("receives_housing_assistance", period.this_year)
         adjusted_standard = where(
             receives_housing,
             payment_standard * p.housing_subsidy_rate,
             payment_standard,
         )
-        countable_unearned_income = spm_unit(
-            "ct_tfa_countable_unearned_income", period
-        )
+        countable_unearned_income = spm_unit("ct_tfa_countable_unearned_income", period)
         raw_benefit = max_(adjusted_standard - countable_unearned_income, 0)
         # Per CGS § 17b-112(d), high earners have their benefit reduced.
         if p.high_earnings.in_effect:
-            gross_earnings = add(
-                spm_unit, period, ["tanf_gross_earned_income"]
-            )
+            gross_earnings = add(spm_unit, period, ["tanf_gross_earned_income"])
             fpg = spm_unit("tanf_fpg", period)
             high_income_threshold = p.high_earnings.rate * fpg
             high_income = gross_earnings >= high_income_threshold

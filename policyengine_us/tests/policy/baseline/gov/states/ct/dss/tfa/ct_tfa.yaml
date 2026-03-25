@@ -314,3 +314,29 @@
     # After unearned: max(765.23 - 200, 0) = 565.23
     # High earner reduction: 565.23 * 0.8 = 452.18
     ct_tfa: 452.18
+
+# --- Negative income guard ---
+# Tests that benefits are capped at the payment standard,
+# even when earned income is extremely negative.
+
+- name: Case 21, negative earned income does not inflate benefit.
+  period: 2025-01
+  absolute_error_margin: 0.3
+  input:
+    people:
+      person1:
+        age: 30
+        self_employment_income: -60_000_000
+      person2:
+        age: 8
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Size 2, 2024 FPG: 0.73 * 0.55 * (20,440 / 12) = 683.79
+    # Negative earned income should not inflate benefit above payment standard
+    ct_tfa: 683.79
