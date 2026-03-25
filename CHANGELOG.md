@@ -1,3 +1,10 @@
+## [1.618.0] - 2026-03-25
+
+### Added
+
+- Backdate SNAP constant parameters to FY2016 (2015-10-01) for pre-2018 coverage.
+
+
 ## [1.617.0] - 2026-03-25
 
 ### Added
