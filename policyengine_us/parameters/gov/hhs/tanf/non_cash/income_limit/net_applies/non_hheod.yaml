@@ -81,7 +81,7 @@ SC:
 TX:
   2015-10-01: false
 VA:
-  2015-10-01: false
+  2021-07-01: false
 VI:
   2015-10-01: false
 VT:
@@ -100,5 +100,7 @@ metadata:
   reference:
     - title: SNAP Screener SNAP Eligibility Parameters
       href: https://www.snapscreener.com/?p=table
+    - title: USDA ERS SNAP Policy Database
+      href: https://www.ers.usda.gov/data-products/snap-policy-data-sets
   breakdown:
   - state_code

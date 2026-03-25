@@ -5,8 +5,7 @@ AL:
 GA:
   2015-10-01: true
 ID:
-  2015-10-01: false 
-  2024-07-02: false
+  2015-10-01: false
 IL:
   2015-10-01: false
 IN:
@@ -38,5 +37,7 @@ metadata:
   reference:
     - title: SNAP Screener SNAP Eligibility Parameters
       href: https://www.snapscreener.com/?p=table
+    - title: USDA ERS SNAP Policy Database
+      href: https://www.ers.usda.gov/data-products/snap-policy-data-sets
   breakdown:
   - state_code

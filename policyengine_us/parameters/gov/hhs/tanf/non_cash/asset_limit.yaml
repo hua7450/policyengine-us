@@ -11,6 +11,7 @@ AK:
   # Alaska is not in the list, indicating it has not elected to BBCE.
   # Non-BBCE states are entered as negative infinity asset limit.
   2015-10-01: -.inf
+  2025-07-01: .inf
 AZ:
   2015-10-01: .inf
 AR:
@@ -107,7 +108,8 @@ VT:
 VI: # *
   2015-10-01: .inf
 VA:
-  2015-10-01: .inf
+  2015-10-01: -.inf # Non-BBCE per ERS data through Sep 2020.
+  2021-07-01: .inf
 WA:
   2015-10-01: .inf
 WV: # *
