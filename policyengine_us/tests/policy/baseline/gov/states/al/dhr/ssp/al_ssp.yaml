@@ -1,9 +1,24 @@
+- name: FCMP Nursing Care individual
+  period: 2025-01
+  input:
+    al_ssp_eligible: true
+    al_ssp_living_arrangement: FCMP_NURSING_CARE
+  output:
+    al_ssp: 60
+
+- name: Nursing Care individual
+  period: 2025-01
+  input:
+    al_ssp_eligible: true
+    al_ssp_living_arrangement: NURSING_CARE
+  output:
+    al_ssp: 60
+
 - name: IHC Level A individual
   period: 2025-01
   input:
     al_ssp_eligible: true
     al_ssp_living_arrangement: IHC_LEVEL_A
-    ssi_claim_is_joint: false
   output:
     al_ssp: 60
 
@@ -12,7 +27,6 @@
   input:
     al_ssp_eligible: true
     al_ssp_living_arrangement: IHC_LEVEL_B
-    ssi_claim_is_joint: false
   output:
     al_ssp: 56
 
@@ -21,7 +35,6 @@
   input:
     al_ssp_eligible: true
     al_ssp_living_arrangement: FOSTER_CARE
-    ssi_claim_is_joint: false
   output:
     al_ssp: 110
 
@@ -30,69 +43,13 @@
   input:
     al_ssp_eligible: true
     al_ssp_living_arrangement: CEREBRAL_PALSY
-    ssi_claim_is_joint: false
   output:
     al_ssp: 196
-
-- name: Specialized IHC individual (same as Level A)
-  period: 2025-01
-  input:
-    al_ssp_eligible: true
-    al_ssp_living_arrangement: SPECIALIZED_IHC
-    ssi_claim_is_joint: false
-  output:
-    al_ssp: 60
-
-- name: IHC Level A couple (joint claim)
-  period: 2025-01
-  input:
-    al_ssp_eligible: true
-    al_ssp_living_arrangement: IHC_LEVEL_A
-    ssi_claim_is_joint: true
-  output:
-    al_ssp: 120
-
-- name: IHC Level B couple (joint claim)
-  period: 2025-01
-  input:
-    al_ssp_eligible: true
-    al_ssp_living_arrangement: IHC_LEVEL_B
-    ssi_claim_is_joint: true
-  output:
-    al_ssp: 112
-
-- name: Foster Home Care couple (joint claim)
-  period: 2025-01
-  input:
-    al_ssp_eligible: true
-    al_ssp_living_arrangement: FOSTER_CARE
-    ssi_claim_is_joint: true
-  output:
-    al_ssp: 220
-
-- name: Cerebral Palsy couple (joint claim)
-  period: 2025-01
-  input:
-    al_ssp_eligible: true
-    al_ssp_living_arrangement: CEREBRAL_PALSY
-    ssi_claim_is_joint: true
-  output:
-    al_ssp: 392
-
-- name: Specialized IHC couple (joint claim, same as Level A)
-  period: 2025-01
-  input:
-    al_ssp_eligible: true
-    al_ssp_living_arrangement: SPECIALIZED_IHC
-    ssi_claim_is_joint: true
-  output:
-    al_ssp: 120
 
 - name: Not eligible
   period: 2025-01
   input:
     al_ssp_eligible: false
     al_ssp_living_arrangement: IHC_LEVEL_A
-    ssi_claim_is_joint: false
   output:
     al_ssp: 0

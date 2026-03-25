@@ -52,11 +52,20 @@
   output:
     al_ssp_eligible: true
 
-- name: SSI eligible in Specialized IHC
+- name: SSI eligible in FCMP Nursing Care
   period: 2025-01
   input:
     is_ssi_eligible: true
-    al_ssp_living_arrangement: SPECIALIZED_IHC
+    al_ssp_living_arrangement: FCMP_NURSING_CARE
+    state_code: AL
+  output:
+    al_ssp_eligible: true
+
+- name: SSI eligible in Nursing Care
+  period: 2025-01
+  input:
+    is_ssi_eligible: true
+    al_ssp_living_arrangement: NURSING_CARE
     state_code: AL
   output:
     al_ssp_eligible: true

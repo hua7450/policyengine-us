@@ -7,7 +7,6 @@
         age: 70
         is_ssi_eligible: true
         al_ssp_living_arrangement: IHC_LEVEL_A
-        ssi_claim_is_joint: false
     spm_units:
       spm_unit:
         members: [person1]
@@ -18,10 +17,10 @@
   output:
     # Eligible: SSI-eligible AND qualifying arrangement (IHC_LEVEL_A != NONE)
     al_ssp_eligible: [true]
-    # Benefit: Level A = $60, individual (not joint) = $60 * (1 + 0) = $60
+    # Benefit: Level A = $60 per person
     al_ssp: [60]
 
-- name: Case 2, SSI-eligible couple in Foster Care with joint claim.
+- name: Case 2, SSI-eligible couple in Foster Care.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
@@ -30,12 +29,10 @@
         age: 68
         is_ssi_eligible: true
         al_ssp_living_arrangement: FOSTER_CARE
-        ssi_claim_is_joint: true
       person2:
         age: 65
         is_ssi_eligible: true
         al_ssp_living_arrangement: FOSTER_CARE
-        ssi_claim_is_joint: true
     spm_units:
       spm_unit:
         members: [person1, person2]
@@ -46,8 +43,8 @@
   output:
     # Both eligible: SSI-eligible AND qualifying arrangement
     al_ssp_eligible: [true, true]
-    # Foster Care = $110, joint claim = $110 * (1 + 1) = $220 each
-    al_ssp: [220, 220]
+    # Foster Care = $110 per person; couple total = $220
+    al_ssp: [110, 110]
 
 - name: Case 3, person not SSI-eligible receives zero.
   period: 2025-01
@@ -58,7 +55,6 @@
         age: 45
         is_ssi_eligible: false
         al_ssp_living_arrangement: IHC_LEVEL_A
-        ssi_claim_is_joint: false
     spm_units:
       spm_unit:
         members: [person1]
@@ -80,7 +76,6 @@
         age: 55
         is_ssi_eligible: true
         al_ssp_living_arrangement: NONE
-        ssi_claim_is_joint: false
     spm_units:
       spm_unit:
         members: [person1]
@@ -102,7 +97,6 @@
         age: 60
         is_ssi_eligible: true
         al_ssp_living_arrangement: CEREBRAL_PALSY
-        ssi_claim_is_joint: false
     spm_units:
       spm_unit:
         members: [person1]
@@ -113,5 +107,5 @@
   output:
     # Eligible: SSI-eligible AND qualifying arrangement
     al_ssp_eligible: [true]
-    # Cerebral Palsy = $196, individual = $196 * (1 + 0) = $196
+    # Cerebral Palsy = $196 per person
     al_ssp: [196]

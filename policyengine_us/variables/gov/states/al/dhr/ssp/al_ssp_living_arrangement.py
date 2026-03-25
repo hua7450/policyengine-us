@@ -2,12 +2,13 @@ from policyengine_us.model_api import *
 
 
 class ALSSPLivingArrangement(Enum):
-    NONE = "Not in a qualifying care arrangement"
+    FCMP_NURSING_CARE = "FCMP Nursing Care"
+    NURSING_CARE = "Nursing Care Supplement"
     IHC_LEVEL_A = "Independent Homelife Care, Level A"
     IHC_LEVEL_B = "Independent Homelife Care, Level B"
     FOSTER_CARE = "Foster Home Care"
     CEREBRAL_PALSY = "Cerebral Palsy Treatment Center"
-    SPECIALIZED_IHC = "Specialized Independent Homelife Care"
+    NONE = "Not in a qualifying care arrangement"
 
 
 class al_ssp_living_arrangement(Variable):
