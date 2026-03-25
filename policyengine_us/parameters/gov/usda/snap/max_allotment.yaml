@@ -869,7 +869,7 @@ additional:
     2017-10-01: 269
     2018-10-01: 269
     2019-10-01: 268
-    2020-10-01: 558
+    2020-10-01: 282
     2021-01-01: 324
     2021-10-01: 354
     2022-10-01: 404
@@ -929,11 +929,11 @@ metadata:
     - title: Supplemental Nutrition Assistance Program (SNAP) Fiscal Year (FY) 2024 Income Eligibility Standards
       href: https://fns-prod.azureedge.us/sites/default/files/media/file/FY24-Maximum-Allotments-and-Deductions.pdf
     # Effective 2024-10-01.
-    - title: SNAP - Fiscal Year 2025 Cost-of-Living Adjustments, Supplemental Nutrition Assistance Program Maximum Monthly Allotments
-      href: https://fns-prod.azureedge.us/sites/default/files/resource-files/snap-cola-fy25.pdf#page=3
+    - title: SNAP FY2025 Cost-of-Living Adjustments
+      href: https://www.fns.usda.gov/snap/fy-2025-cola
     # Effective 2025-10-01.
-    - title: SNAP - Fiscal Year 2026 Cost-of-Living Adjustments
-      href: https://fns-prod.azureedge.us/sites/default/files/resource-files/snap-cola-fy26memo.pdf#page=4
+    - title: SNAP FY2026 Cost-of-Living Adjustments
+      href: https://www.fns.usda.gov/snap/allotment/cola/fy26
     # Links to all the above.
     - title: USDA Cost of Living Adjustments
       href: https://www.fns.usda.gov/snap/allotment/COLA

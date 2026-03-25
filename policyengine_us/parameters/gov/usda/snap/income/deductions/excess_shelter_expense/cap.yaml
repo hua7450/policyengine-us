@@ -30,7 +30,7 @@ AK_URBAN:
   2017-10-01: 854
   2018-10-01: 881
   2019-10-01: 908
-  2020-01-01: 936
+  2020-10-01: 936
   2021-10-01: 954
   2022-10-01: 996
   2023-10-01: 1_073
@@ -143,10 +143,10 @@ metadata:
       href: https://www.fns.usda.gov/snap/allotment/COLA
     - title: Supplemental Nutrition Assistance Program (SNAP) Fiscal Year (FY) 2024 Income Eligibility Standards
       href: https://fns-prod.azureedge.us/sites/default/files/media/file/FY24-Maximum-Allotments-and-Deductions.pdf
-    - title: SNAP - Fiscal Year 2025 Cost-of-Living Adjustments, Supplemental Nutrition Assistance Program Deductions, Maximum Excess Shelter Deductions
-      href: https://fns-prod.azureedge.us/sites/default/files/resource-files/snap-cola-fy25.pdf#page=5
-    - title: SNAP - Fiscal Year 2026 Cost-of-Living Adjustments
-      href: https://fns-prod.azureedge.us/sites/default/files/resource-files/snap-cola-fy26memo.pdf#page=6
+    - title: SNAP FY2025 Cost-of-Living Adjustments
+      href: https://www.fns.usda.gov/snap/fy-2025-cola
+    - title: SNAP FY2026 Cost-of-Living Adjustments
+      href: https://www.fns.usda.gov/snap/allotment/cola/fy26
   breakdown:
     - snap_region
   uprating: gov.usda.snap.uprating
