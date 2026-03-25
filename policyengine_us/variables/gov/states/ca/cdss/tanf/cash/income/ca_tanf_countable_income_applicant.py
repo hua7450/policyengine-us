@@ -10,14 +10,11 @@ class ca_tanf_countable_income_applicant(Variable):
     defined_for = StateCode.CA
     reference = "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=WIC&sectionNum=11450.12."
 
-    def formula(spm_unit, period, parameters):
-        # Known simplification: per WIC 11450.12, the $450 disregard
-        # should be applied per employed person, not as a flat total.
-        # Current implementation subtracts a single flat amount.
-        p = parameters(period).gov.states.ca.cdss.tanf.cash.income.disregards.applicant
-        yearly_disregard = p.flat * MONTHS_IN_YEAR
-        countable_earned = max_(
-            spm_unit("ca_tanf_earned_income", period) - yearly_disregard, 0
+    def formula(spm_unit, period):
+        countable_earned = add(
+            spm_unit,
+            period,
+            ["ca_tanf_earned_income_after_disregard_person"],
         )
         db_unearned = spm_unit("ca_tanf_db_unearned_income", period)
         other_unearned = spm_unit("ca_tanf_other_unearned_income", period)
