@@ -16,11 +16,14 @@ class mt_regular_income_tax_joint(Variable):
         status = filing_status.possible_values
 
         if p.capital_gains.in_effect:
-            capital_gains = add(tax_unit, period, ["long_term_capital_gains"])
-            # Only subtract positive capital gains (they're taxed separately)
-            # Negative capital gains should not create phantom taxable income
-            capital_gains = max_(capital_gains, 0)
-            taxable_income = max_(taxable_income - capital_gains, 0)
+            ltcg = add(tax_unit, period, ["long_term_capital_gains"])
+            stcg = add(tax_unit, period, ["short_term_capital_gains"])
+            net_cg = ltcg + stcg
+            # Only subtract LTCG when net capital gains are positive.
+            # When STCG losses exceed LTCG, the net position is a loss
+            # and all income should be taxed at ordinary rates.
+            cg_to_subtract = where(net_cg > 0, max_(ltcg, 0), 0)
+            taxable_income = max_(taxable_income - cg_to_subtract, 0)
         return select(
             [
                 filing_status == status.SINGLE,
