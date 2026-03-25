@@ -1,12 +1,12 @@
-description: Indiana deducts this amount from earned income when determining eligibility under the Temporary Assistance for Needy Families program.
+description: Indiana applies the earned income disregard for this number of months under the Temporary Assistance for Needy Families program.
 
 values:
-  1997-10-01: 30
+  1997-10-01: 4
 
 metadata:
-  unit: currency-USD
+  unit: month
   period: month
-  label: Indiana TANF eligibility flat disregard amount
+  label: Indiana TANF eligibility earned income disregard months
   reference:
     - title: 470 IAC 10.3-4-4(c)(2)
       href: https://iar.iga.in.gov/code/2026/470/10.3#470-10.3-4-4
