@@ -323,11 +323,11 @@
     nh_ccap_eligible: true
     nh_ccap_cost_share: 0
     # Preschool, full-time, licensed center: $280/week base rate
-    # Disability supplement full-time: $100/week
-    # Total rate: $280 + $100 = $380
-    # min($400/wk charge, $380 total rate) = $380
+    # min($400/wk charge, $280 base rate) = $280
     # Cost share: $0 → per-child: $0
-    # Weekly payment: $380 - $0 = $380
+    # base_payment = max($280 - $0, 0) = $280
+    # Disability supplement full-time: $100/week
+    # Weekly payment: $280 + $100 = $380
     # Monthly: $380 * (52/12) = $1,646.67
     nh_ccap: 1_646.67
 

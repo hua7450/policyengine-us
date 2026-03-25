@@ -1,6 +1,6 @@
 # Tests for nh_ccap (SPMUnit, MONTH)
 # Final benefit = sum over eligible children of:
-#   max(0, min(provider charge, payment rate + disability supplement) - per-child cost share)
+#   max(0, min(provider charge, payment rate) - per-child cost share) + disability supplement
 #   * weeks_per_month
 # He-C 6910.17(e), He-C 6910.18(f)
 #
@@ -165,7 +165,7 @@
         nh_ccap_payment_rate: 280
         nh_ccap_disability_supplement: 100
         pre_subsidy_childcare_expenses: 20_800
-        # $20,800/yr = $400/week (> $280 + $100 = $380 total rate)
+        # $20,800/yr = $400/week
     spm_units:
       spm_unit:
         members: [person1, person2]
@@ -176,10 +176,10 @@
         members: [person1, person2]
         state_code: NH
   output:
-    # total_weekly_rate = $280 + $100 = $380
-    # min($400/wk charge, $380 total rate) = $380
+    # min($400/wk charge, $280 base rate) = $280
     # 1 eligible child: per-child cost share = $10/1 = $10
-    # Weekly: $380 - $10 = $370
+    # base_payment = max($280 - $10, 0) = $270
+    # Weekly: $270 + $100 disability supplement = $370
     # Monthly: $370 * (52/12) = $1,603.33
     nh_ccap: 1_603.33
 
