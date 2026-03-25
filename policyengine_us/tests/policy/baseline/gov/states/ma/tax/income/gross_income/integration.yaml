@@ -27,7 +27,8 @@
     ma_part_c_taxable_income: 0
     ma_income_tax: 0
 
-- name: MA single 2024 interest income offset by self-employment loss  period: 2024
+- name: MA single 2024 interest income offset by self-employment loss
+  period: 2024
   absolute_error_margin: 1
   input:
     people:
@@ -50,7 +51,8 @@
     ma_gross_income: 0
     ma_income_tax: 0
 
-- name: MA single 2024 partial self-employment loss offset  period: 2024
+- name: MA single 2024 partial self-employment loss offset
+  period: 2024
   absolute_error_margin: 1
   input:
     people:
