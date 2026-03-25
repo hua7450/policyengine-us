@@ -1,3 +1,10 @@
+## [1.614.0] - 2026-03-25
+
+### Added
+
+- Backdate Colorado SSP parameters.
+
+
 ## [1.613.2] - 2026-03-25
 
 ### Fixed
