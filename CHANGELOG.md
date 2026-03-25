@@ -1,3 +1,10 @@
+## [1.613.2] - 2026-03-25
+
+### Fixed
+
+- Fix Arkansas military exemptions: exclude active-duty pay from gross income and correct military retirement/pension interaction per ACA 26-51-306 and 26-51-307(e)(f).
+
+
 ## [1.613.1] - 2026-03-25
 
 ### Fixed
