@@ -1,3 +1,10 @@
+## [1.614.1] - 2026-03-25
+
+### Changed
+
+- Backdate Washington TANF parameters.
+
+
 ## [1.614.0] - 2026-03-25
 
 ### Added
