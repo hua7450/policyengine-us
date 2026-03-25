@@ -1,0 +1,29 @@
+description: Delaware determines the child care age group based on age under the Purchase of Care program.
+
+brackets:
+  - threshold:
+      2024-01-01: 0
+    amount:
+      2024-01-01: 0  # INFANT
+  - threshold:
+      2024-01-01: 1
+    amount:
+      2024-01-01: 1  # TODDLER
+  - threshold:
+      2024-01-01: 2
+    amount:
+      2024-01-01: 2  # PRESCHOOL
+  - threshold:
+      2024-01-01: 6
+    amount:
+      2024-01-01: 3  # SCHOOL_AGE (FT/PT determined by hours)
+
+metadata:
+  type: single_amount
+  threshold_unit: year
+  amount_unit: /1
+  period: year
+  label: Delaware Purchase of Care child care age group
+  reference:
+    - title: Delaware DSS POC Billing Guidance - Rate Table Age Groups
+      href: https://www.dhss.delaware.gov/dhss/dss/files/pocbillingguidance.pdf#page=2

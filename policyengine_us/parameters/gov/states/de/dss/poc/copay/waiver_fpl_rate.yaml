@@ -1,0 +1,14 @@
+description: Delaware waives the copayment for families at or below this share of the federal poverty level under the Purchase of Care program.
+values:
+  # Effective July 1, 2024
+  2024-01-01: 1.5
+
+metadata:
+  unit: /1
+  period: year
+  label: Delaware Purchase of Care copayment waiver FPL rate
+  reference:
+    - title: Delaware DSS POC Billing Guidance - Copayment Waiver
+      href: https://www.dhss.delaware.gov/dhss/dss/files/pocbillingguidance.pdf#page=3
+    - title: Delaware DSS Child Care Services - Income Eligibility Table
+      href: https://dhss.delaware.gov/dss/childcr/

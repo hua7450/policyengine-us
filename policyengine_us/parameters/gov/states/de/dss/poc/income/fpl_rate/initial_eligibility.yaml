@@ -1,0 +1,13 @@
+description: Delaware limits the Purchase of Care program to new applicants with income at or below this share of the federal poverty level.
+values:
+  2025-10-01: 1.85
+
+metadata:
+  unit: /1
+  period: year
+  label: Delaware Purchase of Care initial eligibility FPL rate
+  reference:
+    - title: 16 Del. Admin. Code 11003, Section 11003.9.1(4.B)
+      href: https://regulations.delaware.gov/AdminCode/title16/Department%20of%20Health%20and%20Social%20Services/Division%20of%20Social%20Services/11003.shtml
+    - title: Delaware DSS Child Care Services - Income Eligibility Table
+      href: https://dhss.delaware.gov/dss/childcr/

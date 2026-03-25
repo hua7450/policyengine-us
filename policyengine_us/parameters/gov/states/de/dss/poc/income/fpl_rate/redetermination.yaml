@@ -1,0 +1,13 @@
+description: Delaware limits the Purchase of Care program to enrolled families with income at or below this share of the federal poverty level at redetermination.
+values:
+  2025-10-01: 2
+
+metadata:
+  unit: /1
+  period: year
+  label: Delaware Purchase of Care redetermination FPL rate
+  reference:
+    - title: 16 Del. Admin. Code 11004, Section 11004.13
+      href: https://regulations.delaware.gov/AdminCode/title16/Department%20of%20Health%20and%20Social%20Services/Division%20of%20Social%20Services/11004.shtml
+    - title: Delaware DSS Child Care Services - Income Eligibility Table
+      href: https://dhss.delaware.gov/dss/childcr/
