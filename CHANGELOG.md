@@ -1,3 +1,10 @@
+## [1.613.1] - 2026-03-25
+
+### Fixed
+
+- Fix Mississippi joint-filer deduction and exemption allocation to minimize combined tax.
+
+
 ## [1.613.0] - 2026-03-25
 
 ### Added
