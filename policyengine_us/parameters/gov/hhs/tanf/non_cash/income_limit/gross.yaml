@@ -141,7 +141,7 @@ metadata:
   reference:
     - title: USDA Broad-Based Categorical Eligibility (BBCE)
       href: https://www.fns.usda.gov/snap/broad-based-categorical-eligibility
-    - title: USDA ERS SNAP Policy Database
+    - title: USDA ERS SNAP Policy Database (bbce_inclmt column, Jan 1996 - Dec 2020)
       href: https://www.ers.usda.gov/data-products/snap-policy-data-sets
   breakdown:
   - state_code

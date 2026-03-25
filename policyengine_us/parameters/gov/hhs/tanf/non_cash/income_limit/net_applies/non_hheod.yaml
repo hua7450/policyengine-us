@@ -100,7 +100,7 @@ metadata:
   reference:
     - title: SNAP Screener SNAP Eligibility Parameters
       href: https://www.snapscreener.com/?p=table
-    - title: USDA ERS SNAP Policy Database
+    - title: USDA ERS SNAP Policy Database (bbce_inclmt column, Jan 1996 - Dec 2020)
       href: https://www.ers.usda.gov/data-products/snap-policy-data-sets
   breakdown:
   - state_code
