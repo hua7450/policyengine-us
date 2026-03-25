@@ -291,6 +291,31 @@
   output:
     ut_ctc: 1_000
 
+- name: Head of household with 1 child at 2026 phase-out threshold
+  period: 2026
+  # HB290: HOH threshold increased from $43,000 to $49,000
+  # Income at $49,000 = at threshold, no phase-out
+  input:
+    people:
+      person1:
+        age: 35
+        ctc_qualifying_child: false
+        tax_exempt_interest_income: 0
+      person2:
+        age: 3
+        ctc_qualifying_child: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+        ut_total_income: 49_000
+        filing_status: HEAD_OF_HOUSEHOLD
+    households:
+      household:
+        members: [person1, person2]
+        state_code: UT
+  output:
+    ut_ctc: 1_000
+
 - name: Married filing separately with 1 child, partially phased out in 2026
   period: 2026
   # HB290: MFS threshold increased from $27,000 to $30,500
