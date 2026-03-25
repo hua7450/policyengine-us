@@ -1,1 +1,1 @@
-Add Delaware CCAP (Child Care Assistance Program).
+Add Delaware Purchase of Care (POC) child care subsidy.
