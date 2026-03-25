@@ -1,3 +1,14 @@
+## [1.615.0] - 2026-03-25
+
+### Added
+
+- Backdate Indiana TANF parameters to 1997 program inception. Differentiate applicant vs. recipient income deductions with 4-month earned income disregard limit.
+
+### Changed
+
+- Backdate federal TANF earned and unearned income source parameters to 1997-07-01.
+
+
 ## [1.614.1] - 2026-03-25
 
 ### Changed
