@@ -1,6 +1,6 @@
 - name: Case 1, low-income single parent, center care, Eastern.
   period: 2025-01
-  absolute_error_margin: 1
+  absolute_error_margin: 0.1
   input:
     people:
       person1:
@@ -16,7 +16,6 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        meets_ccdf_activity_test: true
         spm_unit_pre_subsidy_childcare_expenses: 15_000
     tax_units:
       tax_unit:
@@ -48,7 +47,7 @@
 
 - name: Case 2, moderate-income continuing recipient, family care, Southwest.
   period: 2025-01
-  absolute_error_margin: 1
+  absolute_error_margin: 0.1
   input:
     people:
       person1:
@@ -64,7 +63,6 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        meets_ccdf_activity_test: true
         spm_unit_pre_subsidy_childcare_expenses: 22_000
     tax_units:
       tax_unit:
@@ -95,7 +93,7 @@
 
 - name: Case 3, two children, special needs, center care, North Central.
   period: 2025-01
-  absolute_error_margin: 1
+  absolute_error_margin: 0.1
   input:
     people:
       person1:
@@ -118,7 +116,6 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        meets_ccdf_activity_test: true
         spm_unit_pre_subsidy_childcare_expenses: 25_000
     tax_units:
       tax_unit:
@@ -136,21 +133,21 @@
     ct_c4k_countable_income: 3_000
     ct_c4k_income_eligible: true
     ct_c4k_eligible: true
-    # person2: center FT NC infant/toddler $376 * 1.15 (special needs) = 432.40
+    # person2: center FT NC infant/toddler $376 * 1.15 (special needs) = $432.40
     # person3: center HT NC school-age = $117
-    ct_c4k_payment_rate: [0, 432, 117]
+    ct_c4k_payment_rate: [0, 432.4, 117]
     # SMI ratio: 3,000 / 10,210 = 0.294 => 20%-40% => 3%
     # Monthly fee: 3,000 * 0.03 = 90
     ct_c4k_family_fee: 90
-    # Monthly approved: (432.40 + 117) * 52/12 = 2,381
-    # Monthly expenses: 25,000/12 = 2,083
-    # Capped: min(2,381, 2,083) = 2,083
-    # Subsidy: max(2,083 - 90, 0) = 1,993
-    ct_c4k: 1_993
+    # Monthly approved: (432.40 + 117) * 52/12 = 2,381.07
+    # Monthly expenses: 25,000/12 = 2,083.33
+    # Capped: min(2,381.07, 2,083.33) = 2,083.33
+    # Subsidy: max(2,083.33 - 90, 0) = 1,993.33
+    ct_c4k: 1_993.33
 
 - name: Case 4, new applicant income above 60% SMI, ineligible.
   period: 2025-01
-  absolute_error_margin: 1
+  absolute_error_margin: 0.1
   input:
     people:
       person1:
@@ -166,7 +163,6 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        meets_ccdf_activity_test: true
         ct_tfa_eligible: false
         spm_unit_pre_subsidy_childcare_expenses: 18_000
     tax_units:
@@ -185,7 +181,7 @@
 
 - name: Case 5, unlicensed relative care, low income, fee waived.
   period: 2025-01
-  absolute_error_margin: 1
+  absolute_error_margin: 0.1
   input:
     people:
       person1:
@@ -201,7 +197,6 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        meets_ccdf_activity_test: true
         spm_unit_pre_subsidy_childcare_expenses: 12_000
     tax_units:
       tax_unit:
@@ -230,7 +225,7 @@
 
 - name: Case 6, accredited provider, moderate income, two-parent family.
   period: 2025-01
-  absolute_error_margin: 1
+  absolute_error_margin: 0.1
   input:
     people:
       person1:
@@ -249,7 +244,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        meets_ccdf_activity_test: true
+
         spm_unit_pre_subsidy_childcare_expenses: 30_000
     tax_units:
       tax_unit:
@@ -263,23 +258,24 @@
     ct_c4k_eligible_child: [false, false, true]
     ct_c4k_region: SOUTH_CENTRAL
     ct_c4k_care_level: [QUARTER_TIME, QUARTER_TIME, FULL_TIME_PLUS]
-    ct_c4k_countable_income: 4_167
+    # (30,000 + 20,000) / 12 = 4,166.67
+    ct_c4k_countable_income: 4_166.67
     ct_c4k_income_eligible: true
     ct_c4k_eligible: true
-    # Center FTP South Central infant/toddler = $495 * 1.05 = 519.75
-    ct_c4k_payment_rate: [0, 0, 520]
-    # SMI ratio: 4,167 / 10,210 = 0.408 => 40%-60% => 5%
-    # Monthly fee: 4,167 * 0.05 = 208
-    ct_c4k_family_fee: 208
-    # Monthly approved: 519.75 * 52/12 = 2,252
+    # Center FTP South Central infant/toddler = $495 * 1.05 = $519.75
+    ct_c4k_payment_rate: [0, 0, 519.75]
+    # SMI ratio: 4,166.67 / 10,210 = 0.408 => 40%-60% => 5%
+    # Monthly fee: 4,166.67 * 0.05 = 208.33
+    ct_c4k_family_fee: 208.33
+    # Monthly approved: 519.75 * 52/12 = 2,252.25
     # Monthly expenses: 30,000/12 = 2,500
-    # Capped: min(2,252, 2,500) = 2,252
-    # Subsidy: max(2,252 - 208, 0) = 2,044
-    ct_c4k: 2_044
+    # Capped: min(2,252.25, 2,500) = 2,252.25
+    # Subsidy: max(2,252.25 - 208.33, 0) = 2,043.92
+    ct_c4k: 2_043.92
 
 - name: Case 7, continuing recipient between initial and continuing thresholds.
   period: 2025-01
-  absolute_error_margin: 1
+  absolute_error_margin: 0.1
   input:
     people:
       person1:
@@ -301,7 +297,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        meets_ccdf_activity_test: true
+
         spm_unit_pre_subsidy_childcare_expenses: 20_000
     tax_units:
       tax_unit:
@@ -326,15 +322,15 @@
     # SMI ratio: 6,000 / 10,210 = 0.588 => 40%-60% => 5%
     # Monthly fee: 6,000 * 0.05 = 300
     ct_c4k_family_fee: 300
-    # Monthly approved: (228 + 68) * 52/12 = 1,283
-    # Monthly expenses: 20,000/12 = 1,667
-    # Capped: min(1,283, 1,667) = 1,283
-    # Subsidy: max(1,283 - 300, 0) = 983
-    ct_c4k: 983
+    # Monthly approved: (228 + 68) * 52/12 = 1,282.67
+    # Monthly expenses: 20,000/12 = 1,666.67
+    # Capped: min(1,282.67, 1,666.67) = 1,282.67
+    # Subsidy: max(1,282.67 - 300, 0) = 982.67
+    ct_c4k: 982.67
 
 - name: Case 8, special needs child with accredited provider, highest rate region.
   period: 2025-01
-  absolute_error_margin: 1
+  absolute_error_margin: 0.1
   input:
     people:
       person1:
@@ -351,7 +347,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        meets_ccdf_activity_test: true
+
         spm_unit_pre_subsidy_childcare_expenses: 50_000
     tax_units:
       tax_unit:
@@ -369,20 +365,20 @@
     ct_c4k_countable_income: 2_000
     ct_c4k_income_eligible: true
     ct_c4k_eligible: true
-    # Center FTP SW infant/toddler $627 * (1+0.15+0.05) = $627 * 1.20 = 752.40
-    ct_c4k_payment_rate: [0, 752]
+    # Center FTP SW infant/toddler $627 * (1+0.15+0.05) = $627 * 1.20 = $752.40
+    ct_c4k_payment_rate: [0, 752.4]
     # SMI ratio: 2,000 / 8,265 = 0.242 => 20%-40% => 3%
     # Monthly fee: 2,000 * 0.03 = 60
     ct_c4k_family_fee: 60
-    # Monthly approved: 752.40 * 52/12 = 3,260
-    # Monthly expenses: 50,000/12 = 4,167
-    # Capped: min(3,260, 4,167) = 3,260
-    # Subsidy: max(3,260 - 60, 0) = 3,200
-    ct_c4k: 3_200
+    # Monthly approved: 752.40 * 52/12 = 3,260.40
+    # Monthly expenses: 50,000/12 = 4,166.67
+    # Capped: min(3,260.40, 4,166.67) = 3,260.40
+    # Subsidy: max(3,260.40 - 60, 0) = 3,200.40
+    ct_c4k: 3_200.40
 
 - name: Case 9, zero income family, fee waived, full subsidy.
   period: 2025-01
-  absolute_error_margin: 1
+  absolute_error_margin: 0.1
   input:
     people:
       person1:
@@ -397,7 +393,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        meets_ccdf_activity_test: true
+
         spm_unit_pre_subsidy_childcare_expenses: 10_000
     tax_units:
       tax_unit:
@@ -417,24 +413,23 @@
     # Relative FT flat: $245/week
     ct_c4k_payment_rate: [0, 245]
     ct_c4k_family_fee: 0
-    # Monthly approved: 245 * 52/12 = 1,062
-    # Monthly expenses: 10,000/12 = 833
-    # Capped: min(1,062, 833) = 833
-    # Subsidy: max(833 - 0, 0) = 833
-    ct_c4k: 833
+    # Monthly approved: 245 * 52/12 = 1,061.67
+    # Monthly expenses: 10,000/12 = 833.33
+    # Capped: min(1,061.67, 833.33) = 833.33
+    # Subsidy: max(833.33 - 0, 0) = 833.33
+    ct_c4k: 833.33
 
-- name: Case 10, unearned income only family, fee waived despite high income.
+- name: Case 10, TFA-eligible parent with only unearned income, fee waived.
   period: 2025-01
-  absolute_error_margin: 1
+  absolute_error_margin: 0.1
   input:
     people:
       person1:
-        age: 45
-        social_security: 36_000
-        pension_income: 12_000
+        age: 30
+        social_security: 9_600
         is_enrolled_in_ccdf: false
       person2:
-        age: 10
+        age: 4
         is_tax_unit_dependent: true
         childcare_hours_per_week: 20
         ct_c4k_provider_type: CENTER
@@ -442,7 +437,6 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        meets_ccdf_activity_test: true
         spm_unit_pre_subsidy_childcare_expenses: 8_000
     tax_units:
       tax_unit:
@@ -456,23 +450,24 @@
     ct_c4k_eligible_child: [false, true]
     ct_c4k_region: SOUTH_CENTRAL
     ct_c4k_care_level: [QUARTER_TIME, HALF_TIME]
-    # Monthly countable: (36,000 + 12,000) / 12 = 4,000
-    ct_c4k_countable_income: 4_000
+    # Monthly countable: 9,600 / 12 = 800
+    ct_c4k_countable_income: 800
     ct_c4k_income_eligible: true
+    # TFA eligible (low unearned income) => passes activity test
     ct_c4k_eligible: true
-    # Center HT South Central school-age = $135/week
-    ct_c4k_payment_rate: [0, 135]
+    # Center HT South Central preschool = $176/week (2024-07-01 rate)
+    ct_c4k_payment_rate: [0, 176]
     # No earned income => fee waived
     ct_c4k_family_fee: 0
-    # Monthly approved: 135 * 52/12 = 585
-    # Monthly expenses: 8,000/12 = 667
-    # Capped: min(585, 667) = 585
-    # Subsidy: max(585 - 0, 0) = 585
-    ct_c4k: 585
+    # Monthly approved: 176 * 52/12 = 762.67
+    # Monthly expenses: 8,000/12 = 666.67
+    # Capped: min(762.67, 666.67) = 666.67
+    # Subsidy: max(666.67 - 0, 0) = 666.67
+    ct_c4k: 666.67
 
 - name: Case 11, fee exceeds approved cost, subsidy reduced.
   period: 2025-01
-  absolute_error_margin: 1
+  absolute_error_margin: 0.1
   input:
     people:
       person1:
@@ -488,7 +483,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        meets_ccdf_activity_test: true
+
         spm_unit_pre_subsidy_childcare_expenses: 5_000
     tax_units:
       tax_unit:
@@ -502,24 +497,25 @@
     ct_c4k_eligible_child: [false, true]
     ct_c4k_region: SOUTH_CENTRAL
     ct_c4k_care_level: [QUARTER_TIME, QUARTER_TIME]
-    ct_c4k_countable_income: 4_583
-    # Continuing: 85% of monthly SMI 8,265 = 7,025; 4,583 < 7,025
+    # 55,000 / 12 = 4,583.33
+    ct_c4k_countable_income: 4_583.33
+    # Continuing: 85% of monthly SMI 8,265 = 7,025; 4,583.33 < 7,025
     ct_c4k_income_eligible: true
     ct_c4k_eligible: true
     # Relative QT flat: $74/week
     ct_c4k_payment_rate: [0, 74]
-    # SMI ratio: 4,583 / 8,265 = 0.555 => 40%-60% => 5%
-    # Monthly fee: 4,583 * 0.05 = 229
-    ct_c4k_family_fee: 229
-    # Monthly approved: 74 * 52/12 = 321
-    # Monthly expenses: 5,000/12 = 417
-    # Capped: min(321, 417) = 321
-    # Subsidy: max(321 - 229, 0) = 92
-    ct_c4k: 92
+    # SMI ratio: 4,583.33 / 8,265 = 0.555 => 40%-60% => 5%
+    # Monthly fee: 4,583.33 * 0.05 = 229.17
+    ct_c4k_family_fee: 229.17
+    # Monthly approved: 74 * 52/12 = 320.67
+    # Monthly expenses: 5,000/12 = 416.67
+    # Capped: min(320.67, 416.67) = 320.67
+    # Subsidy: max(320.67 - 229.17, 0) = 91.50
+    ct_c4k: 91.50
 
 - name: Case 12, disabled child age 16, special needs eligibility.
   period: 2025-01
-  absolute_error_margin: 1
+  absolute_error_margin: 0.1
   input:
     people:
       person1:
@@ -536,7 +532,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        meets_ccdf_activity_test: true
+
         spm_unit_pre_subsidy_childcare_expenses: 15_000
     tax_units:
       tax_unit:
@@ -554,13 +550,13 @@
     ct_c4k_countable_income: 2_500
     ct_c4k_income_eligible: true
     ct_c4k_eligible: true
-    # Family FT Eastern school-age = $183 * 1.15 = 210.45
-    ct_c4k_payment_rate: [0, 210]
+    # Family FT Eastern school-age = $183 * 1.15 = $210.45
+    ct_c4k_payment_rate: [0, 210.45]
     # SMI ratio: 2,500 / 8,265 = 0.302 => 20%-40% => 3%
     # Monthly fee: 2,500 * 0.03 = 75
     ct_c4k_family_fee: 75
-    # Monthly approved: 210.45 * 52/12 = 912
+    # Monthly approved: 210.45 * 52/12 = 911.95
     # Monthly expenses: 15,000/12 = 1,250
-    # Capped: min(912, 1,250) = 912
-    # Subsidy: max(912 - 75, 0) = 837
-    ct_c4k: 837
+    # Capped: min(911.95, 1,250) = 911.95
+    # Subsidy: max(911.95 - 75, 0) = 836.95
+    ct_c4k: 836.95

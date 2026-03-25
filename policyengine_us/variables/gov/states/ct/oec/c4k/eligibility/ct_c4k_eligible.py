@@ -12,8 +12,8 @@ class ct_c4k_eligible(Variable):
     def formula(spm_unit, period, parameters):
         has_eligible_child = add(spm_unit, period, ["ct_c4k_eligible_child"]) > 0
         income_eligible = spm_unit("ct_c4k_income_eligible", period)
-        asset_eligible = spm_unit("is_ccdf_asset_eligible", period)
-        activity_eligible = spm_unit("meets_ccdf_activity_test", period)
+        asset_eligible = spm_unit("is_ccdf_asset_eligible", period.this_year)
+        activity_eligible = spm_unit("ct_c4k_meets_activity_test", period)
 
         regular_eligible = (
             has_eligible_child & income_eligible & asset_eligible & activity_eligible

@@ -16,7 +16,7 @@ class ct_c4k_income_eligible(Variable):
         p = parameters(period).gov.states.ct.oec.c4k.income
         countable_income = spm_unit("ct_c4k_countable_income", period)
         smi = spm_unit("hhs_smi", period)
-        is_enrolled = add(spm_unit, period, ["is_enrolled_in_ccdf"]) > 0
+        is_enrolled = add(spm_unit, period.this_year, ["is_enrolled_in_ccdf"]) > 0
         smi_limit = where(
             is_enrolled,
             p.continuing_limit_smi,
