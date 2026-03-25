@@ -4,9 +4,7 @@ from policyengine_us.model_api import *
 class in_tanf_countable_earned_income_for_eligibility(Variable):
     value_type = float
     entity = SPMUnit
-    label = (
-        "Indiana TANF countable earned income for eligibility determination"
-    )
+    label = "Indiana TANF countable earned income for eligibility determination"
     unit = USD
     definition_period = MONTH
     reference = (
