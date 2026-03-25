@@ -19,13 +19,7 @@ CA: # *
   2015-10-01: .inf
 CO: # *
   2015-10-01: .inf
-  # May have changed prior to 2022-11-30.
-  2022-11-30:
-    value: .inf
-    metadata:
-      reference:
-        - title: Code of Colorado Regulations | Rule Manual Volume 4, SNAP | 4.206(C)(2)(b) (page 35)
-          href: https://www.sos.state.co.us/CCR/GenerateRulePdf.do?ruleVersionId=10492&fileName=10%20CCR%202506-1
+  # https://www.sos.state.co.us/CCR/GenerateRulePdf.do?ruleVersionId=10492&fileName=10%20CCR%202506-1
 CT:
   2015-10-01: .inf
 DE:
@@ -69,7 +63,8 @@ MI:
 MN:
   2015-10-01: .inf
 MS:
-  2015-10-01: -.inf # Non-BBCE.
+  2015-10-01: .inf
+  2019-07-01: -.inf # Non-BBCE.
 MT:
   2015-10-01: .inf
 NE:
@@ -125,9 +120,11 @@ WY:
 metadata:
   label: TANF non-cash asset limit for SNAP BBCE
   unit: currency-USD
+  period: year
   reference:
-    - title: "USDA: Broad-based Categorical Eligibility"
-      href: https://fns-prod.azureedge.net/sites/default/files/resource-files/BBCE%20States%20Chart%20(July%202020).pdf
-      date: 2015-10-01
+    - title: USDA Broad-based Categorical Eligibility
+      href: https://www.fns.usda.gov/snap/broad-based-categorical-eligibility
+    - title: USDA ERS SNAP Policy Database
+      href: https://www.ers.usda.gov/data-products/snap-policy-data-sets
   breakdown:
   - state_code

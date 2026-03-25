@@ -32,6 +32,8 @@ WV:
   2018-07-01: false
 
 metadata:
+  unit: bool
+  period: year
   label: TANF non-cash elderly/disabled household classification requirement
   reference:
     - title: SNAP Screener SNAP Eligibility Parameters

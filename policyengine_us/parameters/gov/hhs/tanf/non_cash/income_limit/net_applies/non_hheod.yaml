@@ -46,6 +46,8 @@ MI:
   2015-10-01: false
 MN:
   2015-10-01: false
+MS:
+  2015-10-01: false
 MT:
   2015-10-01: false
 NC:
@@ -92,6 +94,8 @@ WV:
   2015-10-01: false
 
 metadata:
+  unit: bool
+  period: year
   label: SNAP net income limit for non-elderly/disabled BBCE households
   reference:
     - title: SNAP Screener SNAP Eligibility Parameters
