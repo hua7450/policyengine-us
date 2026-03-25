@@ -12,8 +12,13 @@ class ma_gross_income(Variable):
 
     def formula(tax_unit, period, parameters):
         # Mass. General Laws c.62 § 2(a)
+        # irs_gross_income floors each income source at zero, dropping losses.
+        # MA Form 1 Line 4 allows business losses to offset other 5% income,
+        # so we add back self-employment losses that were dropped.
         federal_gross_income = add(tax_unit, period, ["irs_gross_income"])
+        se_income = add(tax_unit, period, ["self_employment_income"])
+        se_loss_adjustment = min_(se_income, 0)
         foreign_earned_income = tax_unit("foreign_earned_income_exclusion", period)
         social_security_in_agi = add(tax_unit, period, ["taxable_social_security"])
         deductions = foreign_earned_income + social_security_in_agi
-        return max_(0, federal_gross_income - deductions)
+        return max_(0, federal_gross_income + se_loss_adjustment - deductions)

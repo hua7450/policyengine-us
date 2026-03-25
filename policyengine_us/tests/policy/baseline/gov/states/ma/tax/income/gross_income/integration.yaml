@@ -26,3 +26,50 @@
   output:
     ma_part_c_taxable_income: 0
     ma_income_tax: 0
+
+- name: MA single 2024 interest income offset by self-employment loss (issue 7864)
+  period: 2024
+  absolute_error_margin: 1
+  input:
+    people:
+      person:
+        age: 40
+        taxable_interest_income: 100_000
+        self_employment_income: -100_000
+    tax_units:
+      tax_unit:
+        members: [person]
+    spm_units:
+      spm_unit:
+        members: [person]
+    households:
+      household:
+        members: [person]
+        state_fips: 25
+  output:
+    adjusted_gross_income: 0
+    ma_gross_income: 0
+    ma_income_tax: 0
+
+- name: MA single 2024 partial self-employment loss offset (issue 7864)
+  period: 2024
+  absolute_error_margin: 1
+  input:
+    people:
+      person:
+        age: 40
+        taxable_interest_income: 100_000
+        self_employment_income: -50_000
+    tax_units:
+      tax_unit:
+        members: [person]
+    spm_units:
+      spm_unit:
+        members: [person]
+    households:
+      household:
+        members: [person]
+        state_fips: 25
+  output:
+    adjusted_gross_income: 50_000
+    ma_gross_income: 50_000
