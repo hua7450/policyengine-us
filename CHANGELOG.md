@@ -1,3 +1,10 @@
+## [1.613.0] - 2026-03-25
+
+### Added
+
+- Backdate Massachusetts SSP parameters to 2002.
+
+
 ## [1.612.1] - 2026-03-25
 
 ### Changed
