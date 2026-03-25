@@ -1,5 +1,5 @@
 # Historical resource eligibility tests (pre-SEA 265)
-# While-receiving limit was $1,500 before July 2023, changed to $10,000
+# While-receiving limit was $1,500 before July 2022, changed to $10,000
 
 - name: Pre-reform enrolled family at $1,400 passes (under $1,500 limit)
   period: 2020-01

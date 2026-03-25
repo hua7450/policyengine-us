@@ -29,22 +29,12 @@ class in_tanf_countable_earned_income_for_eligibility(Variable):
         month = period.start.month
 
         # (c)(2): $30 per earner (enrolled, months 1-12)
-        after_flat = max_(
-            after_work_expense - p.eligibility.flat_disregard.amount, 0
-        )
+        after_flat = max_(after_work_expense - p.eligibility.flat_disregard.amount, 0)
 
         # (c)(3): 1/3 per earner (enrolled, months 1-4 only)
-        in_one_third_phase = (
-            month <= p.eligibility.earned_income_disregard.months
-        )
-        with_one_third = after_flat * (
-            1 - p.eligibility.earned_income_disregard.rate
-        )
-        enrolled_countable = where(
-            in_one_third_phase, with_one_third, after_flat
-        )
+        in_one_third_phase = month <= p.eligibility.earned_income_disregard.months
+        with_one_third = after_flat * (1 - p.eligibility.earned_income_disregard.rate)
+        enrolled_countable = where(in_one_third_phase, with_one_third, after_flat)
 
         # Sum per-earner results to unit level
-        return spm_unit.sum(
-            where(is_enrolled, enrolled_countable, after_work_expense)
-        )
+        return spm_unit.sum(where(is_enrolled, enrolled_countable, after_work_expense))

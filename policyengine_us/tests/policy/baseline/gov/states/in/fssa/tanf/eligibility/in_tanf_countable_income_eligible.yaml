@@ -21,12 +21,13 @@
         members: [person1, person2, person3]
         state_code: IN
   output:
-    in_tanf_countable_income_for_eligibility: [0, 0, 0]
-    in_tanf_countable_income_eligible: [true, true, true]
-    # Countable income ($0) < standard of need ($320) → eligible
+    in_tanf_countable_income_for_eligibility: 0
+    in_tanf_countable_income_eligible: true
+    # Countable income ($0) < standard of need ($320) -> eligible
 
 - name: Family of 3 with low earned income - eligible
   period: 2024-01
+  absolute_error_margin: 0.01
   input:
     people:
       person1:
@@ -45,13 +46,13 @@
         members: [person1, person2, person3]
         state_code: IN
   output:
-    in_tanf_countable_earned_income_for_eligibility: [120.6, 120.6, 120.6]
+    in_tanf_countable_earned_income_for_eligibility: 120.01
     # $300 - $90 (work expense) = $210
     # $210 - $30 (flat disregard) = $180
-    # $180 * (1 - 0.33) = $120.60
-    in_tanf_countable_income_for_eligibility: [120.6, 120.6, 120.6]
-    in_tanf_countable_income_eligible: [true, true, true]
-    # Enrolled: countable ($120.60) < 100% FPL for 3 → eligible
+    # $180 * (1 - 0.3333) = $120.01
+    in_tanf_countable_income_for_eligibility: 120.01
+    in_tanf_countable_income_eligible: true
+    # Enrolled: countable ($120.01) < 100% FPL for 3 -> eligible
 
 - name: Applicant family of 3 with moderate earned income - not eligible
   period: 2024-01
@@ -73,14 +74,15 @@
         members: [person1, person2, person3]
         state_code: IN
   output:
-    in_tanf_countable_earned_income_for_eligibility: [510, 510, 510]
+    in_tanf_countable_earned_income_for_eligibility: 510
     # Applicant: $600 - $90 = $510 ($90 work expense only)
-    in_tanf_countable_income_for_eligibility: [510, 510, 510]
-    in_tanf_countable_income_eligible: [false, false, false]
-    # Applicant threshold = standard of need ($320); $510 >= $320 → not eligible
+    in_tanf_countable_income_for_eligibility: 510
+    in_tanf_countable_income_eligible: false
+    # Applicant threshold = standard of need ($320); $510 >= $320 -> not eligible
 
 - name: Family of 2 with earned income at threshold - not eligible
   period: 2024-01
+  absolute_error_margin: 0.01
   input:
     people:
       person1:
@@ -97,16 +99,17 @@
         members: [person1, person2]
         state_code: IN
   output:
-    in_tanf_countable_earned_income_for_eligibility: [254.6, 254.6]
+    in_tanf_countable_earned_income_for_eligibility: 253.35
     # $500 - $90 = $410
     # $410 - $30 = $380
-    # $380 * 0.67 = $254.60
-    in_tanf_countable_income_for_eligibility: [254.6, 254.6]
-    in_tanf_countable_income_eligible: [true, true]
-    # Enrolled: countable ($254.60) < 100% FPL for 2 → eligible
+    # $380 * 0.6667 = $253.35
+    in_tanf_countable_income_for_eligibility: 253.35
+    in_tanf_countable_income_eligible: true
+    # Enrolled: countable ($253.35) < 100% FPL for 2 -> eligible
 
 - name: Two earners - each gets $90 disregard
   period: 2024-01
+  absolute_error_margin: 0.01
   input:
     people:
       person1:
@@ -126,15 +129,16 @@
         members: [person1, person2, person3]
         state_code: IN
   output:
-    in_tanf_countable_earned_income_for_eligibility: [107.2, 107.2, 107.2]
-    # Per earner: ($200-$90-$30)*0.67 = $80*0.67 = $53.60
-    # Unit total: $53.60 + $53.60 = $107.20
-    in_tanf_countable_income_for_eligibility: [107.2, 107.2, 107.2]
-    in_tanf_countable_income_eligible: [true, true, true]
-    # Enrolled: countable ($107.20) < 100% FPL for 3 → eligible
+    in_tanf_countable_earned_income_for_eligibility: 106.67
+    # Per earner: ($200-$90-$30)*0.6667 = $80*0.6667 = $53.34
+    # Unit total: $53.34 + $53.34 = $106.67
+    in_tanf_countable_income_for_eligibility: 106.67
+    in_tanf_countable_income_eligible: true
+    # Enrolled: countable ($106.67) < 100% FPL for 3 -> eligible
 
 - name: Continuing eligibility uses FPL threshold
   period: 2024-01
+  absolute_error_margin: 0.01
   input:
     people:
       person1:
@@ -153,10 +157,10 @@
         members: [person1, person2, person3]
         state_code: IN
   output:
-    in_tanf_countable_earned_income_for_eligibility: [589.6, 589.6, 589.6]
+    in_tanf_countable_earned_income_for_eligibility: 586.7
     # $1000 - $90 = $910
     # $910 - $30 = $880
-    # $880 * 0.67 = $589.60
-    in_tanf_countable_income_for_eligibility: [589.6, 589.6, 589.6]
-    in_tanf_countable_income_eligible: [true, true, true]
-    # Countable ($589.60) < 100% FPL for 3 (~$1,988/mo) → eligible
+    # $880 * 0.6667 = $586.70
+    in_tanf_countable_income_for_eligibility: 586.7
+    in_tanf_countable_income_eligible: true
+    # Countable ($586.70) < 100% FPL for 3 (~$1,988/mo) -> eligible

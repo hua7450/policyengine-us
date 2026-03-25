@@ -41,7 +41,7 @@
         state_code: IN
   output:
     in_tanf_countable_earned_income_for_eligibility: [0, 0]
-    # $120 - $90 = $30; $30 - $30 = $0; $0 * 0.67 = $0
+    # $120 - $90 = $30; $30 - $30 = $0; $0 * 0.6667 = $0
 
 # Edge case: Family of 8 (max pre-reform) vs family of 9
 - name: Family of 8 gets size-8 standard pre-reform
@@ -143,3 +143,25 @@
     state_code: IN
   output:
     in_tanf: 1
+
+# Edge case: Negative countable income does not inflate benefit
+# Prevents: benefit = max(255 - (-5_000_000), 0) = 5_000_255
+- name: Negative countable income does not inflate benefit
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        self_employment_income: -60_000_000
+      person2:
+        age: 8
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IN
+  output:
+    in_tanf: 255
+    # Capped at payment standard for family of 2 ($255), not inflated
