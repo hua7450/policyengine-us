@@ -1,3 +1,38 @@
+## [1.613.2] - 2026-03-25
+
+### Fixed
+
+- Fix Arkansas military exemptions: exclude active-duty pay from gross income and correct military retirement/pension interaction per ACA 26-51-306 and 26-51-307(e)(f).
+
+
+## [1.613.1] - 2026-03-25
+
+### Fixed
+
+- Fix Mississippi joint-filer deduction and exemption allocation to minimize combined tax.
+
+
+## [1.613.0] - 2026-03-25
+
+### Added
+
+- Backdate Massachusetts SSP parameters to 2002.
+
+
+## [1.612.1] - 2026-03-25
+
+### Changed
+
+- Backdate Nebraska ADC parameters.
+
+
+## [1.612.0] - 2026-03-24
+
+### Added
+
+- Add comprehensive SNAP utility allowance data: FY2019-FY2026 values for all states, split Alaska into 6 sub-regions and New York into 3 sub-regions with county mapping, add household-size-based SUA/BUA for AZ/NC/TN/VA, and add HI/GU individual utility allowances (electricity, gas, water) varying by household size.
+
+
 ## [1.611.2] - 2026-03-24
 
 ### Changed
