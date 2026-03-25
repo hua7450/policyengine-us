@@ -64,7 +64,7 @@
         members: [person1, person2]
         state_code: DE
   output:
-    # Income 48_000 / 12 = 4_000 > 185% FPL of 3_260.63 -> ineligible
+    # Income 48_000 / 12 = 4_000 > 200% FPL of 3_525.00 -> ineligible
     de_poc: 0
 
 - name: Case 3, benefit capped at max reimbursement.

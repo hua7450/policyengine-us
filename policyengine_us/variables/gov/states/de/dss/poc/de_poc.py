@@ -10,7 +10,7 @@ class de_poc(Variable):
     defined_for = "de_poc_eligible"
     reference = (
         "https://regulations.delaware.gov/AdminCode/title16/Department%20of%20Health%20and%20Social%20Services/Division%20of%20Social%20Services/11004.shtml",
-        "https://www.dhss.delaware.gov/dhss/dss/childcare.html",
+        "https://dhss.delaware.gov/dss/childcr/",
     )
 
     def formula(spm_unit, period, parameters):

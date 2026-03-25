@@ -1,6 +1,6 @@
 # de_poc_maximum_weekly_benefit: Person, float, MONTH
 # Looks up weekly rate from rate table by provider type and age group
-# For disabled children, applies 5% special needs rate increase
+# For disabled children, uses special needs rate table
 #
 # Weekly rates (2024):
 #   Center:      INFANT=$325, TODDLER=$290, PRESCHOOL=$255,
@@ -143,7 +143,7 @@
     # Family Home SCHOOL_AGE_PART_TIME weekly rate = $100.00
     de_poc_maximum_weekly_benefit: [0, 100]
 
-- name: Case 6, disabled child gets 5% special needs rate increase.
+- name: Case 6, disabled child gets special needs rate.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
@@ -168,10 +168,10 @@
         members: [person1, person2]
         state_code: DE
   output:
-    # Center INFANT = $325 * 1.05 = $341.25
+    # Center INFANT special needs = $341.25
     de_poc_maximum_weekly_benefit: [0, 341.25]
 
-- name: Case 7, disabled child family home preschool with special needs increase.
+- name: Case 7, disabled child family home preschool with special needs rate.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
@@ -196,8 +196,8 @@
         members: [person1, person2]
         state_code: DE
   output:
-    # Family Home PRESCHOOL = $200 * 1.05 = $210.00
-    de_poc_maximum_weekly_benefit: [0, 210]
+    # Family Home PRESCHOOL special needs = $216.25
+    de_poc_maximum_weekly_benefit: [0, 216.25]
 
 - name: Case 8, ineligible child gets zero weekly benefit.
   period: 2025-01

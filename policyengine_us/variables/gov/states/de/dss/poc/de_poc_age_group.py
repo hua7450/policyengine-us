@@ -17,9 +17,7 @@ class de_poc_age_group(Variable):
     definition_period = MONTH
     label = "Delaware Purchase of Care child care age group"
     defined_for = StateCode.DE
-    reference = (
-        "https://www.dhss.delaware.gov/dhss/dss/files/pocbillingguidance.pdf#page=2"
-    )
+    reference = "https://dhss.delaware.gov/dss/childcr/"
 
     def formula(person, period, parameters):
         p = parameters(period).gov.states.de.dss.poc

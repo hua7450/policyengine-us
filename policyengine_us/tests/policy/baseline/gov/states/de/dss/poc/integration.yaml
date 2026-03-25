@@ -11,12 +11,19 @@
 #   Family of 2: 120_963 * 0.68 = 82_254.84
 #   85% SMI family of 2: 82_254.84 * 0.85 = 69_916.61
 #
+# Income thresholds:
+#   Initial eligibility: 200% FPL
+#   Redetermination (enrolled): 300% FPL
+#
 # Weekly rates:
 #   Center:      INFANT=$325, TODDLER=$290, PRESCHOOL=$255,
 #                SA_FT=$190, SA_PT=$135
 #   Family Home: INFANT=$222.50, TODDLER=$200, PRESCHOOL=$200,
 #                SA_FT=$160, SA_PT=$100
-#   Special needs: base * 1.05
+#   Special needs (center):      INFANT=$341.25, TODDLER=$304.50,
+#                                PRESCHOOL=$278.25, SA_FT=$199.50, SA_PT=$141.75
+#   Special needs (family home): INFANT=$233.63, TODDLER=$216.25,
+#                                PRESCHOOL=$216.25, SA_FT=$168, SA_PT=$105
 
 - name: Case 1, basic eligible new applicant with center care.
   period: 2025-01
@@ -57,10 +64,10 @@
     # === Income Eligibility ===
     # FPG family of 2: 21_150
     # Monthly income: 36_000 / 12 = 3_000
-    # 185% FPL: 21_150 * 1.85 / 12 = 3_260.63
+    # 200% FPL: 21_150 * 2.0 / 12 = 3_525
     # 85% SMI: 69_916.61 / 12 = 5_826.38
-    # Limit = min(3_260.63, 5_826.38) = 3_260.63
-    # 3_000 <= 3_260.63 -> eligible
+    # Limit = min(3_525, 5_826.38) = 3_525
+    # 3_000 <= 3_525 -> eligible
     de_poc_income_eligible: true
 
     # === Asset Eligibility ===
@@ -135,8 +142,8 @@
     # === Income Eligibility ===
     # FPG family of 3: 26_650
     # Monthly income: 18_000 / 12 = 1_500
-    # 185% FPL: 26_650 * 1.85 / 12 = 4_100.21
-    # 1_500 <= 4_100.21 -> eligible
+    # 200% FPL: 26_650 * 2.0 / 12 = 4_441.67
+    # 1_500 <= 4_441.67 -> eligible
     de_poc_income_eligible: true
 
     is_ccdf_asset_eligible: true
@@ -159,14 +166,14 @@
     # Monthly = 18_000 / 12 = 1_500
     de_poc: 1_500
 
-- name: Case 3, enrolled family between 185% and 200% FPL.
+- name: Case 3, enrolled family between 200% and 300% FPL.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 35
-        employment_income: 42_000
+        employment_income: 50_000
         immigration_status: CITIZEN
       person2:
         age: 0
@@ -198,12 +205,12 @@
 
     # === Income Eligibility ===
     # FPG family of 2: 21_150
-    # Monthly income: 42_000 / 12 = 3_500
-    # NOT enrolled: 185% FPL = 3_260.63 -> would fail
-    # IS enrolled: 200% FPL = 21_150 * 2.0 / 12 = 3_525
+    # Monthly income: 50_000 / 12 = 4_166.67
+    # NOT enrolled: 200% FPL = 21_150 * 2.0 / 12 = 3_525 -> would fail
+    # IS enrolled: 300% FPL = 21_150 * 3.0 / 12 = 5_287.50
     # 85% SMI: 5_826.38
-    # Limit = min(3_525, 5_826.38) = 3_525
-    # 3_500 <= 3_525 -> eligible
+    # Limit = min(5_287.50, 5_826.38) = 5_287.50
+    # 4_166.67 <= 5_287.50 -> eligible
     de_poc_income_eligible: true
 
     is_ccdf_asset_eligible: true
@@ -211,10 +218,10 @@
     de_poc_eligible: true
 
     # === Copay ===
-    # FPL ratio = 42_000 / 21_150 = 1.9858 > 1.5 -> 7% copay
-    # Annual copay = 42_000 * 0.07 = 2_940
-    # Monthly copay = 2_940 / 12 = 245
-    de_poc_copay: 245
+    # FPL ratio = 50_000 / 21_150 = 2.3641 > 1.5 -> 7% copay
+    # Annual copay = 50_000 * 0.07 = 3_500
+    # Monthly copay = 3_500 / 12 = 291.67
+    de_poc_copay: 291.67
 
     # === Weekly Rate ===
     # Center INFANT = $325
@@ -222,10 +229,10 @@
 
     # === Benefit ===
     # Max annual = 325 * 52 = 16_900
-    # Uncapped = max(15_000 - 2_940, 0) = 12_060
-    # Annual benefit = min(12_060, 16_900) = 12_060
-    # Monthly = 12_060 / 12 = 1_005
-    de_poc: 1_005
+    # Uncapped = max(15_000 - 3_500, 0) = 11_500
+    # Annual benefit = min(11_500, 16_900) = 11_500
+    # Monthly = 11_500 / 12 = 958.33
+    de_poc: 958.33
 
 - name: Case 4, disabled teenager in family home care with special needs rate.
   period: 2025-01
@@ -267,8 +274,8 @@
     # === Income Eligibility ===
     # FPG family of 2: 21_150
     # Monthly income: 30_000 / 12 = 2_500
-    # 185% FPL: 3_260.63
-    # 2_500 <= 3_260.63 -> eligible
+    # 200% FPL: 21_150 * 2.0 / 12 = 3_525
+    # 2_500 <= 3_525 -> eligible
     de_poc_income_eligible: true
 
     is_ccdf_asset_eligible: true
@@ -280,7 +287,7 @@
     de_poc_copay: 0
 
     # === Weekly Rate ===
-    # Family Home SCHOOL_AGE_FT = $160 * 1.05 (special needs) = $168
+    # Family Home SCHOOL_AGE_FT special needs = $168
     de_poc_maximum_weekly_benefit: [0, 168]
 
     # === Benefit ===
@@ -335,8 +342,8 @@
     # === Income Eligibility ===
     # FPG family of 3: 26_650
     # Monthly income: 30_000 / 12 = 2_500
-    # 185% FPL: 26_650 * 1.85 / 12 = 4_100.21
-    # 2_500 <= 4_100.21 -> eligible
+    # 200% FPL: 26_650 * 2.0 / 12 = 4_441.67
+    # 2_500 <= 4_441.67 -> eligible
     de_poc_income_eligible: true
 
     is_ccdf_asset_eligible: true
@@ -359,14 +366,14 @@
     # Monthly = 16_000 / 12 = 1_333.33
     de_poc: 1_333.33
 
-- name: Case 6, enrolled family just above 185% FPL but within 200% FPL.
+- name: Case 6, enrolled family just above 200% FPL but within 300% FPL.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 30
-        employment_income: 40_000
+        employment_income: 66_000
         immigration_status: CITIZEN
       person2:
         age: 30
@@ -410,11 +417,12 @@
 
     # === Income Eligibility ===
     # FPG family of 4: 32_150
-    # Monthly income: 40_000 / 12 = 3_333.33
-    # Enrolled: 200% FPL = 32_150 * 2.0 / 12 = 5_358.33
+    # Monthly income: 66_000 / 12 = 5_500
+    # NOT enrolled: 200% FPL = 32_150 * 2.0 / 12 = 5_358.33 -> would fail
+    # Enrolled: 300% FPL = 32_150 * 3.0 / 12 = 8_037.50
     # 85% SMI family of 4: 120_963 * 0.85 / 12 = 8_568.21
-    # Limit = min(5_358.33, 8_568.21) = 5_358.33
-    # 3_333.33 <= 5_358.33 -> eligible
+    # Limit = min(8_037.50, 8_568.21) = 8_037.50
+    # 5_500 <= 8_037.50 -> eligible
     de_poc_income_eligible: true
 
     is_ccdf_asset_eligible: true
@@ -423,8 +431,10 @@
     de_poc_eligible: true
 
     # === Copay ===
-    # FPL ratio = 40_000 / 32_150 = 1.2442 <= 1.5 -> waived
-    de_poc_copay: 0
+    # FPL ratio = 66_000 / 32_150 = 2.0529 > 1.5 -> 7% copay
+    # Annual copay = 66_000 * 0.07 = 4_620
+    # Monthly copay = 4_620 / 12 = 385
+    de_poc_copay: 385
 
     # === Weekly Rates ===
     # person3: Center PRESCHOOL = $255
@@ -433,19 +443,19 @@
 
     # === Benefit ===
     # Max annual = (255 + 290) * 52 = 28_340
-    # Uncapped = max(30_000 - 0, 0) = 30_000
-    # Annual benefit = min(30_000, 28_340) = 28_340
-    # Monthly = 28_340 / 12 = 2_361.67
-    de_poc: 2_361.67
+    # Uncapped = max(30_000 - 4_620, 0) = 25_380
+    # Annual benefit = min(25_380, 28_340) = 25_380
+    # Monthly = 25_380 / 12 = 2_115
+    de_poc: 2_115
 
-- name: Case 7, new applicant above 185% FPL is ineligible while enrolled would be eligible.
+- name: Case 7, new applicant above 200% FPL is ineligible while enrolled would be eligible.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 35
-        employment_income: 40_000
+        employment_income: 44_000
         immigration_status: CITIZEN
       person2:
         age: 2
@@ -467,9 +477,9 @@
   output:
     # === Income Eligibility ===
     # FPG family of 2: 21_150
-    # Monthly income: 40_000 / 12 = 3_333.33
-    # New applicant: 185% FPL = 21_150 * 1.85 / 12 = 3_260.63
-    # 3_333.33 > 3_260.63 -> INELIGIBLE as new applicant
+    # Monthly income: 44_000 / 12 = 3_666.67
+    # New applicant: 200% FPL = 21_150 * 2.0 / 12 = 3_525
+    # 3_666.67 > 3_525 -> INELIGIBLE as new applicant
     de_poc_income_eligible: false
 
     de_poc_eligible: false

@@ -9,7 +9,7 @@ class de_poc_eligible_child(Variable):
     defined_for = StateCode.DE
     reference = (
         "https://regulations.delaware.gov/AdminCode/title16/Department%20of%20Health%20and%20Social%20Services/Division%20of%20Social%20Services/11003.shtml",
-        "https://www.dhss.delaware.gov/dhss/dss/files/pocprovhndbk.pdf#page=14",
+        "https://dhss.delaware.gov/wp-content/uploads/sites/11/dss/pdf/PurchaseofCareProviderHandbook_FINAL1_25_2023.pdf#page=14",
     )
 
     def formula(person, period, parameters):
