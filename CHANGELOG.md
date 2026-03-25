@@ -1,3 +1,10 @@
+## [1.612.1] - 2026-03-25
+
+### Changed
+
+- Backdate Nebraska ADC parameters.
+
+
 ## [1.612.0] - 2026-03-24
 
 ### Added
