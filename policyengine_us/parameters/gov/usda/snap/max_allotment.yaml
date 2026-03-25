@@ -892,25 +892,26 @@ additional:
 
 metadata:
   unit: currency-USD
+  label: SNAP maximum allotment
   reference:
     # Effective 2015-10-01.
     - title: SNAP FY2016 Maximum Allotments and Deductions
-      href: https://fns-prod.azureedge.us/sites/default/files/snap/FY16-Maximun-Allotments-Deductions.pdf
+      href: https://fns-prod.azureedge.us/sites/default/files/snap/FY16-Maximun-Allotments-Deductions.pdf#page=1
     # Effective 2016-10-01.
     - title: SNAP FY2017 Maximum Allotments and Deductions
-      href: https://fns-prod.azureedge.us/sites/default/files/snap/FY17-Maximun-Allotments-Deductions.pdf
+      href: https://fns-prod.azureedge.us/sites/default/files/snap/FY17-Maximun-Allotments-Deductions.pdf#page=1
     # Effective 2017-10-01.
     - title: SNAP FY2018 Maximum Allotments and Deductions
-      href: https://fns-prod.azureedge.us/sites/default/files/snap/FY18-Maximum-Allotments-Deductions.pdf
+      href: https://fns-prod.azureedge.us/sites/default/files/snap/FY18-Maximum-Allotments-Deductions.pdf#page=1
     # Effective 2018-10-01.
     - title: SNAP FY2019 Maximum Allotments and Deductions
-      href: https://fns-prod.azureedge.us/sites/default/files/media/file/FY19-Maximum-Allotments-Deductions.pdf
+      href: https://fns-prod.azureedge.us/sites/default/files/media/file/FY19-Maximum-Allotments-Deductions.pdf#page=1
     # Effective 2019-10-01.
     - title: SNAP FY2020 Maximum Allotments and Deductions
-      href: https://fns-prod.azureedge.us/sites/default/files/media/file/FY20-Maximum-Allotments-Deductions.pdf
+      href: https://fns-prod.azureedge.us/sites/default/files/media/file/FY20-Maximum-Allotments-Deductions.pdf#page=1
     # Effective 2020-10-01.
-    - title: Supplemental Nutrition Assistance Program (SNAP) Fiscal Year (FY) 2021 Income Eligibility Standards
-      href: https://fns-prod.azureedge.us/sites/default/files/media/file/FY21-Maximum-Allotments-Deductions.pdf
+    - title: SNAP FY2021 Maximum Allotments and Deductions
+      href: https://fns-prod.azureedge.us/sites/default/files/media/file/FY21-Maximum-Allotments-Deductions.pdf#page=1
     # Effective 2021-01-01, scheduled to end 2021-06-30.
     # Special amounts signed in Consolidated Appropriations Act, 2021, at 115% of June 2020 value of Thrifty Food Plan.
     - title: Supplemental Nutrition Assistance Program (SNAP) Fiscal Year (FY) 2021 Maximum Allotments and Deductions [CAA]
@@ -920,14 +921,14 @@ metadata:
     - title: Supplemental Nutrition Assistance Program (SNAP) Fiscal Year (FY) 2021 Maximum Allotments and Deductions [ARPA]
       href: https://www.fns.usda.gov/sites/default/files/media/file/FY21-COVID%20ARPA-Maximum-Allotments-Deductions.pdf
     # Effective 2021-10-01.
-    - title: Supplemental Nutrition Assistance Program (SNAP) Fiscal Year (FY) 2022 Income Eligibility Standards
-      href: https://fns-prod.azureedge.us/sites/default/files/media/file/FY22-Maximum-Allotments-Deductions.pdf
+    - title: SNAP FY2022 Maximum Allotments and Deductions
+      href: https://fns-prod.azureedge.us/sites/default/files/media/file/FY22-Maximum-Allotments-Deductions.pdf#page=1
     # Effective 2022-10-01.
-    - title: Supplemental Nutrition Assistance Program (SNAP) Fiscal Year (FY) 2023 Income Eligibility Standards
-      href: https://fns-prod.azureedge.us/sites/default/files/resource-files/FY23-Maximum-Allotments-Deductions.pdf
+    - title: SNAP FY2023 Maximum Allotments and Deductions
+      href: https://fns-prod.azureedge.us/sites/default/files/resource-files/FY23-Maximum-Allotments-Deductions.pdf#page=1
     # Effective 2023-10-01.
-    - title: Supplemental Nutrition Assistance Program (SNAP) Fiscal Year (FY) 2024 Income Eligibility Standards
-      href: https://fns-prod.azureedge.us/sites/default/files/media/file/FY24-Maximum-Allotments-and-Deductions.pdf
+    - title: SNAP FY2024 Maximum Allotments and Deductions
+      href: https://fns-prod.azureedge.us/sites/default/files/media/file/FY24-Maximum-Allotments-and-Deductions.pdf#page=1
     # Effective 2024-10-01.
     - title: SNAP FY2025 Cost-of-Living Adjustments
       href: https://www.fns.usda.gov/snap/fy-2025-cola
