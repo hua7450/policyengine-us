@@ -13,6 +13,4 @@ class al_ssp(Variable):
     def formula(person, period, parameters):
         p = parameters(period).gov.states.al.dhr.ssp
         living_arrangement = person("al_ssp_living_arrangement", period)
-        # Look up maximum budgeted monthly amount by living arrangement.
-        # Per Attachment 660-2-4-.19a, page 24.
         return p.amount[living_arrangement]

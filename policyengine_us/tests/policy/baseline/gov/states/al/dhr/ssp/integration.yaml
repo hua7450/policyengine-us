@@ -102,12 +102,84 @@
     al_ssp_eligible: [true]
     al_ssp: [196]
 
+- name: Case 6, mixed eligibility couple, one SSI eligible one not.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_eligible: true
+        al_ssp_living_arrangement: IHC_LEVEL_A
+      person2:
+        age: 65
+        is_ssi_eligible: false
+        al_ssp_living_arrangement: IHC_LEVEL_A
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: AL
+  output:
+    # person1: SSI eligible + Level A = $60
+    # person2: not SSI eligible = $0
+    al_ssp_eligible: [true, false]
+    al_ssp: [60, 0]
+
+- name: Case 7, mixed living arrangement couple.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_eligible: true
+        al_ssp_living_arrangement: FOSTER_CARE
+      person2:
+        age: 68
+        is_ssi_eligible: true
+        al_ssp_living_arrangement: IHC_LEVEL_B
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: AL
+  output:
+    # person1: Foster Care = $110
+    # person2: Level B = $56
+    al_ssp_eligible: [true, true]
+    al_ssp: [110, 56]
+
+- name: Case 8, wrong state receives zero.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_eligible: true
+        al_ssp_living_arrangement: IHC_LEVEL_A
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: GA
+  output:
+    al_ssp_eligible: [false]
+    al_ssp: [0]
+
 # Combined Federal SSI + State SSP verification against WorkWorld 2010 data.
 # Source: https://help.workworldapp.com/wwwebhelp/ssi_state_supplement_alabama.htm
 # 2010 FBR: Individual = $674/month, Couple = $1,011/month.
 # ssi is a YEAR variable; at monthly period it auto-divides by 12.
 
-- name: Case 6, WorkWorld 2010 IHC Level A individual combined $734/month.
+- name: Case 9, WorkWorld 2010 IHC Level A individual combined $734/month.
   period: 2010-01
   absolute_error_margin: 0.01
   input:
@@ -136,7 +208,7 @@
     al_ssp: [60]
     # Combined: $674 + $60 = $734/month (matches WorkWorld)
 
-- name: Case 7, WorkWorld 2010 IHC Level B individual combined $730/month.
+- name: Case 10, WorkWorld 2010 IHC Level B individual combined $730/month.
   period: 2010-01
   absolute_error_margin: 0.01
   input:
@@ -165,7 +237,7 @@
     al_ssp: [56]
     # Combined: $674 + $56 = $730/month (matches WorkWorld)
 
-- name: Case 8, WorkWorld 2010 Foster Care individual combined $784/month.
+- name: Case 11, WorkWorld 2010 Foster Care individual combined $784/month.
   period: 2010-01
   absolute_error_margin: 0.01
   input:
@@ -194,7 +266,7 @@
     al_ssp: [110]
     # Combined: $674 + $110 = $784/month (matches WorkWorld)
 
-- name: Case 9, WorkWorld 2010 Cerebral Palsy individual combined $870/month.
+- name: Case 12, WorkWorld 2010 Cerebral Palsy individual combined $870/month.
   period: 2010-01
   absolute_error_margin: 0.01
   input:
@@ -223,7 +295,7 @@
     al_ssp: [196]
     # Combined: $674 + $196 = $870/month (matches WorkWorld)
 
-- name: Case 10, WorkWorld 2010 IHC Level A couple combined $1,131/month.
+- name: Case 13, WorkWorld 2010 IHC Level A couple combined $1,131/month.
   period: 2010-01
   absolute_error_margin: 0.01
   input:
@@ -256,7 +328,7 @@
     al_ssp: [60, 60]
     # Combined: ($505.50 + $60) x 2 = $1,131/month (matches WorkWorld)
 
-- name: Case 11, WorkWorld 2010 Foster Care couple combined $1,231/month.
+- name: Case 14, WorkWorld 2010 Foster Care couple combined $1,231/month.
   period: 2010-01
   absolute_error_margin: 0.01
   input:

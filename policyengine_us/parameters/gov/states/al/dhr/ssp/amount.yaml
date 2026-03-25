@@ -1,10 +1,10 @@
-description: Alabama maximum budgeted monthly supplement amount by living arrangement under the State Supplementary Payment program.
+description: Alabama provides this amount as the monthly supplement under the State Supplementary Payment program.
 
 metadata:
   unit: currency-USD
   period: month
   label: Alabama SSP supplement amount
-  breakdowns:
+  breakdown:
     - al_ssp_living_arrangement
   reference:
     - title: Ala. Admin. Code r. 660-2-4-.19a -- Attachment, Special Needs of Applicants and Recipients
