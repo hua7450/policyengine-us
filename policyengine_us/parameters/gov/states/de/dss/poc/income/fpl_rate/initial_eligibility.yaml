@@ -1,5 +1,8 @@
 description: Delaware limits the Purchase of Care program to new applicants with income at or below this share of the federal poverty level.
 values:
+  # Effective July 1, 2024
+  2024-01-01: 1.85
+  # Updated for FY2026 per DSS eligibility table (Oct 2025-Sep 2026)
   2025-10-01: 2
 
 metadata:
