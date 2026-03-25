@@ -1,14 +1,15 @@
-description: Washington deducts this amount from the household's total gross earned income under the Temporary Assistance for Needy Families program.
+description: Washington uses this indicator to determine whether the flat earnings disregard applies under the Temporary Assistance for Needy Families program.
 
 values:
-  2024-08-01: 500
+  1998-09-01: false
+  2024-08-01: true
 
 metadata:
-  unit: currency-USD
+  unit: bool
   period: month
-  label: Washington TANF family earnings disregard
+  label: Washington TANF flat earnings disregard in effect
   reference:
-    - title: WAC 388-450-0170(2) - Deducting the first $500 of earned income
+    - title: WAC 388-450-0170 - Earned income deductions
       href: https://app.leg.wa.gov/wac/default.aspx?cite=388-450-0170
     - title: RCW 74.08A.230 - Family earnings disregard
       href: https://app.leg.wa.gov/rcw/default.aspx?cite=74.08A.230
