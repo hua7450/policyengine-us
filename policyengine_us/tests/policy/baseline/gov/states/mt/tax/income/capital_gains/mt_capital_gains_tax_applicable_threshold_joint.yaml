@@ -2,7 +2,7 @@
   period: 2024
   input:
     long_term_capital_gains: 2_000
-    mt_taxable_income_indiv: 2_500
+    mt_taxable_income_joint: 2_500
     filing_status: SINGLE
     state_code: MT
   output:
@@ -12,7 +12,7 @@
   period: 2024
   input:
     long_term_capital_gains: 2_000
-    mt_taxable_income_indiv: 1_000
+    mt_taxable_income_joint: 1_000
     filing_status: SINGLE
     state_code: MT
   output:
@@ -22,7 +22,7 @@
   period: 2024
   input:
     long_term_capital_gains: 2_000
-    mt_taxable_income_indiv: 40_000
+    mt_taxable_income_joint: 40_000
     filing_status: HEAD_OF_HOUSEHOLD
     state_code: MT
   output:
@@ -32,7 +32,7 @@
   period: 2024
   input:
     long_term_capital_gains: 2_000
-    mt_taxable_income_indiv: 40_000
+    mt_taxable_income_joint: 40_000
     filing_status: JOINT
     state_code: MT
   output:
