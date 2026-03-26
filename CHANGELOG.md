@@ -1,3 +1,10 @@
+## [1.620.0] - 2026-03-26
+
+### Added
+
+- Add structural federal mortgage interest deduction modeling using mortgage balances, interest amounts, and origination years.
+
+
 ## [1.619.0] - 2026-03-25
 
 ### Added
