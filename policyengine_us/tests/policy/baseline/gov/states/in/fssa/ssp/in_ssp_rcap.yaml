@@ -14,13 +14,13 @@
         in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
     # Per diem = $39.35/day (licensed)
-    # avg_days_per_month = 52 * 7 / 12 = 30.3333
-    # Monthly room & board = 39.35 * 30.3333 = $1,193.62
-    # State standard = 1,193.62 + 52 = $1,245.62
+    # avg_days_per_month = 365 / 12 = 30.4167
+    # Monthly room & board = 39.35 * 30.4167 = $1,196.90
+    # State standard = 1,196.90 + 52 = $1,248.90
     # uncapped_ssi monthly = 0/12 = 0
     # federal_ssi = max(0, 0) = 0
-    # supplement = max(1,245.62 - 0, 0) = $1,245.62
-    in_ssp_rcap: 1_245.62
+    # supplement = max(1,248.90 - 0, 0) = $1,248.90
+    in_ssp_rcap: 1_248.90
 
 - name: Case 2, eligible individual in licensed facility with partial federal SSI offset.
   period: 2025-01
@@ -37,12 +37,12 @@
         state_code: IN
         in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
-    # Per diem = $39.35/day, avg_days = 30.3333
-    # State standard = 39.35 * 30.3333 + 52 = $1,245.62
+    # Per diem = $39.35/day, avg_days = 30.4167
+    # State standard = 39.35 * 30.4167 + 52 = $1,248.90
     # uncapped_ssi monthly = 6,000/12 = $500
     # federal_ssi = max(500, 0) = $500
-    # supplement = max(1,245.62 - 500, 0) = $745.62
-    in_ssp_rcap: 745.62
+    # supplement = max(1,248.90 - 500, 0) = $748.90
+    in_ssp_rcap: 748.90
 
 - name: Case 3, eligible individual with federal SSI exceeding state standard.
   period: 2025-01
@@ -59,10 +59,10 @@
         state_code: IN
         in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
-    # State standard = $1,245.62
+    # State standard = $1,248.90
     # uncapped_ssi monthly = 18,000/12 = $1,500
     # federal_ssi = max(1,500, 0) = $1,500
-    # supplement = max(1,245.62 - 1,500, 0) = $0
+    # supplement = max(1,248.90 - 1,500, 0) = $0
     in_ssp_rcap: 0
 
 - name: Case 4, ineligible person gets zero.
@@ -96,8 +96,8 @@
   output:
     # uncapped_ssi monthly = -60,000/12 = -$5,000
     # federal_ssi = max(-5,000, 0) = 0 (floored at zero)
-    # supplement = max(1,245.62 - 0, 0) = $1,245.62
-    in_ssp_rcap: 1_245.62
+    # supplement = max(1,248.90 - 0, 0) = $1,248.90
+    in_ssp_rcap: 1_248.90
 
 - name: Case 6, eligible individual in unlicensed facility.
   period: 2025-01
@@ -115,11 +115,11 @@
         in_ssp_living_arrangement: UNLICENSED_RESIDENTIAL
   output:
     # Per diem = $27/day (unlicensed)
-    # room_and_board = 27 * 30.3333 = $819.00
-    # State standard = 819 + 52 = $871.00
+    # room_and_board = 27 * 30.4167 = $821.25
+    # State standard = 821.25 + 52 = $873.25
     # federal_ssi = max(0, 0) = 0
-    # supplement = $871.00
-    in_ssp_rcap: 871
+    # supplement = $873.25
+    in_ssp_rcap: 873.25
 
 - name: Case 7, couple with asymmetric eligibility in licensed facility.
   period: 2025-01
@@ -144,6 +144,6 @@
         in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
     # Only person1 is eligible, treated as individual
-    # supplement = $1,245.62
+    # supplement = $1,248.90
     # person2 gets $0 (ineligible)
-    in_ssp_rcap: [1_245.62, 0]
+    in_ssp_rcap: [1_248.90, 0]

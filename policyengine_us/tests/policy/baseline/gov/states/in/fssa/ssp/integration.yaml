@@ -84,13 +84,13 @@
     in_ssp_rcap_eligible: true
     in_ssp_eligible: true
     in_ssp_sapn: 0
-    # RCAP: per diem $39.35 * 30.3333 avg days = $1,193.62 room & board
-    # State standard = $1,193.62 + $52 PNA = $1,245.62
+    # RCAP: per diem $39.35 * 30.4167 avg days = $1,196.90 room & board
+    # State standard = $1,196.90 + $52 PNA = $1,248.90
     # uncapped_ssi monthly = 6,000/12 = $500
     # federal_ssi = max(500, 0) = $500
-    # supplement = max(1,245.62 - 500, 0) = $745.62
-    in_ssp_rcap: 745.62
-    in_ssp: 745.62
+    # supplement = max(1,248.90 - 500, 0) = $748.90
+    in_ssp_rcap: 748.90
+    in_ssp: 748.90
 
 - name: Case 4, RCAP eligible individual in unlicensed facility.
   period: 2025-01
@@ -114,12 +114,12 @@
     in_ssp_rcap_eligible: true
     in_ssp_eligible: true
     in_ssp_sapn: 0
-    # RCAP: per diem $27/day (unlicensed) * 30.3333 = $819.00
-    # State standard = $819.00 + $52 PNA = $871.00
+    # RCAP: per diem $27/day (unlicensed) * 30.4167 = $821.25
+    # State standard = $821.25 + $52 PNA = $873.25
     # No income offset (uncapped_ssi = 0)
-    # supplement = max(871 - 0, 0) = $871.00
-    in_ssp_rcap: 871
-    in_ssp: 871
+    # supplement = max(873.25 - 0, 0) = $873.25
+    in_ssp_rcap: 873.25
+    in_ssp: 873.25
 
 - name: Case 5, child under 18 ineligible for both programs.
   period: 2025-01

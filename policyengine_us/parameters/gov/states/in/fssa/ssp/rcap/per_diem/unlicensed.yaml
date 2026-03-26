@@ -1,7 +1,7 @@
 description: Indiana provides this amount as the daily per diem rate for unlicensed residential care facilities under the Residential Care Assistance Program.
 
 values:
-  2003-01-01: 27
+  2004-01-01: 27
 
 metadata:
   unit: currency-USD

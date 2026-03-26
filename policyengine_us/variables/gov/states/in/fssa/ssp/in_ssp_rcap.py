@@ -23,7 +23,7 @@ class in_ssp_rcap(Variable):
         per_diem = where(
             is_licensed, p.rcap.per_diem.licensed, p.rcap.per_diem.unlicensed
         )
-        average_days_per_month = WEEKS_IN_YEAR * 7 / MONTHS_IN_YEAR
+        average_days_per_month = 365 / MONTHS_IN_YEAR
         room_and_board = per_diem * average_days_per_month
         state_standard = room_and_board + p.personal_needs_allowance
         uncapped_ssi = person("uncapped_ssi", period)
