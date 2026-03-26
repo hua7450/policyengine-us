@@ -13,4 +13,7 @@ class ak_ssp_eligible(Variable):
     )
 
     def formula(person, period, parameters):
-        return person("is_ssi_eligible", period) & (person("age", period) >= 18)
+        p = parameters(period).gov.states.ak.dpa.ssp.eligibility
+        return person("is_ssi_eligible", period) & (
+            person("age", period) >= p.age_threshold
+        )
