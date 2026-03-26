@@ -1,8 +1,8 @@
 # Edge case tests for Indiana SSP (SAPN + RCAP)
 # Constants used in RCAP calculations:
 #   avg_days_per_month = 365 / 12 = 30.4167
-#   Licensed state standard = 39.35 * 30.4167 + 52 = $1,248.90
-#   Unlicensed state standard = 27 * 30.4167 + 52 = $873.25
+#   Licensed state standard = 49.35 * 30.4167 = $1,501.06
+#   Unlicensed state standard = 37 * 30.4167 = $1,125.42
 
 # =============================================================
 # Age threshold boundary tests (age_threshold = 18, formula uses >=)
@@ -114,10 +114,9 @@
         state_code: IN
         in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
-    # uncapped_ssi monthly = 0/12 = 0
     # federal_ssi = max(0, 0) = 0
-    # supplement = max(1,248.90 - 0, 0) = $1,248.90
-    in_ssp_rcap: 1_248.90
+    # supplement = max(1,501.06 - 0, 0) = $1,501.06
+    in_ssp_rcap: 1_501.06
 
 - name: Case 7, RCAP with negative uncapped SSI still gets full state standard.
   period: 2025-01
@@ -133,10 +132,9 @@
         state_code: IN
         in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
-    # uncapped_ssi monthly = -60,000/12 = -5,000
     # federal_ssi = max(-5,000, 0) = 0 (floored at zero)
-    # supplement = max(1,248.90 - 0, 0) = $1,248.90
-    in_ssp_rcap: 1_248.90
+    # supplement = max(1,501.06 - 0, 0) = $1,501.06
+    in_ssp_rcap: 1_501.06
 
 - name: Case 8, RCAP with very large positive uncapped SSI gets zero supplement.
   period: 2025-01
@@ -153,8 +151,7 @@
         in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
     # uncapped_ssi monthly = 120,000/12 = 10,000
-    # federal_ssi = max(10,000, 0) = 10,000
-    # supplement = max(1,248.90 - 10,000, 0) = 0
+    # supplement = max(1,501.06 - 10,000, 0) = 0
     in_ssp_rcap: 0
 
 - name: Case 9, RCAP income exactly equals state standard gives zero supplement.
@@ -165,17 +162,16 @@
       person1:
         in_ssp_rcap_eligible: true
         # Annual uncapped_ssi = licensed_state_standard * 12
-        # = (39.35 * 365/12 + 52) * 12 = 14,986.75
-        uncapped_ssi: 14_986.75
+        # = (49.35 * 365/12) * 12 = 49.35 * 365 = 18,012.75
+        uncapped_ssi: 18_012.75
     households:
       household:
         members: [person1]
         state_code: IN
         in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
-    # monthly = 14,986.75 / 12 = 1,248.896
-    # federal_ssi = 1,248.896
-    # supplement = max(1,248.896 - 1,248.896, 0) = 0
+    # monthly = 18,012.75 / 12 = 1,501.0625
+    # supplement = max(1,501.0625 - 1,501.0625, 0) = 0
     in_ssp_rcap: 0
 
 - name: Case 10, RCAP income one dollar below state standard per month.
@@ -185,17 +181,16 @@
     people:
       person1:
         in_ssp_rcap_eligible: true
-        # Annual = (licensed_ss - 1) * 12 = (1,248.896 - 1) * 12 = 14,974.75
-        uncapped_ssi: 14_974.75
+        # Annual = (licensed_ss - 1) * 12 = (1,501.0625 - 1) * 12 = 18,000.75
+        uncapped_ssi: 18_000.75
     households:
       household:
         members: [person1]
         state_code: IN
         in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
-    # monthly = 14,974.75 / 12 = 1,247.896
-    # federal_ssi = 1,247.896
-    # supplement = max(1,248.896 - 1,247.896, 0) = 1.00
+    # monthly = 18,000.75 / 12 = 1,500.0625
+    # supplement = max(1,501.0625 - 1,500.0625, 0) = 1.00
     in_ssp_rcap: 1
 
 - name: Case 11, RCAP income one dollar above state standard per month.
@@ -205,23 +200,20 @@
     people:
       person1:
         in_ssp_rcap_eligible: true
-        # Annual = (licensed_ss + 1) * 12 = (1,248.896 + 1) * 12 = 14,998.75
-        uncapped_ssi: 14_998.75
+        # Annual = (licensed_ss + 1) * 12 = (1,501.0625 + 1) * 12 = 18,024.75
+        uncapped_ssi: 18_024.75
     households:
       household:
         members: [person1]
         state_code: IN
         in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
-    # monthly = 14,998.75 / 12 = 1,249.896
-    # federal_ssi = 1,249.896
-    # supplement = max(1,248.896 - 1,249.896, 0) = 0 (floored)
+    # monthly = 18,024.75 / 12 = 1,502.0625
+    # supplement = max(1,501.0625 - 1,502.0625, 0) = 0 (floored)
     in_ssp_rcap: 0
 
 # =============================================================
 # SAPN and RCAP mutual exclusivity
-# (SAPN requires MEDICAID_FACILITY, RCAP requires LICENSED/UNLICENSED
-#  residential, so a person can never qualify for both simultaneously)
 # =============================================================
 
 - name: Case 12, MEDICAID_FACILITY person eligible for SAPN only not RCAP.
@@ -238,7 +230,6 @@
         state_code: IN
         in_ssp_living_arrangement: MEDICAID_FACILITY
   output:
-    # Medicaid facility -> SAPN eligible, not RCAP
     in_ssp_sapn_eligible: true
     in_ssp_rcap_eligible: false
 
@@ -256,15 +247,11 @@
         state_code: IN
         in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
-    # Licensed residential -> RCAP eligible, not SAPN
     in_ssp_sapn_eligible: false
     in_ssp_rcap_eligible: true
 
 # =============================================================
 # Couple with shared Household living arrangement limitation
-# (in_ssp_living_arrangement is Household-level, so both members
-#  share the same arrangement -- cannot model one in Medicaid facility
-#  and other in licensed residential within the same household)
 # =============================================================
 
 - name: Case 14, couple in MEDICAID_FACILITY one eligible one not.
@@ -291,9 +278,6 @@
         state_code: IN
         in_ssp_living_arrangement: MEDICAID_FACILITY
   output:
-    # person1: SSI eligible -> SAPN eligible
-    # person2: not SSI eligible -> SAPN ineligible
-    # Not joint claim -> individual rate $22
     in_ssp_sapn_eligible: [true, false]
     in_ssp_rcap_eligible: [false, false]
     in_ssp_sapn: [22, 0]
@@ -324,13 +308,10 @@
         state_code: IN
         in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
-    # person1: SSI eligible + licensed residential -> RCAP eligible
-    # person2: not SSI eligible -> RCAP ineligible
     in_ssp_sapn_eligible: [false, false]
     in_ssp_rcap_eligible: [true, false]
-    # person1 gets full state standard (uncapped_ssi = 0)
-    in_ssp_rcap: [1_248.90, 0]
-    in_ssp: [1_248.90, 0]
+    in_ssp_rcap: [1_501.06, 0]
+    in_ssp: [1_501.06, 0]
 
 # =============================================================
 # SSI eligible but NOT Medicaid eligible (RCAP-only path)
@@ -350,8 +331,6 @@
         state_code: IN
         in_ssp_living_arrangement: MEDICAID_FACILITY
   output:
-    # SAPN requires Medicaid eligible -> false
-    # RCAP requires licensed/unlicensed residential -> false (Medicaid facility)
     in_ssp_sapn_eligible: false
     in_ssp_rcap_eligible: false
     in_ssp_eligible: false
@@ -373,14 +352,12 @@
         state_code: IN
         in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
-    # Not Medicaid eligible -> SAPN ineligible
-    # SSI eligible + licensed residential -> RCAP eligible
     in_ssp_sapn_eligible: false
     in_ssp_rcap_eligible: true
     in_ssp_eligible: true
     in_ssp_sapn: 0
-    in_ssp_rcap: 1_248.90
-    in_ssp: 1_248.90
+    in_ssp_rcap: 1_501.06
+    in_ssp: 1_501.06
 
 # =============================================================
 # Living arrangement NONE with all other criteria met
@@ -400,7 +377,6 @@
         state_code: IN
         in_ssp_living_arrangement: NONE
   output:
-    # Living arrangement NONE -> neither SAPN nor RCAP
     in_ssp_sapn_eligible: false
     in_ssp_rcap_eligible: false
     in_ssp_eligible: false
@@ -428,7 +404,6 @@
         members: [person1, person2]
         state_code: IN
   output:
-    # Both eligible + joint claim -> couple rate $44 / 2 = $22 each
     in_ssp_sapn: [22, 22]
 
 - name: Case 20, SAPN joint claim but only one eligible.
@@ -450,8 +425,6 @@
         members: [person1, person2]
         state_code: IN
   output:
-    # Joint claim but only one eligible -> both_eligible = false
-    # -> is_couple = false -> individual rate $22 for person1
     in_ssp_sapn: [22, 0]
 
 - name: Case 21, SAPN both eligible but NOT joint claim.
@@ -473,8 +446,6 @@
         members: [person1, person2]
         state_code: IN
   output:
-    # Both eligible but ssi_claim_is_joint = false
-    # -> is_couple = false -> each gets individual rate $22
     in_ssp_sapn: [22, 22]
 
 # =============================================================
@@ -495,12 +466,9 @@
         state_code: IN
         in_ssp_living_arrangement: UNLICENSED_RESIDENTIAL
   output:
-    # Per diem = $27/day (unlicensed)
-    # room_and_board = 27 * 365/12 = $821.25
-    # state_standard = 821.25 + 52 = $873.25
-    # federal_ssi = max(0, 0) = 0
-    # supplement = $873.25
-    in_ssp_rcap: 873.25
+    # Per diem = $37/day (unlicensed, since July 2008)
+    # State standard = 37 * 365/12 = $1,125.42
+    in_ssp_rcap: 1_125.42
 
 - name: Case 23, RCAP unlicensed income exceeds state standard.
   period: 2025-01
@@ -509,17 +477,16 @@
     people:
       person1:
         in_ssp_rcap_eligible: true
-        uncapped_ssi: 12_000
+        uncapped_ssi: 14_000
     households:
       household:
         members: [person1]
         state_code: IN
         in_ssp_living_arrangement: UNLICENSED_RESIDENTIAL
   output:
-    # Per diem = $27/day, state_standard = $873.25
-    # uncapped_ssi monthly = 12,000/12 = $1,000
-    # federal_ssi = max(1,000, 0) = 1,000
-    # supplement = max(873.25 - 1,000, 0) = 0
+    # State standard = $1,125.42
+    # uncapped_ssi monthly = 14,000/12 = $1,166.67
+    # supplement = max(1,125.42 - 1,166.67, 0) = 0
     in_ssp_rcap: 0
 
 # =============================================================
@@ -541,13 +508,11 @@
         in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
     # uncapped_ssi monthly = 6,000/12 = $500
-    # federal_ssi = max(500, 0) = 500
-    # supplement = max(1,248.90 - 500, 0) = $748.90
-    in_ssp_rcap: 748.90
+    # supplement = max(1,501.06 - 500, 0) = $1,001.06
+    in_ssp_rcap: 1_001.06
 
 # =============================================================
 # Ineligible person in eligible-looking arrangement
-# (defined_for filtering)
 # =============================================================
 
 - name: Case 25, ineligible RCAP person in licensed facility gets zero.
@@ -564,6 +529,5 @@
         state_code: IN
         in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
-    # in_ssp uses defined_for = in_ssp_eligible, so ineligible -> 0
     in_ssp_rcap: 0
     in_ssp: 0

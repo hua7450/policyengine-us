@@ -24,8 +24,7 @@ class in_ssp_rcap(Variable):
             is_licensed, p.rcap.per_diem.licensed, p.rcap.per_diem.unlicensed
         )
         average_days_per_month = 365 / MONTHS_IN_YEAR
-        room_and_board = per_diem * average_days_per_month
-        state_standard = room_and_board + p.personal_needs_allowance
+        state_standard = per_diem * average_days_per_month
         uncapped_ssi = person("uncapped_ssi", period)
         federal_ssi = max_(uncapped_ssi, 0)
         return max_(state_standard - federal_ssi, 0)

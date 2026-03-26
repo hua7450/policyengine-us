@@ -8,14 +8,14 @@
         is_ssi_eligible: true
         is_medicaid_eligible: true
         ssi_claim_is_joint: false
-        uncapped_ssi: 0
+        uncapped_ssi: 360
     households:
       household:
         members: [person1]
         state_code: IN
         in_ssp_living_arrangement: MEDICAID_FACILITY
   output:
-    # Eligibility: age 70 >= 18, SSI eligible, Medicaid eligible, in Medicaid facility, IN resident
+    # Eligibility: age 70 >= 18, SSI eligible, SSI recipient, Medicaid eligible, in Medicaid facility, IN resident
     in_ssp_sapn_eligible: true
     in_ssp_rcap_eligible: false
     in_ssp_eligible: true
@@ -35,13 +35,13 @@
         is_ssi_eligible: true
         is_medicaid_eligible: true
         ssi_claim_is_joint: true
-        uncapped_ssi: 0
+        uncapped_ssi: 360
       person2:
         age: 65
         is_ssi_eligible: true
         is_medicaid_eligible: true
         ssi_claim_is_joint: true
-        uncapped_ssi: 0
+        uncapped_ssi: 360
     marital_units:
       marital_unit:
         members: [person1, person2]
@@ -51,7 +51,7 @@
         state_code: IN
         in_ssp_living_arrangement: MEDICAID_FACILITY
   output:
-    # Both eligible for SAPN: age >= 18, SSI eligible, Medicaid eligible, Medicaid facility
+    # Both eligible for SAPN: age >= 18, SSI eligible, SSI recipient, Medicaid eligible, Medicaid facility
     in_ssp_sapn_eligible: [true, true]
     in_ssp_rcap_eligible: [false, false]
     in_ssp_eligible: [true, true]
@@ -84,13 +84,13 @@
     in_ssp_rcap_eligible: true
     in_ssp_eligible: true
     in_ssp_sapn: 0
-    # RCAP: per diem $39.35 * 30.4167 avg days = $1,196.90 room & board
-    # State standard = $1,196.90 + $52 PNA = $1,248.90
+    # RCAP: per diem $49.35/day (licensed, since July 2008)
+    # State standard = 49.35 * 365/12 = $1,501.06
     # uncapped_ssi monthly = 6,000/12 = $500
     # federal_ssi = max(500, 0) = $500
-    # supplement = max(1,248.90 - 500, 0) = $748.90
-    in_ssp_rcap: 748.90
-    in_ssp: 748.90
+    # supplement = max(1,501.06 - 500, 0) = $1,001.06
+    in_ssp_rcap: 1_001.06
+    in_ssp: 1_001.06
 
 - name: Case 4, RCAP eligible individual in unlicensed facility.
   period: 2025-01
@@ -114,12 +114,12 @@
     in_ssp_rcap_eligible: true
     in_ssp_eligible: true
     in_ssp_sapn: 0
-    # RCAP: per diem $27/day (unlicensed) * 30.4167 = $821.25
-    # State standard = $821.25 + $52 PNA = $873.25
+    # RCAP: per diem $37/day (unlicensed, since July 2008)
+    # State standard = 37 * 365/12 = $1,125.42
     # No income offset (uncapped_ssi = 0)
-    # supplement = max(873.25 - 0, 0) = $873.25
-    in_ssp_rcap: 873.25
-    in_ssp: 873.25
+    # supplement = $1,125.42
+    in_ssp_rcap: 1_125.42
+    in_ssp: 1_125.42
 
 - name: Case 5, child under 18 ineligible for both programs.
   period: 2025-01

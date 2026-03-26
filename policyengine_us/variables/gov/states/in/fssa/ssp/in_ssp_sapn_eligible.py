@@ -14,6 +14,9 @@ class in_ssp_sapn_eligible(Variable):
 
     def formula(person, period, parameters):
         is_ssi_eligible = person("is_ssi_eligible", period.this_year)
+        # IC 12-15-32-6.5: must be "a recipient of assistance under the federal SSI program"
+        uncapped_ssi = person("uncapped_ssi", period)
+        is_ssi_recipient = uncapped_ssi > 0
         is_medicaid_eligible = person("is_medicaid_eligible", period.this_year)
         age = person("age", period.this_year)
         p = parameters(period).gov.states["in"].fssa.ssp
@@ -23,5 +26,9 @@ class in_ssp_sapn_eligible(Variable):
             living_arrangement == living_arrangement.possible_values.MEDICAID_FACILITY
         )
         return (
-            is_ssi_eligible & is_medicaid_eligible & age_eligible & in_medicaid_facility
+            is_ssi_eligible
+            & is_ssi_recipient
+            & is_medicaid_eligible
+            & age_eligible
+            & in_medicaid_facility
         )
