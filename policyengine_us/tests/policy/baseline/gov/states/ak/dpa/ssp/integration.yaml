@@ -398,3 +398,109 @@
     ak_ssp_payment_standard: [4_344]
     # uncapped_ssi positive => no reduction
     ak_ssp: [4_344]
+
+- name: Case 13, pre-2020 income in gap between payment standard and need standard gets $1/month.
+  period: 2017
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 67
+        is_ssi_aged_blind_disabled: true
+        is_ssi_aged: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ssi_countable_income: 14_000
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: AK
+        ak_ssp_living_arrangement: INDEPENDENT
+  output:
+    ak_ssp_eligible: [true]
+    ak_ssp_claim_type: [INDIVIDUAL]
+    # Payment standard: INDEPENDENT.INDIVIDUAL = $362/mo * 12 = $4,344/yr
+    ak_ssp_payment_standard: [4_344]
+    # ssi_amount_if_eligible = $735/mo * 12 = $8,820/yr
+    # uncapped_ssi = 8_820 - 14_000 = -5_180
+    # overspill = 5_180 > payment_standard 4_344 => normal_supplement = 0
+    # need_std = $1,366/mo * 12 = $16,392/yr
+    # ssi_countable_income 14_000 < need_std 16_392 => in gap zone
+    # ak_ssp = min_benefit = $1/mo * 12 = $12/yr
+    ak_ssp: [12]
+
+- name: Case 14, pre-2020 income exceeds need standard so benefit is zero.
+  period: 2017
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 67
+        is_ssi_aged_blind_disabled: true
+        is_ssi_aged: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ssi_countable_income: 17_000
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: AK
+        ak_ssp_living_arrangement: INDEPENDENT
+  output:
+    ak_ssp_eligible: [true]
+    ak_ssp_claim_type: [INDIVIDUAL]
+    ak_ssp_payment_standard: [4_344]
+    # ssi_amount_if_eligible = $735/mo * 12 = $8_820/yr
+    # uncapped_ssi = 8_820 - 17_000 = -8_180
+    # overspill = 8_180 > payment_standard 4_344 => normal_supplement = 0
+    # need_std = $1,366/mo * 12 = $16_392/yr
+    # ssi_countable_income 17_000 >= need_std 16_392 => exceeds need standard
+    # ak_ssp = $0
+    ak_ssp: [0]
+
+- name: Case 15, 2020 no separate need standard so no $1 minimum zone.
+  period: 2020
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 67
+        is_ssi_aged_blind_disabled: true
+        is_ssi_aged: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ssi_countable_income: 14_000
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: AK
+        ak_ssp_living_arrangement: INDEPENDENT
+  output:
+    ak_ssp_eligible: [true]
+    ak_ssp_claim_type: [INDIVIDUAL]
+    # Payment standard: INDEPENDENT.INDIVIDUAL = $362/mo * 12 = $4,344/yr
+    ak_ssp_payment_standard: [4_344]
+    # separate_need_standard_in_effect = false in 2020
+    # ssi_amount_if_eligible = $783/mo * 12 = $9_396/yr
+    # uncapped_ssi = 9_396 - 14_000 = -4_604
+    # overspill = 4_604 > payment_standard 4_344 => normal_supplement = 0
+    # No $1 minimum zone in 2020 => ak_ssp = $0
+    ak_ssp: [0]

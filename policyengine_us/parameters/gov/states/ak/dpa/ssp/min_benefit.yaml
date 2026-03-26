@@ -1,0 +1,11 @@
+description: Alaska provides this amount as the minimum monthly benefit when countable income exceeds the payment standard but not the need standard under the Adult Public Assistance program.
+values:
+  2011-01-01: 1
+
+metadata:
+  unit: currency-USD
+  period: month
+  label: Alaska SSP minimum benefit
+  reference:
+    - title: APA Manual Ch.452, Section 452-5A(2)(b)
+      href: http://dpaweb.hss.state.ak.us/main/manual/APA/452payments.pdf#page=8

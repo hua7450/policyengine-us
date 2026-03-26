@@ -14,6 +14,10 @@ metadata:
       href: https://www.ssa.gov/policy/docs/progdesc/ssi_st_asst/2011/ak.pdf#page=2
     - title: AS 47.25.430-47.25.615
       href: https://www.akleg.gov/basis/statutes.asp#47.25.430
+    - title: Alaska DPA Adult Public Assistance Need and Maximum Payment Standards, 2017-2020
+      href: https://www.akleg.gov/basis/get_documents.asp?session=31&docid=60171
+    - title: Alaska DPA Adult Public Assistance Need and Maximum Payment Standards, 2023-2026
+      href: http://dpaweb.hss.state.ak.us/POLICY/PDF/APA-Standards.pdf
 
 INDEPENDENT:
   INDIVIDUAL:
@@ -25,10 +29,17 @@ INDEPENDENT:
 HOUSEHOLD_OF_ANOTHER:
   INDIVIDUAL:
     2011-01-01: 368
+    2023-01-01: 367.66
+    2024-01-01: 368.33
   COUPLE_BOTH_ELIGIBLE:
     2011-01-01: 543
+    2024-01-01: 542.66
+    2025-01-01: 543.33
+    2026-01-01: 543
   COUPLE_ONE_ELIGIBLE:
     2011-01-01: 464
+    2023-01-01: 463.66
+    2024-01-01: 464.33
 ASSISTED_LIVING:
   INDIVIDUAL:
     2011-01-01: 100
@@ -39,7 +50,10 @@ ASSISTED_LIVING:
 MEDICAID_FACILITY:
   INDIVIDUAL:
     2011-01-01: 45
+    2017-01-01: 170
   COUPLE_BOTH_ELIGIBLE:
     2011-01-01: 90
+    2017-01-01: 340
   COUPLE_ONE_ELIGIBLE:
     2011-01-01: 45
+    2017-01-01: 170

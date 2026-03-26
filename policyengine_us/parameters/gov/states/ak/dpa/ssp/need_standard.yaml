@@ -1,0 +1,77 @@
+description: Alaska sets this amount as the monthly need standard for income eligibility under the Adult Public Assistance program.
+metadata:
+  unit: currency-USD
+  period: month
+  label: Alaska SSP need standard
+  breakdown:
+    - ak_ssp_living_arrangement
+    - ak_ssp_claim_type
+  breakdown_labels:
+    - Living arrangement
+    - Claim type
+  reference:
+    - title: SSA State Assistance Programs for SSI Recipients, January 2011 — Alaska, Table 1
+      href: https://www.ssa.gov/policy/docs/progdesc/ssi_st_asst/2011/ak.pdf#page=2
+    - title: Alaska DPA Adult Public Assistance Need and Maximum Payment Standards, 2017-2020
+      href: https://www.akleg.gov/basis/get_documents.asp?session=31&docid=60171
+    - title: APA Manual Ch.452, Section 452-5A
+      href: http://dpaweb.hss.state.ak.us/main/manual/APA/452payments.pdf#page=8
+
+INDEPENDENT:
+  INDIVIDUAL:
+    2011-01-01: 1_036
+    2017-01-01: 1_366
+    2018-01-01: 1_393
+    2019-01-01: 1_432
+  COUPLE_BOTH_ELIGIBLE:
+    2011-01-01: 1_539
+    2017-01-01: 2_023
+    2018-01-01: 2_063
+    2019-01-01: 2_121
+  COUPLE_ONE_ELIGIBLE:
+    2011-01-01: 1_195
+    2017-01-01: 1_640
+    2018-01-01: 1_673
+    2019-01-01: 1_720
+HOUSEHOLD_OF_ANOTHER:
+  INDIVIDUAL:
+    2011-01-01: 817.34
+    2017-01-01: 1_128
+    2018-01-01: 1_151
+    2019-01-01: 1_183
+  COUPLE_BOTH_ELIGIBLE:
+    2011-01-01: 1_217
+    2017-01-01: 1_683
+    2018-01-01: 1_717
+    2019-01-01: 1_765
+  COUPLE_ONE_ELIGIBLE:
+    2011-01-01: 913.34
+    2017-01-01: 1_296
+    2018-01-01: 1_322
+    2019-01-01: 1_359
+ASSISTED_LIVING:
+  INDIVIDUAL:
+    2011-01-01: 774
+    2017-01-01: 1_366
+    2018-01-01: 1_393
+    2019-01-01: 1_432
+  COUPLE_BOTH_ELIGIBLE:
+    2011-01-01: 1_211
+    2017-01-01: 2_023
+    2018-01-01: 2_063
+    2019-01-01: 2_121
+  COUPLE_ONE_ELIGIBLE:
+    2011-01-01: 774
+    2017-01-01: 1_640
+    2018-01-01: 1_673
+    2019-01-01: 1_720
+MEDICAID_FACILITY:
+  INDIVIDUAL:
+    2011-01-01: 75
+    2017-01-01: 200
+  COUPLE_BOTH_ELIGIBLE:
+    2011-01-01: 150
+    2017-01-01: 400
+  COUPLE_ONE_ELIGIBLE:
+    2011-01-01: 75
+    2017-01-01: 200
