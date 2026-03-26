@@ -53,3 +53,144 @@
         state_code: GA
   output:
     ga_ssp_eligible_person: [false]
+
+# Income test: is_ssi_eligible passes but income too high to receive SSI
+- name: Case 5, SSI-eligible but uncapped_ssi is negative (income too high).
+  period: 2024-01
+  input:
+    people:
+      person1:
+        is_ssi_eligible: true
+        ga_ssp_in_medicaid_facility: true
+        uncapped_ssi: -1_000
+    households:
+      household:
+        members: [person1]
+        state_code: GA
+  output:
+    ga_ssp_eligible_person: [false]
+
+- name: Case 6, SSI-eligible with positive uncapped_ssi (income within limits).
+  period: 2024-01
+  input:
+    people:
+      person1:
+        is_ssi_eligible: true
+        ga_ssp_in_medicaid_facility: true
+        uncapped_ssi: 5_000
+    households:
+      household:
+        members: [person1]
+        state_code: GA
+  output:
+    ga_ssp_eligible_person: [true]
+
+- name: Case 7, SSI-eligible but uncapped_ssi is exactly zero.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        is_ssi_eligible: true
+        ga_ssp_in_medicaid_facility: true
+        uncapped_ssi: 0
+    households:
+      household:
+        members: [person1]
+        state_code: GA
+  output:
+    # uncapped_ssi = 0 means income exactly equals benefit amount, no SSI payment
+    ga_ssp_eligible_person: [false]
+
+# Couple tests
+- name: Case 8, couple both eligible with positive uncapped_ssi.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        is_ssi_eligible: true
+        ga_ssp_in_medicaid_facility: true
+        uncapped_ssi: 5_000
+      person2:
+        is_ssi_eligible: true
+        ga_ssp_in_medicaid_facility: true
+        uncapped_ssi: 5_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: GA
+  output:
+    ga_ssp_eligible_person: [true, true]
+
+- name: Case 9, couple one eligible and one with income too high.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        is_ssi_eligible: true
+        ga_ssp_in_medicaid_facility: true
+        uncapped_ssi: 5_000
+      person2:
+        is_ssi_eligible: true
+        ga_ssp_in_medicaid_facility: true
+        uncapped_ssi: -1_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: GA
+  output:
+    # person1 eligible, person2 has income too high for SSI
+    ga_ssp_eligible_person: [true, false]
+
+- name: Case 10, couple both SSI-eligible but both with income too high.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        is_ssi_eligible: true
+        ga_ssp_in_medicaid_facility: true
+        uncapped_ssi: -500
+      person2:
+        is_ssi_eligible: true
+        ga_ssp_in_medicaid_facility: true
+        uncapped_ssi: -2_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: GA
+  output:
+    ga_ssp_eligible_person: [false, false]
+
+- name: Case 11, couple both not SSI-eligible.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        is_ssi_eligible: false
+        ga_ssp_in_medicaid_facility: true
+      person2:
+        is_ssi_eligible: false
+        ga_ssp_in_medicaid_facility: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: GA
+  output:
+    ga_ssp_eligible_person: [false, false]
+
+- name: Case 12, couple one not SSI-eligible and one not in facility.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        is_ssi_eligible: false
+        ga_ssp_in_medicaid_facility: true
+      person2:
+        is_ssi_eligible: true
+        ga_ssp_in_medicaid_facility: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: GA
+  output:
+    # person1 fails SSI-eligible, person2 fails facility
+    ga_ssp_eligible_person: [false, false]

@@ -6,7 +6,8 @@ class ga_ssp_in_medicaid_facility(Variable):
     entity = Person
     label = "Whether the person resides in a Medicaid facility"
     definition_period = YEAR
+    defined_for = StateCode.GA
     reference = (
         "https://www.ssa.gov/policy/docs/progdesc/ssi_st_asst/2011/ga.html",
-        "https://odis.dhs.ga.gov/ViewDocument.aspx?docId=3006859&verId=1",
+        "https://pamms.dhs.ga.gov/dfcs/medicaid/2578/",
     )

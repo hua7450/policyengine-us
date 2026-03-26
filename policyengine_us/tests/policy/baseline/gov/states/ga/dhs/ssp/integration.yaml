@@ -157,3 +157,58 @@
     ga_ssp_person: [20, 20]
     # SPM unit total = $20 + $20 = $40
     ga_ssp: 40
+
+# Income-based integration tests
+- name: Case 8, couple one eligible and one with income too high for SSI.
+  absolute_error_margin: 0.01
+  period: 2024-01
+  input:
+    people:
+      person1:
+        is_ssi_eligible: true
+        ga_ssp_in_medicaid_facility: true
+        uncapped_ssi: 5_000
+      person2:
+        is_ssi_eligible: true
+        ga_ssp_in_medicaid_facility: true
+        uncapped_ssi: -1_000
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: GA
+  output:
+    # person1: SSI-eligible + positive uncapped_ssi + in facility = eligible
+    # person2: SSI-eligible + negative uncapped_ssi = not an SSI recipient
+    ga_ssp_eligible_person: [true, false]
+    ga_ssp_person: [40, 0]
+    # SPM unit total = $40
+    ga_ssp: 40
+
+- name: Case 9, couple both SSI-eligible but both with income too high.
+  absolute_error_margin: 0.01
+  period: 2024-01
+  input:
+    people:
+      person1:
+        is_ssi_eligible: true
+        ga_ssp_in_medicaid_facility: true
+        uncapped_ssi: -500
+      person2:
+        is_ssi_eligible: true
+        ga_ssp_in_medicaid_facility: true
+        uncapped_ssi: -2_000
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: GA
+  output:
+    # Both pass is_ssi_eligible but neither actually receives SSI
+    ga_ssp_eligible_person: [false, false]
+    ga_ssp_person: [0, 0]
+    ga_ssp: 0

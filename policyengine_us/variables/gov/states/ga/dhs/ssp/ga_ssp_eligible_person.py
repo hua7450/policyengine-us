@@ -14,5 +14,7 @@ class ga_ssp_eligible_person(Variable):
 
     def formula(person, period, parameters):
         is_ssi_eligible = person("is_ssi_eligible", period.this_year)
+        # Must actually receive SSI (income test), not just be categorically eligible.
+        receives_ssi = person("uncapped_ssi", period.this_year) > 0
         in_medicaid_facility = person("ga_ssp_in_medicaid_facility", period.this_year)
-        return is_ssi_eligible & in_medicaid_facility
+        return is_ssi_eligible & receives_ssi & in_medicaid_facility
