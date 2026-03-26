@@ -1,1 +1,1 @@
-Implement Maryland CCAP (Child Care Assistance Program).
+Implement Maryland Child Care Scholarship (CCS) program.
