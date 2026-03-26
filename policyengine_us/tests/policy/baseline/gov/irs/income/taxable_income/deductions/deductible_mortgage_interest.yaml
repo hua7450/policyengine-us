@@ -57,3 +57,13 @@
     deductible_mortgage_interest_tax_unit: 18_750
     interest_deduction: 18_750
     mortgage_interest: 25_000
+
+- name: No structural mortgage inputs yields zero deductible interest
+  period: 2024
+  input:
+    filing_status: SINGLE
+    tax_unit_itemizes: true
+    standard_deduction: 0
+  output:
+    deductible_mortgage_interest_tax_unit: 0
+    non_deductible_mortgage_interest_tax_unit: 0

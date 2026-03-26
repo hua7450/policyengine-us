@@ -4,6 +4,8 @@ from policyengine_us.model_api import *
 def _mortgage_balance_cap(
     origination_year, pre_tcja_cap, post_tcja_cap, pre_tcja_origination_year
 ):
+    # An origination year of 0 means no mortgage; treat as post-TCJA so the
+    # lower cap applies (harmless because the balance will also be 0).
     return where(
         (origination_year > 0) & (origination_year <= pre_tcja_origination_year),
         pre_tcja_cap,
@@ -12,6 +14,11 @@ def _mortgage_balance_cap(
 
 
 def _limited_mortgage_balance(first_balance, second_balance, first_cap, second_cap):
+    # Under §163(h)(3)(F), pre-TCJA debt keeps the $1M cap and post-TCJA debt
+    # gets max(0, $750K − pre_TCJA_debt).  This is equivalent to computing the
+    # combined deductible balance as:
+    #   min(larger_cap, max(larger_balance, smaller_cap))
+    # where "larger/smaller" refer to the balance sizes (not vintages).
     first_is_smaller = first_balance < second_balance
     smaller_cap = where(first_is_smaller, first_cap, second_cap)
     larger_cap = where(first_is_smaller, second_cap, first_cap)
