@@ -1,0 +1,149 @@
+- name: Case 1, eligible individual in licensed facility with zero federal SSI.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        in_ssp_rcap_eligible: true
+        ssi_claim_is_joint: false
+        uncapped_ssi: 0
+    households:
+      household:
+        members: [person1]
+        state_code: IN
+        in_ssp_living_arrangement: LICENSED_RESIDENTIAL
+  output:
+    # Per diem = $39.35/day (licensed)
+    # avg_days_per_month = 52 * 7 / 12 = 30.3333
+    # Monthly room & board = 39.35 * 30.3333 = $1,193.62
+    # State standard = 1,193.62 + 52 = $1,245.62
+    # uncapped_ssi monthly = 0/12 = 0
+    # federal_ssi = max(0, 0) = 0
+    # supplement = max(1,245.62 - 0, 0) = $1,245.62
+    in_ssp_rcap: 1_245.62
+
+- name: Case 2, eligible individual in licensed facility with partial federal SSI offset.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        in_ssp_rcap_eligible: true
+        ssi_claim_is_joint: false
+        uncapped_ssi: 6_000
+    households:
+      household:
+        members: [person1]
+        state_code: IN
+        in_ssp_living_arrangement: LICENSED_RESIDENTIAL
+  output:
+    # Per diem = $39.35/day, avg_days = 30.3333
+    # State standard = 39.35 * 30.3333 + 52 = $1,245.62
+    # uncapped_ssi monthly = 6,000/12 = $500
+    # federal_ssi = max(500, 0) = $500
+    # supplement = max(1,245.62 - 500, 0) = $745.62
+    in_ssp_rcap: 745.62
+
+- name: Case 3, eligible individual with federal SSI exceeding state standard.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        in_ssp_rcap_eligible: true
+        ssi_claim_is_joint: false
+        uncapped_ssi: 18_000
+    households:
+      household:
+        members: [person1]
+        state_code: IN
+        in_ssp_living_arrangement: LICENSED_RESIDENTIAL
+  output:
+    # State standard = $1,245.62
+    # uncapped_ssi monthly = 18,000/12 = $1,500
+    # federal_ssi = max(1,500, 0) = $1,500
+    # supplement = max(1,245.62 - 1,500, 0) = $0
+    in_ssp_rcap: 0
+
+- name: Case 4, ineligible person gets zero.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        in_ssp_rcap_eligible: false
+    households:
+      household:
+        members: [person1]
+        state_code: IN
+  output:
+    in_ssp_rcap: 0
+
+- name: Case 5, negative uncapped SSI means zero federal SSI so full supplement.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        in_ssp_rcap_eligible: true
+        ssi_claim_is_joint: false
+        uncapped_ssi: -60_000
+    households:
+      household:
+        members: [person1]
+        state_code: IN
+        in_ssp_living_arrangement: LICENSED_RESIDENTIAL
+  output:
+    # uncapped_ssi monthly = -60,000/12 = -$5,000
+    # federal_ssi = max(-5,000, 0) = 0 (floored at zero)
+    # supplement = max(1,245.62 - 0, 0) = $1,245.62
+    in_ssp_rcap: 1_245.62
+
+- name: Case 6, eligible individual in unlicensed facility.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        in_ssp_rcap_eligible: true
+        ssi_claim_is_joint: false
+        uncapped_ssi: 0
+    households:
+      household:
+        members: [person1]
+        state_code: IN
+        in_ssp_living_arrangement: UNLICENSED_RESIDENTIAL
+  output:
+    # Per diem = $27/day (unlicensed)
+    # room_and_board = 27 * 30.3333 = $819.00
+    # State standard = 819 + 52 = $871.00
+    # federal_ssi = max(0, 0) = 0
+    # supplement = $871.00
+    in_ssp_rcap: 871
+
+- name: Case 7, couple with asymmetric eligibility in licensed facility.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        in_ssp_rcap_eligible: true
+        ssi_claim_is_joint: false
+        uncapped_ssi: 0
+      person2:
+        in_ssp_rcap_eligible: false
+        ssi_claim_is_joint: false
+        uncapped_ssi: 0
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IN
+        in_ssp_living_arrangement: LICENSED_RESIDENTIAL
+  output:
+    # Only person1 is eligible, treated as individual
+    # supplement = $1,245.62
+    # person2 gets $0 (ineligible)
+    in_ssp_rcap: [1_245.62, 0]

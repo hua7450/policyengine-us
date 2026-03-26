@@ -1,0 +1,12 @@
+description: Indiana provides this amount as the daily per diem rate for unlicensed residential care facilities under the Residential Care Assistance Program.
+
+values:
+  2003-01-01: 27
+
+metadata:
+  unit: currency-USD
+  period: day
+  label: Indiana RCAP unlicensed facility per diem rate
+  reference:
+    - title: 455 IAC 1-3-3 - Per diem reimbursement rates (not licensed under IC 16-28)
+      href: https://www.law.cornell.edu/regulations/indiana/455-IAC-1-3-3

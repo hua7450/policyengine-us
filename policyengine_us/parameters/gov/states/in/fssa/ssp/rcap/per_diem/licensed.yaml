@@ -1,0 +1,14 @@
+description: Indiana provides this amount as the daily per diem rate for licensed residential care facilities under the Residential Care Assistance Program.
+
+values:
+  2003-01-01: 39.35
+
+metadata:
+  unit: currency-USD
+  period: day
+  label: Indiana RCAP licensed facility per diem rate
+  reference:
+    - title: 455 IAC 1-3-3 - Per diem reimbursement rates (licensed under IC 16-28)
+      href: https://www.law.cornell.edu/regulations/indiana/455-IAC-1-3-3
+    - title: SI CHI01401.001 - (IN) Indiana State Supplementary Payments
+      href: https://secure.ssa.gov/poms.nsf/lnx/0501401001CHI
