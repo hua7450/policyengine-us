@@ -18,8 +18,8 @@ class ct_ssp_categorically_eligible(Variable):
 
         # Per CGS 17b-600: Only blind children are eligible; disabled
         # (non-blind) children are excluded from CT SSP.
-        is_dependent = person("is_tax_unit_dependent", period.this_year)
+        is_child = person("is_child", period.this_year)
         is_blind = person("is_blind", period.this_year)
-        is_child_excluded = is_dependent & ~is_blind
+        is_child_excluded = is_child & ~is_blind
 
         return is_ssi_eligible & ~is_child_excluded
