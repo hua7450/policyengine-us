@@ -26,6 +26,7 @@ class md_ccs_region(Variable):
         p = parameters(period).gov.states.md.msde.ccs.payment
         is_region_u = np.isin(county, p.region_u_counties)
         is_region_v = np.isin(county, p.region_v_counties)
+        is_region_w = np.isin(county, p.region_w_counties)
         is_region_x = np.isin(county, p.region_x_counties)
         is_region_y = np.isin(county, p.region_y_counties)
         is_region_z = np.isin(county, p.region_z_counties)
@@ -34,6 +35,7 @@ class md_ccs_region(Variable):
             [
                 is_region_u,
                 is_region_v,
+                is_region_w,
                 is_region_x,
                 is_region_y,
                 is_region_z,
@@ -42,6 +44,7 @@ class md_ccs_region(Variable):
             [
                 MDCCSRegion.REGION_U,
                 MDCCSRegion.REGION_V,
+                MDCCSRegion.REGION_W,
                 MDCCSRegion.REGION_X,
                 MDCCSRegion.REGION_Y,
                 MDCCSRegion.REGION_Z,

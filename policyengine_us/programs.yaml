@@ -421,7 +421,7 @@ programs:
     category: Benefits
     agency: HHS
     status: partial
-    coverage: CA, CO, IL, MA, DC, NC, TX
+    coverage: CA, CO, DC, IL, MA, MD, NC, TX
     state_implementations:
       - state: CA
         status: complete
@@ -444,6 +444,11 @@ programs:
         status: complete
         name: Massachusetts CCFA
         full_name: Massachusetts Child Care Financial Assistance
+      - state: MD
+        status: complete
+        name: Maryland CCS
+        full_name: Maryland Child Care Scholarship
+        variable: md_child_care_subsidies
       - state: DC
         status: complete
         name: DC CCSP

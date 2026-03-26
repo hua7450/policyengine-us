@@ -15,6 +15,11 @@ class md_ccs_income_eligible(Variable):
     def formula(spm_unit, period, parameters):
         p = parameters(period).gov.states.md.msde.ccs.income.smi_rate
         countable_income = spm_unit("md_ccs_countable_income", period)
+        # TODO: Maryland froze SMI base years for historical periods
+        # (FY2019-2022 used 2018 SMI, FY2023-2024 used 2021 SMI).
+        # This formula uses the current-year SMI, which is correct for
+        # 2025+ but overstates historical thresholds. Follow-up PR
+        # should parameterize the SMI base year.
         smi = spm_unit("hhs_smi", period)
         enrolled = spm_unit("md_ccs_enrolled", period)
         income_limit = where(
