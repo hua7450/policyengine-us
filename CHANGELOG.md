@@ -1,3 +1,10 @@
+## [1.620.1] - 2026-03-26
+
+### Fixed
+
+- Fix MA gross income to allow self-employment losses to offset other 5% income.
+
+
 ## [1.620.0] - 2026-03-26
 
 ### Added
