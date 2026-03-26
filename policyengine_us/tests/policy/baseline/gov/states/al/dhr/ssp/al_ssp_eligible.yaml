@@ -70,6 +70,16 @@
   output:
     al_ssp_eligible: true
 
+- name: SSI eligible but income too high to receive SSI
+  period: 2025-01
+  input:
+    is_ssi_eligible: true
+    uncapped_ssi: 0
+    al_ssp_living_arrangement: IHC_LEVEL_A
+    state_code: AL
+  output:
+    al_ssp_eligible: false
+
 - name: Wrong state
   period: 2025-01
   input:

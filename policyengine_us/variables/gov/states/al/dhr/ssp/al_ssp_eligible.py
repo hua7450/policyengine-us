@@ -14,8 +14,9 @@ class al_ssp_eligible(Variable):
 
     def formula(person, period, parameters):
         is_ssi_eligible = person("is_ssi_eligible", period.this_year)
+        receives_ssi = person("uncapped_ssi", period) > 0
         living_arrangement = person("al_ssp_living_arrangement", period)
         in_qualifying_arrangement = (
             living_arrangement != living_arrangement.possible_values.NONE
         )
-        return is_ssi_eligible & in_qualifying_arrangement
+        return is_ssi_eligible & receives_ssi & in_qualifying_arrangement
