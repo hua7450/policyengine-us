@@ -398,3 +398,46 @@
     ak_ssp_payment_standard: [4_344]
     # uncapped_ssi positive => no reduction
     ak_ssp: [4_344]
+
+- name: Case 13, couple both eligible living independently.
+  period: 2011
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 67
+        is_ssi_aged_blind_disabled: true
+        is_ssi_aged: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ssi_claim_is_joint: true
+      person2:
+        age: 66
+        is_ssi_aged_blind_disabled: true
+        is_ssi_aged: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ssi_claim_is_joint: true
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: AK
+        ak_ssp_living_arrangement: INDEPENDENT
+  output:
+    ak_ssp_eligible: [true, true]
+    ak_ssp_claim_type: [COUPLE_BOTH_ELIGIBLE, COUPLE_BOTH_ELIGIBLE]
+    # INDEPENDENT.COUPLE_BOTH_ELIGIBLE = $528/mo * 12 = $6,336/yr
+    ak_ssp_payment_standard: [6_336, 6_336]
+    # Each person: supplement = max(0, 6_336 - 0) * 1 = 6_336
+    # marital_unit.sum = 6_336 + 6_336 = 12_672
+    # Each gets 12_672 / 2 = 6_336
+    ak_ssp: [6_336, 6_336]
