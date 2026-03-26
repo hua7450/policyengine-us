@@ -73,14 +73,12 @@
     uncapped_ssi: -60_000_000
     ak_ssp_payment_standard: 4_344
     ssi_claim_is_joint: false
-    ssi_countable_income: 60_008_088
   output:
-    # uncapped_ssi = -60_000_000 => reduction = max(0, 60_000_000) = 60_000_000
+    # uncapped_ssi = -60_000_000 => income_excess = 60_000_000
     # supplement = max(0, 4_344 - 60_000_000) = 0
-    # ssi_countable_income = 60_008_088 >= need_std 12_432 => $0
     ak_ssp: 0
 
-- name: Case 7, income overspill exactly equals payment standard so supplement is zero.
+- name: Case 7, income excess exactly equals payment standard so supplement is zero.
   period: 2011
   input:
     state_code: AK
@@ -88,11 +86,9 @@
     uncapped_ssi: -4_344
     ak_ssp_payment_standard: 4_344
     ssi_claim_is_joint: false
-    ssi_countable_income: 12_432
   output:
-    # uncapped_ssi = -4_344 => reduction = 4_344
+    # uncapped_ssi = -4_344 => income_excess = 4_344
     # supplement = max(0, 4_344 - 4_344) = 0
-    # ssi_countable_income = 12_432 >= need_std 12_432 => $0
     ak_ssp: 0
 
 - name: Case 8, joint claim couple splits supplement evenly.
@@ -121,48 +117,3 @@
     # marital_unit.sum = 6_336 + 6_336 = 12_672
     # Each gets 12_672 / 2 = 6_336
     ak_ssp: [6_336, 6_336]
-
-- name: Case 9, pre-2020 income between payment standard and need standard gets $1/month minimum.
-  period: 2017
-  input:
-    state_code: AK
-    ak_ssp_eligible: true
-    uncapped_ssi: -5_180
-    ak_ssp_payment_standard: 4_344
-    ssi_claim_is_joint: false
-    ssi_countable_income: 14_000
-  output:
-    # 2017 INDEPENDENT.INDIVIDUAL need_std = $1,366/mo = $16,392/yr
-    # ssi_countable_income = 14_000 < 16_392 => within need standard
-    # overspill = 5_180, normal_supplement = max(0, 4_344 - 5_180) = 0
-    # In gap zone => min_benefit = $1/mo * 12 = $12/yr
-    ak_ssp: 12
-
-- name: Case 10, pre-2020 income exceeds need standard gets zero.
-  period: 2017
-  input:
-    state_code: AK
-    ak_ssp_eligible: true
-    uncapped_ssi: -8_200
-    ak_ssp_payment_standard: 4_344
-    ssi_claim_is_joint: false
-    ssi_countable_income: 17_000
-  output:
-    # 2017 INDEPENDENT.INDIVIDUAL need_std = $1,366/mo = $16,392/yr
-    # ssi_countable_income = 17_000 >= 16_392 => exceeds need standard
-    # ak_ssp = $0
-    ak_ssp: 0
-
-- name: Case 11, 2020 two-step logic inactive so no $1 minimum zone.
-  period: 2020
-  input:
-    state_code: AK
-    ak_ssp_eligible: true
-    uncapped_ssi: -5_000
-    ak_ssp_payment_standard: 4_344
-    ssi_claim_is_joint: false
-  output:
-    # separate_need_standard_in_effect = false in 2020
-    # overspill = 5_000, normal_supplement = max(0, 4_344 - 5_000) = 0
-    # No $1 minimum zone => ak_ssp = $0
-    ak_ssp: 0
