@@ -18,8 +18,12 @@ class ct_ssp_earned_income_disregard(Variable):
         gross_earned = person("ssi_earned_income", period)
         is_blind = person("is_blind", period.this_year)
 
-        initial = where(is_blind, p.blind_initial, p.aged_disabled_initial)
-        rate = where(is_blind, p.blind_rate, p.aged_disabled_rate)
+        initial = where(
+            is_blind,
+            p.blind_initial,
+            p.aged_disabled_initial,
+        )
+        rate = p.rate
 
         initial_disregard = min_(gross_earned, initial)
         remainder = max_(gross_earned - initial, 0)

@@ -1,4 +1,5 @@
-description: Connecticut limits countable resources to this amount for an individual under the State Supplement to the Aged, Blind or Disabled program.
+description: Connecticut limits individual countable resources to this amount under the State Supplement to the Aged, Blind or Disabled program.
+
 values:
   1974-01-01: 1_600
 
@@ -9,9 +10,5 @@ metadata:
   reference:
     - title: UPM 4005.10 - Resource Limits
       href: https://www.ctdssmap.com/CTPortal/Information/Get/UPM#4005.10
-    - title: DSS Program Standards Chart (January 2026)
-      href: https://portal.ct.gov/dss/-/media/departments-and-agencies/dss/fact-sheets-and-issue-briefs/fact-sheets/dss-program-standards-chart-effective-010126.pdf
     - title: SSA State Assistance Programs for SSI Recipients, January 2011 - Connecticut
       href: https://www.ssa.gov/policy/docs/progdesc/ssi_st_asst/2011/ct.html
-    - title: SSA State Assistance Programs for SSI Recipients, January 2005 - Connecticut
-      href: https://www.ssa.gov/policy/docs/progdesc/ssi_st_asst/2005/ct.html

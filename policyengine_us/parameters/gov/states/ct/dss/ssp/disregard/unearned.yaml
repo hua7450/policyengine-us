@@ -1,15 +1,11 @@
-description: Connecticut disregards this amount of unearned income for recipients in shared living under the State Supplement to the Aged, Blind or Disabled program.
-values:
-  2005-01-01: 250.90
-  2011-01-01: 345.90
-  2022-07-01: 476.90
-  2025-10-01: 602.90
-  2026-01-01: 629.90
+description: Connecticut disregards this amount of unearned income under the State Supplement to the Aged, Blind or Disabled program.
 
 metadata:
   unit: currency-USD
   period: month
-  label: Connecticut SSP shared living unearned income disregard
+  label: Connecticut SSP unearned income disregard
+  breakdown:
+    - ct_ssp_living_arrangement
   reference:
     - title: UPM 5030.15 - Unearned Income Disregards
       href: https://www.ctdssmap.com/CTPortal/Information/Get/UPM#5030.15
@@ -23,3 +19,31 @@ metadata:
       href: https://www.ssa.gov/policy/docs/progdesc/ssi_st_asst/2011/ct.html
     - title: SSA State Assistance Programs for SSI Recipients, January 2005 - Connecticut
       href: https://www.ssa.gov/policy/docs/progdesc/ssi_st_asst/2005/ct.html
+
+COMMUNITY_ALONE:
+  2005-01-01: 183
+  2011-01-01: 278
+  2022-07-01: 409
+  2025-10-01: 535
+  2026-01-01: 562
+
+COMMUNITY_SHARED:
+  2005-01-01: 250.90
+  2011-01-01: 345.90
+  2022-07-01: 476.90
+  2025-10-01: 602.90
+  2026-01-01: 629.90
+
+BOARDING_HOME:
+  2005-01-01: 90.70
+  2011-01-01: 185.70
+  2022-07-01: 316.70
+  2025-10-01: 442.70
+  2026-01-01: 469.70
+
+SNF:
+  2005-01-01: 183
+  2011-01-01: 278
+  2022-07-01: 409
+  2025-10-01: 535
+  2026-01-01: 562

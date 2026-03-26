@@ -10,27 +10,11 @@ class ct_ssp_unearned_income_disregard(Variable):
     defined_for = StateCode.CT
     reference = (
         "https://www.ctdssmap.com/CTPortal/Information/Get/UPM#5030.15",
-        "https://portal.ct.gov/dss/common-elements/program-standards-charts",
+        "https://portal.ct.gov/dss/-/media/departments-and-agencies/dss/fact-sheets-and-issue-briefs/fact-sheets/dss-program-standards-chart-effective-010126.pdf",
         "https://www.ssa.gov/policy/docs/progdesc/ssi_st_asst/2011/ct.html",
     )
 
     def formula(person, period, parameters):
-        p = parameters(period).gov.states.ct.dss.ssp.disregard.unearned
+        p = parameters(period).gov.states.ct.dss.ssp.disregard
         arrangement = person("ct_ssp_living_arrangement", period.this_year)
-        arrangements = arrangement.possible_values
-
-        return select(
-            [
-                arrangement == arrangements.COMMUNITY_ALONE,
-                arrangement == arrangements.COMMUNITY_SHARED,
-                arrangement == arrangements.BOARDING_HOME,
-                arrangement == arrangements.SNF,
-            ],
-            [
-                p.community,
-                p.shared_living,
-                p.boarding_home,
-                p.community,
-            ],
-            default=p.community,
-        )
+        return p.unearned[arrangement]

@@ -1,11 +1,11 @@
-description: Connecticut provides this amount as the maximum shelter allowance for a person living alone under the State Supplement to the Aged, Blind or Disabled program.
-values:
-  2005-01-01: 400
+description: Connecticut provides this amount as the maximum shelter allowance under the State Supplement to the Aged, Blind or Disabled program.
 
 metadata:
   unit: currency-USD
   period: month
-  label: Connecticut SSP shelter allowance living alone
+  label: Connecticut SSP shelter allowance
+  breakdown:
+    - ct_ssp_living_arrangement
   reference:
     - title: UPM 4520.10 - Community Living Arrangements
       href: https://www.ctdssmap.com/CTPortal/Information/Get/UPM#4520.10
@@ -15,3 +15,15 @@ metadata:
       href: https://www.ssa.gov/policy/docs/progdesc/ssi_st_asst/2011/ct.html
     - title: SSA State Assistance Programs for SSI Recipients, January 2005 - Connecticut
       href: https://www.ssa.gov/policy/docs/progdesc/ssi_st_asst/2005/ct.html
+
+COMMUNITY_ALONE:
+  2005-01-01: 400
+
+COMMUNITY_SHARED:
+  2005-01-01: 200
+
+BOARDING_HOME:
+  2005-01-01: 0
+
+SNF:
+  2005-01-01: 0

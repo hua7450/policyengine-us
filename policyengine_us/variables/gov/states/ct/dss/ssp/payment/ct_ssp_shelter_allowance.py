@@ -10,29 +10,13 @@ class ct_ssp_shelter_allowance(Variable):
     defined_for = StateCode.CT
     reference = (
         "https://www.ctdssmap.com/CTPortal/Information/Get/UPM#4520.10",
-        "https://portal.ct.gov/dss/common-elements/program-standards-charts",
+        "https://portal.ct.gov/dss/-/media/departments-and-agencies/dss/fact-sheets-and-issue-briefs/fact-sheets/dss-program-standards-chart-effective-010126.pdf",
         "https://www.ssa.gov/policy/docs/progdesc/ssi_st_asst/2011/ct.html",
     )
 
     def formula(person, period, parameters):
-        p = parameters(period).gov.states.ct.dss.ssp.shelter_allowance
+        p = parameters(period).gov.states.ct.dss.ssp
         arrangement = person("ct_ssp_living_arrangement", period.this_year)
-        arrangements = arrangement.possible_values
         rent = person("rent", period)
-
-        max_allowance = select(
-            [
-                arrangement == arrangements.COMMUNITY_ALONE,
-                arrangement == arrangements.COMMUNITY_SHARED,
-                arrangement == arrangements.BOARDING_HOME,
-                arrangement == arrangements.SNF,
-            ],
-            [
-                p.living_alone,
-                p.shared,
-                0,
-                0,
-            ],
-            default=p.living_alone,
-        )
+        max_allowance = p.shelter_allowance[arrangement]
         return min_(rent, max_allowance)

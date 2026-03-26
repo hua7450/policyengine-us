@@ -9,7 +9,7 @@ class ct_ssp_special_needs(Variable):
     definition_period = MONTH
     defined_for = StateCode.CT
     reference = (
-        "https://portal.ct.gov/dss/common-elements/program-standards-charts",
+        "https://portal.ct.gov/dss/-/media/departments-and-agencies/dss/fact-sheets-and-issue-briefs/fact-sheets/dss-program-standards-chart-effective-010126.pdf",
         "https://www.ssa.gov/policy/docs/progdesc/ssi_st_asst/2011/ct.html",
     )
 

@@ -15,7 +15,7 @@ class ct_ssp_resource_eligible(Variable):
     def formula(person, period, parameters):
         # Per UPM 4005.10: CT asset limits ($1,600/$2,400) are lower than
         # federal SSI limits ($2,000/$3,000).
-        p = parameters(period).gov.states.ct.dss.ssp.eligibility.asset_limit
+        p = parameters(period).gov.states.ct.dss.ssp.eligibility
         personal_resources = person("ssi_countable_resources", period.this_year)
         is_joint_claim = person("ssi_claim_is_joint", period.this_year)
         resources = where(
@@ -23,5 +23,9 @@ class ct_ssp_resource_eligible(Variable):
             person.marital_unit.sum(personal_resources),
             personal_resources,
         )
-        limit = where(is_joint_claim, p.couple, p.individual)
+        limit = where(
+            is_joint_claim,
+            p.asset_limit.couple,
+            p.asset_limit.individual,
+        )
         return resources <= limit
