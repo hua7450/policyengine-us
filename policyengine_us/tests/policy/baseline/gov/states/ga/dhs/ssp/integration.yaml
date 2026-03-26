@@ -1,0 +1,159 @@
+- name: Case 1, single eligible individual in current period.
+  absolute_error_margin: 0.01
+  period: 2024-01
+  input:
+    people:
+      person1:
+        is_ssi_eligible: true
+        ga_ssp_in_medicaid_facility: true
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: GA
+  output:
+    ga_ssp_eligible_person: [true]
+    # $40/month per eligible individual (effective 2019-07-01)
+    ga_ssp_person: [40]
+    # SPM unit total = $40
+    ga_ssp: 40
+
+- name: Case 2, couple both eligible in current period.
+  absolute_error_margin: 0.01
+  period: 2024-01
+  input:
+    people:
+      person1:
+        is_ssi_eligible: true
+        ga_ssp_in_medicaid_facility: true
+      person2:
+        is_ssi_eligible: true
+        ga_ssp_in_medicaid_facility: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: GA
+  output:
+    ga_ssp_eligible_person: [true, true]
+    # Each person gets $40/month
+    ga_ssp_person: [40, 40]
+    # SPM unit total = $40 + $40 = $80
+    ga_ssp: 80
+
+- name: Case 3, one eligible and one not SSI-eligible in couple.
+  absolute_error_margin: 0.01
+  period: 2024-01
+  input:
+    people:
+      person1:
+        is_ssi_eligible: true
+        ga_ssp_in_medicaid_facility: true
+      person2:
+        is_ssi_eligible: false
+        ga_ssp_in_medicaid_facility: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: GA
+  output:
+    ga_ssp_eligible_person: [true, false]
+    ga_ssp_person: [40, 0]
+    # SPM unit total = $40 + $0 = $40
+    ga_ssp: 40
+
+- name: Case 4, eligible individual in 2017 receives first-era amount.
+  absolute_error_margin: 0.01
+  period: 2017-01
+  input:
+    people:
+      person1:
+        is_ssi_eligible: true
+        ga_ssp_in_medicaid_facility: true
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: GA
+  output:
+    ga_ssp_eligible_person: [true]
+    # $20/month per eligible individual (effective 2006-07-01)
+    ga_ssp_person: [20]
+    ga_ssp: 20
+
+- name: Case 5, eligible individual in January 2019 receives second-era amount.
+  absolute_error_margin: 0.01
+  period: 2019-01
+  input:
+    people:
+      person1:
+        is_ssi_eligible: true
+        ga_ssp_in_medicaid_facility: true
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: GA
+  output:
+    ga_ssp_eligible_person: [true]
+    # $35/month per eligible individual (effective 2018-07-01)
+    # Note: testing 2019-01 which falls in the $35 era
+    # (2018-07-01 to 2019-06-30)
+    ga_ssp_person: [35]
+    ga_ssp: 35
+
+- name: Case 6, individual not in Medicaid facility.
+  absolute_error_margin: 0.01
+  period: 2024-01
+  input:
+    people:
+      person1:
+        is_ssi_eligible: true
+        ga_ssp_in_medicaid_facility: false
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: GA
+  output:
+    ga_ssp_eligible_person: [false]
+    ga_ssp_person: [0]
+    ga_ssp: 0
+
+- name: Case 7, eligible couple in first era.
+  absolute_error_margin: 0.01
+  period: 2007-01
+  input:
+    people:
+      person1:
+        is_ssi_eligible: true
+        ga_ssp_in_medicaid_facility: true
+      person2:
+        is_ssi_eligible: true
+        ga_ssp_in_medicaid_facility: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: GA
+  output:
+    ga_ssp_eligible_person: [true, true]
+    # $20/month each (effective 2006-07-01)
+    ga_ssp_person: [20, 20]
+    # SPM unit total = $20 + $20 = $40
+    ga_ssp: 40

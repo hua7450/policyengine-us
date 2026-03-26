@@ -1,0 +1,17 @@
+description: Georgia provides this amount as the monthly supplement under the State Supplementary Payment program.
+values:
+  2006-07-01: 20
+  2018-07-01: 35
+  2019-07-01: 40
+
+metadata:
+  unit: currency-USD
+  period: month
+  label: Georgia SSP monthly supplement amount
+  reference:
+    - title: SSA State Assistance Programs for SSI Recipients, January 2011 - Georgia, Table 1
+      href: https://www.ssa.gov/policy/docs/progdesc/ssi_st_asst/2011/ga.html
+    - title: Georgia DFCS PAMMS 2578, State Supplement Payment Amounts Table
+      href: https://odis.dhs.ga.gov/ViewDocument.aspx?docId=3006859&verId=1
+    - title: CMS State Plan Amendment GA 18-0004, Personal Needs Allowance
+      href: https://www.medicaid.gov/sites/default/files/State-resource-center/Medicaid-State-Plan-Amendments/Downloads/GA/GA-18-0004.pdf#page=2

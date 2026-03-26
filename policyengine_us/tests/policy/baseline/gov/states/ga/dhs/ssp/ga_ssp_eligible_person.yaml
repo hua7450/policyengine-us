@@ -1,0 +1,55 @@
+- name: Case 1, SSI-eligible person in Medicaid facility.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        is_ssi_eligible: true
+        ga_ssp_in_medicaid_facility: true
+    households:
+      household:
+        members: [person1]
+        state_code: GA
+  output:
+    ga_ssp_eligible_person: [true]
+
+- name: Case 2, not SSI-eligible.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        is_ssi_eligible: false
+        ga_ssp_in_medicaid_facility: true
+    households:
+      household:
+        members: [person1]
+        state_code: GA
+  output:
+    ga_ssp_eligible_person: [false]
+
+- name: Case 3, not in Medicaid facility.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        is_ssi_eligible: true
+        ga_ssp_in_medicaid_facility: false
+    households:
+      household:
+        members: [person1]
+        state_code: GA
+  output:
+    ga_ssp_eligible_person: [false]
+
+- name: Case 4, neither SSI-eligible nor in Medicaid facility.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        is_ssi_eligible: false
+        ga_ssp_in_medicaid_facility: false
+    households:
+      household:
+        members: [person1]
+        state_code: GA
+  output:
+    ga_ssp_eligible_person: [false]
