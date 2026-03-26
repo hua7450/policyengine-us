@@ -9,12 +9,9 @@ metadata:
   period: month
   label: Illinois TANF earned income percentage disregard
   reference:
-    - title: PM 10-02-02-c:First Regular Roll Month
+    - title: "PM 10-02-02-c: First Regular Roll Month"
       href: https://www.dhs.state.il.us/page.aspx?item=15864
-    - title: Ill. Admin. Code tit. 89, § 112.141 - Earned Income Exemption (c)
+    - title: "Ill. Admin. Code tit. 89, § 112.141 - Earned Income Exemption (c)"
       href: https://www.law.cornell.edu/regulations/illinois/Ill-Admin-Code-tit-89-SS-112.141
-    # The 1993-11-01 two-thirds (0.6667) rate comes from the Work Pays
-    # program established under WAG 25-06-03-a (November 1993). The 2010
-    # amendment to 89 Ill. Admin. Code § 112.141 (34 Ill. Reg. 10085,
-    # effective July 1, 2010) raised the rate to three-quarters (0.75),
-    # implicitly confirming the prior two-thirds rate.
+    - title: "WAG 25-06-03-a - Work Pays / Budgeting Methods (Nov 1993 two-thirds rate; Jul 2010 three-quarters rate)"
+      href: https://www.dhs.state.il.us/page.aspx?item=19815
