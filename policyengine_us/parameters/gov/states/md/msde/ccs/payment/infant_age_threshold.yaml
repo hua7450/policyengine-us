@@ -1,0 +1,13 @@
+description: Maryland defines infants as children under this age in months for Child Care Scholarship rate purposes.
+values:
+  2020-11-23: 24
+
+metadata:
+  unit: month
+  period: year
+  label: Maryland CCS infant age threshold in months
+  reference:
+    - title: Maryland CCS Scholarship Rates
+      href: https://earlychildhood.marylandpublicschools.org/families/child-care-scholarship-program/child-care-scholarship-rates
+    - title: COMAR 13A.14.06.02 - Definitions
+      href: https://dsd.maryland.gov/regulations/Pages/13A.14.06.02.aspx

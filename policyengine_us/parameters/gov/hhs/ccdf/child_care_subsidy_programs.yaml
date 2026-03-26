@@ -4,6 +4,7 @@ values:
     - ca_child_care_subsidies  # California Child Care
     - co_child_care_subsidies  # Colorado Child Care Assistance Program
     - ma_child_care_subsidies  # Massachusetts Child Care Financial Assistance
+    - md_child_care_subsidies  # Maryland Child Care Scholarship
     - me_child_care_subsidies  # Maine Child Care Affordability Program
     - ne_child_care_subsidies  # Nebraska Child Care Subsidy
     - nh_child_care_subsidies  # New Hampshire Child Care Scholarship Program

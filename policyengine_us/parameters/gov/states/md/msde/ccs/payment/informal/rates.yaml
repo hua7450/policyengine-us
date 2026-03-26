@@ -1,0 +1,370 @@
+description: Maryland provides these weekly reimbursement rates for informal child care providers under the Child Care Scholarship program.
+
+metadata:
+  period: week
+  unit: currency-USD
+  label: Maryland CCS informal provider weekly rates
+  reference:
+    - title: Maryland CCS Scholarship Rates (Informal Rates, 70th Percentile, March 2021 Market Rate Survey)
+      href: https://earlychildhood.marylandpublicschools.org/families/child-care-scholarship-program/child-care-scholarship-rates
+
+ALLEGANY_COUNTY_MD:
+  REGULAR:
+    UNIT_3:
+      2020-11-23: 83
+    UNIT_2:
+      2020-11-23: 55
+    UNIT_1:
+      2020-11-23: 28
+  INFANT:
+    UNIT_3:
+      2020-11-23: 90
+    UNIT_2:
+      2020-11-23: 60
+    UNIT_1:
+      2020-11-23: 30
+ANNE_ARUNDEL_COUNTY_MD:
+  REGULAR:
+    UNIT_3:
+      2020-11-23: 135
+    UNIT_2:
+      2020-11-23: 90
+    UNIT_1:
+      2020-11-23: 45
+  INFANT:
+    UNIT_3:
+      2020-11-23: 150
+    UNIT_2:
+      2020-11-23: 100
+    UNIT_1:
+      2020-11-23: 50
+BALTIMORE_COUNTY_MD:
+  REGULAR:
+    UNIT_3:
+      2020-11-23: 125
+    UNIT_2:
+      2020-11-23: 83
+    UNIT_1:
+      2020-11-23: 42
+  INFANT:
+    UNIT_3:
+      2020-11-23: 150
+    UNIT_2:
+      2020-11-23: 100
+    UNIT_1:
+      2020-11-23: 50
+CALVERT_COUNTY_MD:
+  REGULAR:
+    UNIT_3:
+      2020-11-23: 135
+    UNIT_2:
+      2020-11-23: 90
+    UNIT_1:
+      2020-11-23: 45
+  INFANT:
+    UNIT_3:
+      2020-11-23: 150
+    UNIT_2:
+      2020-11-23: 100
+    UNIT_1:
+      2020-11-23: 50
+CAROLINE_COUNTY_MD:
+  REGULAR:
+    UNIT_3:
+      2020-11-23: 84
+    UNIT_2:
+      2020-11-23: 56
+    UNIT_1:
+      2020-11-23: 28
+  INFANT:
+    UNIT_3:
+      2020-11-23: 100
+    UNIT_2:
+      2020-11-23: 67
+    UNIT_1:
+      2020-11-23: 33
+CARROLL_COUNTY_MD:
+  REGULAR:
+    UNIT_3:
+      2020-11-23: 135
+    UNIT_2:
+      2020-11-23: 90
+    UNIT_1:
+      2020-11-23: 45
+  INFANT:
+    UNIT_3:
+      2020-11-23: 150
+    UNIT_2:
+      2020-11-23: 100
+    UNIT_1:
+      2020-11-23: 50
+CECIL_COUNTY_MD:
+  REGULAR:
+    UNIT_3:
+      2020-11-23: 105
+    UNIT_2:
+      2020-11-23: 70
+    UNIT_1:
+      2020-11-23: 35
+  INFANT:
+    UNIT_3:
+      2020-11-23: 120
+    UNIT_2:
+      2020-11-23: 80
+    UNIT_1:
+      2020-11-23: 40
+CHARLES_COUNTY_MD:
+  REGULAR:
+    UNIT_3:
+      2020-11-23: 135
+    UNIT_2:
+      2020-11-23: 90
+    UNIT_1:
+      2020-11-23: 45
+  INFANT:
+    UNIT_3:
+      2020-11-23: 150
+    UNIT_2:
+      2020-11-23: 100
+    UNIT_1:
+      2020-11-23: 50
+DORCHESTER_COUNTY_MD:
+  REGULAR:
+    UNIT_3:
+      2020-11-23: 84
+    UNIT_2:
+      2020-11-23: 56
+    UNIT_1:
+      2020-11-23: 28
+  INFANT:
+    UNIT_3:
+      2020-11-23: 100
+    UNIT_2:
+      2020-11-23: 67
+    UNIT_1:
+      2020-11-23: 33
+FREDERICK_COUNTY_MD:
+  REGULAR:
+    UNIT_3:
+      2020-11-23: 125
+    UNIT_2:
+      2020-11-23: 83
+    UNIT_1:
+      2020-11-23: 42
+  INFANT:
+    UNIT_3:
+      2020-11-23: 150
+    UNIT_2:
+      2020-11-23: 100
+    UNIT_1:
+      2020-11-23: 50
+GARRETT_COUNTY_MD:
+  REGULAR:
+    UNIT_3:
+      2020-11-23: 83
+    UNIT_2:
+      2020-11-23: 55
+    UNIT_1:
+      2020-11-23: 28
+  INFANT:
+    UNIT_3:
+      2020-11-23: 90
+    UNIT_2:
+      2020-11-23: 60
+    UNIT_1:
+      2020-11-23: 30
+HARFORD_COUNTY_MD:
+  REGULAR:
+    UNIT_3:
+      2020-11-23: 125
+    UNIT_2:
+      2020-11-23: 83
+    UNIT_1:
+      2020-11-23: 42
+  INFANT:
+    UNIT_3:
+      2020-11-23: 150
+    UNIT_2:
+      2020-11-23: 100
+    UNIT_1:
+      2020-11-23: 50
+HOWARD_COUNTY_MD:
+  REGULAR:
+    UNIT_3:
+      2020-11-23: 177
+    UNIT_2:
+      2020-11-23: 118
+    UNIT_1:
+      2020-11-23: 59
+  INFANT:
+    UNIT_3:
+      2020-11-23: 195
+    UNIT_2:
+      2020-11-23: 130
+    UNIT_1:
+      2020-11-23: 65
+KENT_COUNTY_MD:
+  REGULAR:
+    UNIT_3:
+      2020-11-23: 84
+    UNIT_2:
+      2020-11-23: 56
+    UNIT_1:
+      2020-11-23: 28
+  INFANT:
+    UNIT_3:
+      2020-11-23: 100
+    UNIT_2:
+      2020-11-23: 67
+    UNIT_1:
+      2020-11-23: 33
+MONTGOMERY_COUNTY_MD:
+  REGULAR:
+    UNIT_3:
+      2020-11-23: 177
+    UNIT_2:
+      2020-11-23: 118
+    UNIT_1:
+      2020-11-23: 59
+  INFANT:
+    UNIT_3:
+      2020-11-23: 195
+    UNIT_2:
+      2020-11-23: 130
+    UNIT_1:
+      2020-11-23: 65
+PRINCE_GEORGE_S_COUNTY_MD:
+  REGULAR:
+    UNIT_3:
+      2020-11-23: 135
+    UNIT_2:
+      2020-11-23: 90
+    UNIT_1:
+      2020-11-23: 45
+  INFANT:
+    UNIT_3:
+      2020-11-23: 150
+    UNIT_2:
+      2020-11-23: 100
+    UNIT_1:
+      2020-11-23: 50
+QUEEN_ANNE_S_COUNTY_MD:
+  REGULAR:
+    UNIT_3:
+      2020-11-23: 105
+    UNIT_2:
+      2020-11-23: 70
+    UNIT_1:
+      2020-11-23: 35
+  INFANT:
+    UNIT_3:
+      2020-11-23: 120
+    UNIT_2:
+      2020-11-23: 80
+    UNIT_1:
+      2020-11-23: 40
+ST_MARY_S_COUNTY_MD:
+  REGULAR:
+    UNIT_3:
+      2020-11-23: 105
+    UNIT_2:
+      2020-11-23: 70
+    UNIT_1:
+      2020-11-23: 35
+  INFANT:
+    UNIT_3:
+      2020-11-23: 120
+    UNIT_2:
+      2020-11-23: 80
+    UNIT_1:
+      2020-11-23: 40
+SOMERSET_COUNTY_MD:
+  REGULAR:
+    UNIT_3:
+      2020-11-23: 84
+    UNIT_2:
+      2020-11-23: 56
+    UNIT_1:
+      2020-11-23: 28
+  INFANT:
+    UNIT_3:
+      2020-11-23: 100
+    UNIT_2:
+      2020-11-23: 67
+    UNIT_1:
+      2020-11-23: 33
+TALBOT_COUNTY_MD:
+  REGULAR:
+    UNIT_3:
+      2020-11-23: 105
+    UNIT_2:
+      2020-11-23: 70
+    UNIT_1:
+      2020-11-23: 35
+  INFANT:
+    UNIT_3:
+      2020-11-23: 120
+    UNIT_2:
+      2020-11-23: 80
+    UNIT_1:
+      2020-11-23: 40
+WASHINGTON_COUNTY_MD:
+  REGULAR:
+    UNIT_3:
+      2020-11-23: 105
+    UNIT_2:
+      2020-11-23: 70
+    UNIT_1:
+      2020-11-23: 35
+  INFANT:
+    UNIT_3:
+      2020-11-23: 120
+    UNIT_2:
+      2020-11-23: 80
+    UNIT_1:
+      2020-11-23: 40
+WICOMICO_COUNTY_MD:
+  REGULAR:
+    UNIT_3:
+      2020-11-23: 84
+    UNIT_2:
+      2020-11-23: 56
+    UNIT_1:
+      2020-11-23: 28
+  INFANT:
+    UNIT_3:
+      2020-11-23: 100
+    UNIT_2:
+      2020-11-23: 67
+    UNIT_1:
+      2020-11-23: 33
+WORCESTER_COUNTY_MD:
+  REGULAR:
+    UNIT_3:
+      2020-11-23: 83
+    UNIT_2:
+      2020-11-23: 55
+    UNIT_1:
+      2020-11-23: 28
+  INFANT:
+    UNIT_3:
+      2020-11-23: 90
+    UNIT_2:
+      2020-11-23: 60
+    UNIT_1:
+      2020-11-23: 30
+BALTIMORE_CITY_MD:
+  REGULAR:
+    UNIT_3:
+      2020-11-23: 106
+    UNIT_2:
+      2020-11-23: 71
+    UNIT_1:
+      2020-11-23: 35
+  INFANT:
+    UNIT_3:
+      2020-11-23: 120
+    UNIT_2:
+      2020-11-23: 80
+    UNIT_1:
+      2020-11-23: 40

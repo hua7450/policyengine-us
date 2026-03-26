@@ -1,0 +1,12 @@
+description: Maryland sets Baltimore City as its own region for Child Care Scholarship rate purposes.
+values:
+  2020-11-23:
+    - BALTIMORE_CITY_MD
+
+metadata:
+  unit: list
+  period: year
+  label: Maryland CCS Baltimore City region
+  reference:
+    - title: Maryland CCS Scholarship Rates
+      href: https://earlychildhood.marylandpublicschools.org/families/child-care-scholarship-program/child-care-scholarship-rates

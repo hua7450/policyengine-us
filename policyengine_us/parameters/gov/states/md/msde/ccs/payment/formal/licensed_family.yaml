@@ -1,0 +1,119 @@
+description: Maryland provides these weekly reimbursement rates for licensed family child care homes under the Child Care Scholarship program.
+
+metadata:
+  period: week
+  unit: currency-USD
+  label: Maryland CCS licensed family weekly rates
+  breakdown:
+    - md_ccs_region
+    - md_ccs_age_group
+    - md_ccs_service_unit
+  reference:
+    - title: Maryland CCS Scholarship Rates (Formal Rates, 60th Percentile, 2024 Market Rate Survey)
+      href: https://earlychildhood.marylandpublicschools.org/families/child-care-scholarship-program/child-care-scholarship-rates
+
+REGION_U:
+  REGULAR:
+    UNIT_3:
+      2026-03-01: 200
+    UNIT_2:
+      2026-03-01: 134
+    UNIT_1:
+      2026-03-01: 67
+  INFANT:
+    UNIT_3:
+      2026-03-01: 225
+    UNIT_2:
+      2026-03-01: 150
+    UNIT_1:
+      2026-03-01: 75
+REGION_V:
+  REGULAR:
+    UNIT_3:
+      2026-03-01: 175
+    UNIT_2:
+      2026-03-01: 117
+    UNIT_1:
+      2026-03-01: 59
+  INFANT:
+    UNIT_3:
+      2026-03-01: 200
+    UNIT_2:
+      2026-03-01: 134
+    UNIT_1:
+      2026-03-01: 67
+REGION_W:
+  REGULAR:
+    UNIT_3:
+      2026-03-01: 265
+    UNIT_2:
+      2026-03-01: 177
+    UNIT_1:
+      2026-03-01: 89
+  INFANT:
+    UNIT_3:
+      2026-03-01: 300
+    UNIT_2:
+      2026-03-01: 200
+    UNIT_1:
+      2026-03-01: 100
+REGION_X:
+  REGULAR:
+    UNIT_3:
+      2026-03-01: 325
+    UNIT_2:
+      2026-03-01: 217
+    UNIT_1:
+      2026-03-01: 109
+  INFANT:
+    UNIT_3:
+      2026-03-01: 350
+    UNIT_2:
+      2026-03-01: 234
+    UNIT_1:
+      2026-03-01: 117
+REGION_Y:
+  REGULAR:
+    UNIT_3:
+      2026-03-01: 220
+    UNIT_2:
+      2026-03-01: 147
+    UNIT_1:
+      2026-03-01: 73
+  INFANT:
+    UNIT_3:
+      2026-03-01: 250
+    UNIT_2:
+      2026-03-01: 167
+    UNIT_1:
+      2026-03-01: 83
+REGION_Z:
+  REGULAR:
+    UNIT_3:
+      2026-03-01: 170
+    UNIT_2:
+      2026-03-01: 114
+    UNIT_1:
+      2026-03-01: 57
+  INFANT:
+    UNIT_3:
+      2026-03-01: 185
+    UNIT_2:
+      2026-03-01: 124
+    UNIT_1:
+      2026-03-01: 62
+BALTIMORE_CITY:
+  REGULAR:
+    UNIT_3:
+      2026-03-01: 225
+    UNIT_2:
+      2026-03-01: 150
+    UNIT_1:
+      2026-03-01: 75
+  INFANT:
+    UNIT_3:
+      2026-03-01: 252
+    UNIT_2:
+      2026-03-01: 168
+    UNIT_1:
+      2026-03-01: 84

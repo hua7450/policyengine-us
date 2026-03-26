@@ -1,0 +1,20 @@
+description: Maryland sets this amount as the weekly copayment by service unit under the Child Care Scholarship program.
+
+metadata:
+  unit: currency-USD
+  period: week
+  label: Maryland CCS weekly copayment by service unit
+  breakdown:
+    - md_ccs_service_unit
+  reference:
+    - title: Chapter 717 of 2024
+      href: https://mgaleg.maryland.gov/2024RS/Chapters_noln/CH_717_sb0482e.pdf
+    - title: COMAR 13A.14.06.12
+      href: https://dsd.maryland.gov/regulations/Pages/13A.14.06.12.aspx
+
+UNIT_3:
+  2022-05-01: 3
+UNIT_2:
+  2022-05-01: 2
+UNIT_1:
+  2022-05-01: 1

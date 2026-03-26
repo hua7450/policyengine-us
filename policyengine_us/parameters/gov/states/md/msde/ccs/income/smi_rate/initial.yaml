@@ -1,0 +1,15 @@
+description: Maryland limits initial eligibility for the Child Care Scholarship program to families with income at or below this share of State Median Income.
+values:
+  2018-01-01: 0.5
+  2019-01-01: 0.65
+  2022-05-01: 0.75
+
+metadata:
+  unit: /1
+  period: year
+  label: Maryland CCS initial eligibility SMI rate
+  reference:
+    - title: Chapters 595/596 of 2018
+      href: https://mgaleg.maryland.gov/2018RS/Chapters_noln/CH_595_hb0377e.pdf
+    - title: Chapters 525/526 of 2022
+      href: https://mgaleg.maryland.gov/2022RS/Chapters_noln/CH_525_hb0275e.pdf

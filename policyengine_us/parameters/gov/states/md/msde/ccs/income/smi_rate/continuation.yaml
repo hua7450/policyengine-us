@@ -1,0 +1,13 @@
+description: Maryland limits continuation eligibility for the Child Care Scholarship program to families with income at or below this share of State Median Income.
+values:
+  2018-01-01: 0.85
+
+metadata:
+  unit: /1
+  period: year
+  label: Maryland CCS continuation eligibility SMI rate
+  reference:
+    - title: 45 CFR 98.21(b) - Eligibility requirements
+      href: https://www.ecfr.gov/current/title-45/section-98.21#p-98.21(b)
+    - title: Chapters 525/526 of 2022
+      href: https://mgaleg.maryland.gov/2022RS/Chapters_noln/CH_525_hb0275e.pdf
