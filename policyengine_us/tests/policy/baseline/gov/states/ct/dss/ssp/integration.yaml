@@ -1,0 +1,703 @@
+- name: Case 1, aged individual community alone with SSI only.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_blind: false
+        is_disabled: false
+        immigration_status: CITIZEN
+        ssi_countable_resources: 1_000
+        ct_ssp_living_arrangement: COMMUNITY_ALONE
+        ct_ssp_has_therapeutic_diet: false
+        ssi: 11_928  # $994/mo
+        employment_income: 0
+        rent: 12_000  # $1,000/mo
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    # --- Need Standard ---
+    ct_ssp_shelter_allowance: 400
+    # Shelter: min(1000, 400) = $400
+    ct_ssp_personal_needs_allowance: 198.55
+    ct_ssp_special_needs: 0
+    ct_ssp_need_standard: 598.55
+    # Need = $400 + $198.55 + $0 = $598.55
+
+    # --- Income ---
+    ct_ssp_unearned_income_disregard: 562
+    ct_ssp_earned_income_disregard: 0
+    ct_ssp_countable_income: 432
+    # Unearned: max(0, 994 - 562) = $432
+    # Earned: $0 (no earnings)
+    # Countable = $432 + $0 = $432
+
+    # --- Eligibility ---
+    ct_ssp_resource_eligible: true
+    # Resources: $1,000 <= $1,600
+    ct_ssp_income_eligible: true
+    # Countable $432 <= Need $598.55, Gross $994 <= Cap $2,982
+    ct_ssp_eligible_person: true
+
+    # --- Benefit ---
+    # Benefit = max(0, 598.55 - 432) = $166.55
+    ct_ssp_person: 166.55
+    ct_ssp: 166.55
+
+- name: Case 2, disabled individual community alone with earnings.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 40
+        is_blind: false
+        is_disabled: true
+        immigration_status: CITIZEN
+        ssi_countable_resources: 800
+        ct_ssp_living_arrangement: COMMUNITY_ALONE
+        ct_ssp_has_therapeutic_diet: false
+        ssi: 11_928  # $994/mo
+        employment_income: 6_000  # $500/mo
+        rent: 12_000
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    # --- Need Standard ---
+    ct_ssp_shelter_allowance: 400
+    ct_ssp_personal_needs_allowance: 198.55
+    ct_ssp_special_needs: 0
+    ct_ssp_need_standard: 598.55
+
+    # --- Income ---
+    ct_ssp_unearned_income_disregard: 562
+    ct_ssp_earned_income_disregard: 282.50
+    # Aged/disabled: $65 + 0.5 * (500 - 65) = $282.50
+    ct_ssp_countable_income: 649.50
+    # Unearned: max(0, 994 - 562) = $432
+    # Earned: max(0, 500 - 282.50) = $217.50
+    # Countable = $432 + $217.50 = $649.50
+
+    # --- Eligibility ---
+    ct_ssp_resource_eligible: true
+    ct_ssp_income_eligible: false
+    # Countable $649.50 > Need $598.55 -> NOT income eligible
+    ct_ssp_eligible_person: false
+
+    # --- Benefit ---
+    ct_ssp_person: 0
+    ct_ssp: 0
+
+- name: Case 3, blind individual shared living with therapeutic diet.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 50
+        is_blind: true
+        immigration_status: CITIZEN
+        ssi_countable_resources: 500
+        ct_ssp_living_arrangement: COMMUNITY_SHARED
+        ct_ssp_has_therapeutic_diet: true
+        ssi: 11_928  # $994/mo
+        employment_income: 2_400  # $200/mo
+        rent: 6_000  # $500/mo -> capped at $200
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    # --- Need Standard ---
+    ct_ssp_shelter_allowance: 200
+    # Shared: min(500, 200) = $200
+    ct_ssp_personal_needs_allowance: 198.55
+    ct_ssp_special_needs: 36.20
+    ct_ssp_need_standard: 434.75
+    # Need = $200 + $198.55 + $36.20 = $434.75
+
+    # --- Income ---
+    ct_ssp_unearned_income_disregard: 629.90
+    # Shared living disregard = $629.90
+    ct_ssp_earned_income_disregard: 142.50
+    # Blind: $85 + 0.5 * (200 - 85) = $85 + $57.50 = $142.50
+    ct_ssp_countable_income: 421.60
+    # Unearned: max(0, 994 - 629.90) = $364.10
+    # Earned: max(0, 200 - 142.50) = $57.50
+    # Countable = $364.10 + $57.50 = $421.60
+
+    # --- Eligibility ---
+    ct_ssp_resource_eligible: true
+    ct_ssp_income_eligible: true
+    # Countable $421.60 <= Need $434.75, Gross $1,194 <= Cap $2,982
+    ct_ssp_eligible_person: true
+
+    # --- Benefit ---
+    # Benefit = max(0, 434.75 - 421.60) = $13.15
+    ct_ssp_person: 13.15
+    ct_ssp: 13.15
+
+- name: Case 4, boarding home resident.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 75
+        is_blind: false
+        is_disabled: false
+        immigration_status: CITIZEN
+        ssi_countable_resources: 500
+        ct_ssp_living_arrangement: BOARDING_HOME
+        ct_ssp_has_therapeutic_diet: false
+        ssi: 11_928  # $994/mo
+        employment_income: 0
+        rent: 0
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    # --- Need Standard ---
+    ct_ssp_shelter_allowance: 0
+    ct_ssp_personal_needs_allowance: 34.75
+    ct_ssp_special_needs: 0
+    ct_ssp_need_standard: 34.75
+    # Need = $0 + $34.75 + $0 = $34.75
+
+    # --- Income ---
+    ct_ssp_unearned_income_disregard: 469.70
+    # Boarding home disregard = $469.70
+    ct_ssp_earned_income_disregard: 0
+    ct_ssp_countable_income: 524.30
+    # Unearned: max(0, 994 - 469.70) = $524.30
+
+    # --- Eligibility ---
+    ct_ssp_resource_eligible: true
+    ct_ssp_income_eligible: false
+    # Countable $524.30 > Need $34.75 -> NOT income eligible
+    ct_ssp_eligible_person: false
+
+    # --- Benefit ---
+    ct_ssp_person: 0
+    ct_ssp: 0
+
+- name: Case 5, SNF resident.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 80
+        is_blind: false
+        is_disabled: false
+        immigration_status: CITIZEN
+        ssi_countable_resources: 200
+        ct_ssp_living_arrangement: SNF
+        ct_ssp_has_therapeutic_diet: false
+        ssi: 360  # $30/mo (reduced SSI for Medicaid facility)
+        employment_income: 0
+        rent: 0
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    # --- Need Standard ---
+    ct_ssp_shelter_allowance: 0
+    ct_ssp_personal_needs_allowance: 75
+    ct_ssp_special_needs: 0
+    ct_ssp_need_standard: 75
+    # Need = $0 + $75 + $0 = $75
+
+    # --- Income ---
+    ct_ssp_unearned_income_disregard: 562
+    # SNF uses community disregard = $562
+    ct_ssp_earned_income_disregard: 0
+    ct_ssp_countable_income: 0
+    # Unearned: max(0, 30 - 562) = $0
+
+    # --- Eligibility ---
+    ct_ssp_resource_eligible: true
+    ct_ssp_income_eligible: true
+    # Countable $0 <= Need $75, Gross $30 <= Cap $2,982
+    ct_ssp_eligible_person: true
+
+    # --- Benefit ---
+    # Benefit = max(0, 75 - 0) = $75
+    ct_ssp_person: 75
+    ct_ssp: 75
+
+- name: Case 6, married couple both aged in community.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_blind: false
+        is_disabled: false
+        immigration_status: CITIZEN
+        ssi_countable_resources: 800
+        ct_ssp_living_arrangement: COMMUNITY_ALONE
+        ct_ssp_has_therapeutic_diet: false
+        employment_income: 0
+        rent: 12_000
+      person2:
+        age: 68
+        is_blind: false
+        is_disabled: false
+        immigration_status: CITIZEN
+        ssi_countable_resources: 800
+        ct_ssp_living_arrangement: COMMUNITY_ALONE
+        ct_ssp_has_therapeutic_diet: false
+        employment_income: 0
+        rent: 0
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # Both are married, so PNA = $197.35 each
+    ct_ssp_personal_needs_allowance: [197.35, 197.35]
+    # Shelter: person1 = min(1000, 400) = $400; person2 = min(0, 400) = $0
+    ct_ssp_shelter_allowance: [400, 0]
+    ct_ssp_need_standard: [597.35, 197.35]
+    # person1: $400 + $197.35 = $597.35
+    # person2: $0 + $197.35 = $197.35
+
+    # Resource check: combined $1,600 <= $2,400 couple limit
+    ct_ssp_resource_eligible: [true, true]
+
+- name: Case 7, negative countable income does not inflate benefit.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_blind: false
+        is_disabled: false
+        immigration_status: CITIZEN
+        ssi_countable_resources: 500
+        ct_ssp_living_arrangement: COMMUNITY_ALONE
+        ct_ssp_has_therapeutic_diet: false
+        self_employment_income: -60_000_000  # Extreme negative income
+        ssi: 11_928
+        employment_income: 0
+        rent: 12_000
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    # Benefit should be capped at need standard, not inflated by negative income.
+    # Need = $598.55
+    # Even with extreme negative income, benefit cannot exceed need standard.
+    # Countable income components are each floored at 0, so countable = $432
+    # (same as Case 1: max(0, 994 - 562) = 432, self-employment loss doesn't reduce it)
+    ct_ssp_need_standard: 598.55
+    ct_ssp_countable_income: 432
+    ct_ssp_person: 166.55
+    ct_ssp: 166.55
+
+- name: Case 8, zero income yields maximum benefit capped at need standard.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_blind: false
+        is_disabled: false
+        immigration_status: CITIZEN
+        ssi_countable_resources: 0
+        ct_ssp_living_arrangement: COMMUNITY_ALONE
+        ct_ssp_has_therapeutic_diet: false
+        ssi: 0
+        employment_income: 0
+        rent: 12_000  # $1,000/mo -> shelter $400
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    # --- Need Standard ---
+    ct_ssp_shelter_allowance: 400
+    ct_ssp_personal_needs_allowance: 198.55
+    ct_ssp_special_needs: 0
+    ct_ssp_need_standard: 598.55
+
+    # --- Income ---
+    ct_ssp_unearned_income_disregard: 562
+    ct_ssp_earned_income_disregard: 0
+    ct_ssp_countable_income: 0
+    # Unearned: max(0, 0 - 562) = $0
+    # Earned: $0
+
+    # --- Eligibility ---
+    ct_ssp_resource_eligible: true
+    ct_ssp_income_eligible: true
+    ct_ssp_eligible_person: true
+
+    # --- Benefit ---
+    # Benefit = max(0, 598.55 - 0) = $598.55
+    ct_ssp_person: 598.55
+    ct_ssp: 598.55
+
+- name: Case 9, married couple one blind one aged with earnings.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_blind: true
+        is_disabled: false
+        immigration_status: CITIZEN
+        ssi_countable_resources: 600
+        ssi_claim_is_joint: true
+        ct_ssp_living_arrangement: COMMUNITY_ALONE
+        ct_ssp_has_therapeutic_diet: false
+        ssi: 11_928  # $994/mo
+        employment_income: 1_020  # $85/mo (exactly at blind initial disregard)
+        rent: 12_000  # $1,000/mo
+      person2:
+        age: 68
+        is_blind: false
+        is_disabled: false
+        immigration_status: CITIZEN
+        ssi_countable_resources: 600
+        ssi_claim_is_joint: true
+        ct_ssp_living_arrangement: COMMUNITY_ALONE
+        ct_ssp_has_therapeutic_diet: false
+        ssi: 11_928  # $994/mo
+        employment_income: 780  # $65/mo (exactly at aged initial disregard)
+        rent: 0
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CT
+  output:
+    # --- Need Standard ---
+    # Both married -> PNA = $197.35 each
+    ct_ssp_personal_needs_allowance: [197.35, 197.35]
+    ct_ssp_shelter_allowance: [400, 0]
+    # person1: min(1000, 400) = $400; person2: min(0, 400) = $0
+    ct_ssp_special_needs: [0, 0]
+    ct_ssp_need_standard: [597.35, 197.35]
+    # person1: $400 + $197.35 = $597.35
+    # person2: $0 + $197.35 = $197.35
+
+    # --- Income ---
+    ct_ssp_unearned_income_disregard: [562, 562]
+    ct_ssp_earned_income_disregard: [85, 65]
+    # person1 (blind): min(85, 85) + 0.5 * max(85-85, 0) = $85
+    # person2 (aged): min(65, 65) + 0.5 * max(65-65, 0) = $65
+
+    ct_ssp_countable_income: [432, 432]
+    # person1: unearned max(0, 994 - 562) = $432, earned max(0, 85 - 85) = $0
+    # person2: unearned max(0, 994 - 562) = $432, earned max(0, 65 - 65) = $0
+
+    # --- Eligibility ---
+    ct_ssp_resource_eligible: [true, true]
+    # Combined $1,200 <= $2,400 couple limit
+    ct_ssp_income_eligible: [true, false]
+    # person1: countable $432 <= need $597.35, gross $1,079 <= $2,982 -> eligible
+    # person2: countable $432 > need $197.35 -> NOT eligible
+    ct_ssp_eligible_person: [true, false]
+
+    # --- Benefit ---
+    # person1: max(0, 597.35 - 432) = $165.35
+    # person2: ineligible -> $0
+    ct_ssp_person: [165.35, 0]
+    ct_ssp: 165.35
+
+- name: Case 10, disregard exactly covers all unearned income.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_blind: false
+        is_disabled: false
+        immigration_status: CITIZEN
+        ssi_countable_resources: 500
+        ct_ssp_living_arrangement: COMMUNITY_ALONE
+        ct_ssp_has_therapeutic_diet: false
+        ssi: 6_744  # $562/mo = exactly the community disregard
+        employment_income: 0
+        rent: 12_000
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    # --- Need Standard ---
+    ct_ssp_shelter_allowance: 400
+    ct_ssp_personal_needs_allowance: 198.55
+    ct_ssp_special_needs: 0
+    ct_ssp_need_standard: 598.55
+
+    # --- Income ---
+    ct_ssp_unearned_income_disregard: 562
+    ct_ssp_earned_income_disregard: 0
+    ct_ssp_countable_income: 0
+    # Unearned: max(0, 562 - 562) = $0 (disregard exactly covers income)
+
+    # --- Eligibility ---
+    ct_ssp_resource_eligible: true
+    ct_ssp_income_eligible: true
+    ct_ssp_eligible_person: true
+
+    # --- Benefit ---
+    # Benefit = max(0, 598.55 - 0) = $598.55
+    ct_ssp_person: 598.55
+    ct_ssp: 598.55
+
+- name: Case 11, assets exactly at individual limit with income at need standard.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_blind: false
+        is_disabled: false
+        immigration_status: CITIZEN
+        ssi_countable_resources: 1_600  # Exactly at individual limit
+        ct_ssp_living_arrangement: COMMUNITY_ALONE
+        ct_ssp_has_therapeutic_diet: false
+        ssi: 11_928  # $994/mo
+        employment_income: 0
+        rent: 12_000
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    # --- Need Standard ---
+    ct_ssp_need_standard: 598.55
+
+    # --- Income ---
+    ct_ssp_countable_income: 432
+
+    # --- Eligibility ---
+    ct_ssp_resource_eligible: true
+    # $1,600 <= $1,600 -> eligible
+    ct_ssp_income_eligible: true
+    ct_ssp_eligible_person: true
+
+    # --- Benefit ---
+    ct_ssp_person: 166.55
+    ct_ssp: 166.55
+
+- name: Case 12, SNF resident with therapeutic diet.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 80
+        is_blind: false
+        is_disabled: false
+        immigration_status: CITIZEN
+        ssi_countable_resources: 200
+        ct_ssp_living_arrangement: SNF
+        ct_ssp_has_therapeutic_diet: true
+        ssi: 360  # $30/mo (reduced SSI for Medicaid facility)
+        employment_income: 0
+        rent: 0
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    # --- Need Standard ---
+    ct_ssp_shelter_allowance: 0
+    ct_ssp_personal_needs_allowance: 75
+    ct_ssp_special_needs: 36.20
+    ct_ssp_need_standard: 111.20
+    # Need = $0 + $75 + $36.20 = $111.20
+
+    # --- Income ---
+    ct_ssp_unearned_income_disregard: 562
+    ct_ssp_earned_income_disregard: 0
+    ct_ssp_countable_income: 0
+    # Unearned: max(0, 30 - 562) = $0
+
+    # --- Eligibility ---
+    ct_ssp_resource_eligible: true
+    ct_ssp_income_eligible: true
+    ct_ssp_eligible_person: true
+
+    # --- Benefit ---
+    # Benefit = max(0, 111.20 - 0) = $111.20
+    ct_ssp_person: 111.20
+    ct_ssp: 111.20
+
+- name: Case 13, income at gross cap boundary eligible but countable exceeds need.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_blind: false
+        is_disabled: false
+        immigration_status: CITIZEN
+        ssi_countable_resources: 500
+        ct_ssp_living_arrangement: COMMUNITY_ALONE
+        ct_ssp_has_therapeutic_diet: false
+        ssi: 0
+        employment_income: 35_784  # $2,982/mo = exactly 300% of $994 FBR
+        rent: 12_000
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    # --- Need Standard ---
+    ct_ssp_shelter_allowance: 400
+    ct_ssp_personal_needs_allowance: 198.55
+    ct_ssp_need_standard: 598.55
+
+    # --- Income ---
+    ct_ssp_earned_income_disregard: 1_523.50
+    # Aged: $65 + 0.5 * (2982 - 65) = $65 + $1,458.50 = $1,523.50
+    ct_ssp_countable_income: 1_458.50
+    # Unearned: $0, Earned: max(0, 2982 - 1523.50) = $1,458.50
+
+    # --- Eligibility ---
+    ct_ssp_resource_eligible: true
+    ct_ssp_income_eligible: false
+    # Gross $2,982 <= cap $2,982 -> passes cap
+    # But countable $1,458.50 > need $598.55 -> fails need test
+    ct_ssp_eligible_person: false
+
+    # --- Benefit ---
+    ct_ssp_person: 0
+    ct_ssp: 0

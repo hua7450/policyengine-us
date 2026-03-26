@@ -1,0 +1,211 @@
+- name: Case 1, need exceeds countable income.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_blind: false
+        is_disabled: false
+        immigration_status: CITIZEN
+        ssi_countable_resources: 500
+        ct_ssp_living_arrangement: COMMUNITY_ALONE
+        ct_ssp_has_therapeutic_diet: false
+        ssi: 11_928  # $994/mo
+        employment_income: 0
+        rent: 12_000
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    # Need = $598.55, Countable = $432
+    # Benefit = max(0, 598.55 - 432) = $166.55
+    ct_ssp_person: 166.55
+
+- name: Case 2, countable income exceeds need.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_blind: false
+        is_disabled: false
+        immigration_status: CITIZEN
+        ssi_countable_resources: 500
+        ct_ssp_living_arrangement: COMMUNITY_ALONE
+        ct_ssp_has_therapeutic_diet: false
+        ssi: 11_928
+        employment_income: 6_000  # $500/mo
+        rent: 12_000
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    # Need = $598.55
+    # Countable = $432 + $217.50 = $649.50
+    # $649.50 > $598.55 -> benefit = $0 (ineligible)
+    ct_ssp_person: 0
+
+- name: Case 3, zero income SNF resident.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 80
+        is_blind: false
+        is_disabled: false
+        immigration_status: CITIZEN
+        ssi_countable_resources: 100
+        ct_ssp_living_arrangement: SNF
+        ct_ssp_has_therapeutic_diet: false
+        ssi: 360  # $30/mo reduced SSI
+        employment_income: 0
+        rent: 0
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    # Need = $75, Countable = max(0, 30 - 562) = $0
+    # Benefit = max(0, 75 - 0) = $75
+    ct_ssp_person: 75
+
+- name: Case 4, ineligible person gets zero.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 40
+        is_blind: false
+        is_disabled: false
+        immigration_status: CITIZEN
+        ssi_countable_resources: 500
+        ct_ssp_living_arrangement: COMMUNITY_ALONE
+        ct_ssp_has_therapeutic_diet: false
+        ssi: 0
+        employment_income: 24_000
+        rent: 12_000
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    # Not aged, blind, or disabled -> not eligible
+    ct_ssp_person: 0
+
+- name: Case 5, benefit exactly zero when countable equals need.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_blind: false
+        is_disabled: false
+        immigration_status: CITIZEN
+        ssi_countable_resources: 500
+        ct_ssp_living_arrangement: COMMUNITY_ALONE
+        ct_ssp_has_therapeutic_diet: false
+        # Engineer countable = need ($598.55)
+        # Countable unearned = max(0, 994 - 562) = $432
+        # Need countable earned = 598.55 - 432 = $166.55
+        # Disregard = $65 + 0.5 * (earned - 65)
+        # earned - disregard = earned - 65 - 0.5*(earned - 65) = 0.5*(earned - 65) = 166.55
+        # earned - 65 = 333.10 -> earned = $398.10
+        ssi: 11_928  # $994/mo
+        employment_income: 4_777.20  # $398.10/mo
+        rent: 12_000
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    # Need = $598.55
+    # Countable = $432 + $166.55 = $598.55
+    # Benefit = max(0, 598.55 - 598.55) = $0
+    ct_ssp_person: 0
+
+- name: Case 6, boarding home zero income maximum benefit.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 75
+        is_blind: false
+        is_disabled: false
+        immigration_status: CITIZEN
+        ssi_countable_resources: 500
+        ct_ssp_living_arrangement: BOARDING_HOME
+        ct_ssp_has_therapeutic_diet: false
+        ssi: 0
+        employment_income: 0
+        rent: 0
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    # Need = PNA $34.75 + Shelter $0 + Diet $0 = $34.75
+    # Countable = $0
+    # Benefit = max(0, 34.75 - 0) = $34.75
+    ct_ssp_person: 34.75

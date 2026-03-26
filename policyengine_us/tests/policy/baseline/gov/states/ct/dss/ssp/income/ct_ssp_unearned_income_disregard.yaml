@@ -1,0 +1,60 @@
+- name: Case 1, community resident.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        ct_ssp_living_arrangement: COMMUNITY_ALONE
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    ct_ssp_unearned_income_disregard: 562
+
+- name: Case 2, boarding home resident.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        ct_ssp_living_arrangement: BOARDING_HOME
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    ct_ssp_unearned_income_disregard: 469.70
+
+- name: Case 3, shared living resident.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        ct_ssp_living_arrangement: COMMUNITY_SHARED
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    ct_ssp_unearned_income_disregard: 629.90
+
+- name: Case 4, SNF resident gets community disregard.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        ct_ssp_living_arrangement: SNF
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    # Per SSA 2011: community/roomer/SNF all use the community disregard ($562)
+    ct_ssp_unearned_income_disregard: 562

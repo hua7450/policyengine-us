@@ -1,0 +1,25 @@
+from policyengine_us.model_api import *
+
+
+class ct_ssp_categorically_eligible(Variable):
+    value_type = bool
+    entity = Person
+    label = "Connecticut SSP categorically eligible"
+    definition_period = MONTH
+    defined_for = StateCode.CT
+    reference = (
+        "https://www.cga.ct.gov/current/pub/chap_319s.htm#sec_17b-600",
+        "https://www.ssa.gov/policy/docs/progdesc/ssi_st_asst/2011/ct.html",
+    )
+
+    def formula(person, period, parameters):
+        # Per CGS 17b-600: Must be SSI-eligible (ABD + resources + immigration).
+        is_ssi_eligible = person("is_ssi_eligible", period.this_year)
+
+        # Per CGS 17b-600: Only blind children are eligible; disabled
+        # (non-blind) children are excluded from CT SSP.
+        is_dependent = person("is_tax_unit_dependent", period.this_year)
+        is_blind = person("is_blind", period.this_year)
+        is_child_excluded = is_dependent & ~is_blind
+
+        return is_ssi_eligible & ~is_child_excluded
