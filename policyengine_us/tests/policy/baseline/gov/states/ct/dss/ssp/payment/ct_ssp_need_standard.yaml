@@ -16,8 +16,8 @@
         members: [person1]
         state_code: CT
   output:
-    # Need = Shelter ($400) + PNA ($198.55) + Special Needs ($0) = $598.55
-    ct_ssp_need_standard: 598.55
+    # Need = Shelter ($400) + PNA ($197.35) + Special Needs ($0) = $597.35
+    ct_ssp_need_standard: 597.35
 
 - name: Case 2, community alone with therapeutic diet.
   period: 2026-01
@@ -37,8 +37,8 @@
         members: [person1]
         state_code: CT
   output:
-    # Need = Shelter ($400) + PNA ($198.55) + Diet ($36.20) = $634.75
-    ct_ssp_need_standard: 634.75
+    # Need = Shelter ($400) + PNA ($197.35) + Diet ($36.20) = $633.55
+    ct_ssp_need_standard: 633.55
 
 - name: Case 3, community shared.
   period: 2026-01
@@ -58,8 +58,8 @@
         members: [person1]
         state_code: CT
   output:
-    # Need = Shelter ($200) + PNA ($198.55) + Special Needs ($0) = $398.55
-    ct_ssp_need_standard: 398.55
+    # Need = Shelter ($200) + PNA ($197.35) + Special Needs ($0) = $397.35
+    ct_ssp_need_standard: 397.35
 
 - name: Case 4, boarding home.
   period: 2026-01
@@ -121,8 +121,8 @@
         members: [person1]
         state_code: CT
   output:
-    # Need = Shelter ($0) + PNA ($198.55) + Special Needs ($0) = $198.55
-    ct_ssp_need_standard: 198.55
+    # Need = Shelter ($0) + PNA ($197.35) + Special Needs ($0) = $197.35
+    ct_ssp_need_standard: 197.35
 
 - name: Case 7, boarding home with therapeutic diet.
   period: 2026-01

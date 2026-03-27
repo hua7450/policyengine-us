@@ -15,7 +15,14 @@ class ct_ssp_earned_income_disregard(Variable):
 
     def formula(person, period, parameters):
         p = parameters(period).gov.states.ct.dss.ssp.disregard.earned
-        gross_earned = person("ssi_earned_income", period)
+        gross_earned = add(
+            person,
+            period,
+            [
+                "ssi_earned_income",
+                "ssi_earned_income_deemed_from_ineligible_spouse",
+            ],
+        )
         is_blind = person("is_blind", period.this_year)
 
         initial = where(

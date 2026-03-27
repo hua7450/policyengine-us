@@ -8,7 +8,22 @@ class ct_ssp_gross_income(Variable):
     unit = USD
     definition_period = MONTH
     defined_for = StateCode.CT
-    reference = "https://www.ssa.gov/policy/docs/progdesc/ssi_st_asst/2011/ct.html"
+    reference = (
+        "https://www.ssa.gov/policy/docs/progdesc/ssi_st_asst/2011/ct.html",
+        "https://www.ctdssmap.com/CTPortal/Information/Get/UPM#4005.05",
+    )
 
-    # Per UPM 5030.15: CT SSP counts SSI payments as unearned income.
-    adds = ["ssi_earned_income", "ssi_unearned_income", "ssi"]
+    def formula(person, period, parameters):
+        # Connecticut treats spouses as financially responsible for each other,
+        # so deemed income from an ineligible spouse belongs in the gross-income test.
+        return add(
+            person,
+            period,
+            [
+                "ssi_earned_income",
+                "ssi_unearned_income",
+                "ssi",
+                "ssi_earned_income_deemed_from_ineligible_spouse",
+                "ssi_unearned_income_deemed_from_ineligible_spouse",
+            ],
+        )

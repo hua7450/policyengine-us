@@ -17,13 +17,26 @@ class ct_ssp_countable_income(Variable):
     def formula(person, period, parameters):
         # Per UPM 5030.10/5030.15: Countable = (unearned - disregard) + (earned - disregard).
         # SSI payments are included in unearned income.
-        gross_unearned = person("ssi_unearned_income", period)
-        ssi_payment = person("ssi", period)
-        total_unearned = gross_unearned + ssi_payment
+        total_unearned = add(
+            person,
+            period,
+            [
+                "ssi_unearned_income",
+                "ssi",
+                "ssi_unearned_income_deemed_from_ineligible_spouse",
+            ],
+        )
         unearned_disregard = person("ct_ssp_unearned_income_disregard", period)
         countable_unearned = max_(total_unearned - unearned_disregard, 0)
 
-        gross_earned = person("ssi_earned_income", period)
+        gross_earned = add(
+            person,
+            period,
+            [
+                "ssi_earned_income",
+                "ssi_earned_income_deemed_from_ineligible_spouse",
+            ],
+        )
         earned_disregard = person("ct_ssp_earned_income_disregard", period)
         countable_earned = max_(gross_earned - earned_disregard, 0)
 

@@ -14,7 +14,7 @@
         members: [person1]
         state_code: CT
   output:
-    ct_ssp_personal_needs_allowance: 198.55
+    ct_ssp_personal_needs_allowance: 197.35
 
 - name: Case 2, community married.
   period: 2026-01
@@ -38,7 +38,7 @@
         members: [person1, person2]
         state_code: CT
   output:
-    ct_ssp_personal_needs_allowance: [197.35, 197.35]
+    ct_ssp_personal_needs_allowance: [198.55, 198.55]
 
 - name: Case 3, boarding home resident.
   period: 2026-01
@@ -92,7 +92,7 @@
         members: [person1]
         state_code: CT
   output:
-    ct_ssp_personal_needs_allowance: 198.55
+    ct_ssp_personal_needs_allowance: 197.35
 
 - name: Case 6, community shared married couple.
   period: 2026-01
@@ -116,8 +116,8 @@
         members: [person1, person2]
         state_code: CT
   output:
-    # Married shared -> community married PNA $197.35 each
-    ct_ssp_personal_needs_allowance: [197.35, 197.35]
+    # Married shared -> community married PNA $198.55 each
+    ct_ssp_personal_needs_allowance: [198.55, 198.55]
 
 - name: Case 7, SNF married couple.
   period: 2026-01

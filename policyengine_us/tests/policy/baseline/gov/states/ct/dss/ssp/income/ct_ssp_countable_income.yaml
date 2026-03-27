@@ -168,3 +168,25 @@
     # Unearned: max(0, 2982 - 562) = $2,420
     # Countable = $2,420
     ct_ssp_countable_income: 2_420
+
+- name: Case 9, countable income includes deemed spouse income.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_blind: false
+        ct_ssp_living_arrangement: COMMUNITY_ALONE
+        ssi: 0
+        ssi_unearned_income_deemed_from_ineligible_spouse: 7_200
+        ssi_earned_income_deemed_from_ineligible_spouse: 3_600
+    households:
+      household:
+        members: [person1]
+        state_code: CT
+  output:
+    # Deemed spouse income adds $600/mo unearned and $300/mo earned.
+    # Countable unearned = max(600 - 562, 0) = $38.
+    # Countable earned = 300 - (65 + 0.5 * (300 - 65)) = $117.50.
+    ct_ssp_countable_income: 155.50

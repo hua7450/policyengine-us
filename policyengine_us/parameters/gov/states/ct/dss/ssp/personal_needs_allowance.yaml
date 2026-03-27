@@ -17,12 +17,12 @@ metadata:
       href: https://www.ssa.gov/policy/docs/progdesc/ssi_st_asst/2011/ct.html
 
 COMMUNITY_ALONE:
-  2022-07-01: 181.65
-  2025-10-01: 198.55
+  2022-07-01: 180.55
+  2025-10-01: 197.35
 
 COMMUNITY_SHARED:
-  2022-07-01: 181.65
-  2025-10-01: 198.55
+  2022-07-01: 180.55
+  2025-10-01: 197.35
 
 BOARDING_HOME:
   2022-07-01: 31.79
