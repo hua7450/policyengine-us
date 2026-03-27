@@ -24,7 +24,9 @@ class ca_tanf_countable_income_applicant(Variable):
         legacy_countable_earned = sum(
             max_(
                 monthly_gross_earned
-                - parameters(subperiod).gov.states.ca.cdss.tanf.cash.income.disregards.applicant.flat,
+                - parameters(
+                    subperiod
+                ).gov.states.ca.cdss.tanf.cash.income.disregards.applicant.flat,
                 0,
             )
             for subperiod in period.get_subperiods(MONTH)
