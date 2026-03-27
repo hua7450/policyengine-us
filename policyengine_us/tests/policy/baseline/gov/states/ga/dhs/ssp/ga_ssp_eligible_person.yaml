@@ -85,6 +85,21 @@
   output:
     ga_ssp_eligible_person: [true]
 
+- name: Case 6b, SSI-eligible person who declines SSI is not eligible.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        is_ssi_eligible: true
+        ga_ssp_in_medicaid_facility: true
+        takes_up_ssi_if_eligible: false
+    households:
+      household:
+        members: [person1]
+        state_code: GA
+  output:
+    ga_ssp_eligible_person: [false]
+
 - name: Case 7, SSI-eligible but uncapped_ssi is exactly zero.
   period: 2024-01
   input:

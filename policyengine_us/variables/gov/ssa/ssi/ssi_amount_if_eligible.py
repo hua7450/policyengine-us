@@ -39,6 +39,20 @@ class ssi_amount_if_eligible(Variable):
             individual_or_deeming_amount,
         )
 
+        # Georgia SSP recipients live in Title XIX facilities, where the
+        # federal SSI payment is capped at $30/month.
+        state_code = person.household("state_code", period)
+        in_medicaid_facility = person("ga_ssp_in_medicaid_facility", period)
+        georgia_medicaid_facility = (
+            state_code == StateCode.GA
+        ) & in_medicaid_facility
+        institutional_amount = where(is_joint_claim, 30, 30)
+        head_or_spouse_amount = where(
+            georgia_medicaid_facility,
+            institutional_amount,
+            head_or_spouse_amount,
+        )
+
         # Adults amount is based on scenario (see above)
         # Dependents always use individual amount.
         ssi_per_month = where(is_dependent, p.individual, head_or_spouse_amount)
