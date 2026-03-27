@@ -19,6 +19,11 @@
     # Benefit: individual amount = $140, no reduction
     # supplement = max(0, 140 - max(0, -(0/12))) = max(0, 140 - 0) = $140
     de_ssp: 140
+    # At a monthly test period, the household state-benefit aggregate includes
+    # the monthly SSP amount.
+    household_state_benefits: 140
+    # SPM benefits include both SSI and the Delaware SSP in this scenario.
+    spm_unit_benefits: 433.5
 
 - name: Case 2, eligible couple both in residential care.
   period: 2025-01
