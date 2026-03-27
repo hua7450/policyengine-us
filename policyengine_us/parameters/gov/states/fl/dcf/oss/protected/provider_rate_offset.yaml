@@ -1,0 +1,12 @@
+description: Florida sets this amount as the offset added to the federal SSI benefit rate to determine the Protected provider rate under the Optional State Supplementation program.
+values:
+  2011-01-01: 0
+  2024-07-01: 185
+
+metadata:
+  unit: currency-USD
+  period: month
+  label: Florida OSS Protected provider rate offset
+  reference:
+    - title: FL DCF Appendix A-12, Optional State Supplementation Payment Standards
+      href: https://www.myflfamilies.com/sites/default/files/2024-10/Appendix%20A-12%20OSS%20Payment%20Standards.pdf

@@ -1,0 +1,14 @@
+description: Florida limits the individual Redesign payment to this amount under the Optional State Supplementation program.
+values:
+  2011-01-01: 78.4
+  2024-07-01: 184.4
+
+metadata:
+  unit: currency-USD
+  period: month
+  label: Florida OSS Redesign maximum individual payment
+  reference:
+    - title: SSA State Assistance Programs for SSI Recipients, January 2011 - Florida, Table 1 ($78.40 value only)
+      href: https://www.ssa.gov/policy/docs/progdesc/ssi_st_asst/2011/fl.html
+    - title: FL DCF Appendix A-12, Optional State Supplementation Payment Standards
+      href: https://www.myflfamilies.com/sites/default/files/2024-10/Appendix%20A-12%20OSS%20Payment%20Standards.pdf
