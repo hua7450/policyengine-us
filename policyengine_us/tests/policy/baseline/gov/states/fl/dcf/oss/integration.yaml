@@ -258,14 +258,14 @@
         fl_oss_facility_type: ALF
         fl_oss_program_track: REDESIGN
   output:
-    # Before Jul 2024: PNA = $54, Redesign offset = $78.40 (pre-restructuring single track).
-    # Provider rate (I) = $943 + $78.40 = $1,021.40/month.
-    fl_oss_provider_rate: [1_021.40]
-    # Income standard (Redesign) = $1,021.40 + $54 = $1,075.40/month.
-    fl_oss_income_standard: [1_075.40]
+    # Before Jul 2024: PNA = $54, Redesign offset = $24.40.
+    # Provider rate (I) = $943 + $24.40 = $967.40/month.
+    fl_oss_provider_rate: [967.40]
+    # Income standard (Redesign) = $967.40 + $54 = $1,021.40/month.
+    fl_oss_income_standard: [1_021.40]
     # Max OSS (Redesign, I pre-Jul 2024) = $78.40/month.
     fl_oss_max_oss: [78.40]
-    # Calculated = $1,075.40 - $700 = $375.40/month → capped at $78.40.
+    # Calculated = $1,021.40 - $700 = $321.40/month → capped at $78.40.
     # OSS = $78.40/month.
     fl_oss: [78.40]
 
@@ -290,13 +290,13 @@
         fl_oss_program_track: REDESIGN
   output:
     fl_oss_eligible: [true]
-    # 2011 values (pre-restructuring): Redesign offset = $78.40, PNA = $54.
-    # Provider rate (I) = $674 + $78.40 = $752.40/month.
-    fl_oss_provider_rate: [752.40]
-    # Income standard (Redesign) = $752.40 + $54 = $806.40/month.
-    fl_oss_income_standard: [806.40]
+    # 2011 values (pre-restructuring): Redesign offset = $24.40, PNA = $54.
+    # Provider rate (I) = $674 + $24.40 = $698.40/month.
+    fl_oss_provider_rate: [698.40]
+    # Income standard (Redesign) = $698.40 + $54 = $752.40/month.
+    fl_oss_income_standard: [752.40]
     # Max OSS (Redesign, I, 2011) = $78.40/month.
     fl_oss_max_oss: [78.40]
-    # Calculated = $806.40 - $500 = $306.40/month → capped at $78.40.
+    # Calculated = $752.40 - $500 = $252.40/month → capped at $78.40.
     # OSS = $78.40/month.
     fl_oss: [78.40]

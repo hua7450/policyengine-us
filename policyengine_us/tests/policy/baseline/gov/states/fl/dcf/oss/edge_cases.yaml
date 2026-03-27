@@ -279,13 +279,13 @@
         fl_oss_program_track: REDESIGN
   output:
     fl_oss_eligible: [true]
-    # SSI FBR (I) 2024 = $943. Redesign offset pre-Jul-2024 = $78.40.
-    # Provider rate = $943 + $78.40 = $1,021.40/month.
-    fl_oss_provider_rate: [1_021.40]
-    # PNA = $54. Total needs = $1,021.40 + $54 = $1,075.40/month.
+    # SSI FBR (I) 2024 = $943. Redesign offset = $24.40.
+    # Provider rate = $943 + $24.40 = $967.40/month.
+    fl_oss_provider_rate: [967.40]
+    # PNA = $54. Total needs = $967.40 + $54 = $1,021.40/month.
     # Max OSS (Redesign, I, pre-Jul-2024) = $78.40.
-    # Income = $700/month. OSS = min(max(0, $1,075.40 - $700), $78.40)
-    # = min($375.40, $78.40) = $78.40.
+    # Income = $700/month. OSS = min(max(0, $1,021.40 - $700), $78.40)
+    # = min($321.40, $78.40) = $78.40.
     fl_oss: [78.40]
 
 - name: Case 11, PNA at new rate (2025-01), same income scenario for comparison.

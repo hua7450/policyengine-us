@@ -123,6 +123,6 @@
         fl_oss_program_track: REDESIGN
   output:
     # SSI FBR (I) 2024 = $943/month.
-    # Jan 2024 uses pre-Jul-2024 Redesign offset = $78.40/month.
-    # Provider rate = $943 + $78.40 = $1,021.40/month.
-    fl_oss_provider_rate: [1_021.40]
+    # Redesign offset = $24.40/month.
+    # Provider rate = $943 + $24.40 = $967.40/month.
+    fl_oss_provider_rate: [967.40]
