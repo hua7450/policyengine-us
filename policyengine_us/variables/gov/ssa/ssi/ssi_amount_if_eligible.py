@@ -39,6 +39,26 @@ class ssi_amount_if_eligible(Variable):
             individual_or_deeming_amount,
         )
 
+        # Indiana SAPN applies only to recipients in Medicaid-certified
+        # facilities, where the federal SSI payment is capped at $30/month.
+        state_code = person.household("state_code", period)
+        living_arrangement = person.household(
+            "in_ssp_living_arrangement", period.first_month
+        )
+        medicaid_facility = (
+            living_arrangement
+            == living_arrangement.possible_values.MEDICAID_FACILITY
+        )
+        indiana_medicaid_facility = (
+            state_code == StateCode.IN
+        ) & medicaid_facility
+        institutional_amount = where(is_joint_claim, 30, 30)
+        head_or_spouse_amount = where(
+            indiana_medicaid_facility,
+            institutional_amount,
+            head_or_spouse_amount,
+        )
+
         # Adults amount is based on scenario (see above)
         # Dependents always use individual amount.
         ssi_per_month = where(is_dependent, p.individual, head_or_spouse_amount)

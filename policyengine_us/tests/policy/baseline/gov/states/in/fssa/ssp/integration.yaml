@@ -19,7 +19,9 @@
     in_ssp_sapn_eligible: true
     in_ssp_rcap_eligible: false
     in_ssp_eligible: true
-    # SAPN benefit: flat $22/month individual
+    # Federal SSI is limited to $30/month in a Medicaid facility.
+    ssi: 30
+    # SAPN = $52 PNA - $30 reduced SSI = $22/month
     in_ssp_sapn: 22
     in_ssp_rcap: 0
     # Combined: SAPN + RCAP = 22 + 0 = $22
@@ -55,11 +57,57 @@
     in_ssp_sapn_eligible: [true, true]
     in_ssp_rcap_eligible: [false, false]
     in_ssp_eligible: [true, true]
+    ssi: [30, 30]
     # SAPN couple: $44/month total = $22 each
     in_ssp_sapn: [22, 22]
     in_ssp_rcap: [0, 0]
     # Combined per person: $22
     in_ssp: [22, 22]
+
+- name: Case 2b, SAPN phases down when the recipient has other countable income.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 68
+        is_ssi_eligible: true
+        is_medicaid_eligible: true
+        ssi_claim_is_joint: false
+        ssi_countable_income: 120
+    households:
+      household:
+        members: [person1]
+        state_code: IN
+        in_ssp_living_arrangement: MEDICAID_FACILITY
+  output:
+    in_ssp_sapn_eligible: true
+    ssi: 20
+    # SAPN = $52 PNA - $30 reduced SSI - $10 other countable income = $12
+    in_ssp_sapn: 12
+    in_ssp: 12
+
+- name: Case 3b, RCAP deducts both SSI and countable income.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 50
+        is_ssi_eligible: true
+        is_medicaid_eligible: false
+        ssi: 9_000
+        ssi_countable_income: 2_400
+    households:
+      household:
+        members: [person1]
+        state_code: IN
+        in_ssp_living_arrangement: LICENSED_RESIDENTIAL
+  output:
+    in_ssp_rcap_eligible: true
+    # State standard = 49.35 * 365/12 = $1,501.06
+    # Deduction = $750 SSI + $200 countable income = $950
+    in_ssp_rcap: 551.06
 
 - name: Case 3, RCAP eligible individual in licensed facility with partial federal SSI offset.
   period: 2025-01

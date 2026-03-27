@@ -25,6 +25,8 @@ class in_ssp_rcap(Variable):
         )
         average_days_per_month = 365 / MONTHS_IN_YEAR
         state_standard = per_diem * average_days_per_month
-        uncapped_ssi = person("uncapped_ssi", period)
-        federal_ssi = max_(uncapped_ssi, 0)
-        return max_(state_standard - federal_ssi, 0)
+        ssi = person("ssi", period.this_year) / MONTHS_IN_YEAR
+        countable_income = (
+            person("ssi_countable_income", period.this_year) / MONTHS_IN_YEAR
+        )
+        return max_(state_standard - ssi - countable_income, 0)
