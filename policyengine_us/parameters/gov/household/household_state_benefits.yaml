@@ -21,6 +21,8 @@ values:
     - ca_state_supplement
     # Alabama benefits
     - al_ssp
+    # Alaska benefits
+    - ak_ssp
     # Nebraska benefits
     - ne_child_care_subsidies
     # Massachusetts benefits
@@ -47,6 +49,8 @@ values:
     - ca_state_supplement
     # Alabama benefits
     - al_ssp
+    # Alaska benefits
+    - ak_ssp
     # Nebraska benefits
     - ne_child_care_subsidies
     # North Carolina benefits
