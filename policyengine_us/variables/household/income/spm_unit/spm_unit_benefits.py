@@ -12,6 +12,7 @@ class spm_unit_benefits(Variable):
         BENEFITS = [
             "social_security",
             "ssi",
+            "al_ssp",
             "de_ssp",  # Delaware benefits
             "ma_state_supplement",  # Massachusetts benefits
             # California programs.
