@@ -16,7 +16,17 @@ class al_ssp_eligible(Variable):
         is_ssi_eligible = person("is_ssi_eligible", period.this_year)
         receives_ssi = person("uncapped_ssi", period) > 0
         living_arrangement = person("al_ssp_living_arrangement", period)
-        in_qualifying_arrangement = (
-            living_arrangement != living_arrangement.possible_values.NONE
+        grandfathered = person("al_ssp_grandfathered", period)
+        values = living_arrangement.possible_values
+        in_qualifying_arrangement = living_arrangement != values.NONE
+        requires_closed_cohort = (
+            living_arrangement == values.CEREBRAL_PALSY
         )
-        return is_ssi_eligible & receives_ssi & in_qualifying_arrangement
+        current_ssi_linked_eligibility = (
+            is_ssi_eligible
+            & receives_ssi
+            & in_qualifying_arrangement
+            & ~requires_closed_cohort
+        )
+        grandfathered_eligibility = grandfathered & in_qualifying_arrangement
+        return current_ssi_linked_eligibility | grandfathered_eligibility

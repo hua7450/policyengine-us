@@ -17,6 +17,8 @@ values:
     - ca_la_expectant_parent_payment
     - ca_capi
     - ca_state_supplement
+    # Alabama benefits
+    - al_ssp
     # Nebraska benefits
     - ne_child_care_subsidies
     # Massachusetts benefits
@@ -39,6 +41,8 @@ values:
     - ca_la_expectant_parent_payment
     - ca_capi
     - ca_state_supplement
+    # Alabama benefits
+    - al_ssp
     # Nebraska benefits
     - ne_child_care_subsidies
     # North Carolina benefits

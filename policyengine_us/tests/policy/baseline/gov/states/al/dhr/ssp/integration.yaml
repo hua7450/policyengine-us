@@ -6,6 +6,7 @@
       person1:
         age: 70
         is_ssi_eligible: true
+        uncapped_ssi: 1
         al_ssp_living_arrangement: IHC_LEVEL_A
     spm_units:
       spm_unit:
@@ -17,6 +18,7 @@
   output:
     al_ssp_eligible: [true]
     al_ssp: [60]
+    spm_unit_benefits: 353.58334
 
 - name: Case 2, SSI eligible couple in Foster Care.
   period: 2025-01
@@ -26,10 +28,12 @@
       person1:
         age: 68
         is_ssi_eligible: true
+        uncapped_ssi: 1
         al_ssp_living_arrangement: FOSTER_CARE
       person2:
         age: 65
         is_ssi_eligible: true
+        uncapped_ssi: 1
         al_ssp_living_arrangement: FOSTER_CARE
     spm_units:
       spm_unit:
@@ -82,7 +86,7 @@
     al_ssp_eligible: [false]
     al_ssp: [0]
 
-- name: Case 5, SSI eligible person in Cerebral Palsy Treatment Center.
+- name: Case 5, non-grandfathered cerebral palsy case is not eligible.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
@@ -90,6 +94,27 @@
       person1:
         age: 60
         is_ssi_eligible: true
+        uncapped_ssi: 1
+        al_ssp_living_arrangement: CEREBRAL_PALSY
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: AL
+  output:
+    al_ssp_eligible: [false]
+    al_ssp: [0]
+
+- name: Case 5b, grandfathered cerebral palsy case remains eligible.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 60
+        al_ssp_grandfathered: true
         al_ssp_living_arrangement: CEREBRAL_PALSY
     spm_units:
       spm_unit:
@@ -110,6 +135,7 @@
       person1:
         age: 70
         is_ssi_eligible: true
+        uncapped_ssi: 1
         al_ssp_living_arrangement: IHC_LEVEL_A
       person2:
         age: 65
@@ -136,10 +162,12 @@
       person1:
         age: 70
         is_ssi_eligible: true
+        uncapped_ssi: 1
         al_ssp_living_arrangement: FOSTER_CARE
       person2:
         age: 68
         is_ssi_eligible: true
+        uncapped_ssi: 1
         al_ssp_living_arrangement: IHC_LEVEL_B
     spm_units:
       spm_unit:
@@ -154,6 +182,27 @@
     al_ssp_eligible: [true, true]
     al_ssp: [110, 56]
 
+- name: Case 7b, FCMP nursing care uses the $100 payment amount.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_eligible: true
+        uncapped_ssi: 1
+        al_ssp_living_arrangement: FCMP_NURSING_CARE
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: AL
+  output:
+    al_ssp_eligible: [true]
+    al_ssp: [100]
+
 - name: Case 8, wrong state receives zero.
   period: 2025-01
   absolute_error_margin: 0.01
@@ -162,6 +211,7 @@
       person1:
         age: 70
         is_ssi_eligible: true
+        uncapped_ssi: 1
         al_ssp_living_arrangement: IHC_LEVEL_A
     spm_units:
       spm_unit:
@@ -274,6 +324,7 @@
       person1:
         age: 70
         employment_income: 0
+        al_ssp_grandfathered: true
         al_ssp_living_arrangement: CEREBRAL_PALSY
     tax_units:
       tax_unit:
