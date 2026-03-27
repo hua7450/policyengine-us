@@ -1,3 +1,10 @@
+## [1.624.0] - 2026-03-27
+
+### Added
+
+- Add Alaska State Supplementary Payment (Adult Public Assistance).
+
+
 ## [1.623.0] - 2026-03-27
 
 ### Added
