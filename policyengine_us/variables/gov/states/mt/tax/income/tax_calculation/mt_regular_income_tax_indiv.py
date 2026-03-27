@@ -20,10 +20,9 @@ class mt_regular_income_tax_indiv(Variable):
             ltcg = person("long_term_capital_gains", period)
             stcg = person("short_term_capital_gains", period)
             net_cg = ltcg + stcg
-            # Only subtract LTCG when net capital gains are positive.
-            # When STCG losses exceed LTCG, the net position is a loss
-            # and all income should be taxed at ordinary rates.
-            cg_to_subtract = where(net_cg > 0, max_(ltcg, 0), 0)
+            # Montana Form 2 line 2 uses the federal net long-term capital gain
+            # amount, which is limited by any short-term capital losses.
+            cg_to_subtract = max_(min_(ltcg, net_cg), 0)
             taxable_income = max_(taxable_income - cg_to_subtract, 0)
         status = filing_status.possible_values
         return select(

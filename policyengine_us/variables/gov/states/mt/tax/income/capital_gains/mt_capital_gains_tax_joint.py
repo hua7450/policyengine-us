@@ -18,12 +18,11 @@ class mt_capital_gains_tax_joint(Variable):
             # https://revenue.mt.gov/files/Forms/Montana-Individual-Income-Tax-Return-Form-2/2024_Montana_Individual_Income_Tax_Return_Form_2.pdf#page=2
             # Line 1 — aggregate across persons for joint filing
             taxable_income = add(tax_unit, period, ["mt_taxable_income_joint"])
-            # Line 2 — aggregate LTCG across persons
-            capital_gains = add(tax_unit, period, ["long_term_capital_gains"])
+            # Line 2 — lesser of net LTCG and total net capital gain
+            ltcg = add(tax_unit, period, ["long_term_capital_gains"])
             stcg = add(tax_unit, period, ["short_term_capital_gains"])
-            net_cg = capital_gains + stcg
-            # No preferential CG rates when net capital gains are negative
-            capital_gains = where(net_cg > 0, max_(capital_gains, 0), 0)
+            net_cg = ltcg + stcg
+            capital_gains = max_(min_(ltcg, net_cg), 0)
             # Line 3
             lesser_of_cg_and_taxable_income = min_(capital_gains, taxable_income)
             # Line 4

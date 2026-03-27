@@ -408,7 +408,7 @@
     mt_income_tax: 20_837
 
 - name: MT joint 2024 - positive net CG with STCG losses applies preferential rates
-  # LTCG=50K, STCG=-30K, net=+20K → preferential CG rates should apply
+  # LTCG=50K, STCG=-30K, net=+20K → Form 2 line 2 uses only the net LTCG amount
   period: 2024
   absolute_error_margin: 1
   input:
@@ -438,9 +438,9 @@
         members: [head, spouse]
   output:
     mt_taxable_income: 90_800
-    mt_regular_income_tax_joint: 1_918
-    mt_capital_gains_tax_joint: 2_050
-    mt_income_tax: 3_968
+    mt_regular_income_tax_joint: 3_685
+    mt_capital_gains_tax_joint: 820
+    mt_income_tax: 4_505
 
 - name: MT joint 2024 - LTCG on head, wages on spouse (cross-person aggregation)
   # Tests TaxUnit-level CG tax aggregation across spouses

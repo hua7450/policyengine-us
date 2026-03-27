@@ -89,7 +89,7 @@
     mt_capital_gains_tax_joint: 0
 
 - name: CG tax applies when net capital gains are positive despite STCG losses
-  # LTCG=50K, STCG=-20K → net=+30K → preferential rates apply to full LTCG
+  # Form 2 line 2 uses the positive net LTCG amount, not gross LTCG
   period: 2024
   input:
     long_term_capital_gains: 50_000
@@ -99,8 +99,8 @@
     filing_status: JOINT
     state_code: MT
   output:
-    # lesser_of_cg_and_taxable = min(50K, 100K) = 50K
-    # excess_over_taxable = max(100K - 50K, 0) = 50K
-    # excess_over_threshold = max(41K - 50K, 0) = 0
-    # All 50K taxed at higher rate: 50K * 0.041 = 2050
-    mt_capital_gains_tax_joint: 2_050
+    # lesser_of_cg_and_taxable = min(30K, 100K) = 30K
+    # excess_over_taxable = max(100K - 30K, 0) = 70K
+    # excess_over_threshold = max(41K - 70K, 0) = 0
+    # All 30K taxed at higher rate: 30K * 0.041 = 1230
+    mt_capital_gains_tax_joint: 1_230
