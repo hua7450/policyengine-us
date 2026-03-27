@@ -42,12 +42,8 @@ class ssi_amount_if_eligible(Variable):
             individual_or_deeming_amount,
         )
 
-        is_ak_household_of_another = (
-            (state_code == StateCode.AK)
-            & (
-                ak_living_arrangement
-                == ak_values.HOUSEHOLD_OF_ANOTHER
-            )
+        is_ak_household_of_another = (state_code == StateCode.AK) & (
+            ak_living_arrangement == ak_values.HOUSEHOLD_OF_ANOTHER
         )
         is_ak_medicaid_facility = (state_code == StateCode.AK) & (
             ak_living_arrangement == ak_values.MEDICAID_FACILITY

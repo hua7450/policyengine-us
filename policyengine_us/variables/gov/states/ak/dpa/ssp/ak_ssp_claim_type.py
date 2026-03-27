@@ -24,9 +24,7 @@ class ak_ssp_claim_type(Variable):
         marital_unit_size = person.marital_unit.sum(person("age", period) >= 0)
         is_eligible_individual = person("is_ssi_aged_blind_disabled", period)
         one_eligible_couple = (
-            ~joint_claim
-            & is_eligible_individual
-            & (marital_unit_size == 2)
+            ~joint_claim & is_eligible_individual & (marital_unit_size == 2)
         )
         return select(
             [joint_claim, one_eligible_couple],

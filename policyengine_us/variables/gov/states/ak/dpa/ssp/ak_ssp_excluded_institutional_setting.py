@@ -8,7 +8,9 @@ class ak_ssp_excluded_institutional_setting(Variable):
     definition_period = YEAR
     defined_for = StateCode.AK
     default_value = False
-    reference = "https://www.ssa.gov/policy/docs/progdesc/ssi_st_asst/2011/ak.pdf#page=1"
+    reference = (
+        "https://www.ssa.gov/policy/docs/progdesc/ssi_st_asst/2011/ak.pdf#page=1"
+    )
     documentation = """
     Flags households in Alaska Pioneer Homes, nonmedical public institutions,
     or institutions for mental disorders. Those settings are explicitly
