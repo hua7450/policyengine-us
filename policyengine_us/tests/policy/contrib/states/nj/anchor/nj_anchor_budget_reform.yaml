@@ -5,7 +5,7 @@
 
 - name: Case 1, senior homeowner lower income gets $1,500 not $1,750.
   period: 2027
-  absolute_error_margin: 1
+  absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.nj.anchor.nj_anchor_reform.nj_anchor_budget_reform
   input:
     gov.contrib.states.nj.anchor.in_effect: true
@@ -33,7 +33,7 @@
 
 - name: Case 2, senior homeowner upper income gets $1,000 not $1,250.
   period: 2027
-  absolute_error_margin: 1
+  absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.nj.anchor.nj_anchor_reform.nj_anchor_budget_reform
   input:
     gov.contrib.states.nj.anchor.in_effect: true
@@ -61,7 +61,7 @@
 
 - name: Case 3, senior renter unchanged at $700.
   period: 2027
-  absolute_error_margin: 1
+  absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.nj.anchor.nj_anchor_reform.nj_anchor_budget_reform
   input:
     gov.contrib.states.nj.anchor.in_effect: true
@@ -89,7 +89,7 @@
 
 - name: Case 4, non-senior homeowner lower income unchanged at $1,500.
   period: 2027
-  absolute_error_margin: 1
+  absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.nj.anchor.nj_anchor_reform.nj_anchor_budget_reform
   input:
     gov.contrib.states.nj.anchor.in_effect: true
@@ -117,7 +117,7 @@
 
 - name: Case 5, non-senior renter unchanged at $450.
   period: 2027
-  absolute_error_margin: 1
+  absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.nj.anchor.nj_anchor_reform.nj_anchor_budget_reform
   input:
     gov.contrib.states.nj.anchor.in_effect: true
@@ -145,7 +145,7 @@
 
 - name: Case 6, senior homeowner over income limit is ineligible.
   period: 2027
-  absolute_error_margin: 1
+  absolute_error_margin: 0.01
   reforms: policyengine_us.reforms.states.nj.anchor.nj_anchor_reform.nj_anchor_budget_reform
   input:
     gov.contrib.states.nj.anchor.in_effect: true
@@ -169,3 +169,91 @@
   output:
     # Income $260K > $250K homeowner upper limit - ineligible
     nj_anchor: 0
+
+- name: Case 7, senior homeowner at exactly $150K gets lower-income tier amount.
+  period: 2027
+  absolute_error_margin: 0.01
+  reforms: policyengine_us.reforms.states.nj.anchor.nj_anchor_reform.nj_anchor_budget_reform
+  input:
+    gov.contrib.states.nj.anchor.in_effect: true
+    people:
+      person1:
+        age: 70
+        employment_income: 150_000
+        real_estate_taxes: 5_000
+        is_tax_unit_head: true
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+        spm_unit_tenure_type: OWNER_WITH_MORTGAGE
+    households:
+      household:
+        members: [person1]
+        state_code: NJ
+  output:
+    # Senior homeowner, income $150,000 <= $150,000 (lower tier boundary)
+    # Reform amount: $1,500
+    nj_anchor: 1_500
+
+- name: Case 8, senior homeowner at $150,001 gets upper-income tier amount.
+  period: 2027
+  absolute_error_margin: 0.01
+  reforms: policyengine_us.reforms.states.nj.anchor.nj_anchor_reform.nj_anchor_budget_reform
+  input:
+    gov.contrib.states.nj.anchor.in_effect: true
+    people:
+      person1:
+        age: 70
+        employment_income: 150_001
+        real_estate_taxes: 5_000
+        is_tax_unit_head: true
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+        spm_unit_tenure_type: OWNER_WITH_MORTGAGE
+    households:
+      household:
+        members: [person1]
+        state_code: NJ
+  output:
+    # Senior homeowner, income $150,001 > $150,000 (upper tier)
+    # Reform amount: $1,000
+    nj_anchor: 1_000
+
+- name: Case 9, married couple where spouse is senior triggers senior tier.
+  period: 2027
+  absolute_error_margin: 0.01
+  reforms: policyengine_us.reforms.states.nj.anchor.nj_anchor_reform.nj_anchor_budget_reform
+  input:
+    gov.contrib.states.nj.anchor.in_effect: true
+    people:
+      person1:
+        age: 60
+        employment_income: 100_000
+        real_estate_taxes: 5_000
+        is_tax_unit_head: true
+      person2:
+        age: 70
+        is_tax_unit_spouse: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_tenure_type: OWNER_WITH_MORTGAGE
+    households:
+      household:
+        members: [person1, person2]
+        state_code: NJ
+  output:
+    # greater_age_head_spouse = max(60, 70) = 70 >= 65: senior
+    # Senior homeowner, income $100K <= $150K (lower tier)
+    # Reform amount: $1,500
+    nj_anchor: 1_500

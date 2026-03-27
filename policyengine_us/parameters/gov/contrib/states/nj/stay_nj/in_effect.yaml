@@ -6,7 +6,7 @@ values:
 metadata:
   unit: bool
   period: year
-  label: NJ StayNJ budget reform in effect
+  label: New Jersey StayNJ budget reform in effect
   reference:
     - title: NJ FY2027 Budget in Brief - Property Tax Relief
       href: https://www.nj.gov/treasury/omb/publications/27bib/BIB.pdf#page=17

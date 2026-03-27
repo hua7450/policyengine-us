@@ -18,19 +18,14 @@ def create_nj_stay_nj() -> Reform:
             p_baseline = parameters(period).gov.states.nj.tax.income.credits.staynj
             p_reform = parameters(period).gov.contrib.states.nj.stay_nj
 
-            reform_active = p_reform.in_effect
-
             greater_age = tax_unit("greater_age_head_spouse", period)
             age_eligible = greater_age >= p_baseline.age_threshold
 
             gross_income = add(tax_unit, period, ["nj_gross_income"])
-            baseline_income_eligible = gross_income < p_baseline.income_limit
-            reform_income_eligible = gross_income < p_reform.income_limit
-            income_eligible = where(
-                reform_active,
-                reform_income_eligible,
-                baseline_income_eligible,
-            )
+            if p_reform.in_effect:
+                income_eligible = gross_income < p_reform.income_limit
+            else:
+                income_eligible = gross_income < p_baseline.income_limit
 
             pays_property_taxes = add(tax_unit, period, ["real_estate_taxes"]) > 0
             pays_rent = tax_unit("rents", period)
@@ -54,15 +49,12 @@ def create_nj_stay_nj() -> Reform:
             p_baseline = parameters(period).gov.states.nj.tax.income.credits.staynj
             p_reform = parameters(period).gov.contrib.states.nj.stay_nj
 
-            reform_active = p_reform.in_effect
-
             property_taxes = add(tax_unit, period, ["real_estate_taxes"])
 
-            max_benefit = where(
-                reform_active,
-                p_reform.max_benefit,
-                p_baseline.max_benefit,
-            )
+            if p_reform.in_effect:
+                max_benefit = p_reform.max_benefit
+            else:
+                max_benefit = p_baseline.max_benefit
             target_benefit = min_(property_taxes * p_baseline.rate, max_benefit)
 
             anchor_benefit = tax_unit("nj_anchor", period)

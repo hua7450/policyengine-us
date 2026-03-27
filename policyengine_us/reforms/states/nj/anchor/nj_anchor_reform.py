@@ -19,8 +19,6 @@ def create_nj_anchor() -> Reform:
             p_baseline = parameters(period).gov.states.nj.tax.income.credits.anchor
             p_reform = parameters(period).gov.contrib.states.nj.anchor
 
-            reform_active = p_reform.in_effect
-
             gross_income = add(tax_unit, period, ["nj_gross_income"])
             greater_age = tax_unit("greater_age_head_spouse", period)
             is_senior = greater_age >= p_baseline.age_threshold
@@ -32,22 +30,12 @@ def create_nj_anchor() -> Reform:
 
             lower_income = gross_income <= p_baseline.homeowner.income_limit.lower
 
-            # Senior homeowner amounts: reform overrides when active
-            baseline_senior_lower = p_baseline.homeowner.senior.amount.lower_income
-            baseline_senior_upper = p_baseline.homeowner.senior.amount.upper_income
-            reform_senior_lower = p_reform.homeowner.senior.amount.lower_income
-            reform_senior_upper = p_reform.homeowner.senior.amount.upper_income
-
-            senior_lower = where(
-                reform_active,
-                reform_senior_lower,
-                baseline_senior_lower,
-            )
-            senior_upper = where(
-                reform_active,
-                reform_senior_upper,
-                baseline_senior_upper,
-            )
+            if p_reform.in_effect:
+                senior_lower = p_reform.homeowner.senior.amount.lower_income
+                senior_upper = p_reform.homeowner.senior.amount.upper_income
+            else:
+                senior_lower = p_baseline.homeowner.senior.amount.lower_income
+                senior_upper = p_baseline.homeowner.senior.amount.upper_income
 
             homeowner_senior_amount = where(lower_income, senior_lower, senior_upper)
 
