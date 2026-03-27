@@ -1,3 +1,10 @@
+## [1.623.0] - 2026-03-27
+
+### Added
+
+- Implement Alabama State Supplementary Payment (SSP).
+
+
 ## [1.622.0] - 2026-03-27
 
 ### Added
