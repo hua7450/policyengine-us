@@ -1,3 +1,24 @@
+## [1.621.0] - 2026-03-26
+
+### Added
+
+- Backdate Illinois TANF parameters.
+
+
+## [1.620.1] - 2026-03-26
+
+### Fixed
+
+- Fix MA gross income to allow self-employment losses to offset other 5% income.
+
+
+## [1.620.0] - 2026-03-26
+
+### Added
+
+- Add structural federal mortgage interest deduction modeling using mortgage balances, interest amounts, and origination years.
+
+
 ## [1.619.0] - 2026-03-25
 
 ### Added
