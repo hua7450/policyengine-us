@@ -1,0 +1,47 @@
+- name: ND EITC with 10% match when in effect
+  period: 2024
+  reforms: policyengine_us.reforms.states.nd.eitc.nd_eitc
+  input:
+    gov.contrib.states.nd.eitc.in_effect: true
+    gov.contrib.states.nd.eitc.match: 0.1
+    state_code: ND
+    eitc: 1000
+  output:
+    nd_eitc: 100
+    nd_refundable_credits: 100
+
+- name: ND EITC with 20% match when in effect
+  period: 2024
+  reforms: policyengine_us.reforms.states.nd.eitc.nd_eitc
+  input:
+    gov.contrib.states.nd.eitc.in_effect: true
+    gov.contrib.states.nd.eitc.match: 0.2
+    state_code: ND
+    eitc: 2500
+  output:
+    nd_eitc: 500
+    nd_refundable_credits: 500
+
+- name: ND EITC is 0 when not in effect
+  period: 2024
+  reforms: policyengine_us.reforms.states.nd.eitc.nd_eitc
+  input:
+    gov.contrib.states.nd.eitc.in_effect: false
+    gov.contrib.states.nd.eitc.match: 0.1
+    state_code: ND
+    eitc: 1000
+  output:
+    nd_eitc: 0
+    nd_refundable_credits: 0
+
+- name: ND EITC is 0 when match is 0
+  period: 2024
+  reforms: policyengine_us.reforms.states.nd.eitc.nd_eitc
+  input:
+    gov.contrib.states.nd.eitc.in_effect: true
+    gov.contrib.states.nd.eitc.match: 0
+    state_code: ND
+    eitc: 1000
+  output:
+    nd_eitc: 0
+    nd_refundable_credits: 0
