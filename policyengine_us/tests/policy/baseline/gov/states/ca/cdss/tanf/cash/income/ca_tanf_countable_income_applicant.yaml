@@ -197,3 +197,26 @@
     # earned total: 6600 + 1800 = 8400
     # total: 8400 + 2400 + 1200 = 12000
     ca_tanf_countable_income_applicant: 12_000
+
+- name: Case 11, direct earned-income input still counts for 2025 debugging scenarios.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    state_code: CA
+    ca_tanf_earned_income: 12_000
+    ca_tanf_db_unearned_income: 2_400
+    ca_tanf_other_unearned_income: 1_200
+  output:
+    # legacy aggregate fallback: monthly earned 1000 - 450 = 550; yearly = 6600
+    # total: 6600 + 2400 + 1200 = 10200
+    ca_tanf_countable_income_applicant: 10_200
+
+- name: Case 12, direct earned-income input uses the historical 2020 applicant disregard.
+  period: 2020
+  absolute_error_margin: 0.01
+  input:
+    state_code: CA
+    ca_tanf_earned_income: 12_000
+  output:
+    # legacy aggregate fallback: monthly earned 1000 - 90 = 910; yearly = 10920
+    ca_tanf_countable_income_applicant: 10_920
