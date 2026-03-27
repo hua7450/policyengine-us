@@ -1,0 +1,12 @@
+description: Whether Florida's OSS Protected program track is in effect. The Protected track (RTF not enrolled for ACS + 2001 Gap Group) was introduced as part of the OSS Redesign restructuring; the exact start date is unknown but documented from July 2024 onward.
+values:
+  2011-01-01: false
+  2024-07-01: true
+
+metadata:
+  unit: bool
+  period: month
+  label: Florida OSS Protected track in effect
+  reference:
+    - title: FL DCF Appendix A-12, Optional State Supplementation Payment Standards
+      href: https://www.myflfamilies.com/sites/default/files/2025-05/Appendix%20A-12%20-%20State%20Funded%20Programs%20Eligibility%20Standards.pdf
