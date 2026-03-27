@@ -19,9 +19,7 @@ class al_ssp_eligible(Variable):
         grandfathered = person("al_ssp_grandfathered", period)
         values = living_arrangement.possible_values
         in_qualifying_arrangement = living_arrangement != values.NONE
-        requires_closed_cohort = (
-            living_arrangement == values.CEREBRAL_PALSY
-        )
+        requires_closed_cohort = living_arrangement == values.CEREBRAL_PALSY
         current_ssi_linked_eligibility = (
             is_ssi_eligible
             & receives_ssi
