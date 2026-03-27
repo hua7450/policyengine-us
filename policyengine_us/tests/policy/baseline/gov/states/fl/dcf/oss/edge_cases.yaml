@@ -322,7 +322,7 @@
 # This means Protected track effectively didn't exist before Jul 2024.
 # ──────────────────────────────────────────────────────────────
 
-- name: Case 12, Protected track before Jul 2024, zero max OSS.
+- name: Case 12, Protected track before Jul 2024, ineligible (track not in effect).
   period: 2024-01
   absolute_error_margin: 0.01
   input:
@@ -340,16 +340,11 @@
         fl_oss_facility_type: MHRTF
         fl_oss_program_track: PROTECTED
   output:
-    fl_oss_eligible: [true]
-    # SSI FBR (I) 2024 = $943. Protected offset pre-Jul-2024 = $0.
-    # Provider rate = $943 + $0 = $943/month.
-    fl_oss_provider_rate: [943]
-    # Max OSS (Protected, I, pre-Jul-2024) = $0.
-    fl_oss_max_oss: [0]
-    # OSS = min(max(0, total_needs - income), $0) = $0.
+    # Protected track not in effect before Jul 2024.
+    fl_oss_eligible: [false]
     fl_oss: [0]
 
-- name: Case 13, Protected couple before Jul 2024, zero max OSS.
+- name: Case 13, Protected couple before Jul 2024, ineligible (track not in effect).
   period: 2024-01
   absolute_error_margin: 0.01
   input:
@@ -379,9 +374,8 @@
         fl_oss_facility_type: MHRTF
         fl_oss_program_track: PROTECTED
   output:
-    fl_oss_eligible: [true, true]
-    # Max OSS (Protected, C, pre-Jul-2024) = $0. Per person = $0.
-    fl_oss_max_oss: [0, 0]
+    # Protected track not in effect before Jul 2024.
+    fl_oss_eligible: [false, false]
     fl_oss: [0, 0]
 
 # ──────────────────────────────────────────────────────────────
@@ -648,7 +642,7 @@
 # 2011 historical Protected track (offset=0, max=0 before Jul 2024)
 # ──────────────────────────────────────────────────────────────
 
-- name: Case 22, 2011 Protected track, zero benefit due to zero max OSS.
+- name: Case 22, 2011 Protected track, ineligible (track not in effect).
   period: 2011-01
   absolute_error_margin: 0.01
   input:
@@ -666,15 +660,8 @@
         fl_oss_facility_type: MHRTF
         fl_oss_program_track: PROTECTED
   output:
-    fl_oss_eligible: [true]
-    # SSI FBR (I) 2011 = $674. Protected offset 2011 = $0.
-    # Provider rate = $674 + $0 = $674/month.
-    fl_oss_provider_rate: [674]
-    # Protected income standard = provider rate = $674/month.
-    fl_oss_income_standard: [674]
-    # Max OSS (Protected, I) = $0.
-    fl_oss_max_oss: [0]
-    # OSS = min(max(0, total_needs - income), $0) = $0.
+    # Protected track not in effect before Jul 2024.
+    fl_oss_eligible: [false]
     fl_oss: [0]
 
 # ──────────────────────────────────────────────────────────────

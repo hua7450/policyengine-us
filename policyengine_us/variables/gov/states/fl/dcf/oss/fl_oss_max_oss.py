@@ -15,17 +15,18 @@ class fl_oss_max_oss(Variable):
         track = person.household("fl_oss_program_track", period)
         is_redesign = track == track.possible_values.REDESIGN
         joint_claim = person("ssi_claim_is_joint", period)
-        # Select the max OSS cap by track and couple status.
-        # Couple caps are total for both spouses; divide by 2
-        # for per-person amount.
-        individual_cap = where(
-            is_redesign,
-            p.redesign.max_oss.individual,
-            p.protected.max_oss.individual,
-        )
-        couple_cap = where(
-            is_redesign,
-            p.redesign.max_oss.couple,
-            p.protected.max_oss.couple,
-        )
+        if p.protected.in_effect:
+            individual_cap = where(
+                is_redesign,
+                p.redesign.max_oss.individual,
+                p.protected.max_oss.individual,
+            )
+            couple_cap = where(
+                is_redesign,
+                p.redesign.max_oss.couple,
+                p.protected.max_oss.couple,
+            )
+        else:
+            individual_cap = p.redesign.max_oss.individual
+            couple_cap = p.redesign.max_oss.couple
         return where(joint_claim, couple_cap / 2, individual_cap)
