@@ -98,12 +98,12 @@
       person1:
         ak_ssp_eligible: true
         uncapped_ssi: 0
-        ak_ssp_payment_standard: 6_336
+        ak_ssp_payment_standard: 3_168
         ssi_claim_is_joint: true
       person2:
         ak_ssp_eligible: true
         uncapped_ssi: 0
-        ak_ssp_payment_standard: 6_336
+        ak_ssp_payment_standard: 3_168
         ssi_claim_is_joint: true
     marital_units:
       marital_unit:
@@ -113,7 +113,7 @@
         members: [person1, person2]
         state_code: AK
   output:
-    # Each person: supplement = max(0, 6_336 - 0) * 1 = 6_336
-    # marital_unit.sum = 6_336 + 6_336 = 12_672
-    # Each gets 12_672 / 2 = 6_336
-    ak_ssp: [6_336, 6_336]
+    # Each person: supplement = max(0, 3_168 - 0) * 1 = 3_168
+    # marital_unit.sum = 3_168 + 3_168 = 6_336
+    # Each gets 6_336 / 2 = 3_168
+    ak_ssp: [3_168, 3_168]

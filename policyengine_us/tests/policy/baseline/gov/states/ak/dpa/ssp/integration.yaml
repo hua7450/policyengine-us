@@ -31,6 +31,7 @@
     # uncapped_ssi = 8_088 - 0 = 8_088 (positive, no reduction)
     # ak_ssp = max(0, 4_344 - 0) * eligible(1) = $4,344/yr
     ak_ssp: [4_344]
+    ssi: [8_088]
 
 - name: Case 2, single disabled individual in Medicaid facility with zero income.
   period: 2011
@@ -60,8 +61,8 @@
     ak_ssp_claim_type: [INDIVIDUAL]
     # Payment standard: MEDICAID_FACILITY.INDIVIDUAL = $45/mo * 12 = $540/yr
     ak_ssp_payment_standard: [540]
-    # uncapped_ssi positive => no reduction
-    # ak_ssp = $540/yr
+    # Federal SSI is limited to $30/month in a Medicaid facility.
+    ssi: [360]
     ak_ssp: [540]
 
 - name: Case 3, child under 18 not eligible for APA even if SSI eligible.
@@ -125,7 +126,8 @@
     ak_ssp_claim_type: [INDIVIDUAL]
     # Payment standard: HOUSEHOLD_OF_ANOTHER.INDIVIDUAL = $368/mo * 12 = $4,416/yr
     ak_ssp_payment_standard: [4_416]
-    # uncapped_ssi positive => full supplement
+    # Federal SSI is reduced by one-third in the household-of-another arrangement.
+    ssi: [5_392]
     ak_ssp: [4_416]
 
 - name: Case 5, individual in assisted living with zero income.
@@ -435,9 +437,10 @@
   output:
     ak_ssp_eligible: [true, true]
     ak_ssp_claim_type: [COUPLE_BOTH_ELIGIBLE, COUPLE_BOTH_ELIGIBLE]
-    # INDEPENDENT.COUPLE_BOTH_ELIGIBLE = $528/mo * 12 = $6,336/yr
-    ak_ssp_payment_standard: [6_336, 6_336]
-    # Each person: supplement = max(0, 6_336 - 0) * 1 = 6_336
-    # marital_unit.sum = 6_336 + 6_336 = 12_672
-    # Each gets 12_672 / 2 = 6_336
-    ak_ssp: [6_336, 6_336]
+    # INDEPENDENT.COUPLE_BOTH_ELIGIBLE = $528/mo for the couple, so each
+    # person's annual payment standard is half of that amount.
+    ak_ssp_payment_standard: [3_168, 3_168]
+    # Each person: supplement = max(0, 3_168 - 0) * 1 = 3_168
+    # marital_unit.sum = 3_168 + 3_168 = 6_336
+    # Each gets 6_336 / 2 = 3_168
+    ak_ssp: [3_168, 3_168]

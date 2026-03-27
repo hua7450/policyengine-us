@@ -14,6 +14,8 @@ class ak_ssp_eligible(Variable):
 
     def formula(person, period, parameters):
         p = parameters(period).gov.states.ak.dpa.ssp.eligibility
-        return person("is_ssi_eligible", period) & (
-            person("age", period) >= p.age_threshold
+        return (
+            person("is_ssi_eligible", period)
+            & (person("age", period) >= p.age_threshold)
+            & ~person.household("ak_ssp_excluded_institutional_setting", period)
         )

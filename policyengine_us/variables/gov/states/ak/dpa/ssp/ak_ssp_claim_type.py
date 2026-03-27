@@ -21,9 +21,15 @@ class ak_ssp_claim_type(Variable):
 
     def formula(person, period, parameters):
         joint_claim = person("ssi_claim_is_joint", period)
-        deeming_applies = person("is_ssi_spousal_deeming_applies", period)
+        marital_unit_size = person.marital_unit.sum(person("age", period) >= 0)
+        is_eligible_individual = person("is_ssi_aged_blind_disabled", period)
+        one_eligible_couple = (
+            ~joint_claim
+            & is_eligible_individual
+            & (marital_unit_size == 2)
+        )
         return select(
-            [joint_claim, deeming_applies],
+            [joint_claim, one_eligible_couple],
             [
                 AKSSPClaimType.COUPLE_BOTH_ELIGIBLE,
                 AKSSPClaimType.COUPLE_ONE_ELIGIBLE,

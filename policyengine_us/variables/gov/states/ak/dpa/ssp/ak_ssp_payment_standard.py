@@ -17,4 +17,9 @@ class ak_ssp_payment_standard(Variable):
         claim_type = person("ak_ssp_claim_type", period)
         p = parameters(period).gov.states.ak.dpa.ssp.payment_standard
         monthly_amount = p[living_arrangement][claim_type]
+        monthly_amount = where(
+            claim_type == claim_type.possible_values.COUPLE_BOTH_ELIGIBLE,
+            monthly_amount / 2,
+            monthly_amount,
+        )
         return monthly_amount * MONTHS_IN_YEAR
