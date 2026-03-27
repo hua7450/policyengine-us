@@ -1,3 +1,41 @@
+## [1.622.0] - 2026-03-27
+
+### Added
+
+- Add FY2016-FY2020 SNAP allotments, deductions, shelter cap, asset limits, and homeless deduction.
+- Add Delaware State Supplementary Payment (SSP).
+
+### Changed
+
+- Backdated ACA rating-area SLCSP premiums to 2018 through 2023 using the archived KFF representative-ZIP backfill.
+
+### Fixed
+
+- Fix CA CalWORKs per-person applicant earned income disregard and update broken references.
+- Fix Montana income tax incorrectly applying preferential LTCG rates when net capital gains are negative.
+
+
+## [1.621.0] - 2026-03-26
+
+### Added
+
+- Backdate Illinois TANF parameters.
+
+
+## [1.620.1] - 2026-03-26
+
+### Fixed
+
+- Fix MA gross income to allow self-employment losses to offset other 5% income.
+
+
+## [1.620.0] - 2026-03-26
+
+### Added
+
+- Add structural federal mortgage interest deduction modeling using mortgage balances, interest amounts, and origination years.
+
+
 ## [1.619.0] - 2026-03-25
 
 ### Added
