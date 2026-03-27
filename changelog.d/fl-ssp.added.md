@@ -1,1 +1,1 @@
-Implements Florida State Supplementary Payment (SSP).
+Add Florida Optional State Supplementation (OSS).
