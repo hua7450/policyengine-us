@@ -80,3 +80,17 @@
     # With 40 quarters, Part A is premium-free ($0)
     # Part B base premium for 2025 is $185/month
     msp_benefit_value: 185
+
+- name: MSP benefit - integration test uses 2026 Medicare premiums
+  period: 2026-01
+  input:
+    age: 67
+    is_medicare_eligible: true
+    ssi_unearned_income: 12_000
+    bank_account_assets: 5_000
+    spm_unit_is_married: false
+    medicare_quarters_of_coverage: 40
+  output:
+    # With 40 quarters, Part A is premium-free ($0)
+    # Part B base premium for 2026 is $202.90/month
+    msp_benefit_value: 202.90
