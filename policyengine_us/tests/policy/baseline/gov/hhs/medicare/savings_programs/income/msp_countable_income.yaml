@@ -1,0 +1,48 @@
+- name: Case 1, couple income is combined for married MSP applicants.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 68
+        ssi_unearned_income: 12_000
+      person2:
+        age: 66
+        ssi_unearned_income: 12_000
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_is_married: true
+  output:
+    msp_countable_income: [1_980, 1_980]
+  absolute_error_margin: 0.01
+
+- name: Case 2, spouse-to-spouse deeming counts an ineligible spouse's earnings.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 65
+        is_tax_unit_spouse: true
+      person2:
+        age: 60
+        is_tax_unit_head: true
+        ssi_earned_income: 31_080
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_is_married: true
+  output:
+    msp_countable_income: [1_252.50, 1_252.50]
+  absolute_error_margin: 0.01

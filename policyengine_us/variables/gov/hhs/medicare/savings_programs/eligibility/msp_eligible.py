@@ -1,4 +1,7 @@
 from policyengine_us.model_api import *
+from policyengine_us.variables.gov.hhs.medicare.savings_programs.category.msp_category import (
+    MSPCategory,
+)
 
 
 class msp_eligible(Variable):
@@ -8,13 +11,8 @@ class msp_eligible(Variable):
     definition_period = MONTH
     reference = (
         "https://www.medicare.gov/basics/costs/help/medicare-savings-programs",
-        "https://www.law.cornell.edu/cfr/text/42/435.121",
+        "https://www.law.cornell.edu/uscode/text/42/1396d#p",
     )
 
     def formula(person, period, parameters):
-        # Must be Medicare eligible
-        medicare_eligible = person("is_medicare_eligible", period.this_year)
-        income_eligible = person("msp_income_eligible", period)
-        asset_eligible = person("msp_asset_eligible", period)
-
-        return medicare_eligible & income_eligible & asset_eligible
+        return person("msp_category", period) != MSPCategory.NONE

@@ -10,17 +10,21 @@
         is_medicare_eligible: true
         # $9,000 unearned each -> ($750 - $20) = $730/month countable each
         ssi_unearned_income: 9_000
+        bank_account_assets: 5_000
       spouse2:
         age: 66
         is_medicare_eligible: true
         ssi_unearned_income: 9_000
+        bank_account_assets: 5_000
     spm_units:
       spm_unit:
         members: [spouse1, spouse2]
         spm_unit_is_married: true
-        spm_unit_cash_assets: 10_000  # Under $14,130 couple limit
     tax_units:
       tax_unit:
+        members: [spouse1, spouse2]
+    marital_units:
+      marital_unit:
         members: [spouse1, spouse2]
     households:
       household:
@@ -41,11 +45,11 @@
         # $16_500 unearned -> ($1,375 - $20) = $1,355/month countable
         # $1,255 < $1,355 < $1,506 (100-120% FPL) -> SLMB
         ssi_unearned_income: 16_500
+        bank_account_assets: 8_000
     spm_units:
       spm_unit:
         members: [person1]
         spm_unit_is_married: false
-        spm_unit_cash_assets: 8_000
     tax_units:
       tax_unit:
         members: [person1]
@@ -66,11 +70,11 @@
         age: 67
         is_medicare_eligible: true
         ssi_unearned_income: 10_000
+        bank_account_assets: 12_000
     spm_units:
       spm_unit:
         members: [person1]
         spm_unit_is_married: false
-        spm_unit_cash_assets: 12_000  # Over $9,430 individual limit
     tax_units:
       tax_unit:
         members: [person1]
@@ -82,3 +86,66 @@
     msp_eligible: [false]
     msp_category: [NONE]
     msp: [0]
+
+- name: MSP integration - married couple income is combined for category determination
+  period: 2024-01
+  input:
+    people:
+      spouse1:
+        age: 68
+        is_medicare_eligible: true
+        ssi_unearned_income: 12_000
+        bank_account_assets: 5_000
+      spouse2:
+        age: 66
+        is_medicare_eligible: true
+        ssi_unearned_income: 12_000
+        bank_account_assets: 5_000
+    spm_units:
+      spm_unit:
+        members: [spouse1, spouse2]
+        spm_unit_is_married: true
+    tax_units:
+      tax_unit:
+        members: [spouse1, spouse2]
+    marital_units:
+      marital_unit:
+        members: [spouse1, spouse2]
+    households:
+      household:
+        members: [spouse1, spouse2]
+  output:
+    msp_eligible: [true, true]
+    msp_category: [SLMB, SLMB]
+
+- name: MSP integration - ineligible spouse income is deemed to the Medicare applicant
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 67
+        is_medicare_eligible: true
+        is_tax_unit_spouse: true
+        bank_account_assets: 5_000
+      person2:
+        age: 60
+        is_tax_unit_head: true
+        ssi_earned_income: 60_000
+        bank_account_assets: 5_000
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_is_married: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: TX
+  output:
+    msp_eligible: [false, false]
+    msp_category: [NONE, NONE]
