@@ -1,0 +1,10 @@
+description: Eligible detailed industry recodes for occupation recode 39 under the federal tip income deduction.
+
+metadata:
+  label: Eligible industries for occupation recode 39
+  period: year
+  unit: list
+
+values:
+  2025-01-01:
+    - 44

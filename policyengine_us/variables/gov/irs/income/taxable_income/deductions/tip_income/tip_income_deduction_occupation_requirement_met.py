@@ -7,17 +7,6 @@ from policyengine_us.model_api import *
 # recode. Additional industries let us recover some legal tipped categories
 # that are mixed together inside broader CPS occupation buckets.
 ALWAYS_ELIGIBLE_OCCUPATION_RECODES = np.array([32, 33])
-ELIGIBLE_INDUSTRIES_BY_OCCUPATION_RECODE = {
-    23: np.array([44, 45, 50]),  # Entertainment, events, private events
-    35: np.array([45, 48, 50]),  # Hotel/home cleaning and housekeeping
-    36: np.array([44]),  # Gaming supervisors
-    37: np.array([44, 45, 48, 50]),  # Gaming, hospitality, personal services
-    39: np.array([44]),  # Gambling cashiers/change persons
-    40: np.array([45]),  # Hotel front desk clerks
-    49: np.array([46, 48]),  # Bakers, tailors, tattoo/piercing workers
-    50: np.array([44, 45]),  # Tour and recreational pilots
-    51: np.array([23, 44, 45, 50]),  # Valet, taxi, shuttle, delivery, movers
-}
 
 
 class tip_income_deduction_occupation_requirement_met(Variable):
@@ -40,14 +29,23 @@ class tip_income_deduction_occupation_requirement_met(Variable):
         occupation = person("detailed_occupation_recode", period)
         industry = person("detailed_industry_recode", period)
         is_sstb = person("business_is_sstb", period)
+        eligible_industries_by_occupation_recode = parameters(
+            period
+        ).gov.irs.deductions.tip_income.eligible_industries_by_occupation_recode
 
         has_no_occupation_data = occupation == 0
         occupation_is_eligible = np.isin(occupation, ALWAYS_ELIGIBLE_OCCUPATION_RECODES)
 
         for (
-            occupation_recode,
-            qualifying_industries,
-        ) in ELIGIBLE_INDUSTRIES_BY_OCCUPATION_RECODE.items():
+            occupation_recode_name
+        ) in eligible_industries_by_occupation_recode._children:
+            occupation_recode = int(
+                occupation_recode_name.removeprefix("occupation_recode_")
+            )
+            qualifying_industries = getattr(
+                eligible_industries_by_occupation_recode,
+                occupation_recode_name,
+            )
             occupation_is_eligible |= (occupation == occupation_recode) & (
                 np.isin(industry, qualifying_industries)
             )
