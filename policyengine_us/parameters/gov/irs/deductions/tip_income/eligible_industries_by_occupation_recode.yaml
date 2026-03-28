@@ -1,0 +1,55 @@
+description: Eligible detailed industry recodes for occupation recodes that are only tipped in specific industries under the federal tip income deduction.
+
+occupation_recode_23:
+  2025-01-01:
+    - 44
+    - 45
+    - 50
+
+occupation_recode_35:
+  2025-01-01:
+    - 45
+    - 48
+    - 50
+
+occupation_recode_36:
+  2025-01-01:
+    - 44
+
+occupation_recode_37:
+  2025-01-01:
+    - 44
+    - 45
+    - 48
+    - 50
+
+occupation_recode_39:
+  2025-01-01:
+    - 44
+
+occupation_recode_40:
+  2025-01-01:
+    - 45
+
+occupation_recode_49:
+  2025-01-01:
+    - 46
+    - 48
+
+occupation_recode_50:
+  2025-01-01:
+    - 44
+    - 45
+
+occupation_recode_51:
+  2025-01-01:
+    - 23
+    - 44
+    - 45
+    - 50
+
+metadata:
+  label: Eligible industries by occupation recode for the federal tip income deduction
+  period: year
+  unit: list
+  propagate_metadata_to_children: true
