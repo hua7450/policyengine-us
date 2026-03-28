@@ -12,6 +12,9 @@ class ssi_amount_if_eligible(Variable):
     def formula(person, period, parameters):
         p = parameters(period).gov.ssa.ssi.amount
         is_dependent = person("is_tax_unit_dependent", period)
+        state_code = person.household("state_code", period)
+        ak_living_arrangement = person.household("ak_ssp_living_arrangement", period)
+        ak_values = ak_living_arrangement.possible_values
 
         # Three scenarios for adults:
         # 1. Both spouses eligible (joint claim) → couple rate / 2
@@ -39,23 +42,36 @@ class ssi_amount_if_eligible(Variable):
             individual_or_deeming_amount,
         )
 
+        is_ak_household_of_another = (state_code == StateCode.AK) & (
+            ak_living_arrangement == ak_values.HOUSEHOLD_OF_ANOTHER
+        )
+        is_ak_medicaid_facility = (state_code == StateCode.AK) & (
+            ak_living_arrangement == ak_values.MEDICAID_FACILITY
+        )
+
+        head_or_spouse_amount = where(
+            is_ak_household_of_another,
+            head_or_spouse_amount * (2 / 3),
+            head_or_spouse_amount,
+        )
+        head_or_spouse_amount = where(
+            is_ak_medicaid_facility,
+            30,
+            head_or_spouse_amount,
+        )
+
         # Indiana SAPN applies only to recipients in Medicaid-certified
         # facilities, where the federal SSI payment is capped at $30/month.
-        state_code = person.household("state_code", period)
-        living_arrangement = person.household(
+        in_living_arrangement = person.household(
             "in_ssp_living_arrangement", period.first_month
         )
-        medicaid_facility = (
-            living_arrangement
-            == living_arrangement.possible_values.MEDICAID_FACILITY
+        is_in_medicaid_facility = (state_code == StateCode.IN) & (
+            in_living_arrangement
+            == in_living_arrangement.possible_values.MEDICAID_FACILITY
         )
-        indiana_medicaid_facility = (
-            state_code == StateCode.IN
-        ) & medicaid_facility
-        institutional_amount = where(is_joint_claim, 30, 30)
         head_or_spouse_amount = where(
-            indiana_medicaid_facility,
-            institutional_amount,
+            is_in_medicaid_facility,
+            30,
             head_or_spouse_amount,
         )
 
