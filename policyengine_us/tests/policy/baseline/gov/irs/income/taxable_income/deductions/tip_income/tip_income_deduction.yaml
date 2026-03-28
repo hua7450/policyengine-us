@@ -77,3 +77,81 @@
   output:
     tip_income_deduction_ssn_requirement_met: true
     tip_income_deduction: 1_000
+
+- name: Occupation gate allows food service worker
+  period: 2025
+  input:
+    people:
+      worker:
+        ssn_card_type: CITIZEN
+        is_tax_unit_head: true
+        is_tax_unit_spouse: false
+        tip_income: 10_000
+        detailed_occupation_recode: 33
+    tax_units:
+      tax_unit:
+        adjusted_gross_income: 100_000
+        filing_status: SINGLE
+        members: [worker]
+  output:
+    tip_income_deduction_occupation_requirement_met: true
+    tip_income_deduction: 10_000
+
+- name: Occupation gate blocks non-tipped professional occupation
+  period: 2025
+  input:
+    people:
+      worker:
+        ssn_card_type: CITIZEN
+        is_tax_unit_head: true
+        is_tax_unit_spouse: false
+        tip_income: 10_000
+        detailed_occupation_recode: 6
+    tax_units:
+      tax_unit:
+        adjusted_gross_income: 100_000
+        filing_status: SINGLE
+        members: [worker]
+  output:
+    tip_income_deduction_occupation_requirement_met: false
+    tip_income_deduction: 0
+
+- name: Industry hook allows hotel front desk clerk
+  period: 2025
+  input:
+    people:
+      worker:
+        ssn_card_type: CITIZEN
+        is_tax_unit_head: true
+        is_tax_unit_spouse: false
+        tip_income: 5_000
+        detailed_occupation_recode: 40
+        detailed_industry_recode: 45
+    tax_units:
+      tax_unit:
+        adjusted_gross_income: 100_000
+        filing_status: SINGLE
+        members: [worker]
+  output:
+    tip_income_deduction_occupation_requirement_met: true
+    tip_income_deduction: 5_000
+
+- name: SSTB exclusion blocks otherwise eligible tipped worker
+  period: 2025
+  input:
+    people:
+      worker:
+        ssn_card_type: CITIZEN
+        is_tax_unit_head: true
+        is_tax_unit_spouse: false
+        tip_income: 5_000
+        detailed_occupation_recode: 33
+        business_is_sstb: true
+    tax_units:
+      tax_unit:
+        adjusted_gross_income: 100_000
+        filing_status: SINGLE
+        members: [worker]
+  output:
+    tip_income_deduction_occupation_requirement_met: false
+    tip_income_deduction: 0
