@@ -1,4 +1,4 @@
-description: All state taxable income variables.
+description: Legacy compatibility list for the deprecated generic state_taxable_income umbrella.
 values:
   0000-01-01:
     - al_taxable_income  # Alabama 

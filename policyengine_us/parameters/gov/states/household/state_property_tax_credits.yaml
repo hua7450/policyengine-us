@@ -1,4 +1,4 @@
-description: All state property tax credits and circuit breaker programs.
+description: Legacy compatibility list for the deprecated generic state_property_tax_credit umbrella.
 values:
   0000-01-01:
     - az_property_tax_credit  # Arizona Property Tax Credit

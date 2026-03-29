@@ -1,4 +1,4 @@
-description: All state Earned Income Tax Credits.
+description: Legacy compatibility list for the deprecated generic state_eitc umbrella.
 values:
   0000-01-01:
     - ca_eitc  # California

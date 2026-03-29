@@ -1,4 +1,4 @@
-description: All state Child and Dependent Care Credits and related credits.
+description: Legacy compatibility list for the deprecated generic state_cdcc umbrella.
 values:
   0000-01-01:
     - ar_cdcc  # Arkansas

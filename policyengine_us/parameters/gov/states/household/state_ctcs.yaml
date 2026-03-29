@@ -1,4 +1,4 @@
-description: All state Child Tax Credits.
+description: Legacy compatibility list for the deprecated generic state_ctc umbrella.
 values:
   0000-01-01:
     - az_dependent_tax_credit  # Arizona Dependent Tax Credit
