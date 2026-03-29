@@ -1,3 +1,10 @@
+## [1.624.1] - 2026-03-29
+
+### Changed
+
+- Backdate CT TANF parameters.
+
+
 ## [1.624.0] - 2026-03-27
 
 ### Added
