@@ -1,6 +1,7 @@
 import pytest
 
 from policyengine_us import Simulation
+from policyengine_us.system import system
 
 
 def make_tax_unit_situation(
@@ -83,10 +84,22 @@ def make_tax_unit_situation(
 
 def calculate_sum(situation: dict, year: int, variables: list[str]) -> float:
     simulation = Simulation(situation=situation)
-    return sum(
-        float(simulation.calculate(variable, period=str(year)).item())
-        for variable in variables
-    )
+    total = 0.0
+
+    for variable in variables:
+        result = simulation.calculate(variable, period=str(year))
+        if result.size != 1:
+            result = simulation.calculate(
+                variable, period=str(year), map_to="tax_unit"
+            )
+        total += float(result.item())
+
+    return total
+
+
+def configured_component_vars(parameter_name: str, year: int) -> list[str]:
+    parameter = getattr(system.parameters.gov.states.household, parameter_name)
+    return list(parameter(f"{year}-01-01"))
 
 
 LEGACY_UMBRELLA_CASES = [
@@ -121,16 +134,6 @@ LEGACY_UMBRELLA_CASES = [
             dependent_ages=(9, 7),
         ),
     ),
-    (
-        "state_ctc",
-        ["mn_child_tax_credit_component"],
-        make_tax_unit_situation(
-            year=2023,
-            state="MN",
-            wages=20_050.0,
-            dependent_ages=(9, 7),
-        ),
-    ),
 ]
 
 
@@ -145,6 +148,20 @@ def test_legacy_state_umbrellas_match_state_specific_components(
     assert actual == pytest.approx(expected, abs=0.01)
 
 
+def test_state_ctc_matches_configured_component_sum():
+    situation = make_tax_unit_situation(
+        year=2023,
+        state="MN",
+        wages=20_050.0,
+        dependent_ages=(9, 7),
+    )
+    expected = calculate_sum(
+        situation, 2023, configured_component_vars("state_ctcs", 2023)
+    )
+    actual = calculate_sum(situation, 2023, ["state_ctc"])
+    assert actual == pytest.approx(expected, abs=0.01)
+
+
 def test_state_property_tax_credit_matches_configured_component_sum():
     situation = make_tax_unit_situation(
         year=2023,
@@ -153,25 +170,11 @@ def test_state_property_tax_credit_matches_configured_component_sum():
         wages=10_000.0,
         rent=12_000.0,
     )
-    property_credit_vars = [
-        "az_property_tax_credit",
-        "ct_property_tax_credit",
-        "dc_ptc",
-        "ma_senior_circuit_breaker",
-        "me_property_tax_fairness_credit",
-        "mi_homestead_property_tax_credit",
-        "mo_property_tax_credit",
-        "mt_elderly_homeowner_or_renter_credit",
-        "nj_property_tax_credit",
-        "nm_property_tax_rebate",
-        "ny_real_property_tax_credit",
-        "ri_property_tax_credit",
-        "wi_homestead_credit",
-        "wi_property_tax_credit",
-        "wv_homestead_excess_property_tax_credit",
-    ]
-
-    expected = calculate_sum(situation, 2023, property_credit_vars)
+    expected = calculate_sum(
+        situation,
+        2023,
+        configured_component_vars("state_property_tax_credits", 2023),
+    )
     actual = calculate_sum(situation, 2023, ["state_property_tax_credit"])
     assert actual == pytest.approx(expected, abs=0.01)
 
@@ -191,7 +194,7 @@ def test_state_property_tax_credit_matches_configured_component_sum():
             ),
         ),
         (
-            ["state_eitc", "state_ctc"],
+            ["mn_wfc", "mn_child_tax_credit_component"],
             "mn_child_and_working_families_credits",
             make_tax_unit_situation(
                 year=2023,
