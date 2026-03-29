@@ -1,10 +1,10 @@
 from policyengine_us.model_api import *
 
 
-class az_families_tax_rebate_subtraction(Variable):
+class az_families_tax_rebate_subtraction_reported(Variable):
     value_type = float
     entity = TaxUnit
-    label = "Arizona Families Tax Rebate subtraction"
+    label = "Reported Arizona Families Tax Rebate subtraction"
     unit = USD
     documentation = (
         "Amount of Arizona Families Tax Rebate received in the tax year and "
@@ -12,9 +12,9 @@ class az_families_tax_rebate_subtraction(Variable):
     )
     reference = "A.R.S. 43-1022 - Subtractions from Arizona Gross Income"
     definition_period = YEAR
-    defined_for = StateCode.AZ
+    default_value = 0
 
     def formula(tax_unit, period, parameters):
-        # Use only same-year reported amounts. Keeping this as a computed
-        # variable avoids auto-carrying a prior year's reported subtraction.
-        return tax_unit("az_families_tax_rebate_subtraction_reported", period)
+        # Returning an explicit zero prevents the system-wide input carry-over
+        # fallback from reusing a prior year's reported amount.
+        return 0
