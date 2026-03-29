@@ -54,8 +54,10 @@ metadata:
   unit: list
   propagate_metadata_to_children: true
   reference:
-    - title: IRS occupations that customarily and regularly received tips on or before December 31, 2024
-      href: https://www.irs.gov/forms-pubs/occupations-that-customarily-and-regularly-received-tips-on-or-before-december-31-2024
+    - title: Public Law 119-21, section 70201; IRC section 224
+      href: https://www.govinfo.gov/content/pkg/PLAW-119publ21/pdf/PLAW-119publ21.pdf
+    - title: Internal Revenue Bulletin 2025-42, proposed regulations under IRC section 224
+      href: https://www.irs.gov/irb/2025-42_IRB
     - title: 2018 ACS code lists
       href: https://www2.census.gov/programs-surveys/acs/tech_docs/code_lists/2018_ACS_Code_Lists.pdf
     - title: Current Population Survey 2019 ASEC technical documentation
