@@ -17,7 +17,7 @@ values:
     - md_refundable_eitc  # Maryland refundable EITC
     - me_eitc  # Maine
     - mi_eitc  # Michigan
-    - mn_wfc  # Minnesota (called "Working Family Credit") repealed in 2023
+    - mn_wfc  # Minnesota (called "Working Family Credit")
     - mo_wftc  # Missouri (called "Working Families Tax Credit")
     - mt_eitc  # Montana
     - ne_eitc  # Nebraska

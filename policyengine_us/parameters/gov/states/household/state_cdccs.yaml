@@ -26,7 +26,7 @@ values:
     - nm_cdcc  # New Mexico
     - ny_cdcc  # New York
     - oh_cdcc  # Ohio
-    - ok_child_care_child_tax_credit  # Oklahoma Child Care/Child Tax Credit - note, also in state_ctcs.
+    - ok_child_care_credit_component  # Oklahoma Child Care Credit component
     - or_working_family_household_and_dependent_care_credit  # Oregon
     - pa_cdcc  # Pennsylvania
     - ri_cdcc  # Rhode Island
