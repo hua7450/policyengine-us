@@ -1,1 +1,1 @@
-Restricted the federal tip income deduction to qualifying tipped occupations using CPS occupation recodes, with optional industry refinement and SSTB exclusion support.
+Restricted the federal tip income deduction to Treasury-listed tipped occupations via a TTOC input, with SSTB exclusion support.

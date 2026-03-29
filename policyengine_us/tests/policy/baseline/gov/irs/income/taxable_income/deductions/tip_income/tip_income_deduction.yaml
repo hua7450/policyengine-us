@@ -12,6 +12,7 @@
   period: 2025
   input:
     tip_income_deduction_ssn_requirement_met: true
+    treasury_tipped_occupation_code: 102
     tip_income: 10_000
     adjusted_gross_income: 100_000
     filing_status: JOINT
@@ -22,6 +23,7 @@
   period: 2025
   input:
     tip_income_deduction_ssn_requirement_met: true
+    treasury_tipped_occupation_code: 102
     tip_income: 10_000
     adjusted_gross_income: 1_000_000
     filing_status: JOINT
@@ -32,6 +34,7 @@
   period: 2025
   input:
     tip_income_deduction_ssn_requirement_met: true
+    treasury_tipped_occupation_code: 102
     tip_income: 10_000
     adjusted_gross_income: 190_000
     filing_status: JOINT
@@ -71,6 +74,7 @@
         is_tax_unit_head: true
         is_tax_unit_spouse: false
         tip_income: 1_000
+        treasury_tipped_occupation_code: 102
     tax_units:
       tax_unit:
         members: [person1, person2]
@@ -78,7 +82,7 @@
     tip_income_deduction_ssn_requirement_met: true
     tip_income_deduction: 1_000
 
-- name: Occupation gate allows food service worker
+- name: Occupation gate allows Treasury-listed tipped occupation
   period: 2025
   input:
     people:
@@ -87,7 +91,7 @@
         is_tax_unit_head: true
         is_tax_unit_spouse: false
         tip_income: 10_000
-        detailed_occupation_recode: 33
+        treasury_tipped_occupation_code: 102
     tax_units:
       tax_unit:
         adjusted_gross_income: 100_000
@@ -97,7 +101,7 @@
     tip_income_deduction_occupation_requirement_met: true
     tip_income_deduction: 10_000
 
-- name: Occupation gate blocks non-tipped professional occupation
+- name: Occupation gate blocks unlisted occupation
   period: 2025
   input:
     people:
@@ -106,7 +110,7 @@
         is_tax_unit_head: true
         is_tax_unit_spouse: false
         tip_income: 10_000
-        detailed_occupation_recode: 6
+        treasury_tipped_occupation_code: 0
     tax_units:
       tax_unit:
         adjusted_gross_income: 100_000
@@ -115,26 +119,6 @@
   output:
     tip_income_deduction_occupation_requirement_met: false
     tip_income_deduction: 0
-
-- name: Industry hook allows hotel front desk clerk
-  period: 2025
-  input:
-    people:
-      worker:
-        ssn_card_type: CITIZEN
-        is_tax_unit_head: true
-        is_tax_unit_spouse: false
-        tip_income: 5_000
-        detailed_occupation_recode: 40
-        detailed_industry_recode: 45
-    tax_units:
-      tax_unit:
-        adjusted_gross_income: 100_000
-        filing_status: SINGLE
-        members: [worker]
-  output:
-    tip_income_deduction_occupation_requirement_met: true
-    tip_income_deduction: 5_000
 
 - name: SSTB exclusion blocks otherwise eligible tipped worker
   period: 2025
@@ -145,7 +129,7 @@
         is_tax_unit_head: true
         is_tax_unit_spouse: false
         tip_income: 5_000
-        detailed_occupation_recode: 33
+        treasury_tipped_occupation_code: 102
         business_is_sstb: true
     tax_units:
       tax_unit:
