@@ -53,3 +53,10 @@ metadata:
   period: year
   unit: list
   propagate_metadata_to_children: true
+  reference:
+    - title: IRS occupations that customarily and regularly received tips on or before December 31, 2024
+      href: https://www.irs.gov/forms-pubs/occupations-that-customarily-and-regularly-received-tips-on-or-before-december-31-2024
+    - title: 2018 ACS code lists
+      href: https://www2.census.gov/programs-surveys/acs/tech_docs/code_lists/2018_ACS_Code_Lists.pdf
+    - title: Current Population Survey 2019 ASEC technical documentation
+      href: https://www2.census.gov/programs-surveys/cps/techdocs/cpsmar19.pdf
