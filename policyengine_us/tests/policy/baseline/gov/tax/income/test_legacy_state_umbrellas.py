@@ -89,9 +89,7 @@ def calculate_sum(situation: dict, year: int, variables: list[str]) -> float:
     for variable in variables:
         result = simulation.calculate(variable, period=str(year))
         if result.size != 1:
-            result = simulation.calculate(
-                variable, period=str(year), map_to="tax_unit"
-            )
+            result = simulation.calculate(variable, period=str(year), map_to="tax_unit")
         total += float(result.item())
 
     return total
