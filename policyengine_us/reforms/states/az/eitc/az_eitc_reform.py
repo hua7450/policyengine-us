@@ -12,7 +12,9 @@ def create_az_eitc() -> Reform:
         defined_for = StateCode.AZ
 
         def formula(tax_unit, period, parameters):
-            p = parameters(period).gov.contrib.states.az.eitc
+            p = parameters(
+                period
+            ).gov.contrib.states.az.child_poverty_impact_dashboard.eitc
             federal_eitc = tax_unit("eitc", period)
             return where(p.in_effect, federal_eitc * p.match, 0)
 
@@ -45,7 +47,7 @@ def create_az_eitc_reform(parameters, period, bypass: bool = False):
     if bypass:
         return create_az_eitc()
 
-    p = parameters.gov.contrib.states.az.eitc
+    p = parameters.gov.contrib.states.az.child_poverty_impact_dashboard.eitc
 
     reform_active = False
     current_period = period_(period)

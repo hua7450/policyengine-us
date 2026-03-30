@@ -12,7 +12,9 @@ def create_ar_eitc() -> Reform:
         defined_for = StateCode.AR
 
         def formula(tax_unit, period, parameters):
-            p = parameters(period).gov.contrib.states.ar.eitc
+            p = parameters(
+                period
+            ).gov.contrib.states.ar.child_poverty_impact_dashboard.eitc
             federal_eitc = tax_unit("eitc", period)
             return where(p.in_effect, federal_eitc * p.match, 0)
 
@@ -45,7 +47,7 @@ def create_ar_eitc_reform(parameters, period, bypass: bool = False):
     if bypass:
         return create_ar_eitc()
 
-    p = parameters.gov.contrib.states.ar.eitc
+    p = parameters.gov.contrib.states.ar.child_poverty_impact_dashboard.eitc
 
     reform_active = False
     current_period = period_(period)

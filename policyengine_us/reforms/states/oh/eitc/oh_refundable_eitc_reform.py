@@ -19,7 +19,9 @@ def create_oh_refundable_eitc() -> Reform:
         defined_for = StateCode.OH
 
         def formula(tax_unit, period, parameters):
-            p = parameters(period).gov.contrib.states.oh.eitc
+            p = parameters(
+                period
+            ).gov.contrib.states.oh.child_poverty_impact_dashboard.eitc
             oh_eitc = tax_unit("oh_eitc", period)
             return where(p.in_effect, oh_eitc, 0)
 
@@ -32,7 +34,9 @@ def create_oh_refundable_eitc() -> Reform:
         defined_for = StateCode.OH
 
         def formula(tax_unit, period, parameters):
-            p = parameters(period).gov.contrib.states.oh.eitc
+            p = parameters(
+                period
+            ).gov.contrib.states.oh.child_poverty_impact_dashboard.eitc
             oh_eitc = tax_unit("oh_eitc", period)
             # If refundable reform is in effect, nonrefundable portion is 0
             return where(p.in_effect, 0, oh_eitc)
@@ -101,7 +105,7 @@ def create_oh_refundable_eitc_reform(parameters, period, bypass: bool = False):
     if bypass:
         return create_oh_refundable_eitc()
 
-    p = parameters.gov.contrib.states.oh.eitc
+    p = parameters.gov.contrib.states.oh.child_poverty_impact_dashboard.eitc
 
     reform_active = False
     current_period = period_(period)

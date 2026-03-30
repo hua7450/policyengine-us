@@ -234,6 +234,9 @@ from .states.mo.eitc import (
 from .states.oh.eitc import (
     create_oh_refundable_eitc_reform,
 )
+from .states.ut.child_poverty_eitc import (
+    create_ut_fully_refundable_eitc_reform,
+)
 from policyengine_core.reforms import Reform
 import warnings
 
@@ -420,6 +423,9 @@ def create_structural_reforms_from_parameters(parameters, period):
     wv_eitc = create_wv_eitc_reform(parameters, period)
     mo_refundable_eitc = create_mo_refundable_eitc_reform(parameters, period)
     oh_refundable_eitc = create_oh_refundable_eitc_reform(parameters, period)
+    ut_fully_refundable_eitc = create_ut_fully_refundable_eitc_reform(
+        parameters, period
+    )
 
     reforms = [
         afa_reform,
@@ -522,6 +528,7 @@ def create_structural_reforms_from_parameters(parameters, period):
         wv_eitc,
         mo_refundable_eitc,
         oh_refundable_eitc,
+        ut_fully_refundable_eitc,
     ]
     reforms = tuple(filter(lambda x: x is not None, reforms))
 

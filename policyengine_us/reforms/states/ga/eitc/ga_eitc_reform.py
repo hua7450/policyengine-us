@@ -12,7 +12,9 @@ def create_ga_eitc() -> Reform:
         defined_for = StateCode.GA
 
         def formula(tax_unit, period, parameters):
-            p = parameters(period).gov.contrib.states.ga.eitc
+            p = parameters(
+                period
+            ).gov.contrib.states.ga.child_poverty_impact_dashboard.eitc
             federal_eitc = tax_unit("eitc", period)
             return where(p.in_effect, federal_eitc * p.match, 0)
 
@@ -39,7 +41,7 @@ def create_ga_eitc_reform(parameters, period, bypass: bool = False):
     if bypass:
         return create_ga_eitc()
 
-    p = parameters.gov.contrib.states.ga.eitc
+    p = parameters.gov.contrib.states.ga.child_poverty_impact_dashboard.eitc
 
     reform_active = False
     current_period = period_(period)
