@@ -1,4 +1,7 @@
 from policyengine_us.model_api import *
+from policyengine_us.variables.gov.ssa.ssi.eligibility.status.ssi_federal_living_arrangement import (
+    SSIFederalLivingArrangement,
+)
 
 
 class ssi_amount_if_eligible(Variable):
@@ -11,10 +14,7 @@ class ssi_amount_if_eligible(Variable):
 
     def formula(person, period, parameters):
         p = parameters(period).gov.ssa.ssi.amount
-        is_dependent = person("is_tax_unit_dependent", period)
-        state_code = person.household("state_code", period)
-        ak_living_arrangement = person.household("ak_ssp_living_arrangement", period)
-        ak_values = ak_living_arrangement.possible_values
+        arrangement = person("ssi_federal_living_arrangement", period)
 
         # Three scenarios for adults:
         # 1. Both spouses eligible (joint claim) → couple rate / 2
@@ -32,35 +32,37 @@ class ssi_amount_if_eligible(Variable):
         # Determine FBR to use based on scenario
         individual_or_deeming_amount = where(
             deeming_applies,
-            p.couple,  # Scenario 3: Deeming applies - use couple rate!
-            p.individual,  # Scenario 2: No deeming
+            p.couple,
+            p.individual,
         )
 
-        head_or_spouse_amount = where(
+        base_amount = where(
             is_joint_claim,
-            p.couple / 2,  # Scenario 1: Both eligible
+            p.couple / 2,
             individual_or_deeming_amount,
         )
 
-        is_ak_household_of_another = (state_code == StateCode.AK) & (
-            ak_living_arrangement == ak_values.HOUSEHOLD_OF_ANOTHER
-        )
-        is_ak_medicaid_facility = (state_code == StateCode.AK) & (
-            ak_living_arrangement == ak_values.MEDICAID_FACILITY
+        # Children (under 18) always receive individual FBR. A child never
+        # files a joint claim with parents — joint claims are between
+        # spouses only. Adults 18+ (including students) go through normal
+        # couple/deeming logic since they may be married.
+        base_amount = where(person("is_child", period), p.individual, base_amount)
+
+        # Status B: Apply the one-third reduction (VTR) per 20 CFR § 416.1131.
+        # The VTR applies to the applicable FBR (individual or couple based
+        # on deeming), per POMS SI 00835.210.
+        is_b = arrangement == SSIFederalLivingArrangement.B
+        vtr_rate = p.one_third_reduction_rate
+        base_amount = where(
+            is_b,
+            base_amount * (1 - vtr_rate),
+            base_amount,
         )
 
-        head_or_spouse_amount = where(
-            is_ak_household_of_another,
-            head_or_spouse_amount * (2 / 3),
-            head_or_spouse_amount,
-        )
-        head_or_spouse_amount = where(
-            is_ak_medicaid_facility,
-            30,
-            head_or_spouse_amount,
-        )
+        # Status D: Medical treatment facility, $30/month per person.
+        # Per 20 CFR § 416.414: one spouse in facility gets $30;
+        # the community spouse gets full individual FBR.
+        is_d = arrangement == SSIFederalLivingArrangement.D
+        base_amount = where(is_d, p.medical_facility, base_amount)
 
-        # Adults amount is based on scenario (see above)
-        # Dependents always use individual amount.
-        ssi_per_month = where(is_dependent, p.individual, head_or_spouse_amount)
-        return ssi_per_month * MONTHS_IN_YEAR
+        return base_amount * MONTHS_IN_YEAR

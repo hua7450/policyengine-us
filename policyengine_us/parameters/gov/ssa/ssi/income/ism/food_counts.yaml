@@ -1,0 +1,15 @@
+description: SSA uses this indicator to determine whether food counts in SSI in-kind support and maintenance calculations.
+
+values:
+  1975-01-01: true
+  2024-09-01: false
+
+metadata:
+  unit: bool
+  period: month
+  label: SSI ISM food counts
+  reference:
+    - title: 20 CFR § 416.1130 - Introduction to in-kind support and maintenance (as amended)
+      href: https://www.law.cornell.edu/cfr/text/20/416.1130
+    - title: 89 FR 21210 - Omitting Food from In-Kind Support and Maintenance Calculations
+      href: https://www.federalregister.gov/documents/2024/03/27/2024-06464/omitting-food-from-in-kind-support-and-maintenance-calculations

@@ -1,0 +1,157 @@
+- name: Case 1, single disabled adult defaults to Status A.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 40
+        is_disabled: true
+  output:
+    ssi_federal_living_arrangement: A
+
+- name: Case 2, Status D in medical treatment facility with Medicaid.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 40
+        is_disabled: true
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
+  output:
+    ssi_federal_living_arrangement: D
+
+- name: Case 3, medical facility without Medicaid paying majority defaults to A.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 40
+        is_disabled: true
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: false
+  output:
+    ssi_federal_living_arrangement: A
+
+- name: Case 4, Status B in another person's household with shelter and all meals.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 40
+        is_disabled: true
+        ssi_lives_in_another_persons_household: true
+        ssi_receives_shelter_from_others_in_household: true
+        ssi_others_pay_all_meals: true
+  output:
+    ssi_federal_living_arrangement: B
+
+- name: Case 5, another person's household but no meals paid defaults to A.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 40
+        is_disabled: true
+        ssi_lives_in_another_persons_household: true
+        ssi_receives_shelter_from_others_in_household: true
+        ssi_others_pay_all_meals: false
+  output:
+    ssi_federal_living_arrangement: A
+
+- name: Case 6, another person's household but no shelter defaults to A.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 40
+        is_disabled: true
+        ssi_lives_in_another_persons_household: true
+        ssi_receives_shelter_from_others_in_household: false
+        ssi_others_pay_all_meals: true
+  output:
+    ssi_federal_living_arrangement: A
+
+- name: Case 7, Status C child with ineligible parent.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 10
+        is_disabled: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+  output:
+    ssi_federal_living_arrangement: [A, C]
+
+- name: Case 8, child with two eligible parents is not Status C.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 30
+        is_disabled: true
+        is_tax_unit_head: true
+      person2:
+        age: 28
+        is_disabled: true
+        is_tax_unit_spouse: true
+      person3:
+        age: 10
+        is_disabled: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+  output:
+    # Both parents are ABD, so neither is an "ineligible parent"
+    # Child defaults to A (parental deeming does not apply)
+    ssi_federal_living_arrangement: [A, A, A]
+
+- name: Case 9, D takes priority over C for child in medical facility.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 10
+        is_disabled: true
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+  output:
+    ssi_federal_living_arrangement: [A, D]
+
+- name: Case 10, D takes priority over B.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 40
+        is_disabled: true
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
+        ssi_lives_in_another_persons_household: true
+        ssi_receives_shelter_from_others_in_household: true
+        ssi_others_pay_all_meals: true
+  output:
+    ssi_federal_living_arrangement: D
+
+- name: Case 11, age 18 non-student with ineligible parent is not Status C.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 40
+      person2:
+        age: 18
+        is_disabled: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+  output:
+    ssi_federal_living_arrangement: [A, A]
