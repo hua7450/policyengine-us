@@ -16,8 +16,9 @@ from policyengine_us.data.dataset_schema import (
 from policyengine_us.data.economic_assumptions import (
     _apply_single_year_uprating,
     _resolve_parameter,
+    get_parameter_last_year,
 )
-from policyengine_us.tests.microsimulation.data.fixtures.economic_assumptions_fixtures import (
+from policyengine_us.tests.microsimulation.data.fixtures.test_extend_single_year_dataset import (  # noqa: E501
     BASE_YEAR,
     END_YEAR_SHORT,
     END_YEAR_DEFAULT,
@@ -34,31 +35,15 @@ from policyengine_us.tests.microsimulation.data.fixtures.economic_assumptions_fi
     CPI_U_UPRATING,
     CPI_U_PARAM_VALUES,
     INVALID_UPRATING_PATH,
-    build_mock_system,
     build_mock_parameters,
     build_single_year_dataset,
+    call_extend_with_mock_system,
+    make_mock_super_init,
     MockVariable,
     MockSystem,
+    mock_system,  # pytest fixture — must be imported for collection
+    base_dataset,  # pytest fixture — must be imported for collection
 )
-
-
-def _call_extend_with_mock_system(mock_system, dataset, **kwargs):
-    """Call extend_single_year_dataset passing mock system directly."""
-    from policyengine_us.data.economic_assumptions import (
-        extend_single_year_dataset,
-    )
-
-    return extend_single_year_dataset(dataset, system=mock_system, **kwargs)
-
-
-@pytest.fixture
-def mock_system():
-    return build_mock_system()
-
-
-@pytest.fixture
-def base_dataset():
-    return build_single_year_dataset()
 
 
 # ---------------------------------------------------------------------------
@@ -281,7 +266,7 @@ class TestExtendSingleYearDataset:
         self, base_dataset, mock_system
     ):
         # When
-        result = _call_extend_with_mock_system(
+        result = call_extend_with_mock_system(
             mock_system, base_dataset, end_year=END_YEAR_SHORT
         )
 
@@ -293,15 +278,15 @@ class TestExtendSingleYearDataset:
         self, base_dataset, mock_system
     ):
         # When
-        result = _call_extend_with_mock_system(
+        result = call_extend_with_mock_system(
             mock_system, base_dataset, end_year=BASE_YEAR
         )
 
         # Then
         assert result.years == [BASE_YEAR]
 
-    def test_given_default_end_year_then_extends_to_2035(self):
-        # Given — need param values through 2035
+    def test_given_explicit_end_year_2035_then_extends_correctly(self):
+        # Given — need param values through END_YEAR_DEFAULT
         extended_values = {
             f"{y}-01-01": 100.0 * (1.1 ** (y - BASE_YEAR))
             for y in range(BASE_YEAR, END_YEAR_DEFAULT + 1)
@@ -321,7 +306,9 @@ class TestExtendSingleYearDataset:
         dataset = build_single_year_dataset()
 
         # When
-        result = _call_extend_with_mock_system(system, dataset)
+        result = call_extend_with_mock_system(
+            system, dataset, end_year=END_YEAR_DEFAULT
+        )
 
         # Then
         assert result.years == list(range(BASE_YEAR, END_YEAR_DEFAULT + 1))
@@ -330,7 +317,7 @@ class TestExtendSingleYearDataset:
         self, base_dataset, mock_system
     ):
         # When
-        result = _call_extend_with_mock_system(
+        result = call_extend_with_mock_system(
             mock_system, base_dataset, end_year=END_YEAR_SHORT
         )
 
@@ -347,7 +334,7 @@ class TestExtendSingleYearDataset:
         self, base_dataset, mock_system
     ):
         # When
-        result = _call_extend_with_mock_system(
+        result = call_extend_with_mock_system(
             mock_system, base_dataset, end_year=END_YEAR_SHORT
         )
 
@@ -362,7 +349,7 @@ class TestExtendSingleYearDataset:
         self, base_dataset, mock_system
     ):
         # When
-        result = _call_extend_with_mock_system(
+        result = call_extend_with_mock_system(
             mock_system, base_dataset, end_year=END_YEAR_SHORT
         )
 
@@ -381,7 +368,7 @@ class TestExtendSingleYearDataset:
         self, base_dataset, mock_system
     ):
         # When
-        result = _call_extend_with_mock_system(
+        result = call_extend_with_mock_system(
             mock_system, base_dataset, end_year=END_YEAR_SHORT
         )
 
@@ -393,7 +380,7 @@ class TestExtendSingleYearDataset:
         self, base_dataset, mock_system
     ):
         # When
-        result = _call_extend_with_mock_system(
+        result = call_extend_with_mock_system(
             mock_system, base_dataset, end_year=END_YEAR_SHORT
         )
 
@@ -407,7 +394,7 @@ class TestExtendSingleYearDataset:
         self, base_dataset, mock_system
     ):
         # When
-        result = _call_extend_with_mock_system(
+        result = call_extend_with_mock_system(
             mock_system, base_dataset, end_year=END_YEAR_SHORT
         )
 
@@ -419,7 +406,7 @@ class TestExtendSingleYearDataset:
         self, base_dataset, mock_system
     ):
         # When
-        result = _call_extend_with_mock_system(
+        result = call_extend_with_mock_system(
             mock_system, base_dataset, end_year=END_YEAR_SHORT
         )
 
@@ -433,7 +420,7 @@ class TestExtendSingleYearDataset:
         original_values = dataset.person["employment_income"].values.copy()
 
         # When
-        _call_extend_with_mock_system(mock_system, dataset, end_year=END_YEAR_SHORT)
+        call_extend_with_mock_system(mock_system, dataset, end_year=END_YEAR_SHORT)
 
         # Then — original dataset should be untouched
         np.testing.assert_array_equal(
@@ -445,7 +432,7 @@ class TestExtendSingleYearDataset:
         self, base_dataset, mock_system
     ):
         # When
-        result = _call_extend_with_mock_system(
+        result = call_extend_with_mock_system(
             mock_system, base_dataset, end_year=END_YEAR_SHORT
         )
 
@@ -465,7 +452,7 @@ class TestExtendSingleYearDataset:
     ):
         # When / Then
         with pytest.raises(ValueError, match="end_year.*must be >= dataset base year"):
-            _call_extend_with_mock_system(
+            call_extend_with_mock_system(
                 mock_system, base_dataset, end_year=BASE_YEAR - 1
             )
 
@@ -662,7 +649,7 @@ class TestFileIORoundtrips:
         self, base_dataset, mock_system, tmp_path
     ):
         # Given
-        multi = _call_extend_with_mock_system(
+        multi = call_extend_with_mock_system(
             mock_system, base_dataset, end_year=END_YEAR_SHORT
         )
         path = str(tmp_path / "multi_year.h5")
@@ -687,7 +674,7 @@ class TestFileIORoundtrips:
         self, base_dataset, mock_system
     ):
         # Given
-        multi = _call_extend_with_mock_system(
+        multi = call_extend_with_mock_system(
             mock_system, base_dataset, end_year=END_YEAR_SHORT
         )
 
@@ -916,32 +903,6 @@ class TestLegacyH5pyFormatCompat:
 # ---------------------------------------------------------------------------
 
 
-class _MockHolder:
-    """Minimal holder stub — reports no known periods."""
-
-    def get_known_periods(self):
-        return []
-
-
-def _make_mock_super_init(system_module, captured=None):
-    """Return a mock CoreMicrosimulation.__init__ that sets up just enough
-    state for the rest of Microsimulation.__init__ to run."""
-
-    def mock_super_init(self, *args, **kwargs):
-        ds = kwargs.get("dataset")
-        if captured is not None:
-            captured[0] = ds
-        self.dataset = ds
-        self.tax_benefit_system = system_module.system
-        self.is_over_dataset = True
-        self.input_variables = []
-        self.get_holder = lambda name: _MockHolder()
-        self.set_input = lambda *a, **kw: None
-        self.apply_reform = lambda r: None
-
-    return mock_super_init
-
-
 class TestMicrosimulationDatasetRouting:
     """Verify the 3 dataset input paths in Microsimulation.__init__
     reach the correct branch without loading the full tax-benefit system."""
@@ -970,7 +931,7 @@ class TestMicrosimulationDatasetRouting:
         monkeypatch.setattr(
             system_module.CoreMicrosimulation,
             "__init__",
-            _make_mock_super_init(system_module),
+            make_mock_super_init(system_module),
         )
 
         sim = system_module.Microsimulation(dataset=path)
@@ -994,7 +955,7 @@ class TestMicrosimulationDatasetRouting:
         monkeypatch.setattr(
             system_module.CoreMicrosimulation,
             "__init__",
-            _make_mock_super_init(system_module),
+            make_mock_super_init(system_module),
         )
 
         sim = system_module.Microsimulation(dataset=base_dataset)
@@ -1021,7 +982,7 @@ class TestMicrosimulationDatasetRouting:
         monkeypatch.setattr(
             system_module.CoreMicrosimulation,
             "__init__",
-            _make_mock_super_init(system_module, captured=captured_dataset),
+            make_mock_super_init(system_module, captured=captured_dataset),
         )
 
         sim = system_module.Microsimulation(dataset=multi)
@@ -1043,3 +1004,52 @@ class TestSaveAppendRegression:
 
         loaded = USSingleYearDataset(file_path=path)
         assert len(loaded.person) == len(base_dataset.person)
+
+
+# ---------------------------------------------------------------------------
+# get_parameter_last_year utility
+# ---------------------------------------------------------------------------
+
+
+class TestGetParameterLastYear:
+    def test_returns_latest_year_from_yaml(self, tmp_path):
+        yaml_content = {
+            "values": {
+                "2024-01-01": 100.0,
+                "2026-01-01": 121.0,
+                "2035-02-01": 407.3,
+                "2025-06-01": 110.0,
+            }
+        }
+        yaml_file = tmp_path / "param.yaml"
+        import yaml
+
+        yaml_file.write_text(yaml.dump(yaml_content))
+
+        class FakeParam:
+            file_path = str(yaml_file)
+
+        assert get_parameter_last_year(FakeParam()) == 2035
+
+    def test_single_value_yaml(self, tmp_path):
+        yaml_content = {"values": {"2024-01-01": 100.0}}
+        yaml_file = tmp_path / "param.yaml"
+        import yaml
+
+        yaml_file.write_text(yaml.dump(yaml_content))
+
+        class FakeParam:
+            file_path = str(yaml_file)
+
+        assert get_parameter_last_year(FakeParam()) == 2024
+
+    def test_with_real_cpi_u_parameter(self):
+        """Verify get_parameter_last_year works on the actual CPI-U
+        parameter YAML, returning 2035 (not 2100 from uprating_extensions)."""
+        from policyengine_us.system import system
+
+        cpi_u = _resolve_parameter(system.parameters, "gov.bls.cpi.cpi_u")
+        last_year = get_parameter_last_year(cpi_u)
+        # CPI-U YAML currently extends to 2035; if the YAML is updated,
+        # this assertion should be updated to match.
+        assert last_year == 2035

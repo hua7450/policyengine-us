@@ -1,2 +1,2 @@
 from .dataset_schema import USSingleYearDataset, USMultiYearDataset
-from .economic_assumptions import extend_single_year_dataset
+from .economic_assumptions import extend_single_year_dataset, get_parameter_last_year

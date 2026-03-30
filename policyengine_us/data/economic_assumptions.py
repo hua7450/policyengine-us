@@ -1,14 +1,44 @@
+import yaml
+
 from policyengine_us.data.dataset_schema import (
     USSingleYearDataset,
     USMultiYearDataset,
 )
 
-DEFAULT_END_YEAR = 2035
+# The default end year for dataset extension is derived at runtime from
+# the CPI-U parameter YAML (gov.bls.cpi.cpi_u).  When the CPI-U YAML
+# is updated with new projection years, datasets will automatically
+# extend to match — no hardcoded year constant to maintain.
+CPI_U_PARAM_PATH = "gov.bls.cpi.cpi_u"
+
+
+def get_parameter_last_year(parameter) -> int:
+    """Return the latest year explicitly defined in a parameter's YAML file.
+
+    Reads the YAML source file (via ``parameter.file_path``), parses
+    the ``values`` mapping, sorts its date keys chronologically, and
+    returns the year component of the latest entry.
+
+    This deliberately reads the YAML on disk rather than the runtime
+    ``values_list``, because ``uprating_extensions.py`` programmatically
+    extends many parameters to 2100 after loading — and we want the
+    last *authored* year, not the extrapolated one.
+    """
+    with open(parameter.file_path) as f:
+        data = yaml.safe_load(f)
+    date_keys = sorted(str(k) for k in data.get("values", {}).keys())
+    return int(date_keys[-1][:4])
+
+
+def _get_default_end_year(system) -> int:
+    """Derive the default end year from the CPI-U parameter's YAML."""
+    cpi_u = _resolve_parameter(system.parameters, CPI_U_PARAM_PATH)
+    return get_parameter_last_year(cpi_u)
 
 
 def extend_single_year_dataset(
     dataset: USSingleYearDataset,
-    end_year: int = DEFAULT_END_YEAR,
+    end_year: int | None = None,
     system=None,
 ) -> USMultiYearDataset:
     """Extend a single-year US dataset to multiple years via uprating.
@@ -17,8 +47,19 @@ def extend_single_year_dataset(
     ``end_year``, then applies multiplicative uprating using growth factors
     derived from the policyengine-us parameter tree.
 
+    If ``end_year`` is not provided, it defaults to the latest year
+    covered by the CPI-U parameter (gov.bls.cpi.cpi_u).
+
     Variables without an uprating parameter are carried forward unchanged.
     """
+    if system is None:
+        from policyengine_us.system import system as _system
+
+        system = _system
+
+    if end_year is None:
+        end_year = _get_default_end_year(system)
+
     start_year = int(dataset.time_period)
     if end_year < start_year:
         raise ValueError(

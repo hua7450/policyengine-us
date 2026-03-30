@@ -1,13 +1,14 @@
 """
-Fixtures for extend_single_year_dataset and uprating tests.
+Fixtures for test_extend_single_year_dataset.py.
 
-Provides mock system objects, parameter trees, and sample datasets
-so tests can run without loading the full policyengine-us tax-benefit
-system.
+Provides constants, mock system objects, parameter trees, sample datasets,
+and helper functions so tests can run without loading the full policyengine-us
+tax-benefit system.
 """
 
 import numpy as np
 import pandas as pd
+import pytest
 
 from policyengine_us.data.dataset_schema import USSingleYearDataset
 
@@ -17,6 +18,9 @@ from policyengine_us.data.dataset_schema import USSingleYearDataset
 
 BASE_YEAR = 2024
 END_YEAR_DEFAULT = 2035
+# END_YEAR_SHORT caps how far tests extend datasets.  The mock parameter
+# fixtures only define values through 2026-2027, so this is the furthest
+# the mock system can uprate to without hitting a missing key.
 END_YEAR_SHORT = 2026
 
 NUM_PERSONS = 10
@@ -221,3 +225,63 @@ def build_single_year_dataset(
         marital_unit=pd.DataFrame({"marital_unit_id": [1, 2, 3, 4]}),
         time_period=time_period,
     )
+
+
+# ---------------------------------------------------------------------------
+# Helper to call extend_single_year_dataset with a mock system
+# ---------------------------------------------------------------------------
+
+
+def call_extend_with_mock_system(mock_system, dataset, **kwargs):
+    """Call extend_single_year_dataset passing mock system directly."""
+    from policyengine_us.data.economic_assumptions import (
+        extend_single_year_dataset,
+    )
+
+    return extend_single_year_dataset(dataset, system=mock_system, **kwargs)
+
+
+# ---------------------------------------------------------------------------
+# Mock Microsimulation.__init__ helpers
+# ---------------------------------------------------------------------------
+
+
+class MockHolder:
+    """Minimal holder stub — reports no known periods."""
+
+    def get_known_periods(self):
+        return []
+
+
+def make_mock_super_init(system_module, captured=None):
+    """Return a mock CoreMicrosimulation.__init__ that sets up just enough
+    state for the rest of Microsimulation.__init__ to run."""
+
+    def mock_super_init(self, *args, **kwargs):
+        ds = kwargs.get("dataset")
+        if captured is not None:
+            captured[0] = ds
+        self.dataset = ds
+        self.tax_benefit_system = system_module.system
+        self.is_over_dataset = True
+        self.input_variables = []
+        self.get_holder = lambda name: MockHolder()
+        self.set_input = lambda *a, **kw: None
+        self.apply_reform = lambda r: None
+
+    return mock_super_init
+
+
+# ---------------------------------------------------------------------------
+# Pytest fixtures
+# ---------------------------------------------------------------------------
+
+
+@pytest.fixture
+def mock_system():
+    return build_mock_system()
+
+
+@pytest.fixture
+def base_dataset():
+    return build_single_year_dataset()
