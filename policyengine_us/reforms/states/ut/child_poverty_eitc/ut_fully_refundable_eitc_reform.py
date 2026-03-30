@@ -24,8 +24,8 @@ def create_ut_fully_refundable_eitc() -> Reform:
             p = parameters(
                 period
             ).gov.contrib.states.ut.child_poverty_impact_dashboard.eitc
-            federal_eitc = tax_unit("eitc", period)
-            return where(p.in_effect, federal_eitc * p.match, 0)
+            ut_eitc = tax_unit("ut_eitc", period)
+            return where(p.in_effect, ut_eitc, 0)
 
     class ut_non_refundable_eitc(Variable):
         value_type = float

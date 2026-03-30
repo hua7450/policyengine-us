@@ -1,8 +1,0 @@
-description: Utah EITC match rate as a fraction of the federal EITC under the child poverty impact dashboard reform.
-values:
-  2021-01-01: 0
-
-metadata:
-  unit: /1
-  period: year
-  label: Utah EITC match rate

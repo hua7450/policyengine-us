@@ -1,11 +1,10 @@
-- name: UT EITC is fully refundable when in effect with 50% match
+- name: UT EITC is fully refundable when in effect
   period: 2024
   reforms: policyengine_us.reforms.states.ut.child_poverty_eitc.ut_fully_refundable_eitc
   input:
     gov.contrib.states.ut.child_poverty_impact_dashboard.eitc.in_effect: true
-    gov.contrib.states.ut.child_poverty_impact_dashboard.eitc.match: 0.5
     state_code: UT
-    eitc: 1_000
+    ut_eitc: 500
   output:
     ut_fully_refundable_eitc: 500
     ut_non_refundable_eitc: 0
@@ -15,9 +14,7 @@
   reforms: policyengine_us.reforms.states.ut.child_poverty_eitc.ut_fully_refundable_eitc
   input:
     gov.contrib.states.ut.child_poverty_impact_dashboard.eitc.in_effect: false
-    gov.contrib.states.ut.child_poverty_impact_dashboard.eitc.match: 0.5
     state_code: UT
-    eitc: 1_000
     ut_eitc: 500
   output:
     ut_fully_refundable_eitc: 0
@@ -28,9 +25,8 @@
   reforms: policyengine_us.reforms.states.ut.child_poverty_eitc.ut_fully_refundable_eitc
   input:
     gov.contrib.states.ut.child_poverty_impact_dashboard.eitc.in_effect: true
-    gov.contrib.states.ut.child_poverty_impact_dashboard.eitc.match: 1.0
     state_code: UT
-    eitc: 1_000
+    ut_eitc: 1_000
   output:
     ut_fully_refundable_eitc: 1_000
     ut_refundable_credits: 1_000
@@ -41,8 +37,7 @@
   input:
     gov.contrib.states.ut.child_poverty_impact_dashboard.eitc.in_effect: false
     state_code: UT
-    eitc: 1_000
-    ut_eitc: 500
+    ut_eitc: 1_000
   output:
     ut_fully_refundable_eitc: 0
     ut_refundable_credits: 0
@@ -52,9 +47,8 @@
   reforms: policyengine_us.reforms.states.ut.child_poverty_eitc.ut_fully_refundable_eitc
   input:
     gov.contrib.states.ut.child_poverty_impact_dashboard.eitc.in_effect: true
-    gov.contrib.states.ut.child_poverty_impact_dashboard.eitc.match: 0.15
     state_code: UT
-    eitc: 2_000
+    ut_eitc: 300
   output:
     ut_fully_refundable_eitc: 300
     ut_refundable_credits: 300
