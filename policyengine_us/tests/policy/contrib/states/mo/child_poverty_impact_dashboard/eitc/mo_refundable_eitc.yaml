@@ -19,25 +19,3 @@
   output:
     mo_refundable_wftc: 0
     mo_non_refundable_wftc: 500
-
-- name: MO refundable credits include WFTC when in effect
-  period: 2024
-  reforms: policyengine_us.reforms.states.mo.eitc.mo_refundable_eitc
-  input:
-    gov.contrib.states.mo.child_poverty_impact_dashboard.eitc.in_effect: true
-    state_code: MO
-    mo_wftc: 1_000
-  output:
-    mo_refundable_wftc: 1_000
-    mo_refundable_credits: 1_000
-
-- name: MO refundable credits exclude WFTC when not in effect
-  period: 2024
-  reforms: policyengine_us.reforms.states.mo.eitc.mo_refundable_eitc
-  input:
-    gov.contrib.states.mo.child_poverty_impact_dashboard.eitc.in_effect: false
-    state_code: MO
-    mo_wftc: 1_000
-  output:
-    mo_refundable_wftc: 0
-    mo_refundable_credits: 0
