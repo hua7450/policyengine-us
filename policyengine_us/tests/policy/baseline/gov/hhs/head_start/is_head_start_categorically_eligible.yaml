@@ -63,3 +63,74 @@
     was_in_foster_care: true
   output:
     is_head_start_categorically_eligible: true
+
+- name: Case 7, toggle true with receives_snap false despite computed snap positive.
+  period: 2024
+  input:
+    head_start_use_reported_programs: true
+    receives_snap: false
+    receives_tanf: false
+    receives_ssi: false
+    is_homeless: false
+    was_in_foster_care: false
+    snap: 200
+  output:
+    is_head_start_categorically_eligible: false
+
+- name: Case 8, toggle true with receives_snap true.
+  period: 2024
+  input:
+    head_start_use_reported_programs: true
+    receives_snap: true
+    receives_tanf: false
+    receives_ssi: false
+    is_homeless: false
+    was_in_foster_care: false
+  output:
+    is_head_start_categorically_eligible: true
+
+- name: Case 9, toggle true with receives_tanf true.
+  period: 2024
+  input:
+    head_start_use_reported_programs: true
+    receives_snap: false
+    receives_tanf: true
+    receives_ssi: false
+    is_homeless: false
+    was_in_foster_care: false
+  output:
+    is_head_start_categorically_eligible: true
+
+- name: Case 10, toggle true with receives_ssi true.
+  period: 2024
+  input:
+    head_start_use_reported_programs: true
+    receives_snap: false
+    receives_tanf: false
+    receives_ssi: true
+    is_homeless: false
+    was_in_foster_care: false
+  output:
+    is_head_start_categorically_eligible: true
+
+- name: Case 11, toggle true with is_homeless true.
+  period: 2024
+  input:
+    head_start_use_reported_programs: true
+    receives_snap: false
+    receives_tanf: false
+    receives_ssi: false
+    is_homeless: true
+    was_in_foster_care: false
+  output:
+    is_head_start_categorically_eligible: true
+
+- name: Case 12, toggle false preserves existing behavior with computed snap positive.
+  period: 2024
+  input:
+    head_start_use_reported_programs: false
+    snap: 200
+    is_homeless: false
+    was_in_foster_care: false
+  output:
+    is_head_start_categorically_eligible: true

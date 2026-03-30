@@ -13,4 +13,10 @@ class is_head_start_categorically_eligible(Variable):
 
     def formula(person, period, parameters):
         p = parameters(period).gov.hhs.head_start
-        return add(person.tax_unit, period, p.categorical_eligibility) > 0
+        use_reported = person("head_start_use_reported_programs", period)
+
+        computed = add(person.spm_unit, period, p.categorical_eligibility) > 0
+
+        reported = add(person.spm_unit, period, p.reported_categorical_eligibility) > 0
+
+        return where(use_reported, reported, computed)
