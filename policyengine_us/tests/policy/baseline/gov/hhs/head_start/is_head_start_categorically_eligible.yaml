@@ -64,80 +64,7 @@
   output:
     is_head_start_categorically_eligible: true
 
-- name: Case 7, toggle true with receives_snap false despite computed snap positive.
-  period: 2024
-  input:
-    head_start_use_reported_programs: true
-    receives_snap: false
-    receives_tanf: false
-    receives_ssi: false
-    is_homeless: false
-    was_in_foster_care: false
-    snap: 200
-  output:
-    is_head_start_categorically_eligible: false
-
-- name: Case 8, toggle true with receives_snap true.
-  period: 2024
-  input:
-    head_start_use_reported_programs: true
-    receives_snap: true
-    receives_tanf: false
-    receives_ssi: false
-    is_homeless: false
-    was_in_foster_care: false
-  output:
-    is_head_start_categorically_eligible: true
-
-- name: Case 9, toggle true with receives_tanf true.
-  period: 2024
-  input:
-    head_start_use_reported_programs: true
-    receives_snap: false
-    receives_tanf: true
-    receives_ssi: false
-    is_homeless: false
-    was_in_foster_care: false
-  output:
-    is_head_start_categorically_eligible: true
-
-- name: Case 10, toggle true with receives_ssi true.
-  period: 2024
-  input:
-    head_start_use_reported_programs: true
-    receives_snap: false
-    receives_tanf: false
-    receives_ssi: true
-    is_homeless: false
-    was_in_foster_care: false
-  output:
-    is_head_start_categorically_eligible: true
-
-- name: Case 11, toggle true with is_homeless true.
-  period: 2024
-  input:
-    head_start_use_reported_programs: true
-    receives_snap: false
-    receives_tanf: false
-    receives_ssi: false
-    is_homeless: true
-    was_in_foster_care: false
-  output:
-    is_head_start_categorically_eligible: true
-
-- name: Case 12, toggle true with was_in_foster_care true.
-  period: 2024
-  input:
-    head_start_use_reported_programs: true
-    receives_snap: false
-    receives_tanf: false
-    receives_ssi: false
-    is_homeless: false
-    was_in_foster_care: true
-  output:
-    is_head_start_categorically_eligible: true
-
-- name: Case 13, foster care child does not make sibling eligible.
+- name: Case 7, foster care child does not make sibling eligible.
   period: 2024
   input:
     people:
@@ -159,28 +86,7 @@
   output:
     is_head_start_categorically_eligible: [true, false]
 
-- name: Case 14, toggle true with foster care child does not make sibling eligible.
-  period: 2024
-  input:
-    people:
-      person1:
-        head_start_use_reported_programs: true
-        was_in_foster_care: true
-      person2:
-        head_start_use_reported_programs: true
-        was_in_foster_care: false
-    spm_units:
-      spm_unit:
-        members: [person1, person2]
-        receives_snap: false
-    households:
-      household:
-        members: [person1, person2]
-        is_homeless: false
-  output:
-    is_head_start_categorically_eligible: [true, false]
-
-- name: Case 15, parent SSI makes child eligible via family aggregation.
+- name: Case 8, parent SSI makes child eligible via family aggregation.
   period: 2024
   input:
     people:
@@ -202,17 +108,7 @@
     # Parent's SSI aggregated at spm_unit, both members eligible
     is_head_start_categorically_eligible: [true, true]
 
-- name: Case 16, toggle false preserves existing behavior with computed snap positive.
-  period: 2024
-  input:
-    head_start_use_reported_programs: false
-    snap: 200
-    is_homeless: false
-    was_in_foster_care: false
-  output:
-    is_head_start_categorically_eligible: true
-
-- name: Case 17, TX household at 140% FPL eligible via computed snap.
+- name: Case 9, TX household at 140% FPL eligible via computed snap.
   period: 2024
   input:
     people:
@@ -235,33 +131,3 @@
     # 140% FPL for 2-person household in 2024
     # Computed SNAP > 0 at this income, making family categorically eligible
     is_head_start_categorically_eligible: [true, true]
-
-- name: Case 18, TX household at 140% FPL not eligible with toggle true and no reported programs.
-  period: 2024
-  input:
-    people:
-      person1:
-        age: 30
-        employment_income: 28_616
-        head_start_use_reported_programs: true
-      person2:
-        age: 4
-        head_start_use_reported_programs: true
-    tax_units:
-      tax_unit:
-        members: [person1, person2]
-    spm_units:
-      spm_unit:
-        members: [person1, person2]
-        receives_snap: false
-    households:
-      household:
-        members: [person1, person2]
-        state_code: TX
-        is_homeless: false
-  output:
-    # Same household, but toggle=true and not actually receiving SNAP
-    # Computed SNAP is ignored, family is NOT categorically eligible
-    is_head_start_categorically_eligible: [false, false]
-    # Age 30 fails age check, age 4 passes but fails both income and categorical
-    is_head_start_eligible: [false, false]

@@ -1,0 +1,18 @@
+description: The Administration for Children and Families requires participation in one of the following programs to qualify for the Early Head Start or Head Start programs.
+values:
+  2021-09-01:
+    - tanf
+    - ssi
+    - snap
+    - is_homeless
+    - was_in_foster_care
+
+metadata:
+  unit: list
+  period: year
+  label: Head Start qualifying programs
+  reference:
+    - title: U.S. Department of Health & Human Services Head Start Policy and Regulations, 1302.12 Determining, verifying, and documenting eligibility. (c)(1)
+      href: https://headstart.gov/policy/45-cfr-chap-xiii/1302-12-determining-verifying-documenting-eligibility
+    - title: ACF-IM-HS-22-03, SNAP as Public Assistance for Head Start Eligibility
+      href: https://headstart.gov/policy/im/acf-im-hs-22-03
