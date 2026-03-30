@@ -1,4 +1,4 @@
-description: Legacy compatibility list for the deprecated generic state_ctc umbrella.
+description: All state Child Tax Credits.
 values:
   0000-01-01:
     - az_dependent_tax_credit  # Arizona Dependent Tax Credit
@@ -15,6 +15,7 @@ values:
     - md_ctc  # Maryland Child Tax Credit
     - me_dependent_exemption_credit  # Maine Dependent Exemption Credit
     - mn_child_tax_credit_component  # Minnesota Child Tax Credit component
+    - nc_ctc  # North Carolina Child Tax Credit
     - ne_refundable_ctc  # Nebraska Refundable Child Tax Credit
     - nj_ctc  # New Jersey Child Tax Credit
     - nm_ctc  # New Mexico Child Tax Credit
