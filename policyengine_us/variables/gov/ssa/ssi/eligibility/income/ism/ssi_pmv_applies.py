@@ -16,7 +16,7 @@ class ssi_pmv_applies(Variable):
 
     def formula(person, period, parameters):
         arrangement = person("ssi_federal_living_arrangement", period)
-        is_a = arrangement == SSIFederalLivingArrangement.A
+        is_own_household = arrangement == SSIFederalLivingArrangement.OWN_HOUSEHOLD
         receives_shelter = person(
             "ssi_receives_outside_shelter_support", period
         ) | person("ssi_receives_shelter_from_others_in_household", period)
@@ -25,4 +25,4 @@ class ssi_pmv_applies(Variable):
         food_counts = parameters(period).gov.ssa.ssi.income.ism.food_counts
         receives_food = person("ssi_receives_food_from_others", period)
         receives_ism_support = receives_shelter | (receives_food & food_counts)
-        return is_a & receives_ism_support
+        return is_own_household & receives_ism_support

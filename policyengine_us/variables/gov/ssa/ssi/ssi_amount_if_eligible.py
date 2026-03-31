@@ -48,21 +48,25 @@ class ssi_amount_if_eligible(Variable):
         # couple/deeming logic since they may be married.
         base_amount = where(person("is_child", period), p.individual, base_amount)
 
-        # Status B: Apply the one-third reduction (VTR) per 20 CFR § 416.1131.
-        # The VTR applies to the applicable FBR (individual or couple based
-        # on deeming), per POMS SI 00835.210.
-        is_b = arrangement == SSIFederalLivingArrangement.B
+        # 20 CFR § 416.1131: One-third reduction for another person's
+        # household. Applies to the applicable FBR (individual or couple
+        # based on deeming).
+        is_another_household = (
+            arrangement == SSIFederalLivingArrangement.ANOTHER_PERSONS_HOUSEHOLD
+        )
         vtr_rate = p.one_third_reduction_rate
         base_amount = where(
-            is_b,
+            is_another_household,
             base_amount * (1 - vtr_rate),
             base_amount,
         )
 
-        # Status D: Medical treatment facility, $30/month per person.
-        # Per 20 CFR § 416.414: one spouse in facility gets $30;
-        # the community spouse gets full individual FBR.
-        is_d = arrangement == SSIFederalLivingArrangement.D
-        base_amount = where(is_d, p.medical_facility, base_amount)
+        # 42 USC § 1382(e)(1)(A), 20 CFR § 416.414: Medical treatment
+        # facility, $30/month per person. One spouse in facility gets
+        # $30; the community spouse gets full individual FBR.
+        is_medical_facility = (
+            arrangement == SSIFederalLivingArrangement.MEDICAL_TREATMENT_FACILITY
+        )
+        base_amount = where(is_medical_facility, p.medical_facility, base_amount)
 
         return base_amount * MONTHS_IN_YEAR

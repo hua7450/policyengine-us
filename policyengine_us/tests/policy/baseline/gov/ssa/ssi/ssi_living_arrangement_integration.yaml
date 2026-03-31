@@ -13,7 +13,7 @@
       household:
         members: [person1]
   output:
-    ssi_federal_living_arrangement: A
+    ssi_federal_living_arrangement: OWN_HOUSEHOLD
     ssi_amount_if_eligible: 967
     ssi_countable_income: 0
     uncapped_ssi: 967
@@ -37,7 +37,7 @@
       household:
         members: [person1]
   output:
-    ssi_federal_living_arrangement: B
+    ssi_federal_living_arrangement: ANOTHER_PERSONS_HOUSEHOLD
     # VTR reduces FBR: 967 * (1 - 1/3) = 644.67
     ssi_amount_if_eligible: 644.67
     ssi_in_kind_support_and_maintenance: 0
@@ -61,7 +61,7 @@
       household:
         members: [person1]
   output:
-    ssi_federal_living_arrangement: D
+    ssi_federal_living_arrangement: MEDICAL_TREATMENT_FACILITY
     ssi_amount_if_eligible: 30
     ssi_in_kind_support_and_maintenance: 0
     ssi_countable_income: 0
@@ -84,7 +84,7 @@
       household:
         members: [person1]
   output:
-    ssi_federal_living_arrangement: A
+    ssi_federal_living_arrangement: OWN_HOUSEHOLD
     ssi_amount_if_eligible: 967
     # PMV gross = (1/3 x 967) + 20 = 342.33/month
     ssi_pmv_amount: 342.33
@@ -116,7 +116,7 @@
         members: [person1]
   output:
     # Not B (meals condition fails), so A with PMV
-    ssi_federal_living_arrangement: A
+    ssi_federal_living_arrangement: OWN_HOUSEHOLD
     ssi_amount_if_eligible: 967
     ssi_pmv_applies: true
     # PMV gross = 342.33, after $20 exclusion: 322.33 countable
@@ -144,7 +144,7 @@
       household:
         members: [person1]
   output:
-    ssi_federal_living_arrangement: A
+    ssi_federal_living_arrangement: OWN_HOUSEHOLD
     ssi_amount_if_eligible: 967
     ssi_pmv_applies: false
     ssi_in_kind_support_and_maintenance: 0
@@ -173,7 +173,7 @@
       household:
         members: [person1, person2]
   output:
-    ssi_federal_living_arrangement: [A, C]
+    ssi_federal_living_arrangement: [OWN_HOUSEHOLD, CHILD_IN_PARENTAL_HOUSEHOLD]
     # Child gets individual FBR (967/month)
     ssi_amount_if_eligible: [967, 967]
     # Child ISM = 0 (deeming replaces ISM for Status C)
@@ -197,7 +197,7 @@
       household:
         members: [person1]
   output:
-    ssi_federal_living_arrangement: A
+    ssi_federal_living_arrangement: OWN_HOUSEHOLD
     ssi_pmv_applies: true
     # PMV annual = 342.33 * 12 = 4,108
     # Actual = 1,200 < PMV → use actual
@@ -225,7 +225,7 @@
       household:
         members: [person1]
   output:
-    ssi_federal_living_arrangement: A
+    ssi_federal_living_arrangement: OWN_HOUSEHOLD
     # food_counts = true in 2024-01 → PMV applies
     ssi_pmv_applies: true
     # PMV monthly = (1/3 x 943) + 20 = 334.33
@@ -252,7 +252,7 @@
       household:
         members: [person1]
   output:
-    ssi_federal_living_arrangement: A
+    ssi_federal_living_arrangement: OWN_HOUSEHOLD
     # food_counts = false in 2025-01 → PMV does not apply
     ssi_pmv_applies: false
     ssi_in_kind_support_and_maintenance: 0
