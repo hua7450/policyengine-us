@@ -2,7 +2,7 @@ description: SSA uses this indicator to determine whether food counts in SSI in-
 
 values:
   1975-01-01: true
-  2024-09-01: false
+  2024-10-01: false
 
 metadata:
   unit: bool
