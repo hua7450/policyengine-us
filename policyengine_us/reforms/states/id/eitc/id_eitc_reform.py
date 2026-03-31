@@ -19,6 +19,8 @@ def create_id_eitc() -> Reform:
             return federal_eitc * p.match
 
     class id_refundable_credits(Variable):
+        # NOTE: ID currently has no baseline refundable credits.
+        # If ID adds refundable credits in baseline, this formula must be updated.
         value_type = float
         entity = TaxUnit
         label = "Idaho refundable credits"
@@ -27,13 +29,7 @@ def create_id_eitc() -> Reform:
         defined_for = StateCode.ID
 
         def formula(tax_unit, period, parameters):
-            id_eitc_amount = tax_unit("id_eitc", period)
-            other_refundable = add(
-                tax_unit,
-                period,
-                "gov.states.id.tax.income.credits.refundable",
-            )
-            return id_eitc_amount + other_refundable
+            return tax_unit("id_eitc", period)
 
     class reform(Reform):
         def apply(self):

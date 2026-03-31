@@ -34,6 +34,8 @@ def create_oh_refundable_eitc() -> Reform:
             return 0
 
     class oh_non_refundable_credits(Variable):
+        # NOTE: When reform is active, OH EITC moves from nonrefundable to refundable.
+        # This formula returns the nonrefundable EITC amount (0 under reform).
         value_type = float
         entity = TaxUnit
         label = "Ohio non-refundable credits"
@@ -46,18 +48,8 @@ def create_oh_refundable_eitc() -> Reform:
         defined_for = StateCode.OH
 
         def formula(tax_unit, period, parameters):
-            # Use parameter-driven approach: get baseline non-refundable credits
-            # then subtract oh_eitc (now refundable) and add back oh_non_refundable_eitc (0)
-            baseline_non_refundable = add(
-                tax_unit,
-                period,
-                "gov.states.oh.tax.income.credits.non_refundable",
-            )
-            # Remove oh_eitc from non-refundable (it's now handled separately)
-            oh_eitc = tax_unit("oh_eitc", period)
-            # Add back nonrefundable EITC (0 when reform is in effect)
-            nonrefundable_eitc = tax_unit("oh_non_refundable_eitc", period)
-            return baseline_non_refundable - oh_eitc + nonrefundable_eitc
+            # When reform is active, EITC is refundable, so nonrefundable EITC is 0
+            return tax_unit("oh_non_refundable_eitc", period)
 
     class oh_refundable_credits(Variable):
         value_type = float

@@ -19,6 +19,8 @@ def create_az_eitc() -> Reform:
             return federal_eitc * p.match
 
     class az_refundable_credits(Variable):
+        # NOTE: AZ currently has no baseline refundable credits.
+        # If AZ adds refundable credits in baseline, this formula must be updated.
         value_type = float
         entity = TaxUnit
         label = "Arizona refundable credits"
@@ -27,13 +29,7 @@ def create_az_eitc() -> Reform:
         defined_for = StateCode.AZ
 
         def formula(tax_unit, period, parameters):
-            az_eitc_amount = tax_unit("az_eitc", period)
-            other_refundable = add(
-                tax_unit,
-                period,
-                "gov.states.az.tax.income.credits.refundable",
-            )
-            return az_eitc_amount + other_refundable
+            return tax_unit("az_eitc", period)
 
     class reform(Reform):
         def apply(self):

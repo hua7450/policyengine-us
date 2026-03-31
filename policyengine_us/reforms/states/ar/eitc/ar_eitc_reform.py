@@ -19,6 +19,8 @@ def create_ar_eitc() -> Reform:
             return federal_eitc * p.match
 
     class ar_refundable_credits(Variable):
+        # NOTE: AR currently has no baseline refundable credits.
+        # If AR adds refundable credits in baseline, this formula must be updated.
         value_type = float
         entity = TaxUnit
         label = "Arkansas refundable credits"
@@ -27,13 +29,7 @@ def create_ar_eitc() -> Reform:
         defined_for = StateCode.AR
 
         def formula(tax_unit, period, parameters):
-            ar_eitc_amount = tax_unit("ar_eitc", period)
-            other_refundable = add(
-                tax_unit,
-                period,
-                "gov.states.ar.tax.income.credits.refundable",
-            )
-            return ar_eitc_amount + other_refundable
+            return tax_unit("ar_eitc", period)
 
     class reform(Reform):
         def apply(self):
