@@ -17,7 +17,7 @@ class vt_ccfap_family_share(Variable):
         p = parameters(period).gov.states.vt.dcf.ccfap
         income = spm_unit("vt_ccfap_countable_income", period)
         fpg = spm_unit("spm_unit_fpg", period)
-        fpl_ratio = income / fpg
+        fpl_ratio = where(fpg > 0, income / fpg, 0)
 
         exempt = spm_unit("vt_ccfap_categorically_exempt", period)
 
