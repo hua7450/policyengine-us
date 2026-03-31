@@ -17,6 +17,6 @@ class ok_child_tax_credit_component(Variable):
         ok_cdcc = us_cdcc * p.cdcc_fraction
         us_ctc = tax_unit("ctc_value", period)
         ok_ctc = us_ctc * p.ctc_fraction
-        ctc_wins = ok_ctc > ok_cdcc
+        ctc_larger_than_cdcc = ok_ctc > ok_cdcc
         combined = tax_unit("ok_child_care_child_tax_credit", period)
-        return where(ctc_wins, combined, 0)
+        return where(ctc_larger_than_cdcc, combined, 0)
