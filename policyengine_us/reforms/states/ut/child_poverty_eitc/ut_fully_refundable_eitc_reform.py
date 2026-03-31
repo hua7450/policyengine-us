@@ -21,11 +21,7 @@ def create_ut_fully_refundable_eitc() -> Reform:
         defined_for = StateCode.UT
 
         def formula(tax_unit, period, parameters):
-            p = parameters(
-                period
-            ).gov.contrib.states.ut.child_poverty_impact_dashboard.eitc
-            ut_eitc = tax_unit("ut_eitc", period)
-            return where(p.in_effect, ut_eitc, 0)
+            return tax_unit("ut_eitc", period)
 
     class ut_non_refundable_eitc(Variable):
         value_type = float
@@ -36,12 +32,8 @@ def create_ut_fully_refundable_eitc() -> Reform:
         defined_for = StateCode.UT
 
         def formula(tax_unit, period, parameters):
-            p = parameters(
-                period
-            ).gov.contrib.states.ut.child_poverty_impact_dashboard.eitc
-            ut_eitc = tax_unit("ut_eitc", period)
-            # If refundable reform is in effect, nonrefundable portion is 0
-            return where(p.in_effect, 0, ut_eitc)
+            # Reform makes EITC fully refundable, so nonrefundable portion is 0
+            return 0
 
     class ut_non_refundable_credits(Variable):
         value_type = float

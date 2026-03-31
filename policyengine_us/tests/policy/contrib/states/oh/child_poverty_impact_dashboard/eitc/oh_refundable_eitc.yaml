@@ -1,41 +1,18 @@
-- name: OH EITC is refundable when in effect
+- name: OH EITC is refundable when reform active
   period: 2024
   reforms: policyengine_us.reforms.states.oh.eitc.oh_refundable_eitc
   input:
-    gov.contrib.states.oh.child_poverty_impact_dashboard.eitc.in_effect: true
     state_code: OH
     oh_eitc: 500
   output:
     oh_refundable_eitc: 500
     oh_non_refundable_eitc: 0
 
-- name: OH EITC is nonrefundable when not in effect
+- name: OH refundable credits include EITC when reform active
   period: 2024
   reforms: policyengine_us.reforms.states.oh.eitc.oh_refundable_eitc
   input:
-    gov.contrib.states.oh.child_poverty_impact_dashboard.eitc.in_effect: false
     state_code: OH
-    oh_eitc: 500
+    oh_eitc: 1_000
   output:
-    oh_refundable_eitc: 0
-    oh_non_refundable_eitc: 500
-
-- name: OH refundable credits include EITC when in effect
-  period: 2024
-  reforms: policyengine_us.reforms.states.oh.eitc.oh_refundable_eitc
-  input:
-    gov.contrib.states.oh.child_poverty_impact_dashboard.eitc.in_effect: true
-    state_code: OH
-    oh_eitc: 1000
-  output:
-    oh_refundable_credits: 1000
-
-- name: OH refundable credits are 0 when EITC reform not in effect (baseline has no refundable credits)
-  period: 2024
-  reforms: policyengine_us.reforms.states.oh.eitc.oh_refundable_eitc
-  input:
-    gov.contrib.states.oh.child_poverty_impact_dashboard.eitc.in_effect: false
-    state_code: OH
-    oh_eitc: 1000
-  output:
-    oh_refundable_credits: 0
+    oh_refundable_credits: 1_000

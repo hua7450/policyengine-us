@@ -1,52 +1,27 @@
-- name: UT EITC is fully refundable when in effect
+- name: UT EITC is fully refundable when reform active
   period: 2024
   reforms: policyengine_us.reforms.states.ut.child_poverty_eitc.ut_fully_refundable_eitc
   input:
-    gov.contrib.states.ut.child_poverty_impact_dashboard.eitc.in_effect: true
     state_code: UT
     ut_eitc: 500
   output:
     ut_fully_refundable_eitc: 500
     ut_non_refundable_eitc: 0
 
-- name: UT EITC is nonrefundable when not in effect
+- name: UT refundable credits include EITC when reform active
   period: 2024
   reforms: policyengine_us.reforms.states.ut.child_poverty_eitc.ut_fully_refundable_eitc
   input:
-    gov.contrib.states.ut.child_poverty_impact_dashboard.eitc.in_effect: false
-    state_code: UT
-    ut_eitc: 500
-  output:
-    ut_fully_refundable_eitc: 0
-    ut_non_refundable_eitc: 500
-
-- name: UT refundable credits include EITC when in effect
-  period: 2024
-  reforms: policyengine_us.reforms.states.ut.child_poverty_eitc.ut_fully_refundable_eitc
-  input:
-    gov.contrib.states.ut.child_poverty_impact_dashboard.eitc.in_effect: true
     state_code: UT
     ut_eitc: 1_000
   output:
     ut_fully_refundable_eitc: 1_000
     ut_refundable_credits: 1_000
 
-- name: UT refundable credits are 0 when EITC reform not in effect
+- name: UT EITC works for childless filers
   period: 2024
   reforms: policyengine_us.reforms.states.ut.child_poverty_eitc.ut_fully_refundable_eitc
   input:
-    gov.contrib.states.ut.child_poverty_impact_dashboard.eitc.in_effect: false
-    state_code: UT
-    ut_eitc: 1_000
-  output:
-    ut_fully_refundable_eitc: 0
-    ut_refundable_credits: 0
-
-- name: UT EITC works for childless filers when in effect
-  period: 2024
-  reforms: policyengine_us.reforms.states.ut.child_poverty_eitc.ut_fully_refundable_eitc
-  input:
-    gov.contrib.states.ut.child_poverty_impact_dashboard.eitc.in_effect: true
     state_code: UT
     ut_eitc: 300
   output:

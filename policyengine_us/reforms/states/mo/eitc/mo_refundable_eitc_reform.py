@@ -20,11 +20,7 @@ def create_mo_refundable_eitc() -> Reform:
         defined_for = StateCode.MO
 
         def formula(tax_unit, period, parameters):
-            p = parameters(
-                period
-            ).gov.contrib.states.mo.child_poverty_impact_dashboard.eitc
-            mo_wftc = tax_unit("mo_wftc", period)
-            return where(p.in_effect, mo_wftc, 0)
+            return tax_unit("mo_wftc", period)
 
     class mo_non_refundable_wftc(Variable):
         value_type = float
@@ -35,12 +31,8 @@ def create_mo_refundable_eitc() -> Reform:
         defined_for = StateCode.MO
 
         def formula(tax_unit, period, parameters):
-            p = parameters(
-                period
-            ).gov.contrib.states.mo.child_poverty_impact_dashboard.eitc
-            mo_wftc = tax_unit("mo_wftc", period)
-            # If refundable reform is in effect, nonrefundable portion is 0
-            return where(p.in_effect, 0, mo_wftc)
+            # Reform makes WFTC fully refundable, so nonrefundable portion is 0
+            return 0
 
     class mo_non_refundable_credits(Variable):
         value_type = float

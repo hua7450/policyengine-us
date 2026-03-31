@@ -1,43 +1,29 @@
-- name: AR EITC with 10% match when in effect
+- name: AR EITC with 10% match
   period: 2024
   reforms: policyengine_us.reforms.states.ar.eitc.ar_eitc
   input:
-    gov.contrib.states.ar.child_poverty_impact_dashboard.eitc.in_effect: true
     gov.contrib.states.ar.child_poverty_impact_dashboard.eitc.match: 0.1
     state_code: AR
-    eitc: 1000
+    eitc: 1_000
   output:
     ar_eitc: 100
 
-- name: AR EITC with 20% match when in effect
+- name: AR EITC with 20% match
   period: 2024
   reforms: policyengine_us.reforms.states.ar.eitc.ar_eitc
   input:
-    gov.contrib.states.ar.child_poverty_impact_dashboard.eitc.in_effect: true
     gov.contrib.states.ar.child_poverty_impact_dashboard.eitc.match: 0.2
     state_code: AR
-    eitc: 2500
+    eitc: 2_500
   output:
     ar_eitc: 500
-
-- name: AR EITC is 0 when not in effect
-  period: 2024
-  reforms: policyengine_us.reforms.states.ar.eitc.ar_eitc
-  input:
-    gov.contrib.states.ar.child_poverty_impact_dashboard.eitc.in_effect: false
-    gov.contrib.states.ar.child_poverty_impact_dashboard.eitc.match: 0.1
-    state_code: AR
-    eitc: 1000
-  output:
-    ar_eitc: 0
 
 - name: AR EITC is 0 when match is 0
   period: 2024
   reforms: policyengine_us.reforms.states.ar.eitc.ar_eitc
   input:
-    gov.contrib.states.ar.child_poverty_impact_dashboard.eitc.in_effect: true
     gov.contrib.states.ar.child_poverty_impact_dashboard.eitc.match: 0
     state_code: AR
-    eitc: 1000
+    eitc: 1_000
   output:
     ar_eitc: 0

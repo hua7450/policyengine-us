@@ -1,43 +1,29 @@
-- name: WV EITC with 10% match when in effect
+- name: WV EITC with 10% match
   period: 2024
   reforms: policyengine_us.reforms.states.wv.eitc.wv_eitc
   input:
-    gov.contrib.states.wv.child_poverty_impact_dashboard.eitc.in_effect: true
     gov.contrib.states.wv.child_poverty_impact_dashboard.eitc.match: 0.1
     state_code: WV
-    eitc: 1000
+    eitc: 1_000
   output:
     wv_eitc: 100
 
-- name: WV EITC with 20% match when in effect
+- name: WV EITC with 20% match
   period: 2024
   reforms: policyengine_us.reforms.states.wv.eitc.wv_eitc
   input:
-    gov.contrib.states.wv.child_poverty_impact_dashboard.eitc.in_effect: true
     gov.contrib.states.wv.child_poverty_impact_dashboard.eitc.match: 0.2
     state_code: WV
-    eitc: 2500
+    eitc: 2_500
   output:
     wv_eitc: 500
-
-- name: WV EITC is 0 when not in effect
-  period: 2024
-  reforms: policyengine_us.reforms.states.wv.eitc.wv_eitc
-  input:
-    gov.contrib.states.wv.child_poverty_impact_dashboard.eitc.in_effect: false
-    gov.contrib.states.wv.child_poverty_impact_dashboard.eitc.match: 0.1
-    state_code: WV
-    eitc: 1000
-  output:
-    wv_eitc: 0
 
 - name: WV EITC is 0 when match is 0
   period: 2024
   reforms: policyengine_us.reforms.states.wv.eitc.wv_eitc
   input:
-    gov.contrib.states.wv.child_poverty_impact_dashboard.eitc.in_effect: true
     gov.contrib.states.wv.child_poverty_impact_dashboard.eitc.match: 0
     state_code: WV
-    eitc: 1000
+    eitc: 1_000
   output:
     wv_eitc: 0

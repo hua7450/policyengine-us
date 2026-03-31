@@ -16,7 +16,7 @@ def create_nd_eitc() -> Reform:
                 period
             ).gov.contrib.states.nd.child_poverty_impact_dashboard.eitc
             federal_eitc = tax_unit("eitc", period)
-            return where(p.in_effect, federal_eitc * p.match, 0)
+            return federal_eitc * p.match
 
     class nd_refundable_credits(Variable):
         value_type = float

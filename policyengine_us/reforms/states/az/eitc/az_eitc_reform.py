@@ -16,7 +16,7 @@ def create_az_eitc() -> Reform:
                 period
             ).gov.contrib.states.az.child_poverty_impact_dashboard.eitc
             federal_eitc = tax_unit("eitc", period)
-            return where(p.in_effect, federal_eitc * p.match, 0)
+            return federal_eitc * p.match
 
     class az_refundable_credits(Variable):
         value_type = float
