@@ -19,6 +19,8 @@ def create_al_eitc() -> Reform:
             return federal_eitc * p.match
 
     class al_refundable_credits(Variable):
+        # NOTE: AL currently has no baseline refundable credits.
+        # If AL adds refundable credits in baseline, this formula must be updated.
         value_type = float
         entity = TaxUnit
         label = "Alabama refundable credits"

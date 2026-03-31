@@ -19,6 +19,8 @@ def create_ky_eitc() -> Reform:
             return federal_eitc * p.match
 
     class ky_refundable_credits(Variable):
+        # NOTE: KY currently has no baseline refundable credits.
+        # If KY adds refundable credits in baseline, this formula must be updated.
         value_type = float
         entity = TaxUnit
         label = "Kentucky refundable credits"

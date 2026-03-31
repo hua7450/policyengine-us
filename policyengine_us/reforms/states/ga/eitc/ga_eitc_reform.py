@@ -19,6 +19,8 @@ def create_ga_eitc() -> Reform:
             return federal_eitc * p.match
 
     class ga_refundable_credits(Variable):
+        # NOTE: GA currently has no baseline refundable credits.
+        # If GA adds refundable credits in baseline, this formula must be updated.
         value_type = float
         entity = TaxUnit
         label = "Georgia refundable credits"

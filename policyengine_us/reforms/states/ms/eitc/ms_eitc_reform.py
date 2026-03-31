@@ -19,6 +19,8 @@ def create_ms_eitc() -> Reform:
             return federal_eitc * p.match
 
     class ms_refundable_credits(Variable):
+        # NOTE: MS currently has no baseline refundable credits.
+        # If MS adds refundable credits in baseline, this formula must be updated.
         value_type = float
         entity = TaxUnit
         label = "Mississippi refundable credits"

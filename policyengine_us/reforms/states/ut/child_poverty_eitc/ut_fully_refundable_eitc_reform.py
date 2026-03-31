@@ -44,22 +44,18 @@ def create_ut_fully_refundable_eitc() -> Reform:
         defined_for = StateCode.UT
 
         def formula(tax_unit, period, parameters):
-            # All nonrefundable credits except EITC (which is now handled separately)
-            retirement_credit = tax_unit("ut_retirement_credit", period)
-            ss_benefits_credit = tax_unit("ut_ss_benefits_credit", period)
-            at_home_parent = tax_unit("ut_at_home_parent_credit", period)
-            ctc = tax_unit("ut_ctc", period)
-            military_retirement = tax_unit("ut_military_retirement_credit", period)
-            # Add the nonrefundable EITC (0 when reform is in effect)
-            nonrefundable_eitc = tax_unit("ut_non_refundable_eitc", period)
-            return (
-                retirement_credit
-                + ss_benefits_credit
-                + at_home_parent
-                + ctc
-                + military_retirement
-                + nonrefundable_eitc
+            # Use parameter-driven approach: get baseline non-refundable credits
+            # then subtract ut_eitc (now refundable) and add back ut_non_refundable_eitc (0)
+            baseline_non_refundable = add(
+                tax_unit,
+                period,
+                "gov.states.ut.tax.income.credits.non_refundable",
             )
+            # Remove ut_eitc from non-refundable (it's now handled separately)
+            ut_eitc = tax_unit("ut_eitc", period)
+            # Add back nonrefundable EITC (0 when reform is in effect)
+            nonrefundable_eitc = tax_unit("ut_non_refundable_eitc", period)
+            return baseline_non_refundable - ut_eitc + nonrefundable_eitc
 
     class ut_refundable_credits(Variable):
         value_type = float
