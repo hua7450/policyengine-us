@@ -1,16 +1,17 @@
 """Test unified uprating extensions through 2100."""
 
+from policyengine_us.system import system
 from policyengine_us.parameters.uprating_extensions import (
     round_social_security_payroll_cap,
 )
 
 
+PARAMETERS = system.parameters
+
+
 def test_all_uprating_factors_extend_to_2100():
     """Test that all uprating factors extend through 2100 with consistent growth rates."""
-    from policyengine_us import Microsimulation
-
-    sim = Microsimulation()
-    parameters = sim.tax_benefit_system.parameters
+    parameters = PARAMETERS
 
     # Define all uprating parameters to test with their specific periods
     uprating_params = [
@@ -57,10 +58,7 @@ def test_all_uprating_factors_extend_to_2100():
 
 def test_ssa_nawi_and_payroll_cap_extend_to_2100():
     """Test that the SSA NAWI and payroll cap do not flatten after 2035."""
-    from policyengine_us import Microsimulation
-
-    sim = Microsimulation()
-    parameters = sim.tax_benefit_system.parameters
+    parameters = PARAMETERS
 
     nawi = parameters.gov.ssa.nawi
     payroll_cap = parameters.gov.irs.payroll.social_security.cap
@@ -80,27 +78,20 @@ def test_ssa_nawi_and_payroll_cap_extend_to_2100():
     for year in [2036, 2040, 2050, 2100]:
         current_cap = payroll_cap(f"{year - 1}-01-01")
         expected_cap = round_social_security_payroll_cap(
-            current_cap
-            * nawi(f"{year - 2}-01-01")
-            / nawi(f"{year - 3}-01-01")
+            current_cap * nawi(f"{year - 2}-01-01") / nawi(f"{year - 3}-01-01")
         )
         assert payroll_cap(f"{year}-01-01") == expected_cap
 
 
 def test_social_security_payroll_cap_formula_matches_known_projection():
     """Test the known 2025 cap against the statutory NAWI-indexing formula."""
-    from policyengine_us import Microsimulation
-
-    sim = Microsimulation()
-    parameters = sim.tax_benefit_system.parameters
+    parameters = PARAMETERS
 
     payroll_cap = parameters.gov.irs.payroll.social_security.cap
     nawi = parameters.gov.ssa.nawi
 
     expected_2025_cap = round_social_security_payroll_cap(
-        payroll_cap("2024-01-01")
-        * nawi("2023-01-01")
-        / nawi("2022-01-01")
+        payroll_cap("2024-01-01") * nawi("2023-01-01") / nawi("2022-01-01")
     )
 
     assert expected_2025_cap == payroll_cap("2025-01-01")
@@ -108,10 +99,7 @@ def test_social_security_payroll_cap_formula_matches_known_projection():
 
 def test_uprating_growth_rates_are_reasonable():
     """Test that all uprating growth rates are within reasonable bounds."""
-    from policyengine_us import Microsimulation
-
-    sim = Microsimulation()
-    parameters = sim.tax_benefit_system.parameters
+    parameters = PARAMETERS
 
     # Annual growth rates should be between 0.5% and 5% for inflation measures
     min_annual_growth = 1.005
@@ -142,10 +130,7 @@ def test_uprating_growth_rates_are_reasonable():
 
 def test_cpi_relationships():
     """Test that CPI indices maintain expected relationships."""
-    from policyengine_us import Microsimulation
-
-    sim = Microsimulation()
-    parameters = sim.tax_benefit_system.parameters
+    parameters = PARAMETERS
 
     # Test a few years to ensure relationships are maintained
     test_years = [2040, 2060, 2080, 2100]
