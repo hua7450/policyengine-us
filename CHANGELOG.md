@@ -1,3 +1,10 @@
+## [1.626.1] - 2026-04-01
+
+### Fixed
+
+- Fix Head Start categorical eligibility to correctly separate person-level (foster care) from family-level (TANF, SSI, SNAP) aggregation.
+
+
 ## [1.626.0] - 2026-04-01
 
 ### Added
