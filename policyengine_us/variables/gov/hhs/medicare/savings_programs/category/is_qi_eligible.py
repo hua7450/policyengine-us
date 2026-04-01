@@ -13,9 +13,8 @@ class is_qi_eligible(Variable):
 
     def formula(person, period, parameters):
         # QI requires income above 120% FPL but at or below 135% FPL
-        p = parameters(
-            period
-        ).gov.hhs.medicare.savings_programs.eligibility.income
+        # QI is only available for people who don't qualify for other Medicaid
+        p = parameters(period).gov.hhs.medicare.savings_programs.eligibility.income
 
         medicare_eligible = person("is_medicare_eligible", period.this_year)
         asset_eligible = person("msp_asset_eligible", period)
@@ -30,4 +29,7 @@ class is_qi_eligible(Variable):
         income_at_or_below_qi = countable_income <= qi_income_limit
         income_eligible = income_above_slmb & income_at_or_below_qi
 
-        return medicare_eligible & income_eligible & asset_eligible
+        # QI excludes those eligible for other Medicaid coverage
+        medicaid_eligible = person("is_medicaid_eligible", period.this_year)
+
+        return medicare_eligible & income_eligible & asset_eligible & ~medicaid_eligible
