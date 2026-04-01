@@ -1,0 +1,7 @@
+description: Credit percentage point increase for eligible individual with 1 qualifying child who has not attained age 4.
+values:
+  2026-01-01: 0.4224
+metadata:
+  label: Credit percentage increase (1 child under 4)
+  unit: /1
+  period: year

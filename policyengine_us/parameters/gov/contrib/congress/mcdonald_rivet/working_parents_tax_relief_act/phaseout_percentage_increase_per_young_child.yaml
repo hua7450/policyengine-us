@@ -1,0 +1,7 @@
+description: Phaseout percentage point increase per young child (max 3) under the Working Parents Tax Relief Act.
+values:
+  2026-01-01: 0.05
+metadata:
+  label: Phaseout percentage increase per young child
+  unit: /1
+  period: year

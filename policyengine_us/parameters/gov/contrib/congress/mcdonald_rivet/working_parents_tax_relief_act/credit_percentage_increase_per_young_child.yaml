@@ -1,0 +1,7 @@
+description: Credit percentage point increase per young child (max 3) for eligible individual with 2 or more qualifying children.
+values:
+  2026-01-01: 0.3007
+metadata:
+  label: Credit percentage increase per young child (2+ children)
+  unit: /1
+  period: year

@@ -1,0 +1,7 @@
+description: Maximum number of young children that count toward EITC percentage increases.
+values:
+  2026-01-01: 3
+metadata:
+  label: Maximum young children for bonus
+  unit: child
+  period: year

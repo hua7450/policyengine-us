@@ -1,0 +1,7 @@
+description: Age threshold for young children under the Working Parents Tax Relief Act. Children must not have attained this age.
+values:
+  2026-01-01: 4
+metadata:
+  label: Young child age threshold
+  unit: year
+  period: year
