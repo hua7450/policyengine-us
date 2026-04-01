@@ -1,3 +1,10 @@
+## [1.626.0] - 2026-04-01
+
+### Added
+
+- Add ORG-backed `hourly_wage` and `is_union_member_or_covered` input variables.
+
+
 ## [1.625.0] - 2026-03-31
 
 ### Added
