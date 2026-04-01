@@ -1,3 +1,24 @@
+## [1.626.1] - 2026-04-01
+
+### Fixed
+
+- Fix Head Start categorical eligibility to correctly separate person-level (foster care) from family-level (TANF, SSI, SNAP) aggregation.
+
+
+## [1.626.0] - 2026-04-01
+
+### Added
+
+- Add ORG-backed `hourly_wage` and `is_union_member_or_covered` input variables.
+
+
+## [1.625.0] - 2026-03-31
+
+### Added
+
+- Added contributed EITC reforms for child poverty impact dashboard: EITC match reforms for AL, AR, AZ, GA, ID, KY, MS, ND, and WV; refundable EITC reforms for MO and OH; and a fully refundable EITC reform for UT (including childless filers).
+
+
 ## [1.624.1] - 2026-03-29
 
 ### Changed
