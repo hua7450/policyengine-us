@@ -51,6 +51,39 @@ def test_all_uprating_factors_extend_to_2100():
         )
 
 
+def test_ssa_nawi_and_payroll_cap_extend_to_2100():
+    """Test that the SSA NAWI and payroll cap do not flatten after 2035."""
+    from policyengine_us import Microsimulation
+
+    sim = Microsimulation()
+    parameters = sim.tax_benefit_system.parameters
+
+    nawi = parameters.gov.ssa.nawi
+    payroll_cap = parameters.gov.irs.payroll.social_security.cap
+
+    test_years = [2035, 2050, 2075, 2100]
+    nawi_values = [nawi(f"{year}-01-01") for year in test_years]
+    cap_values = [payroll_cap(f"{year}-01-01") for year in test_years]
+
+    for i in range(1, len(test_years)):
+        assert nawi_values[i] > nawi_values[i - 1], (
+            f"NAWI should increase from {test_years[i - 1]} to {test_years[i]}"
+        )
+        assert cap_values[i] > cap_values[i - 1], (
+            f"Payroll cap should increase from {test_years[i - 1]} to {test_years[i]}"
+        )
+
+    year1, year2, year3 = 2040, 2041, 2042
+    nawi_growth_1 = nawi(f"{year2}-01-01") / nawi(f"{year1}-01-01")
+    nawi_growth_2 = nawi(f"{year3}-01-01") / nawi(f"{year2}-01-01")
+    cap_growth_1 = payroll_cap(f"{year2}-01-01") / payroll_cap(f"{year1}-01-01")
+    cap_growth_2 = payroll_cap(f"{year3}-01-01") / payroll_cap(f"{year2}-01-01")
+
+    assert abs(nawi_growth_1 - nawi_growth_2) < 0.001
+    assert abs(cap_growth_1 - cap_growth_2) < 0.001
+    assert abs(cap_growth_1 - nawi_growth_1) < 0.001
+
+
 def test_uprating_growth_rates_are_reasonable():
     """Test that all uprating growth rates are within reasonable bounds."""
     from policyengine_us import Microsimulation

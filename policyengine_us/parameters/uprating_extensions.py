@@ -103,6 +103,29 @@ def set_all_uprating_parameters(parameters: ParameterNode) -> ParameterNode:
         period_day=1,
     )
 
+    # Social Security National Average Wage Index (January values, last
+    # projection year 2035). The payroll tax contribution and benefit base is
+    # indexed to NAWI, so this must remain available through the full long-run
+    # projection horizon.
+    extend_parameter_values(
+        parameters.gov.ssa.nawi,
+        last_projected_year=2035,
+        end_year=END_YEAR,
+        period_month=1,
+        period_day=1,
+    )
+
+    # Social Security payroll tax cap / contribution and benefit base (January
+    # values, last projection year 2035). Leaving this flat after 2035
+    # mechanically understates late-year taxable payroll.
+    extend_parameter_values(
+        parameters.gov.irs.payroll.social_security.cap,
+        last_projected_year=2035,
+        end_year=END_YEAR,
+        period_month=1,
+        period_day=1,
+    )
+
     # HHS poverty guideline uprating (January values, last projection year 2035)
     extend_parameter_values(
         parameters.gov.hhs.uprating,
