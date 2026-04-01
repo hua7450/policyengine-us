@@ -1,5 +1,9 @@
 """Test unified uprating extensions through 2100."""
 
+from policyengine_us.parameters.uprating_extensions import (
+    round_social_security_payroll_cap,
+)
+
 
 def test_all_uprating_factors_extend_to_2100():
     """Test that all uprating factors extend through 2100 with consistent growth rates."""
@@ -73,15 +77,33 @@ def test_ssa_nawi_and_payroll_cap_extend_to_2100():
             f"Payroll cap should increase from {test_years[i - 1]} to {test_years[i]}"
         )
 
-    year1, year2, year3 = 2040, 2041, 2042
-    nawi_growth_1 = nawi(f"{year2}-01-01") / nawi(f"{year1}-01-01")
-    nawi_growth_2 = nawi(f"{year3}-01-01") / nawi(f"{year2}-01-01")
-    cap_growth_1 = payroll_cap(f"{year2}-01-01") / payroll_cap(f"{year1}-01-01")
-    cap_growth_2 = payroll_cap(f"{year3}-01-01") / payroll_cap(f"{year2}-01-01")
+    for year in [2036, 2040, 2050, 2100]:
+        current_cap = payroll_cap(f"{year - 1}-01-01")
+        expected_cap = round_social_security_payroll_cap(
+            current_cap
+            * nawi(f"{year - 2}-01-01")
+            / nawi(f"{year - 3}-01-01")
+        )
+        assert payroll_cap(f"{year}-01-01") == expected_cap
 
-    assert abs(nawi_growth_1 - nawi_growth_2) < 0.001
-    assert abs(cap_growth_1 - cap_growth_2) < 0.001
-    assert abs(cap_growth_1 - nawi_growth_1) < 0.001
+
+def test_social_security_payroll_cap_formula_matches_known_projection():
+    """Test the known 2025 cap against the statutory NAWI-indexing formula."""
+    from policyengine_us import Microsimulation
+
+    sim = Microsimulation()
+    parameters = sim.tax_benefit_system.parameters
+
+    payroll_cap = parameters.gov.irs.payroll.social_security.cap
+    nawi = parameters.gov.ssa.nawi
+
+    expected_2025_cap = round_social_security_payroll_cap(
+        payroll_cap("2024-01-01")
+        * nawi("2023-01-01")
+        / nawi("2022-01-01")
+    )
+
+    assert expected_2025_cap == payroll_cap("2025-01-01")
 
 
 def test_uprating_growth_rates_are_reasonable():
