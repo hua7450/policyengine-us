@@ -13,14 +13,14 @@ class ssi_in_kind_support_and_maintenance(Variable):
     )
 
     def formula(person, period, parameters):
-        # ISM is counted as unearned income for Status A recipients
-        # who receive shelter (or food, pre-9/30/2024) support.
+        # ISM is counted as unearned income for own-household recipients
+        # who receive shelter (or food, pre-10/2024) support.
         # The PMV rule caps ISM at the presumed maximum value.
         # If the recipient provides an actual shelter value (rebuttal),
         # ISM is the lesser of the actual value and the PMV.
-        # Status B: ISM is handled via the VTR FBR adjustment, not here.
-        # Status C: Parental deeming replaces ISM.
-        # Status D: ISM is not countable ($30 rate applies).
+        # Another person's household: VTR FBR adjustment, not here.
+        # Child in parental household: deeming replaces ISM.
+        # Medical treatment facility: ISM not countable ($30 rate).
         pmv_applies = person("ssi_pmv_applies", period)
         pmv_amount = person("ssi_pmv_amount", period)
         actual_value = person("ssi_shelter_support_value", period)

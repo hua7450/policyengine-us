@@ -1,4 +1,4 @@
-- name: Case 1, Status A single adult with no income.
+- name: Case 1, own household single adult with no income.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
@@ -19,7 +19,7 @@
     uncapped_ssi: 967
     ssi: 967
 
-- name: Case 2, Status B adult with one-third reduction and no income.
+- name: Case 2, another person's household with one-third reduction and no income.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
@@ -45,7 +45,7 @@
     uncapped_ssi: 644.67
     ssi: 644.67
 
-- name: Case 3, Status D medical facility individual with no income.
+- name: Case 3, medical treatment facility individual with no income.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
@@ -68,7 +68,7 @@
     uncapped_ssi: 30
     ssi: 30
 
-- name: Case 4, Status A with PMV shelter support.
+- name: Case 4, own household with PMV shelter support.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
@@ -152,7 +152,7 @@
     uncapped_ssi: 967
     ssi: 967
 
-- name: Case 7, Status C child with parental deeming.
+- name: Case 7, child in parental household with deeming.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
@@ -176,7 +176,7 @@
     ssi_federal_living_arrangement: [OWN_HOUSEHOLD, CHILD_IN_PARENTAL_HOUSEHOLD]
     # Child gets individual FBR (967/month)
     ssi_amount_if_eligible: [967, 967]
-    # Child ISM = 0 (deeming replaces ISM for Status C)
+    # Child ISM = 0 (deeming replaces ISM for child in parental household)
     ssi_in_kind_support_and_maintenance: [0, 0]
 
 - name: Case 8, PMV rebuttal with actual shelter value below PMV.

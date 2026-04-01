@@ -1,4 +1,4 @@
-- name: Case 1, single disabled adult defaults to Status A.
+- name: Case 1, single disabled adult defaults to own household.
   period: 2025
   input:
     people:
@@ -8,7 +8,7 @@
   output:
     ssi_federal_living_arrangement: OWN_HOUSEHOLD
 
-- name: Case 2, Status D in medical treatment facility with Medicaid.
+- name: Case 2, medical treatment facility with Medicaid.
   period: 2025
   input:
     people:
@@ -32,7 +32,7 @@
   output:
     ssi_federal_living_arrangement: OWN_HOUSEHOLD
 
-- name: Case 4, Status B in another person's household with shelter and all meals.
+- name: Case 4, another person's household with shelter and all meals.
   period: 2025
   input:
     people:
@@ -71,7 +71,7 @@
   output:
     ssi_federal_living_arrangement: OWN_HOUSEHOLD
 
-- name: Case 7, Status C child with ineligible parent.
+- name: Case 7, child in parental household with ineligible parent.
   period: 2025
   input:
     people:
@@ -86,7 +86,7 @@
   output:
     ssi_federal_living_arrangement: [OWN_HOUSEHOLD, CHILD_IN_PARENTAL_HOUSEHOLD]
 
-- name: Case 8, child with two eligible parents is not Status C.
+- name: Case 8, child with two eligible parents is not child in parental household.
   period: 2025
   input:
     people:
@@ -141,7 +141,7 @@
   output:
     ssi_federal_living_arrangement: MEDICAL_TREATMENT_FACILITY
 
-- name: Case 11, age 18 non-student with ineligible parent is not Status C.
+- name: Case 11, age 18 non-student with ineligible parent is not child in parental household.
   period: 2025
   input:
     people:

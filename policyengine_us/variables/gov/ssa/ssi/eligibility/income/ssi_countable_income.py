@@ -46,7 +46,7 @@ class ssi_countable_income(Variable):
             "ssi_unearned_income_deemed_from_ineligible_parent", period
         )
 
-        # ISM (PMV for Status A recipients receiving shelter support) is
+        # ISM (PMV for own-household recipients receiving shelter support) is
         # counted as unearned income per 20 CFR § 416.1140. It enters
         # the unearned pool BEFORE exclusions so the $20 general exclusion
         # naturally applies. POMS SI 00835.901 confirms that the net

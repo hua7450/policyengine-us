@@ -1,4 +1,4 @@
-- name: Case 1, Status A without shelter support has zero ISM.
+- name: Case 1, own household without shelter support has zero ISM.
   period: 2025
   absolute_error_margin: 0.01
   input:
@@ -9,7 +9,7 @@
   output:
     ssi_in_kind_support_and_maintenance: 0
 
-- name: Case 2, Status A with outside shelter support triggers PMV.
+- name: Case 2, own household with outside shelter support triggers PMV.
   period: 2025
   absolute_error_margin: 0.01
   input:
@@ -23,7 +23,7 @@
     # PMV annual = 342.33 x 12 = 4_108
     ssi_in_kind_support_and_maintenance: 4_108
 
-- name: Case 3, Status A with in-household shelter support triggers PMV.
+- name: Case 3, own household with in-household shelter support triggers PMV.
   period: 2025
   absolute_error_margin: 0.01
   input:
@@ -38,7 +38,7 @@
     # PMV annual = 342.33 x 12 = 4_108
     ssi_in_kind_support_and_maintenance: 4_108
 
-- name: Case 4, Status B has zero ISM (VTR is an FBR adjustment, not income).
+- name: Case 4, another person's household has zero ISM (VTR is an FBR adjustment, not income).
   period: 2025
   absolute_error_margin: 0.01
   input:
@@ -52,7 +52,7 @@
   output:
     ssi_in_kind_support_and_maintenance: 0
 
-- name: Case 5, Status D has zero ISM.
+- name: Case 5, medical treatment facility has zero ISM.
   period: 2025
   absolute_error_margin: 0.01
   input:

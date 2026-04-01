@@ -104,7 +104,7 @@
   output:
     ssi_amount_if_eligible: [725, 725, 967]
 
-- name: Case D, Status B adult one-third reduction.
+- name: Case D, another person's household one-third reduction.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
@@ -123,7 +123,7 @@
     # Reduced FBR = 967 - 322.33 = 644.67
     ssi_amount_if_eligible: 644.67
 
-- name: Case E, Status D medical facility individual.
+- name: Case E, medical treatment facility individual.
   period: 2025-01
   input:
     people:
@@ -138,7 +138,7 @@
   output:
     ssi_amount_if_eligible: 30
 
-- name: Case F, Status D couple both in facility.
+- name: Case F, couple both in medical treatment facility.
   period: 2025-01
   input:
     people:
@@ -161,7 +161,7 @@
     # Both in facility: each gets $30/month
     ssi_amount_if_eligible: [30, 30]
 
-- name: Case G, Status B with no shelter means no VTR (stays Status A).
+- name: Case G, another person's household with no shelter means no VTR (stays own household).
   period: 2025-01
   input:
     people:
@@ -175,10 +175,10 @@
       household:
         members: [person1]
   output:
-    # Not Status B (no shelter), defaults to A, full FBR
+    # Not another person's household (no shelter), defaults to own household, full FBR
     ssi_amount_if_eligible: 967
 
-- name: Case H, default inputs give Status A with full FBR.
+- name: Case H, default inputs give own household with full FBR.
   period: 2025-01
   input:
     people:
