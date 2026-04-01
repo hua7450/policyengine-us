@@ -64,6 +64,39 @@
   output:
     is_head_start_categorically_eligible: true
 
+- name: Eligible via SSI only
+  period: 2024
+  input:
+    tanf: 0
+    ssi: 500
+    snap: 0
+    is_homeless: false
+    was_in_foster_care: false
+  output:
+    is_head_start_categorically_eligible: true
+
+- name: Eligible via SNAP only
+  period: 2024
+  input:
+    tanf: 0
+    ssi: 0
+    snap: 200
+    is_homeless: false
+    was_in_foster_care: false
+  output:
+    is_head_start_categorically_eligible: true
+
+- name: Eligible via homelessness only
+  period: 2024
+  input:
+    tanf: 0
+    ssi: 0
+    snap: 0
+    is_homeless: true
+    was_in_foster_care: false
+  output:
+    is_head_start_categorically_eligible: true
+
 - name: Case 7, foster care child does not make sibling eligible.
   period: 2024
   input:

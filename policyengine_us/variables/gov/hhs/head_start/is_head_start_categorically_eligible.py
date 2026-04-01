@@ -11,7 +11,7 @@ class is_head_start_categorically_eligible(Variable):
         "https://www.hhs.gov/answers/programs-for-families-and-children/how-can-i-get-my-child-into-head-start/index.html",
     )
 
-    def formula(person, period):
+    def formula(person, period, parameters):
         # Person-level: child's own status (not aggregated across family)
         person_eligible = person.household("is_homeless", period) | person(
             "was_in_foster_care", period
