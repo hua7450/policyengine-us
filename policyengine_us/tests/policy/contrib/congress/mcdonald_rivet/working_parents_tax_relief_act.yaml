@@ -1462,8 +1462,8 @@
         state_code: TX
   output:
     # At phase-out start ($23,810 for 3+ children), EITC should be at maximum
-    # new_max = $8,231 × (135.21% / 45%) = $24,736
-    eitc: 24736
+    # new_max = $8,231 × (135.21% / 45%) = $24,731
+    eitc: 24731
     eitc_phase_in_rate: 1.3521
     eitc_phase_out_rate: 0.3606
 
@@ -1653,9 +1653,9 @@
         members: [parent, child1, child2, child3]
         state_code: TX
   output:
-    # EITC = $24,736 - ($35,000 - $23,810) × 0.3606
-    # EITC = $24,736 - $11,190 × 0.3606 = $24,736 - $4,035 = $20,701
-    eitc: 20701
+    # EITC = $24,731 - ($35,000 - $23,810) × 0.3606
+    # EITC = $24,731 - $11,190 × 0.3606 = $24,731 - $4,035 = $20,696
+    eitc: 20696
     eitc_phase_in_rate: 1.3521
     eitc_phase_out_rate: 0.3606
 
@@ -1688,9 +1688,9 @@
         members: [parent, child1, child2, child3]
         state_code: TX
   output:
-    # EITC = $24,736 - ($50,000 - $23,810) × 0.3606
-    # EITC = $24,736 - $26,190 × 0.3606 = $24,736 - $9,444 = $15,292
-    eitc: 15292
+    # EITC = $24,731 - ($50,000 - $23,810) × 0.3606
+    # EITC = $24,731 - $26,190 × 0.3606 = $24,731 - $9,444 = $15,287
+    eitc: 15287
     eitc_phase_in_rate: 1.3521
     eitc_phase_out_rate: 0.3606
 
