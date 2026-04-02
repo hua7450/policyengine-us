@@ -92,11 +92,57 @@ def create_working_parents_tax_relief_act() -> Reform:
 
             return baseline_rate + bonus
 
+    class eitc_maximum(Variable):
+        value_type = float
+        entity = TaxUnit
+        label = "Maximum EITC"
+        unit = USD
+        documentation = "Maximum EITC amount, adjusted for Working Parents Tax Relief Act credit percentage increase."
+        definition_period = YEAR
+        reference = "https://www.law.cornell.edu/uscode/text/26/32#a"
+
+        def formula(tax_unit, period, parameters):
+            # Per IRC §32(b), maximum_credit = credit_percentage × earned_income_amount
+            # When the credit percentage increases, the maximum also increases proportionally
+            child_count = tax_unit("eitc_child_count", period)
+            eitc = parameters(period).gov.irs.credits.eitc
+            baseline_max = eitc.max.calc(child_count)
+            baseline_rate = eitc.phase_in_rate.calc(child_count)
+
+            p = parameters(
+                period
+            ).gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act
+            if not p.in_effect:
+                return baseline_max
+
+            young_child_count = min_(
+                tax_unit("eitc_young_child_count", period), p.max_young_children
+            )
+
+            # Calculate the rate bonus (same logic as eitc_phase_in_rate)
+            rate_bonus = where(
+                child_count == 1,
+                where(
+                    young_child_count > 0,
+                    p.credit_percentage_increase_one_child,
+                    0,
+                ),
+                young_child_count * p.credit_percentage_increase_per_young_child,
+            )
+
+            # New maximum = baseline_max × (new_rate / baseline_rate)
+            # This preserves the implied earned_income_amount from the statute
+            new_rate = baseline_rate + rate_bonus
+            # Avoid division by zero for childless (baseline_rate = 0.0765)
+            ratio = where(baseline_rate > 0, new_rate / baseline_rate, 1)
+            return baseline_max * ratio
+
     class reform(Reform):
         def apply(self):
             self.add_variable(eitc_young_child_count)
             self.update_variable(eitc_phase_in_rate)
             self.update_variable(eitc_phase_out_rate)
+            self.update_variable(eitc_maximum)
 
     return reform
 

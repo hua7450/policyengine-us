@@ -351,7 +351,7 @@
     # Phase-in rate: 100.14%, Phased-in = $3,000 * 100.14% = $3,004.20
     eitc: 3004
 
-- name: Case 13 - Single parent, reaches max EITC
+- name: Case 13 - Single parent, higher income, benefits from increased max
   period: 2026
   absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
@@ -374,9 +374,12 @@
         members: [parent, child]
         state_code: TX
   output:
-    # Phased-in = $15,000 * 76.24% = $11,436 > max $4,427
-    # Below phase-out start, so EITC = $4,427
-    eitc: 4427
+    # Per IRC §32(b): max = credit_percentage × earned_income_amount
+    # Baseline: max = 34% × $13,020 = $4,427
+    # Reform: max = 76.24% × $13,020 = $9,927 (ratio: 76.24/34 = 2.242)
+    # Phased-in = $15,000 × 76.24% = $11,436 > new max $9,927
+    # EITC = $9,927 (NOT $4,427 - the max increased!)
+    eitc: 9927
 
 # Mixed young/older children scenarios
 
@@ -849,7 +852,7 @@
     # Reform: $2,000 * 76.24% = $1,524.80 (+$845, +124%)
     eitc: 1525
 
-- name: Case 30 - 1 child age 2, $8000 income, boost before hitting max
+- name: Case 30 - 1 child age 2, $8000 income, both rate and max increase
   period: 2026
   absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
@@ -873,9 +876,10 @@
         state_code: TX
   output:
     # Baseline: $8,000 * 34% = $2,720
-    # Reform: $8,000 * 76.24% = $6,099 > max $4,427, so EITC = $4,427
-    # Boost: $4,427 - $2,720 = $1,707 (+63%)
-    eitc: 4427
+    # Reform: new_max = $4,427 × (76.24%/34%) = $9,927
+    # Phased-in = $8,000 * 76.24% = $6,099 < new_max $9,927
+    # EITC = $6,099 (vs baseline $2,720, +$3,379, +124%)
+    eitc: 6099
 
 - name: Case 31 - 1 child age 2 vs age 5 comparison (reform OFF baseline)
   period: 2026
@@ -965,7 +969,7 @@
     # Reform: $5,000 * 100.14% = $5,007 (+$3,007, +150%)
     eitc: 5007
 
-- name: Case 34 - 2 children ages 1 and 2, $10000 income, reaches max faster
+- name: Case 34 - 2 children ages 1 and 2, $10000 income, both rate and max increase
   period: 2026
   absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
@@ -992,9 +996,10 @@
         state_code: TX
   output:
     # Baseline: $10,000 * 40% = $4,000
-    # Reform: $10,000 * 100.14% = $10,014 > max $7,316
-    # EITC = $7,316 (vs baseline $4,000, +$3,316, +83%)
-    eitc: 7316
+    # Reform: new_max = $7,316 × (100.14%/40%) = $18,316
+    # Phased-in = $10,000 * 100.14% = $10,014 < new_max $18,316
+    # EITC = $10,014 (vs baseline $4,000, +$6,014, +150%)
+    eitc: 10014
 
 - name: Case 35 - 2 children baseline (reform OFF) for comparison
   period: 2026
@@ -1060,7 +1065,7 @@
     # Reform: $4,000 * 135.21% = $5,408 (+$3,608, +200%)
     eitc: 5408
 
-- name: Case 37 - 3 children ages 0, 1, 2, $7000 income
+- name: Case 37 - 3 children ages 0, 1, 2, $7000 income, both rate and max increase
   period: 2026
   absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
@@ -1090,9 +1095,10 @@
         state_code: TX
   output:
     # Baseline: $7,000 * 45% = $3,150
-    # Reform: $7,000 * 135.21% = $9,464.70 > max $8,231
-    # EITC = $8,231 (vs baseline $3,150, +$5,081, +161%)
-    eitc: 8231
+    # Reform: new_max = $8,231 × (135.21%/45%) = $24,736
+    # Phased-in = $7,000 * 135.21% = $9,465 < new_max $24,736
+    # EITC = $9,465 (vs baseline $3,150, +$6,315, +200%)
+    eitc: 9465
 
 - name: Case 38 - 3 children baseline (reform OFF) for comparison
   period: 2026
@@ -1160,9 +1166,10 @@
   output:
     # Combined income: $8,000
     # Baseline: $8,000 * 40% = $3,200
-    # Reform: $8,000 * 100.14% = $8,011 > max $7,316
-    # EITC = $7,316 (vs baseline $3,200, +$4,116, +129%)
-    eitc: 7316
+    # Reform: new_max = $7,316 × (100.14%/40%) = $18,316
+    # Phased-in = $8,000 * 100.14% = $8,011 < new_max $18,316
+    # EITC = $8,011 (vs baseline $3,200, +$4,811, +150%)
+    eitc: 8011
 
 - name: Case 40 - Joint filers baseline (reform OFF) for comparison
   period: 2026
