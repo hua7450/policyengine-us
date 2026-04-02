@@ -8,7 +8,7 @@ def create_working_parents_tax_relief_act() -> Reform:
         value_type = int
         entity = TaxUnit
         label = "EITC-qualifying young children"
-        unit = USD
+        unit = "child"
         documentation = (
             "Number of EITC-qualifying children who have not attained age 4."
         )

@@ -4,3 +4,4 @@ values:
 metadata:
   label: Working Parents Tax Relief Act in effect
   unit: bool
+  period: year

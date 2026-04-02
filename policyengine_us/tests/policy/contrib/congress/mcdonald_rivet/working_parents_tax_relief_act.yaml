@@ -1365,3 +1365,366 @@
     # Boost from baseline ($2,250): +$4,510 (+200%)
     eitc: 6761
     eitc_phase_in_rate: 1.3521
+
+# ============================================================================
+# SECTION: PHASE-OUT BOUNDARY TESTS
+# Tests at exact phase-out threshold where EITC should be at maximum
+# ============================================================================
+
+- name: Case 46 - Phase-out boundary, 1 child age 2, income at phase-out start
+  period: 2026
+  absolute_error_margin: 1
+  reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
+  input:
+    gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
+    people:
+      parent:
+        age: 30
+        is_tax_unit_dependent: false
+        employment_income: 23840
+      child:
+        age: 2
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child]
+        state_code: TX
+  output:
+    # At phase-out start ($23,840), EITC should be at maximum
+    # new_max = $4,427 × (76.24% / 34%) = $9,927
+    eitc: 9927
+    eitc_phase_in_rate: 0.7624
+    eitc_phase_out_rate: 0.2098
+
+- name: Case 47 - Phase-out boundary, 2 children ages 1 and 2, income at phase-out start
+  period: 2026
+  absolute_error_margin: 1
+  reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
+  input:
+    gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
+    people:
+      parent:
+        age: 30
+        is_tax_unit_dependent: false
+        employment_income: 23840
+      child1:
+        age: 1
+        is_tax_unit_dependent: true
+      child2:
+        age: 2
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        members: [parent, child1, child2]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child1, child2]
+        state_code: TX
+  output:
+    # At phase-out start ($23,840), EITC should be at maximum
+    # new_max = $7,316 × (100.14% / 40%) = $18,316
+    eitc: 18316
+    eitc_phase_in_rate: 1.0014
+    eitc_phase_out_rate: 0.3106
+
+- name: Case 48 - Phase-out boundary, 3 children ages 0, 1, 2, income at phase-out start
+  period: 2026
+  absolute_error_margin: 1
+  reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
+  input:
+    gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
+    people:
+      parent:
+        age: 30
+        is_tax_unit_dependent: false
+        employment_income: 23810
+      child1:
+        age: 0
+        is_tax_unit_dependent: true
+      child2:
+        age: 1
+        is_tax_unit_dependent: true
+      child3:
+        age: 2
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        members: [parent, child1, child2, child3]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child1, child2, child3]
+        state_code: TX
+  output:
+    # At phase-out start ($23,810 for 3+ children), EITC should be at maximum
+    # new_max = $8,231 × (135.21% / 45%) = $24,736
+    eitc: 24736
+    eitc_phase_in_rate: 1.3521
+    eitc_phase_out_rate: 0.3606
+
+# ============================================================================
+# SECTION: PHASE-OUT REGION TESTS
+# Tests with income above phase-out start to verify increased phase-out rate
+# ============================================================================
+
+- name: Case 49 - Phase-out region, 1 child age 2, $30000 income
+  period: 2026
+  absolute_error_margin: 1
+  reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
+  input:
+    gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
+    people:
+      parent:
+        age: 30
+        is_tax_unit_dependent: false
+        employment_income: 30000
+      child:
+        age: 2
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child]
+        state_code: TX
+  output:
+    # EITC = max - (income - phase_out_start) × phase_out_rate
+    # EITC = $9,927 - ($30,000 - $23,840) × 0.2098
+    # EITC = $9,927 - $6,160 × 0.2098 = $9,927 - $1,292 = $8,635
+    eitc: 8635
+    eitc_phase_in_rate: 0.7624
+    eitc_phase_out_rate: 0.2098
+
+- name: Case 50 - Phase-out region baseline (reform OFF), 1 child, $30000 income
+  period: 2026
+  absolute_error_margin: 1
+  reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
+  input:
+    gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: false
+    people:
+      parent:
+        age: 30
+        is_tax_unit_dependent: false
+        employment_income: 30000
+      child:
+        age: 2
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child]
+        state_code: TX
+  output:
+    # Baseline: EITC = $4,427 - ($30,000 - $23,840) × 0.1598
+    # EITC = $4,427 - $6,160 × 0.1598 = $4,427 - $984 = $3,443
+    eitc: 3443
+    eitc_phase_in_rate: 0.34
+    eitc_phase_out_rate: 0.1598
+
+- name: Case 51 - Phase-out region, 1 child age 2, $40000 income
+  period: 2026
+  absolute_error_margin: 1
+  reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
+  input:
+    gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
+    people:
+      parent:
+        age: 30
+        is_tax_unit_dependent: false
+        employment_income: 40000
+      child:
+        age: 2
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child]
+        state_code: TX
+  output:
+    # EITC = $9,927 - ($40,000 - $23,840) × 0.2098
+    # EITC = $9,927 - $16,160 × 0.2098 = $9,927 - $3,390 = $6,537
+    eitc: 6537
+    eitc_phase_in_rate: 0.7624
+    eitc_phase_out_rate: 0.2098
+
+- name: Case 52 - Phase-out region, 2 children ages 1 and 2, $35000 income
+  period: 2026
+  absolute_error_margin: 1
+  reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
+  input:
+    gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
+    people:
+      parent:
+        age: 30
+        is_tax_unit_dependent: false
+        employment_income: 35000
+      child1:
+        age: 1
+        is_tax_unit_dependent: true
+      child2:
+        age: 2
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        members: [parent, child1, child2]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child1, child2]
+        state_code: TX
+  output:
+    # EITC = $18,316 - ($35,000 - $23,840) × 0.3106
+    # EITC = $18,316 - $11,160 × 0.3106 = $18,316 - $3,466 = $14,850
+    eitc: 14850
+    eitc_phase_in_rate: 1.0014
+    eitc_phase_out_rate: 0.3106
+
+- name: Case 53 - Phase-out region, 2 children ages 1 and 2, $50000 income
+  period: 2026
+  absolute_error_margin: 1
+  reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
+  input:
+    gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
+    people:
+      parent:
+        age: 30
+        is_tax_unit_dependent: false
+        employment_income: 50000
+      child1:
+        age: 1
+        is_tax_unit_dependent: true
+      child2:
+        age: 2
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        members: [parent, child1, child2]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child1, child2]
+        state_code: TX
+  output:
+    # EITC = $18,316 - ($50,000 - $23,840) × 0.3106
+    # EITC = $18,316 - $26,160 × 0.3106 = $18,316 - $8,125 = $10,191
+    eitc: 10191
+    eitc_phase_in_rate: 1.0014
+    eitc_phase_out_rate: 0.3106
+
+- name: Case 54 - Phase-out region, 3 children ages 0, 1, 2, $35000 income
+  period: 2026
+  absolute_error_margin: 1
+  reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
+  input:
+    gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
+    people:
+      parent:
+        age: 30
+        is_tax_unit_dependent: false
+        employment_income: 35000
+      child1:
+        age: 0
+        is_tax_unit_dependent: true
+      child2:
+        age: 1
+        is_tax_unit_dependent: true
+      child3:
+        age: 2
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        members: [parent, child1, child2, child3]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child1, child2, child3]
+        state_code: TX
+  output:
+    # EITC = $24,736 - ($35,000 - $23,810) × 0.3606
+    # EITC = $24,736 - $11,190 × 0.3606 = $24,736 - $4,035 = $20,701
+    eitc: 20701
+    eitc_phase_in_rate: 1.3521
+    eitc_phase_out_rate: 0.3606
+
+- name: Case 55 - Phase-out region, 3 children ages 0, 1, 2, $50000 income
+  period: 2026
+  absolute_error_margin: 1
+  reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
+  input:
+    gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
+    people:
+      parent:
+        age: 30
+        is_tax_unit_dependent: false
+        employment_income: 50000
+      child1:
+        age: 0
+        is_tax_unit_dependent: true
+      child2:
+        age: 1
+        is_tax_unit_dependent: true
+      child3:
+        age: 2
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        members: [parent, child1, child2, child3]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child1, child2, child3]
+        state_code: TX
+  output:
+    # EITC = $24,736 - ($50,000 - $23,810) × 0.3606
+    # EITC = $24,736 - $26,190 × 0.3606 = $24,736 - $9,444 = $15,292
+    eitc: 15292
+    eitc_phase_in_rate: 1.3521
+    eitc_phase_out_rate: 0.3606
+
+- name: Case 56 - Phase-out region baseline (reform OFF), 3 children, $35000 income
+  period: 2026
+  absolute_error_margin: 1
+  reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
+  input:
+    gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: false
+    people:
+      parent:
+        age: 30
+        is_tax_unit_dependent: false
+        employment_income: 35000
+      child1:
+        age: 0
+        is_tax_unit_dependent: true
+      child2:
+        age: 1
+        is_tax_unit_dependent: true
+      child3:
+        age: 2
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        members: [parent, child1, child2, child3]
+        filing_status: SINGLE
+    households:
+      household:
+        members: [parent, child1, child2, child3]
+        state_code: TX
+  output:
+    # Baseline: EITC = $8,231 - ($35,000 - $23,810) × 0.2106
+    # EITC = $8,231 - $11,190 × 0.2106 = $8,231 - $2,357 = $5,874
+    eitc: 5874
+    eitc_phase_in_rate: 0.45
+    eitc_phase_out_rate: 0.2106
