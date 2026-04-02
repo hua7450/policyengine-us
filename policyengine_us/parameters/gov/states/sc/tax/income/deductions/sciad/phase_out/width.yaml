@@ -1,0 +1,32 @@
+description: South Carolina fully phases out the SCIAD over this income range (the denominator in the phase-out formula).
+
+metadata:
+  label: South Carolina SCIAD phase-out width
+  period: year
+  unit: currency-USD
+  breakdown:
+    - filing_status
+  reference:
+    - title: SC H.4216 Section 3 - Section 12-6-1140(15)(b)
+      href: https://www.scstatehouse.gov/sess126_2025-2026/bills/4216.htm
+
+# Use 1 as default to avoid division by zero (amount is 0 before 2026 anyway)
+SINGLE:
+  0001-01-01: 1
+  2026-01-01: 55_000
+
+SEPARATE:
+  0001-01-01: 1
+  2026-01-01: 55_000
+
+HEAD_OF_HOUSEHOLD:
+  0001-01-01: 1
+  2026-01-01: 82_500
+
+JOINT:
+  0001-01-01: 1
+  2026-01-01: 110_000
+
+SURVIVING_SPOUSE:
+  0001-01-01: 1
+  2026-01-01: 110_000
