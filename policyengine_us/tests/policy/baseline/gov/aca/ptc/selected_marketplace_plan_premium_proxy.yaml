@@ -32,3 +32,14 @@
     selected_marketplace_plan_benchmark_ratio: 0.8
   output:
     selected_marketplace_plan_premium_proxy: 0
+
+- name: Case 4, selected plan proxy is zero when the tax unit does not take up ACA.
+  absolute_error_margin: 0.01
+  period: 2025
+  input:
+    aca_ptc: 200
+    slcsp: 1_200
+    selected_marketplace_plan_benchmark_ratio: 0.8
+    takes_up_aca_if_eligible: false
+  output:
+    selected_marketplace_plan_premium_proxy: 0
