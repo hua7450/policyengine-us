@@ -1,3 +1,10 @@
+## [1.627.0] - 2026-04-03
+
+### Added
+
+- Added Idaho S1450: Extends state child tax credit indefinitely.
+
+
 ## [1.626.1] - 2026-04-01
 
 ### Fixed
