@@ -185,7 +185,7 @@
     eitc: 7_082
 
     # Maine EITC is 25% of federal
-    me_eitc: 1_767
+    me_eitc: 1_771
 
     # ECPA benefits
     ecpa_child_benefit:
