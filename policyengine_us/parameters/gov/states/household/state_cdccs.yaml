@@ -22,14 +22,6 @@ values:
     - ky_cdcc
     - me_child_care_credit
     - ny_cdcc
-  2005-01-01:
-    - ca_cdcc
-    - co_cdcc
-    - ky_cdcc
-    - me_child_care_credit
-    - ny_cdcc
-    - vt_cdcc
-    - vt_low_income_cdcc
   2006-01-01:
     - ca_cdcc
     - co_cdcc
@@ -39,8 +31,6 @@ values:
     - la_refundable_cdcc
     - me_child_care_credit
     - ny_cdcc
-    - vt_cdcc
-    - vt_low_income_cdcc
   2013-01-01:
     - ar_cdcc
     - ca_cdcc
@@ -51,21 +41,6 @@ values:
     - la_refundable_cdcc
     - me_child_care_credit
     - ny_cdcc
-    - vt_cdcc
-    - vt_low_income_cdcc
-  2015-01-01:
-    - ar_cdcc
-    - ca_cdcc
-    - co_cdcc
-    - ga_cdcc
-    - ky_cdcc
-    - la_non_refundable_cdcc
-    - la_refundable_cdcc
-    - me_child_care_credit
-    - ny_cdcc
-    - or_working_family_household_and_dependent_care_credit
-    - vt_cdcc
-    - vt_low_income_cdcc
   2018-01-01:
     - ar_cdcc
     - ca_cdcc
@@ -80,16 +55,12 @@ values:
     - la_refundable_cdcc
     - me_child_care_credit
     - ny_cdcc
-    - or_working_family_household_and_dependent_care_credit
-    - vt_cdcc
-    - vt_low_income_cdcc
   2019-01-01:
     - ar_cdcc
     - ca_cdcc
     - co_cdcc
     - co_low_income_cdcc
     - dc_kccatc
-    - de_cdcc
     - ga_cdcc
     - hi_cdcc
     - ks_cdcc
@@ -100,16 +71,12 @@ values:
     - md_refundable_cdcc
     - me_child_care_credit
     - ny_cdcc
-    - or_working_family_household_and_dependent_care_credit
-    - vt_cdcc
-    - vt_low_income_cdcc
   2020-01-01:
     - ar_cdcc
     - ca_cdcc
     - co_cdcc
     - co_low_income_cdcc
     - dc_kccatc
-    - de_cdcc
     - ga_cdcc
     - hi_cdcc
     - ks_cdcc
@@ -120,10 +87,7 @@ values:
     - md_refundable_cdcc
     - me_child_care_credit
     - ny_cdcc
-    - or_working_family_household_and_dependent_care_credit
     - sc_cdcc
-    - vt_cdcc
-    - vt_low_income_cdcc
   2021-01-01:
     - ar_cdcc
     - ca_cdcc
@@ -131,7 +95,6 @@ values:
     - co_low_income_cdcc
     - dc_cdcc
     - dc_kccatc
-    - de_cdcc
     - ga_cdcc
     - hi_cdcc
     - ia_cdcc
@@ -153,8 +116,6 @@ values:
     - or_working_family_household_and_dependent_care_credit
     - ri_cdcc
     - sc_cdcc
-    - vt_cdcc
-    - vt_low_income_cdcc
   2022-01-01:
     - ar_cdcc
     - ca_cdcc
@@ -162,7 +123,6 @@ values:
     - co_low_income_cdcc
     - dc_cdcc
     - dc_kccatc
-    - de_cdcc
     - ga_cdcc
     - hi_cdcc
     - ia_cdcc

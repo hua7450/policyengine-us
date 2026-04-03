@@ -2,38 +2,22 @@ description: All state Child Tax Credits.
 values:
   # Year-gated: each credit appears from the year its
   # parameters are first defined in PE-US.
-  2013-01-01:
-    - md_ctc
   2015-01-01:
-    - md_ctc
     - nc_ctc
   2018-01-01:
     - id_ctc
-    - md_ctc
     - me_dependent_exemption_credit
     - nc_ctc
     - ny_ctc
   2019-01-01:
-    - az_dependent_tax_credit
     - ca_yctc
     - id_ctc
-    - md_ctc
-    - me_dependent_exemption_credit
-    - nc_ctc
-    - ny_ctc
-  2020-01-01:
-    - az_dependent_tax_credit
-    - ca_yctc
-    - id_ctc
-    - ma_child_and_family_credit_or_dependent_care_credit
-    - md_ctc
     - me_dependent_exemption_credit
     - nc_ctc
     - ny_ctc
   2021-01-01:
     - az_dependent_tax_credit
     - ca_yctc
-    - co_ctc
     - id_ctc
     - ma_child_and_family_credit_or_dependent_care_credit
     - md_ctc

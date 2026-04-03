@@ -1,37 +1,35 @@
 description: All state Earned Income Tax Credits and related credits.
 values:
-  # Year-gated: each state appears from the later of its enacted date
-  # or the earliest year PE-US has parameters for it. This prevents
-  # backward extrapolation from producing non-zero credits for years
-  # before the credit existed or is modeled.
+  # Year-gated: each credit appears from the year its
+  # parameters are first defined in PE-US.
   1994-01-01:
-    - ny_eitc  # New York (1994)
-  2000-01-01:
-    - nj_eitc  # New Jersey (2000)
     - ny_eitc
-  2001-01-01:
-    - ma_eitc  # Massachusetts (2001)
+  2000-01-01:
     - nj_eitc
     - ny_eitc
-    - or_eitc  # Oregon (2001)
-  2006-01-01:
+  2001-01-01:
     - ma_eitc
-    - ne_eitc  # Nebraska (2006)
     - nj_eitc
     - ny_eitc
     - or_eitc
-    - va_non_refundable_eitc  # Virginia non-refundable (2006)
+  2006-01-01:
+    - ma_eitc
+    - ne_eitc
+    - nj_eitc
+    - ny_eitc
+    - or_eitc
+    - va_non_refundable_eitc
   2008-01-01:
     - ma_eitc
-    - mi_eitc  # Michigan (2008)
+    - mi_eitc
     - ne_eitc
     - nj_eitc
     - ny_eitc
     - or_eitc
     - va_non_refundable_eitc
   2010-01-01:
-    - in_eitc  # Indiana (2010)
-    - ks_total_eitc  # Kansas (2010)
+    - in_eitc
+    - ks_total_eitc
     - ma_eitc
     - mi_eitc
     - ne_eitc
@@ -43,16 +41,17 @@ values:
     - in_eitc
     - ks_total_eitc
     - ma_eitc
-    - md_refundable_eitc  # Maryland refundable (2014)
+    - md_refundable_eitc
     - mi_eitc
     - ne_eitc
     - nj_eitc
     - ny_eitc
     - or_eitc
-    - ri_eitc  # Rhode Island (2014)
+    - ri_eitc
     - va_non_refundable_eitc
   2015-01-01:
-    - dc_eitc  # District of Columbia (2015)
+    - ca_eitc
+    - dc_eitc
     - in_eitc
     - ks_total_eitc
     - ma_eitc
@@ -65,7 +64,8 @@ values:
     - ri_eitc
     - va_non_refundable_eitc
   2017-01-01:
-    - ct_eitc  # Connecticut (2017)
+    - ca_eitc
+    - ct_eitc
     - dc_eitc
     - in_eitc
     - ks_total_eitc
@@ -79,12 +79,13 @@ values:
     - ri_eitc
     - va_non_refundable_eitc
   2018-01-01:
+    - ca_eitc
     - ct_eitc
     - dc_eitc
-    - hi_eitc  # Hawaii (enacted 2017, effective 2018)
+    - hi_eitc
     - in_eitc
     - ks_total_eitc
-    - la_eitc  # Louisiana (2018)
+    - la_eitc
     - ma_eitc
     - md_refundable_eitc
     - mi_eitc
@@ -93,9 +94,10 @@ values:
     - ny_eitc
     - or_eitc
     - ri_eitc
-    - sc_eitc  # South Carolina (2018)
+    - sc_eitc
     - va_non_refundable_eitc
   2019-01-01:
+    - ca_eitc
     - ct_eitc
     - dc_eitc
     - hi_eitc
@@ -103,7 +105,7 @@ values:
     - ks_total_eitc
     - la_eitc
     - ma_eitc
-    - md_non_refundable_eitc  # Maryland non-refundable (2019)
+    - md_non_refundable_eitc
     - md_refundable_eitc
     - mi_eitc
     - ne_eitc
@@ -114,33 +116,11 @@ values:
     - sc_eitc
     - va_non_refundable_eitc
   2020-01-01:
+    - ca_eitc
     - ct_eitc
     - dc_eitc
+    - de_eitc
     - hi_eitc
-    - in_eitc
-    - ks_total_eitc
-    - la_eitc
-    - ma_eitc
-    - md_non_refundable_eitc
-    - md_refundable_eitc
-    - me_eitc  # Maine (2020)
-    - mi_eitc
-    - ne_eitc
-    - nj_eitc
-    - ny_eitc
-    - oh_eitc  # Ohio (2020)
-    - or_eitc
-    - ri_eitc
-    - sc_eitc
-    - va_non_refundable_eitc
-  2021-01-01:
-    - ca_eitc  # California (params from 2021)
-    - co_eitc  # Colorado (2021)
-    - ct_eitc
-    - dc_eitc
-    - hi_eitc
-    - ia_eitc  # Iowa (2021)
-    - il_eitc  # Illinois (2021)
     - in_eitc
     - ks_total_eitc
     - la_eitc
@@ -149,26 +129,20 @@ values:
     - md_refundable_eitc
     - me_eitc
     - mi_eitc
-    - mt_eitc  # Montana (2021)
     - ne_eitc
     - nj_eitc
-    - nm_eitc  # New Mexico (2021)
     - ny_eitc
     - oh_eitc
-    - ok_eitc  # Oklahoma (2021)
     - or_eitc
     - ri_eitc
     - sc_eitc
     - va_non_refundable_eitc
-    - va_refundable_eitc  # Virginia refundable (2021, initially 0)
-    - vt_eitc  # Vermont (2021)
-    - wi_earned_income_credit  # Wisconsin (2021)
-  2022-01-01:
+  2021-01-01:
     - ca_eitc
     - co_eitc
     - ct_eitc
     - dc_eitc
-    - de_eitc  # Delaware (2022)
+    - de_eitc
     - hi_eitc
     - ia_eitc
     - il_eitc
@@ -180,6 +154,7 @@ values:
     - md_refundable_eitc
     - me_eitc
     - mi_eitc
+    - mn_wfc
     - mt_eitc
     - ne_eitc
     - nj_eitc
@@ -190,11 +165,43 @@ values:
     - or_eitc
     - ri_eitc
     - sc_eitc
-    - ut_eitc  # Utah (2022)
     - va_non_refundable_eitc
     - va_refundable_eitc
     - vt_eitc
-    - wa_working_families_tax_credit  # Washington (2022)
+    - wi_earned_income_credit
+  2022-01-01:
+    - ca_eitc
+    - co_eitc
+    - ct_eitc
+    - dc_eitc
+    - de_eitc
+    - hi_eitc
+    - ia_eitc
+    - il_eitc
+    - in_eitc
+    - ks_total_eitc
+    - la_eitc
+    - ma_eitc
+    - md_non_refundable_eitc
+    - md_refundable_eitc
+    - me_eitc
+    - mi_eitc
+    - mn_wfc
+    - mt_eitc
+    - ne_eitc
+    - nj_eitc
+    - nm_eitc
+    - ny_eitc
+    - oh_eitc
+    - ok_eitc
+    - or_eitc
+    - ri_eitc
+    - sc_eitc
+    - ut_eitc
+    - va_non_refundable_eitc
+    - va_refundable_eitc
+    - vt_eitc
+    - wa_working_families_tax_credit
     - wi_earned_income_credit
   2023-01-01:
     - ca_eitc
@@ -213,8 +220,8 @@ values:
     - md_refundable_eitc
     - me_eitc
     - mi_eitc
-    - mn_wfc  # Minnesota (CWFC structure from 2023)
-    - mo_wftc  # Missouri (2023)
+    - mn_wfc
+    - mo_wftc
     - mt_eitc
     - ne_eitc
     - nj_eitc
@@ -258,7 +265,7 @@ values:
     - oh_eitc
     - ok_eitc
     - or_eitc
-    - pa_eitc  # Pennsylvania (2025)
+    - pa_eitc
     - ri_eitc
     - sc_eitc
     - ut_eitc
