@@ -22,6 +22,13 @@ values:
     - ky_cdcc
     - me_child_care_credit
     - ny_cdcc
+  2005-01-01:
+    - ca_cdcc
+    - co_cdcc
+    - ky_cdcc
+    - me_child_care_credit
+    - ny_cdcc
+    - vt_low_income_cdcc
   2006-01-01:
     - ca_cdcc
     - co_cdcc
@@ -31,6 +38,7 @@ values:
     - la_refundable_cdcc
     - me_child_care_credit
     - ny_cdcc
+    - vt_low_income_cdcc
   2013-01-01:
     - ar_cdcc
     - ca_cdcc
@@ -41,6 +49,7 @@ values:
     - la_refundable_cdcc
     - me_child_care_credit
     - ny_cdcc
+    - vt_low_income_cdcc
   2018-01-01:
     - ar_cdcc
     - ca_cdcc
@@ -55,6 +64,7 @@ values:
     - la_refundable_cdcc
     - me_child_care_credit
     - ny_cdcc
+    - vt_low_income_cdcc
   2019-01-01:
     - ar_cdcc
     - ca_cdcc
@@ -71,6 +81,7 @@ values:
     - md_refundable_cdcc
     - me_child_care_credit
     - ny_cdcc
+    - vt_low_income_cdcc
   2020-01-01:
     - ar_cdcc
     - ca_cdcc
@@ -88,6 +99,7 @@ values:
     - me_child_care_credit
     - ny_cdcc
     - sc_cdcc
+    - vt_low_income_cdcc
   2021-01-01:
     - ar_cdcc
     - ca_cdcc
@@ -116,6 +128,7 @@ values:
     - or_working_family_household_and_dependent_care_credit
     - ri_cdcc
     - sc_cdcc
+    - vt_low_income_cdcc
   2022-01-01:
     - ar_cdcc
     - ca_cdcc
