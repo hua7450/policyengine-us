@@ -1,7 +1,7 @@
 from policyengine_us.model_api import *
 
 
-class state_taxable_income(Variable):
+class taxsim_state_taxable_income(Variable):
     value_type = float
     entity = TaxUnit
     label = "State taxable income"

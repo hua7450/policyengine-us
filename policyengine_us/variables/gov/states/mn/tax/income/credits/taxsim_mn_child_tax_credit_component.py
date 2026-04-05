@@ -1,7 +1,7 @@
 from policyengine_us.model_api import *
 
 
-class mn_child_tax_credit_component(Variable):
+class taxsim_mn_child_tax_credit_component(Variable):
     value_type = float
     entity = TaxUnit
     label = "Minnesota child tax credit component"

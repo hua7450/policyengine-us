@@ -1,7 +1,7 @@
 from policyengine_us.model_api import *
 
 
-class state_property_tax_credit(Variable):
+class taxsim_state_property_tax_credit(Variable):
     value_type = float
     entity = TaxUnit
     label = "State property tax credit"

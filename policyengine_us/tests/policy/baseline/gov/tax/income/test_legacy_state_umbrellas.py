@@ -102,18 +102,18 @@ def configured_component_vars(parameter_name: str, year: int) -> list[str]:
 
 LEGACY_UMBRELLA_CASES = [
     (
-        "state_agi",
+        "taxsim_state_agi",
         ["ok_agi"],
         make_tax_unit_situation(year=2023, state="OK", wages=40_000.0),
     ),
     (
-        "state_taxable_income",
+        "taxsim_state_taxable_income",
         ["ok_taxable_income"],
         make_tax_unit_situation(year=2023, state="OK", wages=40_000.0),
     ),
     (
-        "state_cdcc",
-        ["ok_child_care_credit_component"],
+        "taxsim_state_cdcc",
+        ["taxsim_ok_child_care_credit_component"],
         make_tax_unit_situation(
             year=2023,
             state="OK",
@@ -123,7 +123,7 @@ LEGACY_UMBRELLA_CASES = [
         ),
     ),
     (
-        "state_eitc",
+        "taxsim_state_eitc",
         ["mn_wfc"],
         make_tax_unit_situation(
             year=2023,
@@ -156,7 +156,7 @@ def test_state_ctc_matches_configured_component_sum():
     expected = calculate_sum(
         situation, 2023, configured_component_vars("state_ctcs", 2023)
     )
-    actual = calculate_sum(situation, 2023, ["state_ctc"])
+    actual = calculate_sum(situation, 2023, ["taxsim_state_ctc"])
     assert actual == pytest.approx(expected, abs=0.01)
 
 
@@ -173,7 +173,7 @@ def test_state_property_tax_credit_matches_configured_component_sum():
         2023,
         configured_component_vars("state_property_tax_credits", 2023),
     )
-    actual = calculate_sum(situation, 2023, ["state_property_tax_credit"])
+    actual = calculate_sum(situation, 2023, ["taxsim_state_property_tax_credit"])
     assert actual == pytest.approx(expected, abs=0.01)
 
 
@@ -181,7 +181,10 @@ def test_state_property_tax_credit_matches_configured_component_sum():
     ("component_vars", "combined_var", "situation"),
     [
         (
-            ["ok_child_care_credit_component", "ok_child_tax_credit_component"],
+            [
+                "taxsim_ok_child_care_credit_component",
+                "taxsim_ok_child_tax_credit_component",
+            ],
             "ok_child_care_child_tax_credit",
             make_tax_unit_situation(
                 year=2023,
@@ -192,7 +195,7 @@ def test_state_property_tax_credit_matches_configured_component_sum():
             ),
         ),
         (
-            ["mn_wfc", "mn_child_tax_credit_component"],
+            ["mn_wfc", "taxsim_mn_child_tax_credit_component"],
             "mn_child_and_working_families_credits",
             make_tax_unit_situation(
                 year=2023,

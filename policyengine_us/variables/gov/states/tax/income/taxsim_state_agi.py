@@ -1,7 +1,7 @@
 from policyengine_us.model_api import *
 
 
-class state_agi(Variable):
+class taxsim_state_agi(Variable):
     value_type = float
     entity = TaxUnit
     label = "State adjusted gross income"

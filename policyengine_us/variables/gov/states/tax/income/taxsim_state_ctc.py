@@ -1,7 +1,7 @@
 from policyengine_us.model_api import *
 
 
-class state_ctc(Variable):
+class taxsim_state_ctc(Variable):
     value_type = float
     entity = TaxUnit
     label = "State child tax credit"
