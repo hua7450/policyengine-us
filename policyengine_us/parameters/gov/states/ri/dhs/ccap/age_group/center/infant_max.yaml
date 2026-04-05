@@ -1,5 +1,6 @@
 description: Rhode Island defines the licensed center infant age group as children younger than this age under the Child Care Assistance Program.
 values:
+  2024-01-01: 1.5
   2025-07-01: 1.5
 
 metadata:

@@ -6,16 +6,6 @@ DATASETS = [
 ]
 
 YEARS = list(range(2024, 2026))
-KNOWN_BROKEN_MICROSIM_CASES = {
-    (
-        "hf://policyengine/policyengine-us-data/enhanced_cps_2024.h5",
-        2024,
-    ),
-    (
-        "hf://policyengine/policyengine-us-data/enhanced_cps_2024.h5",
-        2025,
-    ),
-}
 
 
 @pytest.mark.parametrize("dataset", DATASETS)
@@ -23,12 +13,6 @@ KNOWN_BROKEN_MICROSIM_CASES = {
 def test_microsim_runs(dataset: str, year: int):
     import numpy as np
     from policyengine_us import Microsimulation
-
-    if (dataset, year) in KNOWN_BROKEN_MICROSIM_CASES:
-        pytest.xfail(
-            "Known base-model failure: enhanced_cps_2024 annual runs still hit "
-            "mid-year childcare parameter gaps in current policy parameters."
-        )
 
     sim = Microsimulation(dataset=dataset)
     sim.subsample(1_000)
