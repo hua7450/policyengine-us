@@ -167,7 +167,7 @@
     de_poc: 1_500
 
 - name: Case 3, enrolled family between 200% and 300% FPL.
-  period: 2025-01
+  period: 2026-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -367,7 +367,7 @@
     de_poc: 1_333.33
 
 - name: Case 6, enrolled family just above 200% FPL but within 300% FPL.
-  period: 2025-01
+  period: 2026-01
   absolute_error_margin: 0.01
   input:
     people:

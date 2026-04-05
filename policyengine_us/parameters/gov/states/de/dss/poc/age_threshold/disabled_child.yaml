@@ -1,6 +1,6 @@
 description: Delaware limits the Purchase of Care program to disabled children younger than this age.
 values:
-  2025-10-01: 19
+  2024-01-01: 19
 
 metadata:
   unit: year

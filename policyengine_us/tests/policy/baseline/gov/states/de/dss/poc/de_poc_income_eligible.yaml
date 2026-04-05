@@ -62,7 +62,7 @@
     de_poc_income_eligible: false
 
 - name: Case 3, enrolled family below 300% FPL.
-  period: 2025-01
+  period: 2026-01
   input:
     people:
       person1:
@@ -87,7 +87,7 @@
     de_poc_income_eligible: true
 
 - name: Case 4, enrolled family above 300% FPL.
-  period: 2025-01
+  period: 2026-01
   input:
     people:
       person1:
@@ -110,7 +110,7 @@
     de_poc_income_eligible: false
 
 - name: Case 5, income at exact 200% FPL threshold for new applicant.
-  period: 2025-01
+  period: 2026-01
   input:
     people:
       person1:

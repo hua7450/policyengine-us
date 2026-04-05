@@ -1,6 +1,6 @@
 description: Delaware counts these income sources under the Purchase of Care program.
 values:
-  2025-10-01:
+  2024-01-01:
     - employment_income
     - self_employment_income
     - social_security_retirement

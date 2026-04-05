@@ -107,7 +107,7 @@
     de_poc_eligible: false
 
 - name: Case 5, enrolled family within 300% FPL but above 200% FPL.
-  period: 2025-01
+  period: 2026-01
   input:
     people:
       person1:
