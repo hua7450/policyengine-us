@@ -15,12 +15,3 @@ class vt_ccfap_provider_type(Variable):
     defined_for = StateCode.VT
     label = "Vermont CCFAP provider type"
     reference = "https://outside.vermont.gov/dept/DCF/Shared%20Documents/CDD/CCFAP/CCFAP-State-Rates.pdf"
-
-    def formula(person, period, parameters):
-        provider_group = person("childcare_provider_type_group", period.this_year)
-        is_center = provider_group == provider_group.possible_values.DCC_SACC
-        return where(
-            is_center,
-            VTCCFAPProviderType.LICENSED_CENTER,
-            VTCCFAPProviderType.REGISTERED_HOME,
-        )

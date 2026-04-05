@@ -14,6 +14,11 @@ class vt_ccfap(Variable):
     )
 
     def formula(spm_unit, period, parameters):
+        # Models the post-2023-12-16 regime: payment is based on the state
+        # rate regardless of the provider's charges. Prior to 2023-12-17,
+        # Vermont paid the lesser of the state rate and the provider's rate.
+        # Source: CCFAP Understanding Payments (Q3 and "Jane Smith" example)
+        # https://outside.vermont.gov/dept/DCF/Shared%20Documents/CDD/CCFAP/CCFAP-Understanding-Payments.pdf
         person = spm_unit.members
         eligible_child = person("vt_ccfap_eligible_child", period)
         weekly_rate = person("vt_ccfap_state_rate", period)

@@ -1,9 +1,8 @@
-- name: Case 1, day care center maps to licensed center.
+- name: Default provider type is licensed center.
   period: 2025-01
   input:
     people:
-      person1:
-        childcare_provider_type_group: DCC_SACC
+      person1: {}
     households:
       household:
         members: [person1]
@@ -11,51 +10,12 @@
   output:
     vt_ccfap_provider_type: [LICENSED_CENTER]
 
-- name: Case 2, family day care maps to registered home.
+- name: Registered home when set explicitly.
   period: 2025-01
   input:
     people:
       person1:
-        childcare_provider_type_group: FDC_GFDC
-    households:
-      household:
-        members: [person1]
-        state_code: VT
-  output:
-    vt_ccfap_provider_type: [REGISTERED_HOME]
-
-- name: Case 3, legally exempt group maps to registered home.
-  period: 2025-01
-  input:
-    people:
-      person1:
-        childcare_provider_type_group: LE_GC
-    households:
-      household:
-        members: [person1]
-        state_code: VT
-  output:
-    vt_ccfap_provider_type: [REGISTERED_HOME]
-
-- name: Case 4, informal standard maps to registered home.
-  period: 2025-01
-  input:
-    people:
-      person1:
-        childcare_provider_type_group: LE_STD
-    households:
-      household:
-        members: [person1]
-        state_code: VT
-  output:
-    vt_ccfap_provider_type: [REGISTERED_HOME]
-
-- name: Case 5, informal enhanced maps to registered home.
-  period: 2025-01
-  input:
-    people:
-      person1:
-        childcare_provider_type_group: LE_ENH
+        vt_ccfap_provider_type: REGISTERED_HOME
     households:
       household:
         members: [person1]

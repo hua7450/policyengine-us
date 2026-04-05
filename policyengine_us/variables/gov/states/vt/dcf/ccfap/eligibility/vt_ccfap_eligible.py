@@ -16,14 +16,7 @@ class vt_ccfap_eligible(Variable):
         has_eligible_child = add(spm_unit, period, ["vt_ccfap_eligible_child"]) > 0
         asset_eligible = spm_unit("is_ccdf_asset_eligible", period.this_year)
         income_eligible = spm_unit("vt_ccfap_income_eligible", period)
-        activity_eligible = (
-            add(
-                spm_unit,
-                period.this_year,
-                ["is_ccdf_reason_for_care_eligible"],
-            )
-            > 0
-        )
+        activity_eligible = spm_unit("vt_ccfap_meets_activity_test", period)
         categorically_exempt = spm_unit("vt_ccfap_categorically_exempt", period)
 
         return (

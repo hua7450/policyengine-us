@@ -5,7 +5,7 @@
     people:
       person1:
         age: 1
-        childcare_provider_type_group: DCC_SACC
+        vt_ccfap_provider_type: LICENSED_CENTER
         childcare_days_per_week: 5
         childcare_hours_per_day: 8
         is_tax_unit_dependent: true
@@ -25,7 +25,7 @@
     people:
       person1:
         age: 7
-        childcare_provider_type_group: FDC_GFDC
+        vt_ccfap_provider_type: REGISTERED_HOME
         childcare_days_per_week: 5
         childcare_hours_per_day: 4
         is_tax_unit_dependent: true
@@ -44,7 +44,7 @@
     people:
       person1:
         age: 2
-        childcare_provider_type_group: DCC_SACC
+        vt_ccfap_provider_type: LICENSED_CENTER
         childcare_days_per_week: 6
         childcare_hours_per_day: 10
         is_tax_unit_dependent: true
@@ -63,7 +63,7 @@
     people:
       person1:
         age: 4
-        childcare_provider_type_group: FDC_GFDC
+        vt_ccfap_provider_type: REGISTERED_HOME
         childcare_days_per_week: 5
         childcare_hours_per_day: 8
         is_tax_unit_dependent: true
@@ -82,7 +82,7 @@
     people:
       person1:
         age: 3
-        childcare_provider_type_group: DCC_SACC
+        vt_ccfap_provider_type: LICENSED_CENTER
         childcare_days_per_week: 5
         childcare_hours_per_day: 4
         is_tax_unit_dependent: true
@@ -101,7 +101,7 @@
     people:
       person1:
         age: 0
-        childcare_provider_type_group: FDC_GFDC
+        vt_ccfap_provider_type: REGISTERED_HOME
         childcare_days_per_week: 6
         childcare_hours_per_day: 10
         is_tax_unit_dependent: true
@@ -120,7 +120,7 @@
     people:
       person1:
         age: 8
-        childcare_provider_type_group: DCC_SACC
+        vt_ccfap_provider_type: LICENSED_CENTER
         childcare_days_per_week: 5
         childcare_hours_per_day: 8
         is_tax_unit_dependent: true
@@ -139,7 +139,7 @@
     people:
       person1:
         age: 2
-        childcare_provider_type_group: FDC_GFDC
+        vt_ccfap_provider_type: REGISTERED_HOME
         childcare_days_per_week: 5
         childcare_hours_per_day: 8
         is_tax_unit_dependent: true
@@ -158,7 +158,7 @@
     people:
       person1:
         age: 1
-        childcare_provider_type_group: FDC_GFDC
+        vt_ccfap_provider_type: REGISTERED_HOME
         childcare_days_per_week: 5
         childcare_hours_per_day: 4
         is_tax_unit_dependent: true
@@ -177,7 +177,7 @@
     people:
       person1:
         age: 2
-        childcare_provider_type_group: FDC_GFDC
+        vt_ccfap_provider_type: REGISTERED_HOME
         childcare_days_per_week: 5
         childcare_hours_per_day: 4
         is_tax_unit_dependent: true
@@ -196,7 +196,7 @@
     people:
       person1:
         age: 4
-        childcare_provider_type_group: FDC_GFDC
+        vt_ccfap_provider_type: REGISTERED_HOME
         childcare_days_per_week: 5
         childcare_hours_per_day: 4
         is_tax_unit_dependent: true
@@ -215,7 +215,7 @@
     people:
       person1:
         age: 2
-        childcare_provider_type_group: FDC_GFDC
+        vt_ccfap_provider_type: REGISTERED_HOME
         childcare_days_per_week: 6
         childcare_hours_per_day: 10
         is_tax_unit_dependent: true
@@ -234,7 +234,7 @@
     people:
       person1:
         age: 4
-        childcare_provider_type_group: FDC_GFDC
+        vt_ccfap_provider_type: REGISTERED_HOME
         childcare_days_per_week: 6
         childcare_hours_per_day: 10
         is_tax_unit_dependent: true
@@ -253,7 +253,7 @@
     people:
       person1:
         age: 8
-        childcare_provider_type_group: FDC_GFDC
+        vt_ccfap_provider_type: REGISTERED_HOME
         childcare_days_per_week: 6
         childcare_hours_per_day: 10
         is_tax_unit_dependent: true
@@ -272,7 +272,7 @@
     people:
       person1:
         age: 7
-        childcare_provider_type_group: FDC_GFDC
+        vt_ccfap_provider_type: REGISTERED_HOME
         childcare_days_per_week: 5
         childcare_hours_per_day: 8
         is_tax_unit_dependent: true
@@ -291,7 +291,7 @@
     people:
       person1:
         age: 0
-        childcare_provider_type_group: FDC_GFDC
+        vt_ccfap_provider_type: REGISTERED_HOME
         childcare_days_per_week: 5
         childcare_hours_per_day: 8
         is_tax_unit_dependent: true
@@ -310,7 +310,7 @@
     people:
       person1:
         age: 1
-        childcare_provider_type_group: DCC_SACC
+        vt_ccfap_provider_type: LICENSED_CENTER
         childcare_days_per_week: 5
         childcare_hours_per_day: 4
         is_tax_unit_dependent: true
@@ -329,7 +329,7 @@
     people:
       person1:
         age: 2
-        childcare_provider_type_group: DCC_SACC
+        vt_ccfap_provider_type: LICENSED_CENTER
         childcare_days_per_week: 5
         childcare_hours_per_day: 4
         is_tax_unit_dependent: true
@@ -348,7 +348,7 @@
     people:
       person1:
         age: 8
-        childcare_provider_type_group: DCC_SACC
+        vt_ccfap_provider_type: LICENSED_CENTER
         childcare_days_per_week: 5
         childcare_hours_per_day: 4
         is_tax_unit_dependent: true
@@ -367,7 +367,7 @@
     people:
       person1:
         age: 4
-        childcare_provider_type_group: DCC_SACC
+        vt_ccfap_provider_type: LICENSED_CENTER
         childcare_days_per_week: 6
         childcare_hours_per_day: 10
         is_tax_unit_dependent: true
@@ -386,7 +386,7 @@
     people:
       person1:
         age: 8
-        childcare_provider_type_group: DCC_SACC
+        vt_ccfap_provider_type: LICENSED_CENTER
         childcare_days_per_week: 6
         childcare_hours_per_day: 10
         is_tax_unit_dependent: true
@@ -405,7 +405,7 @@
     people:
       person1:
         age: 0
-        childcare_provider_type_group: DCC_SACC
+        vt_ccfap_provider_type: LICENSED_CENTER
         childcare_days_per_week: 6
         childcare_hours_per_day: 10
         is_tax_unit_dependent: true
@@ -424,7 +424,7 @@
     people:
       person1:
         age: 2
-        childcare_provider_type_group: DCC_SACC
+        vt_ccfap_provider_type: LICENSED_CENTER
         childcare_days_per_week: 5
         childcare_hours_per_day: 8
         is_tax_unit_dependent: true
@@ -443,7 +443,7 @@
     people:
       person1:
         age: 3
-        childcare_provider_type_group: DCC_SACC
+        vt_ccfap_provider_type: LICENSED_CENTER
         childcare_days_per_week: 5
         childcare_hours_per_day: 8
         is_tax_unit_dependent: true
