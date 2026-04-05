@@ -1,3 +1,49 @@
+## [1.627.2] - 2026-04-05
+
+### Fixed
+
+- Make `never_eligible_for_social_security_benefits` an explicit input instead of inferring it heuristically.
+
+
+## [1.627.1] - 2026-04-03
+
+### Changed
+
+- Update 2026 federal tax parameters from CBO forecasts to official IRS Rev. Proc. 2025-32 values for EITC phase-out thresholds, joint filing bonus, investment income limit, and AMT parameters.
+
+### Fixed
+
+- Fix AMT 28% bracket multiplier for MFS and surviving spouse filing statuses.
+
+
+## [1.627.0] - 2026-04-03
+
+### Added
+
+- Added Idaho S1450: Extends state child tax credit indefinitely.
+
+
+## [1.626.1] - 2026-04-01
+
+### Fixed
+
+- Fix Head Start categorical eligibility to correctly separate person-level (foster care) from family-level (TANF, SSI, SNAP) aggregation.
+
+
+## [1.626.0] - 2026-04-01
+
+### Added
+
+- Add ORG-backed `hourly_wage` and `is_union_member_or_covered` input variables.
+
+
+## [1.625.0] - 2026-03-31
+
+### Added
+
+- Added contributed EITC reforms for child poverty impact dashboard: EITC match reforms for AL, AR, AZ, GA, ID, KY, MS, ND, and WV; refundable EITC reforms for MO and OH; and a fully refundable EITC reform for UT (including childless filers).
+
+
 ## [1.624.1] - 2026-03-29
 
 ### Changed
