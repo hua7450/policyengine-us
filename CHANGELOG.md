@@ -1,3 +1,115 @@
+## [1.627.2] - 2026-04-05
+
+### Fixed
+
+- Make `never_eligible_for_social_security_benefits` an explicit input instead of inferring it heuristically.
+
+
+## [1.627.1] - 2026-04-03
+
+### Changed
+
+- Update 2026 federal tax parameters from CBO forecasts to official IRS Rev. Proc. 2025-32 values for EITC phase-out thresholds, joint filing bonus, investment income limit, and AMT parameters.
+
+### Fixed
+
+- Fix AMT 28% bracket multiplier for MFS and surviving spouse filing statuses.
+
+
+## [1.627.0] - 2026-04-03
+
+### Added
+
+- Added Idaho S1450: Extends state child tax credit indefinitely.
+
+
+## [1.626.1] - 2026-04-01
+
+### Fixed
+
+- Fix Head Start categorical eligibility to correctly separate person-level (foster care) from family-level (TANF, SSI, SNAP) aggregation.
+
+
+## [1.626.0] - 2026-04-01
+
+### Added
+
+- Add ORG-backed `hourly_wage` and `is_union_member_or_covered` input variables.
+
+
+## [1.625.0] - 2026-03-31
+
+### Added
+
+- Added contributed EITC reforms for child poverty impact dashboard: EITC match reforms for AL, AR, AZ, GA, ID, KY, MS, ND, and WV; refundable EITC reforms for MO and OH; and a fully refundable EITC reform for UT (including childless filers).
+
+
+## [1.624.1] - 2026-03-29
+
+### Changed
+
+- Backdate CT TANF parameters.
+
+
+## [1.624.0] - 2026-03-27
+
+### Added
+
+- Add Alaska State Supplementary Payment (Adult Public Assistance).
+
+
+## [1.623.0] - 2026-03-27
+
+### Added
+
+- Implement Alabama State Supplementary Payment (SSP).
+
+
+## [1.622.0] - 2026-03-27
+
+### Added
+
+- Add FY2016-FY2020 SNAP allotments, deductions, shelter cap, asset limits, and homeless deduction.
+- Add Delaware State Supplementary Payment (SSP).
+
+### Changed
+
+- Backdated ACA rating-area SLCSP premiums to 2018 through 2023 using the archived KFF representative-ZIP backfill.
+
+### Fixed
+
+- Fix CA CalWORKs per-person applicant earned income disregard and update broken references.
+- Fix Montana income tax incorrectly applying preferential LTCG rates when net capital gains are negative.
+
+
+## [1.621.0] - 2026-03-26
+
+### Added
+
+- Backdate Illinois TANF parameters.
+
+
+## [1.620.1] - 2026-03-26
+
+### Fixed
+
+- Fix MA gross income to allow self-employment losses to offset other 5% income.
+
+
+## [1.620.0] - 2026-03-26
+
+### Added
+
+- Add structural federal mortgage interest deduction modeling using mortgage balances, interest amounts, and origination years.
+
+
+## [1.619.0] - 2026-03-25
+
+### Added
+
+- Backdate TANF non-cash BBCE parameters to FY2016 and fix CO BBCE bug.
+
+
 ## [1.618.0] - 2026-03-25
 
 ### Added
