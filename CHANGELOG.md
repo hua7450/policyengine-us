@@ -1,3 +1,10 @@
+## [1.627.2] - 2026-04-05
+
+### Fixed
+
+- Make `never_eligible_for_social_security_benefits` an explicit input instead of inferring it heuristically.
+
+
 ## [1.627.1] - 2026-04-03
 
 ### Changed
