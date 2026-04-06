@@ -1,3 +1,11 @@
+## [1.629.0] - 2026-04-06
+
+### Added
+
+- Added reported current health coverage inputs and ACA/Medicaid coverage reconciliation helpers.
+- Added NJ StayNJ and ANCHOR budget housing reforms as separately toggleable contributed reforms. (, )
+
+
 ## [1.628.0] - 2026-04-06
 
 ### Added
