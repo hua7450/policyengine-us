@@ -1,3 +1,10 @@
+## [1.632.1] - 2026-04-06
+
+### Fixed
+
+- Fix NM modified gross income to disallow business losses, capital losses, and rental losses per NM Admin Code 3.3.1.10.
+
+
 ## [1.632.0] - 2026-04-06
 
 ### Added
