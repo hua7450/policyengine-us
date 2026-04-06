@@ -5,8 +5,8 @@ metadata:
   rate_unit: /1
   label: West Virginia income tax rate for head of household filers
   reference:
-    - title: West Virginia Senate Bill 392 (2026), §11-21-4j
-      href: https://www.wvlegislature.gov/Bill_Text_HTML/2026_SESSIONS/RS/bills/sb392%20sub1%20enr.pdf
+    - title: West Virginia Senate Bill 392 (2026), §11-21-4j(a)
+      href: https://www.wvlegislature.gov/Bill_Text_HTML/2026_SESSIONS/RS/bills/sb392%20sub1%20enr.pdf#page=6
     - title: West Virginia Personal Income Tax Forms And Instructions 2025, Tax Rate Schedules
       href: https://tax.wv.gov/Documents/PIT/2025/it140.PersonalIncomeTaxFormsAndInstructions.2025.pdf#page=37
     - title: West Virginia Personal Income Tax Forms And Instructions 2024, Tax Rate Schedules
