@@ -1,3 +1,35 @@
+## [1.627.3] - 2026-04-06
+
+### Fixed
+
+- Add historical Maine CCAP county rates for January 2024 and keep the annual microsim path working with the pre-July-2024 schedule.
+
+
+## [1.627.2] - 2026-04-05
+
+### Fixed
+
+- Make `never_eligible_for_social_security_benefits` an explicit input instead of inferring it heuristically.
+
+
+## [1.627.1] - 2026-04-03
+
+### Changed
+
+- Update 2026 federal tax parameters from CBO forecasts to official IRS Rev. Proc. 2025-32 values for EITC phase-out thresholds, joint filing bonus, investment income limit, and AMT parameters.
+
+### Fixed
+
+- Fix AMT 28% bracket multiplier for MFS and surviving spouse filing statuses.
+
+
+## [1.627.0] - 2026-04-03
+
+### Added
+
+- Added Idaho S1450: Extends state child tax credit indefinitely.
+
+
 ## [1.626.1] - 2026-04-01
 
 ### Fixed
