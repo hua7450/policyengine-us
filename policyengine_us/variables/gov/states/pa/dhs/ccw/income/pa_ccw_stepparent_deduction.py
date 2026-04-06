@@ -17,7 +17,9 @@ class pa_ccw_stepparent_deduction(Variable):
             "pa_ccw_stepparent_county_group", period.this_year
         )
         size = spm_unit("spm_unit_size", period.this_year)
-        capped_size = min_(size, p.max_family_size)
+        # Appendix C starts at family size 2 because a stepparent deduction
+        # only applies when there is at least one child in the assistance unit.
+        capped_size = min_(max_(size, 2), p.max_family_size)
         extra = max_(size - p.max_family_size, 0)
 
         group_1_amount = p.group_1[capped_size] + extra * p.each_additional
