@@ -11,21 +11,16 @@ metadata:
       href: https://www.scstatehouse.gov/sess126_2025-2026/bills/4216.htm
 
 SINGLE:
-  0001-01-01: 0
   2026-01-01: 15_000
 
 SEPARATE:
-  0001-01-01: 0
   2026-01-01: 15_000
 
 HEAD_OF_HOUSEHOLD:
-  0001-01-01: 0
   2026-01-01: 22_500
 
 JOINT:
-  0001-01-01: 0
   2026-01-01: 30_000
 
 SURVIVING_SPOUSE:
-  0001-01-01: 0
   2026-01-01: 30_000

@@ -12,6 +12,9 @@ class sc_sciad(Variable):
 
     def formula(tax_unit, period, parameters):
         p = parameters(period).gov.states.sc.tax.income.deductions.sciad
+        # SCIAD only exists starting 2026
+        if not p.in_effect:
+            return tax_unit("filing_status", period) * 0
         filing_status = tax_unit("filing_status", period)
         # Get the base amount by filing status
         base_amount = p.amount[filing_status]
@@ -28,6 +31,4 @@ class sc_sciad(Variable):
         reduction = base_amount * phase_out_fraction
         # Round reduction down to nearest $10
         reduction_rounded = np.floor(reduction / 10) * 10
-        # Calculate deduction
-        deduction = max_(0, base_amount - reduction_rounded)
-        return deduction
+        return max_(0, base_amount - reduction_rounded)

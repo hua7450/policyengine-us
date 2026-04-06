@@ -14,20 +14,17 @@ class sc_taxable_income(Variable):
     )
 
     def formula(tax_unit, period, parameters):
-        # Check if we're in H4216 era (2026+)
-        # H4216 Section 2: SC does not adopt federal standard/itemized deductions
-        # H4216 Section 3: SC uses SCIAD instead, starting from AGI
-        year = period.start.year
+        p = parameters(period).gov.states.sc.tax.income.deductions.sciad
         subtractions = tax_unit("sc_subtractions", period)
 
-        if year >= 2026:
-            # For 2026+: Start from AGI (SC ignores federal std/itemized deductions)
+        if p.in_effect:
+            # H4216: Start from AGI (SC ignores federal std/itemized deductions)
             # Additions are not needed since they correct for federal deductions
             # that are no longer relevant when starting from AGI
             agi = tax_unit("adjusted_gross_income", period)
             return max_(0, agi - subtractions)
         else:
-            # Before 2026: Traditional calculation from federal taxable income
+            # Traditional calculation from federal taxable income
             taxable_income = tax_unit("taxable_income", period)
             additions = tax_unit("sc_additions", period)
             return max_(0, taxable_income + additions - subtractions)
