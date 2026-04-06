@@ -1,7 +1,4 @@
 from policyengine_us.model_api import *
-from policyengine_us.variables.gov.hhs.medicare.savings_programs.category.msp_category import (
-    MSPCategory,
-)
 
 
 class msp_eligible(Variable):
@@ -15,4 +12,5 @@ class msp_eligible(Variable):
     )
 
     def formula(person, period, parameters):
-        return person("msp_category", period) != MSPCategory.NONE
+        category = person("msp_category", period)
+        return category != category.possible_values.NONE

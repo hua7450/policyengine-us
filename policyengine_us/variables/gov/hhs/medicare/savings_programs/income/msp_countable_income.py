@@ -60,29 +60,29 @@ class msp_countable_income(Variable):
             year,
         )
 
+        couple_countable = _apply_ssi_exclusions(
+            max_(
+                person.marital_unit.sum(earned_income)
+                - person.marital_unit.sum(blind_or_disabled_working_student_exclusion),
+                0,
+            ),
+            person.marital_unit.sum(unearned_income),
+            parameters,
+            year,
+        )
+
+        deemed_countable = _apply_ssi_exclusions(
+            personal_earned_income + spouse_earned_income,
+            unearned_income + spouse_unearned_income,
+            parameters,
+            year,
+        )
+
+        single_countable = where(
+            deeming_applies, deemed_countable, personal_countable_income
+        )
+
         annual_countable = where(
-            both_medicare_eligible,
-            _apply_ssi_exclusions(
-                max_(
-                    person.marital_unit.sum(earned_income)
-                    - person.marital_unit.sum(
-                        blind_or_disabled_working_student_exclusion
-                    ),
-                    0,
-                ),
-                person.marital_unit.sum(unearned_income),
-                parameters,
-                year,
-            ),
-            where(
-                deeming_applies,
-                _apply_ssi_exclusions(
-                    personal_earned_income + spouse_earned_income,
-                    unearned_income + spouse_unearned_income,
-                    parameters,
-                    year,
-                ),
-                personal_countable_income,
-            ),
+            both_medicare_eligible, couple_countable, single_countable
         )
         return annual_countable / MONTHS_IN_YEAR
