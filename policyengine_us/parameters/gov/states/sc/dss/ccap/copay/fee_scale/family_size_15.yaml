@@ -1,0 +1,17 @@
+description: South Carolina sets this weekly copay for family size 15 under the Child Care Scholarship Program.
+# Family sizes 15-16 only have the $0 tier (N/A for higher tiers per Fee Scale 2025-2026).
+metadata:
+  type: single_amount
+  threshold_unit: currency-USD
+  amount_unit: currency-USD
+  period: month
+  label: South Carolina CCAP weekly copay for family size 15
+  reference:
+    - title: SC CCAP Fee Scale 2025-2026
+      href: https://www.scchildcare.org/media/ih2mrjw5/fee-scale-2025-2026.pdf#page=1
+
+brackets:
+  - threshold:
+      2022-10-01: 0
+    amount:
+      2022-10-01: 0

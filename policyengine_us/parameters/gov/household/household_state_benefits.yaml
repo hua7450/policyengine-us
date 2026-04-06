@@ -26,6 +26,8 @@ values:
     - ak_ssp
     # Nebraska benefits
     - ne_child_care_subsidies
+    # South Carolina benefits
+    - sc_child_care_subsidies
     # Massachusetts benefits
     - ma_eaedc
     - ma_tafdc
@@ -57,6 +59,8 @@ values:
     - ne_child_care_subsidies
     # North Carolina benefits
     - nc_scca
+    # South Carolina benefits
+    - sc_child_care_subsidies
     # Massachusetts benefits
     - ma_eaedc
     - ma_tafdc

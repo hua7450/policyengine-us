@@ -1,0 +1,160 @@
+# SC CCAP overall eligibility tests
+# sc_ccap_eligible is SPMUnit, MONTH
+# Combines: income eligible, asset eligible, activity eligible, has eligible child, residency
+
+- name: Case 1, eligible family in SC.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 40_000
+        immigration_status: CITIZEN
+        weekly_hours_worked: 30
+      person2:
+        age: 5
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: SC
+  output:
+    sc_ccap_eligible: true
+
+- name: Case 2, ineligible due to income above 85 percent SMI.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 90_000
+        immigration_status: CITIZEN
+        weekly_hours_worked: 30
+      person2:
+        age: 5
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: SC
+  output:
+    # Family size 2, 85% SMI = $56,743/yr
+    # 90,000 > 56,743 -> ineligible
+    sc_ccap_eligible: false
+
+- name: Case 3, ineligible no eligible child.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 30_000
+        immigration_status: CITIZEN
+        weekly_hours_worked: 30
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: SC
+  output:
+    # No children -> no eligible child -> ineligible
+    sc_ccap_eligible: false
+
+- name: Case 4, non-SC family ineligible.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 30_000
+      person2:
+        age: 5
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: GA
+  output:
+    sc_ccap_eligible: false
+
+- name: Case 5, activity ineligible parent.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 30_000
+        immigration_status: CITIZEN
+        weekly_hours_worked: 10
+        is_full_time_student: false
+      person2:
+        age: 5
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: SC
+  output:
+    # Works 10 hrs/wk < 15 minimum, not a student -> ineligible
+    sc_ccap_eligible: false
+
+- name: Case 6, full time student meets activity requirement.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 22
+        employment_income: 20_000
+        immigration_status: CITIZEN
+        weekly_hours_worked: 0
+        is_full_time_student: true
+      person2:
+        age: 2
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: SC
+  output:
+    # FT student -> activity eligible even with 0 work hours
+    sc_ccap_eligible: true

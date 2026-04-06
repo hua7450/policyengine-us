@@ -11,6 +11,7 @@ values:
     - nh_child_care_subsidies  # New Hampshire Child Care Scholarship Program
     - pa_child_care_subsidies  # Pennsylvania Child Care Works
     - ri_child_care_subsidies  # Rhode Island Child Care Assistance Program
+    - sc_child_care_subsidies  # South Carolina Child Care Scholarship Program
 
 metadata:
   unit: list
