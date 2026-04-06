@@ -70,7 +70,7 @@
   output:
     sc_ccap_eligible_child: [false, true]
 
-- name: Case 4, disabled child age 19 eligible.
+- name: Case 4, disabled child age 19 ineligible.
   period: 2025
   input:
     people:
@@ -92,7 +92,7 @@
         members: [person1, person2]
         state_code: SC
   output:
-    sc_ccap_eligible_child: [false, true]
+    sc_ccap_eligible_child: [false, false]
 
 - name: Case 5, undocumented child ineligible.
   period: 2025
@@ -117,7 +117,7 @@
   output:
     sc_ccap_eligible_child: [false, false]
 
-- name: Case 6, child who is not a dependent is ineligible.
+- name: Case 6, child who is not a tax dependent is still eligible.
   period: 2025
   input:
     people:
@@ -138,7 +138,7 @@
         members: [person1, person2]
         state_code: SC
   output:
-    sc_ccap_eligible_child: [false, false]
+    sc_ccap_eligible_child: [false, true]
 
 - name: Case 7, adult is never an eligible child.
   period: 2025

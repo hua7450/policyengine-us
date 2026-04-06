@@ -20,12 +20,19 @@ class sc_ccap_copay(Variable):
         is_tanf = spm_unit("is_tanf_enrolled", period)
         has_foster_child = add(spm_unit, period, ["is_in_foster_care"]) > 0
         is_homeless = spm_unit.household("is_homeless", period.this_year)
-        monthly_fpg = spm_unit("spm_unit_fpg", period)
-        below_fpl_threshold = (
-            spm_unit("sc_ccap_countable_income", period)
-            <= monthly_fpg * p.fpg_exempt_rate
-        )
-        has_disabled_child = add(spm_unit, period, ["is_disabled"]) > 0
+        if p.fpg_exempt_in_effect:
+            monthly_fpg = spm_unit("spm_unit_fpg", period)
+            below_fpl_threshold = (
+                spm_unit("sc_ccap_countable_income", period)
+                <= monthly_fpg * p.fpg_exempt_rate
+            )
+        else:
+            below_fpl_threshold = False
+        p_elig = parameters(period).gov.states.sc.dss.ccap.eligibility
+        person = spm_unit.members
+        is_disabled = person("is_disabled", period.this_year)
+        is_young = person("age", period.this_year) < p_elig.disabled_child_age_limit
+        has_disabled_child = spm_unit.any(is_disabled & is_young)
         exempt = (
             is_tanf
             | has_foster_child
