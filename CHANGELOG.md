@@ -1,3 +1,10 @@
+## [1.632.0] - 2026-04-06
+
+### Added
+
+- Add Working Parents Tax Relief Act of 2026 EITC enhancement.
+
+
 ## [1.631.1] - 2026-04-06
 
 ### Changed
