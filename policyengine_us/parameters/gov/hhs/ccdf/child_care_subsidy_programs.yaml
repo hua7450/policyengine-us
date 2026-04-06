@@ -8,6 +8,7 @@ values:
     - me_child_care_subsidies  # Maine Child Care Affordability Program
     - ne_child_care_subsidies  # Nebraska Child Care Subsidy
     - nh_child_care_subsidies  # New Hampshire Child Care Scholarship Program
+    - pa_child_care_subsidies  # Pennsylvania Child Care Works
     - ri_child_care_subsidies  # Rhode Island Child Care Assistance Program
 
 metadata:
