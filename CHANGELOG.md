@@ -1,3 +1,10 @@
+## [1.631.1] - 2026-04-06
+
+### Changed
+
+- Fix VT capital gains exclusion for financial instruments.
+
+
 ## [1.631.0] - 2026-04-06
 
 ### Added
