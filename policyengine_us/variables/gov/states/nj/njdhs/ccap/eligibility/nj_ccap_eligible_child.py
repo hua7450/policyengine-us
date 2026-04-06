@@ -21,4 +21,10 @@ class nj_ccap_eligible_child(Variable):
         immigration_eligible = person(
             "is_ccdf_immigration_eligible_child", period.this_year
         )
-        return age_eligible & is_dependent & immigration_eligible
+        standard_eligible = age_eligible & is_dependent & immigration_eligible
+        # CP&P (Child Protective & Permanency) children are eligible
+        # regardless of dependency or immigration status.
+        protective = person("receives_or_needs_protective_services", period)
+        foster = person("is_in_foster_care", period)
+        categorical_eligible = age_eligible & (protective | foster)
+        return standard_eligible | categorical_eligible

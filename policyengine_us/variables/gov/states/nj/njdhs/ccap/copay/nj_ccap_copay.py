@@ -46,4 +46,8 @@ class nj_ccap_copay(Variable):
         )
 
         total_rate = first_child_rate + where(has_second_child, second_child_rate, 0)
-        return countable_income * total_rate
+        # CPS children are copay-exempt (N.J.A.C. 10:15-9.1).
+        has_cps_child = spm_unit.any(
+            is_eligible_child & person("receives_or_needs_protective_services", period)
+        )
+        return where(has_cps_child, 0, countable_income * total_rate)
