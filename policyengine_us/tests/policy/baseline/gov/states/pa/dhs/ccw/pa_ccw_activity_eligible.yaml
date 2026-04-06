@@ -1,12 +1,11 @@
-# Unit tests for pa_ccw_activity_eligible
+# Unit tests for pa_ccw_activity_eligible (YEAR period)
 # Tests activity/work requirement for parents
 # 55 Pa. Code § 3042.33(a): >= 20 hrs/week work
-# § 3042.33(c)(1): full-time student exempt
-# § 3042.33(c)(2): >= 10 hrs work + training combo
+# § 3042.33(c)(1): full-time student under 22 exempt
+# § 3042.33(c)(2): >= 10 hrs work + education/training combo
 #
-# Formula: for each head/spouse, individually_eligible if:
-#   works >= 20 hrs OR is_full_time_student OR works >= 10 hrs (training combo)
-# Activity eligible if no head/spouse fails individual eligibility.
+# All parents must qualify individually (55 Pa. Code 3042.33).
+# Falls back to meets_ccdf_activity_test for non-derivable activities.
 
 - name: Case 1, single parent works 30 hours meets requirement.
   period: 2025-01
@@ -159,7 +158,7 @@
     # Full-time student -> exempt from work hours
     pa_ccw_activity_eligible: true
 
-- name: Case 7, parent works 10 hours qualifies via training combo.
+- name: Case 7, parent works 10 hours without training fails.
   period: 2025-01
   input:
     people:
@@ -180,7 +179,31 @@
         members: [person1, person2]
         state_code: PA
   output:
-    # 10 >= 10 (training combo threshold) -> eligible
+    # 10 >= 10 but NOT a student -> training combo requires both
+    pa_ccw_activity_eligible: false
+
+- name: Case 9, parent works 10 hours with training qualifies via combo.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 28
+        weekly_hours_worked: 10
+        is_full_time_student: true
+      person2:
+        age: 3
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: PA
+  output:
+    # 10 >= 10 AND is_student -> training combo met
     pa_ccw_activity_eligible: true
 
 - name: Case 8, student age 25 not exempt from work requirement.

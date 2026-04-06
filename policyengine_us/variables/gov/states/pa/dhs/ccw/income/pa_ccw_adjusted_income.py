@@ -12,26 +12,21 @@ class pa_ccw_adjusted_income(Variable):
 
     def formula(spm_unit, period, parameters):
         p = parameters(period).gov.states.pa.dhs.ccw.income
-        gross_annual = add(spm_unit, period, ["pa_ccw_countable_income"])
-        gross_monthly = gross_annual / MONTHS_IN_YEAR
-        stepparent_deduction = spm_unit(
-            "pa_ccw_stepparent_deduction", period.first_month
+        gross = add(spm_unit, period, ["pa_ccw_countable_income"])
+        stepparent_annual = (
+            spm_unit("pa_ccw_stepparent_deduction", period.first_month) * MONTHS_IN_YEAR
         )
-        alimony_paid = add(spm_unit, period, ["alimony_expense"]) / MONTHS_IN_YEAR
-        child_support_paid = (
-            add(spm_unit, period, ["child_support_expense"]) / MONTHS_IN_YEAR
+        alimony_paid = add(spm_unit, period, ["alimony_expense"])
+        child_support_paid = add(spm_unit, period, ["child_support_expense"])
+        medical_expenses = add(spm_unit, period, ["medical_out_of_pocket_expenses"])
+        medical_deduction = max_(
+            medical_expenses - gross * p.medical_expense_threshold, 0
         )
-        medical_threshold = gross_monthly * p.medical_expense_threshold
-        medical_expenses = (
-            add(spm_unit, period, ["medical_out_of_pocket_expenses"]) / MONTHS_IN_YEAR
-        )
-        medical_deduction = max_(medical_expenses - medical_threshold, 0)
-        adjusted_monthly = max_(
-            gross_monthly
-            - stepparent_deduction
+        return max_(
+            gross
+            - stepparent_annual
             - alimony_paid
             - child_support_paid
             - medical_deduction,
             0,
         )
-        return adjusted_monthly * MONTHS_IN_YEAR
