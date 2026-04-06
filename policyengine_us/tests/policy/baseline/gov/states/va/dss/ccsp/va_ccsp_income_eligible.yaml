@@ -5,7 +5,6 @@
 #   - Enrolled (redetermination): income <= 85% SMI
 #   - Families with child <= 5: also eligible if income <= 85% SMI
 #   - TANF recipients: auto income-eligible
-#   - Medicaid/WIC recipients: auto income-eligible
 #
 # 2024 FPG (contiguous US): first_person = 15,060, additional = 5,380
 # Family of 2: 20,440   Family of 3: 25,820   Family of 4: 31,200

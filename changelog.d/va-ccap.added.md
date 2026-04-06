@@ -1,1 +1,1 @@
-Add Virginia Child Care Assistance Program (CCAP).
+Add Virginia Child Care Subsidy Program (CCSP).
