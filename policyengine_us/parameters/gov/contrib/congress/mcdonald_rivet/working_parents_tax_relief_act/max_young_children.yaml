@@ -1,7 +1,12 @@
-description: Maximum number of young children that count toward EITC percentage increases.
+description: The Working Parents Tax Relief Act limits the EITC percentage bonus to this many qualifying young children.
+
 values:
   2026-01-01: 3
+
 metadata:
-  label: Maximum young children for bonus
-  unit: child
+  label: Working Parents Tax Relief Act maximum young children for bonus
+  unit: /1
   period: year
+  reference:
+    - title: IRC §32(b) - Percentages and amounts (baseline structure being amended)
+      href: https://www.law.cornell.edu/uscode/text/26/32#b

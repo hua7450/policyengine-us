@@ -8,10 +8,7 @@ def create_working_parents_tax_relief_act() -> Reform:
         value_type = int
         entity = TaxUnit
         label = "EITC-qualifying young children"
-        unit = "child"
-        documentation = (
-            "Number of EITC-qualifying children who have not attained age 4."
-        )
+        unit = "/1"
         definition_period = YEAR
 
         def formula(tax_unit, period, parameters):
@@ -31,7 +28,6 @@ def create_working_parents_tax_relief_act() -> Reform:
         entity = TaxUnit
         label = "EITC phase-in rate"
         unit = "/1"
-        documentation = "Rate at which the EITC phases in with income, including Working Parents Tax Relief Act bonus."
         definition_period = YEAR
 
         def formula(tax_unit, period, parameters):
@@ -66,7 +62,6 @@ def create_working_parents_tax_relief_act() -> Reform:
         entity = TaxUnit
         label = "EITC phase-out rate"
         unit = "/1"
-        documentation = "Rate at which the EITC phases out with income, including Working Parents Tax Relief Act bonus."
         definition_period = YEAR
 
         def formula(tax_unit, period, parameters):
@@ -97,14 +92,9 @@ def create_working_parents_tax_relief_act() -> Reform:
         entity = TaxUnit
         label = "Maximum EITC"
         unit = USD
-        documentation = "Maximum EITC amount, adjusted for Working Parents Tax Relief Act credit percentage increase."
         definition_period = YEAR
-        # Note: Bill text is not yet public. Reference will be added when released.
-        # The formula follows IRC §32(b) structure where max = credit_percentage × earned_income_amount
 
         def formula(tax_unit, period, parameters):
-            # Per IRC §32(b), maximum_credit = credit_percentage × earned_income_amount
-            # When the credit percentage increases, the maximum also increases proportionally
             child_count = tax_unit("eitc_child_count", period)
             eitc = parameters(period).gov.irs.credits.eitc
             baseline_max = eitc.max.calc(child_count)
@@ -116,13 +106,9 @@ def create_working_parents_tax_relief_act() -> Reform:
             if not p.in_effect:
                 return baseline_max
 
-            # Get the new phase-in rate (already calculated by eitc_phase_in_rate override)
-            # This avoids duplicating the rate bonus logic
+            # Per IRC §32(b): max = credit_percentage × earned_income_amount
+            # Scale proportionally: new_max = baseline_max × (new_rate / baseline_rate)
             new_rate = tax_unit("eitc_phase_in_rate", period)
-
-            # New maximum = baseline_max × (new_rate / baseline_rate)
-            # This preserves the implied earned_income_amount from the statute
-            # Avoid division by zero for childless (baseline_rate = 0.0765)
             ratio = where(baseline_rate > 0, new_rate / baseline_rate, 1)
             return baseline_max * ratio
 
