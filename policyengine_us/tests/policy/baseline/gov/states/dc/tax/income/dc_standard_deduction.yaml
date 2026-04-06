@@ -1,5 +1,46 @@
-# DC established its own standard deduction for 2025 per D-40 booklet.
+# DC established its own standard deduction for 2025 per DC Act 26-214.
 # Before 2025, DC conformed to federal standard deduction.
+# After 2025, amounts are uprated by CPI with $50 downward rounding.
+
+# --- Pre-2025: Federal conformity ---
+
+- name: DC 2023 single conforms to federal.
+  period: 2023
+  input:
+    state_code: DC
+    filing_status: SINGLE
+  output:
+    # Federal 2023 single basic = $13,850
+    dc_standard_deduction: 13_850
+
+- name: DC 2024 joint conforms to federal.
+  period: 2024
+  input:
+    state_code: DC
+    filing_status: JOINT
+  output:
+    # Federal 2024 MFJ basic = $29,200
+    dc_standard_deduction: 29_200
+
+- name: DC 2024 single conforms to federal.
+  period: 2024
+  input:
+    state_code: DC
+    filing_status: SINGLE
+  output:
+    # Federal 2024 single basic = $14,600
+    dc_standard_deduction: 14_600
+
+- name: DC 2024 head of household conforms to federal.
+  period: 2024
+  input:
+    state_code: DC
+    filing_status: HEAD_OF_HOUSEHOLD
+  output:
+    # Federal 2024 HoH basic = $21,900
+    dc_standard_deduction: 21_900
+
+# --- 2025: DC-specific amounts (OBBBA non-conformity) ---
 
 - name: DC 2025 single standard deduction.
   period: 2025
@@ -7,6 +48,7 @@
     state_code: DC
     filing_status: SINGLE
   output:
+    # DC-specific: $15,000 (federal is $15,750)
     dc_standard_deduction: 15_000
 
 - name: DC 2025 joint standard deduction.
@@ -15,6 +57,7 @@
     state_code: DC
     filing_status: JOINT
   output:
+    # DC-specific: $30,000 (federal is $31,500)
     dc_standard_deduction: 30_000
 
 - name: DC 2025 head of household standard deduction.
@@ -23,6 +66,7 @@
     state_code: DC
     filing_status: HEAD_OF_HOUSEHOLD
   output:
+    # DC-specific: $22,500 (federal is $23,625)
     dc_standard_deduction: 22_500
 
 - name: DC 2025 separate standard deduction.
@@ -32,6 +76,14 @@
     filing_status: SEPARATE
   output:
     dc_standard_deduction: 15_000
+
+- name: DC 2025 surviving spouse standard deduction.
+  period: 2025
+  input:
+    state_code: DC
+    filing_status: SURVIVING_SPOUSE
+  output:
+    dc_standard_deduction: 30_000
 
 - name: DC 2025 joint elderly couple standard deduction.
   period: 2025
@@ -52,15 +104,24 @@
         members: [person1, person2]
         state_code: DC
   output:
-    # $30,000 basic + $1,600 * 2 additional (both 65+) = $33,200
+    # $30,000 DC basic + $1,600 * 2 additional (both 65+) = $33,200
     dc_standard_deduction: 33_200
 
-- name: DC 2024 conforms to federal standard deduction.
-  period: 2024
+- name: DC 2025 single elderly standard deduction.
+  period: 2025
   absolute_error_margin: 1
   input:
-    state_code: DC
-    filing_status: JOINT
+    people:
+      person1:
+        age: 66
+        is_tax_unit_head: true
+    tax_units:
+      tax_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: DC
   output:
-    # Federal 2024 MFJ basic = $29,200
-    dc_standard_deduction: 29_200
+    # $15,000 DC basic + $2,000 additional (single, 65+) = $17,000
+    dc_standard_deduction: 17_000
