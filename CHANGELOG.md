@@ -1,3 +1,10 @@
+## [1.631.0] - 2026-04-06
+
+### Added
+
+- Update West Virginia income tax rates for 2026 per SB 392, §11-21-4j.
+
+
 ## [1.630.0] - 2026-04-06
 
 ### Added
