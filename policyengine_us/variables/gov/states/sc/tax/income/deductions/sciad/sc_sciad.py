@@ -14,7 +14,7 @@ class sc_sciad(Variable):
         p = parameters(period).gov.states.sc.tax.income.deductions.sciad
         # SCIAD only exists starting 2026
         if not p.in_effect:
-            return tax_unit("filing_status", period) * 0
+            return tax_unit("adjusted_gross_income", period) * 0
         filing_status = tax_unit("filing_status", period)
         # Get the base amount by filing status
         base_amount = p.amount[filing_status]
