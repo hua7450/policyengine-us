@@ -114,7 +114,7 @@ def create_working_parents_tax_relief_act() -> Reform:
 
     class reform(Reform):
         def apply(self):
-            self.add_variable(eitc_young_child_count)
+            self.update_variable(eitc_young_child_count)
             self.update_variable(eitc_phase_in_rate)
             self.update_variable(eitc_phase_out_rate)
             self.update_variable(eitc_maximum)
