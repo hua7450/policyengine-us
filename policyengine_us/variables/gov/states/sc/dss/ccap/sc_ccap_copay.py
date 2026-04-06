@@ -15,11 +15,24 @@ class sc_ccap_copay(Variable):
 
     def formula(spm_unit, period, parameters):
         p = parameters(period).gov.states.sc.dss.ccap.copay
-        # Exempt populations: TANF, foster care, homeless -> $0 copay.
+        # Exempt populations: TANF, foster care, homeless,
+        # families at/below 150% FPL, families with disabled children.
         is_tanf = spm_unit("is_tanf_enrolled", period)
         has_foster_child = add(spm_unit, period, ["is_in_foster_care"]) > 0
         is_homeless = spm_unit.household("is_homeless", period.this_year)
-        exempt = is_tanf | has_foster_child | is_homeless
+        monthly_fpg = spm_unit("spm_unit_fpg", period)
+        below_fpl_threshold = (
+            spm_unit("sc_ccap_countable_income", period)
+            <= monthly_fpg * p.fpg_exempt_rate
+        )
+        has_disabled_child = add(spm_unit, period, ["is_disabled"]) > 0
+        exempt = (
+            is_tanf
+            | has_foster_child
+            | is_homeless
+            | below_fpl_threshold
+            | has_disabled_child
+        )
 
         # Look up weekly copay per child from fee scale by family size
         # and monthly income.

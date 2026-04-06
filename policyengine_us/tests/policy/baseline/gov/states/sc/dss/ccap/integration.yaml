@@ -298,11 +298,8 @@
     sc_ccap_eligible: true
 
     # === Copay ===
-    # Monthly income = 40,000 / 12 = 3,333.33
-    # Family size 2: $3,104-$3,562 -> $11/wk per child
-    # $11/wk * 1 eligible child * (52/12) = $47.67/mo
-    # Annual copay (MONTH var at YEAR period) = $47.67 * 12 = $572
-    sc_ccap_copay: 572
+    # Disabled child in family -> exempt from copay ($0)
+    sc_ccap_copay: 0
 
     # === Provider rates ===
     # person1 (adult, 0 hrs): HT; person2 (child, 30 hrs): FT
@@ -313,8 +310,8 @@
     # Center C, Urban, FT, Age 5-12 in school = $165 + $20 surcharge = $185/wk
     # Monthly max rate = $185 * 52 / 12 = $801.67
     # Monthly expenses = $12,000 / 12 = $1,000
-    # Monthly uncapped = max(1,000 - 47.67, 0) = $952.33
-    # Monthly benefit = min(952.33, 801.67) = $801.67
+    # Monthly uncapped = max(1,000 - 0, 0) = $1,000
+    # Monthly benefit = min(1,000, 801.67) = $801.67
     # Annual benefit = $801.67 * 12 = $9,620
     sc_ccap: 9_620
 

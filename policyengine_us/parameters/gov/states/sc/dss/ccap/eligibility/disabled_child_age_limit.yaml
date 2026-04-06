@@ -1,6 +1,6 @@
 description: South Carolina limits the Child Care Scholarship Program to disabled children younger than this age.
 values:
-  2022-10-01: 19
+  2022-10-01: 20
 
 metadata:
   unit: year
@@ -8,4 +8,4 @@ metadata:
   label: South Carolina CCAP disabled child age limit
   reference:
     - title: SC CCAP Policy Manual Vol. 038 Section 2.1.2
-      href: https://www.scchildcare.org/media/ubhdm1at/1-13-2025_policy-manual.pdf#page=14
+      href: https://www.scchildcare.org/media/ubhdm1at/1-13-2025_policy-manual.pdf#page=30

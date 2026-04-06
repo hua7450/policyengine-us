@@ -70,7 +70,7 @@
   output:
     sc_ccap_eligible_child: [false, true]
 
-- name: Case 4, disabled child age 19 ineligible.
+- name: Case 4, disabled child age 19 eligible.
   period: 2025
   input:
     people:
@@ -92,7 +92,7 @@
         members: [person1, person2]
         state_code: SC
   output:
-    sc_ccap_eligible_child: [false, false]
+    sc_ccap_eligible_child: [false, true]
 
 - name: Case 5, undocumented child ineligible.
   period: 2025
