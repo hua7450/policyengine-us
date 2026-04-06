@@ -1,3 +1,62 @@
+## [1.632.0] - 2026-04-06
+
+### Added
+
+- Add Working Parents Tax Relief Act of 2026 EITC enhancement.
+
+
+## [1.631.1] - 2026-04-06
+
+### Changed
+
+- Fix VT capital gains exclusion for financial instruments.
+
+
+## [1.631.0] - 2026-04-06
+
+### Added
+
+- Update West Virginia income tax rates for 2026 per SB 392, §11-21-4j.
+
+
+## [1.630.0] - 2026-04-06
+
+### Added
+
+- Add extend_single_year_dataset for fast dataset year projection via multiplicative uprating, with entity-level HDFStore format detection and dual-path loading in Microsimulation.
+- Add Pennsylvania Child Care Works (CCW) child care subsidy program.
+- Add Vermont Child Care Financial Assistance Program (CCFAP).
+- Add `person_receives_aca` and `assigned_aca_ptc` variables, and keep `aca_ptc` as the pre-takeup ACA premium tax credit amount.
+
+### Fixed
+
+- Restricted the federal tip income deduction to Treasury-listed tipped occupations via a TTOC input, with SSTB exclusion support.
+- Include Wisconsin retirement income exclusion in state_income_tax aggregation, fixing overstated tax for retirees.
+- Treat the Arizona Families Tax Rebate subtraction as a reported received amount instead of recomputing it from current dependents.
+
+
+## [1.629.0] - 2026-04-06
+
+### Added
+
+- Added reported current health coverage inputs and ACA/Medicaid coverage reconciliation helpers.
+- Added NJ StayNJ and ANCHOR budget housing reforms as separately toggleable contributed reforms. (, )
+
+
+## [1.628.0] - 2026-04-06
+
+### Added
+
+- Add weeks_unemployed input variable sourced from CPS ASEC LKWEEKS.
+- Add Delaware Purchase of Care (POC) child care subsidy.
+- Added ACA selected-plan marketplace proxy variables for benchmark ratio inputs and used versus unused premium tax credit analysis.
+
+### Fixed
+
+- Improved legacy state credit umbrella compatibility for TAXSIM by splitting Oklahoma and Minnesota combined credits into explicit component variables and adding regression coverage.
+- Fix NY EITC 2021 IRC decoupling (ARPA non-conformity).
+
+
 ## [1.627.3] - 2026-04-06
 
 ### Fixed
