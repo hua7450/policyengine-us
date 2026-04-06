@@ -1,3 +1,17 @@
+## [1.628.0] - 2026-04-06
+
+### Added
+
+- Add weeks_unemployed input variable sourced from CPS ASEC LKWEEKS.
+- Add Delaware Purchase of Care (POC) child care subsidy.
+- Added ACA selected-plan marketplace proxy variables for benchmark ratio inputs and used versus unused premium tax credit analysis.
+
+### Fixed
+
+- Improved legacy state credit umbrella compatibility for TAXSIM by splitting Oklahoma and Minnesota combined credits into explicit component variables and adding regression coverage.
+- Fix NY EITC 2021 IRC decoupling (ARPA non-conformity).
+
+
 ## [1.627.3] - 2026-04-06
 
 ### Fixed
