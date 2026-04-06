@@ -72,8 +72,9 @@
         state_code: IA
   output:
     # Federal standard deduction: $31,500 basic + $1,600 * 2 elderly = $34,700
-    # IA 1040 line 1d uses full federal standard deduction
-    ia_standard_deduction_joint: 34_700
+    # IA 1040 line 1d uses full federal standard deduction.
+    # Variable is Person-level: head gets full amount, spouse gets 0.
+    ia_standard_deduction_joint: [34_700, 0]
 
 - name: 2025 joint non-elderly uses base federal standard deduction.
   period: 2025
