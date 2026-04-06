@@ -16,9 +16,8 @@ class pa_ccw_income_eligible(Variable):
         smi = spm_unit("hhs_smi", period.this_year)
         enrolled = spm_unit("pa_ccw_enrolled", period)
         initial_limit = fpg * p.initial_income_limit
-        redetermination_limit = min_(
-            fpg * p.redetermination_income_limit,
-            smi * p.continuous_smi_limit,
-        )
-        income_limit = where(enrolled, redetermination_limit, initial_limit)
+        # Between redeterminations, enrolled families use 85% SMI only.
+        # The 235% FPIG cap applies at redetermination (55 Pa. Code 3042.31).
+        continuous_limit = smi * p.continuous_smi_limit
+        income_limit = where(enrolled, continuous_limit, initial_limit)
         return adjusted_income <= income_limit
