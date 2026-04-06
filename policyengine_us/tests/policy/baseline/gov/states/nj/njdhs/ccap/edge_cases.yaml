@@ -87,7 +87,7 @@
     # 54_099 < 54_100 (250% FPL fam of 2) -> eligible
     nj_ccap_income_eligible: true
 
-- name: Case 4, enrolled family one dollar above 250% FPL.
+- name: Case 4, enrolled family above 250% FPL but below 85% SMI is eligible.
   period: 2026-01
   absolute_error_margin: 0.01
   input:
@@ -106,8 +106,9 @@
         members: [person1, person2]
         state_code: NJ
   output:
-    # 54_101 > 54_100 (250% FPL fam of 2) -> ineligible
-    nj_ccap_income_eligible: false
+    # Enrolled -> uses 85% SMI (graduated phase-out)
+    # 85% SMI family of 2 = 88_516; 54_101 <= 88_516 -> eligible
+    nj_ccap_income_eligible: true
 
 # === Copay at FPL tier boundaries ===
 
@@ -171,9 +172,9 @@
   output:
     # FPL ratio = 21_700/21_640 = 1.00277
     # 1.00277 >= 1.0001 -> 101-200% tier
-    # 1 child FT -> 4%
-    # monthly copay = 21_700 * 0.04 / 12 = 72.33
-    nj_ccap_copay: 72.33
+    # 1 child FT -> 2%
+    # monthly copay = 21_700 * 0.02 / 12 = 36.17
+    nj_ccap_copay: 36.17
 
 - name: Case 7, copay at exactly 200% FPL stays in 101-200% tier.
   period: 2026-01
@@ -204,9 +205,9 @@
   output:
     # FPL ratio = 43_280/21_640 = 2.0
     # 2.0 < 2.0001 -> still in 101-200% tier
-    # 1 child FT -> 4%
-    # monthly copay = 43_280 * 0.04 / 12 = 144.27
-    nj_ccap_copay: 144.27
+    # 1 child FT -> 2%
+    # monthly copay = 43_280 * 0.02 / 12 = 72.13
+    nj_ccap_copay: 72.13
 
 - name: Case 8, copay just above 200% FPL enters 201%+ tier.
   period: 2026-01
@@ -238,9 +239,9 @@
   output:
     # FPL ratio = 43_340/21_640 = 2.00277
     # 2.00277 >= 2.0001 -> 201%+ tier
-    # 1 child FT -> 5%
-    # monthly copay = 43_340 * 0.05 / 12 = 180.58
-    nj_ccap_copay: 180.58
+    # 1 child FT -> 3%
+    # monthly copay = 43_340 * 0.03 / 12 = 108.35
+    nj_ccap_copay: 108.35
 
 # === Asset boundary ===
 
@@ -694,19 +695,19 @@
   output:
     # FPG fam of 5: 38_680; FPL ratio = 50_000/38_680 = 1.293
     # 3 children all FT at 101-200%:
-    #   first child FT 4% + second child FT 2% + third child 0% = 6%
-    # copay = 50_000 * 0.06 / 12 = 250
-    nj_ccap_copay: 250
+    #   first child FT 2% + second child FT 1% + third child 0% = 3%
+    # copay = 50_000 * 0.03 / 12 = 125
+    nj_ccap_copay: 125
 
     # Rates: infant FT base = 366.67; preschool FT base = 291.57; school age FT base = 274.96
     nj_ccap_maximum_weekly_benefit: [0, 0, 366.67, 291.57, 274.96]
 
     # max annual = (366.67 + 291.57 + 274.96) * 52 = 933.20 * 52 = 48_526.40
-    # annual copay = 50_000 * 0.06 = 3_000
-    # uncapped = max(30_000 - 3_000, 0) = 27_000
-    # annual benefit = min(27_000, 48_526.40) = 27_000
-    # monthly = 27_000 / 12 = 2_250
-    nj_ccap: 2_250
+    # annual copay = 50_000 * 0.03 = 1_500
+    # uncapped = max(30_000 - 1_500, 0) = 28_500
+    # annual benefit = min(28_500, 48_526.40) = 28_500
+    # monthly = 28_500 / 12 = 2_375
+    nj_ccap: 2_375
 
 # === Activity requirement: hours exactly at boundary ===
 
@@ -889,11 +890,11 @@
   output:
     # FPG fam of 4: 33_000; FPL ratio = 75_000/33_000 = 2.273
     # 1 FT + 1 PT at 201%+:
-    #   n_ft = 1 (person3 only); first child rate = FT 5%
+    #   n_ft = 1 (person3 only); first child rate = FT 3%
     #   n_ft = 1 < 2; second child rate = PT 1%
-    #   total rate = 5% + 1% = 6%
-    # copay = 75_000 * 0.06 / 12 = 375
-    nj_ccap_copay: 375
+    #   total rate = 3% + 1% = 4%
+    # copay = 75_000 * 0.04 / 12 = 250
+    nj_ccap_copay: 250
 
 # === Provider rate: registered family with star rating for school age = base ===
 

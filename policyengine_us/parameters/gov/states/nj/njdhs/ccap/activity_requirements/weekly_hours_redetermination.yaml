@@ -1,6 +1,7 @@
 description: New Jersey sets this amount as the minimum weekly hours of approved activity at redetermination under the Child Care Assistance Program.
 values:
   2024-01-01: 20
+  2025-10-01: 25
 
 metadata:
   unit: hour

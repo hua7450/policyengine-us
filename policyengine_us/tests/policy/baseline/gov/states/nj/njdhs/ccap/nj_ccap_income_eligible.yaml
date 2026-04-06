@@ -121,7 +121,7 @@
     # 54_100 <= 54_100 -> eligible
     nj_ccap_income_eligible: true
 
-- name: Case 6, enrolled family above 250% FPL is ineligible.
+- name: Case 6, enrolled family above 250% FPL but below 85% SMI is eligible.
   period: 2026-01
   absolute_error_margin: 0.01
   input:
@@ -140,8 +140,10 @@
         members: [person1, person2]
         state_code: NJ
   output:
-    # 54_101 > 54_100 (250% FPL) -> ineligible even for continuing
-    nj_ccap_income_eligible: false
+    # 54_101 > 250% FPL (54_100) but enrolled families use 85% SMI
+    # 85% SMI family of 2 = 88_516; 54_101 <= 88_516 -> eligible
+    # (graduated phase-out, CCDF State Plan Section 2.5)
+    nj_ccap_income_eligible: true
 
 - name: Case 7, zero income is eligible.
   period: 2026-01

@@ -4,16 +4,16 @@
 # Third+ child = $0 additional.
 #
 # 2026 FPG family of 2: 21_640; family of 4: 33_000; family of 5: 38_680
-# Copay rates (bracket thresholds at FPL ratio):
+# Copay rates (CC-236 06/24, reinstatement era effective Aug 1, 2024):
 #   0-1.0: 0% (waived)
-#   1.0001-2.0: first child FT 4%, PT 2%; second child FT +2%, PT +1%
-#   2.0001+: first child FT 5%, PT 2.5%; second child FT +2%, PT +1%
+#   1.0001-2.0: first child FT 2%, PT 1%; second child FT +1%, PT +0.5%
+#   2.0001+: first child FT 3%, PT 1.5%; second child FT +2%, PT +1%
 #
-# CC-236 verification examples from working_references.md:
-#   Income $22,000, 1 child FT weekly: $22,000 * 4% / 52 = $16.92
-#   Income $55,000, 2 children FT weekly: $55,000 * 6% / 52 = $63.46
-#   Income $40,000, 1 child PT weekly: $40,000 * 2% / 52 = $15.38
-#   Income $91,000, 2 children mixed weekly: $91,000 * 5% / 52 = $87.50
+# CC-236 verification examples (reinstatement rates):
+#   Income $22,000, 1 child FT weekly: $22,000 * 2% / 52 = $8.46
+#   Income $55,000, 2 children FT weekly: $55,000 * 3% / 52 = $31.73
+#   Income $40,000, 1 child PT weekly: $40,000 * 1% / 52 = $7.69
+#   Income $91,000, 2 children mixed weekly: $91,000 * 4% / 52 = $70.00
 
 - name: Case 1, income at or below 100% FPL copay waived.
   period: 2026-01
@@ -74,9 +74,9 @@
         state_code: NJ
   output:
     # FPG family of 2: 21_640; FPL ratio = 31_000/21_640 = 1.4326
-    # 1 child FT at 101-200% FPL -> 4%
-    # monthly copay = 31_000 * 0.04 / 12 = 103.33
-    nj_ccap_copay: 103.33
+    # 1 child FT at 101-200% FPL -> 2%
+    # monthly copay = 31_000 * 0.02 / 12 = 51.67
+    nj_ccap_copay: 51.67
 
 - name: Case 3, two children FT at 101-200% FPL.
   period: 2026-01
@@ -116,9 +116,9 @@
         state_code: NJ
   output:
     # FPG family of 4: 33_000; FPL ratio = 55_000/33_000 = 1.667
-    # 2 children both FT at 101-200% -> first child 4% + second child 2% = 6%
-    # copay = 55_000 * 0.06 / 12 = 275
-    nj_ccap_copay: 275
+    # 2 children both FT at 101-200% -> first child 2% + second child 1% = 3%
+    # copay = 55_000 * 0.03 / 12 = 137.50
+    nj_ccap_copay: 137.50
 
 - name: Case 4, one child PT at 101-200% FPL.
   period: 2026-01
@@ -151,9 +151,9 @@
         state_code: NJ
   output:
     # FPG family of 3: 27_320; FPL ratio = 40_000/27_320 = 1.464
-    # 1 child PT at 101-200% -> 2%
-    # monthly copay = 40_000 * 0.02 / 12 = 66.67
-    nj_ccap_copay: 66.67
+    # 1 child PT at 101-200% -> 1%
+    # monthly copay = 40_000 * 0.01 / 12 = 33.33
+    nj_ccap_copay: 33.33
 
 - name: Case 5, one child FT at 201%+ FPL.
   period: 2026-01
@@ -187,9 +187,9 @@
         state_code: NJ
   output:
     # FPG family of 3: 27_320; FPL ratio = 70_000/27_320 = 2.562
-    # 1 child FT at 201%+ -> 5%
-    # monthly copay = 70_000 * 0.05 / 12 = 291.67
-    nj_ccap_copay: 291.67
+    # 1 child FT at 201%+ -> 3%
+    # monthly copay = 70_000 * 0.03 / 12 = 175
+    nj_ccap_copay: 175
 
 - name: Case 6, two children FT at 201%+ FPL.
   period: 2026-01
@@ -230,9 +230,9 @@
         state_code: NJ
   output:
     # FPG family of 4: 33_000; FPL ratio = 80_000/33_000 = 2.424
-    # 2 children both FT at 201%+ -> first child 5% + second child 2% = 7%
-    # copay = 80_000 * 0.07 / 12 = 466.67
-    nj_ccap_copay: 466.67
+    # 2 children both FT at 201%+ -> first child 3% + second child 2% = 5%
+    # copay = 80_000 * 0.05 / 12 = 333.33
+    nj_ccap_copay: 333.33
 
 - name: Case 7, mixed care one FT one PT at 101-200% FPL.
   period: 2026-01
@@ -272,9 +272,9 @@
         state_code: NJ
   output:
     # FPG family of 4: 33_000; FPL ratio = 61_000/33_000 = 1.848
-    # 1 FT + 1 PT at 101-200% -> first child FT 4% + second child PT 1% = 5%
-    # monthly copay = 61_000 * 0.05 / 12 = 254.17
-    nj_ccap_copay: 254.17
+    # 1 FT + 1 PT at 101-200% -> first child FT 2% + second child PT 0.5% = 2.5%
+    # monthly copay = 61_000 * 0.025 / 12 = 127.08
+    nj_ccap_copay: 127.08
 
 - name: Case 8, three children third child no additional copay.
   period: 2026-01
@@ -322,9 +322,9 @@
         state_code: NJ
   output:
     # FPG family of 5: 38_680; FPL ratio = 91_000/38_680 = 2.352
-    # 3 children all FT at 201%+ -> first child 5% + second child 2% + third child 0% = 7%
-    # copay = 91_000 * 0.07 / 12 = 530.83
-    nj_ccap_copay: 530.83
+    # 3 children all FT at 201%+ -> first child 3% + second child 2% + third child 0% = 5%
+    # copay = 91_000 * 0.05 / 12 = 379.17
+    nj_ccap_copay: 379.17
 
 - name: Case 9, two children mixed care at 201% FPL.
   period: 2026-01
@@ -365,9 +365,9 @@
         state_code: NJ
   output:
     # FPG family of 4: 33_000; FPL ratio = 80_000/33_000 = 2.424
-    # 1 FT + 1 PT at 201%+ -> first child FT 5% + second child PT 1% = 6%
-    # copay = 80_000 * 0.06 / 12 = 400
-    nj_ccap_copay: 400
+    # 1 FT + 1 PT at 201%+ -> first child FT 3% + second child PT 1% = 4%
+    # copay = 80_000 * 0.04 / 12 = 266.67
+    nj_ccap_copay: 266.67
 
 - name: Case 10, zero income gives zero copay.
   period: 2026-01

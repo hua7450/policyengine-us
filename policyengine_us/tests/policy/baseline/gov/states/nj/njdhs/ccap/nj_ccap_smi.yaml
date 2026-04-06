@@ -52,7 +52,7 @@
     # 160_276 * 0.68 * 0.85 / 12 = 7_719.96
     nj_ccap_smi: 7_719.96
 
-- name: Case 3, income exceeds 250% FPL but below 85% SMI so FPL is binding.
+- name: Case 3, enrolled family above 250% FPL but below 85% SMI is eligible.
   period: 2026-01
   absolute_error_margin: 0.01
   input:
@@ -71,10 +71,10 @@
         members: [person1, person2]
         state_code: NJ
   output:
-    # Family of 2: 250% FPL = 54_100; 85% SMI annual = 92_640
-    # Income 60_000 > 54_100 (FPL fails) but 60_000 < 92_640 (SMI passes)
-    # FPL is the binding constraint -> ineligible
-    nj_ccap_income_eligible: false
+    # Family of 2: 85% SMI annual = 92_640
+    # Enrolled -> uses 85% SMI only (graduated phase-out)
+    # 60_000 <= 92_640 -> eligible
+    nj_ccap_income_eligible: true
 
 - name: Case 4, income below 250% FPL but exceeds 85% SMI so SMI is binding.
   period: 2026-01

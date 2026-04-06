@@ -17,8 +17,10 @@ class nj_ccap_income_eligible(Variable):
         countable_income = spm_unit("nj_ccap_countable_income", period)
         fpg = spm_unit("spm_unit_fpg", period)
         enrolled = spm_unit("nj_ccap_enrolled", period)
-        initial_limit = fpg * p.initial_eligibility
-        continuing_limit = fpg * p.continuing_eligibility
-        fpl_limit = where(enrolled, continuing_limit, initial_limit)
         smi = spm_unit("nj_ccap_smi", period)
-        return (countable_income <= fpl_limit) & (countable_income <= smi)
+        initial_limit = fpg * p.initial_eligibility
+        # Enrolled families use 85% SMI between redeterminations.
+        # Families between 250% FPL and 85% SMI get a one-year
+        # graduated phase-out (CCDF State Plan Section 2.5).
+        income_limit = where(enrolled, smi, initial_limit)
+        return countable_income <= income_limit

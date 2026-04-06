@@ -9,7 +9,7 @@ metadata:
     - title: CC-236 Copayment Schedule
       href: https://www.childcarenj.gov/ChildCareNJ/media/media_library/Copayment_Schedule.pdf#page=1
     - title: NJ DHS Important Information - Copayment
-      href: https://www.childcarenj.gov/Parents/Important-Information
+      href: https://www.childcarenj.gov/Parents/CCAP/ImportantInfo
 
 brackets:
   - threshold:
@@ -20,9 +20,11 @@ brackets:
       2024-01-01: 1.0001
     amount:
       2024-01-01: 0
-      2024-08-01: 0.04
+      2024-08-01: 0.02
+      2026-03-01: 0.04
   - threshold:
       2024-01-01: 2.0001
     amount:
       2024-01-01: 0
-      2024-08-01: 0.05
+      2024-08-01: 0.03
+      2026-03-01: 0.05
