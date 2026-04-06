@@ -1,3 +1,19 @@
+## [1.630.0] - 2026-04-06
+
+### Added
+
+- Add extend_single_year_dataset for fast dataset year projection via multiplicative uprating, with entity-level HDFStore format detection and dual-path loading in Microsimulation.
+- Add Pennsylvania Child Care Works (CCW) child care subsidy program.
+- Add Vermont Child Care Financial Assistance Program (CCFAP).
+- Add `person_receives_aca` and `assigned_aca_ptc` variables, and keep `aca_ptc` as the pre-takeup ACA premium tax credit amount.
+
+### Fixed
+
+- Restricted the federal tip income deduction to Treasury-listed tipped occupations via a TTOC input, with SSTB exclusion support.
+- Include Wisconsin retirement income exclusion in state_income_tax aggregation, fixing overstated tax for retirees.
+- Treat the Arizona Families Tax Rebate subtraction as a reported received amount instead of recomputing it from current dependents.
+
+
 ## [1.629.0] - 2026-04-06
 
 ### Added
