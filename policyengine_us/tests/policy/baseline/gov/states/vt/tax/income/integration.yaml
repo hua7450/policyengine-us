@@ -31,7 +31,7 @@
 # Only the flat $5,000 exclusion applies.
 - name: VT capital gains exclusion - financial instruments get flat exclusion only
   period: 2024
-  absolute_error_margin: 10
+  absolute_error_margin: 1
   input:
     people:
       person1:
