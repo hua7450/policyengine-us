@@ -333,3 +333,100 @@
     #   Spousal deemed = 2,160/12 = 180/month
     #   Total = 231.67 + 180 = 411.67
     ssi_countable_income: [411.67, 0]
+
+- name: Case 13, PMV rebuttal with actual shelter value above PMV.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 40
+        is_disabled: true
+        ssi_receives_outside_shelter_support: true
+        # Actual annual shelter value $6,000 exceeds PMV ($4,108)
+        ssi_shelter_support_value: 6_000
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+  output:
+    ssi_federal_living_arrangement: OWN_HOUSEHOLD
+    ssi_pmv_applies: true
+    # PMV annual = 342.33 * 12 = 4,108
+    # Actual = 6,000 > PMV → capped at PMV
+    # ISM monthly = 342.33 (PMV, not 500)
+    ssi_in_kind_support_and_maintenance: 342.33
+    # Countable = 342.33 - 20 = 322.33
+    ssi_countable_income: 322.33
+    # uncapped = 967 - 322.33 = 644.67
+    uncapped_ssi: 644.67
+    ssi: 644.67
+
+- name: Case 14, one spouse in medical facility, community spouse gets individual FBR.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 67
+        is_tax_unit_head: true
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
+      person2:
+        age: 65
+        is_tax_unit_spouse: true
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+  output:
+    ssi_federal_living_arrangement: [MEDICAL_TREATMENT_FACILITY, OWN_HOUSEHOLD]
+    # Person1 (facility): $30/month
+    # Person2 (community spouse): individual FBR $967/month (not couple/2 $725)
+    ssi_amount_if_eligible: [30, 967]
+    ssi_countable_income: [0, 0]
+    uncapped_ssi: [30, 967]
+    ssi: [30, 967]
+
+- name: Case 15, couple both in another person's household with VTR.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 67
+        is_tax_unit_head: true
+        ssi_lives_in_another_persons_household: true
+        ssi_receives_shelter_from_others_in_household: true
+        ssi_others_pay_all_meals: true
+      person2:
+        age: 65
+        is_tax_unit_spouse: true
+        ssi_lives_in_another_persons_household: true
+        ssi_receives_shelter_from_others_in_household: true
+        ssi_others_pay_all_meals: true
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+  output:
+    ssi_federal_living_arrangement: [ANOTHER_PERSONS_HOUSEHOLD, ANOTHER_PERSONS_HOUSEHOLD]
+    # Couple rate / 2 = 1,450 / 2 = 725
+    # VTR: 725 * (1 - 1/3) = 725 * 2/3 = 483.33
+    ssi_amount_if_eligible: [483.33, 483.33]
+    ssi_in_kind_support_and_maintenance: [0, 0]
+    ssi_countable_income: [0, 0]
+    uncapped_ssi: [483.33, 483.33]
+    ssi: [483.33, 483.33]

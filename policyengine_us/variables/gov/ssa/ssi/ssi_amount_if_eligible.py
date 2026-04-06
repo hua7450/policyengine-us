@@ -48,6 +48,18 @@ class ssi_amount_if_eligible(Variable):
         # couple/deeming logic since they may be married.
         base_amount = where(person("is_child", period), p.individual, base_amount)
 
+        # 20 CFR § 416.414: When one spouse enters a medical facility,
+        # the couple is no longer treated as a couple. The community
+        # spouse receives the individual FBR instead of couple/2.
+        is_medical_facility = (
+            arrangement == SSIFederalLivingArrangement.MEDICAL_TREATMENT_FACILITY
+        )
+        partner_in_facility = person.marital_unit.sum(is_medical_facility) > 0
+        is_community_spouse = (
+            is_joint_claim & ~is_medical_facility & partner_in_facility
+        )
+        base_amount = where(is_community_spouse, p.individual, base_amount)
+
         # 20 CFR § 416.1131: One-third reduction for another person's
         # household. Applies to the applicable FBR (individual or couple
         # based on deeming).
@@ -62,11 +74,7 @@ class ssi_amount_if_eligible(Variable):
         )
 
         # 42 USC § 1382(e)(1)(A), 20 CFR § 416.414: Medical treatment
-        # facility, $30/month per person. One spouse in facility gets
-        # $30; the community spouse gets full individual FBR.
-        is_medical_facility = (
-            arrangement == SSIFederalLivingArrangement.MEDICAL_TREATMENT_FACILITY
-        )
+        # facility, $30/month per person.
         base_amount = where(is_medical_facility, p.medical_facility, base_amount)
 
         return base_amount * MONTHS_IN_YEAR
