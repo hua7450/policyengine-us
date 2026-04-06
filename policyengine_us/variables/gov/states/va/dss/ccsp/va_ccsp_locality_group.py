@@ -17,5 +17,5 @@ class va_ccsp_locality_group(Variable):
     defined_for = StateCode.VA
     reference = (
         "https://law.lis.virginia.gov/admincode/title8/agency20/chapter790/section40/",
-        "https://doe.virginia.gov/home/showpublisheddocument/56270#page=197",
+        "https://doe.virginia.gov/home/showpublisheddocument/56270#page=203",
     )

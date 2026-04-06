@@ -290,7 +290,7 @@
         state_code: VA
   output:
     # Group I: 150% FPG = 30,660
-    # Young child (age 5 <= 5): also check 85% SMI = 70,013.14
+    # Young child (age 5 < 6): also check 85% SMI = 70,013.14
     # Use max(30,660, 70,013.14) = 70,013.14
     # 48,000 <= 70,013.14 -> eligible
     va_ccsp_income_eligible: true
@@ -318,7 +318,7 @@
         state_code: VA
   output:
     # Group I: 150% FPG = 30,660
-    # Child age 6 > 5: no SMI exception
+    # Child age 6 not < 6: no SMI exception
     # 48,000 > 30,660 -> ineligible
     va_ccsp_income_eligible: false
 
@@ -379,9 +379,9 @@
     # 0 <= any threshold -> eligible
     va_ccsp_income_eligible: true
 
-# === MEDICAID/WIC CATEGORICAL ELIGIBILITY ===
+# === TANF CATEGORICAL ELIGIBILITY ===
 
-- name: Case 14, Medicaid-eligible household waives income test.
+- name: Case 14, TANF-enrolled household waives income test.
   period: 2024-01
   input:
     people:
@@ -391,7 +391,6 @@
         age: 3
         is_tax_unit_dependent: true
         immigration_status: CITIZEN
-        receives_medicaid: true
     tax_units:
       tax_unit:
         members: [person1, person2]
@@ -399,10 +398,11 @@
       spm_unit:
         members: [person1, person2]
         va_ccsp_locality_group: GROUP_III
+        is_tanf_enrolled: true
     households:
       household:
         members: [person1, person2]
         state_code: VA
   output:
-    # Income far above any threshold but Medicaid -> waived
+    # Income far above any threshold but TANF -> waived
     va_ccsp_income_eligible: true

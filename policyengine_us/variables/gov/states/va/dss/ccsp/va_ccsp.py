@@ -10,7 +10,7 @@ class va_ccsp(Variable):
     defined_for = "va_ccsp_eligible"
     reference = (
         "https://law.lis.virginia.gov/admincode/title8/agency20/chapter790/section40/",
-        "https://doe.virginia.gov/home/showpublisheddocument/56270#page=100",
+        "https://doe.virginia.gov/home/showpublisheddocument/56270#page=92",
     )
 
     def formula(spm_unit, period, parameters):

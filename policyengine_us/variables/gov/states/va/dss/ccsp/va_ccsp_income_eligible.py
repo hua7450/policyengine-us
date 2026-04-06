@@ -9,7 +9,7 @@ class va_ccsp_income_eligible(Variable):
     defined_for = StateCode.VA
     reference = (
         "https://law.lis.virginia.gov/admincode/title8/agency20/chapter790/section40/",
-        "https://doe.virginia.gov/home/showpublisheddocument/56270#page=86",
+        "https://doe.virginia.gov/home/showpublisheddocument/56270#page=62",
     )
 
     def formula(spm_unit, period, parameters):
@@ -29,11 +29,11 @@ class va_ccsp_income_eligible(Variable):
         enrolled = spm_unit("va_ccsp_enrolled", period)
         income_limit = where(enrolled, exit_limit, initial_limit)
 
-        # Young child exception: families with a child age 5 or younger
-        # qualify for the higher of FPG limit or 85% SMI regardless
+        # Young child exception: families with a child five years of age
+        # or younger qualify for the higher of FPG limit or 85% SMI
         person = spm_unit.members
         age = person("age", period.this_year)
-        has_young_child = spm_unit.any(age <= p.young_child_age_threshold)
+        has_young_child = spm_unit.any(age < p.young_child_age_threshold)
         young_child_limit = smi * p.young_child_smi_rate
         income_limit = where(
             has_young_child & ~enrolled,
@@ -43,6 +43,6 @@ class va_ccsp_income_eligible(Variable):
 
         income_test_passed = countable_income <= income_limit
 
-        # TANF/Medicaid/WIC categorical eligibility waives income test
+        # TANF categorical eligibility waives income test
         income_waived = spm_unit("va_ccsp_income_test_waived", period)
         return income_test_passed | income_waived

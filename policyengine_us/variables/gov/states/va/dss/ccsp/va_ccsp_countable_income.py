@@ -10,7 +10,7 @@ class va_ccsp_countable_income(Variable):
     defined_for = StateCode.VA
     reference = (
         "https://law.lis.virginia.gov/admincode/title8/agency20/chapter790/section40/",
-        "https://doe.virginia.gov/home/showpublisheddocument/56270#page=86",
+        "https://doe.virginia.gov/home/showpublisheddocument/56270#page=63",
     )
 
     adds = "gov.states.va.dss.ccsp.income.countable_income.sources"

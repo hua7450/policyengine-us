@@ -9,7 +9,7 @@ class va_ccsp_child_eligible(Variable):
     defined_for = StateCode.VA
     reference = (
         "https://law.lis.virginia.gov/admincode/title8/agency20/chapter790/section20/",
-        "https://doe.virginia.gov/home/showpublisheddocument/56270#page=82",
+        "https://doe.virginia.gov/home/showpublisheddocument/56270#page=58",
     )
 
     def formula(person, period, parameters):
