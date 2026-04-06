@@ -1,0 +1,11 @@
+description: Virginia sets this maximum number of children assessed copayments under the Child Care Subsidy Program.
+values:
+  2023-01-01: 3
+
+metadata:
+  unit: person
+  period: year
+  label: Virginia CCSP maximum children assessed copayment
+  reference:
+    - title: Virginia Child Care Subsidy Program Guidance Manual Section 3.5
+      href: https://doe.virginia.gov/home/showpublisheddocument/56270#page=100

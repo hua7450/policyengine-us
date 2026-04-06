@@ -1,0 +1,13 @@
+description: Virginia sets this age threshold for the young child income eligibility exception under the Child Care Subsidy Program.
+values:
+  2023-01-01: 5
+
+metadata:
+  unit: year
+  period: year
+  label: Virginia CCSP young child age threshold
+  reference:
+    - title: 8VAC20-790-40(C)(2)
+      href: https://law.lis.virginia.gov/admincode/title8/agency20/chapter790/section40/
+    - title: Virginia Child Care Subsidy Program Guidance Manual Section 3.4.2
+      href: https://doe.virginia.gov/home/showpublisheddocument/56270#page=92

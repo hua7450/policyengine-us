@@ -1,0 +1,12 @@
+description: Virginia deducts these income sources from countable income under the Child Care Subsidy Program.
+values:
+  2023-01-01:
+    - child_support_expense
+
+metadata:
+  unit: list
+  period: year
+  label: Virginia CCSP countable income deductions
+  reference:
+    - title: Virginia Child Care Subsidy Program Guidance Manual Section 3.4.1
+      href: https://doe.virginia.gov/home/showpublisheddocument/56270#page=86

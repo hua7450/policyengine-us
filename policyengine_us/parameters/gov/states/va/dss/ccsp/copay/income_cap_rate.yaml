@@ -1,0 +1,14 @@
+description: Virginia limits the family copayment to this share of gross countable income under the Child Care Subsidy Program.
+values:
+  2023-01-01: 0.07
+  2025-07-01: 0.05
+
+metadata:
+  unit: /1
+  period: year
+  label: Virginia CCSP copayment income cap rate
+  reference:
+    - title: Virginia Child Care Subsidy Program Guidance Manual Section 3.5
+      href: https://doe.virginia.gov/home/showpublisheddocument/56270#page=100
+    - title: Budget Amendment HB30 Item 126 #2h
+      href: https://budget.lis.virginia.gov/amendment/2024/2/HB30/Enrolled/CR/126/2h/
