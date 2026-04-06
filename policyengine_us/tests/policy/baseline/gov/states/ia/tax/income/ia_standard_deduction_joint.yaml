@@ -51,3 +51,36 @@
     state_code: IA
   output:
     ia_standard_deduction_joint: 27_700
+
+- name: 2025 joint elderly couple includes additional standard deduction.
+  period: 2025
+  absolute_error_margin: 1
+  input:
+    people:
+      person1:
+        age: 65
+        is_tax_unit_head: true
+      person2:
+        age: 71
+        is_tax_unit_spouse: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IA
+  output:
+    # Federal standard deduction: $31,500 basic + $1,600 * 2 elderly = $34,700
+    # IA 1040 line 1d uses full federal standard deduction
+    ia_standard_deduction_joint: 34_700
+
+- name: 2025 joint non-elderly uses base federal standard deduction.
+  period: 2025
+  absolute_error_margin: 1
+  input:
+    state_code: IA
+    filing_status: JOINT
+  output:
+    # Federal 2025 MFJ basic = $31,500 (no elderly additional)
+    ia_standard_deduction_joint: 31_500
