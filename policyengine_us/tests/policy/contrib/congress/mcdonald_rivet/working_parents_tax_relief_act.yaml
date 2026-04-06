@@ -1381,7 +1381,7 @@
       parent:
         age: 30
         is_tax_unit_dependent: false
-        employment_income: 23840
+        employment_income: 23890
       child:
         age: 2
         is_tax_unit_dependent: true
@@ -1394,7 +1394,7 @@
         members: [parent, child]
         state_code: TX
   output:
-    # At phase-out start ($23,840), EITC should be at maximum
+    # At phase-out start ($23,890), EITC should be at maximum
     # new_max = $4,427 × (76.24% / 34%) = $9,927
     eitc: 9927
     eitc_phase_in_rate: 0.7624
@@ -1410,7 +1410,7 @@
       parent:
         age: 30
         is_tax_unit_dependent: false
-        employment_income: 23840
+        employment_income: 23890
       child1:
         age: 1
         is_tax_unit_dependent: true
@@ -1426,7 +1426,7 @@
         members: [parent, child1, child2]
         state_code: TX
   output:
-    # At phase-out start ($23,840), EITC should be at maximum
+    # At phase-out start ($23,890), EITC should be at maximum
     # new_max = $7,316 × (100.14% / 40%) = $18,316
     eitc: 18316
     eitc_phase_in_rate: 1.0014
@@ -1442,7 +1442,7 @@
       parent:
         age: 30
         is_tax_unit_dependent: false
-        employment_income: 23810
+        employment_income: 23890
       child1:
         age: 0
         is_tax_unit_dependent: true
@@ -1461,7 +1461,7 @@
         members: [parent, child1, child2, child3]
         state_code: TX
   output:
-    # At phase-out start ($23,810 for 3+ children), EITC should be at maximum
+    # At phase-out start ($23,890 for 3+ children), EITC should be at maximum
     # new_max = $8,231 × (135.21% / 45%) = $24,731
     eitc: 24731
     eitc_phase_in_rate: 1.3521
@@ -1496,9 +1496,9 @@
         state_code: TX
   output:
     # EITC = max - (income - phase_out_start) × phase_out_rate
-    # EITC = $9,927 - ($30,000 - $23,840) × 0.2098
-    # EITC = $9,927 - $6,160 × 0.2098 = $9,927 - $1,292 = $8,635
-    eitc: 8635
+    # EITC = $9,927 - ($30,000 - $23,890) × 0.2098
+    # EITC = $9,927 - $6,110 × 0.2098 = $9,927 - $1,282 = $8,645
+    eitc: 8645
     eitc_phase_in_rate: 0.7624
     eitc_phase_out_rate: 0.2098
 
@@ -1525,9 +1525,9 @@
         members: [parent, child]
         state_code: TX
   output:
-    # Baseline: EITC = $4,427 - ($30,000 - $23,840) × 0.1598
-    # EITC = $4,427 - $6,160 × 0.1598 = $4,427 - $984 = $3,443
-    eitc: 3443
+    # Baseline: EITC = $4,427 - ($30,000 - $23,890) × 0.1598
+    # EITC = $4,427 - $6,110 × 0.1598 = $4,427 - $976 = $3,451
+    eitc: 3451
     eitc_phase_in_rate: 0.34
     eitc_phase_out_rate: 0.1598
 
@@ -1554,9 +1554,9 @@
         members: [parent, child]
         state_code: TX
   output:
-    # EITC = $9,927 - ($40,000 - $23,840) × 0.2098
-    # EITC = $9,927 - $16,160 × 0.2098 = $9,927 - $3,390 = $6,537
-    eitc: 6537
+    # EITC = $9,927 - ($40,000 - $23,890) × 0.2098
+    # EITC = $9,927 - $16,110 × 0.2098 = $9,927 - $3,380 = $6,547
+    eitc: 6547
     eitc_phase_in_rate: 0.7624
     eitc_phase_out_rate: 0.2098
 
@@ -1586,9 +1586,9 @@
         members: [parent, child1, child2]
         state_code: TX
   output:
-    # EITC = $18,316 - ($35,000 - $23,840) × 0.3106
-    # EITC = $18,316 - $11,160 × 0.3106 = $18,316 - $3,466 = $14,850
-    eitc: 14850
+    # EITC = $18,316 - ($35,000 - $23,890) × 0.3106
+    # EITC = $18,316 - $11,110 × 0.3106 = $18,316 - $3,451 = $14,865
+    eitc: 14865
     eitc_phase_in_rate: 1.0014
     eitc_phase_out_rate: 0.3106
 
@@ -1618,9 +1618,9 @@
         members: [parent, child1, child2]
         state_code: TX
   output:
-    # EITC = $18,316 - ($50,000 - $23,840) × 0.3106
-    # EITC = $18,316 - $26,160 × 0.3106 = $18,316 - $8,125 = $10,191
-    eitc: 10191
+    # EITC = $18,316 - ($50,000 - $23,890) × 0.3106
+    # EITC = $18,316 - $26,110 × 0.3106 = $18,316 - $8,110 = $10,206
+    eitc: 10206
     eitc_phase_in_rate: 1.0014
     eitc_phase_out_rate: 0.3106
 
@@ -1653,9 +1653,9 @@
         members: [parent, child1, child2, child3]
         state_code: TX
   output:
-    # EITC = $24,731 - ($35,000 - $23,810) × 0.3606
-    # EITC = $24,731 - $11,190 × 0.3606 = $24,731 - $4,035 = $20,696
-    eitc: 20696
+    # EITC = $24,731 - ($35,000 - $23,890) × 0.3606
+    # EITC = $24,731 - $11,110 × 0.3606 = $24,731 - $4,006 = $20,725
+    eitc: 20725
     eitc_phase_in_rate: 1.3521
     eitc_phase_out_rate: 0.3606
 
@@ -1688,9 +1688,9 @@
         members: [parent, child1, child2, child3]
         state_code: TX
   output:
-    # EITC = $24,731 - ($50,000 - $23,810) × 0.3606
-    # EITC = $24,731 - $26,190 × 0.3606 = $24,731 - $9,444 = $15,287
-    eitc: 15287
+    # EITC = $24,731 - ($50,000 - $23,890) × 0.3606
+    # EITC = $24,731 - $26,110 × 0.3606 = $24,731 - $9,415 = $15,316
+    eitc: 15316
     eitc_phase_in_rate: 1.3521
     eitc_phase_out_rate: 0.3606
 
@@ -1723,8 +1723,8 @@
         members: [parent, child1, child2, child3]
         state_code: TX
   output:
-    # Baseline: EITC = $8,231 - ($35,000 - $23,810) × 0.2106
-    # EITC = $8,231 - $11,190 × 0.2106 = $8,231 - $2,357 = $5,874
-    eitc: 5874
+    # Baseline: EITC = $8,231 - ($35,000 - $23,890) × 0.2106
+    # EITC = $8,231 - $11,110 × 0.2106 = $8,231 - $2,340 = $5,891
+    eitc: 5891
     eitc_phase_in_rate: 0.45
     eitc_phase_out_rate: 0.2106
