@@ -21,7 +21,7 @@
 #   Family Home: INFANT=$222.50, TODDLER=$200, PRESCHOOL=$200,
 #                SA_FT=$160, SA_PT=$100
 #   Special needs (center):      INFANT=$341.25, TODDLER=$304.50,
-#                                PRESCHOOL=$278.25, SA_FT=$199.50, SA_PT=$141.75
+#                                PRESCHOOL=$278.45, SA_FT=$199.50, SA_PT=$141.75
 #   Special needs (family home): INFANT=$233.63, TODDLER=$216.25,
 #                                PRESCHOOL=$216.25, SA_FT=$168, SA_PT=$105
 
@@ -57,9 +57,9 @@
     de_poc_eligible_child: [false, true]
 
     # === Age Group ===
-    # person1: age 30, no childcare hours -> SCHOOL_AGE_PART_TIME
+    # person1: age 30, adult (not dependent) -> NONE
     # person2: age 4, hours/day 8 -> PRESCHOOL
-    de_poc_age_group: [SCHOOL_AGE_PART_TIME, PRESCHOOL]
+    de_poc_age_group: [NONE, PRESCHOOL]
 
     # === Income Eligibility ===
     # FPG family of 2: 21_150
@@ -135,9 +135,9 @@
     de_poc_eligible_child: [false, true, true]
 
     # === Age Groups ===
-    # person1: age 28, no childcare hours -> SCHOOL_AGE_PART_TIME
+    # person1: age 28, adult (not dependent) -> NONE
     # person2: age 1 -> TODDLER; person3: age 4 -> PRESCHOOL
-    de_poc_age_group: [SCHOOL_AGE_PART_TIME, TODDLER, PRESCHOOL]
+    de_poc_age_group: [NONE, TODDLER, PRESCHOOL]
 
     # === Income Eligibility ===
     # FPG family of 3: 26_650
@@ -199,9 +199,9 @@
     de_poc_eligible_child: [false, true]
 
     # === Age Group ===
-    # person1: age 35, no childcare hours -> SCHOOL_AGE_PART_TIME
+    # person1: age 35, adult (not dependent) -> NONE
     # person2: age 0 -> INFANT
-    de_poc_age_group: [SCHOOL_AGE_PART_TIME, INFANT]
+    de_poc_age_group: [NONE, INFANT]
 
     # === Income Eligibility ===
     # FPG family of 2: 21_150
@@ -267,9 +267,9 @@
     de_poc_eligible_child: [false, true]
 
     # === Age Group ===
-    # person1: age 45, no childcare hours -> SCHOOL_AGE_PART_TIME
+    # person1: age 45, adult (not dependent) -> NONE
     # person2: age 15 >= 6, hours/day 6 >= 4 -> SCHOOL_AGE_FULL_TIME
-    de_poc_age_group: [SCHOOL_AGE_PART_TIME, SCHOOL_AGE_FULL_TIME]
+    de_poc_age_group: [NONE, SCHOOL_AGE_FULL_TIME]
 
     # === Income Eligibility ===
     # FPG family of 2: 21_150
@@ -334,10 +334,10 @@
     de_poc_eligible_child: [false, true, true]
 
     # === Age Groups ===
-    # person1: age 32, no childcare hours -> SCHOOL_AGE_PART_TIME
+    # person1: age 32, adult (not dependent) -> NONE
     # person2: age 0 -> INFANT
     # person3: age 8 >= 6, hours/day 3 < 4 -> SCHOOL_AGE_PART_TIME
-    de_poc_age_group: [SCHOOL_AGE_PART_TIME, INFANT, SCHOOL_AGE_PART_TIME]
+    de_poc_age_group: [NONE, INFANT, SCHOOL_AGE_PART_TIME]
 
     # === Income Eligibility ===
     # FPG family of 3: 26_650
@@ -409,11 +409,11 @@
     de_poc_eligible_child: [false, false, true, true]
 
     # === Age Groups ===
-    # person1: age 30, no childcare hours -> SCHOOL_AGE_PART_TIME
-    # person2: age 30, no childcare hours -> SCHOOL_AGE_PART_TIME
+    # person1: age 30, adult (not dependent) -> NONE
+    # person2: age 30, adult (not dependent) -> NONE
     # person3: age 3 -> PRESCHOOL
     # person4: age 1 -> TODDLER
-    de_poc_age_group: [SCHOOL_AGE_PART_TIME, SCHOOL_AGE_PART_TIME, PRESCHOOL, TODDLER]
+    de_poc_age_group: [NONE, NONE, PRESCHOOL, TODDLER]
 
     # === Income Eligibility ===
     # FPG family of 4: 32_150

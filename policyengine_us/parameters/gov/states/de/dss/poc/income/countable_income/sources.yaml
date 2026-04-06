@@ -17,6 +17,8 @@ values:
     - workers_compensation
     - alimony_income
     - child_support_received
+    # de_tanf — counted per DSSM 11003.9.1(5.B) but excluded to
+    # avoid circular dependency (CCAP → tanf → childcare_expenses → CCAP)
     # The following are counted per DSSM 11003.9.1(4) but have no
     # matching variables:
     # - adoption_subsidy

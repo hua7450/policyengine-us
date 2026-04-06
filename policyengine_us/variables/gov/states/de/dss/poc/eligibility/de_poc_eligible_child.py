@@ -21,4 +21,12 @@ class de_poc_eligible_child(Variable):
         immigration_eligible = person(
             "is_ccdf_immigration_eligible_child", period.this_year
         )
-        return age_eligible & is_dependent & immigration_eligible
+        standard_eligible = age_eligible & is_dependent & immigration_eligible
+        # Foster care, protective services (DFS referral), and homeless
+        # children are eligible regardless of dependency or immigration
+        # status (DSSM 11003.7).
+        foster = person("is_in_foster_care", period)
+        protective = person("receives_or_needs_protective_services", period)
+        homeless = person.household("is_homeless", period.this_year)
+        categorical_eligible = age_eligible & (foster | protective | homeless)
+        return standard_eligible | categorical_eligible
