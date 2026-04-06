@@ -1,3 +1,10 @@
+## [1.632.2] - 2026-04-06
+
+### Fixed
+
+- Fixed Working Parents Tax Relief Act reform to be idempotent when applied multiple times.
+
+
 ## [1.632.1] - 2026-04-06
 
 ### Fixed
