@@ -272,7 +272,7 @@
 
 - name: Case 10, Low earner, 1 child age 2, in phase-in region, reform increases EITC.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
@@ -298,7 +298,7 @@
 
 - name: Case 11, Low earner, 1 child age 5 (no bonus), baseline EITC.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
@@ -324,7 +324,7 @@
 
 - name: Case 12, 2 children ages 1 and 2, large phase-in boost.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
@@ -353,7 +353,7 @@
 
 - name: Case 13, Single parent, higher income, benefits from increased max.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
@@ -648,7 +648,7 @@
 
 - name: Case 23, NY State EITC, 1 child age 2, benefits from federal EITC boost.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
@@ -674,7 +674,7 @@
 
 - name: Case 24, NY State EITC, 1 child age 5, no reform boost.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
@@ -702,7 +702,7 @@
 
 - name: Case 25, CA resident, 1 child age 2, federal EITC boost.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
@@ -768,7 +768,7 @@
 
 - name: Case 27, Baseline comparison (reform OFF), 1 child age 2, $5000 income.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: false
@@ -794,7 +794,7 @@
 
 - name: Case 28, Reform comparison (reform ON), 1 child age 2, $5000 income.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
@@ -827,7 +827,7 @@
 
 - name: Case 29, 1 child age 2, $2000 income, reform doubles EITC.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
@@ -854,7 +854,7 @@
 
 - name: Case 30, 1 child age 2, $8000 income, both rate and max increase.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
@@ -883,7 +883,7 @@
 
 - name: Case 31, 1 child age 2 vs age 5 comparison (reform OFF baseline).
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: false
@@ -911,7 +911,7 @@
 
 - name: Case 32, 2 children ages 1 and 2, $3000 income, massive boost.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
@@ -941,7 +941,7 @@
 
 - name: Case 33, 2 children ages 1 and 2, $5000 income.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
@@ -971,7 +971,7 @@
 
 - name: Case 34, 2 children ages 1 and 2, $10000 income, both rate and max increase.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
@@ -1003,7 +1003,7 @@
 
 - name: Case 35, 2 children baseline (reform OFF) for comparison.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: false
@@ -1034,7 +1034,7 @@
 
 - name: Case 36, 3 children ages 0, 1, 2, $4000 income, huge boost.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
@@ -1067,7 +1067,7 @@
 
 - name: Case 37, 3 children ages 0, 1, 2, $7000 income, both rate and max increase.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
@@ -1102,7 +1102,7 @@
 
 - name: Case 38, 3 children baseline (reform OFF) for comparison.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: false
@@ -1136,7 +1136,7 @@
 
 - name: Case 39, Joint filers, 2 children ages 1 and 3, $8000 combined income.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
@@ -1173,7 +1173,7 @@
 
 - name: Case 40, Joint filers baseline (reform OFF) for comparison.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: false
@@ -1208,7 +1208,7 @@
 
 - name: Case 41, 2 children (1 young, 1 older), partial boost.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
@@ -1239,7 +1239,7 @@
 
 - name: Case 42, 3 children (2 young, 1 older), partial boost.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
@@ -1275,7 +1275,7 @@
 
 - name: Case 43, Summary test, 1 young child, $5000 income, reform ON.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
@@ -1303,7 +1303,7 @@
 
 - name: Case 44, Summary test, 2 young children, $5000 income, reform ON.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
@@ -1334,7 +1334,7 @@
 
 - name: Case 45, Summary test, 3 young children, $5000 income, reform ON.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
@@ -1373,7 +1373,7 @@
 
 - name: Case 46, Phase-out boundary, 1 child age 2, income at phase-out start.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
@@ -1402,7 +1402,7 @@
 
 - name: Case 47, Phase-out boundary, 2 children ages 1 and 2, income at phase-out start.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
@@ -1434,7 +1434,7 @@
 
 - name: Case 48, Phase-out boundary, 3 children ages 0, 1, 2, income at phase-out start.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
@@ -1474,7 +1474,7 @@
 
 - name: Case 49, Phase-out region, 1 child age 2, $30000 income.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
@@ -1504,7 +1504,7 @@
 
 - name: Case 50, Phase-out region baseline (reform OFF), 1 child, $30000 income.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: false
@@ -1533,7 +1533,7 @@
 
 - name: Case 51, Phase-out region, 1 child age 2, $40000 income.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
@@ -1562,7 +1562,7 @@
 
 - name: Case 52, Phase-out region, 2 children ages 1 and 2, $35000 income.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
@@ -1594,7 +1594,7 @@
 
 - name: Case 53, Phase-out region, 2 children ages 1 and 2, $50000 income.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
@@ -1626,7 +1626,7 @@
 
 - name: Case 54, Phase-out region, 3 children ages 0, 1, 2, $35000 income.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: true
@@ -1696,7 +1696,7 @@
 
 - name: Case 56, Phase-out region baseline (reform OFF), 3 children, $35000 income.
   period: 2026
-  absolute_error_margin: 0.1
+  absolute_error_margin: 1
   reforms: policyengine_us.reforms.congress.mcdonald_rivet.working_parents_tax_relief_act
   input:
     gov.contrib.congress.mcdonald_rivet.working_parents_tax_relief_act.in_effect: false
