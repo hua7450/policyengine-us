@@ -6,7 +6,10 @@ class qualified_business_income(Variable):
     entity = Person
     label = "Qualified business income"
     documentation = (
-        "Business income that qualifies for the qualified business income deduction."
+        "Non-SSTB business income that qualifies for the qualified business "
+        "income deduction. Excludes sstb_self_employment_income, which is "
+        "tracked separately so the §199A(d)(3) phaseout can apply only to the "
+        "SSTB component above the threshold."
     )
     unit = USD
     definition_period = YEAR
@@ -15,10 +18,17 @@ class qualified_business_income(Variable):
 
     def formula(person, period, parameters):
         p = parameters(period).gov.irs.deductions.qbi
-        gross_qbi = 0
+        non_sstb_gross = 0
         for var in p.income_definition:
-            gross_qbi += person(var, period) * person(
+            non_sstb_gross += person(var, period) * person(
                 var + "_would_be_qualified", period
             )
+        sstb_gross = person("sstb_self_employment_income", period) * person(
+            "sstb_self_employment_income_would_be_qualified", period
+        )
+        # Pro-rate QBI deductions across non-SSTB and SSTB shares.
+        # When there is no SSTB QBI, the full deduction is applied to non-SSTB.
+        gross_total = non_sstb_gross + sstb_gross
         qbi_deductions = add(person, period, p.deduction_definition)
-        return max_(0, gross_qbi - qbi_deductions)
+        non_sstb_share = where(gross_total > 0, non_sstb_gross / gross_total, 1)
+        return max_(0, non_sstb_gross - qbi_deductions * non_sstb_share)
