@@ -1,3 +1,10 @@
+## [1.632.5] - 2026-04-07
+
+### Fixed
+
+- Fix DC standard deduction to use DC-specific amounts for 2025 per D-40 booklet.
+
+
 ## [1.632.4] - 2026-04-07
 
 ### Fixed
