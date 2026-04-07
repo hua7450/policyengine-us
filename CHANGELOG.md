@@ -1,3 +1,10 @@
+## [1.632.4] - 2026-04-07
+
+### Fixed
+
+- Fix Iowa standard deduction to include elderly/blind additional per IA 1040 line 1d.
+
+
 ## [1.632.3] - 2026-04-07
 
 ### Fixed
