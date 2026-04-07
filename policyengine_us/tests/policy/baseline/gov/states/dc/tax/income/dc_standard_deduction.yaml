@@ -87,7 +87,7 @@
 
 - name: DC 2025 joint elderly couple standard deduction.
   period: 2025
-  absolute_error_margin: 1
+  absolute_error_margin: 0.1
   input:
     people:
       person1:
@@ -107,9 +107,31 @@
     # $30,000 DC basic + $1,600 * 2 additional (both 65+) = $33,200
     dc_standard_deduction: 33_200
 
+- name: DC 2025 joint one spouse elderly standard deduction.
+  period: 2025
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 66
+        is_tax_unit_head: true
+      person2:
+        age: 40
+        is_tax_unit_spouse: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: DC
+  output:
+    # $30,000 DC basic + $1,600 * 1 additional (only head is 65+) = $31,600
+    dc_standard_deduction: 31_600
+
 - name: DC 2025 single elderly standard deduction.
   period: 2025
-  absolute_error_margin: 1
+  absolute_error_margin: 0.1
   input:
     people:
       person1:
@@ -126,6 +148,26 @@
     # $15,000 DC basic + $2,000 additional (single, 65+) = $17,000
     dc_standard_deduction: 17_000
 
+- name: DC 2025 single aged and blind standard deduction.
+  period: 2025
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 66
+        is_tax_unit_head: true
+        is_blind: true
+    tax_units:
+      tax_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: DC
+  output:
+    # $15,000 DC basic + $2,000 * 2 additional (single, 65+ AND blind) = $19,000
+    dc_standard_deduction: 19_000
+
 # --- 2026: Uprated from DC base (NOT federal base) ---
 # CPI ratio ~1.023 (from EITC max: 8231/8046), $50 downward rounding.
 # DC MFJ: $30,000 * ~1.023 ≈ $30,690 → $30,650
@@ -133,7 +175,7 @@
 
 - name: DC 2026 joint uprated from DC base, not federal.
   period: 2026
-  absolute_error_margin: 100
+  absolute_error_margin: 0.1
   input:
     state_code: DC
     filing_status: JOINT
@@ -143,7 +185,7 @@
 
 - name: DC 2026 single uprated from DC base, not federal.
   period: 2026
-  absolute_error_margin: 100
+  absolute_error_margin: 0.1
   input:
     state_code: DC
     filing_status: SINGLE
@@ -153,7 +195,7 @@
 
 - name: DC 2026 head of household uprated from DC base, not federal.
   period: 2026
-  absolute_error_margin: 100
+  absolute_error_margin: 0.1
   input:
     state_code: DC
     filing_status: HEAD_OF_HOUSEHOLD
