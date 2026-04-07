@@ -1,3 +1,10 @@
+## [1.632.3] - 2026-04-07
+
+### Fixed
+
+- Include CA AMT and mental health services tax in state_income_tax.
+
+
 ## [1.632.2] - 2026-04-06
 
 ### Fixed
