@@ -25,7 +25,9 @@ class va_ccsp_ready_region(Variable):
 
     def formula(household, period, parameters):
         county = household("county_str", period)
-        p = parameters(period).gov.states.va.dss.ccsp.mrr.ready_region
+        p = parameters(
+            period
+        ).gov.states.va.dss.ccsp.maximum_reimbursement_rate.ready_region
 
         blue_ridge = np.isin(county, p.blue_ridge)
         capital_area = np.isin(county, p.capital_area)

@@ -17,17 +17,9 @@ class va_ccsp_care_age_group(Variable):
     definition_period = YEAR
     label = "Virginia CCSP care age group"
     defined_for = StateCode.VA
-    reference = "https://ris.dls.virginia.gov/uploads/22VAC40/dibr/VDOE%20Child%20Care%20Program%20Guidance%20Manual%205.3.2023-20240822104447.pdf#page=203"
+    reference = "https://www.childcare.virginia.gov/home/showpublisheddocument/66667/638981099706730000#page=203"
 
     def formula(person, period, parameters):
-        age = person("age", period)
-        return select(
-            [age < 1, age < 2, age < 3, age < 6, age < 13],
-            [
-                VACCSPCareAgeGroup.INFANT,
-                VACCSPCareAgeGroup.TODDLER,
-                VACCSPCareAgeGroup.TWO_YEAR_OLD,
-                VACCSPCareAgeGroup.PRESCHOOL,
-                VACCSPCareAgeGroup.SCHOOL_AGE,
-            ],
-        )
+        age_months = person("age", period) * MONTHS_IN_YEAR
+        p = parameters(period).gov.states.va.dss.ccsp.maximum_reimbursement_rate
+        return p.care_age_group.calc(age_months)

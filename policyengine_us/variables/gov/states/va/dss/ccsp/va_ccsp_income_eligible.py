@@ -9,11 +9,12 @@ class va_ccsp_income_eligible(Variable):
     defined_for = StateCode.VA
     reference = (
         "https://law.lis.virginia.gov/admincode/title8/agency20/chapter790/section40/",
-        "https://doe.virginia.gov/home/showpublisheddocument/56270#page=62",
+        "https://www.childcare.virginia.gov/home/showpublisheddocument/66667/638981099706730000#page=204",
     )
 
     def formula(spm_unit, period, parameters):
         p = parameters(period).gov.states.va.dss.ccsp.income
+        p_loc = parameters(period).gov.states.va.dss.ccsp.localities
         countable_income = spm_unit("va_ccsp_countable_income", period)
         fpg = spm_unit("spm_unit_fpg", period)
         smi = spm_unit("hhs_smi", period)
@@ -22,6 +23,12 @@ class va_ccsp_income_eligible(Variable):
         locality_group = spm_unit("va_ccsp_locality_group", period.this_year)
         fpg_rate = p.initial_eligibility_fpg_rate[locality_group]
         initial_limit = fpg * fpg_rate
+
+        # Fairfax/Alexandria exception: 250% FPG capped at 85% SMI
+        county = spm_unit.household("county_str", period)
+        is_fairfax_alexandria = np.isin(county, p_loc.fairfax_alexandria)
+        fa_limit = min_(fpg * p.fairfax_alexandria_fpg_rate, smi * p.exit_smi_rate)
+        initial_limit = where(is_fairfax_alexandria, fa_limit, initial_limit)
 
         # Redetermination (enrolled): 85% SMI
         exit_limit = smi * p.exit_smi_rate

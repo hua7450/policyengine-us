@@ -14,7 +14,7 @@ class va_ccsp_daily_mrr(Variable):
     reference = "https://data.virginia.gov/dataset/general-child-care-subsidy-program-maximum-reimbursement-rates"
 
     def formula(person, period, parameters):
-        p = parameters(period).gov.states.va.dss.ccsp.mrr
+        p = parameters(period).gov.states.va.dss.ccsp.maximum_reimbursement_rate
         region = person.household("va_ccsp_ready_region", period.this_year)
         provider_type = person("va_ccsp_provider_type", period.this_year)
         age_group = person("va_ccsp_care_age_group", period.this_year)

@@ -331,8 +331,11 @@
     va_ccsp_copay: 60
 
     # Monthly expenses: 12,000/12 = 1,000
-    # Benefit: max(1,000 - 60, 0) = $940
-    va_ccsp: 940
+    # Benefit before MRR: max(1,000 - 60, 0) = $940
+    # Default county ACCOMACK -> SOUTHEASTERN region
+    # MRR: SCHOOL_AGE CENTER SOUTHEASTERN = $30/day * 23 days = $690
+    # Benefit: min(940, 690) = $690
+    va_ccsp: 690
 
 - name: Case 7, TANF-enrolled family waives income test for high-income family.
   period: 2024-01

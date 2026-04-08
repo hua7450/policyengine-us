@@ -406,3 +406,164 @@
   output:
     # Income far above any threshold but TANF -> waived
     va_ccsp_income_eligible: true
+
+# === FAIRFAX/ALEXANDRIA EXCEPTION (250% FPG capped at 85% SMI) ===
+
+- name: Case 15, Fairfax family eligible at 250% FPG.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        employment_income: 50_000
+      person2:
+        age: 8
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: VA
+        county: FAIRFAX_COUNTY_VA
+  output:
+    # Fairfax: 250% FPG = 20,440 * 2.5 = 51,100
+    # 85% SMI = 70,013.14
+    # Limit: min(51,100, 70,013.14) = 51,100
+    # 50,000 <= 51,100 -> eligible
+    va_ccsp_income_eligible: true
+
+- name: Case 16, Fairfax family above 250% FPG ineligible.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        employment_income: 51_101
+      person2:
+        age: 8
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: VA
+        county: FAIRFAX_COUNTY_VA
+  output:
+    # Fairfax: 250% FPG = 51,100
+    # 51,101 > 51,100 -> ineligible
+    va_ccsp_income_eligible: false
+
+- name: Case 17, Alexandria family eligible under 250% FPG exception.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        employment_income: 45_000
+      person2:
+        age: 8
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: VA
+        county: ALEXANDRIA_CITY_VA
+  output:
+    # Alexandria: 250% FPG = 51,100
+    # 45,000 <= 51,100 -> eligible
+    va_ccsp_income_eligible: true
+
+- name: Case 18, non-Fairfax Group III family at same income ineligible.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        employment_income: 45_000
+      person2:
+        age: 8
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: VA
+        county: STAFFORD_COUNTY_VA
+  output:
+    # Stafford is Group III but NOT Fairfax/Alexandria
+    # 185% FPG = 37,814
+    # 45,000 > 37,814 -> ineligible
+    va_ccsp_income_eligible: false
+
+# === MEDICAID/WIC INCOME WAIVER ===
+
+- name: Case 19, Medicaid recipient waives income test.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        employment_income: 200_000
+        receives_medicaid: true
+      person2:
+        age: 5
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: VA
+  output:
+    # Income far above any threshold but Medicaid -> waived
+    va_ccsp_income_eligible: true
+
+- name: Case 20, WIC recipient waives income test.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        employment_income: 200_000
+      person2:
+        age: 2
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+        receives_wic: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: VA
+  output:
+    # Child on WIC -> income test waived for unit
+    va_ccsp_income_eligible: true
