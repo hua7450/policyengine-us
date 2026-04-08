@@ -63,8 +63,18 @@ class sc_ccap_copay(Variable):
         capped_weekly = min_(weekly_copay_per_child, weekly_income_cap)
         # Head Start children have no copay (Section 2.15); only count
         # non-Head-Start eligible children for the copay calculation.
+        # Non-Head-Start children are only covered when the unit qualifies
+        # through the standard or protective pathway (income + activity
+        # or protective services).  Head Start-only units pay $0.
         is_eligible = person("sc_ccap_eligible_child", period)
         is_head_start = person("is_enrolled_in_head_start", period.this_year)
-        num_paying = spm_unit.sum(is_eligible & ~is_head_start)
+        income_eligible = spm_unit("sc_ccap_income_eligible", period)
+        activity_eligible = spm_unit("sc_ccap_activity_eligible", period)
+        covers_non_hs = (income_eligible & activity_eligible) | protective
+        num_paying = where(
+            covers_non_hs,
+            spm_unit.sum(is_eligible & ~is_head_start),
+            0,
+        )
         monthly_copay = capped_weekly * num_paying * (WEEKS_IN_YEAR / MONTHS_IN_YEAR)
         return where(exempt, 0, monthly_copay)

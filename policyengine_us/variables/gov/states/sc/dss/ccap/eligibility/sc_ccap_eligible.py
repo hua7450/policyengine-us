@@ -33,8 +33,14 @@ class sc_ccap_eligible(Variable):
         )
 
         # Head Start wraparound pathway (Section 2.15) — waives income
-        # and activity.
-        head_start = spm_unit("sc_ccap_head_start_category", period)
-        head_start_path = has_eligible_child & asset_eligible & head_start
+        # and activity.  The Head Start child itself must be CCDF-eligible
+        # (age + immigration); a sibling's eligibility cannot combine with
+        # a different child's Head Start enrollment.
+        person = spm_unit.members
+        head_start_eligible_child = person("sc_ccap_eligible_child", period) & person(
+            "is_enrolled_in_head_start", period.this_year
+        )
+        has_head_start_eligible_child = spm_unit.any(head_start_eligible_child)
+        head_start_path = has_head_start_eligible_child & asset_eligible
 
         return standard | protective_path | head_start_path

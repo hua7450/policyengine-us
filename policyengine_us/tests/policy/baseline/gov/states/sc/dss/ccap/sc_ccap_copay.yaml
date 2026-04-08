@@ -172,12 +172,10 @@
     # FPG for 4 (2025): 32,150 -> 150% = 48,225/yr = 4,019/mo
     # SMI for 4 (SC): 98,172/yr -> 85% = 6,954/mo
     # Band width: ceil((6954 - 4019) / 5) = 587
-    # Tier 4 ($17): income > 4019+587*3=5780 and <= 4019+587*4=6367
-    # Monthly employment = 68,400 / 12 = 5,700
-    # Countable income includes computed benefits ~$530
-    # Total ~$6,230 -> tier 3 ($17/wk)
-    # $17/wk * 2 eligible children * (52/12) = $147.33/mo
-    sc_ccap_copay: 147.33
+    # Tier 3 ($14): income > 4019+587*2=5193 and <= 4019+587*3=5780
+    # Monthly income = 68,400 / 12 = 5,700 -> tier 2 ($14/wk)
+    # $14/wk * 2 eligible children * (52/12) = $121.33/mo
+    sc_ccap_copay: 121.33
 
 - name: Case 6, family size 4 in $20 copay tier.
   period: 2025-01
@@ -598,3 +596,39 @@
     # $9,000 > 8518? Yes; > 8892? Yes; > 9266? No -> tier 2 ($14/wk)
     # 8 eligible children * $14/wk * 52/12 = $485.33/mo
     sc_ccap_copay: 485.33
+
+- name: Case 19, Head Start only family with sibling gets zero copay.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 90_000
+        weekly_hours_worked: 0
+        is_full_time_student: false
+      person2:
+        age: 4
+        is_tax_unit_dependent: true
+        is_enrolled_in_head_start: true
+      person3:
+        age: 7
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        tanf: 0
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: SC
+  output:
+    # Family qualifies only through Head Start path (high income, no work).
+    # Head Start child (person2) has $0 copay per Section 2.15.
+    # Sibling (person3) is not covered by the Head Start path and does
+    # not meet standard path requirements, so num_paying = 0.
+    # Total copay = $0.
+    sc_ccap_copay: 0

@@ -249,3 +249,71 @@
     # 90,000 > 85% SMI for size 2 (~56,743) -> income ineligible
     # Child age 8 not Head Start eligible -> no Head Start bypass
     sc_ccap_eligible: false
+
+- name: Case 10, Head Start child plus non-Head-Start sibling with no work.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 90_000
+        weekly_hours_worked: 0
+        is_full_time_student: false
+      person2:
+        age: 4
+        is_tax_unit_dependent: true
+        is_enrolled_in_head_start: true
+      person3:
+        age: 7
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: SC
+  output:
+    # Head Start child (person2) is CCDF-eligible and enrolled ->
+    # Head Start path qualifies the unit. Sibling (person3) is not
+    # independently covered (no work, high income) but unit is eligible
+    # for the Head Start child only.
+    sc_ccap_eligible: true
+
+- name: Case 11, Head Start enrolled child is not CCDF-eligible but sibling is.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 90_000
+        weekly_hours_worked: 0
+        is_full_time_student: false
+      person2:
+        age: 4
+        is_tax_unit_dependent: true
+        immigration_status: UNDOCUMENTED
+        is_enrolled_in_head_start: true
+      person3:
+        age: 7
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: SC
+  output:
+    # Head Start child (person2) is undocumented -> not CCDF-eligible.
+    # Sibling (person3) is CCDF-eligible but not Head Start enrolled.
+    # No work + high income -> standard path fails for sibling.
+    # Head Start path requires the SAME child to be both enrolled
+    # and CCDF-eligible, so unit is ineligible.
+    sc_ccap_eligible: false
