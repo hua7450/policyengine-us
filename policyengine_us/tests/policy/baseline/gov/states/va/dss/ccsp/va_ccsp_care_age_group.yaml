@@ -97,7 +97,7 @@
     # 48 months >= 36, < 72 -> preschool
     va_ccsp_care_age_group: PRESCHOOL
 
-- name: Case 8, 5 year old is preschool.
+- name: Case 8, 5 year old is school age.
   period: 2024
   input:
     people:
@@ -108,8 +108,8 @@
         members: [person1]
         state_code: VA
   output:
-    # 60 months >= 36, < 72 -> preschool
-    va_ccsp_care_age_group: PRESCHOOL
+    # 60 months >= 60 -> school age
+    va_ccsp_care_age_group: SCHOOL_AGE
 
 - name: Case 9, 7 year old is school age.
   period: 2024
@@ -122,5 +122,20 @@
         members: [person1]
         state_code: VA
   output:
-    # 84 months >= 72 -> school age
+    # 84 months >= 60 -> school age
     va_ccsp_care_age_group: SCHOOL_AGE
+
+- name: Case 10, 59 month old is preschool.
+  period: 2024
+  input:
+    people:
+      person1:
+        # 59/12 = 4.9167
+        age: 4.917
+    households:
+      household:
+        members: [person1]
+        state_code: VA
+  output:
+    # 59 months < 60 -> preschool
+    va_ccsp_care_age_group: PRESCHOOL

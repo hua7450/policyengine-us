@@ -36,8 +36,12 @@
     # Income cap: 36,000 * 0.07 / 12 = 210
     # Copay: min(60, 210) = $60
     # Monthly expenses: 12,000 / 12 = 1,000
-    # Benefit: max(1,000 - 60, 0) = $940
-    va_ccsp: 940
+    # Benefit before MRR: max(1,000 - 60, 0) = $940
+    # Default county ACCOMACK -> SOUTHEASTERN
+    # Age 5 = 60 months -> SCHOOL_AGE, CENTER rate = $30/day
+    # MRR: $30 * 23 = $690
+    # Benefit: min(940, 690) = $690
+    va_ccsp: 690
 
 - name: Case 2, copay exceeds expenses so benefit is zero.
   period: 2024-01
@@ -134,5 +138,9 @@
   output:
     # Zero income -> $0 copay
     # Monthly expenses: 10,000 / 12 = 833.33
-    # Benefit: max(833.33 - 0, 0) = 833.33
-    va_ccsp: 833.33
+    # Benefit before MRR: max(833.33 - 0, 0) = $833.33
+    # Default county ACCOMACK -> SOUTHEASTERN
+    # Age 5 = 60 months -> SCHOOL_AGE, CENTER rate = $30/day
+    # MRR: $30 * 23 = $690
+    # Benefit: min(833.33, 690) = $690
+    va_ccsp: 690

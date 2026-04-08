@@ -77,8 +77,12 @@
 
     # === Benefit ===
     # Monthly expenses: 12,000 / 12 = 1,000
-    # Benefit: max(1,000 - 60, 0) = $940
-    va_ccsp: 940
+    # Benefit before MRR: max(1,000 - 60, 0) = $940
+    # Default county ACCOMACK -> SOUTHEASTERN
+    # Age 5 = 60 months -> SCHOOL_AGE, CENTER rate = $30/day
+    # MRR: $30 * 23 = $690
+    # Benefit: min(940, 690) = $690
+    va_ccsp: 690
 
 - name: Case 2, enrolled family at redetermination income limit.
   period: 2024-01

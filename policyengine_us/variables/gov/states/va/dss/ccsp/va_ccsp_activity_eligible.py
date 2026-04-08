@@ -21,9 +21,12 @@ class va_ccsp_activity_eligible(Variable):
         is_in_school = person("is_full_time_student", period.this_year)
         is_disabled = person("is_disabled", period.this_year)
         is_active = (hours_worked >= p.min_hours_per_week) | is_in_school
-        # Per 8VAC20-790-20(A)(9)(a), in a two-parent household a
-        # disabled parent satisfies the "documented reason" requirement.
         meets_requirement = is_active | is_disabled
         has_active_parent = spm_unit.sum(is_head_or_spouse & is_active) >= 1
         all_covered = spm_unit.sum(is_head_or_spouse & ~meets_requirement) == 0
-        return has_active_parent & all_covered
+        modeled_eligible = has_active_parent & all_covered
+        # meets_ccdf_activity_test covers activities not individually
+        # modeled: job search, education/training, VIEW/SNAP E&T,
+        # CPS referral, and temporary leave.
+        ccdf_activity = spm_unit("meets_ccdf_activity_test", period.this_year)
+        return modeled_eligible | ccdf_activity
