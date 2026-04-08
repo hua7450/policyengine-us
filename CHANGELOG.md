@@ -1,3 +1,10 @@
+## [1.633.2] - 2026-04-08
+
+### Fixed
+
+- Fixed Maryland non-refundable EITC to cap at state income tax liability per section 10-704(c)(1), which previously overstated the credit by up to 50% of federal EITC for low-income households.
+
+
 ## [1.633.1] - 2026-04-08
 
 ### Changed
