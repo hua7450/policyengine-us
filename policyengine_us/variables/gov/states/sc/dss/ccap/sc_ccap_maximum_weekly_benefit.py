@@ -65,8 +65,9 @@ class sc_ccap_maximum_weekly_benefit(Variable):
         )
 
         # Apply provider-determined second child discount.
-        # Per Policy Manual 5.11, the discount applies to all children
-        # except the youngest when multiple children use the same provider.
+        # Per Policy Manual 5.11 (p.137), the discount applies per-facility
+        # to all children except the youngest at that facility. We assume
+        # all children use the same provider as a simplification.
         discount_rate = person("sc_ccap_second_child_discount_rate", period)
         child_index = person("child_index", period.this_year)
         max_child_index = person.spm_unit.max(child_index)
