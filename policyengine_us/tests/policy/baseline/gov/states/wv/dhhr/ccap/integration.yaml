@@ -37,18 +37,18 @@
     wv_ccap_eligible_child: [false, true]
 
     # FPG family of 2: 21_150
-    # 150% FPL = 31_725; monthly income = 2_000 <= 2_643.75
+    # 185% FPL = 39_127.50; monthly income = 2_000 <= 3_260.63
     wv_ccap_income_eligible: true
     is_ccdf_asset_eligible: true
     wv_ccap_eligible: true
 
     # === Age category ===
-    # Person1 (age 35) = 420 months -> SCHOOL_AGE; Person2 (age 3) = 36 months -> PRESCHOOL
-    wv_ccap_child_age_category: [SCHOOL_AGE, PRESCHOOL]
+    # Person1 (age 35) = 420 months -> SCHOOL_AGE; Person2 (age 3) = 36 months -> TODDLER
+    wv_ccap_child_age_category: [SCHOOL_AGE, TODDLER]
 
     # === Daily rate ===
-    # Center Tier I Preschool = $32/day
-    wv_ccap_daily_rate: [0, 32]
+    # Center Tier I Toddler = $37/day
+    wv_ccap_daily_rate: [0, 37]
 
     # === Copay ===
     # FPL ratio = 2_000 / 1_762.50 = 1.1348 -> 3.5% bracket
@@ -57,7 +57,7 @@
 
     # === Daily benefit ===
     # daily charge = (8_000/12) / (5 * 52/12) = 666.67 / 21.67 = 30.77
-    # daily benefit = min(32, 30.77) = 30.77
+    # daily benefit = min(37, 30.77) = 30.77
     wv_ccap_daily_benefit: [0, 30.77]
 
     # === Monthly benefit ===
@@ -147,7 +147,7 @@
         members: [person1, person2]
         state_code: WV
   output:
-    # monthly income = 4_000 > 150% monthly = 2_643.75
+    # monthly income = 4_000 > 185% monthly = 3_260.63
     # Not enrolled -> initial threshold applies
     wv_ccap_income_eligible: false
     wv_ccap_eligible: false

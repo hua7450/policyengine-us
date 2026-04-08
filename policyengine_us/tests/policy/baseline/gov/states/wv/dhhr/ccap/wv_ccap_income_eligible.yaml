@@ -3,7 +3,7 @@
 #   first_person = 15_650, additional = 5_500
 #   Family of 2: 21_150
 
-- name: Case 1, income below 150% FPL for initial applicant.
+- name: Case 1, income below 185% FPL for initial applicant.
   period: 2025-01
   input:
     people:
@@ -24,17 +24,17 @@
         state_code: WV
   output:
     # FPG family of 2: 21_150
-    # 150% FPL = 31_725
-    # monthly income = 2_000; monthly limit = 2_643.75
+    # 185% FPL = 39_127.50
+    # monthly income = 2_000; monthly limit = 3_260.63
     wv_ccap_income_eligible: true
 
-- name: Case 2, income above 150% FPL for new applicant.
+- name: Case 2, income above 185% FPL for new applicant.
   period: 2025-01
   input:
     people:
       person1:
         age: 30
-        employment_income: 36_000
+        employment_income: 48_000
       person2:
         age: 5
     tax_units:
@@ -48,7 +48,7 @@
         members: [person1, person2]
         state_code: WV
   output:
-    # monthly income = 3_000 > 150% FPL monthly = 2_643.75
+    # monthly income = 4_000 > 185% FPL monthly = 3_260.63
     wv_ccap_income_eligible: false
 
 - name: Case 3, enrolled family at 170% FPL eligible under ongoing threshold.

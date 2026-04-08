@@ -1,5 +1,5 @@
 # WV CCAP child age category tests
-# Infant (0-12mo), Toddler (13-23mo), Pre-School (2-4yr), School-Age (5+yr)
+# Infant (0-24mo), Toddler (25-36mo), Pre-School (37-59mo), School-Age (60+mo)
 # Age group is derived from age in months via bracket parameter.
 # age_in_months = age * 12 (since age is YEAR-defined float)
 
@@ -17,13 +17,13 @@
   output:
     wv_ccap_child_age_category: INFANT
 
-- name: Case 2, toddler at 18 months.
+- name: Case 2, toddler at 30 months.
   period: 2025-01
   input:
     people:
       person1:
-        age: 1.5
-        # 1.5 years = 18 months -> TODDLER (13-23mo bracket)
+        age: 2.5
+        # 2.5 years = 30 months -> TODDLER (25-36mo bracket)
     households:
       household:
         members: [person1]
@@ -37,7 +37,7 @@
     people:
       person1:
         age: 3.33
-        # 3.33 years ~ 40 months -> PRESCHOOL (24-59mo bracket)
+        # 3.33 years ~ 40 months -> PRESCHOOL (37-59mo bracket)
     households:
       household:
         members: [person1]
@@ -59,13 +59,13 @@
   output:
     wv_ccap_child_age_category: SCHOOL_AGE
 
-- name: Case 5, boundary at exactly 13 months.
+- name: Case 5, boundary at exactly 25 months.
   period: 2025-01
   input:
     people:
       person1:
-        age: 1.0834
-        # 1.0834 years = 13.0008 months -> TODDLER (threshold at 13)
+        age: 2.0834
+        # 2.0834 years = 25.0008 months -> TODDLER (threshold at 25)
     households:
       household:
         members: [person1]
@@ -73,13 +73,13 @@
   output:
     wv_ccap_child_age_category: TODDLER
 
-- name: Case 6, boundary at exactly 24 months.
+- name: Case 6, boundary at exactly 37 months.
   period: 2025-01
   input:
     people:
       person1:
-        age: 2
-        # 2 years = 24 months -> PRESCHOOL (threshold at 24)
+        age: 3.0834
+        # 3.0834 years = 37.0008 months -> PRESCHOOL (threshold at 37)
     households:
       household:
         members: [person1]

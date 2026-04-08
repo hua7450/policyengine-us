@@ -9,8 +9,8 @@ class wv_ccap(Variable):
     definition_period = MONTH
     defined_for = "wv_ccap_eligible"
     reference = (
-        "https://bfa.wv.gov/media/6766/download?inline#page=66",
-        "https://bfa.wv.gov/media/39915/download?inline#page=42",
+        "https://bfa.wv.gov/media/6766/download?inline#page=73",
+        "https://bfa.wv.gov/media/39915/download?inline#page=41",
     )
 
     def formula(spm_unit, period, parameters):

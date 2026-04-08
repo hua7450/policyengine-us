@@ -10,7 +10,7 @@ class wv_ccap_copay(Variable):
     defined_for = StateCode.WV
     reference = (
         "https://bfa.wv.gov/media/6826/download?inline",
-        "https://bfa.wv.gov/media/39915/download?inline#page=42",
+        "https://bfa.wv.gov/media/39915/download?inline#page=41",
     )
 
     def formula(spm_unit, period, parameters):

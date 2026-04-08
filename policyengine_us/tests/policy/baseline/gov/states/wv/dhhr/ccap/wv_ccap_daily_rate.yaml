@@ -35,7 +35,8 @@
       person1:
         age: 30
       person2:
-        age: 1.5
+        age: 2.5
+        # 2.5 years = 30 months -> TODDLER (25-36mo)
         is_tax_unit_dependent: true
         immigration_status: CITIZEN
         wv_ccap_provider_type: FAMILY_HOME
@@ -51,8 +52,8 @@
         members: [person1, person2]
         state_code: WV
   output:
-    # Toddler (13-23 months), Family Home, Tier II = $31
-    wv_ccap_daily_rate: [0, 31]
+    # Toddler (25-36 months), Family Home, Tier II = $33
+    wv_ccap_daily_rate: [0, 33]
 
 - name: Case 3, family facility Tier III preschool rate.
   period: 2025-01
@@ -62,7 +63,8 @@
       person1:
         age: 30
       person2:
-        age: 3
+        age: 3.25
+        # 3.25 years = 39 months -> PRESCHOOL (37-59mo)
         is_tax_unit_dependent: true
         immigration_status: CITIZEN
         wv_ccap_provider_type: FAMILY_FACILITY
@@ -78,8 +80,8 @@
         members: [person1, person2]
         state_code: WV
   output:
-    # Preschool (24-59 months), Family Facility, Tier III = $38
-    wv_ccap_daily_rate: [0, 38]
+    # Preschool (37-59 months), Family Facility, Tier III = $39
+    wv_ccap_daily_rate: [0, 39]
 
 - name: Case 4, out of school time rate.
   period: 2025-01

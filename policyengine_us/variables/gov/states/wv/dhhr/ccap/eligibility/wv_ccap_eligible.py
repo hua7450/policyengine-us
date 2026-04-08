@@ -8,7 +8,7 @@ class wv_ccap_eligible(Variable):
     definition_period = MONTH
     defined_for = StateCode.WV
     reference = (
-        "https://bfa.wv.gov/media/6766/download?inline#page=18",
+        "https://bfa.wv.gov/media/6766/download?inline#page=25",
         "https://bfa.wv.gov/media/39915/download?inline#page=16",
     )
 

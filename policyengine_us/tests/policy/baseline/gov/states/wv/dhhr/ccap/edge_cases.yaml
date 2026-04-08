@@ -10,15 +10,15 @@
 # Income threshold boundaries (initial applicant)
 # ============================================================
 
-- name: Case 1, income at exactly 149% FPL initial applicant eligible.
+- name: Case 1, income at exactly 184% FPL initial applicant eligible.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 30
-        # 149% FPL for family of 2 = 21_150 * 1.49 = 31_513.50/yr
-        employment_income: 31_513
+        # 184% FPL for family of 2 = 21_150 * 1.84 = 38_916/yr
+        employment_income: 38_916
         immigration_status: CITIZEN
       person2:
         age: 3
@@ -40,20 +40,20 @@
         members: [person1, person2]
         state_code: WV
   output:
-    # monthly income = 31_513 / 12 = 2_626.08
-    # 150% FPL monthly = 21_150 * 1.5 / 12 = 2_643.75
-    # 2_626.08 <= 2_643.75 -> eligible
+    # monthly income = 38_916 / 12 = 3_243
+    # 185% FPL monthly = 21_150 * 1.85 / 12 = 3_260.63
+    # 3_243 <= 3_260.63 -> eligible
     wv_ccap_income_eligible: true
 
-- name: Case 2, income at exactly 150% FPL initial applicant eligible.
+- name: Case 2, income at exactly 185% FPL initial applicant eligible.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 30
-        # 150% FPL for family of 2 = 21_150 * 1.5 = 31_725/yr
-        employment_income: 31_725
+        # 185% FPL for family of 2 = 21_150 * 1.85 = 39_127.50/yr
+        employment_income: 39_127
         immigration_status: CITIZEN
       person2:
         age: 3
@@ -75,20 +75,20 @@
         members: [person1, person2]
         state_code: WV
   output:
-    # monthly income = 31_725 / 12 = 2_643.75
-    # 150% FPL monthly = 2_643.75
-    # 2_643.75 <= 2_643.75 -> eligible (at boundary)
+    # monthly income = 39_127 / 12 = 3_260.58
+    # 185% FPL monthly = 39_127.50 / 12 = 3_260.63
+    # 3_260.58 <= 3_260.63 -> eligible (at boundary)
     wv_ccap_income_eligible: true
 
-- name: Case 3, income at 151% FPL initial applicant ineligible.
+- name: Case 3, income at 186% FPL initial applicant ineligible.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 30
-        # 151% FPL for family of 2 = 21_150 * 1.51 = 31_936.50/yr
-        employment_income: 31_937
+        # 186% FPL for family of 2 = 21_150 * 1.86 = 39_339/yr
+        employment_income: 39_339
         immigration_status: CITIZEN
       person2:
         age: 3
@@ -110,9 +110,9 @@
         members: [person1, person2]
         state_code: WV
   output:
-    # monthly income = 31_937 / 12 = 2_661.42
-    # 150% FPL monthly = 2_643.75
-    # 2_661.42 > 2_643.75 -> ineligible (not enrolled)
+    # monthly income = 39_339 / 12 = 3_278.25
+    # 185% FPL monthly = 39_127.50 / 12 = 3_260.63
+    # 3_278.25 > 3_260.63 -> ineligible (not enrolled)
     wv_ccap_income_eligible: false
 
 # ============================================================
@@ -238,8 +238,8 @@
     people:
       person1:
         age: 30
-        # Above 150% FPL but under 85% SMI for family of 2
-        # 150% FPL = 31_725; 85% SMI family of 2 = 90_661 * (0.52+0.16) * 0.85 = 52_402.06
+        # Above 185% FPL but under 85% SMI for family of 2
+        # 185% FPL = 39_127.50; 85% SMI family of 2 = 90_661 * (0.52+0.16) * 0.85 = 52_402.06
         employment_income: 40_000
         immigration_status: CITIZEN
       person2:
@@ -258,8 +258,8 @@
         state_code: WV
   output:
     # monthly income = 40_000 / 12 = 3_333.33
-    # 150% FPL monthly = 2_643.75
-    # 3_333.33 > 2_643.75 -> fails FPL test for initial applicant
+    # 185% FPL monthly = 3_260.63
+    # 3_333.33 > 3_260.63 -> fails FPL test for initial applicant
     wv_ccap_income_eligible: false
 
 - name: Case 8, enrolled income above 85% SMI ineligible despite passing FPL.
@@ -920,7 +920,8 @@
         employment_income: 20_000
         immigration_status: CITIZEN
       person2:
-        age: 3
+        age: 3.25
+        # 3.25 years = 39 months -> PRESCHOOL (37-59mo)
         is_tax_unit_dependent: true
         immigration_status: CITIZEN
         wv_ccap_provider_type: FAMILY_HOME
@@ -936,8 +937,8 @@
         members: [person1, person2]
         state_code: WV
   output:
-    # Family Home Tier I Preschool = $26/day
-    wv_ccap_daily_rate: [0, 26]
+    # Family Home Tier I Preschool = $29/day
+    wv_ccap_daily_rate: [0, 29]
 
 - name: Case 27, family facility provider rate.
   period: 2025-01
@@ -949,7 +950,8 @@
         employment_income: 20_000
         immigration_status: CITIZEN
       person2:
-        age: 3
+        age: 3.25
+        # 3.25 years = 39 months -> PRESCHOOL (37-59mo)
         is_tax_unit_dependent: true
         immigration_status: CITIZEN
         wv_ccap_provider_type: FAMILY_FACILITY
@@ -965,8 +967,8 @@
         members: [person1, person2]
         state_code: WV
   output:
-    # Family Facility Tier I Preschool = $32/day
-    wv_ccap_daily_rate: [0, 32]
+    # Family Facility Tier I Preschool = $33/day
+    wv_ccap_daily_rate: [0, 33]
 
 - name: Case 28, center provider rate.
   period: 2025-01
@@ -978,7 +980,8 @@
         employment_income: 20_000
         immigration_status: CITIZEN
       person2:
-        age: 3
+        age: 3.25
+        # 3.25 years = 39 months -> PRESCHOOL (37-59mo)
         is_tax_unit_dependent: true
         immigration_status: CITIZEN
         wv_ccap_provider_type: CENTER
@@ -994,8 +997,8 @@
         members: [person1, person2]
         state_code: WV
   output:
-    # Center Tier I Preschool = $32/day
-    wv_ccap_daily_rate: [0, 32]
+    # Center Tier I Preschool = $35/day
+    wv_ccap_daily_rate: [0, 35]
 
 - name: Case 29, out of school time provider rate.
   period: 2025-01
@@ -1098,7 +1101,8 @@
         employment_income: 20_000
         immigration_status: CITIZEN
       person2:
-        age: 3
+        age: 3.25
+        # 3.25 years = 39 months -> PRESCHOOL (37-59mo)
         is_tax_unit_dependent: true
         immigration_status: CITIZEN
         wv_ccap_provider_type: CENTER
@@ -1114,8 +1118,8 @@
         members: [person1, person2]
         state_code: WV
   output:
-    # Center Tier II Preschool = $35/day
-    wv_ccap_daily_rate: [0, 35]
+    # Center Tier II Preschool = $38/day
+    wv_ccap_daily_rate: [0, 38]
 
 - name: Case 33, Tier III center rate.
   period: 2025-01
@@ -1127,7 +1131,8 @@
         employment_income: 20_000
         immigration_status: CITIZEN
       person2:
-        age: 3
+        age: 3.25
+        # 3.25 years = 39 months -> PRESCHOOL (37-59mo)
         is_tax_unit_dependent: true
         immigration_status: CITIZEN
         wv_ccap_provider_type: CENTER
@@ -1143,8 +1148,8 @@
         members: [person1, person2]
         state_code: WV
   output:
-    # Center Tier III Preschool = $39/day
-    wv_ccap_daily_rate: [0, 39]
+    # Center Tier III Preschool = $41/day
+    wv_ccap_daily_rate: [0, 41]
 
 # ============================================================
 # All 4 age categories
@@ -1158,7 +1163,7 @@
         age: 30
         immigration_status: CITIZEN
       person2:
-        # Age 0.5 = 6 months -> INFANT (0-12 months)
+        # Age 0.5 = 6 months -> INFANT (0-24 months)
         age: 0.5
         is_tax_unit_dependent: true
         immigration_status: CITIZEN
@@ -1183,8 +1188,8 @@
         age: 30
         immigration_status: CITIZEN
       person2:
-        # Age 1.5 = 18 months -> TODDLER (13-23 months)
-        age: 1.5
+        # Age 2.5 = 30 months -> TODDLER (25-36 months)
+        age: 2.5
         is_tax_unit_dependent: true
         immigration_status: CITIZEN
     tax_units:
@@ -1208,8 +1213,8 @@
         age: 30
         immigration_status: CITIZEN
       person2:
-        # Age 3 = 36 months -> PRESCHOOL (24-59 months)
-        age: 3
+        # Age 3.25 = 39 months -> PRESCHOOL (37-59 months)
+        age: 3.25
         is_tax_unit_dependent: true
         immigration_status: CITIZEN
     tax_units:
@@ -1260,7 +1265,7 @@
     people:
       person1:
         age: 30
-        # Income above 150% FPL for family of 2 but TANF enrolled
+        # Income above 185% FPL for family of 2 but TANF enrolled
         employment_income: 40_000
         immigration_status: CITIZEN
       person2:
@@ -1297,6 +1302,7 @@
         immigration_status: CITIZEN
       person2:
         age: 3
+        # 3 years = 36 months -> TODDLER (25-36mo)
         is_tax_unit_dependent: true
         immigration_status: CITIZEN
         wv_ccap_provider_type: CENTER
@@ -1316,10 +1322,10 @@
         members: [person1, person2]
         state_code: WV
   output:
-    # Center Tier I Preschool = $32 + $6 non-trad = $38
+    # Center Tier I Toddler = $37 + $6 non-trad = $43
     # daily charge = (12_000/12) / (5 * 52/12) = 1_000 / 21.67 = 46.15
-    # daily benefit = min(38, 46.15) = 38
-    wv_ccap_daily_benefit: [0, 38]
+    # daily benefit = min(43, 46.15) = 43
+    wv_ccap_daily_benefit: [0, 43]
 
 - name: Case 40, both special needs and non-traditional supplements.
   period: 2025-01
@@ -1521,7 +1527,7 @@
         age: 30
         immigration_status: CITIZEN
       person2:
-        # Age 1.0 = 12 months -> INFANT (threshold at 13 months for TODDLER)
+        # Age 1.0 = 12 months -> INFANT (threshold at 25 months for TODDLER)
         age: 1.0
         is_tax_unit_dependent: true
         immigration_status: CITIZEN
@@ -1536,10 +1542,10 @@
         members: [person1, person2]
         state_code: WV
   output:
-    # 12 months < 13 threshold -> INFANT
+    # 12 months < 25 threshold -> INFANT
     wv_ccap_child_age_category: [SCHOOL_AGE, INFANT]
 
-- name: Case 46, child at exactly 24 months is preschool.
+- name: Case 46, child at exactly 24 months is infant.
   period: 2025-01
   input:
     people:
@@ -1547,7 +1553,7 @@
         age: 30
         immigration_status: CITIZEN
       person2:
-        # Age 2.0 = 24 months -> PRESCHOOL (threshold at 24 months)
+        # Age 2.0 = 24 months -> INFANT (threshold for TODDLER at 25 months)
         age: 2.0
         is_tax_unit_dependent: true
         immigration_status: CITIZEN
@@ -1562,8 +1568,8 @@
         members: [person1, person2]
         state_code: WV
   output:
-    # 24 months >= 24 threshold -> PRESCHOOL
-    wv_ccap_child_age_category: [SCHOOL_AGE, PRESCHOOL]
+    # 24 months < 25 threshold -> INFANT
+    wv_ccap_child_age_category: [SCHOOL_AGE, INFANT]
 
 - name: Case 47, child at 5 years is school age.
   period: 2025-01

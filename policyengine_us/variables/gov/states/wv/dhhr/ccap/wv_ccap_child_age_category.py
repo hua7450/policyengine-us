@@ -2,10 +2,10 @@ from policyengine_us.model_api import *
 
 
 class WVCCAPChildAgeCategory(Enum):
-    INFANT = "Infant (0-12 months)"
-    TODDLER = "Toddler (13-23 months)"
-    PRESCHOOL = "Preschool (2-4 years)"
-    SCHOOL_AGE = "School Age (5+ years)"
+    INFANT = "Infant (0-24 months)"
+    TODDLER = "Toddler (25-36 months)"
+    PRESCHOOL = "Preschool (37-59 months)"
+    SCHOOL_AGE = "School Age (60+ months)"
 
 
 class wv_ccap_child_age_category(Variable):

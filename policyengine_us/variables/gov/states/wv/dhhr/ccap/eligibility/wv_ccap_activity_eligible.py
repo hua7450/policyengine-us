@@ -7,7 +7,7 @@ class wv_ccap_activity_eligible(Variable):
     label = "Eligible for West Virginia CCAP based on activity requirements"
     definition_period = MONTH
     defined_for = StateCode.WV
-    reference = "https://bfa.wv.gov/media/6766/download?inline#page=18"
+    reference = "https://bfa.wv.gov/media/6766/download?inline#page=32"
 
     def formula(spm_unit, period, parameters):
         p = parameters(period).gov.states.wv.dhhr.ccap.eligibility

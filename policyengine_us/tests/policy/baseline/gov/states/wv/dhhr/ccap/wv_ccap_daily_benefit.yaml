@@ -11,6 +11,7 @@
         employment_income: 24_000
       person2:
         age: 3
+        # 3 years = 36 months -> TODDLER (25-36mo)
         is_tax_unit_dependent: true
         childcare_days_per_week: 5
         wv_ccap_provider_type: CENTER
@@ -27,9 +28,9 @@
         members: [person1, person2]
         state_code: WV
   output:
-    # Center Tier I Preschool = $32/day
-    # Daily rate for this child = $32
-    wv_ccap_daily_rate: [0, 32]
+    # Center Tier I Toddler = $37/day
+    # Daily rate for this child = $37
+    wv_ccap_daily_rate: [0, 37]
 
 - name: Case 2, zero copay means full rate as benefit.
   period: 2025-01
@@ -72,6 +73,7 @@
         employment_income: 6_000
       person2:
         age: 3
+        # 3 years = 36 months -> TODDLER (25-36mo)
         is_tax_unit_dependent: true
         childcare_days_per_week: 5
         wv_ccap_provider_type: CENTER
@@ -90,9 +92,9 @@
         state_code: WV
   output:
     # Below 40% FPL -> $0 copay
-    # Center Tier I Preschool = $32/day
+    # Center Tier I Toddler = $37/day
     # Non-traditional hours supplement = $6/day
-    # total_rate = 32 + 6 = $38/day
+    # total_rate = 37 + 6 = $43/day
     # daily_charge = 12_000 / (5 * 52/12) = 12_000 / 21.6667 = $553.85/day
-    # min(38, 553.85) = $38/day
-    wv_ccap_daily_benefit: [0, 38]
+    # min(43, 553.85) = $43/day
+    wv_ccap_daily_benefit: [0, 43]

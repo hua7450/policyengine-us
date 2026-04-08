@@ -10,21 +10,21 @@ metadata:
       href: https://bfa.wv.gov/media/6831/download?inline
 
 # Maps age in months to WVCCAPChildAgeCategory enum index:
-# 0 = INFANT (0-12 months)
-# 1 = TODDLER (13-23 months)
-# 2 = PRESCHOOL (2-4 years = 24-59 months)
-# 3 = SCHOOL_AGE (5+ years = 60+ months)
+# 0 = INFANT (0-24 months)
+# 1 = TODDLER (25-36 months)
+# 2 = PRESCHOOL (37-59 months)
+# 3 = SCHOOL_AGE (60+ months)
 brackets:
   - threshold:
       2024-10-01: 0
     amount:
       2024-10-01: 0
   - threshold:
-      2024-10-01: 13
+      2024-10-01: 25
     amount:
       2024-10-01: 1
   - threshold:
-      2024-10-01: 24
+      2024-10-01: 37
     amount:
       2024-10-01: 2
   - threshold:

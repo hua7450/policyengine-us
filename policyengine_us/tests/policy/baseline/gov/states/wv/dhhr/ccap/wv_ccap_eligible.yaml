@@ -25,7 +25,7 @@
         state_code: WV
   output:
     # Child age 5 < 13 -> eligible child
-    # Income 24,000 < 150% FPL (31,725) -> income eligible
+    # Income 24,000 < 185% FPL (39,127.50) -> income eligible
     # Parent works 30 hrs >= 20 -> activity eligible
     wv_ccap_eligible: true
 
@@ -77,7 +77,7 @@
         members: [person1, person2]
         state_code: WV
   output:
-    # Income 48,000 > 150% FPL (31,725) -> not income eligible
+    # Income 48,000 > 185% FPL (39,127.50) -> not income eligible
     wv_ccap_eligible: false
 
 - name: Case 4, parent not meeting activity hours means not eligible.
@@ -135,7 +135,7 @@
         state_code: WV
   output:
     # Both parents work >= 20 hrs -> activity eligible
-    # Combined income: 30,000 < 150% FPL-3 (39,975) -> income eligible
+    # Combined income: 30,000 < 185% FPL-3 (49,302.50) -> income eligible
     # Child age 3 < 13 -> eligible child
     wv_ccap_eligible: true
 
