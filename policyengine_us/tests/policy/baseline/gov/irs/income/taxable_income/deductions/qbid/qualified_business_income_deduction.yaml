@@ -135,6 +135,7 @@
     people:
       person1:
         employment_income: 50_000
+        business_is_qualified: false
         sstb_self_employment_income: 30_000
         # Zero out QBI deductions to isolate SSTB routing.
         self_employment_tax_ald_person: 0

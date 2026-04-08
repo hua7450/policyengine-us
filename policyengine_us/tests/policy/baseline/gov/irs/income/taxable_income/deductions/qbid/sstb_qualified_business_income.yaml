@@ -19,6 +19,17 @@
   output:
     sstb_qualified_business_income: 0
 
+- name: SSTB SE income still counts when business_is_qualified is false
+  period: 2026
+  input:
+    business_is_qualified: false
+    sstb_self_employment_income: 100_000
+    self_employment_tax_ald_person: 0
+    self_employed_health_insurance_ald_person: 0
+    self_employed_pension_contribution_ald_person: 0
+  output:
+    sstb_qualified_business_income: 100_000
+
 - name: Mixed SSTB and non-SSTB SE income, deductions pro-rated by gross share
   period: 2026
   input:

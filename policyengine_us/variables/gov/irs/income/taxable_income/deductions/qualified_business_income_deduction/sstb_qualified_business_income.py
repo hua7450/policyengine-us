@@ -17,7 +17,6 @@ class sstb_qualified_business_income(Variable):
         "https://www.law.cornell.edu/uscode/text/26/199A#c",
         "https://www.law.cornell.edu/uscode/text/26/199A#d_2",
     )
-    defined_for = "business_is_qualified"
 
     def formula(person, period, parameters):
         p = parameters(period).gov.irs.deductions.qbi
