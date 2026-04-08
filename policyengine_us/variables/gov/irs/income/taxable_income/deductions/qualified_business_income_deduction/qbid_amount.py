@@ -31,17 +31,10 @@ class qbid_amount(Variable):
             1, (max_(0, taxinc_less_qbid - po_start)) / po_length
         )
         applicable_rate = 1 - reduction_rate  # Schedule A, line 10
-        # W-2/UBIA cap (shared across both QBI categories at the person level)
-        w2_wages = person("w2_wages_from_qualified_business", period)
-        b_property = person("unadjusted_basis_qualified_property", period)
-        wage_cap = w2_wages * p.max.w2_wages.rate  # Worksheet 12-A, line 5
-        alt_cap = (  # Worksheet 12-A, line 9
-            w2_wages * p.max.w2_wages.alt_rate
-            + b_property * p.max.business_property.rate
-        )
-        full_cap = max_(wage_cap, alt_cap)  # Worksheet 12-A, line 10
+        total_w2_wages = person("w2_wages_from_qualified_business", period)
+        total_b_property = person("unadjusted_basis_qualified_property", period)
 
-        def qbi_component(qbi, sstb_multiplier):
+        def qbi_component(qbi, full_cap, sstb_multiplier):
             # Worksheet 12-A lines 3, 11-13 / Schedule A lines 9-12.
             qbid_max = p.max.rate * qbi  # Worksheet 12-A, line 3
             adj_qbid_max = qbid_max * sstb_multiplier
@@ -62,8 +55,70 @@ class qbid_amount(Variable):
         sstb_qbi = sstb_qbi_from_se + where(is_sstb_legacy, non_sstb_qbi, 0)
         non_sstb_qbi_final = where(is_sstb_legacy, 0, non_sstb_qbi)
 
-        non_sstb_component = qbi_component(non_sstb_qbi_final, 1)
-        sstb_component = qbi_component(sstb_qbi, applicable_rate)
+        has_non_sstb = non_sstb_qbi_final > 0
+        has_sstb = sstb_qbi > 0
+        has_mixed_categories = has_non_sstb & has_sstb
+
+        # Schedule A applies the SSTB applicable percentage to the SSTB's own
+        # allocable W-2 wages and UBIA. The model stores person-level totals,
+        # so mixed cases use explicit SSTB allocable inputs to split those
+        # totals without double counting the same wage/property pool twice.
+        sstb_w2_wages = where(
+            is_sstb_legacy,
+            total_w2_wages,
+            where(
+                has_mixed_categories,
+                person("sstb_w2_wages_from_qualified_business", period),
+                where(has_sstb, total_w2_wages, 0),
+            ),
+        )
+        non_sstb_w2_wages = where(
+            is_sstb_legacy,
+            0,
+            where(
+                has_mixed_categories,
+                max_(0, total_w2_wages - sstb_w2_wages),
+                where(has_non_sstb, total_w2_wages, 0),
+            ),
+        )
+
+        sstb_b_property = where(
+            is_sstb_legacy,
+            total_b_property,
+            where(
+                has_mixed_categories,
+                person("sstb_unadjusted_basis_qualified_property", period),
+                where(has_sstb, total_b_property, 0),
+            ),
+        )
+        non_sstb_b_property = where(
+            is_sstb_legacy,
+            0,
+            where(
+                has_mixed_categories,
+                max_(0, total_b_property - sstb_b_property),
+                where(has_non_sstb, total_b_property, 0),
+            ),
+        )
+
+        def full_cap(w2_wages, b_property):
+            wage_cap = w2_wages * p.max.w2_wages.rate  # Worksheet 12-A, line 5
+            alt_cap = (  # Worksheet 12-A, line 9
+                w2_wages * p.max.w2_wages.alt_rate
+                + b_property * p.max.business_property.rate
+            )
+            return max_(wage_cap, alt_cap)  # Worksheet 12-A, line 10
+
+        non_sstb_component = qbi_component(
+            non_sstb_qbi_final,
+            full_cap(non_sstb_w2_wages, non_sstb_b_property),
+            1,
+        )
+        sstb_component = qbi_component(
+            sstb_qbi,
+            full_cap(sstb_w2_wages, sstb_b_property),
+            applicable_rate,
+        )
 
         # REIT/PTP component (Form 8995 Lines 6-9).
         # Per §199A(b)(1)(B), qualified REIT dividends and qualified PTP

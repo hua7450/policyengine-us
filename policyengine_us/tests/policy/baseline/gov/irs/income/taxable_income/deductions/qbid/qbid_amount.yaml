@@ -241,6 +241,30 @@
     # Total = $20,000.
     qbid_amount: 20_000
 
+- name: Mixed SSTB and non-SSTB in phase-in range with separate allocable wages
+  absolute_error_margin: 0.01
+  period: 2024
+  input:
+    qualified_business_income: 100_000
+    sstb_qualified_business_income: 100_000
+    w2_wages_from_qualified_business: 20_000
+    sstb_w2_wages_from_qualified_business: 10_000
+    unadjusted_basis_qualified_property: 0
+    sstb_unadjusted_basis_qualified_property: 0
+    taxable_income_less_qbid: 200_000
+    qualified_reit_and_ptp_income: 0
+    business_is_sstb: false
+    filing_status: SINGLE
+  output:
+    # Single 2024 threshold $191,950, length $50,000.
+    # Reduction rate = (200k - 191.95k) / 50k = 0.161; applicable rate = 0.839.
+    # Non-SSTB W-2 wages = 10k => cap = 5k.
+    #   Non-SSTB deduction = 20k - 0.161 * (20k - 5k) = 17,585.00.
+    # SSTB W-2 wages = 10k => applicable-percentage cap = 0.839 * 5k = 4,195.
+    #   SSTB deduction = 16,780 - 0.161 * (16,780 - 4,195) = 14,753.82.
+    # Total = 32,338.82.
+    qbid_amount: 32_338.82
+
 - name: Only SSTB QBI fully phased out above threshold
   period: 2024
   input:
