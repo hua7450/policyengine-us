@@ -58,6 +58,36 @@
   output:
     qualified_business_income_deduction: 2_000
 
+- name: Deduction floor in effect with SSTB-only income
+  absolute_error_margin: 0.01
+  period: 2026
+  input:
+    people:
+      person1:
+        sstb_self_employment_income: 1_000
+        self_employment_tax_ald_person: 0
+        self_employed_health_insurance_ald_person: 0
+        self_employed_pension_contribution_ald_person: 0
+        qbid_amount: 200
+        is_tax_unit_head: true
+    tax_units:
+      tax_unit:
+        members: [person1]
+        taxable_income_less_qbid: 600
+        adjusted_net_capital_gain: 0
+    families:
+      family:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_fips: 6
+  output:
+    qualified_business_income_deduction: 400
+
 # Integration test: doctor (SSTB) with rental property (non-SSTB) above threshold.
 # Demonstrates the §199A(d)(3) phaseout reaching only the SSTB component
 # while the non-SSTB business still receives the W-2 capped deduction.
