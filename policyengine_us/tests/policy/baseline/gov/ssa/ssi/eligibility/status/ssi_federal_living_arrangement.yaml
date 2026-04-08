@@ -77,6 +77,7 @@
     people:
       person1:
         age: 30
+        own_children_in_household: 1
       person2:
         age: 10
         is_disabled: true
@@ -141,7 +142,24 @@
   output:
     ssi_federal_living_arrangement: MEDICAL_TREATMENT_FACILITY
 
-- name: Case 11, age 18 non-student with ineligible parent is not child in parental household.
+- name: Case 11, non-parent adult with disabled child is not child in parental household.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 25
+        own_children_in_household: 0
+      person2:
+        age: 10
+        is_disabled: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+  output:
+    # Uncle is not a parent, so child stays in OWN_HOUSEHOLD (no deeming).
+    ssi_federal_living_arrangement: [OWN_HOUSEHOLD, OWN_HOUSEHOLD]
+
+- name: Case 12, age 18 non-student with ineligible parent is not child in parental household.
   period: 2025
   input:
     people:
