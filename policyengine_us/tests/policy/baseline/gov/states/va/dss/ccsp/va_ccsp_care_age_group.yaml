@@ -1,0 +1,77 @@
+- name: Case 1, newborn is infant.
+  period: 2024
+  input:
+    people:
+      person1:
+        age: 0
+    households:
+      household:
+        members: [person1]
+        state_code: VA
+  output:
+    va_ccsp_care_age_group: INFANT
+
+- name: Case 2, 1 year old is toddler.
+  period: 2024
+  input:
+    people:
+      person1:
+        age: 1
+    households:
+      household:
+        members: [person1]
+        state_code: VA
+  output:
+    va_ccsp_care_age_group: TODDLER
+
+- name: Case 3, 2 year old.
+  period: 2024
+  input:
+    people:
+      person1:
+        age: 2
+    households:
+      household:
+        members: [person1]
+        state_code: VA
+  output:
+    va_ccsp_care_age_group: TWO_YEAR_OLD
+
+- name: Case 4, 4 year old is preschool.
+  period: 2024
+  input:
+    people:
+      person1:
+        age: 4
+    households:
+      household:
+        members: [person1]
+        state_code: VA
+  output:
+    va_ccsp_care_age_group: PRESCHOOL
+
+- name: Case 5, 7 year old is school age.
+  period: 2024
+  input:
+    people:
+      person1:
+        age: 7
+    households:
+      household:
+        members: [person1]
+        state_code: VA
+  output:
+    va_ccsp_care_age_group: SCHOOL_AGE
+
+- name: Case 6, 5 year old is preschool.
+  period: 2024
+  input:
+    people:
+      person1:
+        age: 5
+    households:
+      household:
+        members: [person1]
+        state_code: VA
+  output:
+    va_ccsp_care_age_group: PRESCHOOL

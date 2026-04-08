@@ -30,6 +30,7 @@
       person2:
         age: 5
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: CITIZEN
     tax_units:
       tax_unit:
@@ -95,10 +96,12 @@
       person3:
         age: 10
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: CITIZEN
       person4:
         age: 7
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: CITIZEN
     tax_units:
       tax_unit:
@@ -156,6 +159,7 @@
       person2:
         age: 3
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: LEGAL_PERMANENT_RESIDENT
     tax_units:
       tax_unit:
@@ -204,6 +208,7 @@
       person2:
         age: 2
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: CITIZEN
     tax_units:
       tax_unit:
@@ -217,6 +222,7 @@
       household:
         members: [person1, person2]
         state_code: VA
+        va_ccsp_ready_region: CAPITAL_AREA
   output:
     # === Child eligibility ===
     va_ccsp_child_eligible: [false, true]
@@ -260,6 +266,7 @@
       person2:
         age: 10
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: CITIZEN
     tax_units:
       tax_unit:
@@ -296,6 +303,7 @@
       person2:
         age: 5
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: UNDOCUMENTED
     tax_units:
       tax_unit:
@@ -328,10 +336,12 @@
       person2:
         age: 4
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: CITIZEN
       person3:
         age: 2
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: CITIZEN
     tax_units:
       tax_unit:

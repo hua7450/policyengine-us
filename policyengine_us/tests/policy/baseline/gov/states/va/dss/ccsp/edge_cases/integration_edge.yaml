@@ -23,6 +23,7 @@
       person2:
         age: 4
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: CITIZEN
     tax_units:
       tax_unit:
@@ -76,6 +77,7 @@
       person2:
         age: 8
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: CITIZEN
     tax_units:
       tax_unit:
@@ -113,6 +115,7 @@
       person2:
         age: 8
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 40
         immigration_status: CITIZEN
     tax_units:
       tax_unit:
@@ -127,6 +130,7 @@
       household:
         members: [person1, person2]
         state_code: VA
+        va_ccsp_ready_region: CAPITAL_AREA
   output:
     va_ccsp_child_eligible: [false, true]
 
@@ -163,18 +167,22 @@
       person2:
         age: 11
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: CITIZEN
       person3:
         age: 8
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: CITIZEN
       person4:
         age: 5
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: CITIZEN
       person5:
         age: 3
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: CITIZEN
     tax_units:
       tax_unit:
@@ -232,10 +240,12 @@
       person2:
         age: 5
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: CITIZEN
       person3:
         age: 6
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: CITIZEN
     tax_units:
       tax_unit:
@@ -290,6 +300,7 @@
       person2:
         age: 15
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         is_disabled: true
         immigration_status: CITIZEN
     tax_units:
@@ -335,6 +346,7 @@
       person2:
         age: 3
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 40
         immigration_status: CITIZEN
     tax_units:
       tax_unit:
@@ -349,6 +361,7 @@
       household:
         members: [person1, person2]
         state_code: VA
+        va_ccsp_ready_region: CAPITAL_AREA
   output:
     va_ccsp_child_eligible: [false, true]
 

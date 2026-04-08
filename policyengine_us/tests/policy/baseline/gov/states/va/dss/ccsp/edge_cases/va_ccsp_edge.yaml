@@ -17,6 +17,7 @@
       person2:
         age: 5
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: CITIZEN
     tax_units:
       tax_unit:
@@ -46,6 +47,7 @@
       person2:
         age: 5
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: CITIZEN
     tax_units:
       tax_unit:
@@ -79,6 +81,7 @@
       person2:
         age: 5
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: CITIZEN
     tax_units:
       tax_unit:
@@ -110,6 +113,7 @@
       person2:
         age: 5
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 40
         immigration_status: CITIZEN
     tax_units:
       tax_unit:
@@ -123,6 +127,7 @@
       household:
         members: [person1, person2]
         state_code: VA
+        va_ccsp_ready_region: CAPITAL_AREA
   output:
     # Zero income -> $0 copay
     # Monthly expenses: 24,000/12 = 2,000
@@ -141,6 +146,7 @@
       person2:
         age: 4
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: CITIZEN
     tax_units:
       tax_unit:
@@ -155,6 +161,7 @@
       household:
         members: [person1, person2]
         state_code: VA
+        va_ccsp_ready_region: CAPITAL_AREA
   output:
     # TANF -> $0 copay
     # Monthly expenses: 14,400/12 = 1,200
@@ -173,6 +180,7 @@
       person2:
         age: 8
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: CITIZEN
     tax_units:
       tax_unit:
