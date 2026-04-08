@@ -14,7 +14,7 @@ values:
     - dividend_income
     - rental_income
     - veterans_benefits
-    - tanf
+    # - tanf
     # The following are counted per Policy Manual 2.1.14 but have
     # no matching variables:
     # - royalties

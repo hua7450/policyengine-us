@@ -17,8 +17,8 @@ class sc_ccap_copay(Variable):
     def formula(spm_unit, period, parameters):
         p = parameters(period).gov.states.sc.dss.ccap.copay
         monthly_income = spm_unit("sc_ccap_countable_income", period)
-        monthly_smi = spm_unit("hhs_smi", period.this_year) / MONTHS_IN_YEAR
-        tier_count = int(p.tier_count)
+        monthly_smi = spm_unit("hhs_smi", period)
+        tier_count = len(p.smi_tier_ratios.thresholds)
 
         # Family-level copay exemptions (Section 3.4.2, p.108).
         # Head Start copay waiver is per-child, handled below.
