@@ -12,8 +12,5 @@ class is_ssi_ineligible_parent(Variable):
         child = person("is_child", period)
         is_parent = person("is_parent", period)
         return (
-            ~eligible
-            & ~child
-            & is_parent
-            & (person.tax_unit.sum(eligible & child) > 0)
+            ~eligible & ~child & is_parent & (person.tax_unit.sum(eligible & child) > 0)
         )
