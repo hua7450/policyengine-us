@@ -1,6 +1,6 @@
 description: West Virginia counts these income sources under the Child Care Assistance Program.
 values:
-  2024-10-01:
+  2024-01-01:
     - employment_income
     - self_employment_income
     - social_security

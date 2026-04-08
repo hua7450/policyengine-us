@@ -14,10 +14,10 @@ metadata:
 # 1 = AGE_2_AND_OVER (24+ months)
 brackets:
   - threshold:
-      2024-10-01: 0
+      2024-01-01: 0
     amount:
-      2024-10-01: 0
+      2024-01-01: 0
   - threshold:
-      2024-10-01: 24
+      2024-01-01: 24
     amount:
-      2024-10-01: 1
+      2024-01-01: 1

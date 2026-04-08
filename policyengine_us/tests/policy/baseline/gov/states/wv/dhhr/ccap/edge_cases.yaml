@@ -10,15 +10,15 @@
 # Income threshold boundaries (initial applicant)
 # ============================================================
 
-- name: Case 1, income at exactly 184% FPL initial applicant eligible.
+- name: Case 1, income at exactly 149% FPL initial applicant eligible.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 30
-        # 184% FPL for family of 2 = 21_150 * 1.84 = 38_916/yr
-        employment_income: 38_916
+        # 149% FPL for family of 2 = 21_150 * 1.49 = 31_513.50/yr
+        employment_income: 31_513
         immigration_status: CITIZEN
       person2:
         age: 3
@@ -40,20 +40,20 @@
         members: [person1, person2]
         state_code: WV
   output:
-    # monthly income = 38_916 / 12 = 3_243
-    # 185% FPL monthly = 21_150 * 1.85 / 12 = 3_260.63
-    # 3_243 <= 3_260.63 -> eligible
+    # monthly income = 31_513 / 12 = 2_626.08
+    # 150% FPL monthly = 21_150 * 1.50 / 12 = 2_643.75
+    # 2_626.08 <= 2_643.75 -> eligible
     wv_ccap_income_eligible: true
 
-- name: Case 2, income at exactly 185% FPL initial applicant eligible.
+- name: Case 2, income at exactly 150% FPL initial applicant eligible.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 30
-        # 185% FPL for family of 2 = 21_150 * 1.85 = 39_127.50/yr
-        employment_income: 39_127
+        # 150% FPL for family of 2 = 21_150 * 1.50 = 31_725/yr
+        employment_income: 31_725
         immigration_status: CITIZEN
       person2:
         age: 3
@@ -75,20 +75,20 @@
         members: [person1, person2]
         state_code: WV
   output:
-    # monthly income = 39_127 / 12 = 3_260.58
-    # 185% FPL monthly = 39_127.50 / 12 = 3_260.63
-    # 3_260.58 <= 3_260.63 -> eligible (at boundary)
+    # monthly income = 31_725 / 12 = 2_643.75
+    # 150% FPL monthly = 21_150 * 1.50 / 12 = 2_643.75
+    # 2_643.75 <= 2_643.75 -> eligible (at boundary)
     wv_ccap_income_eligible: true
 
-- name: Case 3, income at 186% FPL initial applicant ineligible.
+- name: Case 3, income at 151% FPL initial applicant ineligible.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 30
-        # 186% FPL for family of 2 = 21_150 * 1.86 = 39_339/yr
-        employment_income: 39_339
+        # 151% FPL for family of 2 = 21_150 * 1.51 = 31_936.50/yr
+        employment_income: 31_937
         immigration_status: CITIZEN
       person2:
         age: 3
@@ -110,9 +110,9 @@
         members: [person1, person2]
         state_code: WV
   output:
-    # monthly income = 39_339 / 12 = 3_278.25
-    # 185% FPL monthly = 39_127.50 / 12 = 3_260.63
-    # 3_278.25 > 3_260.63 -> ineligible (not enrolled)
+    # monthly income = 31_937 / 12 = 2_661.42
+    # 150% FPL monthly = 21_150 * 1.50 / 12 = 2_643.75
+    # 2_661.42 > 2_643.75 -> ineligible (not enrolled)
     wv_ccap_income_eligible: false
 
 # ============================================================

@@ -1,6 +1,6 @@
 description: West Virginia sets this minimum weekly activity hours for parent eligibility under the Child Care Assistance Program.
 values:
-  2024-10-01: 20
+  2024-01-01: 20
 
 metadata:
   unit: hour
