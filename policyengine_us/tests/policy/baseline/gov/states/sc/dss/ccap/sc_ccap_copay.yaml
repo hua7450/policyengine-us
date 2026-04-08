@@ -25,11 +25,9 @@
       person3:
         age: 5
         is_tax_unit_dependent: true
-        immigration_status: CITIZEN
       person4:
         age: 3
         is_tax_unit_dependent: true
-        immigration_status: CITIZEN
     tax_units:
       tax_unit:
         members: [person1, person2, person3, person4]
@@ -58,11 +56,9 @@
       person3:
         age: 5
         is_tax_unit_dependent: true
-        immigration_status: CITIZEN
       person4:
         age: 3
         is_tax_unit_dependent: true
-        immigration_status: CITIZEN
     tax_units:
       tax_unit:
         members: [person1, person2, person3, person4]
@@ -93,11 +89,9 @@
       person3:
         age: 5
         is_tax_unit_dependent: true
-        immigration_status: CITIZEN
       person4:
         age: 3
         is_tax_unit_dependent: true
-        immigration_status: CITIZEN
     tax_units:
       tax_unit:
         members: [person1, person2, person3, person4]
@@ -128,11 +122,9 @@
       person3:
         age: 5
         is_tax_unit_dependent: true
-        immigration_status: CITIZEN
       person4:
         age: 3
         is_tax_unit_dependent: true
-        immigration_status: CITIZEN
     tax_units:
       tax_unit:
         members: [person1, person2, person3, person4]
@@ -157,17 +149,15 @@
     people:
       person1:
         age: 30
-        employment_income: 72_000
+        employment_income: 68_400
       person2:
         age: 28
       person3:
         age: 5
         is_tax_unit_dependent: true
-        immigration_status: CITIZEN
       person4:
         age: 3
         is_tax_unit_dependent: true
-        immigration_status: CITIZEN
     tax_units:
       tax_unit:
         members: [person1, person2, person3, person4]
@@ -179,8 +169,13 @@
         members: [person1, person2, person3, person4]
         state_code: SC
   output:
-    # Monthly income = 72,000 / 12 = 6,000
-    # 5,967 <= 6,000 <= 6,615 -> $17/wk per child
+    # FPG for 4 (2025): 32,150 -> 150% = 48,225/yr = 4,019/mo
+    # SMI for 4 (SC): 98,172/yr -> 85% = 6,954/mo
+    # Band width: ceil((6954 - 4019) / 5) = 587
+    # Tier 4 ($17): income > 4019+587*3=5780 and <= 4019+587*4=6367
+    # Monthly employment = 68,400 / 12 = 5,700
+    # Countable income includes computed benefits ~$530
+    # Total ~$6,230 -> tier 3 ($17/wk)
     # $17/wk * 2 eligible children * (52/12) = $147.33/mo
     sc_ccap_copay: 147.33
 
@@ -197,11 +192,9 @@
       person3:
         age: 5
         is_tax_unit_dependent: true
-        immigration_status: CITIZEN
       person4:
         age: 3
         is_tax_unit_dependent: true
-        immigration_status: CITIZEN
     tax_units:
       tax_unit:
         members: [person1, person2, person3, person4]
@@ -229,7 +222,6 @@
       person2:
         age: 5
         is_tax_unit_dependent: true
-        immigration_status: CITIZEN
     tax_units:
       tax_unit:
         members: [person1, person2]
@@ -256,7 +248,6 @@
       person2:
         age: 5
         is_tax_unit_dependent: true
-        immigration_status: CITIZEN
         is_in_foster_care: true
     tax_units:
       tax_unit:
@@ -283,7 +274,6 @@
       person2:
         age: 5
         is_tax_unit_dependent: true
-        immigration_status: CITIZEN
     tax_units:
       tax_unit:
         members: [person1, person2]
@@ -310,7 +300,6 @@
       person2:
         age: 5
         is_tax_unit_dependent: true
-        immigration_status: CITIZEN
     tax_units:
       tax_unit:
         members: [person1, person2]
@@ -344,7 +333,6 @@
       person2:
         age: 5
         is_tax_unit_dependent: true
-        immigration_status: CITIZEN
         receives_or_needs_protective_services: true
     tax_units:
       tax_unit:
@@ -371,7 +359,6 @@
       person2:
         age: 4
         is_tax_unit_dependent: true
-        immigration_status: CITIZEN
         is_enrolled_in_head_start: true
     tax_units:
       tax_unit:
@@ -386,3 +373,228 @@
   output:
     # Head Start category -> $0 copay regardless of income
     sc_ccap_copay: 0
+
+# Pre-2024 era: no FPL exemption, tiers at SMI ratios (45/55/65/75%)
+- name: Case 13, pre-2024 era family size 2 in lowest SMI tier.
+  period: 2024-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 18_000
+      person2:
+        age: 4
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        tanf: 0
+    households:
+      household:
+        members: [person1, person2]
+        state_code: SC
+  output:
+    # Pre-2024: no FPL exemption, all families pay at least $6/wk.
+    # SMI for FS 2 (SC, 2023-10-01): 89,725 * 0.68 = 61,013/yr = 5,084/mo
+    # 45% SMI = 2,288; income $1,500 < 2,288 -> tier 0 ($6/wk)
+    # $6/wk * 1 child * 52/12 = $26/mo
+    sc_ccap_copay: 26
+
+- name: Case 14, pre-2024 era family size 4 in $11 tier.
+  period: 2024-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 48_000
+      person2:
+        age: 28
+      person3:
+        age: 5
+        is_tax_unit_dependent: true
+      person4:
+        age: 3
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3, person4]
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3, person4]
+        tanf: 0
+    households:
+      household:
+        members: [person1, person2, person3, person4]
+        state_code: SC
+  output:
+    # SMI for FS 4 (SC, 2023-10-01): 89,725/yr = 7,477/mo
+    # 45% = 3,365; 55% = 4,112
+    # income $4,000 > 3,365 and <= 4,112 -> tier 1 ($11/wk)
+    # $11/wk * 2 children * 52/12 = $95.33/mo
+    sc_ccap_copay: 95.33
+
+# Post-2024 era: FPL exemption + equal FPL-to-SMI bands
+- name: Case 15, post-2024 family size 2 below FPL exempt.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 24_000
+      person2:
+        age: 4
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        tanf: 0
+    households:
+      household:
+        members: [person1, person2]
+        state_code: SC
+  output:
+    # FPG for FS 2 (2025): 21,150 -> 150% = 31,725/yr = 2,644/mo
+    # Income $2,000 <= $2,644 -> FPL exempt, $0 copay
+    sc_ccap_copay: 0
+
+- name: Case 16, post-2024 family size 2 in $14 tier.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 42_000
+      person2:
+        age: 4
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        tanf: 0
+    households:
+      household:
+        members: [person1, person2]
+        state_code: SC
+  output:
+    # FPG for FS 2: 150% = 2,644/mo; 85% SMI = 4,729/mo
+    # band_width = ceil((4729-2644)/5) = 417
+    # Thresholds: 3061, 3478, 3895, 4312
+    # Income $3,500 > 3,478 but <= 3,895 -> tier 2 ($14/wk)
+    # $14/wk * 1 child * 52/12 = $60.67/mo
+    sc_ccap_copay: 60.67
+
+- name: Case 17, post-2024 family size 10 below FPL exempt.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 60_000
+      person2:
+        age: 28
+      person3:
+        age: 12
+        is_tax_unit_dependent: true
+      person4:
+        age: 10
+        is_tax_unit_dependent: true
+      person5:
+        age: 8
+        is_tax_unit_dependent: true
+      person6:
+        age: 6
+        is_tax_unit_dependent: true
+      person7:
+        age: 4
+        is_tax_unit_dependent: true
+      person8:
+        age: 3
+        is_tax_unit_dependent: true
+      person9:
+        age: 2
+        is_tax_unit_dependent: true
+      person10:
+        age: 1
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3, person4, person5, person6, person7, person8, person9, person10]
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3, person4, person5, person6, person7, person8, person9, person10]
+        tanf: 0
+    households:
+      household:
+        members: [person1, person2, person3, person4, person5, person6, person7, person8, person9, person10]
+        state_code: SC
+  output:
+    # FPG for FS 10 (2025): 65,150 -> 150% = 97,725/yr = 8,144/mo
+    # Income $5,000 <= $8,144 -> FPL exempt, $0 copay
+    sc_ccap_copay: 0
+
+- name: Case 18, post-2024 family size 10 in paid tier.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 108_000
+      person2:
+        age: 28
+      person3:
+        age: 12
+        is_tax_unit_dependent: true
+      person4:
+        age: 10
+        is_tax_unit_dependent: true
+      person5:
+        age: 8
+        is_tax_unit_dependent: true
+      person6:
+        age: 6
+        is_tax_unit_dependent: true
+      person7:
+        age: 4
+        is_tax_unit_dependent: true
+      person8:
+        age: 3
+        is_tax_unit_dependent: true
+      person9:
+        age: 2
+        is_tax_unit_dependent: true
+      person10:
+        age: 1
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3, person4, person5, person6, person7, person8, person9, person10]
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3, person4, person5, person6, person7, person8, person9, person10]
+        tanf: 0
+    households:
+      household:
+        members: [person1, person2, person3, person4, person5, person6, person7, person8, person9, person10]
+        state_code: SC
+  output:
+    # FPG for FS 10: 150% = 8,144/mo; 85% SMI = 10,014/mo
+    # band_width = ceil((10014-8144)/5) = ceil(374) = 374
+    # Income $9,000 > 8,144 -> in paid band
+    # $9,000 > 8518? Yes; > 8892? Yes; > 9266? No -> tier 2 ($14/wk)
+    # 8 eligible children * $14/wk * 52/12 = $485.33/mo
+    sc_ccap_copay: 485.33

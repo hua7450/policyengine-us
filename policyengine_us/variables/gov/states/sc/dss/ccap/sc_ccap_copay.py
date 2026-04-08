@@ -10,40 +10,52 @@ class sc_ccap_copay(Variable):
     defined_for = StateCode.SC
     reference = (
         "https://www.scchildcare.org/media/ubhdm1at/1-13-2025_policy-manual.pdf#page=86",
+        "https://www.scchildcare.org/media/n3qmcb5u/sc-child-care-scholarship-program-fee-scale-2023-2024.pdf#page=1",
         "https://www.scchildcare.org/media/ih2mrjw5/fee-scale-2025-2026.pdf#page=1",
     )
 
     def formula(spm_unit, period, parameters):
         p = parameters(period).gov.states.sc.dss.ccap.copay
+        monthly_income = spm_unit("sc_ccap_countable_income", period)
+        monthly_smi = spm_unit("hhs_smi", period.this_year) / MONTHS_IN_YEAR
+        tier_count = int(p.tier_count)
+
         # Family-level copay exemptions (Section 3.4.2, p.108).
         # Head Start copay waiver is per-child, handled below.
         protective = spm_unit("sc_ccap_protective_services", period)
         is_tanf = spm_unit("is_tanf_enrolled", period)
-        if p.fpg_exempt_in_effect:
-            monthly_fpg = spm_unit("spm_unit_fpg", period)
-            below_fpl_threshold = (
-                spm_unit("sc_ccap_countable_income", period)
-                <= monthly_fpg * p.fpg_exempt_rate
-            )
-        else:
-            below_fpl_threshold = False
         p_elig = parameters(period).gov.states.sc.dss.ccap.eligibility
         person = spm_unit.members
         is_disabled = person("is_disabled", period.this_year)
         is_young = person("age", period.this_year) < p_elig.disabled_child_age_limit
         has_disabled_child = spm_unit.any(is_disabled & is_young)
+
+        # Compute copay tier from income position in the fee scale.
+        # Pre-2024-10-01: tiers at fixed SMI ratios (45/55/65/75% mark
+        #   boundaries between 5 tiers).
+        # Post-2024-10-01: equal-width bands from 150% FPL to 85% SMI.
+        if p.fpg_exempt_in_effect:
+            monthly_fpg = spm_unit("spm_unit_fpg", period)
+            lower = np.floor(monthly_fpg * p.fpg_exempt_rate + 0.5)
+            below_fpl_threshold = monthly_income <= lower
+            upper = np.floor(monthly_smi * p.smi_tier_ratios.calc(tier_count) + 0.5)
+            band_width = np.ceil((upper - lower) / tier_count)
+            tier = np.zeros_like(monthly_income, dtype=int)
+            for i in range(1, tier_count):
+                threshold = lower + band_width * i
+                tier = tier + (monthly_income > threshold).astype(int)
+        else:
+            below_fpl_threshold = False
+            tier = np.zeros_like(monthly_income, dtype=int)
+            for i in range(1, tier_count):
+                ratio = p.smi_tier_ratios.calc(i)
+                threshold = np.floor(monthly_smi * ratio + 0.5)
+                tier = tier + (monthly_income > threshold).astype(int)
+
         exempt = protective | is_tanf | below_fpl_threshold | has_disabled_child
 
-        # Look up weekly copay per child from fee scale by family size
-        # and monthly income.
-        monthly_income = spm_unit("sc_ccap_countable_income", period)
-        size = spm_unit("spm_unit_size", period.this_year)
-        capped_size = min_(size, p.max_family_size).astype(int)
-        fee_scale = p.fee_scale
-        weekly_copay_per_child = select(
-            [capped_size == i for i in range(1, 17)],
-            [fee_scale[f"family_size_{i}"].calc(monthly_income) for i in range(1, 17)],
-        )
+        weekly_copay_per_child = p.weekly_amounts.calc(tier + 1)
+
         # Cap weekly copay at 2% of annual income / 52 weeks.
         weekly_income_cap = (
             monthly_income * p.income_cap_rate * MONTHS_IN_YEAR / WEEKS_IN_YEAR
