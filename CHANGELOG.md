@@ -1,10 +1,3 @@
-## [1.633.2] - 2026-04-08
-
-### Fixed
-
-- Fix Maryland non-refundable EITC to cap at state income tax liability per §10-704(c)(1).
-
-
 ## [1.633.1] - 2026-04-08
 
 ### Changed
