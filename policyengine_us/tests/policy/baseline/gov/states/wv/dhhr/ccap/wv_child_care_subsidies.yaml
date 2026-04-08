@@ -1,0 +1,31 @@
+- name: WV child care subsidies wrapper.
+  period: 2025
+  absolute_error_margin: 1
+  input:
+    people:
+      person1:
+        age: 35
+        employment_income: 24_000
+        immigration_status: CITIZEN
+      person2:
+        age: 3
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+        wv_ccap_provider_type: CENTER
+        wv_ccap_quality_tier: TIER_I
+        childcare_days_per_week: 5
+        pre_subsidy_childcare_expenses: 8_000
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_pre_subsidy_childcare_expenses: 8_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: WV
+  output:
+    # wv_ccap monthly = ~596.67 -> annual = ~7_160
+    wv_child_care_subsidies: 7_160

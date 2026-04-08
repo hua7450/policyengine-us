@@ -1,0 +1,106 @@
+# WV CCAP Co-payment Tests
+# 2025 FPG family of 2: 21_150
+
+- name: Case 1, income below 40% FPL pays zero copay.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 6_000
+      person2:
+        age: 5
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: WV
+  output:
+    # FPL ratio = 500 / 1_762.50 = 0.2837 < 0.40 -> 0% rate
+    wv_ccap_copay: 0
+
+- name: Case 2, mid-range income copay.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 18_000
+      person2:
+        age: 5
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: WV
+  output:
+    # monthly income = 1_500
+    # FPL ratio = 1_500 / 1_762.50 = 0.8511 -> 3% rate
+    # copay = 1_500 * 0.03 = 45
+    wv_ccap_copay: 45
+
+- name: Case 3, copay capped at 7% of income.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 36_000
+      person2:
+        age: 5
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        wv_ccap_enrolled: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: WV
+  output:
+    # monthly income = 3_000
+    # FPL ratio = 3_000 / 1_762.50 = 1.7021 -> 4% bracket rate
+    # uncapped copay = 3_000 * 0.04 = 120
+    # 7% cap = 3_000 * 0.07 = 210
+    # 120 <= 210 -> copay = 120
+    wv_ccap_copay: 120
+
+- name: Case 4, foster family pays zero copay.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 36_000
+      person2:
+        age: 5
+        is_in_foster_care: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        wv_ccap_enrolled: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: WV
+  output:
+    wv_ccap_copay: 0

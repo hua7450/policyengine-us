@@ -1,0 +1,23 @@
+description: West Virginia defines these informal care age group boundaries in months under the Child Care Assistance Program.
+metadata:
+  type: single_amount
+  threshold_unit: month
+  amount_unit: /1
+  period: year
+  label: West Virginia CCAP informal care age group by months
+  reference:
+    - title: WV Child Care Subsidy Appendix B — Rate Structure (Oct 1, 2024)
+      href: https://bfa.wv.gov/media/6831/download?inline
+
+# Maps age in months to WVCCAPInformalAgeGroup enum index:
+# 0 = UNDER_2 (0-23 months)
+# 1 = AGE_2_AND_OVER (24+ months)
+brackets:
+  - threshold:
+      2024-10-01: 0
+    amount:
+      2024-10-01: 0
+  - threshold:
+      2024-10-01: 24
+    amount:
+      2024-10-01: 1

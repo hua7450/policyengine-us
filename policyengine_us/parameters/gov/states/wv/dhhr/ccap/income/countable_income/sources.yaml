@@ -1,0 +1,25 @@
+description: West Virginia counts these income sources under the Child Care Assistance Program.
+values:
+  2024-10-01:
+    - employment_income
+    - self_employment_income
+    - social_security
+    - ssi
+    - unemployment_compensation
+    - workers_compensation
+    - pension_income
+    - alimony_income
+    - child_support_received
+    - dividend_income
+    - interest_income
+    - rental_income
+    - veterans_benefits
+    - military_retirement_pay
+
+metadata:
+  unit: list
+  period: year
+  label: West Virginia CCAP countable income sources
+  reference:
+    - title: WV Child Care Subsidy Policy & Procedures Manual, Chapter 5
+      href: https://bfa.wv.gov/media/6766/download?inline#page=42

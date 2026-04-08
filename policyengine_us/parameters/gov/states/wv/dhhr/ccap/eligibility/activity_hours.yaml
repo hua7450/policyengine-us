@@ -1,0 +1,11 @@
+description: West Virginia sets this minimum weekly activity hours for parent eligibility under the Child Care Assistance Program.
+values:
+  2024-10-01: 20
+
+metadata:
+  unit: hour
+  period: week
+  label: West Virginia CCAP minimum weekly activity hours
+  reference:
+    - title: WV Child Care Subsidy Policy & Procedures Manual, Chapter 3
+      href: https://bfa.wv.gov/media/6766/download?inline#page=18

@@ -1,0 +1,237 @@
+# WV CCAP Integration Tests
+# 2025 FPG (Contiguous US):
+#   first_person = 15_650, additional = 5_500
+#   Family of 2: 21_150
+#   Family of 3: 26_650
+
+- name: Case 1, basic eligible family with center care.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 35
+        employment_income: 24_000
+        immigration_status: CITIZEN
+      person2:
+        age: 3
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+        wv_ccap_provider_type: CENTER
+        wv_ccap_quality_tier: TIER_I
+        childcare_days_per_week: 5
+        pre_subsidy_childcare_expenses: 8_000
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_pre_subsidy_childcare_expenses: 8_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: WV
+  output:
+    # === Eligibility ===
+    wv_ccap_eligible_child: [false, true]
+
+    # FPG family of 2: 21_150
+    # 150% FPL = 31_725; monthly income = 2_000 <= 2_643.75
+    wv_ccap_income_eligible: true
+    is_ccdf_asset_eligible: true
+    wv_ccap_eligible: true
+
+    # === Age category ===
+    # Person1 (age 35) = 420 months -> SCHOOL_AGE; Person2 (age 3) = 36 months -> PRESCHOOL
+    wv_ccap_child_age_category: [SCHOOL_AGE, PRESCHOOL]
+
+    # === Daily rate ===
+    # Center Tier I Preschool = $32/day
+    wv_ccap_daily_rate: [0, 32]
+
+    # === Copay ===
+    # FPL ratio = 2_000 / 1_762.50 = 1.1348 -> 3.5% bracket
+    # copay = 2_000 * 0.035 = 70
+    wv_ccap_copay: 70
+
+    # === Daily benefit ===
+    # daily charge = (8_000/12) / (5 * 52/12) = 666.67 / 21.67 = 30.77
+    # daily benefit = min(32, 30.77) = 30.77
+    wv_ccap_daily_benefit: [0, 30.77]
+
+    # === Monthly benefit ===
+    # total reimbursement = 30.77 * 21.67 = 666.78
+    # uncapped = max(666.67 - 70, 0) = 596.67
+    # benefit = min(596.67, 666.78) = 596.67
+    wv_ccap: 596.67
+
+- name: Case 2, low income family with zero copay.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 28
+        employment_income: 6_000
+        immigration_status: CITIZEN
+      person2:
+        age: 1
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+        wv_ccap_provider_type: FAMILY_HOME
+        wv_ccap_quality_tier: TIER_I
+        childcare_days_per_week: 5
+        pre_subsidy_childcare_expenses: 6_000
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_pre_subsidy_childcare_expenses: 6_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: WV
+  output:
+    wv_ccap_eligible_child: [false, true]
+    wv_ccap_income_eligible: true
+    wv_ccap_eligible: true
+
+    # Person1 (age 28) = 336 months -> SCHOOL_AGE; Person2 (age 1) = 12 months -> INFANT
+    wv_ccap_child_age_category: [SCHOOL_AGE, INFANT]
+
+    # Family Home Tier I Infant = $30/day
+    wv_ccap_daily_rate: [0, 30]
+
+    # FPL ratio = 500 / 1_762.50 = 0.2837 < 0.40 -> 0% copay
+    wv_ccap_copay: 0
+
+    # daily charge = 500 / 21.67 = 23.07
+    # daily benefit = min(30, 23.07) = 23.07
+    wv_ccap_daily_benefit: [0, 23.07]
+
+    # total reimbursement = (500/21.6667) * 21.6667 = 500
+    # uncapped = max(500 - 0, 0) = 500
+    # benefit = min(500, 500) = 500
+    wv_ccap: 500
+
+- name: Case 3, ineligible family gets zero benefit.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 35
+        employment_income: 48_000
+        immigration_status: CITIZEN
+        weekly_hours_worked: 40
+      person2:
+        age: 4
+        is_tax_unit_dependent: true
+        immigration_status: CITIZEN
+        wv_ccap_provider_type: CENTER
+        wv_ccap_quality_tier: TIER_I
+        childcare_days_per_week: 5
+        pre_subsidy_childcare_expenses: 10_000
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_pre_subsidy_childcare_expenses: 10_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: WV
+  output:
+    # monthly income = 4_000 > 150% monthly = 2_643.75
+    # Not enrolled -> initial threshold applies
+    wv_ccap_income_eligible: false
+    wv_ccap_eligible: false
+    wv_ccap: 0
+
+- name: Case 4, special needs child with supplement.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 40
+        employment_income: 24_000
+        immigration_status: CITIZEN
+      person2:
+        age: 15
+        is_tax_unit_dependent: true
+        is_disabled: true
+        immigration_status: CITIZEN
+        ssi: 0
+        wv_ccap_provider_type: CENTER
+        wv_ccap_quality_tier: TIER_II
+        childcare_days_per_week: 5
+        pre_subsidy_childcare_expenses: 10_000
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_pre_subsidy_childcare_expenses: 10_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: WV
+  output:
+    # Disabled child age 15 < 18 -> eligible
+    wv_ccap_eligible_child: [false, true]
+    wv_ccap_income_eligible: true
+    wv_ccap_eligible: true
+
+    # Person1 (age 40) = 480 months -> SCHOOL_AGE; Person2 (age 15) = 180 months -> SCHOOL_AGE
+    wv_ccap_child_age_category: [SCHOOL_AGE, SCHOOL_AGE]
+
+    # Center Tier II School Age = $35/day
+    wv_ccap_daily_rate: [0, 35]
+
+    # daily rate with special needs supplement = 35 + 3 = 38
+    # daily charge = (10_000/12) / 21.67 = 833.33 / 21.67 = 38.46
+    # daily benefit = min(38, 38.46) = 38
+    wv_ccap_daily_benefit: [0, 38]
+
+    # total reimbursement = 38 * 21.67 = 823.33
+    # copay: FPL ratio = 2_000 / 1_762.50 = 1.1348 -> 3.5%
+    # copay = 2_000 * 0.035 = 70
+    wv_ccap_copay: 70
+
+    # uncapped = max(833.33 - 70, 0) = 763.33
+    # benefit = min(763.33, 823.33) = 763.33
+    wv_ccap: 763.33
+
+- name: Case 5, non-WV family gets zero benefit.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 35
+        employment_income: 24_000
+      person2:
+        age: 4
+        is_tax_unit_dependent: true
+        childcare_days_per_week: 5
+        pre_subsidy_childcare_expenses: 8_000
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_pre_subsidy_childcare_expenses: 8_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: VA
+  output:
+    wv_ccap: 0

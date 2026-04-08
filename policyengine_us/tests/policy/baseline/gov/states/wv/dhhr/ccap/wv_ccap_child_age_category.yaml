@@ -1,0 +1,88 @@
+# WV CCAP child age category tests
+# Infant (0-12mo), Toddler (13-23mo), Pre-School (2-4yr), School-Age (5+yr)
+# Age group is derived from age in months via bracket parameter.
+# age_in_months = age * 12 (since age is YEAR-defined float)
+
+- name: Case 1, infant at 6 months.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 0.5
+        # 0.5 years = 6 months -> INFANT (0-12mo bracket)
+    households:
+      household:
+        members: [person1]
+        state_code: WV
+  output:
+    wv_ccap_child_age_category: INFANT
+
+- name: Case 2, toddler at 18 months.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 1.5
+        # 1.5 years = 18 months -> TODDLER (13-23mo bracket)
+    households:
+      household:
+        members: [person1]
+        state_code: WV
+  output:
+    wv_ccap_child_age_category: TODDLER
+
+- name: Case 3, preschool at 40 months.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 3.33
+        # 3.33 years ~ 40 months -> PRESCHOOL (24-59mo bracket)
+    households:
+      household:
+        members: [person1]
+        state_code: WV
+  output:
+    wv_ccap_child_age_category: PRESCHOOL
+
+- name: Case 4, school-age at 72 months.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 6
+        # 6 years = 72 months -> SCHOOL_AGE (60+ months bracket)
+    households:
+      household:
+        members: [person1]
+        state_code: WV
+  output:
+    wv_ccap_child_age_category: SCHOOL_AGE
+
+- name: Case 5, boundary at exactly 13 months.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 1.0834
+        # 1.0834 years = 13.0008 months -> TODDLER (threshold at 13)
+    households:
+      household:
+        members: [person1]
+        state_code: WV
+  output:
+    wv_ccap_child_age_category: TODDLER
+
+- name: Case 6, boundary at exactly 24 months.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 2
+        # 2 years = 24 months -> PRESCHOOL (threshold at 24)
+    households:
+      household:
+        members: [person1]
+        state_code: WV
+  output:
+    wv_ccap_child_age_category: PRESCHOOL
