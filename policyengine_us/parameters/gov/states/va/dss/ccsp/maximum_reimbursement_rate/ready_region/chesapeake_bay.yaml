@@ -6,7 +6,7 @@ metadata:
   label: Virginia CCSP Chesapeake Bay Ready Region localities
   reference:
     - title: VDOE Maximum Reimbursement Rates FY 2024
-      href: https://data.virginia.gov/dataset/general-child-care-subsidy-program-maximum-reimbursement-rates#page=2
+      href: https://data.virginia.gov/dataset/general-child-care-subsidy-program-maximum-reimbursement-rates
 
 values:
   2023-08-01:
@@ -24,5 +24,5 @@ values:
     - POQUOSON_CITY_VA
     - RICHMOND_COUNTY_VA
     - WESTMORELAND_COUNTY_VA
-    - WILLIAMSBURG_CITY_VA
+    # - WILLIAMSBURG_CITY_VA  # not in county_enum
     - YORK_COUNTY_VA

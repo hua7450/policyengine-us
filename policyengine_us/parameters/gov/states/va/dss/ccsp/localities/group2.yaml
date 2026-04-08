@@ -23,7 +23,7 @@ values:
     # Cities
     - CHARLOTTESVILLE_CITY_VA
     - CHESAPEAKE_CITY_VA
-    - COLONIAL_HEIGHTS_CITY_VA
+    # - COLONIAL_HEIGHTS_CITY_VA  # not in county_enum
     - HAMPTON_CITY_VA
     - HOPEWELL_CITY_VA
     - NEWPORT_NEWS_CITY_VA
@@ -34,7 +34,7 @@ values:
     - RICHMOND_CITY_VA
     - SUFFOLK_CITY_VA
     - VIRGINIA_BEACH_CITY_VA
-    - WILLIAMSBURG_CITY_VA
+    # - WILLIAMSBURG_CITY_VA  # not in county_enum
 
 metadata:
   unit: list

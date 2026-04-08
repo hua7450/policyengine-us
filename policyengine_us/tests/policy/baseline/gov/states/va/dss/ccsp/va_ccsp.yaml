@@ -1,6 +1,5 @@
 # Virginia CCSP benefit amount tests
-# Benefit = max(childcare_expenses - copay, 0)
-# (MRR ceiling not modeled in initial implementation)
+# Benefit = min(max(childcare_expenses - copay, 0), monthly_mrr)
 
 - name: Case 1, basic benefit calculation.
   period: 2024-01

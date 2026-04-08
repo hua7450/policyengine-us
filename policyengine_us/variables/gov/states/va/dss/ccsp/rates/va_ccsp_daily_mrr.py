@@ -1,5 +1,5 @@
 from policyengine_us.model_api import *
-from policyengine_us.variables.gov.states.va.dss.ccsp.va_ccsp_provider_type import (
+from policyengine_us.variables.gov.states.va.dss.ccsp.rates.va_ccsp_provider_type import (
     VACCSPProviderType,
 )
 

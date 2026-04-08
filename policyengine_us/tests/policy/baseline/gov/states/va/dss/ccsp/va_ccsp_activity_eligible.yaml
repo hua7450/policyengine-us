@@ -130,3 +130,32 @@
   output:
     # Person2 is head/spouse but fails activity test
     va_ccsp_activity_eligible: false
+
+- name: Case 6, two parents one works other is disabled.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 35
+        weekly_hours_worked: 40
+      person2:
+        age: 33
+        weekly_hours_worked: 0
+        is_full_time_student: false
+        is_disabled: true
+      person3:
+        age: 5
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: VA
+  output:
+    # Person1 works (active), person2 disabled (meets requirement)
+    va_ccsp_activity_eligible: true

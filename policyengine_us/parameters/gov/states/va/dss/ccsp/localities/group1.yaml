@@ -72,22 +72,22 @@ values:
     - WYTHE_COUNTY_VA
     # Cities
     - BRISTOL_CITY_VA
-    - BUENA_VISTA_CITY_VA
-    - COVINGTON_CITY_VA
+    # - BUENA_VISTA_CITY_VA  # not in county_enum
+    # - COVINGTON_CITY_VA  # not in county_enum
     - DANVILLE_CITY_VA
     - EMPORIA_CITY_VA
     - FRANKLIN_CITY_VA
-    - GALAX_CITY_VA
+    # - GALAX_CITY_VA  # not in county_enum
     - HARRISONBURG_CITY_VA
     - LEXINGTON_CITY_VA
     - LYNCHBURG_CITY_VA
-    - MARTINSVILLE_CITY_VA
+    # - MARTINSVILLE_CITY_VA  # not in county_enum
     - NORTON_CITY_VA
     - RADFORD_CITY_VA
     - ROANOKE_CITY_VA
     - STAUNTON_CITY_VA
     - WAYNESBORO_CITY_VA
-    - WINCHESTER_CITY_VA
+    # - WINCHESTER_CITY_VA  # not in county_enum
 
 metadata:
   unit: list

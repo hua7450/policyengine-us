@@ -27,10 +27,11 @@ class va_ccsp_copay(Variable):
         )
         per_child_copay = p.per_child_scale.calc(fpg_ratio)
 
-        # Count eligible children, capped at max_children
+        # Count eligible children actually in care, capped at max_children
         person = spm_unit.members
         eligible_child = person("va_ccsp_child_eligible", period)
-        n_eligible_children = spm_unit.sum(eligible_child)
+        attending = person("childcare_attending_days_per_month", period.this_year) > 0
+        n_eligible_children = spm_unit.sum(eligible_child & attending)
         n_assessed = min_(n_eligible_children, p.max_children)
 
         # Total from scale

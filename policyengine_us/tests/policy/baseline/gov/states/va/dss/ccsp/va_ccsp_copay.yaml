@@ -20,10 +20,12 @@
       person2:
         age: 5
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: CITIZEN
       person3:
         age: 3
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: CITIZEN
     tax_units:
       tax_unit:
@@ -57,10 +59,12 @@
       person2:
         age: 8
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: CITIZEN
       person3:
         age: 6
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: CITIZEN
     tax_units:
       tax_unit:
@@ -95,18 +99,22 @@
       person2:
         age: 10
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: CITIZEN
       person3:
         age: 8
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: CITIZEN
       person4:
         age: 6
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: CITIZEN
       person5:
         age: 3
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: CITIZEN
     tax_units:
       tax_unit:
@@ -143,6 +151,7 @@
       person2:
         age: 5
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: CITIZEN
     tax_units:
       tax_unit:
@@ -171,14 +180,17 @@
       person2:
         age: 8
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: CITIZEN
       person3:
         age: 6
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: CITIZEN
       person4:
         age: 3
         is_tax_unit_dependent: true
+        childcare_attending_days_per_month: 23
         immigration_status: CITIZEN
     tax_units:
       tax_unit:

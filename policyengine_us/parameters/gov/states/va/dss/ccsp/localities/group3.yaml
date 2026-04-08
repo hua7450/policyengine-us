@@ -17,8 +17,9 @@ values:
     # Cities
     - ALEXANDRIA_CITY_VA
     - FAIRFAX_CITY_VA
+    - FALLS_CHURCH_CITY_VA
     - FREDERICKSBURG_CITY_VA
-    - MANASSAS_CITY_VA
+    # - MANASSAS_CITY_VA  # not in county_enum
     - MANASSAS_PARK_CITY_VA
 
 metadata:

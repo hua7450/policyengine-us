@@ -14,3 +14,4 @@ class va_ccsp_provider_type(Variable):
     definition_period = YEAR
     label = "Virginia CCSP provider type"
     defined_for = StateCode.VA
+    reference = "https://www.childcare.virginia.gov/home/showpublisheddocument/66667/638981099706730000#page=203"
