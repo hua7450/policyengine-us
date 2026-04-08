@@ -84,4 +84,19 @@ class sc_ccap_maximum_weekly_benefit(Variable):
         special_needs_surcharge = where(is_disabled, p.surcharge.special_needs, 0)
         foster_surcharge = where(is_foster, p.surcharge.foster_care, 0)
 
-        return discounted_rate + special_needs_surcharge + foster_surcharge
+        rate = discounted_rate + special_needs_surcharge + foster_surcharge
+
+        # Head Start pathway only covers the enrolled child (Section 2.15).
+        # Non-Head-Start children need the family to qualify through
+        # standard or protective pathway.
+        is_head_start = person("is_enrolled_in_head_start", period.this_year)
+        income_eligible = person.spm_unit("sc_ccap_income_eligible", period)
+        asset_eligible = person.spm_unit("is_ccdf_asset_eligible", period.this_year)
+        activity_eligible = person.spm_unit("sc_ccap_activity_eligible", period)
+        protective = person.spm_unit("sc_ccap_protective_services", period)
+        standard_or_protective = (
+            income_eligible & asset_eligible & (activity_eligible | protective)
+        )
+        child_covered = is_head_start | standard_or_protective
+
+        return where(child_covered, rate, 0)

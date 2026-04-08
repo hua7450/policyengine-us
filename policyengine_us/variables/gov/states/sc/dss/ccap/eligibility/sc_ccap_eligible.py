@@ -24,7 +24,9 @@ class sc_ccap_eligible(Variable):
             has_eligible_child & income_eligible & asset_eligible & activity_eligible
         )
 
-        # Protective services pathway (Section 2.4) — waives activity.
+        # Protective services pathway (Section 2.4) — waives copay and
+        # activity. Section 2.4 does not explicitly waive income; families
+        # are still subject to the 85% SMI income test.
         protective = spm_unit("sc_ccap_protective_services", period)
         protective_path = (
             has_eligible_child & income_eligible & asset_eligible & protective

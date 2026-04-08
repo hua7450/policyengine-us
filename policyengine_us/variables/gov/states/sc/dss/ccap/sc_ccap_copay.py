@@ -15,11 +15,9 @@ class sc_ccap_copay(Variable):
 
     def formula(spm_unit, period, parameters):
         p = parameters(period).gov.states.sc.dss.ccap.copay
-        # Protective services and Head Start categories have no copay
-        # (Policy Manual Section 2.4, p.65; Section 2.15, p.91;
-        # Section 3.4.2, p.108).
+        # Family-level copay exemptions (Section 3.4.2, p.108).
+        # Head Start copay waiver is per-child, handled below.
         protective = spm_unit("sc_ccap_protective_services", period)
-        head_start = spm_unit("sc_ccap_head_start_category", period)
         is_tanf = spm_unit("is_tanf_enrolled", period)
         if p.fpg_exempt_in_effect:
             monthly_fpg = spm_unit("spm_unit_fpg", period)
@@ -34,9 +32,7 @@ class sc_ccap_copay(Variable):
         is_disabled = person("is_disabled", period.this_year)
         is_young = person("age", period.this_year) < p_elig.disabled_child_age_limit
         has_disabled_child = spm_unit.any(is_disabled & is_young)
-        exempt = (
-            protective | head_start | is_tanf | below_fpl_threshold | has_disabled_child
-        )
+        exempt = protective | is_tanf | below_fpl_threshold | has_disabled_child
 
         # Look up weekly copay per child from fee scale by family size
         # and monthly income.
@@ -53,7 +49,10 @@ class sc_ccap_copay(Variable):
             monthly_income * p.income_cap_rate * MONTHS_IN_YEAR / WEEKS_IN_YEAR
         )
         capped_weekly = min_(weekly_copay_per_child, weekly_income_cap)
-        # Multiply by eligible children and convert to monthly.
-        num_eligible = add(spm_unit, period, ["sc_ccap_eligible_child"])
-        monthly_copay = capped_weekly * num_eligible * (WEEKS_IN_YEAR / MONTHS_IN_YEAR)
+        # Head Start children have no copay (Section 2.15); only count
+        # non-Head-Start eligible children for the copay calculation.
+        is_eligible = person("sc_ccap_eligible_child", period)
+        is_head_start = person("is_enrolled_in_head_start", period.this_year)
+        num_paying = spm_unit.sum(is_eligible & ~is_head_start)
+        monthly_copay = capped_weekly * num_paying * (WEEKS_IN_YEAR / MONTHS_IN_YEAR)
         return where(exempt, 0, monthly_copay)

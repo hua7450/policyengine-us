@@ -18,5 +18,9 @@ class sc_ccap_activity_eligible(Variable):
         hours_worked = person("weekly_hours_worked", period.this_year)
         meets_work_requirement = hours_worked >= p.activity_hours
         is_student = person("is_full_time_student", period.this_year)
-        individually_eligible = meets_work_requirement | is_student
+        # Per Section 2.13, a disabled parent satisfies the activity
+        # requirement (one parent working/school + other disabled,
+        # or both parents disabled).
+        is_disabled = person("is_disabled", period.this_year)
+        individually_eligible = meets_work_requirement | is_student | is_disabled
         return spm_unit.sum(is_head_or_spouse & ~individually_eligible) == 0
