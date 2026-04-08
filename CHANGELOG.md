@@ -1,3 +1,10 @@
+## [1.633.0] - 2026-04-08
+
+### Added
+
+- Move SC H4216 income tax reform from contributed reform to baseline, effective for tax years 2026 and later. This implements new tax rates (1.99%/5.21%), the SCIAD deduction with phaseout, and the 00 EITC cap.
+
+
 ## [1.632.5] - 2026-04-07
 
 ### Fixed
