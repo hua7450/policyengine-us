@@ -17,5 +17,6 @@ class ctc_child_individual_maximum(Variable):
 
     def formula(person, period, parameters):
         age = person("age", period)
+        qualifying_child = person("ctc_qualifying_child", period)
         p = parameters(period).gov.irs.credits.ctc.amount
-        return p.base.calc(age)
+        return qualifying_child * p.base.calc(age)
