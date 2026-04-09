@@ -1,0 +1,13 @@
+description: Georgia limits the Childcare and Parent Services program to enrolled families with income at or below this share of state median income.
+values:
+  2026-03-02: 0.85
+
+metadata:
+  unit: /1
+  period: year
+  label: Georgia CAPS ongoing eligibility SMI rate
+  reference:
+    - title: Georgia CAPS Policy Manual, Chapter 8 (Income)
+      href: https://caps.decal.ga.gov/assets/downloads/CAPS/04-CAPS_Policy-Chapter_8.pdf#page=2
+    - title: Georgia CAPS Appendix A - Income Limits (effective March 2, 2026)
+      href: https://caps.decal.ga.gov/assets/downloads/CAPS/Appendix_A-CAPS_702_Income_Limits.pdf#page=2

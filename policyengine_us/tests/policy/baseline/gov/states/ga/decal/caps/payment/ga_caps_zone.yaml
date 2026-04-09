@@ -1,0 +1,103 @@
+# GA CAPS zone assignment
+# Zone 1: 14 counties (Fulton, Cobb, DeKalb, etc.)
+# Zone 2: 46 counties (Chatham, Bibb, etc.)
+# Zone 3: all remaining counties (default)
+
+- name: Case 1, Fulton County is Zone 1.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+    households:
+      household:
+        members: [person1]
+        state_code: GA
+        county_str: FULTON_COUNTY_GA
+  output:
+    ga_caps_zone: ZONE_1
+
+- name: Case 2, Cobb County is Zone 1.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+    households:
+      household:
+        members: [person1]
+        state_code: GA
+        county_str: COBB_COUNTY_GA
+  output:
+    ga_caps_zone: ZONE_1
+
+- name: Case 3, Chatham County is Zone 2.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+    households:
+      household:
+        members: [person1]
+        state_code: GA
+        county_str: CHATHAM_COUNTY_GA
+  output:
+    ga_caps_zone: ZONE_2
+
+- name: Case 4, Bibb County is Zone 2.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+    households:
+      household:
+        members: [person1]
+        state_code: GA
+        county_str: BIBB_COUNTY_GA
+  output:
+    ga_caps_zone: ZONE_2
+
+- name: Case 5, Appling County is Zone 3.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+    households:
+      household:
+        members: [person1]
+        state_code: GA
+        county_str: APPLING_COUNTY_GA
+  output:
+    # Not in Zone 1 or Zone 2 -> Zone 3 (default)
+    ga_caps_zone: ZONE_3
+
+- name: Case 6, Camden County is Zone 1.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+    households:
+      household:
+        members: [person1]
+        state_code: GA
+        county_str: CAMDEN_COUNTY_GA
+  output:
+    ga_caps_zone: ZONE_1
+
+- name: Case 7, Tift County is Zone 2.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+    households:
+      household:
+        members: [person1]
+        state_code: GA
+        county_str: TIFT_COUNTY_GA
+  output:
+    ga_caps_zone: ZONE_2

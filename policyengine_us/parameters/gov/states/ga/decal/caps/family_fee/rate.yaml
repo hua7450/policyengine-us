@@ -1,0 +1,30 @@
+description: Georgia sets this co-payment percentage under the Childcare and Parent Services program.
+metadata:
+  type: single_amount
+  threshold_unit: /1
+  amount_unit: /1
+  period: year
+  label: Georgia CAPS family fee rate by FPL ratio
+  reference:
+    - title: Georgia CAPS Appendix D - Family Fee Schedule (effective March 2, 2026)
+      href: https://caps.decal.ga.gov/assets/downloads/CAPS/Appendix_D-CAPS_Family_Fee_702.pdf#page=2
+    - title: Georgia CCDF Plan FFY 2025-2027, Section 4.3.2
+      href: https://www.acf.hhs.gov/sites/default/files/documents/occ/georgia_2025_2027_ccdf_state_plan.pdf#page=117
+
+brackets:
+  - threshold:
+      2026-03-02: 0
+    amount:
+      2026-03-02: 0
+  - threshold:
+      2026-03-02: 0.1001
+    amount:
+      2026-03-02: 0.03
+  - threshold:
+      2026-03-02: 0.5001
+    amount:
+      2026-03-02: 0.05
+  - threshold:
+      2026-03-02: 1.0001
+    amount:
+      2026-03-02: 0.07

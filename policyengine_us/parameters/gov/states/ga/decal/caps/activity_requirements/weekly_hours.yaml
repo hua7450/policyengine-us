@@ -1,0 +1,13 @@
+description: Georgia sets this amount as the minimum weekly hours of approved activity under the Childcare and Parent Services program.
+values:
+  2026-03-02: 24
+
+metadata:
+  unit: hour
+  period: year
+  label: Georgia CAPS minimum weekly activity hours
+  reference:
+    - title: Georgia CAPS Policy Manual, Chapter 6 (Eligibility Requirements)
+      href: https://caps.decal.ga.gov/assets/downloads/CAPS/02-CAPS_Policy-Chapter_6.pdf#page=4
+    - title: Georgia CCDF Plan FFY 2025-2027, Section 3.2.2
+      href: https://www.acf.hhs.gov/sites/default/files/documents/occ/georgia_2025_2027_ccdf_state_plan.pdf#page=56

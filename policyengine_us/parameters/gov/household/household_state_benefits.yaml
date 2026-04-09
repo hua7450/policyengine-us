@@ -53,6 +53,8 @@ values:
     - al_ssp
     # Alaska benefits
     - ak_ssp
+    # Georgia benefits
+    - ga_child_care_subsidies
     # Nebraska benefits
     - ne_child_care_subsidies
     # North Carolina benefits
