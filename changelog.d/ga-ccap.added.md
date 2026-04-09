@@ -1,1 +1,1 @@
-Implement Georgia CCAP (Childcare and Parent Services - CAPS). Closes #7957.
+Implement Georgia CAPS (Childcare and Parent Services) child care subsidy program.
