@@ -12,7 +12,7 @@ class il_liheap_fuel_type(Variable):
     value_type = Enum
     entity = SPMUnit
     possible_values = ILLIHEAPFuelType
-    default_value = ILLIHEAPFuelType.NAT_GAS_OTHER
+    default_value = ILLIHEAPFuelType.ALL_ELECTRIC
     definition_period = YEAR
     label = "Household fuel type for IL LIHEAP"
     defined_for = StateCode.IL
