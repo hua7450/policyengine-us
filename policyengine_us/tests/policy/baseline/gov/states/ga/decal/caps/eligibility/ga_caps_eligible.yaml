@@ -15,7 +15,7 @@
         immigration_status: CITIZEN
       person2:
         age: 5
-        is_tax_unit_dependent: true
+
         immigration_status: CITIZEN
     tax_units:
       tax_unit:
@@ -40,7 +40,7 @@
         immigration_status: CITIZEN
       person2:
         age: 5
-        is_tax_unit_dependent: true
+
         immigration_status: CITIZEN
     tax_units:
       tax_unit:
@@ -88,7 +88,7 @@
         immigration_status: CITIZEN
       person2:
         age: 5
-        is_tax_unit_dependent: true
+
         immigration_status: CITIZEN
     tax_units:
       tax_unit:
@@ -114,7 +114,7 @@
         immigration_status: CITIZEN
       person2:
         age: 5
-        is_tax_unit_dependent: true
+
         immigration_status: UNDOCUMENTED
     tax_units:
       tax_unit:
@@ -141,7 +141,7 @@
         is_full_time_student: false
       person2:
         age: 5
-        is_tax_unit_dependent: true
+
         immigration_status: CITIZEN
     tax_units:
       tax_unit:

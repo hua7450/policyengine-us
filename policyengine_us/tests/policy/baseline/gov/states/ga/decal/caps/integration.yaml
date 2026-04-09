@@ -22,7 +22,7 @@
         immigration_status: CITIZEN
       person2:
         age: 4
-        is_tax_unit_dependent: true
+
         immigration_status: CITIZEN
         ga_caps_provider_type: CENTER
         ga_caps_care_type: FULL_TIME
@@ -43,7 +43,6 @@
     # === Eligibility ===
     # Child age 4 < 13 -> age eligible
     # Citizen -> immigration eligible
-    # Dependent -> eligible child
     ga_caps_eligible_child: [false, true]
 
     # income 30,000 <= 39,702.88 (50% SMI for family of 2) -> income eligible
@@ -67,12 +66,12 @@
     ga_caps_family_fee: 173.33
 
     # === Benefit ===
-    # max annual = 221 * 52 = $11,492
-    # annual fee = 40 * 52 = $2,080
-    # uncapped = max(11,000 - 2,080, 0) = $8,920
-    # annual benefit = min(8,920, 11,492) = $8,920
-    # quality bonus = 0 (NONE rating)
-    # monthly = 8,920 / 12 = $743.33
+    # base_max_monthly = 221 * 52 / 12 = $957.67
+    # pre_subsidy_monthly = 11,000 / 12 = $916.67
+    # base_payment = min(916.67, 957.67) = $916.67
+    # net_base = max(916.67 - 173.33, 0) = $743.33
+    # no quality bonus (NONE rating)
+    # subsidy = $743.33
     ga_caps: 743.33
 
 - name: Case 2, low income family with zero fee.
@@ -86,7 +85,7 @@
         immigration_status: CITIZEN
       person2:
         age: 0
-        is_tax_unit_dependent: true
+
         immigration_status: CITIZEN
         ga_caps_provider_type: FAMILY
         ga_caps_care_type: FULL_TIME
@@ -120,11 +119,12 @@
     ga_caps_family_fee: 0
 
     # === Benefit ===
-    # max annual = 199 * 52 = $10,348
-    # annual fee = $0
-    # uncapped = max(8,000 - 0, 0) = $8,000
-    # annual benefit = min(8,000, 10,348) = $8,000
-    # monthly = 8,000 / 12 = $666.67
+    # base_max_monthly = 199 * 52 / 12 = $862.33
+    # pre_subsidy_monthly = 8,000 / 12 = $666.67
+    # base_payment = min(666.67, 862.33) = $666.67
+    # net_base = max(666.67 - 0, 0) = $666.67
+    # no quality bonus (NONE rating)
+    # subsidy = $666.67
     ga_caps: 666.67
 
 - name: Case 3, enrolled family at ongoing threshold with quality bonus.
@@ -138,7 +138,7 @@
         immigration_status: CITIZEN
       person2:
         age: 2
-        is_tax_unit_dependent: true
+
         immigration_status: CITIZEN
         ga_caps_provider_type: CENTER
         ga_caps_care_type: FULL_TIME
@@ -180,15 +180,13 @@
     ga_caps_family_fee: 346.67
 
     # === Benefit ===
-    # Monthly expenses = 12,000 / 12 = $1,000
-    # Monthly fee = $346.67
     # base_max_monthly = 160 * 52 / 12 = $693.33
-    # base_subsidy = min(1,000 - 346.67, 693.33) = $653.33
-    # quality_enhanced_weekly = 160 * 1.10 = $176
-    # quality_max_monthly = 176 * 52 / 12 = $762.67
-    # quality_bonus = 762.67 - 693.33 = $69.33
-    # total = 653.33 + 69.33 = $722.67
-    ga_caps: 722.67
+    # pre_subsidy_monthly = 12,000 / 12 = $1,000
+    # base_payment = min(1,000, 693.33) = $693.33
+    # net_base = max(693.33 - 346.67, 0) = $346.67
+    # effective_bonus = (160 * 0.10) / 160 = 0.10
+    # subsidy = 346.67 * 1.10 = $381.33
+    ga_caps: 381.33
 
 - name: Case 4, ineligible family gets zero benefit.
   period: 2026-01
@@ -201,7 +199,7 @@
         immigration_status: CITIZEN
       person2:
         age: 4
-        is_tax_unit_dependent: true
+
         immigration_status: CITIZEN
         ga_caps_provider_type: CENTER
         ga_caps_care_type: FULL_TIME
@@ -235,14 +233,14 @@
         immigration_status: CITIZEN
       person2:
         age: 0
-        is_tax_unit_dependent: true
+
         immigration_status: CITIZEN
         ga_caps_provider_type: CENTER
         ga_caps_care_type: FULL_TIME
         ga_caps_quality_rating: TWO_STAR
       person3:
         age: 8
-        is_tax_unit_dependent: true
+
         immigration_status: CITIZEN
         ga_caps_provider_type: CENTER
         ga_caps_care_type: BEFORE_AFTER_SCHOOL
@@ -284,15 +282,13 @@
     ga_caps_family_fee: 82.33
 
     # === Benefit ===
-    # Monthly expenses = 10,000 / 12 = $833.33
-    # Monthly fee = $82.33
-    # base_max_monthly = 183 * 52 / 12 = $793.00
-    # base_subsidy = min(833.33 - 82.33, 793.00) = $751.00
-    # quality_enhanced: 130*1.05 + 53*1.05 = 192.15
-    # quality_max_monthly = 192.15 * 52 / 12 = $832.65
-    # quality_bonus = 832.65 - 793.00 = $39.65
-    # total = 751.00 + 39.65 = $790.65
-    ga_caps: 790.65
+    # base_max_monthly = (130 + 53) * 52 / 12 = 183 * 52 / 12 = $793.00
+    # pre_subsidy_monthly = 10,000 / 12 = $833.33
+    # base_payment = min(833.33, 793.00) = $793.00
+    # net_base = max(793.00 - 82.33, 0) = $710.67
+    # effective_bonus = (130*0.05 + 53*0.05) / 183 = 9.15 / 183 = 0.05
+    # subsidy = 710.67 * 1.05 = $746.20
+    ga_caps: 746.20
 
 - name: Case 6, disabled teenager with family care in Zone 2.
   period: 2026-01
@@ -305,7 +301,7 @@
         immigration_status: CITIZEN
       person2:
         age: 15
-        is_tax_unit_dependent: true
+
         is_disabled: true
         immigration_status: CITIZEN
         ga_caps_provider_type: FAMILY
@@ -348,11 +344,12 @@
     ga_caps_family_fee: 203.67
 
     # === Benefit ===
-    # max annual = 135 * 52 = $7,020
-    # annual fee = 47 * 52 = $2,444
-    # uncapped = max(7,000 - 2,444, 0) = $4,556
-    # annual benefit = min(4,556, 7,020) = $4,556
-    # monthly = 4,556 / 12 = $379.67
+    # base_max_monthly = 135 * 52 / 12 = $585.00
+    # pre_subsidy_monthly = 7,000 / 12 = $583.33
+    # base_payment = min(583.33, 585.00) = $583.33
+    # net_base = max(583.33 - 203.67, 0) = $379.67
+    # no quality bonus (NONE rating)
+    # subsidy = $379.67
     ga_caps: 379.67
 
 - name: Case 7, non-Georgia family gets zero benefit.
@@ -365,7 +362,7 @@
         employment_income: 20_000
       person2:
         age: 4
-        is_tax_unit_dependent: true
+
         ga_caps_provider_type: CENTER
         ga_caps_care_type: FULL_TIME
     tax_units:

@@ -24,7 +24,14 @@ class ga_caps(Variable):
         base_max_weekly = add(spm_unit, period, ["ga_caps_maximum_weekly_benefit"])
         base_max_monthly = base_max_weekly * (WEEKS_IN_YEAR / MONTHS_IN_YEAR)
 
-        # Quality bonus: per-child, applied to the net base payment.
+        # Base payment capped at actual expenses.
+        pre_subsidy = spm_unit("spm_unit_pre_subsidy_childcare_expenses", period)
+        base_payment = min_(pre_subsidy, base_max_monthly)
+
+        # Net base payment = base payment less family fee, floored at 0.
+        net_base = max_(base_payment - family_fee, 0)
+
+        # Quality bonus: per-child weighted average bonus rate.
         person = spm_unit.members
         weekly_rate = person("ga_caps_maximum_weekly_benefit", period)
         quality_rating = person("ga_caps_quality_rating", period)
@@ -38,14 +45,13 @@ class ga_caps(Variable):
             default=0,
         )
         bonus_rate = p.quality_rated.bonus_rate.calc(star_count)
-        quality_enhanced_weekly = weekly_rate * (1 + bonus_rate)
-        quality_max_monthly = spm_unit.sum(quality_enhanced_weekly) * (
-            WEEKS_IN_YEAR / MONTHS_IN_YEAR
+        weighted_bonus = spm_unit.sum(weekly_rate * bonus_rate)
+        effective_bonus_rate = np.divide(
+            weighted_bonus,
+            base_max_weekly,
+            out=np.zeros_like(weighted_bonus),
+            where=base_max_weekly > 0,
         )
 
-        # Subsidy = min(expenses - fee, base max) floored at 0.
-        # Quality bonus on the net base payment.
-        pre_subsidy = spm_unit("spm_unit_pre_subsidy_childcare_expenses", period)
-        base_subsidy = max_(min_(pre_subsidy - family_fee, base_max_monthly), 0)
-        quality_bonus = quality_max_monthly - base_max_monthly
-        return base_subsidy + where(base_subsidy > 0, quality_bonus, 0)
+        # Subsidy = net base payment * (1 + effective quality bonus rate).
+        return net_base * (1 + effective_bonus_rate)

@@ -28,28 +28,28 @@
         immigration_status: CITIZEN
       person3:
         age: 10
-        is_tax_unit_dependent: true
+
         immigration_status: CITIZEN
         ga_caps_provider_type: CENTER
         ga_caps_care_type: BEFORE_AFTER_SCHOOL
         ga_caps_quality_rating: NONE
       person4:
         age: 3
-        is_tax_unit_dependent: true
+
         immigration_status: CITIZEN
         ga_caps_provider_type: FAMILY
         ga_caps_care_type: FULL_TIME
         ga_caps_quality_rating: TWO_STAR
       person5:
         age: 0
-        is_tax_unit_dependent: true
+
         immigration_status: CITIZEN
         ga_caps_provider_type: CENTER
         ga_caps_care_type: FULL_TIME
         ga_caps_quality_rating: TWO_STAR
       person6:
         age: 14
-        is_tax_unit_dependent: true
+
         immigration_status: CITIZEN
     tax_units:
       tax_unit:
@@ -93,19 +93,17 @@
     ga_caps_family_fee: 424.67
 
     # === Benefit ===
-    # base_max weekly = 84 + 180 + 260 = $524
-    # base_max annual = 524 * 52 = $27,248
-    # annual fee = 98 * 52 = $5,096
-    # uncapped = max(20,000 - 5,096, 0) = $14,904
-    # base_subsidy = min(14,904, 27,248) = $14,904
+    # base_max_weekly = 84 + 180 + 260 = $524
     # base_max_monthly = 524 * 52 / 12 = $2,270.67
+    # pre_subsidy_monthly = 20,000 / 12 = $1,666.67
+    # base_payment = min(1,666.67, 2,270.67) = $1,666.67
+    # net_base = max(1,666.67 - 424.67, 0) = $1,242.00
     #
     # quality: person3 NONE (0%), person4 TWO_STAR (5%), person5 TWO_STAR (5%)
-    # quality_enhanced: 84*1.00 + 180*1.05 + 260*1.05 = 84 + 189 + 273 = 546
-    # quality_max_monthly = 546 * 52 / 12 = $2,366.00
-    # quality_bonus = 2,366.00 - 2,270.67 = $95.33
-    # monthly = 14,904/12 + 95.33 = $1,242.00 + $95.33 = $1,337.33
-    ga_caps: 1_337.33
+    # weighted_bonus = 84*0 + 180*0.05 + 260*0.05 = 0 + 9 + 13 = 22
+    # effective_bonus = 22 / 524 = 0.04198
+    # subsidy = 1,242.00 * 1.04198 = $1,294.15
+    ga_caps: 1_294.15
 
 - name: Case 2, enrolled family between 50 and 85 percent SMI.
   period: 2026-01
@@ -118,7 +116,7 @@
         immigration_status: CITIZEN
       person2:
         age: 1
-        is_tax_unit_dependent: true
+
         immigration_status: CITIZEN
         ga_caps_provider_type: CENTER
         ga_caps_care_type: FULL_TIME
@@ -159,16 +157,13 @@
     ga_caps_family_fee: 290.33
 
     # === Benefit ===
-    # base_max annual = 248 * 52 = $12,896
-    # annual fee = 67 * 52 = $3,484
-    # uncapped = max(15,000 - 3,484, 0) = $11,516
-    # base_subsidy = min(11,516, 12,896) = $11,516
     # base_max_monthly = 248 * 52 / 12 = $1,074.67
-    # quality_enhanced_weekly = 248 * 1.10 = $272.80
-    # quality_max_monthly = 272.80 * 52 / 12 = $1,182.13
-    # quality_bonus = 1,182.13 - 1,074.67 = $107.47
-    # monthly = 11,516/12 + 107.47 = $959.67 + $107.47 = $1,067.13
-    ga_caps: 1_067.13
+    # pre_subsidy_monthly = 15,000 / 12 = $1,250.00
+    # base_payment = min(1,250.00, 1,074.67) = $1,074.67
+    # net_base = max(1,074.67 - 290.33, 0) = $784.33
+    # effective_bonus = (248 * 0.10) / 248 = 0.10
+    # subsidy = 784.33 * 1.10 = $862.77
+    ga_caps: 862.77
 
 - name: Case 3, non-enrolled family at 50 percent SMI plus 1 dollar is ineligible.
   period: 2026-01
@@ -181,7 +176,7 @@
         immigration_status: CITIZEN
       person2:
         age: 4
-        is_tax_unit_dependent: true
+
         immigration_status: CITIZEN
         ga_caps_provider_type: CENTER
         ga_caps_care_type: FULL_TIME
@@ -216,14 +211,14 @@
         immigration_status: CITIZEN
       person2:
         age: 5
-        is_tax_unit_dependent: true
+
         immigration_status: CITIZEN
         ga_caps_provider_type: CENTER
         ga_caps_care_type: FULL_TIME
         ga_caps_quality_rating: NONE
       person3:
         age: 14
-        is_tax_unit_dependent: true
+
         immigration_status: CITIZEN
     tax_units:
       tax_unit:
@@ -252,12 +247,13 @@
     # weekly fee = floor(30,000 * 0.07 / 52) = floor(40.38) = $40
     # monthly fee = 40 * 52 / 12 = $173.33
     ga_caps_family_fee: 173.33
-    # base_max annual = 150 * 52 = $7,800
-    # annual fee = 40 * 52 = $2,080
-    # uncapped = max(10,000 - 2,080, 0) = $7,920
-    # base_subsidy = min(7,920, 7,800) = $7,800
-    # monthly = 7,800 / 12 = $650.00
-    ga_caps: 650.00
+    # base_max_monthly = 150 * 52 / 12 = $650.00
+    # pre_subsidy_monthly = 10,000 / 12 = $833.33
+    # base_payment = min(833.33, 650.00) = $650.00
+    # net_base = max(650.00 - 173.33, 0) = $476.67
+    # no quality bonus (NONE rating)
+    # subsidy = $476.67
+    ga_caps: 476.67
 
 - name: Case 5, disabled child age 16 with family provider in Zone 3.
   period: 2026-01
@@ -270,7 +266,7 @@
         immigration_status: CITIZEN
       person2:
         age: 16
-        is_tax_unit_dependent: true
+
         is_disabled: true
         immigration_status: CITIZEN
         ga_caps_provider_type: FAMILY
@@ -301,16 +297,13 @@
     # weekly fee = floor(20,000 * 0.05 / 52) = floor(19.23) = $19
     # monthly fee = 19 * 52 / 12 = $82.33
     ga_caps_family_fee: 82.33
-    # base_max annual = 94 * 52 = $4,888
-    # annual fee = 19 * 52 = $988
-    # uncapped = max(5,000 - 988, 0) = $4,012
-    # base_subsidy = min(4,012, 4,888) = $4,012
     # base_max_monthly = 94 * 52 / 12 = $407.33
-    # quality_enhanced = 94 * 1.05 = $98.70
-    # quality_max_monthly = 98.70 * 52 / 12 = $427.70
-    # quality_bonus = 427.70 - 407.33 = $20.37
-    # monthly = 4,012/12 + 20.37 = $334.33 + $20.37 = $354.70
-    ga_caps: 354.70
+    # pre_subsidy_monthly = 5,000 / 12 = $416.67
+    # base_payment = min(416.67, 407.33) = $407.33
+    # net_base = max(407.33 - 82.33, 0) = $325.00
+    # effective_bonus = (94 * 0.05) / 94 = 0.05
+    # subsidy = 325.00 * 1.05 = $341.25
+    ga_caps: 341.25
 
 - name: Case 6, two-parent family where one is a student.
   period: 2026-01
@@ -329,7 +322,7 @@
         is_full_time_student: true
       person3:
         age: 4
-        is_tax_unit_dependent: true
+
         immigration_status: CITIZEN
         ga_caps_provider_type: CENTER
         ga_caps_care_type: FULL_TIME
@@ -359,9 +352,10 @@
     # weekly fee = floor(20,000 * 0.05 / 52) = floor(19.23) = $19
     # monthly fee = 19 * 52 / 12 = $82.33
     ga_caps_family_fee: 82.33
-    # base_max annual = 221 * 52 = $11,492
-    # annual fee = 19 * 52 = $988
-    # uncapped = max(10,000 - 988, 0) = $9,012
-    # base_subsidy = min(9,012, 11,492) = $9,012
-    # monthly = 9,012 / 12 = $751.00
+    # base_max_monthly = 221 * 52 / 12 = $957.67
+    # pre_subsidy_monthly = 10,000 / 12 = $833.33
+    # base_payment = min(833.33, 957.67) = $833.33
+    # net_base = max(833.33 - 82.33, 0) = $751.00
+    # no quality bonus (NONE rating)
+    # subsidy = $751.00
     ga_caps: 751.00

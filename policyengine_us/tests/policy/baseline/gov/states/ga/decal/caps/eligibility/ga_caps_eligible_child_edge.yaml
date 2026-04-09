@@ -11,7 +11,7 @@
         age: 25
       person2:
         age: 0
-        is_tax_unit_dependent: true
+
         immigration_status: CITIZEN
     tax_units:
       tax_unit:
@@ -35,7 +35,7 @@
         age: 25
       person2:
         age: 1
-        is_tax_unit_dependent: true
+
         immigration_status: CITIZEN
     tax_units:
       tax_unit:
@@ -59,7 +59,7 @@
         age: 30
       person2:
         age: 3
-        is_tax_unit_dependent: true
+
         immigration_status: CITIZEN
     tax_units:
       tax_unit:
@@ -83,7 +83,7 @@
         age: 35
       person2:
         age: 6
-        is_tax_unit_dependent: true
+
         immigration_status: CITIZEN
     tax_units:
       tax_unit:
@@ -107,7 +107,7 @@
         age: 40
       person2:
         age: 13
-        is_tax_unit_dependent: true
+
         is_disabled: true
         immigration_status: CITIZEN
     tax_units:
@@ -132,7 +132,7 @@
         age: 40
       person2:
         age: 13
-        is_tax_unit_dependent: true
+
         is_disabled: false
         immigration_status: CITIZEN
     tax_units:
@@ -157,11 +157,11 @@
         age: 40
       person2:
         age: 10
-        is_tax_unit_dependent: true
+
         immigration_status: CITIZEN
       person3:
         age: 14
-        is_tax_unit_dependent: true
+
         immigration_status: CITIZEN
     tax_units:
       tax_unit:
@@ -186,7 +186,7 @@
         age: 30
       person2:
         age: 5
-        is_tax_unit_dependent: true
+
         immigration_status: LEGAL_PERMANENT_RESIDENT
     tax_units:
       tax_unit:

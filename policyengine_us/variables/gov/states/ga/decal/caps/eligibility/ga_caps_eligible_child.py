@@ -17,8 +17,7 @@ class ga_caps_eligible_child(Variable):
         age = person("age", period.this_year)
         is_disabled = person("is_disabled", period.this_year)
         age_eligible = where(is_disabled, age <= p.disabled_child, age < p.child)
-        is_dependent = person("is_tax_unit_dependent", period.this_year)
         immigration_eligible = person(
             "is_ccdf_immigration_eligible_child", period.this_year
         )
-        return age_eligible & is_dependent & immigration_eligible
+        return age_eligible & immigration_eligible
