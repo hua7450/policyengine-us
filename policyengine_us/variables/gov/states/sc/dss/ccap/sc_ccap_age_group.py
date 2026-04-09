@@ -27,10 +27,11 @@ class sc_ccap_age_group(Variable):
         p = parameters(period).gov.states.sc.dss.ccap.age_group
         age_index = p.age.calc(age)
         # age_index 0-4 map directly to UNDER_1 through AGE_4.
-        # age_index 5 is age 5+: if in school -> AGE_5_12_IN_SCHOOL (6),
+        # age_index 5 = exactly age 5: if in school -> AGE_5_12_IN_SCHOOL (6),
         # else -> AGE_5_NOT_IN_K (5).
+        # age_index 6 = age 6+: always AGE_5_12_IN_SCHOOL (6).
         return where(
-            age_index == 5,
-            where(is_in_school, 6, 5),
-            age_index,
+            (age_index == 5) & ~is_in_school,
+            5,
+            where(age_index >= 5, 6, age_index),
         )

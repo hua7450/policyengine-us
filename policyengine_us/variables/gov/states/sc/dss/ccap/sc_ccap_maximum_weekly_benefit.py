@@ -98,5 +98,6 @@ class sc_ccap_maximum_weekly_benefit(Variable):
             income_eligible & asset_eligible & (activity_eligible | protective)
         )
         child_covered = is_head_start | standard_or_protective
+        in_care = person("childcare_hours_per_week", period) > 0
 
-        return where(child_covered, rate, 0)
+        return where(child_covered & in_care, rate, 0)

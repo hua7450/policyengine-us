@@ -56,9 +56,11 @@
       person3:
         age: 5
         is_tax_unit_dependent: true
+        childcare_hours_per_week: 30
       person4:
         age: 3
         is_tax_unit_dependent: true
+        childcare_hours_per_week: 30
     tax_units:
       tax_unit:
         members: [person1, person2, person3, person4]
@@ -73,7 +75,7 @@
   output:
     # Monthly income = 50,400 / 12 = 4,200
     # 4,020 <= 4,200 <= 4,668 -> $6/wk per child
-    # $6/wk * 2 eligible children * (52/12) = $52.00/mo
+    # $6/wk * 2 children in care * (52/12) = $52.00/mo
     sc_ccap_copay: 52
 
 - name: Case 3, family size 4 in $11 copay tier.
@@ -89,9 +91,11 @@
       person3:
         age: 5
         is_tax_unit_dependent: true
+        childcare_hours_per_week: 30
       person4:
         age: 3
         is_tax_unit_dependent: true
+        childcare_hours_per_week: 30
     tax_units:
       tax_unit:
         members: [person1, person2, person3, person4]
@@ -106,7 +110,7 @@
   output:
     # Monthly income = 60,000 / 12 = 5,000
     # 4,669 <= 5,000 <= 5,317 -> $11/wk per child
-    # $11/wk * 2 eligible children * (52/12) = $95.33/mo
+    # $11/wk * 2 children in care * (52/12) = $95.33/mo
     sc_ccap_copay: 95.33
 
 - name: Case 4, family size 4 in $14 copay tier.
@@ -122,9 +126,11 @@
       person3:
         age: 5
         is_tax_unit_dependent: true
+        childcare_hours_per_week: 30
       person4:
         age: 3
         is_tax_unit_dependent: true
+        childcare_hours_per_week: 30
     tax_units:
       tax_unit:
         members: [person1, person2, person3, person4]
@@ -139,7 +145,7 @@
   output:
     # Monthly income = 66,000 / 12 = 5,500
     # 5,318 <= 5,500 <= 5,966 -> $14/wk per child
-    # $14/wk * 2 eligible children * (52/12) = $121.33/mo
+    # $14/wk * 2 children in care * (52/12) = $121.33/mo
     sc_ccap_copay: 121.33
 
 - name: Case 5, family size 4 in $17 copay tier.
@@ -155,9 +161,11 @@
       person3:
         age: 5
         is_tax_unit_dependent: true
+        childcare_hours_per_week: 30
       person4:
         age: 3
         is_tax_unit_dependent: true
+        childcare_hours_per_week: 30
     tax_units:
       tax_unit:
         members: [person1, person2, person3, person4]
@@ -174,7 +182,7 @@
     # Band width: ceil((6954 - 4019) / 5) = 587
     # Tier 3 ($14): income > 4019+587*2=5193 and <= 4019+587*3=5780
     # Monthly income = 68,400 / 12 = 5,700 -> tier 2 ($14/wk)
-    # $14/wk * 2 eligible children * (52/12) = $121.33/mo
+    # $14/wk * 2 children in care * (52/12) = $121.33/mo
     sc_ccap_copay: 121.33
 
 - name: Case 6, family size 4 in $20 copay tier.
@@ -190,9 +198,11 @@
       person3:
         age: 5
         is_tax_unit_dependent: true
+        childcare_hours_per_week: 30
       person4:
         age: 3
         is_tax_unit_dependent: true
+        childcare_hours_per_week: 30
     tax_units:
       tax_unit:
         members: [person1, person2, person3, person4]
@@ -206,7 +216,7 @@
   output:
     # Monthly income = 80,400 / 12 = 6,700
     # 6,616 <= 6,700 <= 7,263 -> $20/wk per child
-    # $20/wk * 2 eligible children * (52/12) = $173.33/mo
+    # $20/wk * 2 children in care * (52/12) = $173.33/mo
     sc_ccap_copay: 173.33
 
 - name: Case 7, TANF enrolled family gets zero copay.
@@ -384,6 +394,7 @@
       person2:
         age: 4
         is_tax_unit_dependent: true
+        childcare_hours_per_week: 30
     tax_units:
       tax_unit:
         members: [person1, person2]
@@ -399,7 +410,7 @@
     # Pre-2024: no FPL exemption, all families pay at least $6/wk.
     # SMI for FS 2 (SC, 2023-10-01): 89,725 * 0.68 = 61,013/yr = 5,084/mo
     # 45% SMI = 2,288; income $1,500 < 2,288 -> tier 0 ($6/wk)
-    # $6/wk * 1 child * 52/12 = $26/mo
+    # $6/wk * 1 child in care * 52/12 = $26/mo
     sc_ccap_copay: 26
 
 - name: Case 14, pre-2024 era family size 4 in $11 tier.
@@ -415,9 +426,11 @@
       person3:
         age: 5
         is_tax_unit_dependent: true
+        childcare_hours_per_week: 30
       person4:
         age: 3
         is_tax_unit_dependent: true
+        childcare_hours_per_week: 30
     tax_units:
       tax_unit:
         members: [person1, person2, person3, person4]
@@ -433,7 +446,7 @@
     # SMI for FS 4 (SC, 2023-10-01): 89,725/yr = 7,477/mo
     # 45% = 3,365; 55% = 4,112
     # income $4,000 > 3,365 and <= 4,112 -> tier 1 ($11/wk)
-    # $11/wk * 2 children * 52/12 = $95.33/mo
+    # $11/wk * 2 children in care * 52/12 = $95.33/mo
     sc_ccap_copay: 95.33
 
 # Post-2024 era: FPL exemption + equal FPL-to-SMI bands
@@ -475,6 +488,7 @@
       person2:
         age: 4
         is_tax_unit_dependent: true
+        childcare_hours_per_week: 30
     tax_units:
       tax_unit:
         members: [person1, person2]
@@ -491,7 +505,7 @@
     # band_width = ceil((4729-2644)/5) = 417
     # Thresholds: 3061, 3478, 3895, 4312
     # Income $3,500 > 3,478 but <= 3,895 -> tier 2 ($14/wk)
-    # $14/wk * 1 child * 52/12 = $60.67/mo
+    # $14/wk * 1 child in care * 52/12 = $60.67/mo
     sc_ccap_copay: 60.67
 
 - name: Case 17, post-2024 family size 10 below FPL exempt.
@@ -557,27 +571,35 @@
       person3:
         age: 12
         is_tax_unit_dependent: true
+        childcare_hours_per_week: 30
       person4:
         age: 10
         is_tax_unit_dependent: true
+        childcare_hours_per_week: 30
       person5:
         age: 8
         is_tax_unit_dependent: true
+        childcare_hours_per_week: 30
       person6:
         age: 6
         is_tax_unit_dependent: true
+        childcare_hours_per_week: 30
       person7:
         age: 4
         is_tax_unit_dependent: true
+        childcare_hours_per_week: 30
       person8:
         age: 3
         is_tax_unit_dependent: true
+        childcare_hours_per_week: 30
       person9:
         age: 2
         is_tax_unit_dependent: true
+        childcare_hours_per_week: 30
       person10:
         age: 1
         is_tax_unit_dependent: true
+        childcare_hours_per_week: 30
     tax_units:
       tax_unit:
         members: [person1, person2, person3, person4, person5, person6, person7, person8, person9, person10]
@@ -594,7 +616,7 @@
     # band_width = ceil((10014-8144)/5) = ceil(374) = 374
     # Income $9,000 > 8,144 -> in paid band
     # $9,000 > 8518? Yes; > 8892? Yes; > 9266? No -> tier 2 ($14/wk)
-    # 8 eligible children * $14/wk * 52/12 = $485.33/mo
+    # 8 children in care * $14/wk * 52/12 = $485.33/mo
     sc_ccap_copay: 485.33
 
 - name: Case 19, Head Start only family with sibling gets zero copay.

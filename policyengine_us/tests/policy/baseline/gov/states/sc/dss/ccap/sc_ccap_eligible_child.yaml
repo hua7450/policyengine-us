@@ -117,7 +117,7 @@
   output:
     sc_ccap_eligible_child: [false, false]
 
-- name: Case 6, child who is not a tax dependent is still eligible.
+- name: Case 6, child who is not a tax dependent is ineligible.
   period: 2025
   input:
     people:
@@ -126,7 +126,6 @@
       person2:
         age: 8
         is_tax_unit_dependent: false
-        immigration_status: CITIZEN
     tax_units:
       tax_unit:
         members: [person1, person2]
@@ -138,7 +137,8 @@
         members: [person1, person2]
         state_code: SC
   output:
-    sc_ccap_eligible_child: [false, true]
+    # Policy Manual 2.1.7: child must be a dependent
+    sc_ccap_eligible_child: [false, false]
 
 - name: Case 7, adult is never an eligible child.
   period: 2025
