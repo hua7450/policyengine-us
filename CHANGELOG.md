@@ -1,3 +1,10 @@
+## [1.634.1] - 2026-04-09
+
+### Fixed
+
+- Gate the federal child CTC amount on `ctc_qualifying_child` so dependents who fail the child-specific identification requirement no longer receive the $2,000 child amount.
+
+
 ## [1.634.0] - 2026-04-09
 
 ### Added
