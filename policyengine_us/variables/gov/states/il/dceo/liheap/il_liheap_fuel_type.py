@@ -19,8 +19,21 @@ class il_liheap_fuel_type(Variable):
 
     def formula(spm_unit, period, parameters):
         heat_in_rent = spm_unit("heat_expense_included_in_rent", period)
-        return where(
-            heat_in_rent,
-            ILLIHEAPFuelType.CASH,
-            ILLIHEAPFuelType.ALL_ELECTRIC,
+        has_fuel_oil = add(spm_unit, period, ["fuel_oil_expense", "coal_expense"]) > 0
+        has_gas = (
+            add(
+                spm_unit,
+                period,
+                ["gas_expense", "bottled_gas_expense", "metered_gas_expense"],
+            )
+            > 0
+        )
+        return select(
+            [heat_in_rent, has_fuel_oil, has_gas],
+            [
+                ILLIHEAPFuelType.CASH,
+                ILLIHEAPFuelType.PROPANE_FUEL_OIL,
+                ILLIHEAPFuelType.NAT_GAS_OTHER,
+            ],
+            default=ILLIHEAPFuelType.ALL_ELECTRIC,
         )

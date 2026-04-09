@@ -37,7 +37,15 @@ class il_liheap_base_payment(Variable):
         heating_expenses = add(
             spm_unit,
             period,
-            ["electricity_expense", "gas_expense", "fuel_oil_expense"],
+            [
+                "electricity_expense",
+                "gas_expense",
+                "fuel_oil_expense",
+                "heating_cooling_expense",
+                "bottled_gas_expense",
+                "metered_gas_expense",
+                "coal_expense",
+            ],
         )
         return where(
             is_cash,
