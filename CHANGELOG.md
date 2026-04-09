@@ -1,3 +1,10 @@
+## [1.634.2] - 2026-04-09
+
+### Fixed
+
+- Fixed MA LIHEAP expense cap to include fuel oil expenses and bypass cap for heat-in-rent households.
+
+
 ## [1.634.1] - 2026-04-09
 
 ### Fixed
