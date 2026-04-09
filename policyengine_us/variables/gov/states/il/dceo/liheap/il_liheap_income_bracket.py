@@ -12,6 +12,8 @@ class il_liheap_income_bracket(Variable):
     def formula(spm_unit, period, parameters):
         income = add(spm_unit, period, ["irs_gross_income"])
         fpg = spm_unit("spm_unit_fpg", period)
-        pct_fpg = where(fpg > 0, income / fpg, 0)
+        income_as_fpg_share = where(fpg > 0, income / fpg, 0)
+        # Clamp negative income to bracket 1 (0-50% FPL).
+        pct_fpg = max_(income_as_fpg_share, 0)
         p = parameters(period).gov.states.il.dceo.liheap.payment
         return p.income_bracket.calc(pct_fpg)
