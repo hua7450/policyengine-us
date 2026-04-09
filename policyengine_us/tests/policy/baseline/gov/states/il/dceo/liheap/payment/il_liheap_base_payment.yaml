@@ -10,12 +10,16 @@
       spm_unit:
         members: [person1]
         il_liheap_fuel_type: NAT_GAS_OTHER
+        gas_expense: 1_500
+        electricity_expense: 500
     households:
       household:
         members: [person1]
         state_code: IL
   output:
     # Bracket 1 (0-50% FPL), size 1, nat gas → $1,260
+    # Expenses: gas 1,500 + electric 500 = 2,000
+    # min(1,260, 2,000) = 1,260
     il_liheap_base_payment: 1_260
 
 - name: Case 2, single person all electric bracket 2.
@@ -30,15 +34,17 @@
       spm_unit:
         members: [person1]
         il_liheap_fuel_type: ALL_ELECTRIC
+        electricity_expense: 1_000
     households:
       household:
         members: [person1]
         state_code: IL
   output:
     # 10,000 / ~15,060 FPG ≈ 66% → bracket 2, size 1, all electric → $530
+    # min(530, 1,000) = 530
     il_liheap_base_payment: 530
 
-- name: Case 3, family of 4 propane bracket 3.
+- name: Case 3, family of 4 propane bracket 3 capped at expenses.
   period: 2024
   absolute_error_margin: 0.01
   input:
@@ -56,13 +62,17 @@
       spm_unit:
         members: [person1, person2, person3, person4]
         il_liheap_fuel_type: PROPANE_FUEL_OIL
+        fuel_oil_expense: 400
+        electricity_expense: 100
     households:
       household:
         members: [person1, person2, person3, person4]
         state_code: IL
   output:
     # 40,000 / ~31,800 FPG ≈ 126% → bracket 3, size 4, propane → $630
-    il_liheap_base_payment: 630
+    # Expenses: fuel oil 400 + electric 100 = 500
+    # min(630, 500) = 500 (capped at actual expenses)
+    il_liheap_base_payment: 500
 
 - name: Case 4, single person cash bracket 4.
   period: 2024
@@ -76,12 +86,16 @@
       spm_unit:
         members: [person1]
         il_liheap_fuel_type: CASH
+        gas_expense: 200
+        electricity_expense: 100
     households:
       household:
         members: [person1]
         state_code: IL
   output:
     # 25,000 / ~15,060 FPG ≈ 166% → bracket 4, size 1, cash → $170
+    # Expenses: gas 200 + electric 100 = 300
+    # min(170, 300) = 170
     il_liheap_base_payment: 170
 
 - name: Case 5, family of 6 nat gas bracket 1.
@@ -106,10 +120,36 @@
       spm_unit:
         members: [person1, person2, person3, person4, person5, person6]
         il_liheap_fuel_type: NAT_GAS_OTHER
+        gas_expense: 1_500
+        electricity_expense: 500
     households:
       household:
         members: [person1, person2, person3, person4, person5, person6]
         state_code: IL
   output:
     # 5,000 / ~49,720 FPG ≈ 10% → bracket 1, size 6, nat gas → $1,760
+    # Expenses: gas 1,500 + electric 500 = 2,000
+    # min(1,760, 2,000) = 1,760
     il_liheap_base_payment: 1_760
+
+- name: Case 6, low expenses cap the benefit.
+  period: 2024
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        irs_gross_income: 0
+    spm_units:
+      spm_unit:
+        members: [person1]
+        il_liheap_fuel_type: ALL_ELECTRIC
+        electricity_expense: 100
+    households:
+      household:
+        members: [person1]
+        state_code: IL
+  output:
+    # Bracket 1, size 1, all electric → $840
+    # min(840, 100) = 100 (capped at actual expenses)
+    il_liheap_base_payment: 100

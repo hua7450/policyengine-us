@@ -16,3 +16,11 @@ class il_liheap_fuel_type(Variable):
     definition_period = YEAR
     label = "Household fuel type for IL LIHEAP"
     defined_for = StateCode.IL
+
+    def formula(spm_unit, period, parameters):
+        heat_in_rent = spm_unit("heat_expense_included_in_rent", period)
+        return where(
+            heat_in_rent,
+            ILLIHEAPFuelType.CASH,
+            ILLIHEAPFuelType.ALL_ELECTRIC,
+        )

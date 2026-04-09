@@ -1,4 +1,4 @@
-description: Illinois LIHEAP total payment for propane / fuel oil households by income bracket and household size.
+description: Illinois provides this amount to propane and fuel oil households under the Low Income Home Energy Assistance Program.
 
 # Income bracket 1 = 0-50% FPL
 1:
@@ -66,4 +66,4 @@ metadata:
   label: Illinois LIHEAP propane/fuel oil payment
   reference:
     - title: Illinois LIHEAP FY2024 Benefit Matrix
-      href: https://liheapch.acf.gov/docs/2024/benefits-matricies/IL_BenefitMatrix_2024.pdf
+      href: https://liheapch.acf.gov/docs/2024/benefits-matricies/IL_BenefitMatrix_2024.pdf#page=1

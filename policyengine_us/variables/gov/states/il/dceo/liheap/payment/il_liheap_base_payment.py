@@ -22,7 +22,7 @@ class il_liheap_base_payment(Variable):
         is_propane = fuel_type == fuel_type.possible_values.PROPANE_FUEL_OIL
         is_cash = fuel_type == fuel_type.possible_values.CASH
 
-        return select(
+        matrix_amount = select(
             [is_electric, is_gas, is_propane, is_cash],
             [
                 p.all_electric[income_bracket][capped_size],
@@ -31,4 +31,16 @@ class il_liheap_base_payment(Variable):
                 p.cash[income_bracket][capped_size],
             ],
             default=0,
+        )
+        # Cap non-cash benefits at actual heating expenses.
+        # Cash (heat in rent) is a direct payment — no expense cap.
+        heating_expenses = add(
+            spm_unit,
+            period,
+            ["electricity_expense", "gas_expense", "fuel_oil_expense"],
+        )
+        return where(
+            is_cash,
+            matrix_amount,
+            min_(matrix_amount, heating_expenses),
         )
