@@ -1,83 +1,115 @@
-- name: Heat not included in rent - benefit based on heating expenses
+- name: Case 1, single person nat gas bracket 1.
   period: 2024
+  absolute_error_margin: 0.01
   input:
     people:
-      person:
+      person1:
         age: 30
-        heating_expense_person: 1_000
-    tax_units:
-      tax_unit:
-        members: [person]
+        irs_gross_income: 0
     spm_units:
       spm_unit:
-        members: [person]
-        heat_expense_included_in_rent: false
+        members: [person1]
+        il_liheap_fuel_type: NAT_GAS_OTHER
     households:
       household:
-        members: [person]
+        members: [person1]
         state_code: IL
   output:
-    il_liheap_base_payment: 1_000  # Heating expenses within range
+    # Bracket 1 (0-50% FPL), size 1, nat gas → $1,260
+    il_liheap_base_payment: 1_260
 
-- name: Heat not included in rent - expenses exceed maximum
+- name: Case 2, single person all electric bracket 2.
   period: 2024
+  absolute_error_margin: 0.01
   input:
     people:
-      person:
+      person1:
         age: 30
-        heating_expense_person: 3_000
-    tax_units:
-      tax_unit:
-        members: [person]
+        irs_gross_income: 10_000
     spm_units:
       spm_unit:
-        members: [person]
-        heat_expense_included_in_rent: false
+        members: [person1]
+        il_liheap_fuel_type: ALL_ELECTRIC
     households:
       household:
-        members: [person]
+        members: [person1]
         state_code: IL
   output:
-    il_liheap_base_payment: 2_075  # Capped at maximum
+    # 10,000 / ~15,060 FPG ≈ 66% → bracket 2, size 1, all electric → $530
+    il_liheap_base_payment: 530
 
-- name: Heat included in rent - minimum cash benefit
+- name: Case 3, family of 4 propane bracket 3.
   period: 2024
+  absolute_error_margin: 0.01
   input:
     people:
-      person:
-        age: 30
-        heating_expense_person: 500  # Irrelevant when heat included
-    tax_units:
-      tax_unit:
-        members: [person]
+      person1:
+        age: 35
+        irs_gross_income: 40_000
+      person2:
+        age: 33
+      person3:
+        age: 8
+      person4:
+        age: 5
     spm_units:
       spm_unit:
-        members: [person]
-        heat_expense_included_in_rent: true
+        members: [person1, person2, person3, person4]
+        il_liheap_fuel_type: PROPANE_FUEL_OIL
     households:
       household:
-        members: [person]
+        members: [person1, person2, person3, person4]
         state_code: IL
   output:
-    il_liheap_base_payment: 315  # Fixed minimum for heat included in rent
+    # 40,000 / ~31,800 FPG ≈ 126% → bracket 3, size 4, propane → $630
+    il_liheap_base_payment: 630
 
-- name: Heat not included in rent - low heating expenses get actual amount
+- name: Case 4, single person cash bracket 4.
   period: 2024
+  absolute_error_margin: 0.01
   input:
     people:
-      person:
-        age: 30
-        heating_expense_person: 200
-    tax_units:
-      tax_unit:
-        members: [person]
+      person1:
+        age: 40
+        irs_gross_income: 25_000
     spm_units:
       spm_unit:
-        members: [person]
-        heat_expense_included_in_rent: false
+        members: [person1]
+        il_liheap_fuel_type: CASH
     households:
       household:
-        members: [person]
+        members: [person1]
         state_code: IL
   output:
-    il_liheap_base_payment: 200  # Gets actual heating expenses
+    # 25,000 / ~15,060 FPG ≈ 166% → bracket 4, size 1, cash → $170
+    il_liheap_base_payment: 170
+
+- name: Case 5, family of 6 nat gas bracket 1.
+  period: 2024
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        irs_gross_income: 5_000
+      person2:
+        age: 28
+      person3:
+        age: 10
+      person4:
+        age: 8
+      person5:
+        age: 5
+      person6:
+        age: 3
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3, person4, person5, person6]
+        il_liheap_fuel_type: NAT_GAS_OTHER
+    households:
+      household:
+        members: [person1, person2, person3, person4, person5, person6]
+        state_code: IL
+  output:
+    # 5,000 / ~49,720 FPG ≈ 10% → bracket 1, size 6, nat gas → $1,760
+    il_liheap_base_payment: 1_760
