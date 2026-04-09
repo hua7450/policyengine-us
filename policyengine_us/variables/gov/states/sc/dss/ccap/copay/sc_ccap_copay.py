@@ -1,4 +1,6 @@
 from policyengine_us.model_api import *
+from policyengine_us.variables.gov.hhs.hhs_smi import smi
+from policyengine_us.variables.gov.hhs.tax_unit_fpg import fpg
 
 
 class sc_ccap_copay(Variable):
@@ -15,22 +17,16 @@ class sc_ccap_copay(Variable):
     )
 
     def formula(spm_unit, period, parameters):
-        from policyengine_us.variables.gov.hhs.hhs_smi import smi
-
         p = parameters(period).gov.states.sc.dss.ccap.copay
         monthly_income = spm_unit("sc_ccap_countable_income", period)
         tier_count = len(p.smi_tier_ratios.thresholds)
 
-        # Cap family size at max_family_size for threshold computation.
-        # Pre-2024: 16 (all sizes have paid tiers).
-        # Post-2024: 14 (sizes 15-16 are $0-only).
         size = spm_unit("spm_unit_size", period.this_year)
         max_size = int(p.max_family_size)
-        capped_size = min_(size, max_size)
-        above_max = size > max_size
+        fee_scale_size = min_(size, max_size)
 
         state = spm_unit.household("state_code_str", period)
-        monthly_smi = smi(capped_size, state, period, parameters) / MONTHS_IN_YEAR
+        state_group = spm_unit.household("state_group_str", period)
 
         # Family-level copay exemptions (Section 3.4.2, p.108).
         # Head Start copay waiver is per-child, handled below.
@@ -46,34 +42,71 @@ class sc_ccap_copay(Variable):
         # Pre-2024-10-01: tiers at fixed SMI ratios (45/55/65/75% mark
         #   boundaries between 5 tiers).
         # Post-2024-10-01: equal-width bands from 150% FPL to 85% SMI.
+        tier = np.zeros_like(monthly_income, dtype=int)
+        below_fpl_threshold = np.zeros_like(monthly_income, dtype=bool)
+        zero_only_row = np.zeros_like(monthly_income, dtype=bool)
         if p.fpg_exempt_in_effect:
-            p_fpg = parameters(period).gov.hhs.fpg
-            state_group = spm_unit.household("state_group_str", period)
-            capped_fpg = (
-                p_fpg.first_person[state_group]
-                + p_fpg.additional_person[state_group] * (capped_size - 1)
-            ) / MONTHS_IN_YEAR
-            lower = np.floor(capped_fpg * p.fpg_exempt_rate + 0.5)
-            below_fpl_threshold = monthly_income <= lower
+            max_paid_size = int(p.max_paid_family_size)
+            zero_only_row = fee_scale_size > max_paid_size
+
+            # Rows 15-16 are $0-only on the published fee scale. For rows with
+            # paid tiers, fall back to the largest published paid-tier size
+            # whose derived 150% FPL and 85% SMI bounds still form a
+            # nonnegative band.
+            paid_band_size = np.ones_like(size, dtype=int)
+            for candidate in range(1, max_paid_size + 1):
+                lower_candidate = np.floor(
+                    fpg(candidate, state_group, period, parameters)
+                    / MONTHS_IN_YEAR
+                    * p.fpg_exempt_rate
+                    + 0.5
+                )
+                upper_candidate = np.floor(
+                    smi(candidate, state, period, parameters)
+                    / MONTHS_IN_YEAR
+                    * p.smi_tier_ratios.calc(tier_count)
+                    + 0.5
+                )
+                valid_candidate = (fee_scale_size >= candidate) & (
+                    lower_candidate <= upper_candidate
+                )
+                paid_band_size = where(
+                    valid_candidate,
+                    candidate,
+                    paid_band_size,
+                )
+
+            monthly_fpg = (
+                fpg(paid_band_size, state_group, period, parameters) / MONTHS_IN_YEAR
+            )
+            monthly_smi = (
+                smi(paid_band_size, state, period, parameters) / MONTHS_IN_YEAR
+            )
+            lower = np.floor(monthly_fpg * p.fpg_exempt_rate + 0.5)
             upper = np.floor(monthly_smi * p.smi_tier_ratios.calc(tier_count) + 0.5)
             band_width = np.ceil((upper - lower) / tier_count)
-            tier = np.zeros_like(monthly_income, dtype=int)
+            below_fpl_threshold = (~zero_only_row) & (monthly_income <= lower)
             for i in range(1, tier_count):
                 threshold = lower + band_width * i
-                tier = tier + (monthly_income > threshold).astype(int)
+                tier = tier + ((~zero_only_row) & (monthly_income > threshold)).astype(
+                    int
+                )
         else:
-            below_fpl_threshold = False
-            tier = np.zeros_like(monthly_income, dtype=int)
+            monthly_smi = (
+                smi(fee_scale_size, state, period, parameters) / MONTHS_IN_YEAR
+            )
             for i in range(1, tier_count):
                 ratio = p.smi_tier_ratios.calc(i)
                 threshold = np.floor(monthly_smi * ratio + 0.5)
                 tier = tier + (monthly_income > threshold).astype(int)
 
-        exempt = (
-            protective | is_tanf | below_fpl_threshold | has_disabled_child | above_max
-        )
+        exempt = protective | is_tanf | below_fpl_threshold | has_disabled_child
 
-        weekly_copay_per_child = p.weekly_amounts.calc(tier + 1)
+        weekly_copay_per_child = where(
+            zero_only_row,
+            0,
+            p.weekly_amounts.calc(tier + 1),
+        )
 
         # Head Start children have no copay (Section 2.15); only count
         # non-Head-Start eligible children for the copay calculation.
