@@ -15,10 +15,22 @@ class sc_ccap_copay(Variable):
     )
 
     def formula(spm_unit, period, parameters):
+        from policyengine_us.variables.gov.hhs.hhs_smi import smi
+
         p = parameters(period).gov.states.sc.dss.ccap.copay
         monthly_income = spm_unit("sc_ccap_countable_income", period)
-        monthly_smi = spm_unit("hhs_smi", period)
         tier_count = len(p.smi_tier_ratios.thresholds)
+
+        # Cap family size at max_family_size for threshold computation.
+        # Pre-2024: 16 (all sizes have paid tiers).
+        # Post-2024: 14 (sizes 15-16 are $0-only).
+        size = spm_unit("spm_unit_size", period.this_year)
+        max_size = int(p.max_family_size)
+        capped_size = min_(size, max_size)
+        above_max = size > max_size
+
+        state = spm_unit.household("state_code_str", period)
+        monthly_smi = smi(capped_size, state, period, parameters) / MONTHS_IN_YEAR
 
         # Family-level copay exemptions (Section 3.4.2, p.108).
         # Head Start copay waiver is per-child, handled below.
@@ -35,8 +47,13 @@ class sc_ccap_copay(Variable):
         #   boundaries between 5 tiers).
         # Post-2024-10-01: equal-width bands from 150% FPL to 85% SMI.
         if p.fpg_exempt_in_effect:
-            monthly_fpg = spm_unit("spm_unit_fpg", period)
-            lower = np.floor(monthly_fpg * p.fpg_exempt_rate + 0.5)
+            p_fpg = parameters(period).gov.hhs.fpg
+            state_group = spm_unit.household("state_group_str", period)
+            capped_fpg = (
+                p_fpg.first_person[state_group]
+                + p_fpg.additional_person[state_group] * (capped_size - 1)
+            ) / MONTHS_IN_YEAR
+            lower = np.floor(capped_fpg * p.fpg_exempt_rate + 0.5)
             below_fpl_threshold = monthly_income <= lower
             upper = np.floor(monthly_smi * p.smi_tier_ratios.calc(tier_count) + 0.5)
             band_width = np.ceil((upper - lower) / tier_count)
@@ -52,7 +69,9 @@ class sc_ccap_copay(Variable):
                 threshold = np.floor(monthly_smi * ratio + 0.5)
                 tier = tier + (monthly_income > threshold).astype(int)
 
-        exempt = protective | is_tanf | below_fpl_threshold | has_disabled_child
+        exempt = (
+            protective | is_tanf | below_fpl_threshold | has_disabled_child | above_max
+        )
 
         weekly_copay_per_child = p.weekly_amounts.calc(tier + 1)
 
