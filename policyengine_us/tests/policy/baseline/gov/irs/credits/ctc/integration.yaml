@@ -301,6 +301,28 @@
     ctc: 500
     ctc_adult_individual_maximum: [0, 500]  # ODC for 17-year-old
 
+- name: Child without the required SSN gets ODC instead of child CTC in 2024
+  period: 2024
+  input:
+    people:
+      parent:
+        age: 40
+      child:
+        age: 10
+        is_tax_unit_dependent: true
+        ssn_card_type: OTHER_NON_CITIZEN
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+        income_tax_before_credits: 1_000
+  output:
+    ctc_qualifying_child: [false, false]
+    ctc_child_individual_maximum: [0, 0]
+    ctc_adult_individual_maximum: [0, 500]
+    refundable_ctc: 0
+    non_refundable_ctc: 500
+    ctc: 500
+
 - name: CTC and ODC for multiple children including 17-year-old in 2024
   period: 2024
   input:
