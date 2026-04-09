@@ -1,3 +1,10 @@
+## [1.634.0] - 2026-04-09
+
+### Added
+
+- Add federal SSI living arrangement statuses and ISM/PMV framework.
+
+
 ## [1.633.2] - 2026-04-08
 
 ### Fixed
