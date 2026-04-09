@@ -36,7 +36,8 @@ class sc_ccap_copay(Variable):
         person = spm_unit.members
         is_disabled = person("is_disabled", period.this_year)
         is_young = person("age", period.this_year) < p_elig.disabled_child_age_limit
-        has_disabled_child = spm_unit.any(is_disabled & is_young)
+        is_dependent = person("is_tax_unit_dependent", period.this_year)
+        has_disabled_child = spm_unit.any(is_disabled & is_young & is_dependent)
 
         # Compute copay tier from income position in the fee scale.
         # Pre-2024-10-01: tiers at fixed SMI ratios (45/55/65/75% mark
