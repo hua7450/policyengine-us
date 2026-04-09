@@ -68,10 +68,13 @@ class sc_ccap_maximum_weekly_benefit(Variable):
         # Per Policy Manual 5.11 (p.137), the discount applies per-facility
         # to all children except the youngest at that facility. We assume
         # all children use the same provider as a simplification.
+        # Only children actually in care count for the youngest determination.
         discount_rate = person("sc_ccap_second_child_discount_rate", period)
+        in_care = person("childcare_hours_per_week", period) > 0
         child_index = person("child_index", period.this_year)
-        max_child_index = person.spm_unit.max(child_index)
-        is_not_youngest = (child_index > 0) & (child_index < max_child_index)
+        in_care_index = where(in_care, child_index, -1)
+        max_in_care_index = person.spm_unit.max(in_care_index)
+        is_not_youngest = in_care & (child_index < max_in_care_index)
         discounted_rate = where(
             is_not_youngest,
             base_rate * (1 - discount_rate),

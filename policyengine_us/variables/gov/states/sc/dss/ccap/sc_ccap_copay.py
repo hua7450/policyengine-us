@@ -56,11 +56,6 @@ class sc_ccap_copay(Variable):
 
         weekly_copay_per_child = p.weekly_amounts.calc(tier + 1)
 
-        # Cap weekly copay at 2% of annual income / 52 weeks.
-        weekly_income_cap = (
-            monthly_income * p.income_cap_rate * MONTHS_IN_YEAR / WEEKS_IN_YEAR
-        )
-        capped_weekly = min_(weekly_copay_per_child, weekly_income_cap)
         # Head Start children have no copay (Section 2.15); only count
         # non-Head-Start eligible children for the copay calculation.
         # Non-Head-Start children are only covered when the unit qualifies
@@ -77,5 +72,10 @@ class sc_ccap_copay(Variable):
             spm_unit.sum(is_eligible & ~is_head_start & in_care),
             0,
         )
-        monthly_copay = capped_weekly * num_paying * (WEEKS_IN_YEAR / MONTHS_IN_YEAR)
+        uncapped_monthly = (
+            weekly_copay_per_child * num_paying * (WEEKS_IN_YEAR / MONTHS_IN_YEAR)
+        )
+        # Cap total family copay at 2% of monthly income.
+        monthly_income_cap = monthly_income * p.income_cap_rate
+        monthly_copay = min_(uncapped_monthly, monthly_income_cap)
         return where(exempt, 0, monthly_copay)
