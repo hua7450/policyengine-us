@@ -17,4 +17,6 @@ class ga_caps_activity_eligible(Variable):
         meets_work_requirement = hours_worked >= p.weekly_hours
         is_student = person("is_full_time_student", period.this_year)
         individually_eligible = meets_work_requirement | is_student
-        return spm_unit.sum(is_head_or_spouse & ~individually_eligible) == 0
+        all_heads_meet = spm_unit.sum(is_head_or_spouse & ~individually_eligible) == 0
+        meets_ccdf = spm_unit("meets_ccdf_activity_test", period.this_year)
+        return all_heads_meet | meets_ccdf
