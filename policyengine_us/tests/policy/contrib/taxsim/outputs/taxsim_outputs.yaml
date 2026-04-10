@@ -168,6 +168,26 @@
     taxsim_psemp: 75000
     taxsim_ssemp: 25000
 
+- name: SSTB self-employment income - TAXSIM outputs
+  period: 2024
+  input:
+    people:
+      head:
+        age: 45
+        sstb_self_employment_income: 75000
+        is_tax_unit_head: true
+      spouse:
+        age: 43
+        sstb_self_employment_income: 25000
+        is_tax_unit_spouse: true
+    tax_units:
+      tax_unit:
+        members: [head, spouse]
+        filing_status: JOINT
+  output:
+    taxsim_psemp: 75000
+    taxsim_ssemp: 25000
+
 - name: Unemployment income - TAXSIM outputs
   period: 2024
   input:
