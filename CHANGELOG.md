@@ -1,3 +1,10 @@
+## [1.634.4] - 2026-04-10
+
+### Fixed
+
+- Made `has_tin` the canonical TIN variable while keeping `has_itin` and `taxpayer_has_itin` as compatibility aliases during migration.
+
+
 ## [1.634.3] - 2026-04-10
 
 ### Fixed
