@@ -5,3 +5,11 @@
     snap_self_employment_expense_deduction: 300
   output:
     snap_self_employment_income_after_expense_deduction: 200
+
+- name: SSTB income is included after SNAP self-employment deduction
+  period: 2022
+  input:
+    sstb_self_employment_income: 500
+    snap_self_employment_expense_deduction: 300
+  output:
+    snap_self_employment_income_after_expense_deduction: 200
