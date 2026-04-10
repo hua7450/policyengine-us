@@ -1,3 +1,10 @@
+## [1.634.5] - 2026-04-10
+
+### Fixed
+
+- Remove hard-coded end dates from CRFB Social Security credit and senior deduction extension reforms.
+
+
 ## [1.634.4] - 2026-04-10
 
 ### Fixed
