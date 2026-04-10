@@ -26,9 +26,15 @@ class qualified_business_income(Variable):
         sstb_gross = person("sstb_self_employment_income", period) * person(
             "sstb_self_employment_income_would_be_qualified", period
         )
-        # Pro-rate QBI deductions across non-SSTB and SSTB shares.
-        # When there is no SSTB QBI, the full deduction is applied to non-SSTB.
-        gross_total = non_sstb_gross + sstb_gross
+        # Pro-rate QBI deductions across positive non-SSTB and SSTB income
+        # only, so mixed-sign categories do not generate negative shares.
+        positive_non_sstb_gross = max_(0, non_sstb_gross)
+        positive_sstb_gross = max_(0, sstb_gross)
+        positive_gross_total = positive_non_sstb_gross + positive_sstb_gross
         qbi_deductions = add(person, period, p.deduction_definition)
-        non_sstb_share = where(gross_total > 0, non_sstb_gross / gross_total, 1)
+        non_sstb_share = where(
+            positive_gross_total > 0,
+            positive_non_sstb_gross / positive_gross_total,
+            0,
+        )
         return max_(0, non_sstb_gross - qbi_deductions * non_sstb_share)
