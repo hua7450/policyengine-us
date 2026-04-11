@@ -118,6 +118,7 @@ class FakePerson:
         self.values = {
             "employment_income_before_lsr": np.array([50_000.0, 20_000.0]),
             "self_employment_income_before_lsr": np.array([0.0, 5_000.0]),
+            "sstb_self_employment_income": np.array([0.0, 0.0]),
             "long_term_capital_gains_before_response": np.array([10_000.0, 500.0]),
         }
 
@@ -246,6 +247,7 @@ def test_lsr_effect_helpers_compute_from_measurements():
         {
             "employment_income_before_lsr": np.array([50_000.0, -20_000.0]),
             "self_employment_income_before_lsr": np.array([10_000.0, 5_000.0]),
+            "sstb_self_employment_income": np.array([20_000.0, 0.0]),
             "income_elasticity": np.array([0.5, 1.0]),
             "substitution_elasticity": np.array([0.2, 0.4]),
         }
@@ -263,14 +265,14 @@ def test_lsr_effect_helpers_compute_from_measurements():
         wage_change_bound=0.8,
     )
 
-    assert np.allclose(earnings_before_lsr(person, 2026), np.array([60_000.0, 0.0]))
+    assert np.allclose(earnings_before_lsr(person, 2026), np.array([80_000.0, 0.0]))
     assert np.allclose(
         calculate_income_lsr_effect(person, 2026, parameters, measurements),
-        np.array([3_000.0, 0.0]),
+        np.array([4_000.0, 0.0]),
     )
     assert np.allclose(
         calculate_substitution_lsr_effect(person, 2026, parameters, measurements),
-        np.array([1_500.0, 0.0]),
+        np.array([2_000.0, 0.0]),
     )
 
 

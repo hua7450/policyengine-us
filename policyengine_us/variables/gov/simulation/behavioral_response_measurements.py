@@ -13,6 +13,7 @@ NEUTRALIZED_BEHAVIORAL_RESPONSE_VARIABLES = (
 BEHAVIORAL_RESPONSE_INPUT_VARIABLES = (
     "employment_income_before_lsr",
     "self_employment_income_before_lsr",
+    "sstb_self_employment_income",
     "long_term_capital_gains_before_response",
 )
 
@@ -96,6 +97,7 @@ def earnings_before_lsr(person, period):
         [
             "employment_income_before_lsr",
             "self_employment_income_before_lsr",
+            "sstb_self_employment_income",
         ],
     )
     return max_(raw_earnings, 0)

@@ -16,6 +16,7 @@ class employment_income_behavioral_response(Variable):
             [
                 "employment_income_before_lsr",
                 "self_employment_income_before_lsr",
+                "sstb_self_employment_income",
             ],
         )
         earnings = max_(raw_earnings, 0)
