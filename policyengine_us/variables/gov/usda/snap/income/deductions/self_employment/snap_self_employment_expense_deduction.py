@@ -16,7 +16,10 @@ class snap_self_employment_expense_deduction(Variable):
         self_employment_income = add(
             spm_unit,
             period,
-            ["self_employment_income_before_lsr", "sstb_self_employment_income"],
+            [
+                "self_employment_income_before_lsr",
+                "sstb_self_employment_income_before_lsr",
+            ],
         )
         expenses = spm_unit("snap_self_employment_income_expense", period)
         p = parameters(period).gov.usda.snap.income.deductions.self_employment

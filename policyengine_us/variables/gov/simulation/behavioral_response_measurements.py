@@ -92,16 +92,14 @@ def get_behavioral_response_measurements(person, period):  # pragma: no cover
 
 
 def earnings_before_lsr(person, period):
-    raw_earnings = add(
-        person,
-        period,
-        [
-            "employment_income_before_lsr",
-            "self_employment_income_before_lsr",
-            "sstb_self_employment_income_before_lsr",
-        ],
+    employment_income = max_(person("employment_income_before_lsr", period), 0)
+    self_employment_income = abs(
+        person("self_employment_income_before_lsr", period)
     )
-    return max_(raw_earnings, 0)
+    sstb_self_employment_income = abs(
+        person("sstb_self_employment_income_before_lsr", period)
+    )
+    return employment_income + self_employment_income + sstb_self_employment_income
 
 
 def calculate_relative_income_change(measurements, bounds):

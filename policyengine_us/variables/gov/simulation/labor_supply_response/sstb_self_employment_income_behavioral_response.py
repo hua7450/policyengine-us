@@ -12,18 +12,18 @@ class sstb_self_employment_income_behavioral_response(Variable):
         lsr = person("labor_supply_behavioral_response", period)
         employment_response = person("employment_income_behavioral_response", period)
         total_self_employment_response = lsr - employment_response
-        non_sstb_self_employment_income = max_(
-            0, person("self_employment_income_before_lsr", period)
+        non_sstb_self_employment_income = abs(
+            person("self_employment_income_before_lsr", period)
         )
-        sstb_self_employment_income = max_(
-            0, person("sstb_self_employment_income_before_lsr", period)
+        sstb_self_employment_income = abs(
+            person("sstb_self_employment_income_before_lsr", period)
         )
-        total_positive_self_employment_income = (
+        total_self_employment_income = (
             non_sstb_self_employment_income + sstb_self_employment_income
         )
         sstb_share = where(
-            total_positive_self_employment_income > 0,
-            sstb_self_employment_income / total_positive_self_employment_income,
+            total_self_employment_income > 0,
+            sstb_self_employment_income / total_self_employment_income,
             0,
         )
         return total_self_employment_response * sstb_share
