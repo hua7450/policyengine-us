@@ -31,7 +31,7 @@
     labor_supply_behavioral_response: 1_200
     employment_income_before_lsr: 40_000
     self_employment_income_before_lsr: 0
-    sstb_self_employment_income: 20_000
+    sstb_self_employment_income_before_lsr: 20_000
   output:
     employment_income_behavioral_response: 800  # 1_200 * (40_000 / 60_000)
 

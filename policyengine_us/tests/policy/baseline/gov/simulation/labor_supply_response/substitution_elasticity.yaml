@@ -52,7 +52,7 @@
   input:
     employment_income_before_lsr: 45_000
     self_employment_income_before_lsr: 0
-    sstb_self_employment_income: 5_000
+    sstb_self_employment_income_before_lsr: 5_000
     gov.simulation.labor_supply_responses.elasticities.substitution.all: 0
     gov.simulation.labor_supply_responses.elasticities.substitution.by_position_and_decile.primary.5: 0.15
   output:

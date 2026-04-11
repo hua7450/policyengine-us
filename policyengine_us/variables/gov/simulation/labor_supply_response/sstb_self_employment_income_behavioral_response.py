@@ -1,10 +1,10 @@
 from policyengine_us.model_api import *
 
 
-class self_employment_income_behavioral_response(Variable):
+class sstb_self_employment_income_behavioral_response(Variable):
     value_type = float
     entity = Person
-    label = "self-employment income behavioral response"
+    label = "SSTB self-employment income behavioral response"
     unit = USD
     definition_period = YEAR
 
@@ -21,10 +21,9 @@ class self_employment_income_behavioral_response(Variable):
         total_positive_self_employment_income = (
             non_sstb_self_employment_income + sstb_self_employment_income
         )
-        non_sstb_share = where(
+        sstb_share = where(
             total_positive_self_employment_income > 0,
-            non_sstb_self_employment_income
-            / total_positive_self_employment_income,
-            1,
+            sstb_self_employment_income / total_positive_self_employment_income,
+            0,
         )
-        return total_self_employment_response * non_sstb_share
+        return total_self_employment_response * sstb_share

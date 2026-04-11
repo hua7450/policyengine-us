@@ -8,12 +8,13 @@ BEHAVIORAL_RESPONSE_CACHE_ATTR = "_behavioral_response_measurements"
 NEUTRALIZED_BEHAVIORAL_RESPONSE_VARIABLES = (
     "employment_income_behavioral_response",
     "self_employment_income_behavioral_response",
+    "sstb_self_employment_income_behavioral_response",
     "capital_gains_behavioral_response",
 )
 BEHAVIORAL_RESPONSE_INPUT_VARIABLES = (
     "employment_income_before_lsr",
     "self_employment_income_before_lsr",
-    "sstb_self_employment_income",
+    "sstb_self_employment_income_before_lsr",
     "long_term_capital_gains_before_response",
 )
 
@@ -97,7 +98,7 @@ def earnings_before_lsr(person, period):
         [
             "employment_income_before_lsr",
             "self_employment_income_before_lsr",
-            "sstb_self_employment_income",
+            "sstb_self_employment_income_before_lsr",
         ],
     )
     return max_(raw_earnings, 0)

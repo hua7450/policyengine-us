@@ -41,7 +41,9 @@ class weekly_hours_worked_behavioural_response_income_elasticity(Variable):
 
         original_emp = person("employment_income_before_lsr", period)
         original_self_emp = person("self_employment_income_before_lsr", period)
-        original_sstb_self_emp = person("sstb_self_employment_income", period)
+        original_sstb_self_emp = person(
+            "sstb_self_employment_income_before_lsr", period
+        )
         original_earnings = original_emp + original_self_emp + original_sstb_self_emp
 
         lsr_relative_change = np.divide(
@@ -71,7 +73,9 @@ class weekly_hours_worked_behavioural_response_substitution_elasticity(Variable)
             substitution_effect = np.zeros_like(original)
         original_emp = person("employment_income_before_lsr", period)
         original_self_emp = person("self_employment_income_before_lsr", period)
-        original_sstb_self_emp = person("sstb_self_employment_income", period)
+        original_sstb_self_emp = person(
+            "sstb_self_employment_income_before_lsr", period
+        )
         original_earnings = original_emp + original_self_emp + original_sstb_self_emp
 
         lsr_relative_change = np.divide(

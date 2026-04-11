@@ -28,3 +28,16 @@
     sstb_self_employment_income: -20_000
   output:
     loss_ald: 20_000
+
+- name: Labor supply response preserves SSTB self-employment category
+  period: 2024
+  input:
+    labor_supply_behavioral_response: 1_000
+    employment_income_before_lsr: 0
+    self_employment_income_before_lsr: 0
+    sstb_self_employment_income_before_lsr: 10_000
+  output:
+    self_employment_income_behavioral_response: 0
+    sstb_self_employment_income_behavioral_response: 1_000
+    self_employment_income: 0
+    sstb_self_employment_income: 11_000
