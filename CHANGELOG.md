@@ -1,3 +1,10 @@
+## [1.634.6] - 2026-04-12
+
+### Changed
+
+- Expose build metadata helpers for US data artifacts, including a stable data-build fingerprint and build provenance metadata.
+
+
 ## [1.634.5] - 2026-04-10
 
 ### Fixed
