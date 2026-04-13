@@ -1,3 +1,10 @@
+## [1.634.9] - 2026-04-13
+
+### Changed
+
+- Use heating_expense_person for LIHEAP expense cap in DC and MA.
+
+
 ## [1.634.8] - 2026-04-13
 
 ### Changed
