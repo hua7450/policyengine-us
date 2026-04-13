@@ -14,7 +14,7 @@
       spm_unit:
         members: [person1]
         heat_expense_included_in_rent: false
-        il_liheap_fuel_type: NAT_GAS_OTHER
+        il_liheap_heating_type: NAT_GAS_OTHER
     households:
       household:
         members: [person1]
@@ -22,7 +22,7 @@
   output:
     il_liheap_income_eligible: true
     il_liheap_eligible: true
-    il_liheap_fuel_type: NAT_GAS_OTHER
+    il_liheap_heating_type: NAT_GAS_OTHER
     # 12,000 / ~15,060 FPG ~ 80% -> bracket 2, size 1, nat gas -> $610
     # min(610, 1,500) = 610
     il_liheap_base_payment: 610
@@ -50,7 +50,7 @@
       spm_unit:
         members: [person1, person2, person3, person4]
         heat_expense_included_in_rent: false
-        il_liheap_fuel_type: NAT_GAS_OTHER
+        il_liheap_heating_type: NAT_GAS_OTHER
     households:
       household:
         members: [person1, person2, person3, person4]
@@ -58,7 +58,7 @@
   output:
     il_liheap_income_eligible: true
     il_liheap_eligible: true
-    il_liheap_fuel_type: NAT_GAS_OTHER
+    il_liheap_heating_type: NAT_GAS_OTHER
     # 45,000 / ~31,800 FPG ~ 142% -> bracket 3, size 4, nat gas -> $520
     # min(520, 1,800) = 520
     il_liheap_base_payment: 520
@@ -85,7 +85,7 @@
   output:
     il_liheap_income_eligible: true
     il_liheap_eligible: true  # Rent (8k) > 30% of income (7.2k)
-    il_liheap_fuel_type: CASH
+    il_liheap_heating_type: CASH
     # 24,000 / ~15,060 FPG ~ 159% -> bracket 4, size 1, cash -> $170
     # Cash: no expense cap
     il_liheap_base_payment: 170
@@ -130,7 +130,7 @@
       spm_unit:
         members: [person1, person2]
         heat_expense_included_in_rent: false
-        il_liheap_fuel_type: NAT_GAS_OTHER
+        il_liheap_heating_type: NAT_GAS_OTHER
     households:
       household:
         members: [person1, person2]
@@ -154,7 +154,7 @@
       spm_unit:
         members: [person1]
         heat_expense_included_in_rent: false
-        il_liheap_fuel_type: ALL_ELECTRIC
+        il_liheap_heating_type: ALL_ELECTRIC
     households:
       household:
         members: [person1]
@@ -162,7 +162,7 @@
   output:
     il_liheap_income_eligible: true
     il_liheap_eligible: true
-    il_liheap_fuel_type: ALL_ELECTRIC
+    il_liheap_heating_type: ALL_ELECTRIC
     # 5,000 / ~15,060 FPG ~ 33% -> bracket 1, size 1, all electric -> $840
     # min(840, 1,200) = 840
     il_liheap_base_payment: 840
@@ -181,7 +181,7 @@
       spm_unit:
         members: [person1]
         heat_expense_included_in_rent: false
-        il_liheap_fuel_type: PROPANE_FUEL_OIL
+        il_liheap_heating_type: PROPANE_FUEL_OIL
     households:
       household:
         members: [person1]
@@ -189,7 +189,7 @@
   output:
     il_liheap_income_eligible: true
     il_liheap_eligible: true
-    il_liheap_fuel_type: PROPANE_FUEL_OIL
+    il_liheap_heating_type: PROPANE_FUEL_OIL
     # 8,000 / ~15,060 FPG ~ 53% -> bracket 2, size 1, propane -> $710
     # min(710, 1,200) = 710
     il_liheap_base_payment: 710
