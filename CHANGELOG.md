@@ -1,3 +1,10 @@
+## [1.634.8] - 2026-04-13
+
+### Changed
+
+- Replace Illinois LIHEAP simplified min/max payment model with full benefit matrix by fuel type, income bracket, and household size.
+
+
 ## [1.634.7] - 2026-04-13
 
 ### Fixed

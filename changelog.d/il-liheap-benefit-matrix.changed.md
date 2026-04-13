@@ -1,1 +1,0 @@
-Replace Illinois LIHEAP simplified min/max payment model with full benefit matrix by fuel type, income bracket, and household size.
