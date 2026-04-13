@@ -1,4 +1,4 @@
-- name: Case 1, low income senior with gas expense infers nat gas.
+- name: Case 1, low income senior with nat gas.
   period: 2024
   absolute_error_margin: 0.01
   input:
@@ -9,12 +9,12 @@
         social_security: 12_000
         irs_gross_income: 12_000
         rent: 6_000
+        heating_expense_person: 1_500
     spm_units:
       spm_unit:
         members: [person1]
         heat_expense_included_in_rent: false
-        gas_expense: 1_200
-        electricity_expense: 300
+        il_liheap_fuel_type: NAT_GAS_OTHER
     households:
       household:
         members: [person1]
@@ -23,12 +23,12 @@
     il_liheap_income_eligible: true
     il_liheap_eligible: true
     il_liheap_fuel_type: NAT_GAS_OTHER
-    # 12,000 / ~15,060 FPG ≈ 80% → bracket 2, size 1, nat gas → $610
+    # 12,000 / ~15,060 FPG ~ 80% -> bracket 2, size 1, nat gas -> $610
     # min(610, 1,500) = 610
     il_liheap_base_payment: 610
     il_liheap: 610
 
-- name: Case 2, family of 4 with metered gas infers nat gas.
+- name: Case 2, family of 4 with nat gas.
   period: 2024
   absolute_error_margin: 0.01
   input:
@@ -37,6 +37,7 @@
         age: 30
         employment_income: 25_000
         irs_gross_income: 25_000
+        heating_expense_person: 1_800
       person2:
         age: 28
         employment_income: 20_000
@@ -49,8 +50,7 @@
       spm_unit:
         members: [person1, person2, person3, person4]
         heat_expense_included_in_rent: false
-        metered_gas_expense: 1_200
-        electricity_expense: 600
+        il_liheap_fuel_type: NAT_GAS_OTHER
     households:
       household:
         members: [person1, person2, person3, person4]
@@ -59,7 +59,7 @@
     il_liheap_income_eligible: true
     il_liheap_eligible: true
     il_liheap_fuel_type: NAT_GAS_OTHER
-    # 45,000 / ~31,800 FPG ≈ 142% → bracket 3, size 4, nat gas → $520
+    # 45,000 / ~31,800 FPG ~ 142% -> bracket 3, size 4, nat gas -> $520
     # min(520, 1,800) = 520
     il_liheap_base_payment: 520
     il_liheap: 520
@@ -78,8 +78,6 @@
       spm_unit:
         members: [person1]
         heat_expense_included_in_rent: true
-        gas_expense: 300
-        electricity_expense: 200
     households:
       household:
         members: [person1]
@@ -88,7 +86,7 @@
     il_liheap_income_eligible: true
     il_liheap_eligible: true  # Rent (8k) > 30% of income (7.2k)
     il_liheap_fuel_type: CASH
-    # 24,000 / ~15,060 FPG ≈ 159% → bracket 4, size 1, cash → $170
+    # 24,000 / ~15,060 FPG ~ 159% -> bracket 4, size 1, cash -> $170
     # Cash: no expense cap
     il_liheap_base_payment: 170
     il_liheap: 170
@@ -106,8 +104,6 @@
       spm_unit:
         members: [person1]
         heat_expense_included_in_rent: true
-        gas_expense: 300
-        electricity_expense: 200
     households:
       household:
         members: [person1]
@@ -125,6 +121,7 @@
         age: 45
         employment_income: 50_000
         irs_gross_income: 50_000
+        heating_expense_person: 1_500
       person2:
         age: 43
         employment_income: 45_000
@@ -133,8 +130,7 @@
       spm_unit:
         members: [person1, person2]
         heat_expense_included_in_rent: false
-        gas_expense: 1_200
-        electricity_expense: 300
+        il_liheap_fuel_type: NAT_GAS_OTHER
     households:
       household:
         members: [person1, person2]
@@ -144,7 +140,7 @@
     il_liheap_eligible: false
     il_liheap: 0
 
-- name: Case 6, electricity only infers all electric.
+- name: Case 6, all electric senior.
   period: 2024
   absolute_error_margin: 0.01
   input:
@@ -153,11 +149,12 @@
         age: 70
         social_security: 5_000
         irs_gross_income: 5_000
+        heating_expense_person: 1_200
     spm_units:
       spm_unit:
         members: [person1]
         heat_expense_included_in_rent: false
-        electricity_expense: 1_200
+        il_liheap_fuel_type: ALL_ELECTRIC
     households:
       household:
         members: [person1]
@@ -166,12 +163,12 @@
     il_liheap_income_eligible: true
     il_liheap_eligible: true
     il_liheap_fuel_type: ALL_ELECTRIC
-    # 5,000 / ~15,060 FPG ≈ 33% → bracket 1, size 1, all electric → $840
+    # 5,000 / ~15,060 FPG ~ 33% -> bracket 1, size 1, all electric -> $840
     # min(840, 1,200) = 840
     il_liheap_base_payment: 840
     il_liheap: 840
 
-- name: Case 7, coal expense infers propane fuel oil.
+- name: Case 7, propane fuel oil.
   period: 2024
   absolute_error_margin: 0.01
   input:
@@ -179,12 +176,12 @@
       person1:
         age: 55
         irs_gross_income: 8_000
+        heating_expense_person: 1_200
     spm_units:
       spm_unit:
         members: [person1]
         heat_expense_included_in_rent: false
-        coal_expense: 800
-        electricity_expense: 400
+        il_liheap_fuel_type: PROPANE_FUEL_OIL
     households:
       household:
         members: [person1]
@@ -193,7 +190,7 @@
     il_liheap_income_eligible: true
     il_liheap_eligible: true
     il_liheap_fuel_type: PROPANE_FUEL_OIL
-    # 8,000 / ~15,060 FPG ≈ 53% → bracket 2, size 1, propane → $710
+    # 8,000 / ~15,060 FPG ~ 53% -> bracket 2, size 1, propane -> $710
     # min(710, 1,200) = 710
     il_liheap_base_payment: 710
     il_liheap: 710
