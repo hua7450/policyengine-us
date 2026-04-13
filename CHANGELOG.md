@@ -1,3 +1,10 @@
+## [1.634.7] - 2026-04-13
+
+### Fixed
+
+- Fix MSP rules to use SSI spouse deeming, applicant-plus-spouse resources, strict SLMB/QI boundaries, category-consistent MSP eligibility, and complete 2021-2026 Medicare/MSP premium and resource thresholds.
+
+
 ## [1.634.6] - 2026-04-12
 
 ### Changed
