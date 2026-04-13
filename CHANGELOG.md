@@ -1,3 +1,11 @@
+## [1.634.10] - 2026-04-13
+
+### Fixed
+
+- Georgia's retirement income exclusion now uses federally loss-limited capital gains and matches the Schedule 1 worksheet by flooring earned income and other retirement income separately before applying the exclusion cap.
+- Fix immigration_status period access in monthly eligibility formulas.
+
+
 ## [1.634.9] - 2026-04-13
 
 ### Changed

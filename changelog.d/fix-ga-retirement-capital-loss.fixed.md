@@ -1,1 +1,0 @@
-Georgia's retirement income exclusion now uses federally loss-limited capital gains and matches the Schedule 1 worksheet by flooring earned income and other retirement income separately before applying the exclusion cap.
