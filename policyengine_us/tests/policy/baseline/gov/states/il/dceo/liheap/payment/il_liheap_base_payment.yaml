@@ -10,7 +10,7 @@
     spm_units:
       spm_unit:
         members: [person1]
-        il_liheap_fuel_type: NAT_GAS_OTHER
+        il_liheap_heating_type: NAT_GAS_OTHER
     households:
       household:
         members: [person1]
@@ -32,7 +32,7 @@
     spm_units:
       spm_unit:
         members: [person1]
-        il_liheap_fuel_type: ALL_ELECTRIC
+        il_liheap_heating_type: ALL_ELECTRIC
     households:
       household:
         members: [person1]
@@ -60,7 +60,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3, person4]
-        il_liheap_fuel_type: PROPANE_FUEL_OIL
+        il_liheap_heating_type: PROPANE_FUEL_OIL
     households:
       household:
         members: [person1, person2, person3, person4]
@@ -91,7 +91,7 @@
   output:
     # heat_in_rent -> inferred CASH
     # Bracket 4, size 1, cash -> $170 (no expense cap for cash)
-    il_liheap_fuel_type: CASH
+    il_liheap_heating_type: CASH
     il_liheap_base_payment: 170
 
 - name: Case 5, low heating expenses cap benefit.
@@ -106,7 +106,7 @@
     spm_units:
       spm_unit:
         members: [person1]
-        il_liheap_fuel_type: ALL_ELECTRIC
+        il_liheap_heating_type: ALL_ELECTRIC
     households:
       household:
         members: [person1]
@@ -139,7 +139,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3, person4, person5, person6]
-        il_liheap_fuel_type: NAT_GAS_OTHER
+        il_liheap_heating_type: NAT_GAS_OTHER
     households:
       household:
         members: [person1, person2, person3, person4, person5, person6]
