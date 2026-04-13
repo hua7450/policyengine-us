@@ -1,3 +1,59 @@
+## [1.634.7] - 2026-04-13
+
+### Fixed
+
+- Fix MSP rules to use SSI spouse deeming, applicant-plus-spouse resources, strict SLMB/QI boundaries, category-consistent MSP eligibility, and complete 2021-2026 Medicare/MSP premium and resource thresholds.
+
+
+## [1.634.6] - 2026-04-12
+
+### Changed
+
+- Expose build metadata helpers for US data artifacts, including a stable data-build fingerprint and build provenance metadata.
+
+
+## [1.634.5] - 2026-04-10
+
+### Fixed
+
+- Remove hard-coded end dates from CRFB Social Security credit and senior deduction extension reforms.
+
+
+## [1.634.4] - 2026-04-10
+
+### Fixed
+
+- Made `has_tin` the canonical TIN variable while keeping `has_itin` and `taxpayer_has_itin` as compatibility aliases during migration.
+
+
+## [1.634.3] - 2026-04-10
+
+### Fixed
+
+- Fixed federal and reform CTC gating so child CTC, ODC, and reform overrides all follow the intended child-qualification and filer-identification rules, and introduced `has_tin` / `taxpayer_has_tin` compatibility variables for the TIN-side checks.
+
+
+## [1.634.2] - 2026-04-09
+
+### Fixed
+
+- Fixed MA LIHEAP expense cap to include fuel oil expenses and bypass cap for heat-in-rent households.
+
+
+## [1.634.1] - 2026-04-09
+
+### Fixed
+
+- Gate the federal child CTC amount on `ctc_qualifying_child` so dependents who fail the child-specific identification requirement no longer receive the $2,000 child amount.
+
+
+## [1.634.0] - 2026-04-09
+
+### Added
+
+- Add federal SSI living arrangement statuses and ISM/PMV framework.
+
+
 ## [1.633.2] - 2026-04-08
 
 ### Fixed
