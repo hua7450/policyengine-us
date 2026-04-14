@@ -10,12 +10,40 @@ class AKSSPLivingArrangement(Enum):
 
 class ak_ssp_living_arrangement(Variable):
     value_type = Enum
-    entity = Household
+    entity = Person
     label = "Alaska Adult Public Assistance living arrangement"
     definition_period = YEAR
     defined_for = StateCode.AK
     possible_values = AKSSPLivingArrangement
     default_value = AKSSPLivingArrangement.INDEPENDENT
     reference = (
-        "https://www.ssa.gov/policy/docs/progdesc/ssi_st_asst/2011/ak.pdf#page=2"
+        "https://health.alaska.gov/en/services/adult-public-assistance-apa/",
+        "http://dpaweb.hss.state.ak.us/POLICY/PDF/APA-Standards.pdf",
+        "https://www.akleg.gov/statutesPDF/aac%20Title%207.pdf#page=828",
+        "https://www.akleg.gov/statutesPDF/aac%20Title%207.pdf#page=833",
+        "https://www.akleg.gov/statutesPDF/aac%20Title%207.pdf#page=834",
+        "https://health.alaska.gov/en/services/assisted-living-licensing-and-renewals/",
+        "https://www.akleg.gov/statutesPDF/Title-47.pdf#page=310",
+        "https://www.law.cornell.edu/cfr/text/20/416.1132",
+        "https://www.law.cornell.edu/cfr/text/20/416.414",
+        "https://www.ssa.gov/policy/docs/progdesc/ssi_st_asst/2011/ak.pdf#page=2",
     )
+
+    def formula(person, period):
+        in_medical_facility = person(
+            "ssi_lives_in_medical_treatment_facility", period
+        ) & person("ssi_medicaid_pays_majority_of_care", period)
+
+        in_assisted_living = person("ak_resides_in_assisted_living_home", period)
+
+        in_another_household = person("ssi_lives_in_another_persons_household", period)
+
+        return select(
+            [in_medical_facility, in_assisted_living, in_another_household],
+            [
+                AKSSPLivingArrangement.MEDICAID_FACILITY,
+                AKSSPLivingArrangement.ASSISTED_LIVING,
+                AKSSPLivingArrangement.HOUSEHOLD_OF_ANOTHER,
+            ],
+            default=AKSSPLivingArrangement.INDEPENDENT,
+        )
