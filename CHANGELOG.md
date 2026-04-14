@@ -1,3 +1,10 @@
+## [1.634.14] - 2026-04-14
+
+### Fixed
+
+- Move the New York inflation refund credit to tax year 2023, the eligibility year used to determine the refund amount, instead of the later payment year.
+
+
 ## [1.634.13] - 2026-04-14
 
 ### Fixed
