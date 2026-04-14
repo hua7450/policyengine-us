@@ -1,3 +1,10 @@
+## [1.634.11] - 2026-04-14
+
+### Fixed
+
+- Fix state nonrefundable income tax credits to apply in statutory filing order, with state-specific regression coverage for capped credit sequencing.
+
+
 ## [1.634.10] - 2026-04-13
 
 ### Fixed
