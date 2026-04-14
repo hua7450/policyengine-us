@@ -19,7 +19,7 @@ class ak_ssp_living_arrangement(Variable):
     reference = (
         "https://health.alaska.gov/en/services/adult-public-assistance-apa/",
         "http://dpaweb.hss.state.ak.us/POLICY/PDF/APA-Standards.pdf",
-        "https://www.akleg.gov/statutesPDF/aac%20Title%207.pdf#page=828",
+        "https://www.akleg.gov/statutesPDF/aac%20Title%207.pdf#page=830",
         "https://www.akleg.gov/statutesPDF/aac%20Title%207.pdf#page=833",
         "https://www.akleg.gov/statutesPDF/aac%20Title%207.pdf#page=834",
         "https://health.alaska.gov/en/services/assisted-living-licensing-and-renewals/",
@@ -34,10 +34,11 @@ class ak_ssp_living_arrangement(Variable):
         in_medical_facility = (
             arrangement == arrangement.possible_values.MEDICAL_TREATMENT_FACILITY
         )
+        in_another_household = (
+            arrangement == arrangement.possible_values.ANOTHER_PERSONS_HOUSEHOLD
+        )
 
         in_assisted_living = person("ak_resides_in_assisted_living_home", period)
-
-        in_another_household = person("ssi_lives_in_another_persons_household", period)
 
         return select(
             [in_medical_facility, in_assisted_living, in_another_household],

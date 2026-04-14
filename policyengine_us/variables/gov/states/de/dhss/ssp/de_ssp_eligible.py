@@ -14,6 +14,12 @@ class de_ssp_eligible(Variable):
     )
 
     def formula(person, period, parameters):
+        # No uncapped_ssi > 0 check: WorkWorld states that Delaware
+        # covers "aged, blind, or disabled adults who are SSI
+        # recipients or would qualify except for income." Income
+        # overspill is handled in de_ssp via the uncapped_ssi
+        # reduction formula.
+        # https://help.workworldapp.com/wwwebhelp/ssi_state_supplement_delaware.htm
         is_ssi_eligible = person("is_ssi_eligible", period.this_year)
         age = person("age", period.this_year)
         p = parameters(period).gov.states.de.dhss.ssp
