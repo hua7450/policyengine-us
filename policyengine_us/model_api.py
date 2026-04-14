@@ -50,9 +50,7 @@ def allocate_joint_amount_to_minimize_combined_tax(
             )
             improves_tax = candidate_tax < (best_tax - 1e-9)
             best_tax = where(improves_tax, candidate_tax, best_tax)
-            best_head_allocation = where(
-                improves_tax, candidate, best_head_allocation
-            )
+            best_head_allocation = where(improves_tax, candidate, best_head_allocation)
 
     return best_head_allocation
 
