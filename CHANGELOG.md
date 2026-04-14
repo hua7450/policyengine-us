@@ -1,3 +1,10 @@
+## [1.634.12] - 2026-04-14
+
+### Fixed
+
+- Added cited TANF countable-resource formulas and regression tests for DC, Washington, and Montana, while keeping Washington and Montana conservative where CPS cannot distinguish owner-occupied homes from other real property. Also fixed TANF immigration-period handling in monthly eligibility formulas and modeled DC TANF work noncompliance as a partial cash sanction instead of an all-or-nothing eligibility veto.
+
+
 ## [1.634.11] - 2026-04-14
 
 ### Fixed
