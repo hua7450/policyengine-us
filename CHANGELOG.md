@@ -1,3 +1,10 @@
+## [1.634.15] - 2026-04-14
+
+### Fixed
+
+- Added shared invariant coverage and reviewed-consumer guards for ordered state nonrefundable credit variables.
+
+
 ## [1.634.14] - 2026-04-14
 
 ### Fixed
