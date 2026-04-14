@@ -8,7 +8,10 @@ class de_ssp(Variable):
     unit = USD
     definition_period = MONTH
     defined_for = StateCode.DE
-    reference = "https://secure.ssa.gov/poms.nsf/lnx/0501415008PHI"
+    reference = (
+        "https://secure.ssa.gov/apps10/poms.nsf/lnx/0501415058",
+        "https://secure.ssa.gov/poms.nsf/lnx/0501415008PHI",
+    )
 
     def formula(person, period, parameters):
         eligible = person("de_ssp_eligible", period)
