@@ -9,7 +9,7 @@ class ak_resides_in_assisted_living_home(Variable):
     defined_for = StateCode.AK
     default_value = False
     reference = (
-        "https://www.akleg.gov/statutesPDF/aac%20Title%207.pdf#page=834",
+        "https://www.akleg.gov/statutesPDF/aac%20Title%207.pdf#page=830",
         "https://health.alaska.gov/en/services/assisted-living-licensing-and-renewals/",
         "https://www.akleg.gov/statutesPDF/Title-47.pdf#page=310",
     )

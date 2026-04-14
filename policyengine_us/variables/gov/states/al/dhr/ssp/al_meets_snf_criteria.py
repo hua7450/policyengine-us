@@ -9,8 +9,8 @@ class al_meets_snf_criteria(Variable):
     defined_for = StateCode.AL
     default_value = False
     reference = (
-        "https://admincode.legislature.state.al.us/api/chapter/660-2-4#page=8",
-        "https://admincode.legislature.state.al.us/api/chapter/660-2-4#page=13",
+        "https://admincode.legislature.state.al.us/api/chapter/660-2-4#page=9",
+        "https://admincode.legislature.state.al.us/api/chapter/660-2-4#page=14",
     )
     documentation = """
     Alabama requires post-October 1, 1986 specialized Independent Homelife Care

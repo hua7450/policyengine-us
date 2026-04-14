@@ -30,7 +30,7 @@ class al_ssp_payment_category(Variable):
         care = care_setting.possible_values
 
         is_nursing = care_setting == care.NURSING_FACILITY
-        medicaid_pays = person("ssi_medicaid_pays_majority_of_care", period)
+        medicaid_pays = person("ssi_medicaid_pays_majority_of_care", period.this_year)
 
         is_ihc = care_setting == care.PRIVATE_HOME_IHC
         level_b = person("al_level_b_care", period)

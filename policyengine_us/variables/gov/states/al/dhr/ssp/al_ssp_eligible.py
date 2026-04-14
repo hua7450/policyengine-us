@@ -7,10 +7,7 @@ class al_ssp_eligible(Variable):
     label = "Alabama SSP eligible"
     definition_period = MONTH
     defined_for = StateCode.AL
-    reference = (
-        "https://admincode.legislature.state.al.us/api/chapter/660-2-4#page=8",
-        "https://admincode.legislature.state.al.us/api/chapter/660-2-4#page=9",
-    )
+    reference = "https://admincode.legislature.state.al.us/api/chapter/660-2-4#page=9"
 
     def formula(person, period, parameters):
         is_ssi_eligible = person("is_ssi_eligible", period.this_year)
