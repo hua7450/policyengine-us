@@ -1,3 +1,10 @@
+## [1.634.13] - 2026-04-14
+
+### Fixed
+
+- Remove Texas from the Medicaid parent deprivation requirement.
+
+
 ## [1.634.12] - 2026-04-14
 
 ### Fixed
