@@ -8,13 +8,28 @@ class ga_ssp_eligible_person(Variable):
     definition_period = MONTH
     defined_for = StateCode.GA
     reference = (
-        "https://www.ssa.gov/policy/docs/progdesc/ssi_st_asst/2011/ga.html",
-        "https://odis.dhs.ga.gov/ViewDocument.aspx?docId=3006859&verId=1",
+        "https://pamms.dhs.ga.gov/dfcs/medicaid/2578/",
+        "https://pamms.dhs.ga.gov/dfcs/medicaid/2136/",
+        "https://pamms.dhs.ga.gov/dfcs/medicaid/appendix-a1/2024-abd-limits/",
+        "https://www.law.cornell.edu/cfr/text/20/416.414",
     )
 
     def formula(person, period, parameters):
-        is_ssi_eligible = person("is_ssi_eligible", period.this_year)
-        # Must actually receive SSI (income test), not just be categorically eligible.
-        receives_ssi = person("ssi", period.this_year) > 0
-        in_medicaid_facility = person("ga_ssp_in_medicaid_facility", period.this_year)
-        return is_ssi_eligible & receives_ssi & in_medicaid_facility
+        arrangement = person("ssi_federal_living_arrangement", period.this_year)
+        in_federal_medicaid_facility = (
+            arrangement == arrangement.possible_values.MEDICAL_TREATMENT_FACILITY
+        )
+        in_georgia_ssp_setting = person(
+            "ga_ssp_in_nursing_home_or_institutionalized_hospice",
+            period.this_year,
+        )
+        ssi_amount = person("ssi", period)
+        federal_institutional_rate = parameters(
+            period
+        ).gov.ssa.ssi.amount.medical_facility
+        receives_institutional_ssi = ssi_amount == federal_institutional_rate
+        return (
+            receives_institutional_ssi
+            & in_federal_medicaid_facility
+            & in_georgia_ssp_setting
+        )

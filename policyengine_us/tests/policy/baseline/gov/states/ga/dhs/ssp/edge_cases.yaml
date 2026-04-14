@@ -5,7 +5,9 @@
     people:
       person1:
         is_ssi_eligible: true
-        ga_ssp_in_medicaid_facility: true
+        ga_ssp_in_nursing_home_or_institutionalized_hospice: true
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
     spm_units:
       spm_unit:
         members: [person1]
@@ -26,7 +28,9 @@
     people:
       person1:
         is_ssi_eligible: true
-        ga_ssp_in_medicaid_facility: true
+        ga_ssp_in_nursing_home_or_institutionalized_hospice: true
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
     spm_units:
       spm_unit:
         members: [person1]
@@ -48,7 +52,9 @@
     people:
       person1:
         is_ssi_eligible: true
-        ga_ssp_in_medicaid_facility: true
+        ga_ssp_in_nursing_home_or_institutionalized_hospice: true
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
     spm_units:
       spm_unit:
         members: [person1]
@@ -69,10 +75,13 @@
     people:
       person1:
         is_ssi_eligible: true
-        ga_ssp_in_medicaid_facility: true
+        ga_ssp_in_nursing_home_or_institutionalized_hospice: true
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
       person2:
         is_ssi_eligible: true
-        ga_ssp_in_medicaid_facility: false
+        ga_ssp_in_nursing_home_or_institutionalized_hospice: false
+        ssi_lives_in_medical_treatment_facility: false
     spm_units:
       spm_unit:
         members: [person1, person2]
@@ -93,10 +102,14 @@
     people:
       person1:
         is_ssi_eligible: true
-        ga_ssp_in_medicaid_facility: true
+        ga_ssp_in_nursing_home_or_institutionalized_hospice: true
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
       person2:
         is_ssi_eligible: true
-        ga_ssp_in_medicaid_facility: true
+        ga_ssp_in_nursing_home_or_institutionalized_hospice: true
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
     spm_units:
       spm_unit:
         members: [person1, person2]
@@ -117,11 +130,11 @@
   input:
     people:
       person1:
-        is_ssi_eligible: false
-        ga_ssp_in_medicaid_facility: false
+        ga_ssp_in_nursing_home_or_institutionalized_hospice: false
+        ssi_lives_in_medical_treatment_facility: false
       person2:
-        is_ssi_eligible: false
-        ga_ssp_in_medicaid_facility: false
+        ga_ssp_in_nursing_home_or_institutionalized_hospice: false
+        ssi_lives_in_medical_treatment_facility: false
     spm_units:
       spm_unit:
         members: [person1, person2]
@@ -144,10 +157,13 @@
     people:
       person1:
         is_ssi_eligible: true
-        ga_ssp_in_medicaid_facility: true
+        ga_ssp_in_nursing_home_or_institutionalized_hospice: true
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
       person2:
         is_ssi_eligible: true
-        ga_ssp_in_medicaid_facility: false
+        ga_ssp_in_nursing_home_or_institutionalized_hospice: false
+        ssi_lives_in_medical_treatment_facility: false
     spm_units:
       spm_unit:
         members: [person1, person2]

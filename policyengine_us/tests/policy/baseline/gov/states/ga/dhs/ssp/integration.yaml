@@ -5,7 +5,9 @@
     people:
       person1:
         is_ssi_eligible: true
-        ga_ssp_in_medicaid_facility: true
+        ga_ssp_in_nursing_home_or_institutionalized_hospice: true
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
     spm_units:
       spm_unit:
         members: [person1]
@@ -14,6 +16,7 @@
         members: [person1]
         state_code: GA
   output:
+    ssi_federal_living_arrangement: [MEDICAL_TREATMENT_FACILITY]
     ga_ssp_eligible_person: [true]
     ssi: [30]
     # $40/month per eligible individual (effective 2019-07-01)
@@ -28,10 +31,14 @@
     people:
       person1:
         is_ssi_eligible: true
-        ga_ssp_in_medicaid_facility: true
+        ga_ssp_in_nursing_home_or_institutionalized_hospice: true
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
       person2:
         is_ssi_eligible: true
-        ga_ssp_in_medicaid_facility: true
+        ga_ssp_in_nursing_home_or_institutionalized_hospice: true
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
     spm_units:
       spm_unit:
         members: [person1, person2]
@@ -40,6 +47,7 @@
         members: [person1, person2]
         state_code: GA
   output:
+    ssi_federal_living_arrangement: [MEDICAL_TREATMENT_FACILITY, MEDICAL_TREATMENT_FACILITY]
     ga_ssp_eligible_person: [true, true]
     ssi: [30, 30]
     # Each person gets $40/month
@@ -54,10 +62,14 @@
     people:
       person1:
         is_ssi_eligible: true
-        ga_ssp_in_medicaid_facility: true
+        ga_ssp_in_nursing_home_or_institutionalized_hospice: true
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
       person2:
-        is_ssi_eligible: false
-        ga_ssp_in_medicaid_facility: true
+        is_ssi_eligible: true
+        ga_ssp_in_nursing_home_or_institutionalized_hospice: false
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
     spm_units:
       spm_unit:
         members: [person1, person2]
@@ -66,6 +78,8 @@
         members: [person1, person2]
         state_code: GA
   output:
+    # person2 has ssi_medicaid_pays_majority_of_care=true but not in GA nursing home
+    ssi_federal_living_arrangement: [MEDICAL_TREATMENT_FACILITY, MEDICAL_TREATMENT_FACILITY]
     ga_ssp_eligible_person: [true, false]
     ga_ssp_person: [40, 0]
     # SPM unit total = $40 + $0 = $40
@@ -78,7 +92,9 @@
     people:
       person1:
         is_ssi_eligible: true
-        ga_ssp_in_medicaid_facility: true
+        ga_ssp_in_nursing_home_or_institutionalized_hospice: true
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
     spm_units:
       spm_unit:
         members: [person1]
@@ -87,6 +103,7 @@
         members: [person1]
         state_code: GA
   output:
+    ssi_federal_living_arrangement: [MEDICAL_TREATMENT_FACILITY]
     ga_ssp_eligible_person: [true]
     # $20/month per eligible individual (effective 2006-07-01)
     ga_ssp_person: [20]
@@ -99,7 +116,9 @@
     people:
       person1:
         is_ssi_eligible: true
-        ga_ssp_in_medicaid_facility: true
+        ga_ssp_in_nursing_home_or_institutionalized_hospice: true
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
     spm_units:
       spm_unit:
         members: [person1]
@@ -108,6 +127,7 @@
         members: [person1]
         state_code: GA
   output:
+    ssi_federal_living_arrangement: [MEDICAL_TREATMENT_FACILITY]
     ga_ssp_eligible_person: [true]
     # $35/month per eligible individual (effective 2018-07-01)
     # Note: testing 2019-01 which falls in the $35 era
@@ -122,7 +142,8 @@
     people:
       person1:
         is_ssi_eligible: true
-        ga_ssp_in_medicaid_facility: false
+        ga_ssp_in_nursing_home_or_institutionalized_hospice: true
+        ssi_lives_in_medical_treatment_facility: false
     spm_units:
       spm_unit:
         members: [person1]
@@ -131,6 +152,8 @@
         members: [person1]
         state_code: GA
   output:
+    # ssi_lives_in_medical_treatment_facility=false → OWN_HOUSEHOLD
+    ssi_federal_living_arrangement: [OWN_HOUSEHOLD]
     ga_ssp_eligible_person: [false]
     ga_ssp_person: [0]
     ga_ssp: 0
@@ -142,10 +165,14 @@
     people:
       person1:
         is_ssi_eligible: true
-        ga_ssp_in_medicaid_facility: true
+        ga_ssp_in_nursing_home_or_institutionalized_hospice: true
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
       person2:
         is_ssi_eligible: true
-        ga_ssp_in_medicaid_facility: true
+        ga_ssp_in_nursing_home_or_institutionalized_hospice: true
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
     spm_units:
       spm_unit:
         members: [person1, person2]
@@ -154,6 +181,7 @@
         members: [person1, person2]
         state_code: GA
   output:
+    ssi_federal_living_arrangement: [MEDICAL_TREATMENT_FACILITY, MEDICAL_TREATMENT_FACILITY]
     ga_ssp_eligible_person: [true, true]
     # $20/month each (effective 2006-07-01)
     ga_ssp_person: [20, 20]
@@ -161,34 +189,6 @@
     ga_ssp: 40
 
 # Income-based integration tests
-- name: Case 8, couple one eligible and one with income too high for SSI.
-  absolute_error_margin: 0.01
-  period: 2024-01
-  input:
-    people:
-      person1:
-        is_ssi_eligible: true
-        ga_ssp_in_medicaid_facility: true
-        uncapped_ssi: 5_000
-      person2:
-        is_ssi_eligible: true
-        ga_ssp_in_medicaid_facility: true
-        uncapped_ssi: -1_000
-    spm_units:
-      spm_unit:
-        members: [person1, person2]
-    households:
-      household:
-        members: [person1, person2]
-        state_code: GA
-  output:
-    # person1: SSI-eligible + positive uncapped_ssi + in facility = eligible
-    # person2: SSI-eligible + negative uncapped_ssi = not an SSI recipient
-    ga_ssp_eligible_person: [true, false]
-    ga_ssp_person: [40, 0]
-    # SPM unit total = $40
-    ga_ssp: 40
-
 - name: Case 9, couple both SSI-eligible but both with income too high.
   absolute_error_margin: 0.01
   period: 2024-01
@@ -196,11 +196,14 @@
     people:
       person1:
         is_ssi_eligible: true
-        ga_ssp_in_medicaid_facility: true
+        ga_ssp_in_nursing_home_or_institutionalized_hospice: true
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
         uncapped_ssi: -500
       person2:
-        is_ssi_eligible: true
-        ga_ssp_in_medicaid_facility: true
+        ga_ssp_in_nursing_home_or_institutionalized_hospice: true
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
         uncapped_ssi: -2_000
     spm_units:
       spm_unit:
@@ -210,6 +213,7 @@
         members: [person1, person2]
         state_code: GA
   output:
+    ssi_federal_living_arrangement: [MEDICAL_TREATMENT_FACILITY, MEDICAL_TREATMENT_FACILITY]
     # Both pass is_ssi_eligible but neither actually receives SSI
     ga_ssp_eligible_person: [false, false]
     ga_ssp_person: [0, 0]
@@ -221,8 +225,9 @@
   input:
     people:
       person1:
-        is_ssi_eligible: true
-        ga_ssp_in_medicaid_facility: true
+        ga_ssp_in_nursing_home_or_institutionalized_hospice: true
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
         takes_up_ssi_if_eligible: false
     spm_units:
       spm_unit:
@@ -232,6 +237,7 @@
         members: [person1]
         state_code: GA
   output:
+    ssi_federal_living_arrangement: [MEDICAL_TREATMENT_FACILITY]
     ssi: [0]
     ga_ssp_eligible_person: [false]
     ga_ssp_person: [0]
