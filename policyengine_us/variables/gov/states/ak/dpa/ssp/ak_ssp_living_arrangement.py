@@ -30,9 +30,10 @@ class ak_ssp_living_arrangement(Variable):
     )
 
     def formula(person, period):
-        in_medical_facility = person(
-            "ssi_lives_in_medical_treatment_facility", period
-        ) & person("ssi_medicaid_pays_majority_of_care", period)
+        arrangement = person("ssi_federal_living_arrangement", period)
+        in_medical_facility = (
+            arrangement == arrangement.possible_values.MEDICAL_TREATMENT_FACILITY
+        )
 
         in_assisted_living = person("ak_resides_in_assisted_living_home", period)
 
