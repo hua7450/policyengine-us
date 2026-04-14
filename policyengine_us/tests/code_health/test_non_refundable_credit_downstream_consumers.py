@@ -4,6 +4,7 @@ from policyengine_us.model_api import REPO
 
 
 STATE_VARIABLES_ROOT = REPO / "variables" / "gov" / "states"
+REFORMS_ROOT = REPO / "reforms"
 
 
 REVIEWED_APPLIED_CREDIT_EXTERNAL_REFERENCES = {
@@ -20,8 +21,36 @@ REVIEWED_APPLIED_CREDIT_EXTERNAL_REFERENCES = {
     "md_non_refundable_eitc": {
         "variables/gov/states/md/tax/income/credits/eitc/md_eitc.py",
     },
+    "mo_wftc": {
+        "reforms/states/mo/eitc/mo_refundable_eitc_reform.py",
+    },
     "ny_household_credit": {
+        "reforms/states/ny/wftc/ny_working_families_tax_credit.py",
         "variables/gov/states/ny/tax/income/credits/ny_eitc.py",
+    },
+    "oh_eitc": {
+        "reforms/states/oh/eitc/oh_refundable_eitc_reform.py",
+    },
+    "sc_cdcc": {
+        "reforms/states/sc/h3492/sc_h3492_eitc_refundable.py",
+    },
+    "sc_two_wage_earner_credit": {
+        "reforms/states/sc/h3492/sc_h3492_eitc_refundable.py",
+    },
+    "ut_at_home_parent_credit": {
+        "reforms/states/ut/ut_refundable_eitc.py",
+    },
+    "ut_ctc": {
+        "reforms/states/ut/ut_refundable_eitc.py",
+    },
+    "ut_eitc": {
+        "reforms/states/ut/child_poverty_eitc/ut_fully_refundable_eitc_reform.py",
+    },
+    "ut_retirement_credit": {
+        "reforms/states/ut/ut_refundable_eitc.py",
+    },
+    "ut_ss_benefits_credit": {
+        "reforms/states/ut/ut_refundable_eitc.py",
     },
     "va_non_refundable_eitc": {
         "variables/gov/states/va/tax/income/credits/eitc/refundability_calculation/va_income_tax_if_claiming_non_refundable_eitc.py",
@@ -52,12 +81,32 @@ def applied_credit_variable_definitions() -> dict[str, str]:
     return definitions
 
 
+def is_internal_reform_reference(file_name, variable_name: str) -> bool:
+    source = file_name.read_text()
+    return (
+        re.search(rf"class\s+{re.escape(variable_name)}\(Variable\):", source)
+        is not None
+        or re.search(
+            rf"neutralize_variable\([\"']{re.escape(variable_name)}[\"']\)",
+            source,
+        )
+        is not None
+    )
+
+
 def string_literal_references(variable_name: str) -> set[str]:
     pattern = re.compile(rf"[\"']{re.escape(variable_name)}[\"']")
     references = set()
 
-    for file_name in STATE_VARIABLES_ROOT.glob("**/*.py"):
-        if pattern.search(file_name.read_text()):
+    for root in (STATE_VARIABLES_ROOT, REFORMS_ROOT):
+        for file_name in root.glob("**/*.py"):
+            source = file_name.read_text()
+            if not pattern.search(source):
+                continue
+            if root == REFORMS_ROOT and is_internal_reform_reference(
+                file_name, variable_name
+            ):
+                continue
             references.add(file_name.relative_to(REPO).as_posix())
 
     return references
