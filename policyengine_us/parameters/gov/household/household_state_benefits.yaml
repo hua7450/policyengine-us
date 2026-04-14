@@ -3,6 +3,7 @@ values:
   2023-01-01:
     # Delaware benefits
     - de_ssp
+    - de_child_care_subsidies
     # Georgia benefits
     - ga_ssp
     # Massachusetts benefits
@@ -33,6 +34,7 @@ values:
   2024-01-01:
     # Delaware benefits
     - de_ssp
+    - de_child_care_subsidies
     # Georgia benefits
     - ga_ssp
     # Massachusetts benefits
