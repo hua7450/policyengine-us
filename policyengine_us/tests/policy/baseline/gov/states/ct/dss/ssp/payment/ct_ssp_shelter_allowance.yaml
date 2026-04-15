@@ -5,7 +5,7 @@
     people:
       person1:
         age: 70
-        ct_ssp_living_arrangement: COMMUNITY_ALONE
+
         rent: 12_000  # $1,000/mo > $400 max
     households:
       household:
@@ -21,7 +21,7 @@
     people:
       person1:
         age: 70
-        ct_ssp_living_arrangement: COMMUNITY_ALONE
+
         rent: 3_600  # $300/mo < $400 max
     households:
       household:
@@ -37,7 +37,7 @@
     people:
       person1:
         age: 70
-        ct_ssp_living_arrangement: COMMUNITY_SHARED
+        ct_ssp_lives_with_others: true
         rent: 6_000  # $500/mo > $200 max
     households:
       household:
@@ -53,7 +53,7 @@
     people:
       person1:
         age: 70
-        ct_ssp_living_arrangement: BOARDING_HOME
+        ct_ssp_resides_in_boarding_home: true
         rent: 12_000
     households:
       household:
@@ -62,14 +62,15 @@
   output:
     ct_ssp_shelter_allowance: 0
 
-- name: Case 5, SNF gets zero shelter.
+- name: Case 5, Medicaid facility gets zero shelter.
   period: 2026-01
   absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 70
-        ct_ssp_living_arrangement: SNF
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
         rent: 0
     households:
       household:
@@ -85,7 +86,7 @@
     people:
       person1:
         age: 70
-        ct_ssp_living_arrangement: COMMUNITY_ALONE
+
         rent: 4_800  # $400/mo exactly = max
     households:
       household:
@@ -102,7 +103,7 @@
     people:
       person1:
         age: 70
-        ct_ssp_living_arrangement: COMMUNITY_SHARED
+        ct_ssp_lives_with_others: true
         rent: 2_400  # $200/mo exactly = max
     households:
       household:
@@ -119,7 +120,7 @@
     people:
       person1:
         age: 70
-        ct_ssp_living_arrangement: COMMUNITY_ALONE
+
         rent: 0
     households:
       household:
@@ -136,7 +137,7 @@
     people:
       person1:
         age: 70
-        ct_ssp_living_arrangement: BOARDING_HOME
+        ct_ssp_resides_in_boarding_home: true
         rent: 24_000  # $2,000/mo
     households:
       household:

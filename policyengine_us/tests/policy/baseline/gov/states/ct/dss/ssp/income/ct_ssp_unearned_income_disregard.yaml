@@ -5,7 +5,7 @@
     people:
       person1:
         age: 70
-        ct_ssp_living_arrangement: COMMUNITY_ALONE
+
     households:
       household:
         members: [person1]
@@ -20,7 +20,7 @@
     people:
       person1:
         age: 70
-        ct_ssp_living_arrangement: BOARDING_HOME
+        ct_ssp_resides_in_boarding_home: true
     households:
       household:
         members: [person1]
@@ -35,7 +35,7 @@
     people:
       person1:
         age: 70
-        ct_ssp_living_arrangement: COMMUNITY_SHARED
+        ct_ssp_lives_with_others: true
     households:
       household:
         members: [person1]
@@ -43,18 +43,19 @@
   output:
     ct_ssp_unearned_income_disregard: 629.90
 
-- name: Case 4, SNF resident gets community disregard.
+- name: Case 4, Medicaid facility resident gets community disregard.
   period: 2026-01
   absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 70
-        ct_ssp_living_arrangement: SNF
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
     households:
       household:
         members: [person1]
         state_code: CT
   output:
-    # Per SSA 2011: community/roomer/SNF all use the community disregard ($562)
+    # Per SSA 2011: community/roomer/Medicaid facility all use the community disregard ($562)
     ct_ssp_unearned_income_disregard: 562

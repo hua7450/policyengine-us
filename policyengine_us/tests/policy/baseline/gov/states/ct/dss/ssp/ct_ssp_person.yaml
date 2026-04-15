@@ -9,7 +9,7 @@
         is_disabled: false
         immigration_status: CITIZEN
         ssi_countable_resources: 500
-        ct_ssp_living_arrangement: COMMUNITY_ALONE
+
         ct_ssp_has_therapeutic_diet: false
         ssi: 11_928  # $994/mo
         employment_income: 0
@@ -28,9 +28,9 @@
         members: [person1]
         state_code: CT
   output:
-    # Need = $598.55, Countable = $432
-    # Benefit = max(0, 598.55 - 432) = $166.55
-    ct_ssp_person: 166.55
+    # Need = $597.35, Countable = $432
+    # Benefit = max(0, 597.35 - 432) = $165.35
+    ct_ssp_person: 165.35
 
 - name: Case 2, countable income exceeds need.
   period: 2026-01
@@ -43,7 +43,7 @@
         is_disabled: false
         immigration_status: CITIZEN
         ssi_countable_resources: 500
-        ct_ssp_living_arrangement: COMMUNITY_ALONE
+
         ct_ssp_has_therapeutic_diet: false
         ssi: 11_928
         employment_income: 6_000  # $500/mo
@@ -67,7 +67,7 @@
     # $649.50 > $598.55 -> benefit = $0 (ineligible)
     ct_ssp_person: 0
 
-- name: Case 3, zero income SNF resident.
+- name: Case 3, zero income Medicaid facility resident.
   period: 2026-01
   absolute_error_margin: 0.01
   input:
@@ -78,7 +78,8 @@
         is_disabled: false
         immigration_status: CITIZEN
         ssi_countable_resources: 100
-        ct_ssp_living_arrangement: SNF
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
         ct_ssp_has_therapeutic_diet: false
         ssi: 360  # $30/mo reduced SSI
         employment_income: 0
@@ -112,7 +113,7 @@
         is_disabled: false
         immigration_status: CITIZEN
         ssi_countable_resources: 500
-        ct_ssp_living_arrangement: COMMUNITY_ALONE
+
         ct_ssp_has_therapeutic_diet: false
         ssi: 0
         employment_income: 24_000
@@ -145,16 +146,16 @@
         is_disabled: false
         immigration_status: CITIZEN
         ssi_countable_resources: 500
-        ct_ssp_living_arrangement: COMMUNITY_ALONE
+
         ct_ssp_has_therapeutic_diet: false
-        # Engineer countable = need ($598.55)
+        # Engineer countable = need ($597.35)
         # Countable unearned = max(0, 994 - 562) = $432
-        # Need countable earned = 598.55 - 432 = $166.55
+        # Need countable earned = 597.35 - 432 = $165.35
         # Disregard = $65 + 0.5 * (earned - 65)
-        # earned - disregard = earned - 65 - 0.5*(earned - 65) = 0.5*(earned - 65) = 166.55
-        # earned - 65 = 333.10 -> earned = $398.10
+        # 0.5*(earned - 65) = 165.35
+        # earned - 65 = 330.70 -> earned = $395.70
         ssi: 11_928  # $994/mo
-        employment_income: 4_777.20  # $398.10/mo
+        employment_income: 4_748.40  # $395.70/mo
         rent: 12_000
     marital_units:
       marital_unit:
@@ -170,9 +171,9 @@
         members: [person1]
         state_code: CT
   output:
-    # Need = $598.55
-    # Countable = $432 + $166.55 = $598.55
-    # Benefit = max(0, 598.55 - 598.55) = $0
+    # Need = $597.35
+    # Countable = $432 + $165.35 = $597.35
+    # Benefit = max(0, 597.35 - 597.35) = $0
     ct_ssp_person: 0
 
 - name: Case 6, boarding home zero income maximum benefit.
@@ -186,7 +187,7 @@
         is_disabled: false
         immigration_status: CITIZEN
         ssi_countable_resources: 500
-        ct_ssp_living_arrangement: BOARDING_HOME
+        ct_ssp_resides_in_boarding_home: true
         ct_ssp_has_therapeutic_diet: false
         ssi: 0
         employment_income: 0

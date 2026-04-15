@@ -8,7 +8,7 @@
         is_disabled: false
         immigration_status: CITIZEN
         ssi_countable_resources: 1_000
-        ct_ssp_living_arrangement: COMMUNITY_ALONE
+
         ct_ssp_has_therapeutic_diet: false
         ssi: 11_928  # $994/mo
         employment_income: 0
@@ -39,7 +39,7 @@
         is_disabled: true
         immigration_status: CITIZEN
         ssi_countable_resources: 500
-        ct_ssp_living_arrangement: COMMUNITY_ALONE
+
         is_tax_unit_dependent: true
     marital_units:
       marital_unit:
@@ -67,7 +67,7 @@
         is_blind: true
         immigration_status: CITIZEN
         ssi_countable_resources: 500
-        ct_ssp_living_arrangement: COMMUNITY_ALONE
+
         ct_ssp_has_therapeutic_diet: false
         ssi: 11_928
         employment_income: 0
@@ -97,7 +97,7 @@
         is_blind: false
         immigration_status: CITIZEN
         ssi_countable_resources: 1_700  # > $1,600 CT limit
-        ct_ssp_living_arrangement: COMMUNITY_ALONE
+
         ct_ssp_has_therapeutic_diet: false
         ssi: 11_928
         employment_income: 0
@@ -128,7 +128,7 @@
         is_disabled: false
         immigration_status: CITIZEN
         ssi_countable_resources: 500
-        ct_ssp_living_arrangement: COMMUNITY_ALONE
+
     marital_units:
       marital_unit:
         members: [person1]
@@ -155,7 +155,7 @@
         is_disabled: false
         immigration_status: CITIZEN
         ssi_countable_resources: 500
-        ct_ssp_living_arrangement: COMMUNITY_ALONE
+
         ct_ssp_has_therapeutic_diet: false
         ssi: 11_928
         employment_income: 0
@@ -187,7 +187,7 @@
         is_disabled: false
         immigration_status: CITIZEN
         ssi_countable_resources: 500
-        ct_ssp_living_arrangement: COMMUNITY_ALONE
+
     marital_units:
       marital_unit:
         members: [person1]
@@ -215,7 +215,7 @@
         is_disabled: true
         immigration_status: CITIZEN
         ssi_countable_resources: 500
-        ct_ssp_living_arrangement: COMMUNITY_ALONE
+
         ct_ssp_has_therapeutic_diet: false
         ssi: 11_928
         employment_income: 0

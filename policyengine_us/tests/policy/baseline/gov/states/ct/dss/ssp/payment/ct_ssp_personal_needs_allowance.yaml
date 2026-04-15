@@ -5,7 +5,7 @@
     people:
       person1:
         age: 70
-        ct_ssp_living_arrangement: COMMUNITY_ALONE
+
     marital_units:
       marital_unit:
         members: [person1]
@@ -23,10 +23,10 @@
     people:
       person1:
         age: 70
-        ct_ssp_living_arrangement: COMMUNITY_ALONE
+
       person2:
         age: 68
-        ct_ssp_living_arrangement: COMMUNITY_ALONE
+
     tax_units:
       tax_unit:
         members: [person1, person2]
@@ -47,7 +47,7 @@
     people:
       person1:
         age: 70
-        ct_ssp_living_arrangement: BOARDING_HOME
+        ct_ssp_resides_in_boarding_home: true
     marital_units:
       marital_unit:
         members: [person1]
@@ -58,14 +58,15 @@
   output:
     ct_ssp_personal_needs_allowance: 34.75
 
-- name: Case 4, SNF resident.
+- name: Case 4, Medicaid facility resident.
   period: 2026-01
   absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 70
-        ct_ssp_living_arrangement: SNF
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
     marital_units:
       marital_unit:
         members: [person1]
@@ -83,7 +84,7 @@
     people:
       person1:
         age: 70
-        ct_ssp_living_arrangement: COMMUNITY_SHARED
+        ct_ssp_lives_with_others: true
     marital_units:
       marital_unit:
         members: [person1]
@@ -101,10 +102,10 @@
     people:
       person1:
         age: 70
-        ct_ssp_living_arrangement: COMMUNITY_SHARED
+        ct_ssp_lives_with_others: true
       person2:
         age: 68
-        ct_ssp_living_arrangement: COMMUNITY_SHARED
+        ct_ssp_lives_with_others: true
     tax_units:
       tax_unit:
         members: [person1, person2]
@@ -119,17 +120,19 @@
     # Married shared -> community married PNA $198.55 each
     ct_ssp_personal_needs_allowance: [198.55, 198.55]
 
-- name: Case 7, SNF married couple.
+- name: Case 7, Medicaid facility married couple.
   period: 2026-01
   absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 80
-        ct_ssp_living_arrangement: SNF
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
       person2:
         age: 78
-        ct_ssp_living_arrangement: SNF
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
     tax_units:
       tax_unit:
         members: [person1, person2]
@@ -141,5 +144,5 @@
         members: [person1, person2]
         state_code: CT
   output:
-    # SNF PNA is $75 regardless of marital status
+    # Medicaid facility PNA is $75 regardless of marital status
     ct_ssp_personal_needs_allowance: [75, 75]

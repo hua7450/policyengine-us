@@ -6,7 +6,7 @@
       person1:
         age: 70
         is_blind: false
-        ct_ssp_living_arrangement: COMMUNITY_ALONE
+
         ssi: 11_928  # $994/mo SSI
         employment_income: 0
     households:
@@ -28,7 +28,7 @@
       person1:
         age: 70
         is_blind: false
-        ct_ssp_living_arrangement: COMMUNITY_ALONE
+
         ssi: 11_928  # $994/mo
         employment_income: 6_000  # $500/mo
     households:
@@ -51,7 +51,7 @@
       person1:
         age: 70
         is_blind: false
-        ct_ssp_living_arrangement: COMMUNITY_ALONE
+
         ssi: 6_000  # $500/mo < $562 disregard
         employment_income: 0
     households:
@@ -71,7 +71,7 @@
       person1:
         age: 70
         is_blind: false
-        ct_ssp_living_arrangement: BOARDING_HOME
+        ct_ssp_resides_in_boarding_home: true
         ssi: 11_928  # $994/mo
         employment_income: 0
     households:
@@ -91,7 +91,7 @@
       person1:
         age: 70
         is_blind: false
-        ct_ssp_living_arrangement: COMMUNITY_SHARED
+        ct_ssp_lives_with_others: true
         ssi: 11_928  # $994/mo
         employment_income: 0
     households:
@@ -111,7 +111,7 @@
       person1:
         age: 70
         is_blind: false
-        ct_ssp_living_arrangement: COMMUNITY_ALONE
+
         ssi: 0  # No SSI
         ssi_unearned_income: 0  # No other unearned
         employment_income: 6_000  # $500/mo earned only
@@ -134,7 +134,7 @@
       person1:
         age: 70
         is_blind: false
-        ct_ssp_living_arrangement: COMMUNITY_ALONE
+
         ssi: 0
         employment_income: 0
     households:
@@ -154,7 +154,7 @@
       person1:
         age: 70
         is_blind: false
-        ct_ssp_living_arrangement: COMMUNITY_ALONE
+
         ssi: 11_928  # $994/mo
         ssi_unearned_income: 23_856  # $1,988/mo other unearned
         employment_income: 0
@@ -177,7 +177,7 @@
       person1:
         age: 70
         is_blind: false
-        ct_ssp_living_arrangement: COMMUNITY_ALONE
+
         ssi: 0
         ssi_unearned_income_deemed_from_ineligible_spouse: 7_200
         ssi_earned_income_deemed_from_ineligible_spouse: 3_600

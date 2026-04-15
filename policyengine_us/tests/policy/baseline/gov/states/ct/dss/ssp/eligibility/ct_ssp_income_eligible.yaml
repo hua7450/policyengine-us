@@ -5,7 +5,7 @@
       person1:
         age: 70
         is_blind: false
-        ct_ssp_living_arrangement: COMMUNITY_ALONE
+
         ct_ssp_has_therapeutic_diet: false
         ssi: 11_928  # $994/mo
         employment_income: 0
@@ -31,7 +31,7 @@
       person1:
         age: 70
         is_blind: false
-        ct_ssp_living_arrangement: COMMUNITY_ALONE
+
         ct_ssp_has_therapeutic_diet: false
         ssi: 0
         employment_income: 36_000  # $3,000/mo > $2,982 cap
@@ -54,7 +54,7 @@
       person1:
         age: 70
         is_blind: false
-        ct_ssp_living_arrangement: COMMUNITY_ALONE
+
         ct_ssp_has_therapeutic_diet: false
         ssi: 0
         employment_income: 35_784  # $2,982/mo = 300% * $994
@@ -82,7 +82,7 @@
       person1:
         age: 70
         is_blind: false
-        ct_ssp_living_arrangement: COMMUNITY_ALONE
+
         ct_ssp_has_therapeutic_diet: false
         ssi: 0
         employment_income: 35_796  # $2,983/mo > $2,982 cap
@@ -105,21 +105,20 @@
       person1:
         age: 70
         is_blind: false
-        ct_ssp_living_arrangement: COMMUNITY_ALONE
+
         ct_ssp_has_therapeutic_diet: false
-        # Need to engineer countable == need ($598.55)
-        # Need = PNA $198.55 + Shelter $400 = $598.55
-        # Want: countable_unearned + countable_earned = $598.55
+        # Need to engineer countable == need ($597.35)
+        # Need = PNA $197.35 + Shelter $400 = $597.35
+        # Want: countable_unearned + countable_earned = $597.35
         # With SSI = $994/mo, countable_unearned = max(0, 994 - 562) = $432
-        # Need countable_earned = 598.55 - 432 = $166.55
-        # After disregard: earned - disregard = $166.55
+        # Need countable_earned = 597.35 - 432 = $165.35
+        # After disregard: earned - disregard = $165.35
         # Disregard = $65 + 0.5 * (earned - 65)
-        # earned - 65 - 0.5*(earned-65) = 166.55
-        # 0.5*(earned-65) = 166.55
-        # earned - 65 = 333.10
-        # earned = 398.10
+        # 0.5*(earned-65) = 165.35
+        # earned - 65 = 330.70
+        # earned = 395.70
         ssi: 11_928  # $994/mo
-        employment_income: 4_777.20  # $398.10/mo
+        employment_income: 4_748.40  # $395.70/mo
         rent: 12_000
     marital_units:
       marital_unit:
@@ -130,11 +129,11 @@
         state_code: CT
   output:
     # Countable unearned = max(0, 994 - 562) = $432
-    # Earned disregard = $65 + 0.5 * (398.10 - 65) = $65 + $166.55 = $231.55
-    # Countable earned = 398.10 - 231.55 = $166.55
-    # Countable total = 432 + 166.55 = $598.55
-    # Need = $598.55
-    # Countable $598.55 <= Need $598.55 -> income eligible (<=)
+    # Earned disregard = $65 + 0.5 * (395.70 - 65) = $65 + $165.35 = $230.35
+    # Countable earned = 395.70 - 230.35 = $165.35
+    # Countable total = 432 + 165.35 = $597.35
+    # Need = $597.35
+    # Countable $597.35 <= Need $597.35 -> income eligible (<=)
     ct_ssp_income_eligible: true
 
 - name: Case 6, zero income person.
@@ -144,7 +143,7 @@
       person1:
         age: 70
         is_blind: false
-        ct_ssp_living_arrangement: COMMUNITY_ALONE
+
         ct_ssp_has_therapeutic_diet: false
         ssi: 0
         employment_income: 0
