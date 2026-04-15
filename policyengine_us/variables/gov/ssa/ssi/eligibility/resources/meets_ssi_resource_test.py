@@ -10,15 +10,15 @@ class meets_ssi_resource_test(Variable):
 
     def formula(person, period, parameters):
         p = parameters(period).gov.ssa.ssi
-        joint_claim = person("ssi_claim_is_joint", period)
+        couple_computation = person("ssi_couple_computation_applies", period)
         personal_resources = person("ssi_countable_resources", period)
         countable_resources = where(
-            joint_claim,
+            couple_computation,
             person.marital_unit.sum(personal_resources),
             personal_resources,
         )
         resource_limit = where(
-            joint_claim,
+            couple_computation,
             p.eligibility.resources.limit.couple,
             p.eligibility.resources.limit.individual,
         )
