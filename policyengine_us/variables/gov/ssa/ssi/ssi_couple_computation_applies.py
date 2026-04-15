@@ -21,6 +21,12 @@ class ssi_couple_computation_applies(Variable):
         # still applies ($60/month = $30 each).
         # 20 CFR 416.414(b)(3): One in facility → benefits computed
         # separately, each using their own countable income.
+        # This variable intentionally does not change joint-claim status
+        # or SSI spouse/individual classification. POMS SI 02005.050
+        # turns on whether the facility separation is temporary or
+        # permanent, and PolicyEngine does not currently model intent to
+        # return. We therefore scope this variable to the benefit-
+        # computation rule that 416.414(b) applies in either case.
         arrangement = person("ssi_federal_living_arrangement", period)
         in_facility = (
             arrangement == SSIFederalLivingArrangement.MEDICAL_TREATMENT_FACILITY

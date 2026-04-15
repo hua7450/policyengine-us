@@ -48,7 +48,9 @@
       household:
         members: [person1, person2]
   output:
-    # Both still SSI-eligible (aged), so joint claim is true
+    # This test only changes 416.414(b)(3) benefit computation.
+    # Joint-claim status stays true because temporary vs permanent
+    # facility separation is not modeled.
     ssi_claim_is_joint: [true, true]
     # Per 416.414(b)(3): one in facility → separate computation
     ssi_couple_computation_applies: [false, false]
