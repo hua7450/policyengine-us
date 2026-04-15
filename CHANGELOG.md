@@ -1,3 +1,10 @@
+## [1.636.1] - 2026-04-15
+
+### Fixed
+
+- Fix Delaware joint AGI to floor after summing spouses' net income, preserving cross-spouse loss offsets.
+
+
 ## [1.636.0] - 2026-04-15
 
 ### Added
