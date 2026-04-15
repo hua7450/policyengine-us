@@ -1,6 +1,10 @@
 from policyengine_us.model_api import *
 
 
+# Not modeled: New Horizons Village — a specific independent living
+# facility in Connecticut with its own PNA ($156.82) and DSS-set
+# per diem rate.  Small population; requires facility-rate input
+# to model correctly.
 class CTSSPLivingArrangement(Enum):
     COMMUNITY_ALONE = "Community - Living Alone"
     COMMUNITY_SHARED = "Community - Shared Living"

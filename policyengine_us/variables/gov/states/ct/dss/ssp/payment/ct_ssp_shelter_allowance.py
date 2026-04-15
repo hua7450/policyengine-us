@@ -15,6 +15,10 @@ class ct_ssp_shelter_allowance(Variable):
     )
 
     def formula(person, period, parameters):
+        # Boarding home shelter is understated: real need uses the
+        # facility's per diem rate (committee-set, varies by facility),
+        # not the $0 in the parameter table.  Modeling the facility
+        # rate requires a per-facility input variable.
         p = parameters(period).gov.states.ct.dss.ssp
         arrangement = person("ct_ssp_living_arrangement", period.this_year)
         rent = person("rent", period)
