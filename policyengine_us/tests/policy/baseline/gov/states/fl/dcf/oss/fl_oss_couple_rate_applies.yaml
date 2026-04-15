@@ -1,0 +1,158 @@
+# Tests for fl_oss_couple_rate_applies variable.
+# Couple rate requires: ssi_claim_is_joint AND both spouses is_ssi_eligible
+# AND both spouses in a qualifying facility (living_arrangement != NONE).
+
+- name: Case 1, both spouses eligible and in facility, couple rate applies.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        fl_oss_community_care_type: ALF
+        age: 70
+        is_ssi_eligible: true
+        ssi_claim_is_joint: true
+      person2:
+        fl_oss_community_care_type: ALF
+        age: 68
+        is_ssi_eligible: true
+        ssi_claim_is_joint: true
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: FL
+  output:
+    fl_oss_couple_rate_applies: [true, true]
+
+- name: Case 2, one spouse not SSI eligible, couple rate does not apply.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        fl_oss_community_care_type: ALF
+        age: 70
+        is_ssi_eligible: true
+        ssi_claim_is_joint: false
+      person2:
+        fl_oss_community_care_type: ALF
+        age: 40
+        is_ssi_eligible: false
+        ssi_claim_is_joint: false
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: FL
+  output:
+    fl_oss_couple_rate_applies: [false, false]
+
+- name: Case 3, one spouse not in facility, couple rate does not apply.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        fl_oss_community_care_type: ALF
+        age: 70
+        is_ssi_eligible: true
+        ssi_claim_is_joint: true
+      person2:
+        age: 68
+        is_ssi_eligible: true
+        ssi_claim_is_joint: true
+        # No facility type → living arrangement = NONE
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: FL
+  output:
+    fl_oss_couple_rate_applies: [false, false]
+
+- name: Case 4, single person, couple rate does not apply.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        fl_oss_community_care_type: ALF
+        age: 70
+        is_ssi_eligible: true
+        ssi_claim_is_joint: false
+    households:
+      household:
+        members: [person1]
+        state_code: FL
+  output:
+    fl_oss_couple_rate_applies: [false]
+
+- name: Case 5, both in Medicaid facility, couple rate applies.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 72
+        is_ssi_eligible: true
+        ssi_claim_is_joint: true
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
+      person2:
+        age: 68
+        is_ssi_eligible: true
+        ssi_claim_is_joint: true
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: FL
+  output:
+    fl_oss_couple_rate_applies: [true, true]
+
+- name: Case 6, mixed arrangement, one ALF one Medicaid facility, couple rate applies.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        fl_oss_community_care_type: ALF
+        age: 70
+        is_ssi_eligible: true
+        ssi_claim_is_joint: true
+      person2:
+        age: 68
+        is_ssi_eligible: true
+        ssi_claim_is_joint: true
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: FL
+  output:
+    # Both in qualifying facilities (ALF and Medicaid), both SSI eligible.
+    fl_oss_couple_rate_applies: [true, true]
