@@ -15,7 +15,6 @@
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: MEDICAID_FACILITY
   output:
     # Eligibility: age 70 >= 18, SSI recipient, Medicaid enrolled, in Medicaid facility, IN resident
     in_ssp_sapn_eligible: true
@@ -57,7 +56,6 @@
       household:
         members: [person1, person2]
         state_code: IN
-        in_ssp_living_arrangement: MEDICAID_FACILITY
   output:
     # Both eligible for SAPN: age >= 18, SSI eligible, SSI recipient, Medicaid eligible, Medicaid facility
     in_ssp_sapn_eligible: [true, true]
@@ -87,7 +85,6 @@
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: MEDICAID_FACILITY
   output:
     in_ssp_sapn_eligible: true
     # ssi_amount_if_eligible = $30/mo facility rate = $360/yr
@@ -106,16 +103,18 @@
       person1:
         age: 50
         is_ssi_eligible: true
+        is_ssi_aged_blind_disabled: true
         is_medicaid_eligible: false
         ssi: 9_000
         ssi_countable_income: 2_400
+        in_resides_in_licensed_residential_facility: true
     households:
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
     in_ssp_rcap_eligible: true
+    ssi: 750
     # State standard = 49.35 * 365/12 = $1,501.06
     # Deduction = $750 SSI + $200 countable income = $950
     in_ssp_rcap: 551.06
@@ -128,19 +127,22 @@
       person1:
         age: 50
         is_ssi_eligible: true
+        is_ssi_aged_blind_disabled: true
         is_medicaid_eligible: false
         ssi_claim_is_joint: false
         uncapped_ssi: 6_000
+        in_resides_in_licensed_residential_facility: true
     households:
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
-    # SAPN: not in Medicaid facility -> ineligible
+    # SAPN: not in federal Medicaid facility -> ineligible
     in_ssp_sapn_eligible: false
-    # RCAP: age 50 >= 18, SSI eligible, licensed residential, IN resident
+    # RCAP: ABD, SSI recipient, age >= 18, licensed residential
     in_ssp_rcap_eligible: true
+    # Normal FBR (not in medical facility): uncapped_ssi/12 = $500/mo
+    ssi: 500
     in_ssp_eligible: true
     in_ssp_sapn: 0
     # RCAP: per diem $49.35/day (licensed, since July 2008)
@@ -158,18 +160,20 @@
     people:
       person1:
         age: 55
+        is_ssi_aged_blind_disabled: true
         is_medicaid_eligible: true
         ssi_claim_is_joint: false
         uncapped_ssi: 0
+        in_resides_in_unlicensed_residential_facility: true
     households:
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: UNLICENSED_RESIDENTIAL
   output:
     in_ssp_sapn_eligible: false
-    # RCAP: Medicaid recipient, age >= 18, unlicensed residential, IN resident
+    # RCAP: ABD, Medicaid enrolled, age >= 18, unlicensed residential
     in_ssp_rcap_eligible: true
+    ssi: 0
     in_ssp_eligible: true
     in_ssp_sapn: 0
     # RCAP: per diem $37/day (unlicensed, since July 2008)
@@ -196,7 +200,6 @@
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: MEDICAID_FACILITY
   output:
     # Age 16 < 18: ineligible for both SAPN and RCAP
     in_ssp_sapn_eligible: false
@@ -223,7 +226,6 @@
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: MEDICAID_FACILITY
   output:
     # Not SSI eligible: SSI = 0, SAPN requires SSI receipt
     in_ssp_sapn_eligible: false
@@ -248,7 +250,6 @@
       household:
         members: [person1]
         state_code: OH
-        in_ssp_living_arrangement: NONE
   output:
     # Not in Indiana AND not in any facility: doubly ineligible
     in_ssp_sapn_eligible: false

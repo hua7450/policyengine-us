@@ -22,7 +22,6 @@
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: MEDICAID_FACILITY
   output:
     in_ssp_sapn_eligible: false
     in_ssp_rcap_eligible: false
@@ -42,7 +41,6 @@
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: MEDICAID_FACILITY
   output:
     in_ssp_sapn_eligible: true
     in_ssp_rcap_eligible: false
@@ -62,7 +60,6 @@
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: MEDICAID_FACILITY
   output:
     in_ssp_sapn_eligible: true
     in_ssp_rcap_eligible: false
@@ -75,11 +72,12 @@
       person1:
         age: 18
         is_ssi_eligible: true
+        is_ssi_aged_blind_disabled: true
+        in_resides_in_licensed_residential_facility: true
     households:
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
     in_ssp_sapn_eligible: false
     in_ssp_rcap_eligible: true
@@ -92,11 +90,11 @@
       person1:
         age: 17
         is_ssi_eligible: true
+        in_resides_in_licensed_residential_facility: true
     households:
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
     in_ssp_sapn_eligible: false
     in_ssp_rcap_eligible: false
@@ -114,11 +112,11 @@
       person1:
         in_ssp_rcap_eligible: true
         uncapped_ssi: 0
+        in_resides_in_licensed_residential_facility: true
     households:
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
     # federal_ssi = max(0, 0) = 0
     # supplement = max(1,501.06 - 0, 0) = $1,501.06
@@ -132,11 +130,11 @@
       person1:
         in_ssp_rcap_eligible: true
         uncapped_ssi: -60_000
+        in_resides_in_licensed_residential_facility: true
     households:
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
     # federal_ssi = max(-5,000, 0) = 0 (floored at zero)
     # supplement = max(1,501.06 - 0, 0) = $1,501.06
@@ -150,11 +148,11 @@
       person1:
         in_ssp_rcap_eligible: true
         uncapped_ssi: 120_000
+        in_resides_in_licensed_residential_facility: true
     households:
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
     # uncapped_ssi monthly = 120,000/12 = 10,000
     # supplement = max(1,501.06 - 10,000, 0) = 0
@@ -170,11 +168,11 @@
         # Annual uncapped_ssi = licensed_state_standard * 12
         # = (49.35 * 365/12) * 12 = 49.35 * 365 = 18,012.75
         uncapped_ssi: 18_012.75
+        in_resides_in_licensed_residential_facility: true
     households:
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
     # monthly = 18,012.75 / 12 = 1,501.0625
     # supplement = max(1,501.0625 - 1,501.0625, 0) = 0
@@ -189,11 +187,11 @@
         in_ssp_rcap_eligible: true
         # Annual = (licensed_ss - 1) * 12 = (1,501.0625 - 1) * 12 = 18,000.75
         uncapped_ssi: 18_000.75
+        in_resides_in_licensed_residential_facility: true
     households:
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
     # monthly = 18,000.75 / 12 = 1,500.0625
     # supplement = max(1,501.0625 - 1,500.0625, 0) = 1.00
@@ -208,11 +206,11 @@
         in_ssp_rcap_eligible: true
         # Annual = (licensed_ss + 1) * 12 = (1,501.0625 + 1) * 12 = 18,024.75
         uncapped_ssi: 18_024.75
+        in_resides_in_licensed_residential_facility: true
     households:
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
     # monthly = 18,024.75 / 12 = 1,502.0625
     # supplement = max(1,501.0625 - 1,502.0625, 0) = 0 (floored)
@@ -248,11 +246,11 @@
         age: 65
         is_ssi_eligible: true
         is_medicaid_eligible: true
+        in_resides_in_licensed_residential_facility: true
     households:
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
     in_ssp_sapn_eligible: false
     in_ssp_rcap_eligible: true
@@ -261,7 +259,7 @@
 # Couple with shared Household living arrangement limitation
 # =============================================================
 
-- name: Case 14, couple in MEDICAID_FACILITY one eligible one not.
+- name: Case 14, couple in federal Medicaid facility one eligible one not.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
@@ -287,7 +285,6 @@
       household:
         members: [person1, person2]
         state_code: IN
-        in_ssp_living_arrangement: MEDICAID_FACILITY
   output:
     in_ssp_sapn_eligible: [true, false]
     in_ssp_rcap_eligible: [false, false]
@@ -302,14 +299,18 @@
     people:
       person1:
         age: 70
+        is_ssi_aged_blind_disabled: true
         is_medicaid_eligible: true
         ssi_claim_is_joint: false
         uncapped_ssi: 0
+        in_resides_in_licensed_residential_facility: true
       person2:
         age: 70
         is_ssi_eligible: false
+        is_medicaid_eligible: false
         ssi_claim_is_joint: false
         uncapped_ssi: 0
+        in_resides_in_licensed_residential_facility: true
     marital_units:
       marital_unit:
         members: [person1, person2]
@@ -317,7 +318,6 @@
       household:
         members: [person1, person2]
         state_code: IN
-        in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
     in_ssp_sapn_eligible: [false, false]
     in_ssp_rcap_eligible: [true, false]
@@ -342,7 +342,6 @@
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: MEDICAID_FACILITY
   output:
     in_ssp_sapn_eligible: false
     in_ssp_rcap_eligible: false
@@ -356,14 +355,15 @@
       person1:
         age: 55
         is_ssi_eligible: true
+        is_ssi_aged_blind_disabled: true
         is_medicaid_eligible: false
         ssi_claim_is_joint: false
         uncapped_ssi: 6_000
+        in_resides_in_licensed_residential_facility: true
     households:
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
     in_ssp_sapn_eligible: false
     # RCAP: SSI recipient (ssi > 0), age >= 18, licensed residential
@@ -391,7 +391,6 @@
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: NONE
   output:
     in_ssp_sapn_eligible: false
     in_ssp_rcap_eligible: false
@@ -476,11 +475,11 @@
       person1:
         in_ssp_rcap_eligible: true
         uncapped_ssi: 0
+        in_resides_in_unlicensed_residential_facility: true
     households:
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: UNLICENSED_RESIDENTIAL
   output:
     # Per diem = $37/day (unlicensed, since July 2008)
     # State standard = 37 * 365/12 = $1,125.42
@@ -494,11 +493,11 @@
       person1:
         in_ssp_rcap_eligible: true
         uncapped_ssi: 14_000
+        in_resides_in_unlicensed_residential_facility: true
     households:
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: UNLICENSED_RESIDENTIAL
   output:
     # State standard = $1,125.42
     # uncapped_ssi monthly = 14,000/12 = $1,166.67
@@ -517,11 +516,11 @@
       person1:
         in_ssp_rcap_eligible: true
         uncapped_ssi: 6_000
+        in_resides_in_licensed_residential_facility: true
     households:
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
     # uncapped_ssi monthly = 6,000/12 = $500
     # supplement = max(1,501.06 - 500, 0) = $1,001.06
@@ -539,11 +538,11 @@
       person1:
         in_ssp_rcap_eligible: false
         uncapped_ssi: 0
+        in_resides_in_licensed_residential_facility: true
     households:
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
     in_ssp_rcap: 0
     in_ssp: 0

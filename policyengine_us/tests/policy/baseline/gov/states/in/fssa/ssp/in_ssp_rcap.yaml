@@ -7,11 +7,11 @@
         in_ssp_rcap_eligible: true
         ssi_claim_is_joint: false
         uncapped_ssi: 0
+        in_resides_in_licensed_residential_facility: true
     households:
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
     # Per diem = $49.35/day (licensed, since July 2008)
     # State standard = 49.35 * 365/12 = $1,501.06
@@ -28,11 +28,11 @@
         in_ssp_rcap_eligible: true
         ssi_claim_is_joint: false
         uncapped_ssi: 6_000
+        in_resides_in_licensed_residential_facility: true
     households:
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
     # State standard = $1,501.06
     # uncapped_ssi monthly = 6,000/12 = $500
@@ -49,11 +49,11 @@
         in_ssp_rcap_eligible: true
         ssi_claim_is_joint: false
         uncapped_ssi: 18_012
+        in_resides_in_licensed_residential_facility: true
     households:
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
     # State standard = $1,501.06
     # uncapped_ssi monthly = 18,012/12 = $1,501
@@ -84,11 +84,11 @@
         in_ssp_rcap_eligible: true
         ssi_claim_is_joint: false
         uncapped_ssi: -60_000
+        in_resides_in_licensed_residential_facility: true
     households:
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
     # uncapped_ssi monthly = -60,000/12 = -$5,000
     # federal_ssi = max(-5,000, 0) = 0 (floored at zero)
@@ -104,11 +104,11 @@
         in_ssp_rcap_eligible: true
         ssi_claim_is_joint: false
         uncapped_ssi: 0
+        in_resides_in_unlicensed_residential_facility: true
     households:
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: UNLICENSED_RESIDENTIAL
   output:
     # Per diem = $37/day (unlicensed, since July 2008)
     # State standard = 37 * 365/12 = $1,125.42
@@ -125,10 +125,12 @@
         in_ssp_rcap_eligible: true
         ssi_claim_is_joint: false
         uncapped_ssi: 0
+        in_resides_in_licensed_residential_facility: true
       person2:
         in_ssp_rcap_eligible: false
         ssi_claim_is_joint: false
         uncapped_ssi: 0
+        in_resides_in_licensed_residential_facility: true
     marital_units:
       marital_unit:
         members: [person1, person2]
@@ -136,7 +138,6 @@
       household:
         members: [person1, person2]
         state_code: IN
-        in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
     # Only person1 is eligible, treated as individual
     # supplement = $1,501.06

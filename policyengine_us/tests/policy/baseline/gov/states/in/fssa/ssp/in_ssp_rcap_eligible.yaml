@@ -5,11 +5,12 @@
       person1:
         age: 45
         is_ssi_eligible: true
+        is_ssi_aged_blind_disabled: true
+        in_resides_in_licensed_residential_facility: true
     households:
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
     in_ssp_rcap_eligible: true
 
@@ -20,11 +21,11 @@
       person1:
         age: 17
         is_ssi_eligible: true
+        in_resides_in_licensed_residential_facility: true
     households:
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
     in_ssp_rcap_eligible: false
 
@@ -39,7 +40,6 @@
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: MEDICAID_FACILITY
   output:
     in_ssp_rcap_eligible: false
 
@@ -51,11 +51,11 @@
         age: 40
         is_ssi_eligible: false
         is_medicaid_eligible: false
+        in_resides_in_licensed_residential_facility: true
     households:
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
     in_ssp_rcap_eligible: false
 
@@ -66,11 +66,11 @@
       person1:
         age: 65
         is_ssi_eligible: true
+        in_resides_in_licensed_residential_facility: true
     households:
       household:
         members: [person1]
         state_code: OH
-        in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
     in_ssp_rcap_eligible: false
 
@@ -85,7 +85,6 @@
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: NONE
   output:
     in_ssp_rcap_eligible: false
 
@@ -96,11 +95,12 @@
       person1:
         age: 18
         is_ssi_eligible: true
+        is_ssi_aged_blind_disabled: true
+        in_resides_in_licensed_residential_facility: true
     households:
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: LICENSED_RESIDENTIAL
   output:
     in_ssp_rcap_eligible: true
 
@@ -111,10 +111,11 @@
       person1:
         age: 45
         is_ssi_eligible: true
+        is_ssi_aged_blind_disabled: true
+        in_resides_in_unlicensed_residential_facility: true
     households:
       household:
         members: [person1]
         state_code: IN
-        in_ssp_living_arrangement: UNLICENSED_RESIDENTIAL
   output:
     in_ssp_rcap_eligible: true
