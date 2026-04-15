@@ -163,40 +163,52 @@
     hi_oss_eligible: [false]
     hi_oss: [0]
 
-- name: Case 6, Medicaid institution individual with SSI.
+- name: Case 6, Medicaid institution individual with low Social Security.
   period: 2025
   absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 70
-        # Direct ssi input: PolicyEngine does not model the $30/month
-        # Medicaid institution cap (20 CFR 416.414). In real life,
-        # SSI is $30/month ($360/year) for Title XIX residents.
-        ssi: 360
-        hi_oss_resides_in_medicaid_institution: true
+        social_security: 120
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
     households:
       household:
         members: [person1]
         state_code: HI
   output:
+    is_ssi_eligible: [true]
+    # Medical facility FBR: $30/month x 12 = $360/year
+    # Unearned: $10/month, exclusion $20, countable $0
+    ssi_countable_income: [0]
+    # SSI: $360 - $0 = $360
+    ssi: [360]
     hi_oss_eligible: [true]
     # Medicaid institution: $45/month x 12 = $540
     hi_oss: [540]
 
-- name: Case 7, Medicaid institution with no SSI, ineligible.
+- name: Case 7, Medicaid institution with income exceeding $30 cap, ineligible.
   period: 2025
+  absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 70
-        ssi: 0
-        hi_oss_resides_in_medicaid_institution: true
+        social_security: 720
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
     households:
       household:
         members: [person1]
         state_code: HI
   output:
+    is_ssi_eligible: [true]
+    # Medical facility FBR: $30/month x 12 = $360/year
+    # Unearned: $60/month, exclusion $20, countable $40 x 12 = $480
+    ssi_countable_income: [480]
+    # SSI: $360 - $480 = -$120, capped at $0
+    ssi: [0]
     hi_oss_eligible: [false]
     hi_oss: [0]
 

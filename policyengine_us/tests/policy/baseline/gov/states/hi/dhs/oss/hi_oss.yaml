@@ -37,7 +37,7 @@
   input:
     state_code: HI
     ssi: 360
-    hi_oss_resides_in_medicaid_institution: true
+    ssi_federal_living_arrangement: MEDICAL_TREATMENT_FACILITY
   output:
     hi_oss: 540
     # $45/month x 12 = $540/year
@@ -115,12 +115,12 @@
         ssi: 360
         is_ssi_eligible: true
         ssi_claim_is_joint: true
-        hi_oss_resides_in_medicaid_institution: true
+        ssi_federal_living_arrangement: MEDICAL_TREATMENT_FACILITY
       person2:
         ssi: 360
         is_ssi_eligible: true
         ssi_claim_is_joint: true
-        hi_oss_resides_in_medicaid_institution: true
+        ssi_federal_living_arrangement: MEDICAL_TREATMENT_FACILITY
     marital_units:
       marital_unit:
         members: [person1, person2]
