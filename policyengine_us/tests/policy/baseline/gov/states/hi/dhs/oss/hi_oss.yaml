@@ -192,3 +192,43 @@
   output:
     hi_oss: 7_822.80
     # $651.90/month x 12 = $7,822.80/year
+
+- name: Case 12, couple in different facility types gets individual rates.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        ssi: 360
+        is_ssi_eligible: true
+        ssi_claim_is_joint: true
+        hi_oss_care_facility_type: COMMUNITY_CARE
+      person2:
+        ssi: 360
+        is_ssi_eligible: true
+        ssi_claim_is_joint: true
+        hi_oss_care_facility_type: DOMICILIARY_CARE_II
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    families:
+      family:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: HI
+  output:
+    hi_oss_couple_rate_applies: [false, false]
+    hi_oss:
+      - 9_408
+      - 10_704
+    # Different facilities → individual rates, no blended couple amount
+    # Person1: Community Care $784 x 12 = $9,408
+    # Person2: Dom Care II $892 x 12 = $10,704

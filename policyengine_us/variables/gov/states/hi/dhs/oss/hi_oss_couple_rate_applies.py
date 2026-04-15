@@ -22,8 +22,12 @@ class hi_oss_couple_rate_applies(Variable):
             person.marital_unit.sum(is_eligible) == person.marital_unit.nb_persons()
         )
         la = person("hi_oss_living_arrangement", period)
-        in_facility = la != HIOSSLivingArrangement.NONE
-        both_in_facility = (
-            person.marital_unit.sum(in_facility) == person.marital_unit.nb_persons()
+        LA = HIOSSLivingArrangement
+        unit_size = person.marital_unit.nb_persons()
+        both_same_facility = (unit_size > 0) & (
+            (person.marital_unit.sum(la == LA.COMMUNITY_CARE) == unit_size)
+            | (person.marital_unit.sum(la == LA.DOMICILIARY_CARE_I) == unit_size)
+            | (person.marital_unit.sum(la == LA.DOMICILIARY_CARE_II) == unit_size)
+            | (person.marital_unit.sum(la == LA.MEDICAID_INSTITUTION) == unit_size)
         )
-        return joint_claim & both_ssi_eligible & both_in_facility
+        return joint_claim & both_ssi_eligible & both_same_facility
