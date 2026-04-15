@@ -1,3 +1,10 @@
+## [1.634.16] - 2026-04-15
+
+### Fixed
+
+- Optimize DC separate-combined deduction allocation using a shared two-spouse tax minimization helper, and reuse that helper for Mississippi joint deduction and exemption proration.
+
+
 ## [1.634.15] - 2026-04-14
 
 ### Fixed
