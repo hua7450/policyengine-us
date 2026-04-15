@@ -25,27 +25,30 @@ class ak_ssp_claim_type(Variable):
         living_arrangement = person("ak_ssp_living_arrangement", period)
         living_arrangement_values = living_arrangement.possible_values
         shared_living_arrangement = (
-            person.marital_unit.sum(
-                living_arrangement == living_arrangement_values.INDEPENDENT
+            (
+                person.marital_unit.sum(
+                    living_arrangement == living_arrangement_values.INDEPENDENT
+                )
+                == marital_unit_size
             )
-            == marital_unit_size
-        ) | (
-            person.marital_unit.sum(
-                living_arrangement
-                == living_arrangement_values.HOUSEHOLD_OF_ANOTHER
+            | (
+                person.marital_unit.sum(
+                    living_arrangement == living_arrangement_values.HOUSEHOLD_OF_ANOTHER
+                )
+                == marital_unit_size
             )
-            == marital_unit_size
-        ) | (
-            person.marital_unit.sum(
-                living_arrangement == living_arrangement_values.ASSISTED_LIVING
+            | (
+                person.marital_unit.sum(
+                    living_arrangement == living_arrangement_values.ASSISTED_LIVING
+                )
+                == marital_unit_size
             )
-            == marital_unit_size
-        ) | (
-            person.marital_unit.sum(
-                living_arrangement
-                == living_arrangement_values.MEDICAID_FACILITY
+            | (
+                person.marital_unit.sum(
+                    living_arrangement == living_arrangement_values.MEDICAID_FACILITY
+                )
+                == marital_unit_size
             )
-            == marital_unit_size
         )
         is_eligible_individual = person("is_ssi_aged_blind_disabled", period)
         one_eligible_couple = (
