@@ -50,11 +50,13 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: ALF
         fl_oss_program_track: REDESIGN
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: true
       person2:
+        fl_oss_community_care_type: ALF
         fl_oss_program_track: REDESIGN
         age: 68
         is_ssi_eligible: true

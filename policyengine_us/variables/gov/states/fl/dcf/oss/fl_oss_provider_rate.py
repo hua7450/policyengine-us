@@ -24,6 +24,6 @@ class fl_oss_provider_rate(Variable):
         else:
             offset = p.redesign.provider_rate_offset
         individual_rate = fbr_individual + offset
-        joint_claim = person("ssi_claim_is_joint", period)
+        couple_rate_applies = person("fl_oss_couple_rate_applies", period)
         couple_rate = 2 * individual_rate - p.couple_provider_rate_reduction
-        return where(joint_claim, couple_rate / 2, individual_rate)
+        return where(couple_rate_applies, couple_rate / 2, individual_rate)

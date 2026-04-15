@@ -19,9 +19,9 @@ class fl_oss(Variable):
         LA = living_arrangement.possible_values
         in_medicaid_facility = living_arrangement == LA.MEDICAID_FACILITY
         # Medicaid facility: flat state supplement
-        joint_claim = person("ssi_claim_is_joint", period)
+        couple_rate_applies = person("fl_oss_couple_rate_applies", period)
         medicaid_supplement = where(
-            joint_claim,
+            couple_rate_applies,
             p.medicaid_facility.supplement.couple / 2,
             p.medicaid_facility.supplement.individual,
         )

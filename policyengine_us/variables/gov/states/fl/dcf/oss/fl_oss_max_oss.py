@@ -14,7 +14,7 @@ class fl_oss_max_oss(Variable):
         p = parameters(period).gov.states.fl.dcf.oss
         track = person("fl_oss_program_track", period)
         is_redesign = track == track.possible_values.REDESIGN
-        joint_claim = person("ssi_claim_is_joint", period)
+        couple_rate_applies = person("fl_oss_couple_rate_applies", period)
         if p.protected.in_effect:
             individual_cap = where(
                 is_redesign,
@@ -29,4 +29,4 @@ class fl_oss_max_oss(Variable):
         else:
             individual_cap = p.redesign.max_oss.individual
             couple_cap = p.redesign.max_oss.couple
-        return where(joint_claim, couple_cap / 2, individual_cap)
+        return where(couple_rate_applies, couple_cap / 2, individual_cap)
