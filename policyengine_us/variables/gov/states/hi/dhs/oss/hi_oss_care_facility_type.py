@@ -12,7 +12,7 @@ class hi_oss_care_facility_type(Variable):
     value_type = Enum
     entity = Person
     label = "Hawaii OSS care facility type"
-    definition_period = YEAR
+    definition_period = MONTH
     defined_for = StateCode.HI
     possible_values = HIOSSCareFacilityType
     default_value = HIOSSCareFacilityType.NONE

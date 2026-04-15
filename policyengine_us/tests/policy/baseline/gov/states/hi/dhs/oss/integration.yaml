@@ -4,7 +4,7 @@
 # 2025 FBR: $967/month individual, $1,450/month couple.
 
 - name: Case 1, aged individual with Social Security income in community care.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -19,17 +19,15 @@
   output:
     is_ssi_eligible: [true]
     # Unearned: $800/month, general exclusion $20, countable $780/month
-    # Annual countable: $780 x 12 = $9,360
-    ssi_countable_income: [9_360]
-    # Individual FBR: $967 x 12 = $11,604
-    # SSI: $11,604 - $9,360 = $2,244
-    ssi: [2_244]
+    ssi_countable_income: [780]
+    # Individual FBR: $967/month
+    # SSI: $967 - $780 = $187/month
+    ssi: [187]
     hi_oss_eligible: [true]
-    # Individual Community Care: $784/month x 12 = $9,408
-    hi_oss: [9_408]
+    hi_oss: [784]
 
 - name: Case 2, aged couple both in community care with Social Security.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -61,18 +59,18 @@
     is_ssi_eligible: [true, true]
     ssi_claim_is_joint: [true, true]
     # Combined unearned: $800/month, exclusion $20, countable $780/month
-    # Annual combined: $9,360, split: $4,680 each
-    ssi_countable_income: [4_680, 4_680]
-    # Couple FBR / 2: $725/month x 12 = $8,700 each
-    ssi_amount_if_eligible: [8_700, 8_700]
-    # SSI per person: $8,700 - $4,680 = $4,020
-    ssi: [4_020, 4_020]
+    # Split: $390 each
+    ssi_countable_income: [390, 390]
+    # Couple FBR / 2: $725/month each
+    ssi_amount_if_eligible: [725, 725]
+    # SSI per person: $725 - $390 = $335/month
+    ssi: [335, 335]
     hi_oss_couple_rate_applies: [true, true]
-    # Couple Community Care: $1,905/month / 2 = $952.50 x 12 = $11,430
-    hi_oss: [11_430, 11_430]
+    # Couple Community Care: $1,905/month / 2 = $952.50
+    hi_oss: [952.50, 952.50]
 
 - name: Case 3, asymmetric couple, one aged in care facility, spouse not ABD.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -101,19 +99,15 @@
   output:
     is_ssi_eligible: [true, false]
     ssi_claim_is_joint: [false, false]
-    # Person1: unearned $800/month, exclusion $20, countable $780 x 12 = $9,360
-    # Person2 has $0 income, no deeming
-    ssi_countable_income: [9_360, 0]
-    # Individual FBR: $967 x 12 = $11,604
-    # SSI: $11,604 - $9,360 = $2,244
-    ssi: [2_244, 0]
+    # Person1: unearned $800/month, exclusion $20, countable $780/month
+    ssi_countable_income: [780, 0]
+    # Individual FBR: $967/month, SSI: $967 - $780 = $187
+    ssi: [187, 0]
     hi_oss_couple_rate_applies: [false, false]
-    # Person1: Individual Community Care $784 x 12 = $9,408
-    # Person2: Not SSI eligible, $0
-    hi_oss: [9_408, 0]
+    hi_oss: [784, 0]
 
 - name: Case 4, disabled individual with earned income in domiciliary care I.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -128,20 +122,17 @@
         state_code: HI
   output:
     is_ssi_eligible: [true]
-    # No unearned income: $20 general exclusion rolls to earned
-    # Earned: $500/month, total exclusion: $65 + $20 = $85
-    # After flat: $500 - $85 = $415, after 50%: $207.50/month
-    # Annual countable: $207.50 x 12 = $2,490
-    ssi_countable_income: [2_490]
-    # Individual FBR: $11,604
-    # SSI: $11,604 - $2,490 = $9,114
-    ssi: [9_114]
+    # No unearned: $20 general exclusion rolls to earned
+    # Earned $500/month, total exclusion $65 + $20 = $85
+    # After flat: $415, after 50%: $207.50/month
+    ssi_countable_income: [207.50]
+    # Individual FBR $967, SSI: $967 - $207.50 = $759.50
+    ssi: [759.50]
     hi_oss_eligible: [true]
-    # Domiciliary Care I: $784/month x 12 = $9,408
-    hi_oss: [9_408]
+    hi_oss: [784]
 
 - name: Case 5, aged individual with high Social Security, ineligible for SSI.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -155,16 +146,15 @@
         state_code: HI
   output:
     is_ssi_eligible: [true]
-    # Unearned: $1,000/month, exclusion $20, countable $980 x 12 = $11,760
-    ssi_countable_income: [11_760]
-    # Individual FBR: $11,604
-    # SSI: $11,604 - $11,760 = -$156, capped at $0
+    # Unearned $1,000/month, exclusion $20, countable $980/month
+    ssi_countable_income: [980]
+    # FBR $967/month, SSI: $967 - $980 = -$13, capped at $0
     ssi: [0]
     hi_oss_eligible: [false]
     hi_oss: [0]
 
 - name: Case 6, Medicaid institution individual with low Social Security.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -179,17 +169,16 @@
         state_code: HI
   output:
     is_ssi_eligible: [true]
-    # Medical facility FBR: $30/month x 12 = $360/year
-    # Unearned: $10/month, exclusion $20, countable $0
+    # Medical facility FBR: $30/month
+    # Unearned $10/month, exclusion $20, countable $0
     ssi_countable_income: [0]
-    # SSI: $360 - $0 = $360
-    ssi: [360]
+    # SSI: $30 - $0 = $30/month
+    ssi: [30]
     hi_oss_eligible: [true]
-    # Medicaid institution: $45/month x 12 = $540
-    hi_oss: [540]
+    hi_oss: [45]
 
 - name: Case 7, Medicaid institution with income exceeding $30 cap, ineligible.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -204,16 +193,16 @@
         state_code: HI
   output:
     is_ssi_eligible: [true]
-    # Medical facility FBR: $30/month x 12 = $360/year
-    # Unearned: $60/month, exclusion $20, countable $40 x 12 = $480
-    ssi_countable_income: [480]
-    # SSI: $360 - $480 = -$120, capped at $0
+    # Medical facility FBR: $30/month
+    # Unearned $60/month, exclusion $20, countable $40/month
+    ssi_countable_income: [40]
+    # SSI: $30 - $40 = -$10, capped at $0
     ssi: [0]
     hi_oss_eligible: [false]
     hi_oss: [0]
 
 - name: Case 8, no facility, SSI recipient gets zero OSS.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -225,12 +214,12 @@
         members: [person1]
         state_code: HI
   output:
-    ssi: [2_244]
+    ssi: [187]
     hi_oss_eligible: [false]
     hi_oss: [0]
 
 - name: Case 9, 2023 rates with aged individual in domiciliary care II.
-  period: 2023
+  period: 2023-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -244,12 +233,11 @@
         state_code: HI
   output:
     is_ssi_eligible: [true]
-    # 2023 FBR: $914/month = $10,968/year
-    # Unearned: $600/month, exclusion $20, countable $580 x 12 = $6,960
-    ssi_countable_income: [6_960]
-    ssi_amount_if_eligible: [10_968]
-    # SSI: $10,968 - $6,960 = $4,008
-    ssi: [4_008]
+    # 2023 FBR: $914/month
+    # Unearned $600/month, exclusion $20, countable $580/month
+    ssi_countable_income: [580]
+    ssi_amount_if_eligible: [914]
+    # SSI: $914 - $580 = $334/month
+    ssi: [334]
     hi_oss_eligible: [true]
-    # 2023 Dom Care II: $759.90/month x 12 = $9,118.80
-    hi_oss: [9_118.80]
+    hi_oss: [759.90]

@@ -8,7 +8,7 @@ class hi_oss_couple_rate_applies(Variable):
     value_type = bool
     entity = Person
     label = "Whether the Hawaii OSS couple rate applies"
-    definition_period = YEAR
+    definition_period = MONTH
     defined_for = StateCode.HI
     reference = (
         "https://secure.ssa.gov/apps10/poms.nsf/lnx/0501415200SF",
@@ -16,8 +16,8 @@ class hi_oss_couple_rate_applies(Variable):
     )
 
     def formula(person, period, parameters):
-        joint_claim = person("ssi_claim_is_joint", period)
-        is_eligible = person("is_ssi_eligible", period)
+        joint_claim = person("ssi_claim_is_joint", period.this_year)
+        is_eligible = person("is_ssi_eligible", period.this_year)
         both_ssi_eligible = (
             person.marital_unit.sum(is_eligible) == person.marital_unit.nb_persons()
         )

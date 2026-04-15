@@ -8,7 +8,7 @@ class hi_oss_eligible(Variable):
     value_type = bool
     entity = Person
     label = "Whether the person is eligible for Hawaii OSS"
-    definition_period = YEAR
+    definition_period = MONTH
     defined_for = StateCode.HI
     reference = (
         "https://secure.ssa.gov/apps10/poms.nsf/lnx/0501415200SF",

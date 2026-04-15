@@ -6,7 +6,7 @@ class hi_oss(Variable):
     entity = Person
     label = "Hawaii Optional State Supplementation"
     unit = USD
-    definition_period = YEAR
+    definition_period = MONTH
     defined_for = "hi_oss_eligible"
     reference = (
         "https://secure.ssa.gov/apps10/poms.nsf/lnx/0501415200SF",
@@ -14,5 +14,4 @@ class hi_oss(Variable):
     )
 
     def formula(person, period, parameters):
-        monthly_amount = person("hi_oss_payment_amount", period)
-        return monthly_amount * MONTHS_IN_YEAR
+        return person("hi_oss_payment_amount", period)

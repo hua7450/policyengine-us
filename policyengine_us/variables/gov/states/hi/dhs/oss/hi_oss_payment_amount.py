@@ -6,7 +6,7 @@ class hi_oss_payment_amount(Variable):
     entity = Person
     label = "Hawaii OSS monthly payment amount"
     unit = USD
-    definition_period = YEAR
+    definition_period = MONTH
     defined_for = StateCode.HI
     reference = "https://secure.ssa.gov/POMS.NSF/lnx/0501415057"
 

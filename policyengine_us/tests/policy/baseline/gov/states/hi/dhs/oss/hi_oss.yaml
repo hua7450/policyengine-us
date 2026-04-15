@@ -1,49 +1,46 @@
 - name: Case 1, individual in community care receives 2025 rate.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     state_code: HI
     ssi: 360
     hi_oss_care_facility_type: COMMUNITY_CARE
   output:
-    hi_oss: 9_408
-    # $784/month x 12 = $9,408/year
+    hi_oss: 784
+    # $784/month
 
 - name: Case 2, individual in domiciliary care I receives 2025 rate.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     state_code: HI
     ssi: 360
     hi_oss_care_facility_type: DOMICILIARY_CARE_I
   output:
-    hi_oss: 9_408
-    # $784/month x 12 = $9,408/year
+    hi_oss: 784
 
 - name: Case 3, individual in domiciliary care II receives 2025 rate.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     state_code: HI
     ssi: 360
     hi_oss_care_facility_type: DOMICILIARY_CARE_II
   output:
-    hi_oss: 10_704
-    # $892/month x 12 = $10,704/year
+    hi_oss: 892
 
 - name: Case 4, individual in Medicaid institution receives 2025 rate.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     state_code: HI
     ssi: 360
     ssi_federal_living_arrangement: MEDICAL_TREATMENT_FACILITY
   output:
-    hi_oss: 540
-    # $45/month x 12 = $540/year
+    hi_oss: 45
 
 - name: Case 5, SSI recipient not in qualifying facility gets zero.
-  period: 2025
+  period: 2025-01
   input:
     state_code: HI
     ssi: 360
@@ -51,7 +48,7 @@
     hi_oss: 0
 
 - name: Case 6, person without SSI in qualifying facility gets zero.
-  period: 2025
+  period: 2025-01
   input:
     state_code: HI
     ssi: 0
@@ -60,7 +57,7 @@
     hi_oss: 0
 
 - name: Case 7, non-Hawaii resident is ineligible.
-  period: 2025
+  period: 2025-01
   input:
     state_code: CA
     ssi: 360
@@ -69,7 +66,7 @@
     hi_oss: 0
 
 - name: Case 8, couple both SSI-eligible in community care receives couple rate.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -101,13 +98,11 @@
         state_code: HI
   output:
     hi_oss_couple_rate_applies: [true, true]
-    hi_oss:
-      - 11_430
-      - 11_430
-    # Couple rate $1,905/month / 2 = $952.50 x 12 = $11,430/year each
+    hi_oss: [952.50, 952.50]
+    # Couple rate $1,905/month / 2 = $952.50 each
 
 - name: Case 9, couple in Medicaid institution receives couple rate.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -139,13 +134,11 @@
         state_code: HI
   output:
     hi_oss_couple_rate_applies: [true, true]
-    hi_oss:
-      - 540
-      - 540
-    # Couple Medicaid $90/month / 2 = $45 x 12 = $540/year each
+    hi_oss: [45, 45]
+    # Couple Medicaid $90/month / 2 = $45 each
 
 - name: Case 10, asymmetric couple, one not SSI-eligible gets individual rate.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -176,25 +169,20 @@
         state_code: HI
   output:
     hi_oss_couple_rate_applies: [false, false]
-    hi_oss:
-      - 9_408
-      - 0
-    # Person1: Individual rate $784/month x 12 = $9,408
-    # Person2: Not SSI eligible, $0
+    hi_oss: [784, 0]
 
 - name: Case 11, individual in community care receives 2023 rate.
-  period: 2023
+  period: 2023-01
   absolute_error_margin: 0.01
   input:
     state_code: HI
     ssi: 360
     hi_oss_care_facility_type: COMMUNITY_CARE
   output:
-    hi_oss: 7_822.80
-    # $651.90/month x 12 = $7,822.80/year
+    hi_oss: 651.90
 
 - name: Case 12, couple in different facility types gets individual rates.
-  period: 2025
+  period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -226,9 +214,5 @@
         state_code: HI
   output:
     hi_oss_couple_rate_applies: [false, false]
-    hi_oss:
-      - 9_408
-      - 10_704
-    # Different facilities → individual rates, no blended couple amount
-    # Person1: Community Care $784 x 12 = $9,408
-    # Person2: Dom Care II $892 x 12 = $10,704
+    hi_oss: [784, 892]
+    # Different facilities -> individual rates

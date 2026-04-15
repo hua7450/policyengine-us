@@ -16,7 +16,7 @@ class hi_oss_living_arrangement(Variable):
     value_type = Enum
     entity = Person
     label = "Hawaii OSS living arrangement"
-    definition_period = YEAR
+    definition_period = MONTH
     defined_for = StateCode.HI
     possible_values = HIOSSLivingArrangement
     default_value = HIOSSLivingArrangement.NONE
@@ -26,7 +26,7 @@ class hi_oss_living_arrangement(Variable):
     )
 
     def formula(person, period, parameters):
-        federal_la = person("ssi_federal_living_arrangement", period)
+        federal_la = person("ssi_federal_living_arrangement", period.this_year)
         in_medical_facility = (
             federal_la == federal_la.possible_values.MEDICAL_TREATMENT_FACILITY
         )
