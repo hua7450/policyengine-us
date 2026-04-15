@@ -1,3 +1,298 @@
+## [1.635.0] - 2026-04-15
+
+### Added
+
+- Add household asset input variables for vehicle debt/equity and non-home asset value/debt/equity, and use vehicle equity in Indiana TANF resource calculations.
+
+
+## [1.634.16] - 2026-04-15
+
+### Fixed
+
+- Optimize DC separate-combined deduction allocation using a shared two-spouse tax minimization helper, and reuse that helper for Mississippi joint deduction and exemption proration.
+
+
+## [1.634.15] - 2026-04-14
+
+### Fixed
+
+- Added shared invariant coverage and reviewed-consumer guards for ordered state nonrefundable credit variables.
+
+
+## [1.634.14] - 2026-04-14
+
+### Fixed
+
+- Move the New York inflation refund credit to tax year 2023, the eligibility year used to determine the refund amount, instead of the later payment year.
+
+
+## [1.634.13] - 2026-04-14
+
+### Fixed
+
+- Remove Texas from the Medicaid parent deprivation requirement.
+
+
+## [1.634.12] - 2026-04-14
+
+### Fixed
+
+- Added cited TANF countable-resource formulas and regression tests for DC, Washington, and Montana, while keeping Washington and Montana conservative where CPS cannot distinguish owner-occupied homes from other real property. Also fixed TANF immigration-period handling in monthly eligibility formulas and modeled DC TANF work noncompliance as a partial cash sanction instead of an all-or-nothing eligibility veto.
+
+
+## [1.634.11] - 2026-04-14
+
+### Fixed
+
+- Fix state nonrefundable income tax credits to apply in statutory filing order, with state-specific regression coverage for capped credit sequencing.
+
+
+## [1.634.10] - 2026-04-13
+
+### Fixed
+
+- Georgia's retirement income exclusion now uses federally loss-limited capital gains and matches the Schedule 1 worksheet by flooring earned income and other retirement income separately before applying the exclusion cap.
+- Fix immigration_status period access in monthly eligibility formulas.
+
+
+## [1.634.9] - 2026-04-13
+
+### Changed
+
+- Use heating_expense_person for LIHEAP expense cap in DC and MA.
+
+
+## [1.634.8] - 2026-04-13
+
+### Changed
+
+- Replace Illinois LIHEAP simplified min/max payment model with full benefit matrix by fuel type, income bracket, and household size.
+
+
+## [1.634.7] - 2026-04-13
+
+### Fixed
+
+- Fix MSP rules to use SSI spouse deeming, applicant-plus-spouse resources, strict SLMB/QI boundaries, category-consistent MSP eligibility, and complete 2021-2026 Medicare/MSP premium and resource thresholds.
+
+
+## [1.634.6] - 2026-04-12
+
+### Changed
+
+- Expose build metadata helpers for US data artifacts, including a stable data-build fingerprint and build provenance metadata.
+
+
+## [1.634.5] - 2026-04-10
+
+### Fixed
+
+- Remove hard-coded end dates from CRFB Social Security credit and senior deduction extension reforms.
+
+
+## [1.634.4] - 2026-04-10
+
+### Fixed
+
+- Made `has_tin` the canonical TIN variable while keeping `has_itin` and `taxpayer_has_itin` as compatibility aliases during migration.
+
+
+## [1.634.3] - 2026-04-10
+
+### Fixed
+
+- Fixed federal and reform CTC gating so child CTC, ODC, and reform overrides all follow the intended child-qualification and filer-identification rules, and introduced `has_tin` / `taxpayer_has_tin` compatibility variables for the TIN-side checks.
+
+
+## [1.634.2] - 2026-04-09
+
+### Fixed
+
+- Fixed MA LIHEAP expense cap to include fuel oil expenses and bypass cap for heat-in-rent households.
+
+
+## [1.634.1] - 2026-04-09
+
+### Fixed
+
+- Gate the federal child CTC amount on `ctc_qualifying_child` so dependents who fail the child-specific identification requirement no longer receive the $2,000 child amount.
+
+
+## [1.634.0] - 2026-04-09
+
+### Added
+
+- Add federal SSI living arrangement statuses and ISM/PMV framework.
+
+
+## [1.633.2] - 2026-04-08
+
+### Fixed
+
+- Fixed Maryland non-refundable EITC to cap at state income tax liability per section 10-704(c)(1), which previously overstated the credit by up to 50% of federal EITC for low-income households.
+
+
+## [1.633.1] - 2026-04-08
+
+### Changed
+
+- Updated `programs.yaml` to reflect current modeled program coverage and pending in-progress program implementations across TANF, CCDF, LIHEAP, SSI state supplements, and Colorado OmniSalud.
+
+
+## [1.633.0] - 2026-04-08
+
+### Added
+
+- Move SC H4216 income tax reform from contributed reform to baseline, effective for tax years 2026 and later. This implements new tax rates (1.99%/5.21%), the SCIAD deduction with phaseout, and the 00 EITC cap.
+
+
+## [1.632.5] - 2026-04-07
+
+### Fixed
+
+- Fix DC standard deduction to use DC-specific amounts for 2025 per D-40 booklet.
+
+
+## [1.632.4] - 2026-04-07
+
+### Fixed
+
+- Fix Iowa standard deduction to include elderly/blind additional per IA 1040 line 1d.
+
+
+## [1.632.3] - 2026-04-07
+
+### Fixed
+
+- Include CA AMT and mental health services tax in state_income_tax.
+
+
+## [1.632.2] - 2026-04-06
+
+### Fixed
+
+- Fixed Working Parents Tax Relief Act reform to be idempotent when applied multiple times.
+
+
+## [1.632.1] - 2026-04-06
+
+### Fixed
+
+- Fix NM modified gross income to disallow business losses, capital losses, and rental losses per NM Admin Code 3.3.1.10.
+
+
+## [1.632.0] - 2026-04-06
+
+### Added
+
+- Add Working Parents Tax Relief Act of 2026 EITC enhancement.
+
+
+## [1.631.1] - 2026-04-06
+
+### Changed
+
+- Fix VT capital gains exclusion for financial instruments.
+
+
+## [1.631.0] - 2026-04-06
+
+### Added
+
+- Update West Virginia income tax rates for 2026 per SB 392, §11-21-4j.
+
+
+## [1.630.0] - 2026-04-06
+
+### Added
+
+- Add extend_single_year_dataset for fast dataset year projection via multiplicative uprating, with entity-level HDFStore format detection and dual-path loading in Microsimulation.
+- Add Pennsylvania Child Care Works (CCW) child care subsidy program.
+- Add Vermont Child Care Financial Assistance Program (CCFAP).
+- Add `person_receives_aca` and `assigned_aca_ptc` variables, and keep `aca_ptc` as the pre-takeup ACA premium tax credit amount.
+
+### Fixed
+
+- Restricted the federal tip income deduction to Treasury-listed tipped occupations via a TTOC input, with SSTB exclusion support.
+- Include Wisconsin retirement income exclusion in state_income_tax aggregation, fixing overstated tax for retirees.
+- Treat the Arizona Families Tax Rebate subtraction as a reported received amount instead of recomputing it from current dependents.
+
+
+## [1.629.0] - 2026-04-06
+
+### Added
+
+- Added reported current health coverage inputs and ACA/Medicaid coverage reconciliation helpers.
+- Added NJ StayNJ and ANCHOR budget housing reforms as separately toggleable contributed reforms. (, )
+
+
+## [1.628.0] - 2026-04-06
+
+### Added
+
+- Add weeks_unemployed input variable sourced from CPS ASEC LKWEEKS.
+- Add Delaware Purchase of Care (POC) child care subsidy.
+- Added ACA selected-plan marketplace proxy variables for benchmark ratio inputs and used versus unused premium tax credit analysis.
+
+### Fixed
+
+- Improved legacy state credit umbrella compatibility for TAXSIM by splitting Oklahoma and Minnesota combined credits into explicit component variables and adding regression coverage.
+- Fix NY EITC 2021 IRC decoupling (ARPA non-conformity).
+
+
+## [1.627.3] - 2026-04-06
+
+### Fixed
+
+- Add historical Maine CCAP county rates for January 2024 and keep the annual microsim path working with the pre-July-2024 schedule.
+
+
+## [1.627.2] - 2026-04-05
+
+### Fixed
+
+- Make `never_eligible_for_social_security_benefits` an explicit input instead of inferring it heuristically.
+
+
+## [1.627.1] - 2026-04-03
+
+### Changed
+
+- Update 2026 federal tax parameters from CBO forecasts to official IRS Rev. Proc. 2025-32 values for EITC phase-out thresholds, joint filing bonus, investment income limit, and AMT parameters.
+
+### Fixed
+
+- Fix AMT 28% bracket multiplier for MFS and surviving spouse filing statuses.
+
+
+## [1.627.0] - 2026-04-03
+
+### Added
+
+- Added Idaho S1450: Extends state child tax credit indefinitely.
+
+
+## [1.626.1] - 2026-04-01
+
+### Fixed
+
+- Fix Head Start categorical eligibility to correctly separate person-level (foster care) from family-level (TANF, SSI, SNAP) aggregation.
+
+
+## [1.626.0] - 2026-04-01
+
+### Added
+
+- Add ORG-backed `hourly_wage` and `is_union_member_or_covered` input variables.
+
+
+## [1.625.0] - 2026-03-31
+
+### Added
+
+- Added contributed EITC reforms for child poverty impact dashboard: EITC match reforms for AL, AR, AZ, GA, ID, KY, MS, ND, and WV; refundable EITC reforms for MO and OH; and a fully refundable EITC reform for UT (including childless filers).
+
+
 ## [1.624.1] - 2026-03-29
 
 ### Changed
