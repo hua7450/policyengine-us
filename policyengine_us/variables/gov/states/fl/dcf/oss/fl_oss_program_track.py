@@ -9,7 +9,7 @@ class FLOSSProgramTrack(Enum):
 
 class fl_oss_program_track(Variable):
     value_type = Enum
-    entity = Household
+    entity = Person
     label = "Florida OSS program track"
     definition_period = MONTH
     defined_for = StateCode.FL

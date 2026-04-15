@@ -15,6 +15,7 @@ class spm_unit_benefits(Variable):
             "al_ssp",
             "ak_ssp",
             "de_ssp",  # Delaware benefits
+            "fl_oss",
             "ma_state_supplement",  # Massachusetts benefits
             # California programs.
             "ca_cvrp",  # California Clean Vehicle Rebate Project.

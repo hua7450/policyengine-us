@@ -9,6 +9,7 @@
   input:
     people:
       person1:
+        fl_oss_program_track: REDESIGN
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -16,7 +17,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_program_track: REDESIGN
   output:
     # SSI FBR (I) 2025 = $967/month = $11,604/year.
     # Redesign offset = $24.40/month = $292.80/year.
@@ -30,6 +30,7 @@
   input:
     people:
       person1:
+        fl_oss_program_track: PROTECTED
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -37,7 +38,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_program_track: PROTECTED
   output:
     # SSI FBR (I) 2025 = $967/month = $11,604/year.
     # Protected offset = $185/month = $2,220/year.
@@ -51,10 +51,12 @@
   input:
     people:
       person1:
+        fl_oss_program_track: REDESIGN
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: true
       person2:
+        fl_oss_program_track: REDESIGN
         age: 68
         is_ssi_eligible: true
         ssi_claim_is_joint: true
@@ -68,7 +70,6 @@
       household:
         members: [person1, person2]
         state_code: FL
-        fl_oss_program_track: REDESIGN
   output:
     # Individual rate = $991.40/month.
     # Couple rate = 2 * $991.40 - $97 = $1,885.80/month.
@@ -83,10 +84,12 @@
   input:
     people:
       person1:
+        fl_oss_program_track: PROTECTED
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: true
       person2:
+        fl_oss_program_track: PROTECTED
         age: 68
         is_ssi_eligible: true
         ssi_claim_is_joint: true
@@ -100,7 +103,6 @@
       household:
         members: [person1, person2]
         state_code: FL
-        fl_oss_program_track: PROTECTED
   output:
     # Individual Protected rate = $1,152/month.
     # Couple rate = 2 * $1,152 - $97 = $2,207/month.
@@ -113,6 +115,7 @@
   input:
     people:
       person1:
+        fl_oss_program_track: REDESIGN
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -120,7 +123,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_program_track: REDESIGN
   output:
     # SSI FBR (I) 2024 = $943/month.
     # Redesign offset = $24.40/month.

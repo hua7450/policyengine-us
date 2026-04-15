@@ -15,14 +15,16 @@ class fl_oss_eligible(Variable):
     def formula(person, period, parameters):
         p = parameters(period).gov.states.fl.dcf.oss
         categorically_eligible = person("is_ssi_eligible", period)
-        facility_type = person.household("fl_oss_facility_type", period)
-        in_facility = facility_type != facility_type.possible_values.NONE
-        program_track = person.household("fl_oss_program_track", period)
+        living_arrangement = person("fl_oss_living_arrangement", period)
+        LA = living_arrangement.possible_values
+        in_facility = living_arrangement != LA.NONE
+        in_medicaid_facility = living_arrangement == LA.MEDICAID_FACILITY
+        # Medicaid facility: only requires SSI eligibility + facility
+        # Community care: also requires valid program track + income check
+        program_track = person("fl_oss_program_track", period)
         has_track = program_track != program_track.possible_values.NONE
-        # Protected track must be in effect
         is_protected = program_track == program_track.possible_values.PROTECTED
-        protected_in_effect = p.protected.in_effect
-        track_valid = where(is_protected, protected_in_effect, has_track)
+        track_valid = where(is_protected, p.protected.in_effect, has_track)
         # Coverage Group 1: SSI recipients
         receives_ssi = person("uncapped_ssi", period) > 0
         # Coverage Group 2: non-SSI recipients within income standard
@@ -30,4 +32,9 @@ class fl_oss_eligible(Variable):
         countable_income = person("ssi_countable_income", period)
         income_within_standard = countable_income <= income_standard
         income_eligible = receives_ssi | income_within_standard
-        return categorically_eligible & in_facility & track_valid & income_eligible
+        community_eligible = track_valid & income_eligible
+        return (
+            categorically_eligible
+            & in_facility
+            & where(in_medicaid_facility, receives_ssi, community_eligible)
+        )

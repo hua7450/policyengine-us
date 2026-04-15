@@ -7,6 +7,8 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: ALF
+        fl_oss_program_track: REDESIGN
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -20,8 +22,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: ALF
-        fl_oss_program_track: REDESIGN
   output:
     # Total needs (I, Redesign) = $991.40 + $160 = $1,151.40/month = $13,816.80/year.
     # Countable income = $9,600/year.
@@ -37,6 +37,8 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: MHRTF
+        fl_oss_program_track: PROTECTED
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -46,8 +48,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: MHRTF
-        fl_oss_program_track: PROTECTED
   output:
     # Total needs (I, Protected) = $1,152 + $160 = $1,312/month = $15,744/year.
     # Countable income = $9,600/year.
@@ -63,6 +63,8 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: ALF
+        fl_oss_program_track: REDESIGN
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -76,8 +78,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: ALF
-        fl_oss_program_track: REDESIGN
   output:
     fl_oss: [0]
 
@@ -87,6 +87,8 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: ALF
+        fl_oss_program_track: REDESIGN
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -96,8 +98,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: ALF
-        fl_oss_program_track: REDESIGN
   output:
     # Total needs (I, Redesign) = $13,816.80/year.
     # Countable income = $0.
@@ -113,6 +113,8 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: ALF
+        fl_oss_program_track: REDESIGN
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -129,8 +131,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: ALF
-        fl_oss_program_track: REDESIGN
   output:
     # Ineligible: uncapped_ssi <= 0 AND income > income standard.
     fl_oss: [0]
@@ -141,6 +141,8 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: ALF
+        fl_oss_program_track: REDESIGN
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -154,8 +156,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: ALF
-        fl_oss_program_track: REDESIGN
   output:
     # Total needs (Redesign, I) = $13,816.80/year.
     # Countable income = $12,000/year.
@@ -171,6 +171,8 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: ALF
+        fl_oss_program_track: REDESIGN
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -180,8 +182,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: ALF
-        fl_oss_program_track: REDESIGN
   output:
     # Even with hugely negative income, OSS is capped at max.
     # Max OSS (Redesign, I) = $184.40/month.

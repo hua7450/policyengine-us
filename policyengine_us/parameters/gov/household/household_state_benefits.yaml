@@ -24,6 +24,8 @@ values:
     - al_ssp
     # Alaska benefits
     - ak_ssp
+    # Florida benefits
+    - fl_oss
     # Nebraska benefits
     - ne_child_care_subsidies
     # Massachusetts benefits
@@ -53,6 +55,8 @@ values:
     - al_ssp
     # Alaska benefits
     - ak_ssp
+    # Florida benefits
+    - fl_oss
     # Nebraska benefits
     - ne_child_care_subsidies
     # North Carolina benefits

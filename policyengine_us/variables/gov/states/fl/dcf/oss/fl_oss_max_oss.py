@@ -12,7 +12,7 @@ class fl_oss_max_oss(Variable):
 
     def formula(person, period, parameters):
         p = parameters(period).gov.states.fl.dcf.oss
-        track = person.household("fl_oss_program_track", period)
+        track = person("fl_oss_program_track", period)
         is_redesign = track == track.possible_values.REDESIGN
         joint_claim = person("ssi_claim_is_joint", period)
         if p.protected.in_effect:

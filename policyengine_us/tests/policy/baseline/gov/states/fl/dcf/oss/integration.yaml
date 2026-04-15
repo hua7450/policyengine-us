@@ -15,12 +15,12 @@
         uncapped_ssi: 2_004
         # $800/month * 12 = $9,600/year.
         ssi_countable_income: 9_600
+        fl_oss_community_care_type: ALF
+        fl_oss_program_track: REDESIGN
     households:
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: ALF
-        fl_oss_program_track: REDESIGN
   output:
     fl_oss_eligible: [true]
     # Provider rate (I, Redesign) = $967 + $24.40 = $991.40/month.
@@ -47,12 +47,16 @@
         # uncapped_ssi per person = $8,700 - $7,200 = $1,500/year > 0 → SSI recipients.
         uncapped_ssi: 1_500
         ssi_countable_income: 7_200
+        fl_oss_community_care_type: AFCH
+        fl_oss_program_track: REDESIGN
       person2:
         age: 68
         is_ssi_eligible: true
         ssi_claim_is_joint: true
         uncapped_ssi: 1_500
         ssi_countable_income: 7_200
+        fl_oss_community_care_type: AFCH
+        fl_oss_program_track: REDESIGN
     marital_units:
       marital_unit:
         members: [person1, person2]
@@ -63,8 +67,6 @@
       household:
         members: [person1, person2]
         state_code: FL
-        fl_oss_facility_type: AFCH
-        fl_oss_program_track: REDESIGN
   output:
     fl_oss_eligible: [true, true]
     # Couple provider rate (Redesign) = 2 * $991.40 - $97 = $1,885.80/month.
@@ -99,12 +101,12 @@
         # Income standard (Redesign, I) = $1,045.40/month = $12,544.80/year.
         # $12,480 < $12,544.80 → Group 2 eligible.
         ssi_countable_income: 12_480
+        fl_oss_community_care_type: ALF
+        fl_oss_program_track: REDESIGN
     households:
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: ALF
-        fl_oss_program_track: REDESIGN
   output:
     fl_oss_eligible: [true]
     fl_oss_provider_rate: [991.40]
@@ -130,12 +132,12 @@
         # Income > income standard → not Group 2 either → ineligible.
         uncapped_ssi: -1_596
         ssi_countable_income: 13_200
+        fl_oss_community_care_type: ALF
+        fl_oss_program_track: REDESIGN
     households:
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: ALF
-        fl_oss_program_track: REDESIGN
   output:
     fl_oss_eligible: [false]
     fl_oss: [0]
@@ -154,12 +156,12 @@
         # uncapped_ssi = ($967 - $700) * 12 = $267 * 12 = $3,204 > 0 → SSI recipient.
         uncapped_ssi: 3_204
         ssi_countable_income: 8_400
+        fl_oss_community_care_type: MHRTF
+        fl_oss_program_track: PROTECTED
     households:
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: MHRTF
-        fl_oss_program_track: PROTECTED
   output:
     fl_oss_eligible: [true]
     # Protected provider rate (I) = $967 + $185 = $1,152/month.
@@ -183,13 +185,13 @@
         ssi_claim_is_joint: false
         uncapped_ssi: 2_004
         ssi_countable_income: 9_600
+        # No facility → no OSS for independent living.
+        fl_oss_community_care_type: NONE
+        fl_oss_program_track: NONE
     households:
       household:
         members: [person1]
         state_code: FL
-        # No facility → no OSS for independent living.
-        fl_oss_facility_type: NONE
-        fl_oss_program_track: NONE
   output:
     fl_oss_eligible: [false]
     fl_oss: [0]
@@ -205,6 +207,8 @@
         ssi_claim_is_joint: false
         uncapped_ssi: 2_004
         ssi_countable_income: 9_600
+        fl_oss_community_care_type: ALF
+        fl_oss_program_track: REDESIGN
       person2:
         age: 40
         # Not SSI eligible (not aged/blind/disabled).
@@ -212,6 +216,8 @@
         ssi_claim_is_joint: false
         uncapped_ssi: 0
         ssi_countable_income: 0
+        fl_oss_community_care_type: ALF
+        fl_oss_program_track: REDESIGN
     marital_units:
       marital_unit:
         members: [person1, person2]
@@ -222,8 +228,6 @@
       household:
         members: [person1, person2]
         state_code: FL
-        fl_oss_facility_type: ALF
-        fl_oss_program_track: REDESIGN
   output:
     # Person1 is eligible (SSI recipient, in facility).
     # Person2 is NOT eligible (not SSI eligible).
@@ -251,12 +255,12 @@
         # Income = $700/month. uncapped_ssi = ($943 - $700) * 12 = $2,916/year.
         uncapped_ssi: 2_916
         ssi_countable_income: 8_400
+        fl_oss_community_care_type: ALF
+        fl_oss_program_track: REDESIGN
     households:
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: ALF
-        fl_oss_program_track: REDESIGN
   output:
     # Before Jul 2024: PNA = $54, Redesign offset = $24.40.
     # Provider rate (I) = $943 + $24.40 = $967.40/month.
@@ -282,12 +286,12 @@
         # Income = $500/month. uncapped_ssi = ($674 - $500) * 12 = $2,088/year.
         uncapped_ssi: 2_088
         ssi_countable_income: 6_000
+        fl_oss_community_care_type: ALF
+        fl_oss_program_track: REDESIGN
     households:
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: ALF
-        fl_oss_program_track: REDESIGN
   output:
     fl_oss_eligible: [true]
     # 2011 values (pre-restructuring): Redesign offset = $24.40, PNA = $54.
@@ -300,3 +304,66 @@
     # Calculated = $752.40 - $500 = $252.40/month → capped at $78.40.
     # OSS = $78.40/month.
     fl_oss: [78.40]
+
+- name: Case 10, Medicaid facility individual, 2011, federal-state connection.
+  period: 2011-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_eligible: true
+        ssi_claim_is_joint: false
+        # Person is in a Medicaid facility (federal Code D).
+        # Federal SSI pays $30/month medical facility rate.
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
+    households:
+      household:
+        members: [person1]
+        state_code: FL
+  output:
+    # Federal SSI: $30/month medical facility rate.
+    # ssi_amount_if_eligible = $30/month = $360/year.
+    # With $0 income, uncapped_ssi = $360/year.
+    ssi: 30
+    # Living arrangement derived from federal:
+    # ssi_federal_living_arrangement = MEDICAL_TREATMENT_FACILITY
+    # → fl_oss_living_arrangement = MEDICAID_FACILITY
+    fl_oss_eligible: [true]
+    # State supplement: $5/month (flat, from SSA 2011 Table 1).
+    fl_oss: [5]
+
+- name: Case 11, Medicaid facility couple, 2011, federal-state connection.
+  period: 2011-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 72
+        is_ssi_eligible: true
+        ssi_claim_is_joint: true
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
+      person2:
+        age: 68
+        is_ssi_eligible: true
+        ssi_claim_is_joint: true
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: FL
+  output:
+    # Federal SSI: $30/month each (medical facility rate).
+    ssi: [30, 30]
+    fl_oss_eligible: [true, true]
+    # State supplement: $10/month couple, $5/month per person.
+    fl_oss: [5, 5]

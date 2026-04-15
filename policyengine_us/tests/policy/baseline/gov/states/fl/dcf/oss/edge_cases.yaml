@@ -14,6 +14,8 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: ALF
+        fl_oss_program_track: REDESIGN
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -26,8 +28,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: ALF
-        fl_oss_program_track: REDESIGN
   output:
     fl_oss_eligible: [true]
     # Total needs = $1,151.40/month.
@@ -40,6 +40,8 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: ALF
+        fl_oss_program_track: REDESIGN
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -52,8 +54,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: ALF
-        fl_oss_program_track: REDESIGN
   output:
     fl_oss_eligible: [false]
     fl_oss: [0]
@@ -64,6 +64,8 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: ALF
+        fl_oss_program_track: REDESIGN
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -75,8 +77,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: ALF
-        fl_oss_program_track: REDESIGN
   output:
     fl_oss_eligible: [true]
     # OSS = min(max(0, $1,151.40 - $1,045.39), $184.40) = min($106.01, $184.40) = $106.01.
@@ -93,6 +93,8 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: ALF
+        fl_oss_program_track: REDESIGN
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -105,8 +107,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: ALF
-        fl_oss_program_track: REDESIGN
   output:
     fl_oss_eligible: [true]
     fl_oss: [0]
@@ -123,6 +123,8 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: ALF
+        fl_oss_program_track: REDESIGN
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -134,8 +136,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: ALF
-        fl_oss_program_track: REDESIGN
   output:
     fl_oss_eligible: [true]
     fl_oss: [184.40]
@@ -146,6 +146,8 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: ALF
+        fl_oss_program_track: REDESIGN
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -157,8 +159,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: ALF
-        fl_oss_program_track: REDESIGN
   output:
     fl_oss_eligible: [true]
     fl_oss: [184.39]
@@ -173,6 +173,8 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: MHRTF
+        fl_oss_program_track: PROTECTED
         age: 45
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -182,8 +184,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: MHRTF
-        fl_oss_program_track: PROTECTED
   output:
     fl_oss_eligible: [true]
     # Total needs (Protected, I) = $1,312/month. Income = $0.
@@ -196,12 +196,16 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: AFCH
+        fl_oss_program_track: REDESIGN
         age: 72
         is_ssi_eligible: true
         ssi_claim_is_joint: true
         uncapped_ssi: 10_000
         ssi_countable_income: 0
       person2:
+        fl_oss_community_care_type: AFCH
+        fl_oss_program_track: REDESIGN
         age: 68
         is_ssi_eligible: true
         ssi_claim_is_joint: true
@@ -217,8 +221,6 @@
       household:
         members: [person1, person2]
         state_code: FL
-        fl_oss_facility_type: AFCH
-        fl_oss_program_track: REDESIGN
   output:
     fl_oss_eligible: [true, true]
     # Per person total needs = $1,102.90. Income = $0.
@@ -236,6 +238,8 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: ALF
+        fl_oss_program_track: REDESIGN
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -247,8 +251,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: ALF
-        fl_oss_program_track: REDESIGN
   output:
     fl_oss_eligible: [true]
     # Total needs = $1,151.40. Income = $5,000. max(0, $1,151.40 - $5,000) = $0.
@@ -266,6 +268,8 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: ALF
+        fl_oss_program_track: REDESIGN
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -275,8 +279,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: ALF
-        fl_oss_program_track: REDESIGN
   output:
     fl_oss_eligible: [true]
     # SSI FBR (I) 2024 = $943. Redesign offset = $24.40.
@@ -294,6 +296,8 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: ALF
+        fl_oss_program_track: REDESIGN
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -303,8 +307,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: ALF
-        fl_oss_program_track: REDESIGN
   output:
     fl_oss_eligible: [true]
     # SSI FBR (I) 2025 = $967. Redesign offset = $24.40.
@@ -328,6 +330,8 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: MHRTF
+        fl_oss_program_track: PROTECTED
         age: 45
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -337,8 +341,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: MHRTF
-        fl_oss_program_track: PROTECTED
   output:
     # Protected track not in effect before Jul 2024.
     fl_oss_eligible: [false]
@@ -350,12 +352,16 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: MHRTF
+        fl_oss_program_track: PROTECTED
         age: 45
         is_ssi_eligible: true
         ssi_claim_is_joint: true
         uncapped_ssi: 2_000
         ssi_countable_income: 7_200
       person2:
+        fl_oss_community_care_type: MHRTF
+        fl_oss_program_track: PROTECTED
         age: 42
         is_ssi_eligible: true
         ssi_claim_is_joint: true
@@ -371,8 +377,6 @@
       household:
         members: [person1, person2]
         state_code: FL
-        fl_oss_facility_type: MHRTF
-        fl_oss_program_track: PROTECTED
   output:
     # Protected track not in effect before Jul 2024.
     fl_oss_eligible: [false, false]
@@ -388,6 +392,8 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: MHRTF
+        fl_oss_program_track: PROTECTED
         age: 45
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -397,8 +403,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: MHRTF
-        fl_oss_program_track: PROTECTED
   output:
     fl_oss_eligible: [true]
     # Provider rate = $967 + $185 = $1,152/month.
@@ -420,6 +424,8 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: MHRTF
+        fl_oss_program_track: PROTECTED
         age: 45
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -431,8 +437,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: MHRTF
-        fl_oss_program_track: PROTECTED
   output:
     fl_oss_eligible: [true]
     fl_oss_income_standard: [1_152]
@@ -446,6 +450,8 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: MHRTF
+        fl_oss_program_track: PROTECTED
         age: 45
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -458,8 +464,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: MHRTF
-        fl_oss_program_track: PROTECTED
   output:
     fl_oss_eligible: [false]
     fl_oss: [0]
@@ -474,6 +478,8 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: AFCH
+        fl_oss_program_track: REDESIGN
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -483,8 +489,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: AFCH
-        fl_oss_program_track: REDESIGN
   output:
     fl_oss_eligible: [true]
     fl_oss: [184.40]
@@ -495,6 +499,8 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: MHRTF
+        fl_oss_program_track: REDESIGN
         age: 45
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -504,8 +510,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: MHRTF
-        fl_oss_program_track: REDESIGN
   output:
     fl_oss_eligible: [true]
     fl_oss: [184.40]
@@ -520,12 +524,16 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: MHRTF
+        fl_oss_program_track: PROTECTED
         age: 72
         is_ssi_eligible: true
         ssi_claim_is_joint: true
         uncapped_ssi: 10_000
         ssi_countable_income: 0
       person2:
+        fl_oss_community_care_type: MHRTF
+        fl_oss_program_track: PROTECTED
         age: 68
         is_ssi_eligible: true
         ssi_claim_is_joint: true
@@ -541,8 +549,6 @@
       household:
         members: [person1, person2]
         state_code: FL
-        fl_oss_facility_type: MHRTF
-        fl_oss_program_track: PROTECTED
   output:
     fl_oss_eligible: [true, true]
     # Protected couple provider rate = 2 * $1,152 - $97 = $2,207/month.
@@ -567,6 +573,8 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: AFCH
+        fl_oss_program_track: REDESIGN
         age: 72
         is_ssi_eligible: true
         ssi_claim_is_joint: true
@@ -574,6 +582,8 @@
         # $909.50/month * 12 = $10,914/year.
         ssi_countable_income: 10_914
       person2:
+        fl_oss_community_care_type: AFCH
+        fl_oss_program_track: REDESIGN
         age: 68
         is_ssi_eligible: true
         ssi_claim_is_joint: true
@@ -589,8 +599,6 @@
       household:
         members: [person1, person2]
         state_code: FL
-        fl_oss_facility_type: AFCH
-        fl_oss_program_track: REDESIGN
   output:
     fl_oss_eligible: [true, true]
     # Per person: min(max(0, $1,102.90 - $909.50), $193.40) = min($193.40, $193.40) = $193.40.
@@ -607,6 +615,8 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: AFCH
+        fl_oss_program_track: REDESIGN
         age: 72
         is_ssi_eligible: true
         ssi_claim_is_joint: true
@@ -614,6 +624,8 @@
         # $996.90/month * 12 = $11,962.80/year.
         ssi_countable_income: 11_962.80
       person2:
+        fl_oss_community_care_type: AFCH
+        fl_oss_program_track: REDESIGN
         age: 68
         is_ssi_eligible: true
         ssi_claim_is_joint: true
@@ -629,8 +641,6 @@
       household:
         members: [person1, person2]
         state_code: FL
-        fl_oss_facility_type: AFCH
-        fl_oss_program_track: REDESIGN
   output:
     # Income ($996.90) <= income standard ($996.90) → Group 2 eligible.
     fl_oss_eligible: [true, true]
@@ -648,6 +658,8 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: MHRTF
+        fl_oss_program_track: PROTECTED
         age: 45
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -657,8 +669,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: MHRTF
-        fl_oss_program_track: PROTECTED
   output:
     # Protected track not in effect before Jul 2024.
     fl_oss_eligible: [false]
@@ -676,6 +686,8 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: ALF
+        fl_oss_program_track: REDESIGN
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -687,8 +699,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: ALF
-        fl_oss_program_track: REDESIGN
   output:
     fl_oss_eligible: [true]
     # Total needs = $1,151.40. Income = $1,050.
@@ -707,6 +717,8 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: ALF
+        fl_oss_program_track: REDESIGN
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -718,8 +730,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: ALF
-        fl_oss_program_track: REDESIGN
   output:
     fl_oss_eligible: [true]
     # Income ($1,050) > income standard ($1,045.40) but Group 1 applies.
@@ -737,6 +747,8 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: ALF
+        fl_oss_program_track: REDESIGN
         age: 40
         # Not aged/blind/disabled → is_ssi_eligible = false.
         is_ssi_eligible: false
@@ -747,8 +759,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: ALF
-        fl_oss_program_track: REDESIGN
   output:
     fl_oss_eligible: [false]
     fl_oss: [0]
@@ -762,6 +772,8 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: ALF
+        fl_oss_program_track: NONE
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -771,8 +783,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: ALF
-        fl_oss_program_track: NONE
   output:
     fl_oss_eligible: [false]
     fl_oss: [0]
@@ -786,6 +796,8 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: NONE
+        fl_oss_program_track: REDESIGN
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -795,8 +807,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: NONE
-        fl_oss_program_track: REDESIGN
   output:
     fl_oss_eligible: [false]
     fl_oss: [0]

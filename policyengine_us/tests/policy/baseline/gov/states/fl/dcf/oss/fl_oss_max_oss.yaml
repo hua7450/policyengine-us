@@ -7,6 +7,7 @@
   input:
     people:
       person1:
+        fl_oss_program_track: REDESIGN
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -14,7 +15,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_program_track: REDESIGN
   output:
     # Max OSS (Redesign, I) = $184.40/month (frozen).
     # Annual = $184.40 * 12 = $2,212.80.
@@ -27,6 +27,7 @@
   input:
     people:
       person1:
+        fl_oss_program_track: PROTECTED
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -34,7 +35,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_program_track: PROTECTED
   output:
     # Max OSS (Protected, I) = $345/month (frozen).
     # Annual = $345 * 12 = $4,140.
@@ -47,10 +47,12 @@
   input:
     people:
       person1:
+        fl_oss_program_track: REDESIGN
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: true
       person2:
+        fl_oss_program_track: REDESIGN
         age: 68
         is_ssi_eligible: true
         ssi_claim_is_joint: true
@@ -64,7 +66,6 @@
       household:
         members: [person1, person2]
         state_code: FL
-        fl_oss_program_track: REDESIGN
   output:
     # Max OSS (Redesign, C) = $386.80/month (frozen).
     # Per person = $386.80 / 2 = $193.40/month.
@@ -78,10 +79,12 @@
   input:
     people:
       person1:
+        fl_oss_program_track: PROTECTED
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: true
       person2:
+        fl_oss_program_track: PROTECTED
         age: 68
         is_ssi_eligible: true
         ssi_claim_is_joint: true
@@ -95,7 +98,6 @@
       household:
         members: [person1, person2]
         state_code: FL
-        fl_oss_program_track: PROTECTED
   output:
     # Max OSS (Protected, C) = $690/month (frozen).
     # Per person = $690 / 2 = $345/month.

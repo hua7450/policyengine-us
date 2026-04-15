@@ -9,13 +9,13 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: ALF
+        fl_oss_program_track: REDESIGN
         age: 70
     households:
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: ALF
-        fl_oss_program_track: REDESIGN
   output:
     fl_oss_program_track: REDESIGN
 
@@ -24,13 +24,13 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: MHRTF
+        fl_oss_program_track: PROTECTED
         age: 70
     households:
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: MHRTF
-        fl_oss_program_track: PROTECTED
   output:
     fl_oss_program_track: PROTECTED
 
@@ -39,12 +39,12 @@
   input:
     people:
       person1:
+        fl_oss_community_care_type: NONE
+        fl_oss_program_track: NONE
         age: 70
     households:
       household:
         members: [person1]
         state_code: FL
-        fl_oss_facility_type: NONE
-        fl_oss_program_track: NONE
   output:
     fl_oss_program_track: NONE

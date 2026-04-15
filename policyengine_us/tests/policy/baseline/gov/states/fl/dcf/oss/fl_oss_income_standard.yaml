@@ -8,6 +8,7 @@
   input:
     people:
       person1:
+        fl_oss_program_track: REDESIGN
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -15,7 +16,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_program_track: REDESIGN
   output:
     # Redesign provider rate (I) = $991.40/month.
     # Income standard PNA offset = $54/month.
@@ -30,6 +30,7 @@
   input:
     people:
       person1:
+        fl_oss_program_track: PROTECTED
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: false
@@ -37,7 +38,6 @@
       household:
         members: [person1]
         state_code: FL
-        fl_oss_program_track: PROTECTED
   output:
     # Protected income standard = provider rate = $1,152/month.
     # Annual = $1,152 * 12 = $13,824.
@@ -50,10 +50,12 @@
   input:
     people:
       person1:
+        fl_oss_program_track: REDESIGN
         age: 70
         is_ssi_eligible: true
         ssi_claim_is_joint: true
       person2:
+        fl_oss_program_track: REDESIGN
         age: 68
         is_ssi_eligible: true
         ssi_claim_is_joint: true
@@ -67,7 +69,6 @@
       household:
         members: [person1, person2]
         state_code: FL
-        fl_oss_program_track: REDESIGN
   output:
     # Couple provider rate (Redesign) = $1,885.80/month.
     # Couple income standard = couple provider rate + 2 * $54 = $1,885.80 + $108 = $1,993.80/month.

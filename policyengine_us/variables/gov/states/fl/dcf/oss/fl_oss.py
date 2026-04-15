@@ -14,9 +14,21 @@ class fl_oss(Variable):
     )
 
     def formula(person, period, parameters):
-        pna = parameters(period).gov.states.fl.dcf.oss.pna
+        p = parameters(period).gov.states.fl.dcf.oss
+        living_arrangement = person("fl_oss_living_arrangement", period)
+        LA = living_arrangement.possible_values
+        in_medicaid_facility = living_arrangement == LA.MEDICAID_FACILITY
+        # Medicaid facility: flat state supplement
+        joint_claim = person("ssi_claim_is_joint", period)
+        medicaid_supplement = where(
+            joint_claim,
+            p.medicaid_facility.supplement.couple / 2,
+            p.medicaid_facility.supplement.individual,
+        )
+        # Community care: provider rate + PNA - income, capped at max OSS
         provider_rate = person("fl_oss_provider_rate", period)
-        total_needs = provider_rate + pna
+        total_needs = provider_rate + p.pna
         countable_income = person("ssi_countable_income", period)
         max_oss = person("fl_oss_max_oss", period)
-        return min_(max_(total_needs - countable_income, 0), max_oss)
+        community_benefit = min_(max_(total_needs - countable_income, 0), max_oss)
+        return where(in_medicaid_facility, medicaid_supplement, community_benefit)

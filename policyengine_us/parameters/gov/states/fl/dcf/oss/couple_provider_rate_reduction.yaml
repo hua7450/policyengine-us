@@ -1,6 +1,8 @@
 description: Florida reduces the couple provider rate by this amount under the Optional State Supplementation program.
 values:
-  2011-01-01: 97
+  2011-01-01: 0
+  2024-07-01: 73
+  2025-01-01: 97
 
 metadata:
   unit: currency-USD

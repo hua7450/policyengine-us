@@ -12,7 +12,7 @@ class fl_oss_provider_rate(Variable):
 
     def formula(person, period, parameters):
         p = parameters(period).gov.states.fl.dcf.oss
-        track = person.household("fl_oss_program_track", period)
+        track = person("fl_oss_program_track", period)
         is_redesign = track == track.possible_values.REDESIGN
         fbr_individual = parameters(period).gov.ssa.ssi.amount.individual
         if p.protected.in_effect:

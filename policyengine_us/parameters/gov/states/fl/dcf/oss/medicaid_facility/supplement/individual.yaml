@@ -1,0 +1,11 @@
+description: Florida provides this amount as the individual state supplement for Medicaid facility residents under the Optional State Supplementation program.
+values:
+  2011-01-01: 5
+
+metadata:
+  unit: currency-USD
+  period: month
+  label: Florida OSS Medicaid facility individual supplement
+  reference:
+    - title: SSA State Assistance Programs for SSI Recipients, January 2011 - Florida, Table 1
+      href: https://www.ssa.gov/policy/docs/progdesc/ssi_st_asst/2011/fl.html
