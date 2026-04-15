@@ -8,7 +8,7 @@ metadata:
   period: month
   label: Florida OSS Redesign maximum couple payment
   reference:
-    - title: SSA State Assistance Programs for SSI Recipients, January 2011 - Florida, Table 1 ($156.80 value only)
+    - title: SSA State Assistance Programs for SSI Recipients, January 2011 - Florida, Table 1
       href: https://www.ssa.gov/policy/docs/progdesc/ssi_st_asst/2011/fl.html
     - title: FL DCF Appendix A-12, Optional State Supplementation Payment Standards
       href: https://www.myflfamilies.com/sites/default/files/2025-05/Appendix%20A-12%20-%20State%20Funded%20Programs%20Eligibility%20Standards.pdf

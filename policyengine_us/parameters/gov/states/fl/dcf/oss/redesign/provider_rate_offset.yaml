@@ -1,7 +1,6 @@
 description: Florida sets this amount as the offset added to the federal SSI benefit rate to determine the Redesign provider rate under the Optional State Supplementation program.
 values:
   2011-01-01: 24.4
-  2024-07-01: 24.4
 
 metadata:
   unit: currency-USD
