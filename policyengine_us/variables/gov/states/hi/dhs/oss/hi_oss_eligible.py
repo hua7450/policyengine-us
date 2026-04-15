@@ -18,7 +18,5 @@ class hi_oss_eligible(Variable):
     def formula(person, period, parameters):
         receives_ssi = person("ssi", period) > 0
         living_arrangement = person("hi_oss_living_arrangement", period)
-        in_qualifying_facility = (
-            living_arrangement != HIOSSLivingArrangement.NONE
-        )
+        in_qualifying_facility = living_arrangement != HIOSSLivingArrangement.NONE
         return receives_ssi & in_qualifying_facility

@@ -1,0 +1,243 @@
+# Hawaii Optional State Supplementation (OSS) integration tests.
+# Tests verify the full federal-state chain: real income -> SSI -> Hawaii OSS.
+# SSI exclusion rules: $20 general (unearned first), $65 earned, 50% remaining earned.
+# 2025 FBR: $967/month individual, $1,450/month couple.
+
+- name: Case 1, aged individual with Social Security income in community care.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        social_security: 9_600
+        hi_oss_care_facility_type: COMMUNITY_CARE
+    households:
+      household:
+        members: [person1]
+        state_code: HI
+  output:
+    is_ssi_eligible: [true]
+    # Unearned: $800/month, general exclusion $20, countable $780/month
+    # Annual countable: $780 x 12 = $9,360
+    ssi_countable_income: [9_360]
+    # Individual FBR: $967 x 12 = $11,604
+    # SSI: $11,604 - $9,360 = $2,244
+    ssi: [2_244]
+    hi_oss_eligible: [true]
+    # Individual Community Care: $784/month x 12 = $9,408
+    hi_oss: [9_408]
+
+- name: Case 2, aged couple both in community care with Social Security.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        social_security: 4_800
+        hi_oss_care_facility_type: COMMUNITY_CARE
+      person2:
+        age: 68
+        social_security: 4_800
+        hi_oss_care_facility_type: COMMUNITY_CARE
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    families:
+      family:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: HI
+  output:
+    is_ssi_eligible: [true, true]
+    ssi_claim_is_joint: [true, true]
+    # Combined unearned: $800/month, exclusion $20, countable $780/month
+    # Annual combined: $9,360, split: $4,680 each
+    ssi_countable_income: [4_680, 4_680]
+    # Couple FBR / 2: $725/month x 12 = $8,700 each
+    ssi_amount_if_eligible: [8_700, 8_700]
+    # SSI per person: $8,700 - $4,680 = $4,020
+    ssi: [4_020, 4_020]
+    hi_oss_couple_rate_applies: [true, true]
+    # Couple Community Care: $1,905/month / 2 = $952.50 x 12 = $11,430
+    hi_oss: [11_430, 11_430]
+
+- name: Case 3, asymmetric couple, one aged in care facility, spouse not ABD.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        social_security: 9_600
+        hi_oss_care_facility_type: COMMUNITY_CARE
+      person2:
+        age: 45
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    families:
+      family:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: HI
+  output:
+    is_ssi_eligible: [true, false]
+    ssi_claim_is_joint: [false, false]
+    # Person1: unearned $800/month, exclusion $20, countable $780 x 12 = $9,360
+    # Person2 has $0 income, no deeming
+    ssi_countable_income: [9_360, 0]
+    # Individual FBR: $967 x 12 = $11,604
+    # SSI: $11,604 - $9,360 = $2,244
+    ssi: [2_244, 0]
+    hi_oss_couple_rate_applies: [false, false]
+    # Person1: Individual Community Care $784 x 12 = $9,408
+    # Person2: Not SSI eligible, $0
+    hi_oss: [9_408, 0]
+
+- name: Case 4, disabled individual with earned income in domiciliary care I.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 35
+        is_disabled: true
+        employment_income: 6_000
+        hi_oss_care_facility_type: DOMICILIARY_CARE_I
+    households:
+      household:
+        members: [person1]
+        state_code: HI
+  output:
+    is_ssi_eligible: [true]
+    # No unearned income: $20 general exclusion rolls to earned
+    # Earned: $500/month, total exclusion: $65 + $20 = $85
+    # After flat: $500 - $85 = $415, after 50%: $207.50/month
+    # Annual countable: $207.50 x 12 = $2,490
+    ssi_countable_income: [2_490]
+    # Individual FBR: $11,604
+    # SSI: $11,604 - $2,490 = $9,114
+    ssi: [9_114]
+    hi_oss_eligible: [true]
+    # Domiciliary Care I: $784/month x 12 = $9,408
+    hi_oss: [9_408]
+
+- name: Case 5, aged individual with high Social Security, ineligible for SSI.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        social_security: 12_000
+        hi_oss_care_facility_type: COMMUNITY_CARE
+    households:
+      household:
+        members: [person1]
+        state_code: HI
+  output:
+    is_ssi_eligible: [true]
+    # Unearned: $1,000/month, exclusion $20, countable $980 x 12 = $11,760
+    ssi_countable_income: [11_760]
+    # Individual FBR: $11,604
+    # SSI: $11,604 - $11,760 = -$156, capped at $0
+    ssi: [0]
+    hi_oss_eligible: [false]
+    hi_oss: [0]
+
+- name: Case 6, Medicaid institution individual with SSI.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        # Direct ssi input: PolicyEngine does not model the $30/month
+        # Medicaid institution cap (20 CFR 416.414). In real life,
+        # SSI is $30/month ($360/year) for Title XIX residents.
+        ssi: 360
+        hi_oss_resides_in_medicaid_institution: true
+    households:
+      household:
+        members: [person1]
+        state_code: HI
+  output:
+    hi_oss_eligible: [true]
+    # Medicaid institution: $45/month x 12 = $540
+    hi_oss: [540]
+
+- name: Case 7, Medicaid institution with no SSI, ineligible.
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 70
+        ssi: 0
+        hi_oss_resides_in_medicaid_institution: true
+    households:
+      household:
+        members: [person1]
+        state_code: HI
+  output:
+    hi_oss_eligible: [false]
+    hi_oss: [0]
+
+- name: Case 8, no facility, SSI recipient gets zero OSS.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        social_security: 9_600
+    households:
+      household:
+        members: [person1]
+        state_code: HI
+  output:
+    ssi: [2_244]
+    hi_oss_eligible: [false]
+    hi_oss: [0]
+
+- name: Case 9, 2023 rates with aged individual in domiciliary care II.
+  period: 2023
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        social_security: 7_200
+        hi_oss_care_facility_type: DOMICILIARY_CARE_II
+    households:
+      household:
+        members: [person1]
+        state_code: HI
+  output:
+    is_ssi_eligible: [true]
+    # 2023 FBR: $914/month = $10,968/year
+    # Unearned: $600/month, exclusion $20, countable $580 x 12 = $6,960
+    ssi_countable_income: [6_960]
+    ssi_amount_if_eligible: [10_968]
+    # SSI: $10,968 - $6,960 = $4,008
+    ssi: [4_008]
+    hi_oss_eligible: [true]
+    # 2023 Dom Care II: $759.90/month x 12 = $9,118.80
+    hi_oss: [9_118.80]

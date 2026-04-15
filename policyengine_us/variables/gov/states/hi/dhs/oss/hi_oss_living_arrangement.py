@@ -1,4 +1,7 @@
 from policyengine_us.model_api import *
+from policyengine_us.variables.gov.states.hi.dhs.oss.hi_oss_care_facility_type import (
+    HIOSSCareFacilityType,
+)
 
 
 class HIOSSLivingArrangement(Enum):
@@ -21,3 +24,24 @@ class hi_oss_living_arrangement(Variable):
         "https://secure.ssa.gov/poms.nsf/lnx/0501415210SF",
         "https://secure.ssa.gov/POMS.NSF/lnx/0501415057",
     )
+
+    def formula(person, period, parameters):
+        in_medicaid = person("hi_oss_resides_in_medicaid_institution", period)
+        care_type = person("hi_oss_care_facility_type", period)
+        LA = HIOSSLivingArrangement
+        CFT = HIOSSCareFacilityType
+        return select(
+            [
+                in_medicaid,
+                care_type == CFT.COMMUNITY_CARE,
+                care_type == CFT.DOMICILIARY_CARE_I,
+                care_type == CFT.DOMICILIARY_CARE_II,
+            ],
+            [
+                LA.MEDICAID_INSTITUTION,
+                LA.COMMUNITY_CARE,
+                LA.DOMICILIARY_CARE_I,
+                LA.DOMICILIARY_CARE_II,
+            ],
+            default=LA.NONE,
+        )
