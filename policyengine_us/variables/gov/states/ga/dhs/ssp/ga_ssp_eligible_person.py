@@ -10,7 +10,6 @@ class ga_ssp_eligible_person(Variable):
     reference = (
         "https://pamms.dhs.ga.gov/dfcs/medicaid/2578/",
         "https://pamms.dhs.ga.gov/dfcs/medicaid/2136/",
-        "https://pamms.dhs.ga.gov/dfcs/medicaid/appendix-a1/2024-abd-limits/",
         "https://www.law.cornell.edu/cfr/text/20/416.414",
     )
 
@@ -24,10 +23,9 @@ class ga_ssp_eligible_person(Variable):
             period.this_year,
         )
         ssi_amount = person("ssi", period)
-        federal_institutional_rate = parameters(
-            period
-        ).gov.ssa.ssi.amount.medical_facility
-        receives_institutional_ssi = ssi_amount == federal_institutional_rate
+        # in_federal_medicaid_facility already confirms MEDICAL_TREATMENT_FACILITY
+        # arrangement, so any positive SSI confirms institutional SSI receipt.
+        receives_institutional_ssi = ssi_amount > 0
         return (
             receives_institutional_ssi
             & in_federal_medicaid_facility

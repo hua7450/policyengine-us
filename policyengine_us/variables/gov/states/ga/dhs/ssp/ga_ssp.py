@@ -8,9 +8,6 @@ class ga_ssp(Variable):
     unit = USD
     definition_period = MONTH
     defined_for = StateCode.GA
-    reference = (
-        "https://pamms.dhs.ga.gov/dfcs/medicaid/2578/",
-        "https://pamms.dhs.ga.gov/dfcs/medicaid/appendix-a1/2024-abd-limits/",
-    )
+    reference = "https://pamms.dhs.ga.gov/dfcs/medicaid/2578/"
 
     adds = ["ga_ssp_person"]

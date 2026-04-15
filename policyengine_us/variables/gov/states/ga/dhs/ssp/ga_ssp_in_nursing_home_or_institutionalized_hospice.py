@@ -11,5 +11,4 @@ class ga_ssp_in_nursing_home_or_institutionalized_hospice(Variable):
     reference = (
         "https://pamms.dhs.ga.gov/dfcs/medicaid/2578/",
         "https://pamms.dhs.ga.gov/dfcs/medicaid/2136/",
-        "https://pamms.dhs.ga.gov/dfcs/medicaid/appendix-a1/2024-abd-limits/",
     )
