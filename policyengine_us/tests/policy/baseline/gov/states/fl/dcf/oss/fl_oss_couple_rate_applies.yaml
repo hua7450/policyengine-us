@@ -128,7 +128,7 @@
   output:
     fl_oss_couple_rate_applies: [true, true]
 
-- name: Case 6, mixed arrangement, one ALF one Medicaid facility, couple rate applies.
+- name: Case 6, mixed arrangement, one ALF one Medicaid facility, no couple rate.
   period: 2025-01
   input:
     people:
@@ -136,11 +136,13 @@
         fl_oss_community_care_type: ALF
         age: 70
         is_ssi_eligible: true
-        ssi_claim_is_joint: true
+        # Per 20 CFR 416.1149 (see #8003), SSI stops treating the
+        # couple as married when one enters a Title XIX institution.
+        ssi_claim_is_joint: false
       person2:
         age: 68
         is_ssi_eligible: true
-        ssi_claim_is_joint: true
+        ssi_claim_is_joint: false
         ssi_lives_in_medical_treatment_facility: true
         ssi_medicaid_pays_majority_of_care: true
     marital_units:
@@ -154,5 +156,5 @@
         members: [person1, person2]
         state_code: FL
   output:
-    # Both in qualifying facilities (ALF and Medicaid), both SSI eligible.
-    fl_oss_couple_rate_applies: [true, true]
+    # ssi_claim_is_joint = false → couple rate does not apply.
+    fl_oss_couple_rate_applies: [false, false]

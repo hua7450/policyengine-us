@@ -10,6 +10,11 @@ class fl_oss_couple_rate_applies(Variable):
     reference = "https://www.myflfamilies.com/sites/default/files/2025-05/Appendix%20A-12%20-%20State%20Funded%20Programs%20Eligibility%20Standards.pdf"
 
     def formula(person, period, parameters):
+        # Requires: both spouses are an SSI eligible couple
+        # (ssi_claim_is_joint handles Title XIX separation per
+        # 20 CFR 416.1149 — see #8003), both pass SSI categorical
+        # eligibility (resources + immigration), and both reside
+        # in a qualifying OSS facility.
         joint_claim = person("ssi_claim_is_joint", period)
         both_ssi_eligible = (
             person.marital_unit.sum(person("is_ssi_eligible", period))
