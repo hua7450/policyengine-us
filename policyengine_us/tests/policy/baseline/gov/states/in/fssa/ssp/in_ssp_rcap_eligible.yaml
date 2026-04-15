@@ -43,13 +43,14 @@
   output:
     in_ssp_rcap_eligible: false
 
-- name: Case 4, SSI-ineligible adult in licensed residential facility.
+- name: Case 4, not SSI recipient and not Medicaid enrolled in licensed residential.
   period: 2025-01
   input:
     people:
       person1:
         age: 40
         is_ssi_eligible: false
+        is_medicaid_eligible: false
     households:
       household:
         members: [person1]

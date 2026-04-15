@@ -13,7 +13,10 @@ class in_ssp_rcap_eligible(Variable):
     )
 
     def formula(person, period, parameters):
-        is_ssi_eligible = person("is_ssi_eligible", period.this_year)
+        # Indiana RCAP page and SSA 2011: "Medicaid or SSI recipients"
+        receives_ssi = person("ssi", period.this_year) > 0
+        on_medicaid = person("medicaid_enrolled", period.this_year)
+        is_recipient = receives_ssi | on_medicaid
         age = person("age", period.this_year)
         p = parameters(period).gov.states["in"].fssa.ssp
         age_eligible = age >= p.age_threshold
@@ -22,4 +25,4 @@ class in_ssp_rcap_eligible(Variable):
         in_residential = (living_arrangement == arrangements.LICENSED_RESIDENTIAL) | (
             living_arrangement == arrangements.UNLICENSED_RESIDENTIAL
         )
-        return is_ssi_eligible & age_eligible & in_residential
+        return is_recipient & age_eligible & in_residential

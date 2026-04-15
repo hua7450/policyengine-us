@@ -14,6 +14,9 @@ class in_ssp_rcap(Variable):
     )
 
     def formula(person, period, parameters):
+        # SSA 2011: "The federal SSI payment and any countable income are
+        # deducted from the state standard. The remainder is the state
+        # supplementation."
         p = parameters(period).gov.states["in"].fssa.ssp
         living_arrangement = person.household("in_ssp_living_arrangement", period)
         is_licensed = (
@@ -25,8 +28,6 @@ class in_ssp_rcap(Variable):
         )
         average_days_per_month = 365 / MONTHS_IN_YEAR
         state_standard = per_diem * average_days_per_month
-        ssi = person("ssi", period.this_year) / MONTHS_IN_YEAR
-        countable_income = (
-            person("ssi_countable_income", period.this_year) / MONTHS_IN_YEAR
-        )
-        return max_(state_standard - ssi - countable_income, 0)
+        ssi_monthly = person("ssi", period)
+        countable_income = person("ssi_countable_income", period)
+        return max_(state_standard - ssi_monthly - countable_income, 0)
