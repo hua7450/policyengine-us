@@ -1,3 +1,10 @@
+## [1.635.0] - 2026-04-15
+
+### Added
+
+- Add household asset input variables for vehicle debt/equity and non-home asset value/debt/equity, and use vehicle equity in Indiana TANF resource calculations.
+
+
 ## [1.634.16] - 2026-04-15
 
 ### Fixed
