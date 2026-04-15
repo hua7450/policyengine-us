@@ -1,3 +1,10 @@
+## [1.636.0] - 2026-04-15
+
+### Added
+
+- Implement Georgia State Supplementary Payment (SSP).
+
+
 ## [1.635.0] - 2026-04-15
 
 ### Added
