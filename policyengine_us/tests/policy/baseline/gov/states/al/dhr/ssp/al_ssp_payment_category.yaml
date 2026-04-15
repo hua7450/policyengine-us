@@ -57,3 +57,11 @@
     state_code: AL
   output:
     al_ssp_payment_category: NONE
+
+- name: Legacy living arrangement input still maps to the new payment category
+  period: 2025-01
+  input:
+    al_ssp_living_arrangement: IHC_LEVEL_B
+    state_code: AL
+  output:
+    al_ssp_payment_category: IHC_LEVEL_B

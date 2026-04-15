@@ -143,3 +143,15 @@
     state_code: CO
   output:
     al_ssp_eligible: false
+
+- name: Legacy living arrangement input still supports eligibility
+  period: 2025-01
+  input:
+    is_ssi_eligible: true
+    uncapped_ssi: 1
+    al_ssp_living_arrangement: IHC_LEVEL_A
+    al_receives_elderly_disabled_medicaid_waiver: true
+    al_meets_snf_criteria: true
+    state_code: AL
+  output:
+    al_ssp_eligible: true

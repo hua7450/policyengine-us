@@ -26,6 +26,8 @@ class al_ssp_payment_category(Variable):
     )
 
     def formula(person, period):
+        legacy_arrangement = person("al_ssp_living_arrangement", period)
+        legacy = legacy_arrangement.possible_values
         care_setting = person("al_ssp_care_setting", period)
         care = care_setting.possible_values
 
@@ -37,6 +39,12 @@ class al_ssp_payment_category(Variable):
 
         return select(
             [
+                legacy_arrangement == legacy.FCMP_NURSING_CARE,
+                legacy_arrangement == legacy.NURSING_CARE,
+                legacy_arrangement == legacy.IHC_LEVEL_A,
+                legacy_arrangement == legacy.IHC_LEVEL_B,
+                legacy_arrangement == legacy.FOSTER_CARE,
+                legacy_arrangement == legacy.CEREBRAL_PALSY,
                 is_nursing & medicaid_pays,
                 is_nursing & ~medicaid_pays,
                 is_ihc & level_b,
@@ -45,6 +53,12 @@ class al_ssp_payment_category(Variable):
                 care_setting == care.CEREBRAL_PALSY_CENTER,
             ],
             [
+                ALSSPPaymentCategory.FCMP_NURSING_CARE,
+                ALSSPPaymentCategory.NURSING_CARE,
+                ALSSPPaymentCategory.IHC_LEVEL_A,
+                ALSSPPaymentCategory.IHC_LEVEL_B,
+                ALSSPPaymentCategory.FOSTER_CARE,
+                ALSSPPaymentCategory.CEREBRAL_PALSY,
                 ALSSPPaymentCategory.FCMP_NURSING_CARE,
                 ALSSPPaymentCategory.NURSING_CARE,
                 ALSSPPaymentCategory.IHC_LEVEL_B,
