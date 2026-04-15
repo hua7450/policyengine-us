@@ -3,18 +3,17 @@
   absolute_error_margin: 0.01
   input:
     state_code: HI
-    ssi: 360
+    is_ssi_eligible: true
     hi_oss_care_facility_type: COMMUNITY_CARE
   output:
     hi_oss: 784
-    # $784/month
 
 - name: Case 2, individual in domiciliary care I receives 2025 rate.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
     state_code: HI
-    ssi: 360
+    is_ssi_eligible: true
     hi_oss_care_facility_type: DOMICILIARY_CARE_I
   output:
     hi_oss: 784
@@ -24,7 +23,7 @@
   absolute_error_margin: 0.01
   input:
     state_code: HI
-    ssi: 360
+    is_ssi_eligible: true
     hi_oss_care_facility_type: DOMICILIARY_CARE_II
   output:
     hi_oss: 892
@@ -34,24 +33,23 @@
   absolute_error_margin: 0.01
   input:
     state_code: HI
-    ssi: 360
+    is_ssi_eligible: true
     ssi_federal_living_arrangement: MEDICAL_TREATMENT_FACILITY
   output:
     hi_oss: 45
 
-- name: Case 5, SSI recipient not in qualifying facility gets zero.
+- name: Case 5, SSI-eligible not in qualifying facility gets zero.
   period: 2025-01
   input:
     state_code: HI
-    ssi: 360
+    is_ssi_eligible: true
   output:
     hi_oss: 0
 
-- name: Case 6, person without SSI in qualifying facility gets zero.
+- name: Case 6, person not SSI-eligible in qualifying facility gets zero.
   period: 2025-01
   input:
     state_code: HI
-    ssi: 0
     hi_oss_care_facility_type: COMMUNITY_CARE
   output:
     hi_oss: 0
@@ -60,7 +58,7 @@
   period: 2025-01
   input:
     state_code: CA
-    ssi: 360
+    is_ssi_eligible: true
     hi_oss_care_facility_type: COMMUNITY_CARE
   output:
     hi_oss: 0
@@ -71,12 +69,10 @@
   input:
     people:
       person1:
-        ssi: 360
         is_ssi_eligible: true
         ssi_claim_is_joint: true
         hi_oss_care_facility_type: COMMUNITY_CARE
       person2:
-        ssi: 360
         is_ssi_eligible: true
         ssi_claim_is_joint: true
         hi_oss_care_facility_type: COMMUNITY_CARE
@@ -99,7 +95,6 @@
   output:
     hi_oss_couple_rate_applies: [true, true]
     hi_oss: [952.50, 952.50]
-    # Couple rate $1,905/month / 2 = $952.50 each
 
 - name: Case 9, couple in Medicaid institution receives couple rate.
   period: 2025-01
@@ -107,12 +102,10 @@
   input:
     people:
       person1:
-        ssi: 360
         is_ssi_eligible: true
         ssi_claim_is_joint: true
         ssi_federal_living_arrangement: MEDICAL_TREATMENT_FACILITY
       person2:
-        ssi: 360
         is_ssi_eligible: true
         ssi_claim_is_joint: true
         ssi_federal_living_arrangement: MEDICAL_TREATMENT_FACILITY
@@ -135,7 +128,6 @@
   output:
     hi_oss_couple_rate_applies: [true, true]
     hi_oss: [45, 45]
-    # Couple Medicaid $90/month / 2 = $45 each
 
 - name: Case 10, asymmetric couple, one not SSI-eligible gets individual rate.
   period: 2025-01
@@ -143,12 +135,10 @@
   input:
     people:
       person1:
-        ssi: 360
         is_ssi_eligible: true
         ssi_claim_is_joint: false
         hi_oss_care_facility_type: COMMUNITY_CARE
       person2:
-        ssi: 0
         is_ssi_eligible: false
         ssi_claim_is_joint: false
     marital_units:
@@ -176,7 +166,7 @@
   absolute_error_margin: 0.01
   input:
     state_code: HI
-    ssi: 360
+    is_ssi_eligible: true
     hi_oss_care_facility_type: COMMUNITY_CARE
   output:
     hi_oss: 651.90
@@ -187,12 +177,10 @@
   input:
     people:
       person1:
-        ssi: 360
         is_ssi_eligible: true
         ssi_claim_is_joint: true
         hi_oss_care_facility_type: COMMUNITY_CARE
       person2:
-        ssi: 360
         is_ssi_eligible: true
         ssi_claim_is_joint: true
         hi_oss_care_facility_type: DOMICILIARY_CARE_II
@@ -215,4 +203,3 @@
   output:
     hi_oss_couple_rate_applies: [false, false]
     hi_oss: [784, 892]
-    # Different facilities -> individual rates
