@@ -1,3 +1,24 @@
+## [1.636.2] - 2026-04-15
+
+### Changed
+
+- Update LIHEAP benefit amounts for DC, MA, and IL to FY2026, and IL to FY2025.
+
+
+## [1.636.1] - 2026-04-15
+
+### Fixed
+
+- Fix Delaware joint AGI to floor after summing spouses' net income, preserving cross-spouse loss offsets.
+
+
+## [1.636.0] - 2026-04-15
+
+### Added
+
+- Implement Georgia State Supplementary Payment (SSP).
+
+
 ## [1.635.0] - 2026-04-15
 
 ### Added
