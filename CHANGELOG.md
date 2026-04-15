@@ -1,3 +1,10 @@
+## [1.636.2] - 2026-04-15
+
+### Changed
+
+- Update LIHEAP benefit amounts for DC, MA, and IL to FY2026, and IL to FY2025.
+
+
 ## [1.636.1] - 2026-04-15
 
 ### Fixed
