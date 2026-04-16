@@ -26,6 +26,16 @@
     hi_eitc_potential: 540
     hi_eitc: 0
 
+- name: 2023 EITC remains refundable with zero Hawaii income tax liability
+  period: 2023
+  input:
+    eitc: 2_700
+    state_code: HI
+    hi_income_tax_before_non_refundable_credits: 0
+  output:
+    hi_eitc_potential: 1_080
+    hi_eitc: 1_080
+
 - name: 40% match of fed EITC
   period: 2023
   input:
