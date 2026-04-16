@@ -1,3 +1,10 @@
+## [1.636.3] - 2026-04-16
+
+### Fixed
+
+- Fixed malformed parameter YAML files that could break `policyengine-us` imports and added a syntax regression test for the parameter tree.
+
+
 ## [1.636.2] - 2026-04-15
 
 ### Changed
