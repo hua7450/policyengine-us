@@ -22,5 +22,8 @@ class ks_sspp_eligible(Variable):
         in_medical_facility = (
             federal_la == SSIFederalLivingArrangement.MEDICAL_TREATMENT_FACILITY
         )
+        on_medicaid = person("medicaid_enrolled", period.this_year)
         age = person("age", period.this_year)
-        return receives_ssi & in_medical_facility & (age >= p.age_threshold)
+        return (
+            receives_ssi & in_medical_facility & on_medicaid & (age >= p.age_threshold)
+        )

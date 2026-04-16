@@ -76,3 +76,20 @@
     # FLA is not MEDICAL_TREATMENT_FACILITY without Medicaid paying majority
     ks_sspp_eligible: false
     ks_sspp: 0
+
+- name: Case 6, not on Medicaid ineligible.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 70
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
+        medicaid_enrolled: false
+    households:
+      household:
+        members: [person1]
+        state_code: KS
+  output:
+    ks_sspp_eligible: false
+    ks_sspp: 0
