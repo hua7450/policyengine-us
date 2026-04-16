@@ -1,120 +1,109 @@
-- name: Individual in OS-A facility receives DC OSSP
-  period: 2026
-  input:
-    people:
-      person:
-        dc_ossp_living_arrangement: OS_A
-        is_ssi_eligible_individual: true
-        ssi_countable_resources: {2026: 1_500}
-    families:
-      family:
-        members: [person]
-        is_married: {2026: false}
-    households:
-      household:
-        members: [person]
-        state_code: DC
-  output:
-    dc_ossp_eligible: [true]
-    dc_ossp: [8_172]  # $681/month * 12
-
-- name: Couple in OS-A facility receives DC OSSP
-  period: 2026
+- name: Case 1, aged individual in small AFC receives OS-A payment.
+  absolute_error_margin: 0.01
+  period: 2026-01
   input:
     people:
       person1:
-        is_ssi_eligible_individual: true
-        ssi_countable_resources: {2026: 1_500}
-        dc_ossp_living_arrangement: OS_A
+        age: 70
+        dc_ossp_in_adult_foster_care: true
+        dc_ossp_facility_size: 30
+    households:
+      household:
+        members: [person1]
+        state_code: DC
+  output:
+    dc_ossp_living_arrangement: OS_A
+    dc_ossp_eligible: true
+    dc_ossp: 681
+
+- name: Case 2, aged couple in small AFC receives OS-A couple rate.
+  absolute_error_margin: 0.01
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 70
+        dc_ossp_in_adult_foster_care: true
+        dc_ossp_facility_size: 30
       person2:
-        is_ssi_eligible_individual: true
-        ssi_countable_resources: {2026: 1_500}
-        dc_ossp_living_arrangement: OS_A
+        age: 68
+        dc_ossp_in_adult_foster_care: true
+        dc_ossp_facility_size: 30
     families:
       family:
         members: [person1, person2]
-        is_married: {2026: true}
+        is_married: true
     households:
       household:
         members: [person1, person2]
         state_code: DC
   output:
-    dc_ossp: [10_302, 10_302]  # $1717/2 * 12
+    # Couple rate $1,717 / 2 = $858.50 per person
+    dc_ossp: [858.50, 858.50]
 
-- name: Individual in OS-B facility receives DC OSSP
-  period: 2026
+- name: Case 3, disabled individual in large AFC receives OS-B payment.
+  absolute_error_margin: 0.01
+  period: 2026-01
   input:
     people:
-      person:
-        dc_ossp_living_arrangement: OS_B
-        is_ssi_eligible_individual: true
-        ssi_countable_resources: {2026: 1_000}
-    families:
-      family:
-        members: [person]
-        is_married: {2026: false}
+      person1:
+        age: 45
+        is_disabled: true
+        dc_ossp_in_adult_foster_care: true
+        dc_ossp_facility_size: 75
     households:
       household:
-        members: [person]
+        members: [person1]
         state_code: DC
   output:
-    dc_ossp: [9_492]  # $791/month * 12
+    dc_ossp_living_arrangement: OS_B
+    dc_ossp_eligible: true
+    dc_ossp: 791
 
-- name: Excess resources makes person ineligible for DC OSSP
-  period: 2026
+- name: Case 4, aged individual in Medicaid facility receives OS-G payment.
+  absolute_error_margin: 0.01
+  period: 2026-01
   input:
     people:
-      person:
-        dc_ossp_living_arrangement: OS_A
-        is_ssi_eligible_individual: true
-        ssi_countable_resources: {2026: 2_500}
-    families:
-      family:
-        members: [person]
-        is_married: {2026: false}
+      person1:
+        age: 80
+        ssi_lives_in_medical_treatment_facility: true
+        ssi_medicaid_pays_majority_of_care: true
     households:
       household:
-        members: [person]
+        members: [person1]
         state_code: DC
   output:
-    dc_ossp_resource_eligible: [false]
-    dc_ossp: [0]
+    dc_ossp_living_arrangement: OS_G
+    dc_ossp_eligible: true
+    dc_ossp: 79
 
-- name: Individual in OS-G nursing facility receives DC OSSP
-  period: 2026
+- name: Case 5, not in qualifying facility is ineligible.
+  period: 2026-01
   input:
     people:
-      person:
-        dc_ossp_living_arrangement: OS_G
-        is_ssi_eligible_individual: true
-        ssi_countable_resources: {2026: 500}
-    families:
-      family:
-        members: [person]
-        is_married: {2026: false}
+      person1:
+        age: 70
     households:
       household:
-        members: [person]
+        members: [person1]
         state_code: DC
   output:
-    dc_ossp: [948]  # $79/month * 12
+    dc_ossp_living_arrangement: NONE
+    dc_ossp_eligible: false
+    dc_ossp: 0
 
-- name: Person not in qualifying facility is ineligible
-  period: 2026
+- name: Case 6, non-DC resident is ineligible.
+  period: 2026-01
   input:
     people:
-      person:
-        dc_ossp_living_arrangement: NONE
-        is_ssi_eligible_individual: true
-        ssi_countable_resources: {2026: 500}
-    families:
-      family:
-        members: [person]
-        is_married: {2026: false}
+      person1:
+        age: 70
+        dc_ossp_in_adult_foster_care: true
+        dc_ossp_facility_size: 30
     households:
       household:
-        members: [person]
-        state_code: DC
+        members: [person1]
+        state_code: VA
   output:
-    dc_ossp_eligible: [false]
-    dc_ossp: [0]
+    dc_ossp: 0

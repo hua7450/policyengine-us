@@ -1,4 +1,0 @@
-- bump: minor
-  changes:
-    added:
-      - Implement DC Optional State Supplemental Payment (OSSP) program.

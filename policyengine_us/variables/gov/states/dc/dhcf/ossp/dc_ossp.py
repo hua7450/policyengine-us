@@ -6,13 +6,10 @@ class dc_ossp(Variable):
     entity = Person
     label = "DC Optional State Supplemental Payment"
     unit = USD
-    definition_period = YEAR
+    definition_period = MONTH
     defined_for = "dc_ossp_eligible"
     reference = (
         "https://code.dccouncil.gov/us/dc/council/code/sections/4-205.49",
-        "https://secure.ssa.gov/poms.nsf/lnx/0501415009",
+        "https://www.ssa.gov/pubs/EN-05-11162.pdf#page=2",
     )
-
-    def formula(person, period, parameters):
-        monthly_amount = person("dc_ossp_payment_amount", period)
-        return monthly_amount * MONTHS_IN_YEAR
+    adds = ["dc_ossp_payment_amount"]
