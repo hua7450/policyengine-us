@@ -1,3 +1,11 @@
+## [1.636.4] - 2026-04-16
+
+### Fixed
+
+- Reorder Delaware non-refundable income tax credits so personal credits and aged personal credits apply before the non-refundable EITC, matching the PIT-RES filing order.
+- Cap Hawaii EITC at Hawaii income tax liability for tax years 2018 through 2022, while keeping the credit refundable for 2023 and later.
+
+
 ## [1.636.3] - 2026-04-16
 
 ### Fixed
