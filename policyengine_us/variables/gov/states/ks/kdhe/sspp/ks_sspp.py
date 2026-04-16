@@ -6,13 +6,10 @@ class ks_sspp(Variable):
     entity = Person
     label = "Kansas State Supplemental Payment"
     unit = USD
-    definition_period = YEAR
+    definition_period = MONTH
     defined_for = "ks_sspp_eligible"
     reference = (
         "https://ksrevisor.gov/statutes/chapters/ch39/039_009_0072.html",
-        "https://khap.kdhe.ks.gov/kfmam/policydocs/state%20supplemental%20payment%20program%20policy%20memo.pdf",
+        "https://khap.kdhe.ks.gov/kfmam/policydocs/state%20supplemental%20payment%20program%20policy%20memo.pdf#page=2",
     )
-
-    def formula(person, period, parameters):
-        p = parameters(period).gov.states.ks.kdhe.sspp.payment.amount
-        return p * MONTHS_IN_YEAR
+    adds = ["gov.states.ks.kdhe.sspp.payment.amount"]
