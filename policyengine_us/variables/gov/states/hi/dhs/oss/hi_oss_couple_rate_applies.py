@@ -24,7 +24,7 @@ class hi_oss_couple_rate_applies(Variable):
         la = person("hi_oss_living_arrangement", period)
         LA = HIOSSLivingArrangement
         unit_size = person.marital_unit.nb_persons()
-        both_same_facility = (unit_size > 0) & (
+        both_same_facility = (
             (person.marital_unit.sum(la == LA.COMMUNITY_CARE) == unit_size)
             | (person.marital_unit.sum(la == LA.DOMICILIARY_CARE_I) == unit_size)
             | (person.marital_unit.sum(la == LA.DOMICILIARY_CARE_II) == unit_size)
