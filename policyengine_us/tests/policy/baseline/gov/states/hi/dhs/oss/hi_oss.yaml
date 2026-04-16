@@ -169,7 +169,7 @@
     is_ssi_eligible: true
     hi_oss_care_facility_type: COMMUNITY_CARE
   output:
-    hi_oss: 651.90
+    hi_oss: 651.9
 
 - name: Case 12, couple in different facility types gets individual rates.
   period: 2025-01
