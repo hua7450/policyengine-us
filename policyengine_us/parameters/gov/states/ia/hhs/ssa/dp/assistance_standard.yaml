@@ -1,0 +1,32 @@
+description: Iowa provides this amount as the dependent person assistance standard under the State Supplementary Assistance program.
+
+metadata:
+  unit: currency-USD
+  period: month
+  label: Iowa SSA dependent person assistance standard
+  breakdown:
+    - ia_ssa_dp_configuration
+  reference:
+    - title: Iowa Administrative Code 441—52.1(2)
+      href: https://www.legis.iowa.gov/docs/iac/chapter/01-07-2026.441.52.pdf#page=1
+    - title: Iowa HHS State Supplementary Assistance Standards
+      href: https://hhs.iowa.gov/assistance-programs/state-supplementary-assistance
+
+AGED_OR_DISABLED_WITH_DEPENDENT:
+  2017-07-01: 1_470
+  2026-01-01: 1_512
+AGED_OR_DISABLED_WITH_SPOUSE_AND_DEPENDENT:
+  2017-07-01: 1_953
+  2026-01-01: 2_009
+BLIND_WITH_DEPENDENT:
+  2017-07-01: 1_492
+  2026-01-01: 1_534
+BLIND_WITH_AGED_OR_DISABLED_SPOUSE_AND_DEPENDENT:
+  2017-07-01: 1_975
+  # 2026 value as published by Iowa HHS — 53% increase vs 2025 $1,975 looks like possible typo; requires verification against Iowa HHS bulletin.
+  2026-01-01: 3_031
+BLIND_WITH_BLIND_SPOUSE_AND_DEPENDENT:
+  2017-07-01: 1_997
+  2026-01-01: 2_053
+NONE:
+  2017-07-01: 0

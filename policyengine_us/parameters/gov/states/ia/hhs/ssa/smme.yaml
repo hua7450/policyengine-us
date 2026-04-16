@@ -1,0 +1,14 @@
+description: Iowa provides this amount as the supplement for Medicare and Medicaid eligibles under the State Supplementary Assistance program.
+
+values:
+  2017-07-01: 1
+
+metadata:
+  unit: currency-USD
+  period: month
+  label: Iowa SSA Medicare and Medicaid eligibles supplement amount
+  reference:
+    - title: Iowa Administrative Code 441—52.1(7)
+      href: https://www.legis.iowa.gov/docs/iac/chapter/01-07-2026.441.52.pdf#page=2
+    - title: Iowa HHS State Supplementary Assistance Standards
+      href: https://hhs.iowa.gov/assistance-programs/state-supplementary-assistance

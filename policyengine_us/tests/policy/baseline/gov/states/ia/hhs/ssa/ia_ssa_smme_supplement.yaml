@@ -1,0 +1,71 @@
+- name: Case 1, aged person with Medicaid and Medicare Part B receives 1 dollar SMME.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_has_full_medicaid: true
+        ia_ssa_has_medicare_part_b: true
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    ia_ssa_smme_supplement: [1]
+
+- name: Case 2, person without full Medicaid receives zero SMME.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_has_full_medicaid: false
+        ia_ssa_has_medicare_part_b: true
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    ia_ssa_smme_supplement: [0]
+
+- name: Case 3, person without Medicare Part B receives zero SMME.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_has_full_medicaid: true
+        ia_ssa_has_medicare_part_b: false
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    ia_ssa_smme_supplement: [0]
+
+- name: Case 4, non-SSI-eligible person receives zero SMME.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 30
+        is_ssi_aged_blind_disabled: false
+        is_ssi_eligible: false
+        meets_ssi_resource_test: false
+        ia_ssa_has_full_medicaid: true
+        ia_ssa_has_medicare_part_b: true
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    ia_ssa_smme_supplement: [0]

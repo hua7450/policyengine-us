@@ -1,0 +1,63 @@
+- name: Case 1, SSI-eligible Iowa resident meets all criteria.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    ia_ssa_eligible: [true]
+
+- name: Case 2, person not SSI-eligible is ineligible.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 30
+        is_ssi_aged_blind_disabled: false
+        is_ssi_eligible: false
+        meets_ssi_resource_test: true
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    ia_ssa_eligible: [false]
+
+- name: Case 3, person fails resource test is ineligible.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: false
+        meets_ssi_resource_test: false
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    ia_ssa_eligible: [false]
+
+- name: Case 4, non-Iowa resident is ineligible.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+    households:
+      household:
+        members: [person1]
+        state_code: NY
+  output:
+    ia_ssa_eligible: [false]

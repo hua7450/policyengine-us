@@ -1,0 +1,104 @@
+- name: Case 1, individual IHHRC cost below max pays actual cost.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_needs_in_home_health_related_care: true
+        ia_ssa_ihhrc_cost_of_care: 450
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # Cost $450 is below max $480.55 -> pays actual $450
+    ia_ssa_ihhrc_supplement: [450]
+
+- name: Case 2, individual IHHRC cost above max is capped at 480.55 dollars.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_needs_in_home_health_related_care: true
+        ia_ssa_ihhrc_cost_of_care: 600
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # Cost $600 > max $480.55 -> capped
+    ia_ssa_ihhrc_supplement: [480.55]
+
+- name: Case 3, person does not need IHHRC receives zero supplement.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_needs_in_home_health_related_care: false
+        ia_ssa_ihhrc_cost_of_care: 400
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    ia_ssa_ihhrc_supplement: [0]
+
+- name: Case 4, person needing IHHRC but not SSI-eligible receives zero.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 30
+        is_ssi_aged_blind_disabled: false
+        is_ssi_eligible: false
+        meets_ssi_resource_test: false
+        ia_ssa_needs_in_home_health_related_care: true
+        ia_ssa_ihhrc_cost_of_care: 400
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    ia_ssa_ihhrc_supplement: [0]
+
+- name: Case 5, person with countable income above 480.55 single limit is ineligible.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        social_security_retirement: 20_000
+        ia_ssa_needs_in_home_health_related_care: true
+        ia_ssa_ihhrc_cost_of_care: 400
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # SS $1,667/mo after SSI disregards exceeds single income cap $480.55
+    # -> not in IHHRC category -> no supplement
+    ia_ssa_ihhrc_supplement: [0]

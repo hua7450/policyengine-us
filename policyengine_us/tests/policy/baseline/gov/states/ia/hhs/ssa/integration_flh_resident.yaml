@@ -1,0 +1,30 @@
+- name: Case 1, aged FLH resident with zero income receives 142 dollar capped supplement.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        employment_income: 0
+        ia_ssa_resides_in_family_life_home: true
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # Federal SSI fills up to FBR; FLH standard $1,129 - federal SSI - $20 disregard > $142
+    # Capped at $142
+    is_ssi_eligible: [true]
+    ia_ssa_eligible: [true]
+    ia_ssa_flh_supplement: [142]
+    ia_ssa_category: [FLH]
+    ia_ssa: [142]

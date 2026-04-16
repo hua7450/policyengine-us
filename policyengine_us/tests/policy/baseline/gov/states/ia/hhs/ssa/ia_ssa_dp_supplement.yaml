@@ -1,0 +1,91 @@
+- name: Case 1, person with no DP configuration gets zero supplement.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_dp_configuration: NONE
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    ia_ssa_dp_supplement: [0]
+
+- name: Case 2, person not SSI-eligible gets zero DP supplement.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 30
+        is_ssi_aged_blind_disabled: false
+        is_ssi_eligible: false
+        meets_ssi_resource_test: false
+        ia_ssa_dp_configuration: AGED_OR_DISABLED_WITH_DEPENDENT
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    ia_ssa_dp_supplement: [0]
+
+- name: Case 3, DP supplement capped at per-person maximum 503 dollars.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_dp_configuration: BLIND_WITH_BLIND_SPOUSE_AND_DEPENDENT
+        ia_ssa_dp_has_eligible_dependent: true
+        ia_ssa_dp_dependent_countable_income: 0
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # Standard $1,997 minus federal SSI and income; well above $503 cap
+    ia_ssa_dp_supplement: [503]
+
+- name: Case 4, DP supplement cap rises to 518 dollars in 2026.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_dp_configuration: BLIND_WITH_BLIND_SPOUSE_AND_DEPENDENT
+        ia_ssa_dp_has_eligible_dependent: true
+        ia_ssa_dp_dependent_countable_income: 0
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    ia_ssa_dp_supplement: [518]
+
+- name: Case 5, dependent income above 503 limit disqualifies DP supplement.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_dp_configuration: AGED_OR_DISABLED_WITH_DEPENDENT
+        ia_ssa_dp_has_eligible_dependent: true
+        ia_ssa_dp_dependent_countable_income: 600
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    ia_ssa_dp_supplement: [0]

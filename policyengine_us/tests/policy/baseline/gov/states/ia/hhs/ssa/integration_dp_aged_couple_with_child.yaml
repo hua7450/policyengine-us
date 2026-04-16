@@ -1,0 +1,39 @@
+- name: Case 1, aged client with aged spouse and dependent child at 2025 rates.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        employment_income: 0
+        ia_ssa_dp_configuration: AGED_OR_DISABLED_WITH_SPOUSE_AND_DEPENDENT
+        ia_ssa_dp_has_eligible_dependent: true
+        ia_ssa_dp_dependent_countable_income: 0
+      person2:
+        age: 68
+        employment_income: 0
+        ia_ssa_dp_configuration: NONE
+      person3:
+        age: 10
+        employment_income: 0
+    marital_units:
+      first_marital_unit:
+        members: [person1, person2]
+      second_marital_unit:
+        members: [person3]
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: IA
+  output:
+    # person1 qualifies for DP supplement at 2025 standard $1,953 (AGED_OR_DISABLED_WITH_SPOUSE_AND_DEPENDENT)
+    # Standard - federal SSI - income; capped at $503/mo per person
+    ia_ssa_dp_supplement: [503, 0, 0]
+    # person1 category = DP
+    ia_ssa_category: [DP, NONE, NONE]

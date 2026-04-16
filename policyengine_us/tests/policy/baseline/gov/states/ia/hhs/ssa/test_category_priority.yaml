@@ -1,0 +1,76 @@
+# Verifies ia_ssa_category priority ordering:
+# RCF > IHHRC > FLH > DP > BLIND > SMME > NONE
+
+- name: Case 1, RCF resident who is also blind gets RCF category not BLIND.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 70
+        is_blind: true
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_resides_in_residential_care_facility: true
+        ia_ssa_rcf_cost_per_diem: 37.60
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # RCF outranks BLIND
+    ia_ssa_category: [RCF]
+
+- name: Case 2, FLH resident who is also blind gets FLH category not BLIND.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 40
+        is_blind: true
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_resides_in_family_life_home: true
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # FLH outranks BLIND
+    ia_ssa_category: [FLH]
+
+- name: Case 3, person with only Medicaid and Part B gets SMME category.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_has_full_medicaid: true
+        ia_ssa_has_medicare_part_b: true
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # No other category applies -> SMME (lowest priority above NONE)
+    ia_ssa_category: [SMME]
+
+- name: Case 4, person in no qualifying category gets NONE.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    ia_ssa_category: [NONE]

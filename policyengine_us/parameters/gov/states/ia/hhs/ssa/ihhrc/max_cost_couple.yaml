@@ -1,0 +1,14 @@
+description: Iowa limits the in-home health-related care supplement and countable income to this amount when both members of a couple need care under the State Supplementary Assistance program.
+
+values:
+  2017-07-01: 961.10
+
+metadata:
+  unit: currency-USD
+  period: month
+  label: Iowa SSA in-home health-related care maximum cost couple
+  reference:
+    - title: Iowa Administrative Code 441—177.4(1)(f)
+      href: https://www.legis.iowa.gov/docs/iac/chapter/01-07-2026.441.177.pdf#page=2
+    - title: Iowa Administrative Code 441—52.1(5)
+      href: https://www.legis.iowa.gov/docs/iac/chapter/01-07-2026.441.52.pdf#page=2

@@ -1,0 +1,64 @@
+# Verifies parameter transitions at 2026-01-01: FLH standard,
+# FLH personal needs allowance, RCF max per diem, RCF personal needs
+# allowance, DP standards, and DP max payment cap.
+
+- name: Case 1, RCF per diem rises from 37.60 to 38.47 dollars in 2026.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_resides_in_residential_care_facility: true
+        ia_ssa_rcf_cost_per_diem: 38.47
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # Cost of care = 31 * $38.47 = $1,192.57 (2026 rate)
+    # Client participation = federal SSI $994 - PNA $130 = $864
+    # Supplement = $1,192.57 - $864 = $328.57
+    ia_ssa_rcf_supplement: [328.57]
+
+- name: Case 2, DP maximum per-person cap rises from 503 to 518 dollars in 2026.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_dp_configuration: BLIND_WITH_BLIND_SPOUSE_AND_DEPENDENT
+        ia_ssa_dp_has_eligible_dependent: true
+        ia_ssa_dp_dependent_countable_income: 0
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # BLIND_WITH_BLIND_SPOUSE_AND_DEPENDENT standard rises to $2,053 in 2026
+    # but supplement is always capped at max per-person = $518
+    ia_ssa_dp_supplement: [518]
+
+- name: Case 3, blind supplement remains 22 dollars across 2025 to 2026.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 40
+        is_blind: true
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # Blind amount frozen at $22 (no 2026 change)
+    ia_ssa_blind_supplement: [22]

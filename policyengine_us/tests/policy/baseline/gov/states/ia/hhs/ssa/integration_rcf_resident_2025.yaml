@@ -1,0 +1,32 @@
+- name: Case 1, aged RCF resident in 2025 at max per diem 37.60 dollars.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        employment_income: 0
+        ia_ssa_resides_in_residential_care_facility: true
+        ia_ssa_rcf_cost_per_diem: 37.60
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # Cost of care = 31 * $37.60 = $1,165.60
+    # Client participation = federal SSI $967 - PNA $126 = $841
+    # Supplement = $1,165.60 - $841 = $324.60
+    is_ssi_eligible: [true]
+    ia_ssa_eligible: [true]
+    ia_ssa_rcf_supplement: [324.60]
+    ia_ssa_category: [RCF]
+    ia_ssa: [324.60]

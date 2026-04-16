@@ -1,0 +1,67 @@
+from policyengine_us.model_api import *
+
+
+class IASSACategory(Enum):
+    RCF = "Residential care facility"
+    IHHRC = "In-home health-related care"
+    FLH = "Family-life home"
+    DP = "Dependent person"
+    BLIND = "Blind"
+    SMME = "Supplement for Medicare and Medicaid eligibles"
+    NONE = "Not in an Iowa SSA category"
+
+
+class ia_ssa_category(Variable):
+    value_type = Enum
+    entity = Person
+    definition_period = MONTH
+    label = "Iowa SSA category"
+    possible_values = IASSACategory
+    default_value = IASSACategory.NONE
+    defined_for = StateCode.IA
+    reference = "https://www.legis.iowa.gov/docs/iac/chapter/01-07-2026.441.52.pdf"
+
+    def formula(person, period, parameters):
+        eligible = person("ia_ssa_eligible", period)
+        p = parameters(period).gov.states.ia.hhs.ssa
+        uncapped_ssi = person("uncapped_ssi", period)
+        income_after_ssi_disregards = max_(0, -uncapped_ssi)
+        federal_ssi = person("ssi", period)
+        total_rcf_income = income_after_ssi_disregards + federal_ssi
+        in_rcf = person("ia_ssa_resides_in_residential_care_facility", period)
+        client_participation = max_(
+            0, total_rcf_income - p.rcf.personal_needs_allowance
+        )
+        rcf_income_threshold = p.rcf.days_multiplier * p.rcf.max_per_diem
+        rcf_income_eligible = client_participation < rcf_income_threshold
+        needs_ihhrc = person("ia_ssa_needs_in_home_health_related_care", period)
+        both_need_care = person.marital_unit.sum(needs_ihhrc) == 2
+        ihhrc_income_cap = where(
+            both_need_care, p.ihhrc.max_cost_couple, p.ihhrc.max_cost_single
+        )
+        ihhrc_income_eligible = income_after_ssi_disregards <= ihhrc_income_cap
+        in_flh = person("ia_ssa_resides_in_family_life_home", period)
+        has_dependent = person("ia_ssa_dp_has_eligible_dependent", period)
+        dp_configuration = person("ia_ssa_dp_configuration", period)
+        in_dp = dp_configuration != dp_configuration.possible_values.NONE
+        is_blind = person("is_blind", period.this_year)
+        smme_eligible = person("ia_ssa_smme_eligible", period)
+        return select(
+            [
+                eligible & in_rcf & rcf_income_eligible,
+                eligible & needs_ihhrc & ihhrc_income_eligible,
+                eligible & in_flh,
+                eligible & has_dependent & in_dp,
+                eligible & is_blind,
+                eligible & smme_eligible,
+            ],
+            [
+                IASSACategory.RCF,
+                IASSACategory.IHHRC,
+                IASSACategory.FLH,
+                IASSACategory.DP,
+                IASSACategory.BLIND,
+                IASSACategory.SMME,
+            ],
+            default=IASSACategory.NONE,
+        )

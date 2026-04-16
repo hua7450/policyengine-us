@@ -1,0 +1,67 @@
+- name: Case 1, blind SSI-eligible adult receives flat 22 dollar supplement.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 40
+        is_blind: true
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    ia_ssa_blind_supplement: [22]
+
+- name: Case 2, non-blind person receives no blind supplement.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 70
+        is_blind: false
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    ia_ssa_blind_supplement: [0]
+
+- name: Case 3, blind person not SSI-eligible receives no supplement.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 40
+        is_blind: true
+        is_ssi_aged_blind_disabled: false
+        is_ssi_eligible: false
+        meets_ssi_resource_test: false
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    ia_ssa_blind_supplement: [0]
+
+- name: Case 4, blind person at 2026 still receives frozen 22 dollar supplement.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 40
+        is_blind: true
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    ia_ssa_blind_supplement: [22]

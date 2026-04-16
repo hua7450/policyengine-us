@@ -1,0 +1,131 @@
+- name: Case 1, RCF resident at 2025 max per diem net of client participation.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_resides_in_residential_care_facility: true
+        ia_ssa_rcf_cost_per_diem: 37.60
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # Cost of care = 31 * $37.60 = $1,165.60
+    # Client participation = federal SSI $967 - PNA $126 = $841
+    # Supplement = $1,165.60 - $841 = $324.60
+    ia_ssa_rcf_supplement: [324.60]
+
+- name: Case 2, RCF per diem above max is capped at 37.60 dollars per day.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_resides_in_residential_care_facility: true
+        ia_ssa_rcf_cost_per_diem: 50
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # Capped cost = 31 * $37.60 = $1,165.60; CP $841; supplement $324.60
+    ia_ssa_rcf_supplement: [324.60]
+
+- name: Case 3, person not in RCF receives zero supplement.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_resides_in_residential_care_facility: false
+        ia_ssa_rcf_cost_per_diem: 30
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    ia_ssa_rcf_supplement: [0]
+
+- name: Case 4, RCF resident at 2026 uses higher 38.47 dollar per diem.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_resides_in_residential_care_facility: true
+        ia_ssa_rcf_cost_per_diem: 38.47
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # Cost of care = 31 * $38.47 = $1,192.57
+    # Client participation = federal SSI $994 - PNA $130 = $864
+    # Supplement = $1,192.57 - $864 = $328.57
+    ia_ssa_rcf_supplement: [328.57]
+
+- name: Case 5, RCF resident with zero reported per diem receives zero.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_resides_in_residential_care_facility: true
+        ia_ssa_rcf_cost_per_diem: 0
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # cost_of_care = 0; max(0, 0 - client_participation) = 0
+    ia_ssa_rcf_supplement: [0]
+
+- name: Case 6, RCF resident with income above 31 times max per diem is ineligible.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        social_security_retirement: 30_000
+        ia_ssa_resides_in_residential_care_facility: true
+        ia_ssa_rcf_cost_per_diem: 37.60
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # SS $2,500/mo exceeds SSI FBR; client participation >
+    # 31 * $37.60 income limit -> not in RCF category -> no supplement
+    ia_ssa_rcf_supplement: [0]
