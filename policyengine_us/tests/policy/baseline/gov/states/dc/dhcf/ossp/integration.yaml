@@ -140,5 +140,5 @@
     dc_ossp_living_arrangement: [OS_A, NONE]
     # Person1: eligible, person2: ineligible (no facility)
     dc_ossp_eligible: [true, false]
-    # Person1 is married → couple rate $1,717/2 = $858.50
-    dc_ossp: [858.50, 0]
+    # Spouse not OSSP-eligible → individual rate $681
+    dc_ossp: [681, 0]

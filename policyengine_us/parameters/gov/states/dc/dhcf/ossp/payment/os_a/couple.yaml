@@ -1,8 +1,10 @@
 description: The District of Columbia provides this amount as the monthly state supplementation for a couple in a small adult foster care home under the Optional State Supplemental Payment program.
-# 2026: combined $3,208 - federal SSI couple FBR $1,491 = $1,717
-# 2011: from SSA report "State supplementation" column
 values:
   2011-01-01: 1_307
+  2018-01-01: 1_636
+  2023-01-01: 1_636
+  2024-01-01: 1_704.32
+  2025-01-01: 1_711
   2026-01-01: 1_717
 
 metadata:
@@ -14,5 +16,13 @@ metadata:
       href: https://code.dccouncil.gov/us/dc/council/code/sections/4-205.49
     - title: SSA State Assistance Programs for SSI Recipients, January 2011 - District of Columbia Table 1
       href: https://www.ssa.gov/policy/docs/progdesc/ssi_st_asst/2011/dc.pdf#page=1
-    - title: SSA Publication No. 05-11162 - SSI in the District of Columbia, January 2026
-      href: https://www.ssa.gov/pubs/EN-05-11162.pdf#page=2
+    - title: SSA POMS SI 01415.050 - Coding and Monthly Payment Levels for the District of Columbia, January 2018
+      href: https://secure.ssa.gov/apps10/poms.nsf/lnx/0501415050#d
+    - title: SSA POMS SI 01415.055 - Coding and Monthly Payment Levels for the District of Columbia, January 2023
+      href: https://secure.ssa.gov/apps10/poms.nsf/lnx/0501415055
+    - title: SSA POMS SI 01415.056 - Coding and Monthly Payment Levels for the District of Columbia, January 2024
+      href: https://secure.ssa.gov/poms.nsf/lnx/0501415056#d
+    - title: SSA POMS SI 01415.057 - Coding and Monthly Payment Levels for the District of Columbia, January 2025
+      href: https://secure.ssa.gov/apps10/poms.Nsf/lnx/0501415057#d
+    - title: SSA POMS SI 01415.058 - Coding and Monthly Payment Levels for the District of Columbia, January 2026
+      href: https://secure.ssa.gov/apps10/poms.nsf/lnx/0501415058#d

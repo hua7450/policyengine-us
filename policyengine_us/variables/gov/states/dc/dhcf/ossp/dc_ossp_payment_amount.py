@@ -18,19 +18,28 @@ class dc_ossp_payment_amount(Variable):
 
     def formula(person, period, parameters):
         living_arrangement = person("dc_ossp_living_arrangement", period)
-        is_married = person.family("is_married", period.this_year)
+        eligible = person("dc_ossp_eligible", period)
+        joint_claim = person("ssi_claim_is_joint", period.this_year)
+        both_eligible = person.marital_unit.sum(eligible) == 2
+        # Couple rate requires joint SSI claim, both spouses OSSP-eligible,
+        # and both in the same arrangement category.
+        is_os_a = living_arrangement == DCOSSPLivingArrangement.OS_A
+        is_os_b = living_arrangement == DCOSSPLivingArrangement.OS_B
+        is_os_g = living_arrangement == DCOSSPLivingArrangement.OS_G
+        both_same = (
+            (person.marital_unit.sum(is_os_a) == 2)
+            | (person.marital_unit.sum(is_os_b) == 2)
+            | (person.marital_unit.sum(is_os_g) == 2)
+        )
+        is_couple = joint_claim & both_eligible & both_same
         p = parameters(period).gov.states.dc.dhcf.ossp.payment
 
-        os_a = where(is_married, p.os_a.couple / 2, p.os_a.individual)
-        os_b = where(is_married, p.os_b.couple / 2, p.os_b.individual)
-        os_g = where(is_married, p.os_g.couple / 2, p.os_g.individual)
+        os_a = where(is_couple, p.os_a.couple / 2, p.os_a.individual)
+        os_b = where(is_couple, p.os_b.couple / 2, p.os_b.individual)
+        os_g = where(is_couple, p.os_g.couple / 2, p.os_g.individual)
 
         return select(
-            [
-                living_arrangement == DCOSSPLivingArrangement.OS_A,
-                living_arrangement == DCOSSPLivingArrangement.OS_B,
-                living_arrangement == DCOSSPLivingArrangement.OS_G,
-            ],
+            [is_os_a, is_os_b, is_os_g],
             [os_a, os_b, os_g],
             default=0,
         )
