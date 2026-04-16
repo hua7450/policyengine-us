@@ -1,0 +1,88 @@
+- name: Case 1, PCH resident receives PCH personal needs allowance.
+  period: 2026
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+    households:
+      household:
+        members: [person1]
+        state_code: KY
+        ky_ssp_category: PCH
+  output:
+    # PCH PNA = $60/mo * 12 = $720/yr
+    ky_ssp_personal_needs_allowance: [720]
+
+- name: Case 2, FCH resident receives FCH personal needs allowance.
+  period: 2026
+  input:
+    people:
+      person1:
+        age: 65
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+    households:
+      household:
+        members: [person1]
+        state_code: KY
+        ky_ssp_category: FCH
+  output:
+    # FCH PNA = $40/mo * 12 = $480/yr
+    ky_ssp_personal_needs_allowance: [480]
+
+- name: Case 3, CIS resident receives no personal needs allowance.
+  period: 2026
+  input:
+    people:
+      person1:
+        age: 50
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+    households:
+      household:
+        members: [person1]
+        state_code: KY
+        ky_ssp_category: CIS
+  output:
+    # CIS category => no PNA applies
+    ky_ssp_personal_needs_allowance: [0]
+
+- name: Case 4, Caretaker resident receives no personal needs allowance.
+  period: 2026
+  input:
+    people:
+      person1:
+        age: 40
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+    households:
+      household:
+        members: [person1]
+        state_code: KY
+        ky_ssp_category: CARETAKER
+  output:
+    # CARETAKER category => no PNA applies
+    ky_ssp_personal_needs_allowance: [0]
+
+- name: Case 5, NONE category receives no personal needs allowance.
+  period: 2026
+  input:
+    people:
+      person1:
+        age: 30
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+    households:
+      household:
+        members: [person1]
+        state_code: KY
+        ky_ssp_category: NONE
+  output:
+    ky_ssp_personal_needs_allowance: [0]

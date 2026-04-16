@@ -1,0 +1,475 @@
+- name: Case 1, single aged individual in PCH with only SSI receives full supplement.
+  period: 2026
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_aged: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ssi_countable_income: 0
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: KY
+        ky_ssp_category: PCH
+  output:
+    # Eligibility: is_ssi_eligible=true, category=PCH (not NONE) => eligible
+    ky_ssp_eligible: [true]
+    # Not joint, no deeming => INDIVIDUAL
+    ky_ssp_claim_type: [INDIVIDUAL]
+    # Payment standard: PCH.INDIVIDUAL.ONE = $1,610/mo * 12 = $19,320/yr
+    ky_ssp_payment_standard: [19_320]
+    # 2026 individual FBR = $994/mo * 12 = $11,928/yr
+    # uncapped_ssi = 11_928 - 0 = 11_928 (positive, no reduction)
+    # ky_ssp = max(0, 19_320 - 0) * eligible(1) = $19,320/yr
+    ky_ssp: [19_320]
+    ssi: [11_928]
+
+- name: Case 2, single blind individual in CIS with other unearned income.
+  period: 2026
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 45
+        is_ssi_aged_blind_disabled: true
+        is_blind: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        # $500/mo unearned => $6,000/yr. After general $20/mo ($240/yr)
+        # exclusion, countable unearned = $5,760/yr.
+        ssi_countable_income: 5_760
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: KY
+        ky_ssp_category: CIS
+  output:
+    ky_ssp_eligible: [true]
+    ky_ssp_claim_type: [INDIVIDUAL]
+    # CIS.INDIVIDUAL.ONE = $1,514/mo * 12 = $18,168/yr
+    ky_ssp_payment_standard: [18_168]
+    # ssi_amount_if_eligible = $11,928/yr
+    # uncapped_ssi = 11_928 - 5_760 = 6_168 (positive, no reduction)
+    # income_excess = max(0, -6_168) = 0
+    # ky_ssp = max(0, 18_168 - 0) * 1 = $18,168/yr
+    ky_ssp: [18_168]
+
+- name: Case 3, single disabled individual in FCH with zero income.
+  period: 2026
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 55
+        is_ssi_aged_blind_disabled: true
+        is_ssi_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ssi_countable_income: 0
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: KY
+        ky_ssp_category: FCH
+  output:
+    ky_ssp_eligible: [true]
+    ky_ssp_claim_type: [INDIVIDUAL]
+    # FCH.INDIVIDUAL.ONE = $1,166/mo * 12 = $13,992/yr
+    ky_ssp_payment_standard: [13_992]
+    # uncapped_ssi = 11_928 - 0 = 11_928 (positive)
+    # ky_ssp = max(0, 13_992 - 0) * 1 = $13,992/yr
+    ky_ssp: [13_992]
+    ssi: [11_928]
+
+- name: Case 4, individual caretaker with only SSI receives Caretaker individual rate.
+  period: 2026
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 50
+        is_ssi_aged_blind_disabled: true
+        is_ssi_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ssi_countable_income: 0
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: KY
+        ky_ssp_category: CARETAKER
+  output:
+    ky_ssp_eligible: [true]
+    ky_ssp_claim_type: [INDIVIDUAL]
+    # CARETAKER.INDIVIDUAL.ONE = $1,056/mo * 12 = $12,672/yr
+    ky_ssp_payment_standard: [12_672]
+    # uncapped_ssi = 11_928 - 0 = 11_928 (positive)
+    # ky_ssp = max(0, 12_672 - 0) * 1 = $12,672/yr
+    ky_ssp: [12_672]
+
+- name: Case 5, couple both eligible in Caretaker, both receive care.
+  period: 2026
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 68
+        is_ssi_aged_blind_disabled: true
+        is_ssi_aged: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ssi_claim_is_joint: true
+        ssi_countable_income: 0
+      person2:
+        age: 67
+        is_ssi_aged_blind_disabled: true
+        is_ssi_aged: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ssi_claim_is_joint: true
+        ssi_countable_income: 0
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: KY
+        ky_ssp_category: CARETAKER
+        ky_ssp_care_receivers: BOTH
+  output:
+    ky_ssp_eligible: [true, true]
+    ky_ssp_claim_type: [COUPLE_BOTH_ELIGIBLE, COUPLE_BOTH_ELIGIBLE]
+    # CARETAKER.COUPLE_BOTH_ELIGIBLE.BOTH parameter = $1,606/mo couple total
+    # Per-person standard = $1,606 / 2 = $803/mo * 12 = $9,636/yr
+    ky_ssp_payment_standard: [9_636, 9_636]
+    # Each person: supplement = max(0, 9_636 - 0) * 1 = 9_636
+    # Joint path: marital_unit.sum(9_636 + 9_636) / 2 = 9_636 per person
+    # Combined: 9_636 + 9_636 = $19,272/yr = $1,606/mo (matches CHFS standard)
+    ky_ssp: [9_636, 9_636]
+
+- name: Case 6, couple both eligible in Caretaker, one receives care.
+  period: 2026
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 68
+        is_ssi_aged_blind_disabled: true
+        is_ssi_aged: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ssi_claim_is_joint: true
+        ssi_countable_income: 0
+      person2:
+        age: 67
+        is_ssi_aged_blind_disabled: true
+        is_ssi_aged: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ssi_claim_is_joint: true
+        ssi_countable_income: 0
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: KY
+        ky_ssp_category: CARETAKER
+        ky_ssp_care_receivers: ONE
+  output:
+    ky_ssp_eligible: [true, true]
+    ky_ssp_claim_type: [COUPLE_BOTH_ELIGIBLE, COUPLE_BOTH_ELIGIBLE]
+    # CARETAKER.COUPLE_BOTH_ELIGIBLE.ONE parameter = $1,552/mo couple total
+    # Per-person standard = $1,552 / 2 = $776/mo * 12 = $9,312/yr
+    ky_ssp_payment_standard: [9_312, 9_312]
+    # Joint path: marital_unit.sum(9_312 + 9_312) / 2 = 9_312 per person
+    # Combined: $18,624/yr = $1,552/mo (matches CHFS standard)
+    ky_ssp: [9_312, 9_312]
+
+- name: Case 7, non-Kentucky resident gets zero SSP.
+  period: 2026
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_aged: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ssi_countable_income: 0
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: TN
+  output:
+    # defined_for = StateCode.KY => TN resident gets 0
+    ky_ssp: [0]
+
+- name: Case 8, PCH individual with large income excess floors benefit at zero.
+  period: 2026
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_aged: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        # ssi_amount_if_eligible = $11,928/yr
+        # For supplement=0: need income_excess >= 19_320
+        # => countable_income >= 11_928 + 19_320 = 31_248
+        ssi_countable_income: 35_000
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: KY
+        ky_ssp_category: PCH
+  output:
+    # NOTE: uncapped_ssi = 11_928 - 35_000 = -23_072 (< 0)
+    # receives_ssi (uncapped_ssi > 0) = false => not eligible (income too high)
+    ky_ssp_eligible: [false]
+    ky_ssp_claim_type: [INDIVIDUAL]
+    ky_ssp_payment_standard: [19_320]
+    # supplement = max(0, 19_320 - 23_072) * eligible(0) = 0
+    ky_ssp: [0]
+
+- name: Case 9, SSI-eligible adult with NONE category gets zero benefit end-to-end.
+  period: 2026
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_aged: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ssi_countable_income: 0
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: KY
+        ky_ssp_category: NONE
+  output:
+    # Category NONE gate => not eligible
+    ky_ssp_eligible: [false]
+    # Payment standard from NONE parameter row = 0
+    ky_ssp_payment_standard: [0]
+    ky_ssp: [0]
+    # Federal SSI still flows normally
+    ssi: [11_928]
+
+- name: Case 10, non-KY resident in PCH gets zero SSP via defined_for.
+  period: 2026
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_aged: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ssi_countable_income: 0
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: VA
+        ky_ssp_category: PCH
+  output:
+    # defined_for = StateCode.KY => non-KY resident filtered to 0 for all vars
+    ky_ssp_eligible: [false]
+    ky_ssp_payment_standard: [0]
+    ky_ssp: [0]
+
+- name: Case 11, income exactly at payment standard boundary leaves zero supplement.
+  period: 2026
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_aged: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        # For income_excess = 19_320 (the PCH standard):
+        # countable_income = 11_928 + 19_320 = 31_248
+        # uncapped_ssi = 11_928 - 31_248 = -19_320
+        ssi_countable_income: 31_248
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: KY
+        ky_ssp_category: PCH
+  output:
+    # uncapped_ssi < 0 => receives_ssi = false => not eligible
+    ky_ssp_eligible: [false]
+    ky_ssp_payment_standard: [19_320]
+    ky_ssp: [0]
+
+- name: Case 12, asymmetric couple in Caretaker, one eligible, one not.
+  period: 2026
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 68
+        is_ssi_aged_blind_disabled: true
+        is_ssi_aged: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ssi_countable_income: 0
+        ssi_claim_is_joint: false
+      person2:
+        age: 66
+        is_ssi_aged_blind_disabled: false
+        is_ssi_eligible: false
+        ssi_claim_is_joint: false
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: KY
+        ky_ssp_category: CARETAKER
+  output:
+    # person1: ABD + not joint + marital_unit size 2 => COUPLE_ONE_ELIGIBLE
+    # person2: not ABD => INDIVIDUAL
+    ky_ssp_claim_type: [COUPLE_ONE_ELIGIBLE, INDIVIDUAL]
+    # person1: eligible; person2: not SSI-eligible => not SSP-eligible
+    ky_ssp_eligible: [true, false]
+    # person1 uses COUPLE_ONE_ELIGIBLE row (individual rate, no split)
+    # CARETAKER.COUPLE_ONE_ELIGIBLE.ONE = $1,056/mo * 12 = $12,672/yr
+    # person2 (INDIVIDUAL): CARETAKER.INDIVIDUAL.ONE = $12,672/yr
+    ky_ssp_payment_standard: [12_672, 12_672]
+    # Not joint => individual path (no marital_unit sum/2 halving)
+    # person1: max(0, 12_672 - 0) * eligible(1) = 12_672
+    # person2: max(0, 12_672 - 0) * eligible(0) = 0
+    ky_ssp: [12_672, 0]
+
+- name: Case 13, large family in Caretaker — only SSI-eligible member gets supplement.
+  period: 2026
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 45
+        is_ssi_aged_blind_disabled: true
+        is_ssi_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ssi_countable_income: 0
+      person2:
+        age: 44
+        is_ssi_eligible: false
+      person3:
+        age: 12
+        is_ssi_eligible: false
+      person4:
+        age: 8
+        is_ssi_eligible: false
+      person5:
+        age: 4
+        is_ssi_eligible: false
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3, person4, person5]
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3, person4, person5]
+    households:
+      household:
+        members: [person1, person2, person3, person4, person5]
+        state_code: KY
+        ky_ssp_category: CARETAKER
+  output:
+    # Only person1 is SSI-eligible => only person1 gets SSP
+    ky_ssp_eligible: [true, false, false, false, false]
+    # person1: COUPLE_ONE_ELIGIBLE (ABD, not joint, marital_unit size 2)
+    # => individual rate $1,056/mo * 12 = $12,672/yr
+    ky_ssp: [12_672, 0, 0, 0, 0]

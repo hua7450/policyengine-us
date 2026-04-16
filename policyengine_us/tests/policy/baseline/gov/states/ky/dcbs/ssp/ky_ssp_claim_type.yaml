@@ -1,0 +1,53 @@
+- name: Case 1, individual not in joint claim and no spousal deeming.
+  period: 2026
+  input:
+    state_code: KY
+    ssi_claim_is_joint: false
+    is_ssi_spousal_deeming_applies: false
+  output:
+    ky_ssp_claim_type: INDIVIDUAL
+
+- name: Case 2, couple both eligible with joint claim.
+  period: 2026
+  input:
+    state_code: KY
+    ssi_claim_is_joint: true
+    is_ssi_spousal_deeming_applies: false
+  output:
+    ky_ssp_claim_type: COUPLE_BOTH_ELIGIBLE
+
+- name: Case 3, couple one eligible with ineligible spouse.
+  period: 2026
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        ssi_claim_is_joint: false
+        is_ssi_spousal_deeming_applies: true
+      person2:
+        age: 68
+        is_ssi_aged_blind_disabled: false
+        is_ssi_eligible: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: KY
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
+  output:
+    # person1: ABD + not joint + marital unit size 2 => COUPLE_ONE_ELIGIBLE
+    # person2: not ABD + not joint => INDIVIDUAL
+    ky_ssp_claim_type: [COUPLE_ONE_ELIGIBLE, INDIVIDUAL]
+
+- name: Case 4, joint claim takes priority over deeming in select.
+  period: 2026
+  input:
+    state_code: KY
+    ssi_claim_is_joint: true
+    is_ssi_spousal_deeming_applies: true
+  output:
+    # joint_claim checked first in select => COUPLE_BOTH_ELIGIBLE
+    ky_ssp_claim_type: COUPLE_BOTH_ELIGIBLE
