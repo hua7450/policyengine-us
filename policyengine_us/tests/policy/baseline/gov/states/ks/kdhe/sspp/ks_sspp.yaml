@@ -1,4 +1,4 @@
-- name: Case 1, eligible institutional SSI recipient gets $20.
+- name: Case 1, eligible institutional SSI recipient gets $32.
   period: 2025-01
   input:
     people:
@@ -11,8 +11,8 @@
         members: [person1]
         state_code: KS
   output:
-    ks_sspp_eligible: [true]
-    ks_sspp: [20]
+    ks_sspp_eligible: true
+    ks_sspp: 32
 
 - name: Case 2, not in medical facility ineligible.
   period: 2025-01
@@ -26,8 +26,8 @@
         members: [person1]
         state_code: KS
   output:
-    ks_sspp_eligible: [false]
-    ks_sspp: [0]
+    ks_sspp_eligible: false
+    ks_sspp: 0
 
 - name: Case 3, under 18 ineligible.
   period: 2025-01
@@ -42,8 +42,8 @@
         members: [person1]
         state_code: KS
   output:
-    ks_sspp_eligible: [false]
-    ks_sspp: [0]
+    ks_sspp_eligible: false
+    ks_sspp: 0
 
 - name: Case 4, non-Kansas resident ineligible.
   period: 2025-01
@@ -58,7 +58,7 @@
         members: [person1]
         state_code: CA
   output:
-    ks_sspp: [0]
+    ks_sspp: 0
 
 - name: Case 5, in facility but Medicaid does not pay majority ineligible.
   period: 2025-01
@@ -74,5 +74,5 @@
         state_code: KS
   output:
     # FLA is not MEDICAL_TREATMENT_FACILITY without Medicaid paying majority
-    ks_sspp_eligible: [false]
-    ks_sspp: [0]
+    ks_sspp_eligible: false
+    ks_sspp: 0
