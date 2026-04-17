@@ -1,3 +1,10 @@
+## [1.646.1] - 2026-04-17
+
+### Fixed
+
+- Fix seven more parameter breakdown ranges (SNAP max allotment, SNAP utility deductions, ND TANF standard of need) where the second breakdown dimension excluded existing children. Surfaced by core 3.24.0's stricter validator.
+
+
 ## [1.646.0] - 2026-04-17
 
 ### Added
