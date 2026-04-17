@@ -1,3 +1,11 @@
+## [1.646.3] - 2026-04-17
+
+### Fixed
+
+- Gate aca_ptc on tax_unit_is_filer so non-filers receive zero per IRC 36B(a).
+- Fall back to the county-level slcsp_rating_area_default when the LA County zip-code lookup returns 0, so LA households without a three_digit_zip_code still receive a valid ACA PTC.
+
+
 ## [1.646.2] - 2026-04-17
 
 ### Fixed
