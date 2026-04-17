@@ -1,3 +1,24 @@
+## [1.640.0] - 2026-04-17
+
+### Added
+
+- Add Texas Comprehensive Energy Assistance Program (CEAP) with FY 2024 and FY 2025 benefit amounts.
+- Added a Medicare Part D IRMAA surcharge variable with filing-status-specific parameter ladders and baseline policy tests.
+
+### Changed
+
+- Add employee-side local income and occupational taxes for Philadelphia, Kansas City, St. Louis, and Colorado occupational privilege jurisdictions, wiring them into household net income.
+- Migrate `spm_unit_spm_threshold` to use the `spm-calculator` package. The variable is no longer a plain CPI-U-uprated input: for years beyond the dataset's base year it now recomputes as `current_base × current_equivalence_scale × (prior_threshold / (prior_base × prior_equivalence_scale))`, so composition and tenure changes flow through while each unit's implied geographic adjustment is preserved. Base reference thresholds (2015–2024) and the Betson three-parameter equivalence scale come from `spm-calculator`; post-2024 uprating continues to use PolicyEngine's `gov.bls.cpi.cpi_u` parameter for consistency with other indexed values. Baseline 2025/2026 national child SPM poverty is unchanged (21.0%). Adds `spm-calculator>=0.2.0` as a runtime dependency.
+
+### Fixed
+
+- Use `hourly_wage` when calculating `fsla_overtime_premium` for hourly workers, while keeping the prior earnings-based fallback when no hourly wage is available.
+- Validate extracted census archive paths before unpacking downloaded state block archives.
+- Add a Delaware TAXSIM 745 regression that checks the final income tax after cross-spouse loss offsets.
+- Set `household_weight` to default to `1` when not provided.
+- Avoid formula warnings in North Carolina TANF, Pennsylvania TANF, and Vermont military retirement exemption calculations.
+
+
 ## [1.639.2] - 2026-04-17
 
 ### Fixed
