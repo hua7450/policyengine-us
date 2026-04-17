@@ -1,3 +1,13 @@
+## [1.650.0] - 2026-04-17
+
+### Added
+
+- Add decomposed marginal tax rate variables: federal_marginal_tax_rate, state_marginal_tax_rate, and fica_marginal_tax_rate.
+- Added Idaho Aid to the Aged, Blind, and Disabled (AABD) cash assistance program.
+- Add New Jersey Child Care Assistance Program (CCAP).
+- Added a contributed Minnesota HF4890 reform with income tax rate schedules by filing status.
+
+
 ## [1.649.1] - 2026-04-17
 
 ### Fixed
