@@ -1,0 +1,222 @@
+# Verifies ia_ssa_category priority ordering:
+# RCF > IHHRC > FLH > DP > BLIND > SMME > NONE
+
+- name: Case 1, RCF resident who is also blind gets RCF category not BLIND.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 70
+        is_blind: true
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_resides_in_residential_care_facility: true
+        ia_ssa_rcf_cost_per_diem: 37.60
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # RCF outranks BLIND
+    ia_ssa_category: [RCF]
+
+- name: Case 2, FLH resident who is also blind gets FLH category not BLIND.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 40
+        is_blind: true
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_resides_in_family_life_home: true
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # FLH outranks BLIND
+    ia_ssa_category: [FLH]
+
+- name: Case 3, person with only Medicaid and Part B gets SMME category.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_has_full_medicaid: true
+        ia_ssa_has_medicare_part_b: true
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # No other category applies -> SMME (lowest priority above NONE)
+    ia_ssa_category: [SMME]
+
+- name: Case 4, person in no qualifying category gets NONE.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        # Override federal medicare/medicaid defaults to exclude from SMME
+        ia_ssa_has_medicare_part_b: false
+        ia_ssa_has_full_medicaid: false
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    ia_ssa_category: [NONE]
+
+- name: Case 5, FLH resident who also needs IHHRC gets FLH (IAC 441-177.4(1)(c) own-home rule).
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_resides_in_family_life_home: true
+        ia_ssa_needs_in_home_health_related_care: true
+        ia_ssa_ihhrc_cost_of_care: 400
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # IHHRC requires living in own home; FLH resident fails that check -> FLH wins
+    ia_ssa_category: [FLH]
+
+- name: Case 6, person needing IHHRC who is also blind gets IHHRC not BLIND.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 40
+        is_blind: true
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_needs_in_home_health_related_care: true
+        ia_ssa_ihhrc_cost_of_care: 400
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # IHHRC outranks BLIND
+    ia_ssa_category: [IHHRC]
+
+- name: Case 7, person needing IHHRC with DP configuration gets IHHRC not DP.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_needs_in_home_health_related_care: true
+        ia_ssa_ihhrc_cost_of_care: 400
+        ia_ssa_dp_configuration: AGED_OR_DISABLED_WITH_DEPENDENT
+        ia_ssa_dp_has_eligible_dependent: true
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # IHHRC outranks DP
+    ia_ssa_category: [IHHRC]
+
+- name: Case 8, person with DP configuration who is also blind gets DP not BLIND.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 40
+        is_blind: true
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_dp_configuration: BLIND_WITH_DEPENDENT
+        ia_ssa_dp_has_eligible_dependent: true
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # DP outranks BLIND
+    ia_ssa_category: [DP]
+
+- name: Case 9, blind person also SMME eligible gets BLIND not SMME.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 70
+        is_blind: true
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_has_full_medicaid: true
+        ia_ssa_has_medicare_part_b: true
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # BLIND outranks SMME
+    ia_ssa_category: [BLIND]
+
+- name: Case 10, DP-configured person also SMME eligible gets DP not SMME.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_dp_configuration: AGED_OR_DISABLED_WITH_DEPENDENT
+        ia_ssa_dp_has_eligible_dependent: true
+        ia_ssa_has_full_medicaid: true
+        ia_ssa_has_medicare_part_b: true
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # DP outranks SMME
+    ia_ssa_category: [DP]
+
+- name: Case 11, person needing IHHRC also SMME eligible gets IHHRC not SMME.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_needs_in_home_health_related_care: true
+        ia_ssa_ihhrc_cost_of_care: 400
+        ia_ssa_has_full_medicaid: true
+        ia_ssa_has_medicare_part_b: true
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # IHHRC outranks SMME
+    ia_ssa_category: [IHHRC]

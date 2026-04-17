@@ -1,0 +1,82 @@
+- name: Case 1, single person with resources at 2,000 limit is eligible.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 70
+        ssi_countable_resources: 2_000
+        ssi_claim_is_joint: false
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    ia_ssa_resources_eligible: [true]
+
+- name: Case 2, single person with resources 1 dollar above 2,000 limit is ineligible.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 70
+        ssi_countable_resources: 2_001
+        ssi_claim_is_joint: false
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    ia_ssa_resources_eligible: [false]
+
+- name: Case 3, single person with resources 1,500 dollars is eligible.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 70
+        ssi_countable_resources: 1_500
+        ssi_claim_is_joint: false
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    ia_ssa_resources_eligible: [true]
+
+- name: Case 4, joint SSI couple at 3,000 limit is eligible.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 70
+        ssi_countable_resources: 3_000
+        ssi_claim_is_joint: true
+      person2:
+        age: 68
+        ssi_countable_resources: 3_000
+        ssi_claim_is_joint: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IA
+  output:
+    ia_ssa_resources_eligible: [true, true]
+
+- name: Case 5, joint SSI couple 1 dollar above 3,000 limit is ineligible.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 70
+        ssi_countable_resources: 3_001
+        ssi_claim_is_joint: true
+      person2:
+        age: 68
+        ssi_countable_resources: 3_001
+        ssi_claim_is_joint: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IA
+  output:
+    ia_ssa_resources_eligible: [false, false]

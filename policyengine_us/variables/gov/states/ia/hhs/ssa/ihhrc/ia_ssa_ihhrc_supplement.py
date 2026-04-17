@@ -17,12 +17,7 @@ class ia_ssa_ihhrc_supplement(Variable):
         in_category = category == category.possible_values.IHHRC
         p = parameters(period).gov.states.ia.hhs.ssa
         cost = person("ia_ssa_ihhrc_cost_of_care", period)
-        both_need_care = (
-            person.marital_unit.sum(
-                person("ia_ssa_needs_in_home_health_related_care", period)
-            )
-            == 2
-        )
+        both_need_care = person("ia_ssa_ihhrc_both_need_care", period)
         max_cost = where(
             both_need_care,
             p.ihhrc.max_cost_couple,

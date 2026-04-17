@@ -23,7 +23,7 @@ BLIND_WITH_DEPENDENT:
   2026-01-01: 1_534
 BLIND_WITH_AGED_OR_DISABLED_SPOUSE_AND_DEPENDENT:
   2017-07-01: 1_975
-  # 2026 value as published by Iowa HHS — 53% increase vs 2025 $1,975 looks like possible typo; requires verification against Iowa HHS bulletin.
+  # Verified against Iowa HHS SSA payment standards page (hhs.iowa.gov/assistance-programs/state-supplementary-assistance): the 2026 value is $3,031, a ~53% jump over the 2017 baseline. Anomalous vs other configurations' ~2.85% COLA but published as stated.
   2026-01-01: 3_031
 BLIND_WITH_BLIND_SPOUSE_AND_DEPENDENT:
   2017-07-01: 1_997

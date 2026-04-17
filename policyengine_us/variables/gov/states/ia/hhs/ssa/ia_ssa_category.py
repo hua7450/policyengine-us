@@ -35,12 +35,15 @@ class ia_ssa_category(Variable):
         rcf_income_threshold = p.rcf.days_multiplier * p.rcf.max_per_diem
         rcf_income_eligible = client_participation < rcf_income_threshold
         needs_ihhrc = person("ia_ssa_needs_in_home_health_related_care", period)
-        both_need_care = person.marital_unit.sum(needs_ihhrc) == 2
+        both_need_care = person("ia_ssa_ihhrc_both_need_care", period)
         ihhrc_income_cap = where(
             both_need_care, p.ihhrc.max_cost_couple, p.ihhrc.max_cost_single
         )
         ihhrc_income_eligible = income_after_ssi_disregards <= ihhrc_income_cap
         in_flh = person("ia_ssa_resides_in_family_life_home", period)
+        # IAC 441—177.4(1)(c): IHHRC recipients must live in their own home,
+        # so exclude those residing in an RCF or family-life home.
+        in_own_home = ~in_rcf & ~in_flh
         has_dependent = person("ia_ssa_dp_has_eligible_dependent", period)
         dp_configuration = person("ia_ssa_dp_configuration", period)
         in_dp = dp_configuration != dp_configuration.possible_values.NONE
@@ -49,7 +52,7 @@ class ia_ssa_category(Variable):
         return select(
             [
                 eligible & in_rcf & rcf_income_eligible,
-                eligible & needs_ihhrc & ihhrc_income_eligible,
+                eligible & needs_ihhrc & in_own_home & ihhrc_income_eligible,
                 eligible & in_flh,
                 eligible & has_dependent & in_dp,
                 eligible & is_blind,

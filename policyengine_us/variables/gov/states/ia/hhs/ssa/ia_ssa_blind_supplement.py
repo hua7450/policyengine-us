@@ -6,10 +6,11 @@ class ia_ssa_blind_supplement(Variable):
     entity = Person
     definition_period = MONTH
     label = "Iowa SSA blind supplement"
+    documentation = "Iowa SSA blind supplement. Per IAC 441—52.1(4), a blind recipient receives this supplement only if they are not receiving another type of state supplementary assistance; this is enforced via ia_ssa_category returning BLIND only when no higher-priority category applies."
     unit = USD
     defined_for = StateCode.IA
     reference = (
-        "https://www.legis.iowa.gov/docs/iac/chapter/01-07-2026.441.52.pdf#page=1"
+        "https://www.legis.iowa.gov/docs/iac/chapter/01-07-2026.441.52.pdf#page=2"
     )
 
     def formula(person, period, parameters):

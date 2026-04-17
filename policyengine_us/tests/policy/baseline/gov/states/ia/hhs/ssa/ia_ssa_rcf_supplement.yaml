@@ -99,7 +99,71 @@
     # cost_of_care = 0; max(0, 0 - client_participation) = 0
     ia_ssa_rcf_supplement: [0]
 
-- name: Case 6, RCF resident with income above 31 times max per diem is ineligible.
+- name: Case 6, aged RCF resident in 2025 integration (federal SSI plus state SSA).
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        employment_income: 0
+        ia_ssa_resides_in_residential_care_facility: true
+        ia_ssa_rcf_cost_per_diem: 37.60
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # Federal SSI fills to 2025 FBR $967; RCF supplement = 31 * $37.60 - ($967 - $126) = $324.60
+    is_ssi_eligible: [true]
+    ia_ssa_eligible: [true]
+    ia_ssa_category: [RCF]
+    ssi: [967]
+    ia_ssa_rcf_supplement: [324.60]
+    ia_ssa: [324.60]
+
+- name: Case 7, aged RCF resident in 2026 integration at new 38.47 dollar per diem.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        employment_income: 0
+        ia_ssa_resides_in_residential_care_facility: true
+        ia_ssa_rcf_cost_per_diem: 38.47
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # Federal SSI fills to 2026 FBR $994; RCF supplement = 31 * $38.47 - ($994 - $130) = $328.57
+    is_ssi_eligible: [true]
+    ia_ssa_eligible: [true]
+    ia_ssa_category: [RCF]
+    ssi: [994]
+    ia_ssa_rcf_supplement: [328.57]
+    ia_ssa: [328.57]
+
+- name: Case 8, RCF resident with income above 31 times max per diem is ineligible.
   period: 2025-01
   absolute_error_margin: 0.01
   input:

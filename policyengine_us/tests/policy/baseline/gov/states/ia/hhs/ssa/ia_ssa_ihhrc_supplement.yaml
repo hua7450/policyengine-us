@@ -54,15 +54,15 @@
   output:
     ia_ssa_ihhrc_supplement: [0]
 
-- name: Case 4, person needing IHHRC but not SSI-eligible receives zero.
+- name: Case 4, person needing IHHRC with excess resources receives zero.
   period: 2025-01
   input:
     people:
       person1:
-        age: 30
-        is_ssi_aged_blind_disabled: false
-        is_ssi_eligible: false
-        meets_ssi_resource_test: false
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        ssi_countable_resources: 5_000
         ia_ssa_needs_in_home_health_related_care: true
         ia_ssa_ihhrc_cost_of_care: 400
     households:
@@ -70,9 +70,103 @@
         members: [person1]
         state_code: IA
   output:
+    # Resources $5,000 > single limit $2,000 -> ia_ssa_resources_eligible false
+    ia_ssa_eligible: [false]
     ia_ssa_ihhrc_supplement: [0]
 
-- name: Case 5, person with countable income above 480.55 single limit is ineligible.
+- name: Case 5, couple both needing IHHRC use couple cap 961.10 dollars.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_needs_in_home_health_related_care: true
+        ia_ssa_ihhrc_cost_of_care: 900
+      person2:
+        age: 68
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_needs_in_home_health_related_care: true
+        ia_ssa_ihhrc_cost_of_care: 900
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IA
+  output:
+    # Both need care -> couple cap $961.10; each cost $900 < cap -> $900 each
+    ia_ssa_ihhrc_both_need_care: [true, true]
+    ia_ssa_ihhrc_supplement: [900, 900]
+
+- name: Case 6, couple both needing IHHRC above couple cap capped at 961.10 dollars.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_needs_in_home_health_related_care: true
+        ia_ssa_ihhrc_cost_of_care: 1_500
+      person2:
+        age: 68
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_needs_in_home_health_related_care: true
+        ia_ssa_ihhrc_cost_of_care: 1_500
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IA
+  output:
+    # Both need care -> couple cap $961.10; each cost $1500 > cap -> capped
+    ia_ssa_ihhrc_supplement: [961.10, 961.10]
+
+- name: Case 7, couple with only one spouse needing IHHRC uses single cap.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_needs_in_home_health_related_care: true
+        ia_ssa_ihhrc_cost_of_care: 800
+      person2:
+        age: 68
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ia_ssa_needs_in_home_health_related_care: false
+        ia_ssa_ihhrc_cost_of_care: 0
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IA
+  output:
+    # Only person1 needs care -> both_need_care false -> single cap $480.55
+    ia_ssa_ihhrc_both_need_care: [false, false]
+    ia_ssa_ihhrc_supplement: [480.55, 0]
+
+- name: Case 8, person with countable income above 480.55 single limit is ineligible.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
