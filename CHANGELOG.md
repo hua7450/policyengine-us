@@ -1,3 +1,10 @@
+## [1.644.1] - 2026-04-17
+
+### Fixed
+
+- Fix eight parameter breakdown ranges that declared fewer (or different) children than the parameter actually had. These were silently mismatched until core 3.24.0 upgraded the mismatch from a warning to an error.
+
+
 ## [1.644.0] - 2026-04-17
 
 ### Added
