@@ -25,7 +25,6 @@ from .states.ny.wftc import create_ny_working_families_tax_credit_reform
 from .states.ny.a04038 import create_ny_a04038_enhanced_escc_infants_reform
 from .states.ny.s9110 import create_ny_s9110_reform
 from .states.sc.h3492 import create_sc_h3492_eitc_refundable_reform
-from .states.sc.h4216 import create_sc_h4216_reform
 from .states.ny.a06774 import create_ny_a06774_enhanced_cdcc_reform
 from .states.ny.s04487 import create_ny_s04487_newborn_credit_reform
 from .harris.lift.middle_class_tax_credit import (
@@ -45,6 +44,9 @@ from .congress.tlaib.boost import (
 )
 from .states.mn.walz import (
     create_mn_walz_hf1938_repeal_reform,
+)
+from .states.mn.hf4890 import (
+    create_mn_hf4890_reform,
 )
 from .states.oregon.rebate import (
     create_or_rebate_state_tax_exempt_reform,
@@ -292,7 +294,6 @@ def create_structural_reforms_from_parameters(parameters, period):
     sc_h3492_eitc_refundable = create_sc_h3492_eitc_refundable_reform(
         parameters, period
     )
-    sc_h4216 = create_sc_h4216_reform(parameters, period)
     ny_a06774_enhanced_cdcc = create_ny_a06774_enhanced_cdcc_reform(parameters, period)
     ny_s04487_newborn_credit = create_ny_s04487_newborn_credit_reform(
         parameters, period
@@ -308,6 +309,7 @@ def create_structural_reforms_from_parameters(parameters, period):
         parameters, period
     )
     mn_walz_hf1938 = create_mn_walz_hf1938_repeal_reform(parameters, period)
+    mn_hf4890 = create_mn_hf4890_reform(parameters, period)
 
     or_rebate_state_tax_exempt = create_or_rebate_state_tax_exempt_reform(
         parameters, period
@@ -463,7 +465,6 @@ def create_structural_reforms_from_parameters(parameters, period):
         ny_a04038_enhanced_escc_infants,
         ny_s9110,
         sc_h3492_eitc_refundable,
-        sc_h4216,
         ny_a06774_enhanced_cdcc,
         ny_s04487_newborn_credit,
         middle_class_tax_credit,
@@ -472,6 +473,7 @@ def create_structural_reforms_from_parameters(parameters, period):
         edaa_end_child_poverty_act,
         boost_middle_class_tax_credit,
         mn_walz_hf1938,
+        mn_hf4890,
         or_rebate_state_tax_exempt,
         family_security_act_2024_ctc,
         family_security_act_2024_eitc,
