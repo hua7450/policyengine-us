@@ -1,3 +1,10 @@
+## [1.639.0] - 2026-04-17
+
+### Added
+
+- Added Hawaii Optional State Supplementation (OSS) for SSI recipients in qualifying care facilities.
+
+
 ## [1.638.1] - 2026-04-17
 
 ### Fixed
