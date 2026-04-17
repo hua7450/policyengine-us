@@ -10,6 +10,7 @@ values:
     - vt_child_care_subsidies  # Vermont Child Care Financial Assistance Program
     - nh_child_care_subsidies  # New Hampshire Child Care Scholarship Program
     - pa_child_care_subsidies  # Pennsylvania Child Care Works
+    - nj_child_care_subsidies  # New Jersey Child Care Assistance Program
     - ri_child_care_subsidies  # Rhode Island Child Care Assistance Program
     - va_child_care_subsidies  # Virginia Child Care Subsidy Program
 
