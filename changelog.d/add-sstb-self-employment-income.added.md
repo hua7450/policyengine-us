@@ -1,0 +1,1 @@
+Add `sstb_self_employment_income` and split QBID into non-SSTB and SSTB components per IRC §199A(d). Mixed SSTB/non-SSTB wage-limited cases can also provide `sstb_w2_wages_from_qualified_business` and `sstb_unadjusted_basis_qualified_property` to match Form 8995-A's separate SSTB wage/UBIA inputs.
