@@ -9,7 +9,7 @@
       household:
         members: [person1]
         state_code: DE
-        de_ssp_living_arrangement: CERTIFIED_ADULT_CARE_SETTING
+        de_ssp_living_arrangement: CERTIFIED_RESIDENTIAL_CARE_HOME
   output:
     de_ssp_eligible: true
 
@@ -24,7 +24,7 @@
       household:
         members: [person1]
         state_code: DE
-        de_ssp_living_arrangement: CERTIFIED_ADULT_CARE_SETTING
+        de_ssp_living_arrangement: CERTIFIED_RESIDENTIAL_CARE_HOME
   output:
     de_ssp_eligible: false
 
@@ -54,7 +54,7 @@
       household:
         members: [person1]
         state_code: DE
-        de_ssp_living_arrangement: CERTIFIED_ADULT_CARE_SETTING
+        de_ssp_living_arrangement: CERTIFIED_RESIDENTIAL_CARE_HOME
   output:
     de_ssp_eligible: false
 
@@ -69,7 +69,7 @@
       household:
         members: [person1]
         state_code: PA
-        de_ssp_living_arrangement: CERTIFIED_ADULT_CARE_SETTING
+        de_ssp_living_arrangement: CERTIFIED_RESIDENTIAL_CARE_HOME
   output:
     de_ssp_eligible: false
 
@@ -84,6 +84,6 @@
       household:
         members: [person1]
         state_code: DE
-        de_ssp_living_arrangement: CERTIFIED_ADULT_CARE_SETTING
+        de_ssp_living_arrangement: CERTIFIED_RESIDENTIAL_CARE_HOME
   output:
     de_ssp_eligible: true

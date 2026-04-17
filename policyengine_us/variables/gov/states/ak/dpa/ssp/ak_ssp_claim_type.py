@@ -24,6 +24,9 @@ class ak_ssp_claim_type(Variable):
         marital_unit_size = person.marital_unit.sum(person("age", period) >= 0)
         living_arrangement = person("ak_ssp_living_arrangement", period)
         living_arrangement_values = living_arrangement.possible_values
+        # Both spouses must share the same living arrangement to be
+        # treated as a joint couple claim. New enum values added to
+        # AKSSPLivingArrangement must be appended to this check.
         shared_living_arrangement = (
             (
                 person.marital_unit.sum(

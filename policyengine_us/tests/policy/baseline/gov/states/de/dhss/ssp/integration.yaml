@@ -12,7 +12,7 @@
       household:
         members: [person1]
         state_code: DE
-        de_ssp_living_arrangement: CERTIFIED_ADULT_CARE_SETTING
+        de_ssp_living_arrangement: CERTIFIED_RESIDENTIAL_CARE_HOME
   output:
     # Eligibility: age 70 >= 18, SSI eligible, in a certified adult care setting, DE resident
     de_ssp_eligible: true
@@ -47,7 +47,7 @@
       household:
         members: [person1, person2]
         state_code: DE
-        de_ssp_living_arrangement: CERTIFIED_ADULT_CARE_SETTING
+        de_ssp_living_arrangement: CERTIFIED_RESIDENTIAL_CARE_HOME
   output:
     # Both eligible: age >= 18, SSI eligible, in a certified adult care setting
     de_ssp_eligible: [true, true]
@@ -70,7 +70,7 @@
       household:
         members: [person1]
         state_code: DE
-        de_ssp_living_arrangement: CERTIFIED_ADULT_CARE_SETTING
+        de_ssp_living_arrangement: CERTIFIED_RESIDENTIAL_CARE_HOME
   output:
     # Age 17 < 18 threshold: ineligible
     de_ssp_eligible: false
@@ -91,7 +91,7 @@
       household:
         members: [person1]
         state_code: DE
-        de_ssp_living_arrangement: CERTIFIED_ADULT_CARE_SETTING
+        de_ssp_living_arrangement: CERTIFIED_RESIDENTIAL_CARE_HOME
   output:
     # Not SSI eligible: ineligible for SSP
     de_ssp_eligible: false
@@ -131,7 +131,7 @@
       household:
         members: [person1]
         state_code: DE
-        de_ssp_living_arrangement: CERTIFIED_ADULT_CARE_SETTING
+        de_ssp_living_arrangement: CERTIFIED_RESIDENTIAL_CARE_HOME
   output:
     de_ssp_eligible: true
     # individual amount = $140
@@ -162,7 +162,7 @@
       household:
         members: [person1, person2]
         state_code: DE
-        de_ssp_living_arrangement: CERTIFIED_ADULT_CARE_SETTING
+        de_ssp_living_arrangement: CERTIFIED_RESIDENTIAL_CARE_HOME
   output:
     de_ssp_eligible: [true, true]
     # per_person_amount = $448/2 = $224

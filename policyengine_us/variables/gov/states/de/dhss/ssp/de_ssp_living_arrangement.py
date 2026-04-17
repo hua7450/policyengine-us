@@ -2,7 +2,7 @@ from policyengine_us.model_api import *
 
 
 class DESSPLivingArrangement(Enum):
-    CERTIFIED_ADULT_CARE_SETTING = "Certified adult residential care facility, assisted living facility, or adult foster care home"
+    CERTIFIED_RESIDENTIAL_CARE_HOME = "Certified adult residential care facility, assisted living facility, or adult foster care home"
     NONE = "None"
 
 

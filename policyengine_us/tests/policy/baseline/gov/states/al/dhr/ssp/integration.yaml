@@ -436,3 +436,80 @@
     # State SSP: $110/month each (Foster Care)
     al_ssp: [110, 110]
     # Combined: ($505.50 + $110) x 2 = $1,231/month
+
+# Verify the full derivation chain: al_ssp_care_setting (plus waiver/SNF
+# and al_level_b_care) -> al_ssp_payment_category -> al_ssp.
+
+- name: Case 15, care_setting PRIVATE_HOME_IHC without level_b derives IHC_LEVEL_A.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_eligible: true
+        uncapped_ssi: 1
+        al_ssp_care_setting: PRIVATE_HOME_IHC
+        al_level_b_care: false
+        al_receives_elderly_disabled_medicaid_waiver: true
+        al_meets_snf_criteria: true
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: AL
+  output:
+    al_ssp_payment_category: IHC_LEVEL_A
+    al_ssp_eligible: [true]
+    al_ssp: [60]
+
+- name: Case 16, care_setting PRIVATE_HOME_IHC with level_b derives IHC_LEVEL_B.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_eligible: true
+        uncapped_ssi: 1
+        al_ssp_care_setting: PRIVATE_HOME_IHC
+        al_level_b_care: true
+        al_receives_elderly_disabled_medicaid_waiver: true
+        al_meets_snf_criteria: true
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: AL
+  output:
+    al_ssp_payment_category: IHC_LEVEL_B
+    al_ssp_eligible: [true]
+    al_ssp: [56]
+
+- name: Case 17, care_setting FOSTER_HOME derives FOSTER_CARE.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 68
+        is_ssi_eligible: true
+        uncapped_ssi: 1
+        al_ssp_care_setting: FOSTER_HOME
+        al_receives_elderly_disabled_medicaid_waiver: true
+        al_meets_snf_criteria: true
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: AL
+  output:
+    al_ssp_payment_category: FOSTER_CARE
+    al_ssp_eligible: [true]
+    al_ssp: [110]

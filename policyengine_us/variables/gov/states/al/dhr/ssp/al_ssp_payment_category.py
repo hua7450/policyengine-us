@@ -37,6 +37,11 @@ class al_ssp_payment_category(Variable):
         is_ihc = care_setting == care.PRIVATE_HOME_IHC
         level_b = person("al_level_b_care", period)
 
+        # Legacy al_ssp_living_arrangement branches are listed first
+        # so that consumers still providing that input take priority
+        # over the newer al_ssp_care_setting derivation. This preserves
+        # backward compatibility; reordering would break existing API
+        # consumers.
         return select(
             [
                 legacy_arrangement == legacy.FCMP_NURSING_CARE,
