@@ -1,3 +1,10 @@
+## [1.638.0] - 2026-04-17
+
+### Added
+
+- Add US government bond interest exemption for OK, OR, PA, RI, SC, UT, VA, WI, and WV.
+
+
 ## [1.637.1] - 2026-04-17
 
 ### Fixed
