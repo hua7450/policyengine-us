@@ -23,10 +23,14 @@ class ky_ssp(Variable):
         state_supplement = max_(0, payment_standard - countable_income) * person(
             "ky_ssp_eligible", period
         )
-        # §9(2)(b): in a couple case where both are eligible, one-half of the
-        # deficit shall be payable to each.
+        # §9(2): "in a couple case, if both are eligible" the couple's income
+        # is combined and one-half of the deficit is payable to each. Require
+        # both spouses to be actually SSI-eligible (not merely both ABD), per
+        # §9(1)(c) which reserves the couple rates for "eligible couple, both
+        # aged, blind, or having a disability".
+        both_eligible = person.marital_unit.sum(person("is_ssi_eligible", period)) == 2
         return where(
-            person("ssi_claim_is_joint", period),
+            both_eligible,
             person.marital_unit.sum(state_supplement) / 2,
             state_supplement,
         )

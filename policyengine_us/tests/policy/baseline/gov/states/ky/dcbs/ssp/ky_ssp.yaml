@@ -82,21 +82,22 @@
     # supplement = max(0, 19_320 - 19_320) = 0
     ky_ssp: 0
 
-- name: Case 8, joint claim couple splits Caretaker couple-both-care supplement evenly.
+- name: Case 8, both-eligible couple splits Caretaker couple-both-care supplement evenly.
   period: 2026
   input:
     people:
       person1:
         ky_ssp_eligible: true
+        # §9(2): couple split requires both SSI-eligible.
+        is_ssi_eligible: true
         ssi_countable_income: 0
         # Couple-both-care: $1,606/mo; per-person standard = $803/mo * 12 = $9,636/yr
         ky_ssp_payment_standard: 9_636
-        ssi_claim_is_joint: true
       person2:
         ky_ssp_eligible: true
+        is_ssi_eligible: true
         ssi_countable_income: 0
         ky_ssp_payment_standard: 9_636
-        ssi_claim_is_joint: true
     marital_units:
       marital_unit:
         members: [person1, person2]
@@ -106,24 +107,24 @@
         state_code: KY
   output:
     # Each person: supplement = max(0, 9_636 - 0) * 1 = 9_636
-    # marital_unit.sum / 2 = 19_272 / 2 = 9_636 per person
+    # both SSI-eligible => marital_unit.sum / 2 = 19_272 / 2 = 9_636 per person
     ky_ssp: [9_636, 9_636]
 
-- name: Case 9, joint claim couple Caretaker couple-one-care splits evenly.
+- name: Case 9, both-eligible couple Caretaker couple-one-care splits evenly.
   period: 2026
   input:
     people:
       person1:
         ky_ssp_eligible: true
+        is_ssi_eligible: true
         ssi_countable_income: 0
         # Couple-one-care: $1,552/mo; per-person standard = $776/mo * 12 = $9,312/yr
         ky_ssp_payment_standard: 9_312
-        ssi_claim_is_joint: true
       person2:
         ky_ssp_eligible: true
+        is_ssi_eligible: true
         ssi_countable_income: 0
         ky_ssp_payment_standard: 9_312
-        ssi_claim_is_joint: true
     marital_units:
       marital_unit:
         members: [person1, person2]
@@ -133,7 +134,7 @@
         state_code: KY
   output:
     # Each person: supplement = max(0, 9_312 - 0) * 1 = 9_312
-    # marital_unit.sum / 2 = 18_624 / 2 = 9_312 per person
+    # both SSI-eligible => marital_unit.sum / 2 = 18_624 / 2 = 9_312 per person
     ky_ssp: [9_312, 9_312]
 
 - name: Case 10, countable income one dollar below standard leaves one dollar supplement.
@@ -160,21 +161,21 @@
     # supplement = max(0, 19_320 - 19_321) = 0
     ky_ssp: 0
 
-- name: Case 12, joint couple with asymmetric supplement (one eligible, one not).
+- name: Case 12, one SSI-eligible + one ineligible spouse does not trigger couple split.
   period: 2026
   input:
     people:
       person1:
         ky_ssp_eligible: true
+        is_ssi_eligible: true
         ssi_countable_income: 0
-        ky_ssp_payment_standard: 9_636
-        ssi_claim_is_joint: true
+        ky_ssp_payment_standard: 19_320
       person2:
-        # One spouse ineligible contributes zero supplement to the sum.
+        # Spouse is ABD but fails resource test => not SSI-eligible.
         ky_ssp_eligible: false
+        is_ssi_eligible: false
         ssi_countable_income: 0
-        ky_ssp_payment_standard: 9_636
-        ssi_claim_is_joint: true
+        ky_ssp_payment_standard: 19_320
     marital_units:
       marital_unit:
         members: [person1, person2]
@@ -183,8 +184,7 @@
         members: [person1, person2]
         state_code: KY
   output:
-    # person1: supplement = max(0, 9_636 - 0) * 1 = 9_636
-    # person2: supplement = max(0, 9_636 - 0) * 0 = 0 (not eligible)
-    # Joint path: marital_unit.sum(9_636 + 0) / 2 = 4_818 per person
-    # Documents the known "defined_for + marital_unit.sum/2" halving behavior.
-    ky_ssp: [4_818, 4_818]
+    # §9(2) couple split requires both SSI-eligible. With only one eligible
+    # spouse, the eligible spouse receives the full individual-rate benefit
+    # and the ineligible spouse receives nothing.
+    ky_ssp: [19_320, 0]

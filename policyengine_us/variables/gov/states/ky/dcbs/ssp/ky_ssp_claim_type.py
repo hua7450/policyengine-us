@@ -21,14 +21,20 @@ class ky_ssp_claim_type(Variable):
     )
 
     def formula(person, period, parameters):
-        joint_claim = person("ssi_claim_is_joint", period)
-        marital_unit_size = person.marital_unit.sum(person("age", period) >= 0)
-        is_eligible_individual = person("is_ssi_aged_blind_disabled", period)
+        # 921 KAR 2:015 §9(1)(c) ties couple rates to "eligible couple, both
+        # aged, blind, or having a disability" — i.e. both actually SSI-eligible
+        # (ABD + resource test + immigration), not merely both ABD.
+        is_eligible = person("is_ssi_eligible", period)
+        eligible_count = person.marital_unit.sum(is_eligible)
+        marital_unit_size = person.marital_unit.nb_persons()
+        both_eligible = (eligible_count == 2) & is_eligible
+        # §9(1)(c)1: eligible individual with an ineligible spouse in a
+        # 2-person marital unit uses the individual standard.
         one_eligible_couple = (
-            ~joint_claim & is_eligible_individual & (marital_unit_size == 2)
+            (eligible_count == 1) & is_eligible & (marital_unit_size == 2)
         )
         return select(
-            [joint_claim, one_eligible_couple],
+            [both_eligible, one_eligible_couple],
             [
                 KYSSPClaimType.COUPLE_BOTH_ELIGIBLE,
                 KYSSPClaimType.COUPLE_ONE_ELIGIBLE,
