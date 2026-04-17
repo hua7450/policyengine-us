@@ -1,3 +1,10 @@
+## [1.646.4] - 2026-04-17
+
+### Fixed
+
+- Fixed ssi_claim_is_joint to treat spouses as separate individuals when either is in a medical treatment facility per 20 CFR 416.414(b)(3).
+
+
 ## [1.646.3] - 2026-04-17
 
 ### Fixed
