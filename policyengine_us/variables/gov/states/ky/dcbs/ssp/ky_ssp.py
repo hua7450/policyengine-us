@@ -11,19 +11,20 @@ class ky_ssp(Variable):
     exhaustive_parameter_dependencies = "gov.states.ky.dcbs.ssp"
     reference = (
         "https://apps.legislature.ky.gov/law/kar/titles/921/002/015/",
-        "https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=46358",
+        "https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=7671",
         "https://www.chfs.ky.gov/agencies/dcbs/dfs/Documents/OMVOLV.pdf#page=5",
     )
 
     def formula(person, period):
-        # uncapped_ssi can be negative when countable income exceeds the
-        # federal SSI benefit. The negative portion reduces the state supplement.
-        uncapped_ssi = person("uncapped_ssi", period)
+        # 921 KAR 2:015 §8(2): subtract total countable income from the
+        # standard of need in §9.
         payment_standard = person("ky_ssp_payment_standard", period)
-        income_excess = max_(0, -uncapped_ssi)
-        state_supplement = max_(0, payment_standard - income_excess) * person(
+        countable_income = person("ssi_countable_income", period)
+        state_supplement = max_(0, payment_standard - countable_income) * person(
             "ky_ssp_eligible", period
         )
+        # §9(2)(b): in a couple case where both are eligible, one-half of the
+        # deficit shall be payable to each.
         return where(
             person("ssi_claim_is_joint", period),
             person.marital_unit.sum(state_supplement) / 2,

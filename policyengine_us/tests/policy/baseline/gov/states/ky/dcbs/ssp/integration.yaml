@@ -22,15 +22,13 @@
         state_code: KY
         ky_ssp_category: PCH
   output:
-    # Eligibility: is_ssi_eligible=true, category=PCH (not NONE) => eligible
+    # Eligibility: is_ssi_eligible=true, age>=18, category=PCH, income<standard => eligible
     ky_ssp_eligible: [true]
     # Not joint, no deeming => INDIVIDUAL
     ky_ssp_claim_type: [INDIVIDUAL]
     # Payment standard: PCH.INDIVIDUAL.ONE = $1,610/mo * 12 = $19,320/yr
     ky_ssp_payment_standard: [19_320]
-    # 2026 individual FBR = $994/mo * 12 = $11,928/yr
-    # uncapped_ssi = 11_928 - 0 = 11_928 (positive, no reduction)
-    # ky_ssp = max(0, 19_320 - 0) * eligible(1) = $19,320/yr
+    # 921 KAR 2:015 §8(2): ky_ssp = max(0, standard - countable_income) = 19_320 - 0
     ky_ssp: [19_320]
     ssi: [11_928]
 
@@ -64,11 +62,8 @@
     ky_ssp_claim_type: [INDIVIDUAL]
     # CIS.INDIVIDUAL.ONE = $1,514/mo * 12 = $18,168/yr
     ky_ssp_payment_standard: [18_168]
-    # ssi_amount_if_eligible = $11,928/yr
-    # uncapped_ssi = 11_928 - 5_760 = 6_168 (positive, no reduction)
-    # income_excess = max(0, -6_168) = 0
-    # ky_ssp = max(0, 18_168 - 0) * 1 = $18,168/yr
-    ky_ssp: [18_168]
+    # 921 KAR 2:015 §8(2): ky_ssp = max(0, 18_168 - 5_760) = 12_408
+    ky_ssp: [12_408]
 
 - name: Case 3, single disabled individual in FCH with zero income.
   period: 2026
@@ -98,8 +93,7 @@
     ky_ssp_claim_type: [INDIVIDUAL]
     # FCH.INDIVIDUAL.ONE = $1,166/mo * 12 = $13,992/yr
     ky_ssp_payment_standard: [13_992]
-    # uncapped_ssi = 11_928 - 0 = 11_928 (positive)
-    # ky_ssp = max(0, 13_992 - 0) * 1 = $13,992/yr
+    # 921 KAR 2:015 §8(2): ky_ssp = max(0, 13_992 - 0) = 13_992
     ky_ssp: [13_992]
     ssi: [11_928]
 
@@ -131,8 +125,7 @@
     ky_ssp_claim_type: [INDIVIDUAL]
     # CARETAKER.INDIVIDUAL.ONE = $1,056/mo * 12 = $12,672/yr
     ky_ssp_payment_standard: [12_672]
-    # uncapped_ssi = 11_928 - 0 = 11_928 (positive)
-    # ky_ssp = max(0, 12_672 - 0) * 1 = $12,672/yr
+    # 921 KAR 2:015 §8(2): ky_ssp = max(0, 12_672 - 0) = 12_672
     ky_ssp: [12_672]
 
 - name: Case 5, couple both eligible in Caretaker, both receive care.
@@ -281,12 +274,11 @@
         state_code: KY
         ky_ssp_category: PCH
   output:
-    # NOTE: uncapped_ssi = 11_928 - 35_000 = -23_072 (< 0)
-    # receives_ssi (uncapped_ssi > 0) = false => not eligible (income too high)
+    # countable_income ($35,000) > PCH standard ($19,320) => §4(1)(b) fails.
     ky_ssp_eligible: [false]
     ky_ssp_claim_type: [INDIVIDUAL]
     ky_ssp_payment_standard: [19_320]
-    # supplement = max(0, 19_320 - 23_072) * eligible(0) = 0
+    # supplement = max(0, 19_320 - 35_000) * eligible(0) = 0
     ky_ssp: [0]
 
 - name: Case 9, SSI-eligible adult with NONE category gets zero benefit end-to-end.
@@ -361,9 +353,7 @@
         is_ssi_aged: true
         is_ssi_eligible: true
         meets_ssi_resource_test: true
-        # For income_excess = 19_320 (the PCH standard):
-        # countable_income = 11_928 + 19_320 = 31_248
-        # uncapped_ssi = 11_928 - 31_248 = -19_320
+        # countable_income equal to twice the PCH standard — fails §4(1)(b).
         ssi_countable_income: 31_248
     marital_units:
       marital_unit:
@@ -377,7 +367,7 @@
         state_code: KY
         ky_ssp_category: PCH
   output:
-    # uncapped_ssi < 0 => receives_ssi = false => not eligible
+    # countable_income ($31,248) > PCH standard ($19,320) => §4(1)(b) fails.
     ky_ssp_eligible: [false]
     ky_ssp_payment_standard: [19_320]
     ky_ssp: [0]

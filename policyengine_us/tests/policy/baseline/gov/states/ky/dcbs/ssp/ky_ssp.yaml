@@ -3,52 +3,47 @@
   input:
     state_code: KY
     ky_ssp_eligible: true
-    uncapped_ssi: 0
+    ssi_countable_income: 0
     ky_ssp_payment_standard: 19_320
     ssi_claim_is_joint: false
   output:
-    # uncapped_ssi = 0 => income_excess = max(0, -0) = 0
-    # supplement = max(0, 19_320 - 0) = 19_320
-    # Not joint => 19_320 * eligible(1) = 19_320
+    # supplement = max(0, 19_320 - 0) * eligible(1) = 19_320
     ky_ssp: 19_320
 
-- name: Case 2, SSI recipient with positive uncapped SSI gets full PCH supplement.
+- name: Case 2, small countable income reduces the supplement.
   period: 2026
   input:
     state_code: KY
     ky_ssp_eligible: true
-    uncapped_ssi: 5_000
+    ssi_countable_income: 5_000
     ky_ssp_payment_standard: 19_320
     ssi_claim_is_joint: false
   output:
-    # uncapped_ssi > 0 => income_excess = max(0, -5_000) = 0
-    # supplement = max(0, 19_320 - 0) = 19_320
-    ky_ssp: 19_320
+    # supplement = max(0, 19_320 - 5_000) = 14_320
+    ky_ssp: 14_320
 
-- name: Case 3, income overspill reduces supplement.
+- name: Case 3, moderate countable income reduces the supplement further.
   period: 2026
   input:
     state_code: KY
     ky_ssp_eligible: true
-    uncapped_ssi: -1_000
+    ssi_countable_income: 12_000
     ky_ssp_payment_standard: 19_320
     ssi_claim_is_joint: false
   output:
-    # uncapped_ssi = -1_000 => income_excess = max(0, 1_000) = 1_000
-    # supplement = max(0, 19_320 - 1_000) = 18_320
-    ky_ssp: 18_320
+    # supplement = max(0, 19_320 - 12_000) = 7_320
+    ky_ssp: 7_320
 
-- name: Case 4, large income overspill floors benefit at zero.
+- name: Case 4, countable income above the standard floors benefit at zero.
   period: 2026
   input:
     state_code: KY
     ky_ssp_eligible: true
-    uncapped_ssi: -50_000
+    ssi_countable_income: 25_000
     ky_ssp_payment_standard: 19_320
     ssi_claim_is_joint: false
   output:
-    # uncapped_ssi = -50_000 => income_excess = 50_000
-    # supplement = max(0, 19_320 - 50_000) = 0
+    # supplement = max(0, 19_320 - 25_000) = 0
     ky_ssp: 0
 
 - name: Case 5, ineligible individual gets zero benefit.
@@ -56,36 +51,34 @@
   input:
     state_code: KY
     ky_ssp_eligible: false
-    uncapped_ssi: 0
+    ssi_countable_income: 0
     ky_ssp_payment_standard: 19_320
     ssi_claim_is_joint: false
   output:
     # Not eligible => supplement * 0 = 0
     ky_ssp: 0
 
-- name: Case 6, very large negative uncapped SSI does not inflate benefit.
+- name: Case 6, extreme countable income does not inflate benefit.
   period: 2026
   input:
     state_code: KY
     ky_ssp_eligible: true
-    uncapped_ssi: -60_000_000
+    ssi_countable_income: 60_000_000
     ky_ssp_payment_standard: 19_320
     ssi_claim_is_joint: false
   output:
-    # uncapped_ssi = -60_000_000 => income_excess = 60_000_000
     # supplement = max(0, 19_320 - 60_000_000) = 0
     ky_ssp: 0
 
-- name: Case 7, income excess exactly equals payment standard so supplement is zero.
+- name: Case 7, countable income exactly equals the payment standard.
   period: 2026
   input:
     state_code: KY
     ky_ssp_eligible: true
-    uncapped_ssi: -19_320
+    ssi_countable_income: 19_320
     ky_ssp_payment_standard: 19_320
     ssi_claim_is_joint: false
   output:
-    # uncapped_ssi = -19_320 => income_excess = 19_320
     # supplement = max(0, 19_320 - 19_320) = 0
     ky_ssp: 0
 
@@ -95,13 +88,13 @@
     people:
       person1:
         ky_ssp_eligible: true
-        uncapped_ssi: 0
+        ssi_countable_income: 0
         # Couple-both-care: $1,606/mo; per-person standard = $803/mo * 12 = $9,636/yr
         ky_ssp_payment_standard: 9_636
         ssi_claim_is_joint: true
       person2:
         ky_ssp_eligible: true
-        uncapped_ssi: 0
+        ssi_countable_income: 0
         ky_ssp_payment_standard: 9_636
         ssi_claim_is_joint: true
     marital_units:
@@ -113,8 +106,7 @@
         state_code: KY
   output:
     # Each person: supplement = max(0, 9_636 - 0) * 1 = 9_636
-    # marital_unit.sum = 9_636 + 9_636 = 19_272
-    # Each gets 19_272 / 2 = 9_636
+    # marital_unit.sum / 2 = 19_272 / 2 = 9_636 per person
     ky_ssp: [9_636, 9_636]
 
 - name: Case 9, joint claim couple Caretaker couple-one-care splits evenly.
@@ -123,13 +115,13 @@
     people:
       person1:
         ky_ssp_eligible: true
-        uncapped_ssi: 0
+        ssi_countable_income: 0
         # Couple-one-care: $1,552/mo; per-person standard = $776/mo * 12 = $9,312/yr
         ky_ssp_payment_standard: 9_312
         ssi_claim_is_joint: true
       person2:
         ky_ssp_eligible: true
-        uncapped_ssi: 0
+        ssi_countable_income: 0
         ky_ssp_payment_standard: 9_312
         ssi_claim_is_joint: true
     marital_units:
@@ -141,48 +133,46 @@
         state_code: KY
   output:
     # Each person: supplement = max(0, 9_312 - 0) * 1 = 9_312
-    # marital_unit.sum / 2 = 18_624 / 2 = 9_312
+    # marital_unit.sum / 2 = 18_624 / 2 = 9_312 per person
     ky_ssp: [9_312, 9_312]
 
-- name: Case 10, income excess one dollar below standard leaves one dollar supplement.
+- name: Case 10, countable income one dollar below standard leaves one dollar supplement.
   period: 2026
   input:
     state_code: KY
     ky_ssp_eligible: true
-    uncapped_ssi: -19_319
+    ssi_countable_income: 19_319
     ky_ssp_payment_standard: 19_320
     ssi_claim_is_joint: false
   output:
-    # uncapped_ssi = -19_319 => income_excess = 19_319
     # supplement = max(0, 19_320 - 19_319) = 1
     ky_ssp: 1
 
-- name: Case 11, income excess one dollar above standard floors benefit at zero.
+- name: Case 11, countable income one dollar above standard floors benefit at zero.
   period: 2026
   input:
     state_code: KY
     ky_ssp_eligible: true
-    uncapped_ssi: -19_321
+    ssi_countable_income: 19_321
     ky_ssp_payment_standard: 19_320
     ssi_claim_is_joint: false
   output:
-    # uncapped_ssi = -19_321 => income_excess = 19_321
     # supplement = max(0, 19_320 - 19_321) = 0
     ky_ssp: 0
 
-- name: Case 12, joint couple with asymmetric supplement (one zero, one full).
+- name: Case 12, joint couple with asymmetric supplement (one eligible, one not).
   period: 2026
   input:
     people:
       person1:
         ky_ssp_eligible: true
-        uncapped_ssi: 0
+        ssi_countable_income: 0
         ky_ssp_payment_standard: 9_636
         ssi_claim_is_joint: true
       person2:
         # One spouse ineligible contributes zero supplement to the sum.
         ky_ssp_eligible: false
-        uncapped_ssi: 0
+        ssi_countable_income: 0
         ky_ssp_payment_standard: 9_636
         ssi_claim_is_joint: true
     marital_units:

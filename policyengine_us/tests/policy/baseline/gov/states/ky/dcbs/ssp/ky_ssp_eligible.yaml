@@ -7,6 +7,7 @@
         is_ssi_aged_blind_disabled: true
         is_ssi_eligible: true
         meets_ssi_resource_test: true
+        ssi_countable_income: 0
     households:
       household:
         members: [person1]
@@ -24,6 +25,7 @@
         is_ssi_aged_blind_disabled: true
         is_ssi_eligible: true
         meets_ssi_resource_test: true
+        ssi_countable_income: 0
     households:
       household:
         members: [person1]
@@ -42,6 +44,7 @@
         is_ssi_aged_blind_disabled: false
         is_ssi_eligible: false
         meets_ssi_resource_test: true
+        ssi_countable_income: 0
     households:
       household:
         members: [person1]
@@ -51,7 +54,7 @@
     # Fails is_ssi_eligible => not eligible
     ky_ssp_eligible: [false]
 
-- name: Case 4, SSI-eligible child in CARETAKER category is eligible (no age floor).
+- name: Case 4, SSI-eligible minor in CARETAKER fails §4(1)(c)3 age ≥ 18 requirement.
   period: 2026
   input:
     people:
@@ -60,14 +63,15 @@
         is_ssi_aged_blind_disabled: true
         is_ssi_eligible: true
         meets_ssi_resource_test: true
+        ssi_countable_income: 0
     households:
       household:
         members: [person1]
         state_code: KY
         ky_ssp_category: CARETAKER
   output:
-    # KY has no universal age floor; Caretaker supplement available to children
-    ky_ssp_eligible: [true]
+    # 921 KAR 2:015 §4(1)(c)3 requires caretaker recipients to be at least 18.
+    ky_ssp_eligible: [false]
 
 - name: Case 5, SSI-eligible adult in FCH is eligible.
   period: 2026
@@ -78,6 +82,7 @@
         is_ssi_aged_blind_disabled: true
         is_ssi_eligible: true
         meets_ssi_resource_test: true
+        ssi_countable_income: 0
     households:
       household:
         members: [person1]
@@ -95,6 +100,7 @@
         is_ssi_aged_blind_disabled: true
         is_ssi_eligible: true
         meets_ssi_resource_test: true
+        ssi_countable_income: 0
     households:
       household:
         members: [person1]
@@ -112,6 +118,7 @@
         is_ssi_aged_blind_disabled: true
         is_ssi_eligible: false
         meets_ssi_resource_test: false
+        ssi_countable_income: 0
     households:
       household:
         members: [person1]
@@ -120,7 +127,7 @@
   output:
     ky_ssp_eligible: [false]
 
-- name: Case 8, SSI eligible but uncapped_ssi zero is not eligible (requires > 0).
+- name: Case 8, countable income below PCH standard is eligible.
   period: 2026
   input:
     people:
@@ -129,7 +136,8 @@
         is_ssi_aged_blind_disabled: true
         is_ssi_eligible: true
         meets_ssi_resource_test: true
-        # Countable income exactly equals FBR => uncapped_ssi = 0
+        # Countable income ($11,928/yr) is below the PCH annual standard
+        # ($19,320) so §4(1)(b) is satisfied.
         ssi_countable_income: 11_928
     households:
       household:
@@ -137,10 +145,9 @@
         state_code: KY
         ky_ssp_category: PCH
   output:
-    # receives_ssi = uncapped_ssi > 0 fails when uncapped_ssi == 0
-    ky_ssp_eligible: [false]
+    ky_ssp_eligible: [true]
 
-- name: Case 9, SSI eligible but very high income zeroes uncapped_ssi (not eligible).
+- name: Case 9, countable income above the PCH standard fails §4(1)(b).
   period: 2026
   input:
     people:
@@ -149,7 +156,7 @@
         is_ssi_aged_blind_disabled: true
         is_ssi_eligible: true
         meets_ssi_resource_test: true
-        # Countable income well above FBR => uncapped_ssi < 0
+        # Countable income ($50,000) exceeds PCH standard ($19,320) — not eligible.
         ssi_countable_income: 50_000
     households:
       household:
@@ -157,10 +164,9 @@
         state_code: KY
         ky_ssp_category: PCH
   output:
-    # uncapped_ssi = 11_928 - 50_000 = -38_072 => not > 0 => not eligible
     ky_ssp_eligible: [false]
 
-- name: Case 10, SSI-eligible child in PCH is eligible (no age floor).
+- name: Case 10, SSI-eligible minor in PCH fails §4(1)(c)1 age ≥ 18 requirement.
   period: 2026
   input:
     people:
@@ -169,10 +175,12 @@
         is_ssi_aged_blind_disabled: true
         is_ssi_eligible: true
         meets_ssi_resource_test: true
+        ssi_countable_income: 0
     households:
       household:
         members: [person1]
         state_code: KY
         ky_ssp_category: PCH
   output:
-    ky_ssp_eligible: [true]
+    # 921 KAR 2:015 §4(1)(c)1 requires PCH residents to be at least 18.
+    ky_ssp_eligible: [false]

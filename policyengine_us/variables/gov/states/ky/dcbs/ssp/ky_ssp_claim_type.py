@@ -17,7 +17,7 @@ class ky_ssp_claim_type(Variable):
     default_value = KYSSPClaimType.INDIVIDUAL
     reference = (
         "https://apps.legislature.ky.gov/law/kar/titles/921/002/015/",
-        "https://www.chfs.ky.gov/agencies/dcbs/dfs/Documents/OMVOLV.pdf#page=43",
+        "https://www.chfs.ky.gov/agencies/dcbs/dfs/Documents/OMVOLV.pdf#page=41",
     )
 
     def formula(person, period, parameters):

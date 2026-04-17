@@ -19,5 +19,5 @@ class ky_ssp_category(Variable):
     default_value = KYSSPCategory.NONE
     reference = (
         "https://apps.legislature.ky.gov/law/kar/titles/921/002/015/",
-        "https://www.chfs.ky.gov/agencies/dcbs/dfs/Documents/OMVOLV.pdf#page=24",
+        "https://www.chfs.ky.gov/agencies/dcbs/dfs/Documents/OMVOLV.pdf#page=23",
     )
