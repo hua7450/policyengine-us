@@ -1,3 +1,10 @@
+## [1.647.1] - 2026-04-17
+
+### Fixed
+
+- Freeze Maine standard deduction at pre-OBBBA amounts because Maine conforms to the Internal Revenue Code as of December 31, 2024 (36 MRSA Sec. 111) and did not adopt the One Big Beautiful Bill Act increase.
+
+
 ## [1.647.0] - 2026-04-17
 
 ### Added
