@@ -288,7 +288,9 @@ def test_earnings_before_lsr_uses_sstb_loss_magnitude():
         }
     )
 
-    assert np.allclose(earnings_before_lsr(person, 2026), np.array([50_000.0, 10_000.0]))
+    assert np.allclose(
+        earnings_before_lsr(person, 2026), np.array([50_000.0, 10_000.0])
+    )
 
 
 def test_behavioral_response_inputs_split_self_employment_between_buckets():

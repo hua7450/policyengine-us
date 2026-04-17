@@ -16,9 +16,7 @@ class emp_self_emp_ratio(Variable):
             0, person("sstb_self_employment_income", period)
         )
         earnings = (
-            employment_income
-            + self_employment_income
-            + sstb_self_employment_income
+            employment_income + self_employment_income + sstb_self_employment_income
         )
         res = np.ones_like(earnings)
         mask = earnings > 0

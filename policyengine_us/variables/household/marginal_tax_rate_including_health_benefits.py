@@ -25,9 +25,7 @@ class marginal_tax_rate_including_health_benefits(Variable):
         sstb_self_employment_income = person("sstb_self_employment_income", period)
         emp_self_emp_ratio = person("emp_self_emp_ratio", period)
         positive_self_employment_income = max_(0, self_employment_income)
-        positive_sstb_self_employment_income = max_(
-            0, sstb_self_employment_income
-        )
+        positive_sstb_self_employment_income = max_(0, sstb_self_employment_income)
         positive_self_employment_total = (
             positive_self_employment_income + positive_sstb_self_employment_income
         )
