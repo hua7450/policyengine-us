@@ -1,1 +1,0 @@
-Add federal AGI upper-bound check to `ca_eitc_eligible` per FTB 3514 (Steps 7-8): CalEITC is denied when federal adjusted gross income exceeds the earned-income threshold (`gov.states.ca.tax.income.credits.earned_income.phase_out.final.end`).
