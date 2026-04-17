@@ -30,6 +30,8 @@ values:
     - al_ssp
     # Alaska benefits
     - ak_ssp
+    # Idaho benefits
+    - id_aabd
     # Nebraska benefits
     - ne_child_care_subsidies
     # New Mexico benefits
@@ -73,6 +75,8 @@ values:
     - al_ssp
     # Alaska benefits
     - ak_ssp
+    # Idaho benefits
+    - id_aabd
     # Nebraska benefits
     - ne_child_care_subsidies
     # New Mexico benefits

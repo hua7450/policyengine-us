@@ -17,6 +17,7 @@ class spm_unit_benefits(Variable):
             "ga_ssp",
             "al_ssp",
             "ak_ssp",
+            "id_aabd",  # Idaho benefits
             "de_ssp",  # Delaware benefits
             "hi_oss",
             "ma_state_supplement",  # Massachusetts benefits
