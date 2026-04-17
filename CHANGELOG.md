@@ -1,3 +1,10 @@
+## [1.644.0] - 2026-04-17
+
+### Added
+
+- Add Social Security retirement benefit calculation chain with AIME, PIA, early/delayed retirement adjustment, and earnings test formulas.
+
+
 ## [1.643.0] - 2026-04-17
 
 ### Added
