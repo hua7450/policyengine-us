@@ -1,3 +1,15 @@
+## [1.649.0] - 2026-04-17
+
+### Added
+
+- Add Connecticut State Supplementary Payment (SSP).
+
+### Changed
+
+- Refine AK, AL, and DE SSP living arrangement variables. `ak_ssp_living_arrangement` now has entity Person (was Household); consumers must provide it at the Person level.
+- Update `CONTRIBUTING.md` and the weekly-uv-lock workflow to use the towncrier `changelog.d/` fragment format. The old `changelog_entry.yaml` flow was deprecated some time ago; the contributor docs and the weekly uv-lock bot both still created YAML entries, so the bot's own PRs failed the "Check changelog fragment" CI step and human contributors following the docs hit the same wall.
+
+
 ## [1.648.0] - 2026-04-17
 
 ### Added
