@@ -1,3 +1,10 @@
+## [1.648.0] - 2026-04-17
+
+### Added
+
+- Implement Indiana State Supplementary Payment (SSP).
+
+
 ## [1.647.1] - 2026-04-17
 
 ### Fixed

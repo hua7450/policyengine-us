@@ -4,6 +4,8 @@ values:
     # Delaware benefits
     - de_ssp
     - de_child_care_subsidies
+    # Indiana benefits
+    - in_ssp
     # Connecticut benefits
     - ct_ssp
     # Georgia benefits
@@ -45,6 +47,8 @@ values:
     # Delaware benefits
     - de_ssp
     - de_child_care_subsidies
+    # Indiana benefits
+    - in_ssp
     # Connecticut benefits
     - ct_ssp
     # Georgia benefits
