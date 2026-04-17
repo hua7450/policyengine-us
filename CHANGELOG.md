@@ -1,3 +1,21 @@
+## [1.652.0] - 2026-04-17
+
+### Added
+
+- Add Connecticut Child Care Assistance Program (CCAP/Care 4 Kids).
+
+### Fixed
+
+- Extend `tip_income_deduction_occupation_requirement_met` to recognize
+  SSTB status from the per-category `sstb_self_employment_income` input,
+  not only the legacy all-or-nothing `business_is_sstb` flag. This keeps
+  the §224 SSTB exclusion in force for self-employed tipped workers who
+  populate the new SSTB inputs added in #7944.
+- Applied the IRS Form 8917 cap to the pre-2021 tuition above-the-line deduction, which previously flowed into AGI uncapped.
+- Corrected the Lifetime Learning Credit phase-out thresholds to use pre-2021 IRS Form 8863 values, which differed from the American Opportunity Credit before the Consolidated Appropriations Act, 2021 harmonized them.
+- Add regression test that constructs the tax-benefit system and bump policyengine-core floor to 3.24.0 so parameter breakdown/children mismatches fail CI rather than at user import time (issue #8055).
+
+
 ## [1.651.0] - 2026-04-17
 
 ### Added
