@@ -1,3 +1,21 @@
+## [1.638.1] - 2026-04-17
+
+### Fixed
+
+- Fix Arkansas inflation relief credit to only apply to the head and spouse, not dependents.
+- Correct the HCE overtime salary threshold effective dates: $107,432 took effect 2020-01-01 (per 2019 DOL final rule, 84 FR 51230), not 2010-01-01; $132,964 took effect 2024-07-01, not 2024-01-01. Remove the $134,004 entry for 2016 — the 2016 rule was enjoined before it took effect.
+- Fix Indiana EITC eligibility to only use the spouse's age when filing jointly.
+- Correct the benefit-level breakdown for the Massachusetts LIHEAP subsidized housing payment parameter to range(0,7), matching sibling files and the file's 0-6 value entries.
+- Fix Puerto Rico EITC phase-out to cover all filing statuses, not only SINGLE and JOINT.
+- Correct salary basis threshold effective dates: $684 took effect 2020-01-01 (per 2019 DOL rule), $844 took effect 2024-07-01; remove the enjoined 2016 $913 entry.
+- Apply the IRC § 221(b)(1) student loan interest deduction cap at the tax-unit level rather than per spouse.
+- Fill in the 2020 AMT exemption separate_limit value ($745,200 = phase-out start $518,400 + 4 x exemption $56,700), resolving the inherited-from-2019 TODO.
+- Correct 2020 non-itemizer charitable contribution caps: CARES Act $300 for all filing statuses except MFS ($150).
+- Record explicit refundable CTC individual_max values for 2025 and 2026 ($1,700 per IRS Rev. Proc. 24-40 and 25-32).
+- Correct the 2021 MFS 37% tax bracket threshold from $329,850 (a copy-paste from the 2021 JOINT bracket 4 threshold) to $314,150 per IRS Rev. Proc. 20-45.
+- Add explicit 2025 student loan interest phase-out start thresholds per IRS Rev. Proc. 24-40 (JOINT: $170,000; SINGLE/HoH/Surviving: $85,000).
+
+
 ## [1.638.0] - 2026-04-17
 
 ### Added
