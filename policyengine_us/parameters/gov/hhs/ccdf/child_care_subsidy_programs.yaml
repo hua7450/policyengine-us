@@ -12,6 +12,7 @@ values:
     - pa_child_care_subsidies  # Pennsylvania Child Care Works
     - nj_child_care_subsidies  # New Jersey Child Care Assistance Program
     - ri_child_care_subsidies  # Rhode Island Child Care Assistance Program
+    - va_child_care_subsidies  # Virginia Child Care Subsidy Program
 
 metadata:
   unit: list
