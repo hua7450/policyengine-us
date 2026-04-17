@@ -6,6 +6,8 @@ values:
     - de_child_care_subsidies
     # Indiana benefits
     - in_ssp
+    # Connecticut benefits
+    - ct_ssp
     # Georgia benefits
     - ga_ssp
     # Massachusetts benefits
@@ -47,6 +49,8 @@ values:
     - de_child_care_subsidies
     # Indiana benefits
     - in_ssp
+    # Connecticut benefits
+    - ct_ssp
     # Georgia benefits
     - ga_ssp
     # Massachusetts benefits
