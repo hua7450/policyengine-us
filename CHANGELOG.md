@@ -1,3 +1,213 @@
+## [1.648.0] - 2026-04-17
+
+### Added
+
+- Implement Indiana State Supplementary Payment (SSP).
+
+
+## [1.647.1] - 2026-04-17
+
+### Fixed
+
+- Freeze Maine standard deduction at pre-OBBBA amounts because Maine conforms to the Internal Revenue Code as of December 31, 2024 (36 MRSA Sec. 111) and did not adopt the One Big Beautiful Bill Act increase.
+
+
+## [1.647.0] - 2026-04-17
+
+### Added
+
+- Support Python 3.9 and 3.10 (in addition to 3.11–3.14). On Python 3.9/3.10, pip resolves `policyengine-core` to a version that has been relaxed to support older Python (3.24.0+); on 3.11+ behavior is unchanged.
+
+
+## [1.646.4] - 2026-04-17
+
+### Fixed
+
+- Fixed ssi_claim_is_joint to treat spouses as separate individuals when either is in a medical treatment facility per 20 CFR 416.414(b)(3).
+
+
+## [1.646.3] - 2026-04-17
+
+### Fixed
+
+- Gate aca_ptc on tax_unit_is_filer so non-filers receive zero per IRC 36B(a).
+- Fall back to the county-level slcsp_rating_area_default when the LA County zip-code lookup returns 0, so LA households without a three_digit_zip_code still receive a valid ACA PTC.
+
+
+## [1.646.2] - 2026-04-17
+
+### Fixed
+
+- Add `HAINES_BOROUGH_AK` and `PETERSBURG_BOROUGH_AK` to the `County` enum so that households in Haines Borough (FIPS 02100) and Petersburg Borough (FIPS 02195) are correctly assigned to the `AK_SE` SNAP utility region per Alaska's FSP-77 instead of falling back to `AK_C`.
+- Add federal AGI upper-bound check to `ca_eitc_eligible` per FTB 3514 (Steps 7-8): CalEITC is denied when federal adjusted gross income exceeds the earned-income threshold (`gov.states.ca.tax.income.credits.earned_income.phase_out.final.end`).
+
+
+## [1.646.1] - 2026-04-17
+
+### Fixed
+
+- Fix seven more parameter breakdown ranges (SNAP max allotment, SNAP utility deductions, ND TANF standard of need) where the second breakdown dimension excluded existing children. Surfaced by core 3.24.0's stricter validator.
+
+
+## [1.646.0] - 2026-04-17
+
+### Added
+
+- Add 529 plan contribution state tax benefits across 24 states: deductions in AL, DE, IA, ID, IL, KS, LA, MA, MD, ME, MI, MO, MS, ND, NE, NJ, OK, PA, VA, WI; credits in IN, OR, UT, VT.
+
+
+## [1.645.0] - 2026-04-17
+
+### Added
+
+- Implement the IRC § 461(l) excess business loss limitation, applying it to self-employment, farm, rental, estate/trust, partnership/S-corp, and Form 4797 other net gain losses. Treat capital losses separately under the Section 1211 limit. Extend the limitation permanently for 2027 onwards per OBBBA § 70601.
+
+
+## [1.644.1] - 2026-04-17
+
+### Fixed
+
+- Fix eight parameter breakdown ranges that declared fewer (or different) children than the parameter actually had. These were silently mismatched until core 3.24.0 upgraded the mismatch from a warning to an error.
+
+
+## [1.644.0] - 2026-04-17
+
+### Added
+
+- Add Social Security retirement benefit calculation chain with AIME, PIA, early/delayed retirement adjustment, and earnings test formulas.
+
+
+## [1.643.0] - 2026-04-17
+
+### Added
+
+- Split the charitable deduction AGI cap by organization type per 26 USC 170(b)(1)(A)-(B). Non-cash donations to 50-percent limit organizations remain capped at 50% of AGI, while donations to other organizations (e.g., private foundations) are now capped at 30% of AGI via the new `charitable_non_cash_donations_non_50_pct_orgs` input and `ceiling/non_cash_to_non_50_pct_org` parameter.
+- Add US government bond interest exemption for IA, ID, IL, IN, KS, KY, LA, MA, MD, MI.
+
+### Changed
+
+- Consolidate itemized deduction limitation parameters under `deductions/itemized/limitation/` (replacing the duplicate `reduction/` folder) and rename OBBB parameters from `amended_structure/` to `obbb/`. Also adds 2009 values and the TCJA-era suspension to `applicable_amount.yaml`, and fixes YAML formatting issues.
+- Refactor SNAP countable assets to use a parameter-driven list (`gov.usda.snap.asset_test.sources`) covering `bank_account_assets`, `stock_assets`, and `bond_assets` per 7 CFR 273.8(c)(1). These are now wired to the SIPP-imputed liquid asset variables and regulatory citations are added for what is countable vs excluded under 7 USC 2014(g).
+
+
+## [1.642.0] - 2026-04-17
+
+### Added
+
+- Add SSI state supplements for New Mexico, South Carolina, and Texas.
+- Update Medicaid medically needy income and asset limits to 2018 values from KFF reference data.
+
+### Fixed
+
+- Fix breakdown range in `gov.contrib.additional_tax_bracket.bracket` — parameter has children `1-8` (the contrib adds an 8th bracket) but breakdown was `range(1, 8)` = `[1..7]`, omitting the 8th child. Update to `range(1, 9)`. This was previously a warning in policyengine-core but became an error in core 3.24.0, breaking parameter load at import time.
+- Extend the AMT kiddie tax to include full-time students under age 24, per IRC 1(g)(2)(A) which incorporates the Section 152(c)(3) age requirement. Previously only filers under age 19 were checked.
+
+
+## [1.641.0] - 2026-04-17
+
+### Added
+
+- Add the IRS annual additions retirement contribution limit parameter and update the 401(k) elective deferral limit to the published 2026 value.
+- Add US government bond interest exemption for AL, AR, CA, DC, DE. Add tests for all 10 states (AL, AR, AZ, CA, CO, CT, DC, DE, GA, HI).
+- Add US government bond interest exemption for MO, MS, NE, NJ, OH and tests for all 10 states (MO, MS, MT, NC, ND, NE, NJ, NM, NY, OH).
+
+
+## [1.640.0] - 2026-04-17
+
+### Added
+
+- Add Texas Comprehensive Energy Assistance Program (CEAP) with FY 2024 and FY 2025 benefit amounts.
+- Added a Medicare Part D IRMAA surcharge variable with filing-status-specific parameter ladders and baseline policy tests.
+
+### Changed
+
+- Add employee-side local income and occupational taxes for Philadelphia, Kansas City, St. Louis, and Colorado occupational privilege jurisdictions, wiring them into household net income.
+- Migrate `spm_unit_spm_threshold` to use the `spm-calculator` package. The variable is no longer a plain CPI-U-uprated input: for years beyond the dataset's base year it now recomputes as `current_base × current_equivalence_scale × (prior_threshold / (prior_base × prior_equivalence_scale))`, so composition and tenure changes flow through while each unit's implied geographic adjustment is preserved. Base reference thresholds (2015–2024) and the Betson three-parameter equivalence scale come from `spm-calculator`; post-2024 uprating continues to use PolicyEngine's `gov.bls.cpi.cpi_u` parameter for consistency with other indexed values. Baseline 2025/2026 national child SPM poverty is unchanged (21.0%). Adds `spm-calculator>=0.2.0` as a runtime dependency.
+
+### Fixed
+
+- Use `hourly_wage` when calculating `fsla_overtime_premium` for hourly workers, while keeping the prior earnings-based fallback when no hourly wage is available.
+- Validate extracted census archive paths before unpacking downloaded state block archives.
+- Add a Delaware TAXSIM 745 regression that checks the final income tax after cross-spouse loss offsets.
+- Set `household_weight` to default to `1` when not provided.
+- Avoid formula warnings in North Carolina TANF, Pennsylvania TANF, and Vermont military retirement exemption calculations.
+
+
+## [1.639.2] - 2026-04-17
+
+### Fixed
+
+- Model the 2024-07-01 to 2024-11-15 window when the vacated 2024 DOL overtime rule was briefly in force, and restore the DOL salary-levels URL as a secondary reference.
+
+
+## [1.639.1] - 2026-04-17
+
+### Fixed
+
+- Revert HCE and salary basis overtime thresholds to 2019 rule values after Texas v. U.S. Dept. of Labor (E.D. Tex. Nov 15, 2024) vacated the 2024 DOL overtime rule nationwide.
+
+
+## [1.639.0] - 2026-04-17
+
+### Added
+
+- Added Hawaii Optional State Supplementation (OSS) for SSI recipients in qualifying care facilities.
+
+
+## [1.638.1] - 2026-04-17
+
+### Fixed
+
+- Fix Arkansas inflation relief credit to only apply to the head and spouse, not dependents.
+- Correct the HCE overtime salary threshold effective dates: $107,432 took effect 2020-01-01 (per 2019 DOL final rule, 84 FR 51230), not 2010-01-01; $132,964 took effect 2024-07-01, not 2024-01-01. Remove the $134,004 entry for 2016 — the 2016 rule was enjoined before it took effect.
+- Fix Indiana EITC eligibility to only use the spouse's age when filing jointly.
+- Correct the benefit-level breakdown for the Massachusetts LIHEAP subsidized housing payment parameter to range(0,7), matching sibling files and the file's 0-6 value entries.
+- Fix Puerto Rico EITC phase-out to cover all filing statuses, not only SINGLE and JOINT.
+- Correct salary basis threshold effective dates: $684 took effect 2020-01-01 (per 2019 DOL rule), $844 took effect 2024-07-01; remove the enjoined 2016 $913 entry.
+- Apply the IRC § 221(b)(1) student loan interest deduction cap at the tax-unit level rather than per spouse.
+- Fill in the 2020 AMT exemption separate_limit value ($745,200 = phase-out start $518,400 + 4 x exemption $56,700), resolving the inherited-from-2019 TODO.
+- Correct 2020 non-itemizer charitable contribution caps: CARES Act $300 for all filing statuses except MFS ($150).
+- Record explicit refundable CTC individual_max values for 2025 and 2026 ($1,700 per IRS Rev. Proc. 24-40 and 25-32).
+- Correct the 2021 MFS 37% tax bracket threshold from $329,850 (a copy-paste from the 2021 JOINT bracket 4 threshold) to $314,150 per IRS Rev. Proc. 20-45.
+- Add explicit 2025 student loan interest phase-out start thresholds per IRS Rev. Proc. 24-40 (JOINT: $170,000; SINGLE/HoH/Surviving: $85,000).
+
+
+## [1.638.0] - 2026-04-17
+
+### Added
+
+- Add US government bond interest exemption for OK, OR, PA, RI, SC, UT, VA, WI, and WV.
+
+
+## [1.637.1] - 2026-04-17
+
+### Fixed
+
+- Gate `eitc` on `tax_unit_is_filer` (non-circular: uses required/voluntary/credit-motivated filer inputs). Closes non-filer EITC leak in calibrated microdata. See #8021.
+
+
+## [1.637.0] - 2026-04-17
+
+### Added
+
+- Add `sstb_self_employment_income` and split QBID into non-SSTB and SSTB components per IRC §199A(d). Mixed SSTB/non-SSTB wage-limited cases can also provide `sstb_w2_wages_from_qualified_business` and `sstb_unadjusted_basis_qualified_property` to match Form 8995-A's separate SSTB wage/UBIA inputs.
+
+
+## [1.636.4] - 2026-04-16
+
+### Fixed
+
+- Reorder Delaware non-refundable income tax credits so personal credits and aged personal credits apply before the non-refundable EITC, matching the PIT-RES filing order.
+- Cap Hawaii EITC at Hawaii income tax liability for tax years 2018 through 2022, while keeping the credit refundable for 2023 and later.
+
+
+## [1.636.3] - 2026-04-16
+
+### Fixed
+
+- Fixed malformed parameter YAML files that could break `policyengine-us` imports and added a syntax regression test for the parameter tree.
+
+
 ## [1.636.2] - 2026-04-15
 
 ### Changed

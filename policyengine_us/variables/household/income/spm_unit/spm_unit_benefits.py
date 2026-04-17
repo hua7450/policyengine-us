@@ -12,11 +12,13 @@ class spm_unit_benefits(Variable):
         BENEFITS = [
             "social_security",
             "ssi",
+            "in_ssp",
             "ga_ssp",
             "al_ssp",
             "ak_ssp",
             "dc_ossp",  # DC benefits
             "de_ssp",  # Delaware benefits
+            "hi_oss",
             "ma_state_supplement",  # Massachusetts benefits
             # California programs.
             "ca_cvrp",  # California Clean Vehicle Rebate Project.
@@ -24,6 +26,12 @@ class spm_unit_benefits(Variable):
             "co_ccap_subsidy",
             "co_state_supplement",
             "co_oap",
+            # New Mexico programs.
+            "nm_ssi_state_supplement",
+            # South Carolina programs.
+            "sc_ssi_state_supplement",
+            # Texas programs.
+            "tx_ssi_state_supplement",
             "snap",
             "wic",
             "free_school_meals",
