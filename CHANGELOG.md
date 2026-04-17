@@ -1,3 +1,12 @@
+## [1.641.0] - 2026-04-17
+
+### Added
+
+- Add the IRS annual additions retirement contribution limit parameter and update the 401(k) elective deferral limit to the published 2026 value.
+- Add US government bond interest exemption for AL, AR, CA, DC, DE. Add tests for all 10 states (AL, AR, AZ, CA, CO, CT, DC, DE, GA, HI).
+- Add US government bond interest exemption for MO, MS, NE, NJ, OH and tests for all 10 states (MO, MS, MT, NC, ND, NE, NJ, NM, NY, OH).
+
+
 ## [1.640.0] - 2026-04-17
 
 ### Added
