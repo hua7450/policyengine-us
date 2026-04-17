@@ -1,3 +1,16 @@
+## [1.642.0] - 2026-04-17
+
+### Added
+
+- Add SSI state supplements for New Mexico, South Carolina, and Texas.
+- Update Medicaid medically needy income and asset limits to 2018 values from KFF reference data.
+
+### Fixed
+
+- Fix breakdown range in `gov.contrib.additional_tax_bracket.bracket` — parameter has children `1-8` (the contrib adds an 8th bracket) but breakdown was `range(1, 8)` = `[1..7]`, omitting the 8th child. Update to `range(1, 9)`. This was previously a warning in policyengine-core but became an error in core 3.24.0, breaking parameter load at import time.
+- Extend the AMT kiddie tax to include full-time students under age 24, per IRC 1(g)(2)(A) which incorporates the Section 152(c)(3) age requirement. Previously only filers under age 19 were checked.
+
+
 ## [1.641.0] - 2026-04-17
 
 ### Added
