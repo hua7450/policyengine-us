@@ -24,10 +24,15 @@ class ia_ssa_category(Variable):
     def formula(person, period, parameters):
         eligible = person("ia_ssa_eligible", period)
         p = parameters(period).gov.states.ia.hhs.ssa
-        uncapped_ssi = person("uncapped_ssi", period)
-        income_after_ssi_disregards = max_(0, -uncapped_ssi)
-        federal_ssi = person("ssi", period)
-        total_rcf_income = income_after_ssi_disregards + federal_ssi
+        # Monthly SSI countable income and federal SSI payment; both source
+        # variables are annual, so divide by 12 for use in monthly formulas.
+        countable_monthly = (
+            person("ssi_countable_income", period.this_year) / MONTHS_IN_YEAR
+        )
+        ssi_monthly = person("ssi", period.this_year) / MONTHS_IN_YEAR
+        # Iowa-administered RCF client participation uses total monthly income
+        # (SSI countable + federal SSI payment), not the |FBR − income| V-shape.
+        total_rcf_income = countable_monthly + ssi_monthly
         in_rcf = person("ia_ssa_resides_in_residential_care_facility", period)
         client_participation = max_(
             0, total_rcf_income - p.rcf.personal_needs_allowance
@@ -39,7 +44,9 @@ class ia_ssa_category(Variable):
         ihhrc_income_cap = where(
             both_need_care, p.ihhrc.max_cost_couple, p.ihhrc.max_cost_single
         )
-        ihhrc_income_eligible = income_after_ssi_disregards <= ihhrc_income_cap
+        # IAC 441—177.4(1)(f): cap is compared against the person's monthly
+        # countable income, not the excess over the federal SSI benefit rate.
+        ihhrc_income_eligible = countable_monthly <= ihhrc_income_cap
         in_flh = person("ia_ssa_resides_in_family_life_home", period)
         # IAC 441—177.4(1)(c): IHHRC recipients must live in their own home,
         # so exclude those residing in an RCF or family-life home.

@@ -16,11 +16,15 @@ class ia_ssa_flh_supplement(Variable):
         category = person("ia_ssa_category", period)
         in_category = category == category.possible_values.FLH
         p = parameters(period).gov.states.ia.hhs.ssa
-        uncapped_ssi = person("uncapped_ssi", period)
-        income_excess = max_(0, -uncapped_ssi)
-        federal_ssi = person("ssi", period)
+        # Iowa FLH is federally-administered per POMS SI 01415.050.F. For
+        # federally-administered SSP, the state supplement equals
+        # max(0, total_standard − max(countable_income, FBR)).
+        countable_monthly = (
+            person("ssi_countable_income", period.this_year) / MONTHS_IN_YEAR
+        )
+        fbr = parameters(period).gov.ssa.ssi.amount.individual
         raw_supplement = max_(
-            0, p.flh.assistance_standard - income_excess - federal_ssi
+            0, p.flh.assistance_standard - max_(countable_monthly, fbr)
         )
         capped_supplement = min_(raw_supplement, p.flh.max_supplement)
         return in_category * capped_supplement

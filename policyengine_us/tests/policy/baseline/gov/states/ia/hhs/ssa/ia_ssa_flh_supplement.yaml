@@ -101,3 +101,35 @@
   output:
     # Cap is frozen at $142 even though standard and PNA rise in 2026
     ia_ssa_flh_supplement: [142]
+
+- name: Case 6, FLH supplement phases down when countable income exceeds FBR.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        social_security_retirement: 12_840
+        ia_ssa_resides_in_family_life_home: true
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # $1,070/mo SS gross -> $1,050/mo countable. FLH assistance standard
+    # $1,129, FBR $967. Federally-administered formula:
+    # max(0, 1129 - max(1050, 967)) = $79 (under the $142 cap).
+    # Prior broken formula paid the full $142 cap.
+    ia_ssa_flh_supplement: [79]

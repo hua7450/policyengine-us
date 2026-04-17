@@ -196,3 +196,36 @@
     # SS $1,667/mo after SSI disregards exceeds single income cap $480.55
     # -> not in IHHRC category -> no supplement
     ia_ssa_ihhrc_supplement: [0]
+
+- name: Case 9, IHHRC income cap enforced against countable income even when below FBR.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        social_security_retirement: 9_600
+        ia_ssa_needs_in_home_health_related_care: true
+        ia_ssa_ihhrc_cost_of_care: 400
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # $800/mo SS, countable $780/mo; below FBR $967 so the prior
+    # broken formula incorrectly made them IHHRC-eligible (it compared
+    # excess-over-FBR, which is 0 here). Correct check compares countable
+    # $780 against cap $480.55 -> ineligible for IHHRC.
+    ia_ssa_ihhrc_supplement: [0]
