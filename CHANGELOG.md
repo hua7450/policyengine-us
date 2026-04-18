@@ -1,3 +1,10 @@
+## [1.653.1] - 2026-04-18
+
+### Fixed
+
+- Migrate weekly-uv-lock workflow to GitHub App token (POLICYENGINE_GITHUB PAT expired).
+
+
 ## [1.653.0] - 2026-04-18
 
 ### Added
