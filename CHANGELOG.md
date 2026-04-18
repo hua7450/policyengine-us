@@ -1,3 +1,12 @@
+## [1.653.3] - 2026-04-18
+
+### Fixed
+
+- Stop classifying both spouses as COUPLE_ONE_ELIGIBLE for Alaska Adult Public Assistance when both are individually ABD-eligible but not jointly claiming.
+- Require the presence of at least one head/spouse for New Jersey CCAP activity eligibility so units with only dependents no longer vacuously pass the test.
+- Require the presence of at least one head/spouse for South Carolina CCAP activity eligibility so units with only dependents no longer vacuously pass the test.
+
+
 ## [1.653.2] - 2026-04-18
 
 ### Fixed
