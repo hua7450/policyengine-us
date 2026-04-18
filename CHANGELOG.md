@@ -1,3 +1,11 @@
+## [1.654.0] - 2026-04-18
+
+### Added
+
+- Model CHIP enrollment separately from eligibility via `chip_enrolled`, `takes_up_chip_if_eligible`, `chip_take_up_seed`, and `gov.hhs.chip.takeup_rate` (default 0.93), matching the Medicaid takeup pattern. `chip`, `chip_federal_share`, `chip_federal_cost`, and `chip_state_cost` now gate on enrollment rather than raw eligibility.
+- Federal/state cost attribution for Medicaid (FMAP per 42 USC 1396d) and CHIP (enhanced FMAP per 42 USC 1397ee), plus cross-program `federal_benefit_cost` and `state_benefit_cost` aggregates.
+
+
 ## [1.653.5] - 2026-04-18
 
 ### Fixed
