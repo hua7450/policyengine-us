@@ -1,3 +1,79 @@
+## [1.653.2] - 2026-04-18
+
+### Fixed
+
+- Scale the New Jersey CCAP family co-payment by children actually receiving care, not just all eligible children.
+- Apply the Connecticut Care 4 Kids activity test to the tax-unit head or spouse only, so a working dependent does not qualify the family.
+
+
+## [1.653.1] - 2026-04-18
+
+### Fixed
+
+- Migrate weekly-uv-lock workflow to GitHub App token (POLICYENGINE_GITHUB PAT expired).
+
+
+## [1.653.0] - 2026-04-18
+
+### Added
+
+- Implement South Carolina CCAP.
+
+
+## [1.652.0] - 2026-04-17
+
+### Added
+
+- Add Connecticut Child Care Assistance Program (CCAP/Care 4 Kids).
+
+### Fixed
+
+- Extend `tip_income_deduction_occupation_requirement_met` to recognize
+  SSTB status from the per-category `sstb_self_employment_income` input,
+  not only the legacy all-or-nothing `business_is_sstb` flag. This keeps
+  the §224 SSTB exclusion in force for self-employed tipped workers who
+  populate the new SSTB inputs added in #7944.
+- Applied the IRS Form 8917 cap to the pre-2021 tuition above-the-line deduction, which previously flowed into AGI uncapped.
+- Corrected the Lifetime Learning Credit phase-out thresholds to use pre-2021 IRS Form 8863 values, which differed from the American Opportunity Credit before the Consolidated Appropriations Act, 2021 harmonized them.
+- Add regression test that constructs the tax-benefit system and bump policyengine-core floor to 3.24.0 so parameter breakdown/children mismatches fail CI rather than at user import time (issue #8055).
+
+
+## [1.651.0] - 2026-04-17
+
+### Added
+
+- Add Virginia Child Care Subsidy Program (CCSP).
+
+
+## [1.650.0] - 2026-04-17
+
+### Added
+
+- Add decomposed marginal tax rate variables: federal_marginal_tax_rate, state_marginal_tax_rate, and fica_marginal_tax_rate.
+- Added Idaho Aid to the Aged, Blind, and Disabled (AABD) cash assistance program.
+- Add New Jersey Child Care Assistance Program (CCAP).
+- Added a contributed Minnesota HF4890 reform with income tax rate schedules by filing status.
+
+
+## [1.649.1] - 2026-04-17
+
+### Fixed
+
+- Propagate tax_unit_itemizes from the parent sim to the no_salt branch in ctc_limiting_tax_liability to avoid a refundable_ctc -> tax_unit_itemizes -> tax_liability_if_itemizing -> income_tax -> refundable_ctc cycle. Fixes #8059.
+
+
+## [1.649.0] - 2026-04-17
+
+### Added
+
+- Add Connecticut State Supplementary Payment (SSP).
+
+### Changed
+
+- Refine AK, AL, and DE SSP living arrangement variables. `ak_ssp_living_arrangement` now has entity Person (was Household); consumers must provide it at the Person level.
+- Update `CONTRIBUTING.md` and the weekly-uv-lock workflow to use the towncrier `changelog.d/` fragment format. The old `changelog_entry.yaml` flow was deprecated some time ago; the contributor docs and the weekly uv-lock bot both still created YAML entries, so the bot's own PRs failed the "Check changelog fragment" CI step and human contributors following the docs hit the same wall.
+
+
 ## [1.648.0] - 2026-04-17
 
 ### Added
