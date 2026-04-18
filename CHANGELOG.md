@@ -1,3 +1,10 @@
+## [1.653.4] - 2026-04-18
+
+### Changed
+
+- Bump policyengine-core floor to 3.24.4 (closes #8066).
+
+
 ## [1.653.3] - 2026-04-18
 
 ### Fixed
