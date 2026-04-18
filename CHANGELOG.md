@@ -1,3 +1,13 @@
+## [1.653.5] - 2026-04-18
+
+### Fixed
+
+- Excluded earnings of CT Care 4 Kids family members under 18 who are not parents of the applicant child from countable income, per RCSA 17b-749-05(b)(2)(E).
+- Excluded minor children's earnings from NJ CCAP countable income, per the CCAP application form (CC-1) which collects earnings only from applicant/co-applicant.
+- Excluded earnings of VA CCSP household members under 18 from countable income, per 8VAC20-790-40(H).
+- Documented that VA CCSP family day home rates vary by region only, not by age group, with new regression tests.
+
+
 ## [1.653.4] - 2026-04-18
 
 ### Changed
