@@ -1,3 +1,11 @@
+## [1.653.2] - 2026-04-18
+
+### Fixed
+
+- Scale the New Jersey CCAP family co-payment by children actually receiving care, not just all eligible children.
+- Apply the Connecticut Care 4 Kids activity test to the tax-unit head or spouse only, so a working dependent does not qualify the family.
+
+
 ## [1.653.1] - 2026-04-18
 
 ### Fixed
