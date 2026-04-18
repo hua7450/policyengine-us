@@ -1,1 +1,0 @@
-Implement South Carolina CCAP.
