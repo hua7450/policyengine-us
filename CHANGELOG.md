@@ -1,3 +1,10 @@
+## [1.656.2] - 2026-04-19
+
+### Fixed
+
+- Split the Full Suite YAML batch grouping in `tests/test_batched.py` so each heavy folder runs in its own isolated subprocess. Previous grouping (3 folders per contrib batch, paired gov/ folders in the baseline-other job) pushed peak memory to ~8-9 GB per subprocess, which OOMed the 16 GB ubuntu-latest runner once the policyengine-core 3.24+ overhead landed and surfaced as `The runner has received a shutdown signal` mid-batch. Each batch now targets ≤5 GB peak, eliminating the intermittent Full Suite failures without changing test coverage.
+
+
 ## [1.656.1] - 2026-04-19
 
 ### Changed
