@@ -1,3 +1,14 @@
+## [1.658.0] - 2026-04-19
+
+### Added
+
+- Added `marketplace_net_premium` variable — annual Marketplace plan premium net of applied PTC.
+
+### Changed
+
+- SPM unit medical out-of-pocket expenses now uses rules-based `income_adjusted_part_b_premium` (base + IRMAA) in place of the imputed `medicare_part_b_premiums`, so reforms to the Medicare Part B base premium or IRMAA thresholds propagate through SPM resources.
+
+
 ## [1.657.1] - 2026-04-19
 
 ### Changed

@@ -1,1 +1,0 @@
-SPM unit medical out-of-pocket expenses now uses rules-based `income_adjusted_part_b_premium` (base + IRMAA) in place of the imputed `medicare_part_b_premiums`, so reforms to the Medicare Part B base premium or IRMAA thresholds propagate through SPM resources.
