@@ -1,3 +1,10 @@
+## [1.656.1] - 2026-04-19
+
+### Changed
+
+- Include `chip_premium` in `spm_unit_spm_expenses` so CHIP premium reforms propagate to SPM resources.
+
+
 ## [1.656.0] - 2026-04-19
 
 ### Added
