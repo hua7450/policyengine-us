@@ -1,3 +1,14 @@
+## [1.656.0] - 2026-04-19
+
+### Added
+
+- Added `household_health_costs` aggregate; `chip_premium` now reduces `household_net_income` when health benefits are counted as income.
+
+### Fixed
+
+- Added historical effective-date brackets for MO and NY CHIP premium schedules so `chip_premium` returns accurate 2020-2026 values for the 2024 data-imputation baseline anchor.
+
+
 ## [1.655.1] - 2026-04-19
 
 ### Fixed
