@@ -1,3 +1,10 @@
+## [1.657.1] - 2026-04-19
+
+### Changed
+
+- Added `spm_unit_medical_out_of_pocket_expenses` that combines person-level imputed MOOP with rules-based tax-unit-level premiums (currently `chip_premium`). `spm_unit_spm_expenses` now reads the wrapper instead of listing MOOP and each premium separately.
+
+
 ## [1.657.0] - 2026-04-19
 
 ### Added
