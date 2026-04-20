@@ -132,8 +132,10 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - group: states-non-ny
-            cmd: python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/states --batches 4 --exclude ny
+          - group: states-non-ny-shard-1
+            cmd: python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/states --batches 4 --exclude ny --shard 1/2
+          - group: states-non-ny-shard-2
+            cmd: python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/states --batches 4 --exclude ny --shard 2/2
           - group: states-ny
             cmd: make test-yaml-no-structural-states-ny
           - group: irs-household
@@ -174,12 +176,14 @@ jobs:
             target: test-yaml-structural-heavy-shard-1
           - group: states-shard-2
             target: test-yaml-structural-heavy-shard-2
-          - group: reform
-            target: test-yaml-structural-reform
           - group: other-shard-1
             target: test-yaml-structural-other-shard-1
           - group: other-shard-2
             target: test-yaml-structural-other-shard-2
+          - group: other-shard-3
+            target: test-yaml-structural-other-shard-3
+          - group: congress
+            target: test-yaml-structural-congress
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -199,17 +203,9 @@ jobs:
           PYTHONUNBUFFERED: 1
         run: uv run make ${{ matrix.target }}
   Rest:
-    name: Full Suite - Rest (${{ matrix.group }})
+    name: Full Suite - Rest (Python + variables/ YAMLs)
     runs-on: ubuntu-latest
     timeout-minutes: 60
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - group: python
-            target: test-other
-          - group: variables
-            target: test-yaml-variables
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -224,7 +220,17 @@ jobs:
       - name: Turn off default branching
         shell: bash
         run: bash ./update_itemization.sh
-      - name: Run Rest tests (${{ matrix.group }})
+      - name: Run Python tests (code_health, core, microsimulation, utilities, top-level)
         env:
           PYTHONUNBUFFERED: 1
-        run: uv run make ${{ matrix.target }}
+        run: uv run make test-other
+      - name: Run tests/variables YAML tests
+        if: always()
+        env:
+          PYTHONUNBUFFERED: 1
+        run: uv run make test-yaml-variables
+      - name: Run tests/policy/reform YAML tests
+        if: always()
+        env:
+          PYTHONUNBUFFERED: 1
+        run: uv run make test-yaml-reform

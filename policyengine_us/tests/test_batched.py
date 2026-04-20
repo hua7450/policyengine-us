@@ -48,93 +48,44 @@ def split_into_batches(
     # heavy folder its own batch keeps peaks under ~5 GB and eliminates
     # the intermittent failures without reducing total coverage.
     if str(base_path).endswith("policy/contrib"):
-        # Heavy folders each get their own batch (~3-5 GB peak each).
-        HEAVY_BATCHES = [
-            ["federal"],
-            ["harris"],
-            ["treasury"],
-            ["ctc"],
-            ["snap_ea"],
-            ["ubi_center"],
-            ["deductions"],
-            ["aca"],
-            ["snap"],
-            ["tax_exempt"],
-            ["eitc"],
-            ["crfb"],
-            ["congress"],
-        ]
-        # Small folders/root YAML files pair into two catch-all batches
-        # rather than one so new unknown folders have somewhere safe to
-        # land without pushing either group past ~5 GB.
-        LIGHT_A = [
-            "state_dependent_exemptions",
-            "additional_tax_bracket",
-            "local",
-            "dc_single_joint_threshold_ratio.yaml",
-        ]
-        LIGHT_B = [
-            "reconciliation",
-            "dc_kccatc.yaml",
-            "reported_state_income_tax.yaml",
-        ]
+        # Heavy folders each get their own batch (~3-5 GB peak each) so
+        # a single subprocess doesn't exceed the 16 GB runner cap.
+        HEAVY = {
+            "federal",
+            "harris",
+            "treasury",
+            "ctc",
+            "snap_ea",
+            "ubi_center",
+            "deductions",
+            "aca",
+            "snap",
+            "tax_exempt",
+            "eitc",
+            "crfb",
+            "congress",
+        }
 
-        # Get all subdirectories (excluding states which is in Heavy job)
         subdirs = sorted(
-            [
-                item
-                for item in base_path.iterdir()
-                if item.is_dir() and item.name not in exclude
-            ]
+            item
+            for item in base_path.iterdir()
+            if item.is_dir() and item.name not in exclude
         )
+        root_files = sorted(base_path.glob("*.yaml"))
 
-        # Get root level YAML files
-        root_files = sorted(list(base_path.glob("*.yaml")))
+        # One batch per heavy subdir (if present).
+        batches = [
+            [str(subdir)] for subdir in subdirs if subdir.name in HEAVY
+        ]
 
-        def get_batch_paths(batch_names, subdirs, root_files):
-            paths = []
-            for name in batch_names:
-                for subdir in subdirs:
-                    if subdir.name == name:
-                        paths.append(str(subdir))
-                        break
-                for f in root_files:
-                    if f.name == name:
-                        paths.append(str(f))
-                        break
-            return paths
-
-        # Collect known folders/files
-        all_known = set()
-        for batch in HEAVY_BATCHES:
-            all_known.update(batch)
-        all_known.update(LIGHT_A)
-        all_known.update(LIGHT_B)
-
-        # Find unknown folders/files (new additions land in LIGHT_B —
-        # keeps LIGHT_A's deterministic grouping stable as the repo grows)
-        unknown = []
-        for subdir in subdirs:
-            if subdir.name not in all_known:
-                unknown.append(str(subdir))
-        for f in root_files:
-            if f.name not in all_known:
-                unknown.append(str(f))
-
-        # Build heavy batches (one per folder)
-        batches = []
-        for batch_names in HEAVY_BATCHES:
-            paths = get_batch_paths(batch_names, subdirs, root_files)
-            if paths:
-                batches.append(paths)
-
-        # Add the two light catch-all batches
-        light_a = get_batch_paths(LIGHT_A, subdirs, root_files)
-        if light_a:
-            batches.append(light_a)
-        light_b = get_batch_paths(LIGHT_B, subdirs, root_files) + unknown
-        if light_b:
-            batches.append(light_b)
+        # Catch-all batch for everything else — light subdirs and root
+        # yaml files. Auto-collects any newly added folders/files so
+        # they're exercised without extra config.
+        light_paths = [
+            str(subdir) for subdir in subdirs if subdir.name not in HEAVY
+        ] + [str(f) for f in root_files]
+        if light_paths:
+            batches.append(light_paths)
 
         return batches
 

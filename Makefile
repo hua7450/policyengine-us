@@ -16,7 +16,7 @@ test-yaml-structural-heavy-shard-1:
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/states --batches 1 --shard 1/2
 test-yaml-structural-heavy-shard-2:
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/states --batches 1 --shard 2/2
-test-yaml-structural-reform:
+test-yaml-structural-other-shard-3:
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/ctc/ctc_additional_bracket.yaml --batches 1
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/ctc/ctc_minimum_refundable_amount.yaml --batches 1
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/ctc/ctc_older_child_supplement.yaml --batches 1
@@ -35,11 +35,21 @@ test-yaml-structural-reform:
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/harris --batches 1
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/treasury --batches 1
 test-yaml-structural-other:
-	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib --exclude states,ctc,ubi_center,federal,harris,treasury,crfb
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib --exclude states,ctc,ubi_center,federal,harris,treasury,crfb,congress
 test-yaml-structural-other-shard-1:
-	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib --exclude states,ctc,ubi_center,federal,harris,treasury,crfb --shard 1/2
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib --exclude states,ctc,ubi_center,federal,harris,treasury,crfb,congress --shard 1/2
 test-yaml-structural-other-shard-2:
-	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib --exclude states,ctc,ubi_center,federal,harris,treasury,crfb --shard 2/2
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib --exclude states,ctc,ubi_center,federal,harris,treasury,crfb,congress --shard 2/2
+test-yaml-structural-congress:
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/congress/afa --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/congress/golden --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/congress/hawley --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/congress/mcdonald_rivet --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/congress/romney --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/congress/tlaib --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/congress/american_family_act_with_baby_bonus.yaml --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/congress/watca.yaml --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/congress/wftca.yaml --batches 1
 test-yaml-variables:
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/variables --batches 1
 test-yaml-no-structural-states:
@@ -82,6 +92,7 @@ test-yaml-no-structural-other-contrib:
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/contrib/ubi_center/basic_income_eligible.yaml --batches 1
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/contrib/ubi_center/basic_income_phase_in.yaml --batches 1
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/contrib/ubi_center/basic_income_phase_out.yaml --batches 1
+test-yaml-reform:
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/reform --batches 1
 test-yaml-no-structural-other-ssa:
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/ssa/revenue --batches 2
