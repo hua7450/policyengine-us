@@ -161,7 +161,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        group: [irs, household, rest, contrib]
+        group: [irs-household, ssa, rest, contrib]
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4

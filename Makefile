@@ -36,13 +36,18 @@ test-yaml-no-structural-other-irs:
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/irs/tax_unit_is_filer.yaml --batches 1
 test-yaml-no-structural-other-household:
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/household --batches 2
+test-yaml-no-structural-other-irs-household: test-yaml-no-structural-other-irs test-yaml-no-structural-other-household
 test-yaml-no-structural-other-contrib:
-	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/contrib --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/contrib --batches 2
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/reform --batches 1
+test-yaml-no-structural-other-ssa:
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/ssa/revenue --batches 2
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/ssa/social_security --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/ssa/ss --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/ssa/ssi --batches 1
 test-yaml-no-structural-other-rest:
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/hhs --batches 1
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/usda --batches 1
-	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/ssa --batches 1
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/simulation --batches 1
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/local --batches 1
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/territories --batches 1
