@@ -285,7 +285,7 @@
 - name: Testing when reforms are initialized in another order
   period: 2025
   input:
-    people: 
+    people:
       person1:
         age: 65
         is_tax_unit_head_or_spouse: true
@@ -305,3 +305,106 @@
     tip_income_deduction: 1_000
     taxable_income_deductions_if_itemizing: 8_100
     taxable_income_deductions_if_not_itemizing: 8_100
+
+- name: Single senior at the phase-out threshold (no phase-out)
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 65
+        is_tax_unit_head_or_spouse: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [person1]
+        adjusted_gross_income: 75_000
+        salt_deduction: 0
+        standard_deduction: 0
+  output:
+    # At the $75,000 threshold — no phase-out applies
+    additional_senior_deduction: 6_000
+
+- name: Single senior one dollar above the phase-out threshold
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 65
+        is_tax_unit_head_or_spouse: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [person1]
+        adjusted_gross_income: 75_001
+        salt_deduction: 0
+        standard_deduction: 0
+  output:
+    # Excess MAGI: $1
+    # Phase-out: 6% * $1 = $0.06
+    # Per senior: max($6,000 - $0.06, 0) = $5,999.94
+    additional_senior_deduction: 5_999.94
+
+- name: Single senior fully phased out at $175,000
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 65
+        is_tax_unit_head_or_spouse: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [person1]
+        adjusted_gross_income: 175_000
+        salt_deduction: 0
+        standard_deduction: 0
+  output:
+    # Excess MAGI: $100,000
+    # Phase-out: 6% * $100,000 = $6,000
+    # Per senior: max($6,000 - $6,000, 0) = $0
+    additional_senior_deduction: 0
+
+- name: Joint filers fully phased out at $250,000
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 65
+        is_tax_unit_head_or_spouse: true
+        ssn_card_type: CITIZEN
+      person2:
+        age: 65
+        is_tax_unit_head_or_spouse: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+        filing_status: JOINT
+        adjusted_gross_income: 250_000
+        salt_deduction: 0
+        standard_deduction: 0
+  output:
+    # Excess MAGI: $250,000 - $150,000 = $100,000
+    # Phase-out: 6% * $100,000 = $6,000
+    # Per senior: max($6,000 - $6,000, 0) = $0
+    # Total: $0 x 2 = $0
+    additional_senior_deduction: 0
+
+- name: Senior deduction sunsets after 2028
+  period: 2029
+  input:
+    people:
+      person1:
+        age: 65
+        is_tax_unit_head_or_spouse: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [person1]
+        adjusted_gross_income: 50_000
+        salt_deduction: 0
+        standard_deduction: 0
+  output:
+    # H.R.1 SEC. 70103 limits the deduction to tax years beginning before
+    # January 1, 2029. Parameter amount drops to  from 2029 onward.
+    additional_senior_deduction: 0
