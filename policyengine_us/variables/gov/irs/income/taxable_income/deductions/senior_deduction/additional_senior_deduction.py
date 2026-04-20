@@ -17,7 +17,6 @@ class additional_senior_deduction(Variable):
             ["additional_senior_deduction_eligible_person"],
         )
 
-        base_deduction = p.amount * eligible_seniors
         agi = tax_unit("adjusted_gross_income", period)
         filing_status = tax_unit("filing_status", period)
         joint = filing_status == filing_status.possible_values.JOINT
@@ -26,4 +25,7 @@ class additional_senior_deduction(Variable):
             p.phase_out_rate.joint.calc(agi),
             p.phase_out_rate.other.calc(agi),
         )
-        return max_(base_deduction - phase_out_amount, 0)
+        # Per IRS Schedule 1-A Part V: phase-out applies to each
+        # senior's $6,000 individually, then sum across eligible seniors.
+        per_senior_allowed = max_(p.amount - phase_out_amount, 0)
+        return per_senior_allowed * eligible_seniors
