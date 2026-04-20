@@ -125,8 +125,17 @@ jobs:
       - name: Build package
         run: uv build
   NonStructural-States:
-    name: Full Suite - Baseline States
+    name: Full Suite - Baseline States (${{ matrix.group }})
     runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - group: non-ny
+            cmd: python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/states --batches 2 --exclude ny
+          - group: ny
+            cmd: python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/states/ny --batches 1
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -141,15 +150,18 @@ jobs:
       - name: Turn off default branching
         shell: bash
         run: bash ./update_itemization.sh
-      - name: Run non-structural YAML tests (states in 3 batches)
+      - name: Run non-structural YAML tests
         env:
           PYTHONUNBUFFERED: 1
-        run: |
-          echo "Running non-structural YAML tests (states, 3 batches)..."
-          uv run make test-yaml-no-structural-states
+        run: uv run ${{ matrix.cmd }}
   NonStructural-Other:
-    name: Full Suite - Baseline (excl States) & Reform & Python
+    name: Full Suite - Baseline (${{ matrix.group }})
     runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        group: [irs, household, rest, contrib]
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -164,21 +176,19 @@ jobs:
       - name: Turn off default branching
         shell: bash
         run: bash ./update_itemization.sh
-      - name: Run non-structural YAML tests (other)
+      - name: Run non-structural YAML tests (${{ matrix.group }})
         env:
           PYTHONUNBUFFERED: 1
-        run: |
-          echo "Running non-structural YAML tests (other)..."
-          uv run make test-yaml-no-structural-other
+        run: uv run make test-yaml-no-structural-other-${{ matrix.group }}
       - name: Run Python-based tests
+        if: matrix.group == 'contrib'
         env:
           PYTHONUNBUFFERED: 1
-        run: |
-          echo "Running Python-based tests..."
-          uv run make test-other
+        run: uv run make test-other
   Structural-Heavy:
     name: Full Suite - Structural (States)
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -202,6 +212,7 @@ jobs:
   Structural:
     name: Full Suite - Structural (Other)
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4

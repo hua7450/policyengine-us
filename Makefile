@@ -20,6 +20,41 @@ test-yaml-no-structural-other:
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/household --batches 1
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/contrib --batches 1
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/reform --batches 1
+test-yaml-no-structural-other-irs:
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/irs/credits --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/irs/income --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/irs/tax --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/irs/deductions --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/irs/integration --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/irs/payroll --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/irs/self_employment --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/irs/social_security --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/irs/tax_unit --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/irs/tce --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/irs/vita --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/irs/irs_gross_income.yaml --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/irs/tax_unit_is_filer.yaml --batches 1
+test-yaml-no-structural-other-household:
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/household --batches 2
+test-yaml-no-structural-other-contrib:
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/contrib --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/reform --batches 1
+test-yaml-no-structural-other-rest:
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/hhs --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/usda --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/ssa --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/simulation --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/local --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/territories --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/aca --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/ed --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/hud --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/fcc --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/doe --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/abolitions.yaml --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/test_categorical_eligibility_vectorization.yaml --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/calcfunctions --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/income --batches 1
 test-other:
 	pytest policyengine_us/tests/ --maxfail=0
 coverage:
