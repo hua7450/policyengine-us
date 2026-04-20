@@ -1,0 +1,1 @@
+Reverted the 2029 sunset from `senior_deduction/amount.yaml` and removed its corresponding test — the sunset is handled at the deduction aggregator level, and zeroing the amount parameter broke the CRFB `senior_deduction_extension` tests.
