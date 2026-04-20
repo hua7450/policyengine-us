@@ -135,7 +135,7 @@ jobs:
           - group: non-ny
             cmd: python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/states --batches 4 --exclude ny
           - group: ny
-            cmd: python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/states/ny --batches 1
+            cmd: make test-yaml-no-structural-states-ny
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4

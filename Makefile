@@ -14,7 +14,14 @@ test-yaml-structural-heavy:
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/states --batches 1
 test-yaml-no-structural-states:
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/states --batches 4 --exclude ny
-	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/states/ny --batches 1
+	$(MAKE) test-yaml-no-structural-states-ny
+test-yaml-no-structural-states-ny:
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/states/ny/tax/income/credits --batches 3
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/states/ny/tax/income/taxable_income --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/states/ny/tax/income --exclude credits,taxable_income --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/states/ny/hhs --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/states/ny/nyserda --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/states/ny/otda --batches 1
 test-yaml-no-structural-other:
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline --batches 2 --exclude states
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/household --batches 1
