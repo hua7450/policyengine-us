@@ -1,3 +1,10 @@
+## [1.659.1] - 2026-04-20
+
+### Fixed
+
+- Fixed the federal senior deduction phase-out to apply per-senior rather than to the combined total, matching IRS Schedule 1-A Part V.
+
+
 ## [1.659.0] - 2026-04-19
 
 ### Added
