@@ -168,7 +168,12 @@ def split_into_batches(
                 if item.is_dir() and item.name not in exclude
             ]
         )
-        if not subdirs:
+        # Root-level YAML files (e.g. cross-state filing-status test) are
+        # state-agnostic and would be invisible to subdir-based batching
+        # otherwise — collect them into a dedicated trailing batch.
+        root_files = sorted(base_path.glob("*.yaml"))
+
+        if not subdirs and not root_files:
             return []
         # Split into num_batches sequential groups
         if num_batches > 1:
@@ -182,8 +187,15 @@ def split_into_batches(
                 if batch:
                     batches.append(batch)
                 start = end
+            if root_files:
+                batches.append([str(f) for f in root_files])
             return batches
-        return [[str(subdir) for subdir in subdirs]]
+        batches = []
+        if subdirs:
+            batches.append([str(subdir) for subdir in subdirs])
+        if root_files:
+            batches.append([str(f) for f in root_files])
+        return batches
 
     # Special handling for baseline tests
     if "baseline" in str(base_path) and str(base_path).endswith("baseline"):
@@ -410,9 +422,26 @@ def main():
         default="",
         help="Comma-separated list of directory names to exclude (for contrib tests)",
     )
+    parser.add_argument(
+        "--shard",
+        type=str,
+        default=None,
+        help="Run a shard of the batches across parallel CI runners (format: 'I/N'; 1-indexed)",
+    )
 
     args = parser.parse_args()
     exclude_list = [x.strip() for x in args.exclude.split(",") if x.strip()]
+
+    shard_idx = shard_count = None
+    if args.shard:
+        try:
+            shard_idx, shard_count = (int(x) for x in args.shard.split("/"))
+        except ValueError:
+            print(f"Error: --shard must be in format 'I/N' (got {args.shard!r})")
+            sys.exit(1)
+        if not (1 <= shard_idx <= shard_count):
+            print(f"Error: --shard I must satisfy 1 <= I <= N (got {args.shard!r})")
+            sys.exit(1)
 
     if not os.path.exists("policyengine_us"):
         print("Error: Must run from PolicyEngine US root directory")
@@ -436,6 +465,18 @@ def main():
 
     # Split into batches
     batches = split_into_batches(test_path, args.batches, exclude_list)
+
+    # Apply sharding: slice every Nth batch starting from the shard index.
+    # Alphabetical subfolder ordering means new folders auto-distribute by
+    # position rather than requiring manual re-assignment per runner.
+    if shard_count is not None:
+        all_batch_count = len(batches)
+        batches = batches[shard_idx - 1 :: shard_count]
+        print(
+            f"Sharding: running shard {shard_idx}/{shard_count} "
+            f"({len(batches)} of {all_batch_count} batches)"
+        )
+
     if len(batches) != args.batches:
         print(f"Actual batches: {len(batches)} (optimized for {total_tests} files)")
     else:

@@ -12,6 +12,10 @@ test-yaml-structural:
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib --exclude states
 test-yaml-structural-heavy:
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/states --batches 1
+test-yaml-structural-heavy-shard-1:
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/states --batches 1 --shard 1/2
+test-yaml-structural-heavy-shard-2:
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/states --batches 1 --shard 2/2
 test-yaml-structural-reform:
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/ctc/ctc_additional_bracket.yaml --batches 1
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/ctc/ctc_minimum_refundable_amount.yaml --batches 1
@@ -32,6 +36,10 @@ test-yaml-structural-reform:
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/treasury --batches 1
 test-yaml-structural-other:
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib --exclude states,ctc,ubi_center,federal,harris,treasury,crfb
+test-yaml-structural-other-shard-1:
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib --exclude states,ctc,ubi_center,federal,harris,treasury,crfb --shard 1/2
+test-yaml-structural-other-shard-2:
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib --exclude states,ctc,ubi_center,federal,harris,treasury,crfb --shard 2/2
 test-yaml-variables:
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/variables --batches 1
 test-yaml-no-structural-states:
