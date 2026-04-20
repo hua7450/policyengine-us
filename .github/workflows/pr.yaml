@@ -124,44 +124,26 @@ jobs:
           verbose: true
       - name: Build package
         run: uv build
-  NonStructural-States:
-    name: Full Suite - Baseline States (${{ matrix.group }})
-    runs-on: ubuntu-latest
-    timeout-minutes: 60
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - group: non-ny
-            cmd: python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/states --batches 4 --exclude ny
-          - group: ny
-            cmd: make test-yaml-no-structural-states-ny
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3.14
-      - name: Install uv
-        uses: astral-sh/setup-uv@v5
-      - name: Install dependencies
-        run: uv sync --extra dev
-      - name: Turn off default branching
-        shell: bash
-        run: bash ./update_itemization.sh
-      - name: Run non-structural YAML tests
-        env:
-          PYTHONUNBUFFERED: 1
-        run: uv run ${{ matrix.cmd }}
-  NonStructural-Other:
+  Baseline:
     name: Full Suite - Baseline (${{ matrix.group }})
     runs-on: ubuntu-latest
     timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
-        group: [irs-household, ssa, rest, contrib]
+        include:
+          - group: states-non-ny
+            cmd: python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/states --batches 4 --exclude ny
+          - group: states-ny
+            cmd: make test-yaml-no-structural-states-ny
+          - group: irs-household
+            cmd: make test-yaml-no-structural-other-irs-household
+          - group: ssa
+            cmd: make test-yaml-no-structural-other-ssa
+          - group: rest
+            cmd: make test-yaml-no-structural-other-rest
+          - group: contrib
+            cmd: make test-yaml-no-structural-other-contrib
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -176,60 +158,65 @@ jobs:
       - name: Turn off default branching
         shell: bash
         run: bash ./update_itemization.sh
-      - name: Run non-structural YAML tests (${{ matrix.group }})
+      - name: Run Baseline YAML tests (${{ matrix.group }})
         env:
           PYTHONUNBUFFERED: 1
-        run: uv run make test-yaml-no-structural-other-${{ matrix.group }}
-      - name: Run Python-based tests
-        if: matrix.group == 'contrib'
+        run: uv run ${{ matrix.cmd }}
+  Contrib:
+    name: Full Suite - Contrib (${{ matrix.group }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - group: states
+            target: test-yaml-structural-heavy
+          - group: reform
+            target: test-yaml-structural-reform
+          - group: other
+            target: test-yaml-structural-other
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.14
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+      - name: Install dependencies
+        run: uv sync --extra dev
+      - name: Turn off default branching
+        shell: bash
+        run: bash ./update_itemization.sh
+      - name: Run Contrib YAML tests (${{ matrix.group }})
+        env:
+          PYTHONUNBUFFERED: 1
+        run: uv run make ${{ matrix.target }}
+  Rest:
+    name: Full Suite - Rest (Python + variables/ YAMLs)
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.14
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+      - name: Install dependencies
+        run: uv sync --extra dev
+      - name: Turn off default branching
+        shell: bash
+        run: bash ./update_itemization.sh
+      - name: Run Python tests (code_health, core, microsimulation, utilities, top-level)
         env:
           PYTHONUNBUFFERED: 1
         run: uv run make test-other
-  Structural-Heavy:
-    name: Full Suite - Structural (States)
-    runs-on: ubuntu-latest
-    timeout-minutes: 60
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3.14
-      - name: Install uv
-        uses: astral-sh/setup-uv@v5
-      - name: Install dependencies
-        run: uv sync --extra dev
-      - name: Turn off default branching
-        shell: bash
-        run: bash ./update_itemization.sh
-      - name: Run structural YAML tests (states)
+      - name: Run tests/variables YAML tests
         env:
           PYTHONUNBUFFERED: 1
-        run: |
-          echo "Running structural YAML tests (contrib/states)..."
-          uv run make test-yaml-structural-heavy
-  Structural:
-    name: Full Suite - Structural (Other)
-    runs-on: ubuntu-latest
-    timeout-minutes: 60
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3.14
-      - name: Install uv
-        uses: astral-sh/setup-uv@v5
-      - name: Install dependencies
-        run: uv sync --extra dev
-      - name: Turn off default branching
-        shell: bash
-        run: bash ./update_itemization.sh
-      - name: Run structural YAML tests (other)
-        env:
-          PYTHONUNBUFFERED: 1
-        run: |
-          echo "Running structural YAML tests (contrib excl states)..."
-          uv run make test-yaml-structural
+        run: uv run make test-yaml-variables

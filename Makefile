@@ -12,6 +12,16 @@ test-yaml-structural:
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib --exclude states
 test-yaml-structural-heavy:
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/states --batches 1
+test-yaml-structural-reform:
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/ctc --batches 2
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/ubi_center --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/federal --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/harris --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/treasury --batches 1
+test-yaml-structural-other:
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib --exclude states,ctc,ubi_center,federal,harris,treasury
+test-yaml-variables:
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/variables --batches 1
 test-yaml-no-structural-states:
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/states --batches 4 --exclude ny
 	$(MAKE) test-yaml-no-structural-states-ny
