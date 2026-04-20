@@ -23,7 +23,10 @@ def count_yaml_files(directory: Path) -> int:
 
 
 def split_into_batches(
-    base_path: Path, num_batches: int, exclude: List[str] = None
+    base_path: Path,
+    num_batches: int,
+    exclude: List[str] = None,
+    mode: str = "auto",
 ) -> List[List[str]]:
     """
     Split test directories into specified number of batches.
@@ -34,9 +37,30 @@ def split_into_batches(
         base_path: Path to the test directory
         num_batches: Number of batches to split into
         exclude: List of directory names to exclude (for contrib tests)
+        mode: Batching mode. "auto" (default) uses the per-path heuristics
+            below. "per-subdir" runs each immediate subdir as its own batch
+            with loose yamls collected into a trailing batch. "per-file"
+            runs every yaml (recursively) as its own batch.
     """
     if exclude is None:
         exclude = []
+
+    # Explicit modes — bypass the per-path auto heuristics so new files
+    # added to the target auto-route without a Makefile edit.
+    if mode == "per-file":
+        return [[str(f)] for f in sorted(base_path.rglob("*.yaml"))]
+
+    if mode == "per-subdir":
+        subdirs = sorted(
+            item
+            for item in base_path.iterdir()
+            if item.is_dir() and item.name not in exclude
+        )
+        root_files = sorted(base_path.glob("*.yaml"))
+        batches = [[str(s)] for s in subdirs]
+        if root_files:
+            batches.append([str(f) for f in root_files])
+        return batches
 
     # Special handling for contrib tests - one batch per heavy folder.
     # Only apply to policy/contrib (structural tests), not baseline/contrib.
@@ -377,6 +401,12 @@ def main():
         default=None,
         help="Run a shard of the batches across parallel CI runners (format: 'I/N'; 1-indexed)",
     )
+    parser.add_argument(
+        "--mode",
+        choices=["auto", "per-subdir", "per-file"],
+        default="auto",
+        help="Batching mode. 'per-subdir' = each immediate subdir is its own batch; 'per-file' = each yaml is its own batch.",
+    )
 
     args = parser.parse_args()
     exclude_list = [x.strip() for x in args.exclude.split(",") if x.strip()]
@@ -413,7 +443,7 @@ def main():
     print(f"Total test files: {total_tests}")
 
     # Split into batches
-    batches = split_into_batches(test_path, args.batches, exclude_list)
+    batches = split_into_batches(test_path, args.batches, exclude_list, args.mode)
 
     # Apply sharding: slice every Nth batch starting from the shard index.
     # Alphabetical subfolder ordering means new folders auto-distribute by
