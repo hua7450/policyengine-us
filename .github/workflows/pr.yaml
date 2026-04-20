@@ -217,6 +217,7 @@ jobs:
           PYTHONUNBUFFERED: 1
         run: uv run make test-other
       - name: Run tests/variables YAML tests
+        if: always()
         env:
           PYTHONUNBUFFERED: 1
         run: uv run make test-yaml-variables

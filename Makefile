@@ -13,7 +13,12 @@ test-yaml-structural:
 test-yaml-structural-heavy:
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/states --batches 1
 test-yaml-structural-reform:
-	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/ctc --batches 2
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/ctc/ctc_additional_bracket.yaml --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/ctc/ctc_minimum_refundable_amount.yaml --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/ctc/ctc_older_child_supplement.yaml --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/ctc/ctc_per_child_phase_in.yaml --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/ctc/ctc_per_child_phase_out.yaml --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/ctc/integration.yaml --batches 1
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/ubi_center --batches 1
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/federal --batches 1
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/harris --batches 1
