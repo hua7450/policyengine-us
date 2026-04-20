@@ -74,9 +74,7 @@ def split_into_batches(
         root_files = sorted(base_path.glob("*.yaml"))
 
         # One batch per heavy subdir (if present).
-        batches = [
-            [str(subdir)] for subdir in subdirs if subdir.name in HEAVY
-        ]
+        batches = [[str(subdir)] for subdir in subdirs if subdir.name in HEAVY]
 
         # Catch-all batch for everything else — light subdirs and root
         # yaml files. Auto-collects any newly added folders/files so

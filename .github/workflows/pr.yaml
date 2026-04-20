@@ -177,11 +177,9 @@ jobs:
           - group: states-shard-2
             target: test-yaml-structural-heavy-shard-2
           - group: other-shard-1
-            target: test-yaml-structural-other-shard-1
+            target: test-yaml-structural-other
           - group: other-shard-2
             target: test-yaml-structural-other-shard-2
-          - group: other-shard-3
-            target: test-yaml-structural-other-shard-3
           - group: congress
             target: test-yaml-structural-congress
     steps:
