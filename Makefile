@@ -19,12 +19,19 @@ test-yaml-structural-reform:
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/ctc/ctc_per_child_phase_in.yaml --batches 1
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/ctc/ctc_per_child_phase_out.yaml --batches 1
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/ctc/integration.yaml --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/crfb/agi_surtax.yaml --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/crfb/non_refundable_ss_credit.yaml --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/crfb/senior_deduction_extension.yaml --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/crfb/tax_employer_all_payroll_tax.yaml --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/crfb/tax_employer_medicare_tax.yaml --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/crfb/tax_employer_payroll_tax_percentage.yaml --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/crfb/tax_employer_social_security_tax.yaml --batches 1
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/ubi_center --batches 1
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/federal --batches 1
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/harris --batches 1
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib/treasury --batches 1
 test-yaml-structural-other:
-	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib --exclude states,ctc,ubi_center,federal,harris,treasury
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/contrib --exclude states,ctc,ubi_center,federal,harris,treasury,crfb
 test-yaml-variables:
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/variables --batches 1
 test-yaml-no-structural-states:
@@ -60,7 +67,13 @@ test-yaml-no-structural-other-household:
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/household --batches 2
 test-yaml-no-structural-other-irs-household: test-yaml-no-structural-other-irs test-yaml-no-structural-other-household
 test-yaml-no-structural-other-contrib:
-	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/contrib --batches 2
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/contrib/biden --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/contrib/states --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/contrib/ubi_center/basic_income.yaml --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/contrib/ubi_center/basic_income_before_phase_out.yaml --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/contrib/ubi_center/basic_income_eligible.yaml --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/contrib/ubi_center/basic_income_phase_in.yaml --batches 1
+	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/contrib/ubi_center/basic_income_phase_out.yaml --batches 1
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/reform --batches 1
 test-yaml-no-structural-other-ssa:
 	python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/ssa/revenue --batches 2
