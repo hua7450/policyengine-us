@@ -133,7 +133,7 @@ jobs:
       matrix:
         include:
           - group: non-ny
-            cmd: python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/states --batches 2 --exclude ny
+            cmd: python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/states --batches 4 --exclude ny
           - group: ny
             cmd: python policyengine_us/tests/test_batched.py policyengine_us/tests/policy/baseline/gov/states/ny --batches 1
     steps:
