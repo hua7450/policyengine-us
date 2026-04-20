@@ -1,3 +1,10 @@
+## [1.659.4] - 2026-04-20
+
+### Fixed
+
+- Split heavy CI test jobs into parallel matrix runners with 60-min timeouts to avoid memory exhaustion on 16 GB GitHub Actions runners.
+
+
 ## [1.659.3] - 2026-04-20
 
 ### Fixed
