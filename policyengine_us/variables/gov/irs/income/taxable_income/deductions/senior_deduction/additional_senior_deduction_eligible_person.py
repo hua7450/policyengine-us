@@ -13,8 +13,10 @@ class additional_senior_deduction_eligible_person(Variable):
         ssn_card_str = ssn_card_type.decode_to_str()
         p = parameters(period).gov.irs.deductions.senior_deduction
         eligible_ssn_card_type = np.isin(ssn_card_str, p.eligible_ssn_card_type)
+        filing_status = person.tax_unit("filing_status", period)
+        not_separate = filing_status != filing_status.possible_values.SEPARATE
         head_or_spouse = person("is_tax_unit_head_or_spouse", period)
         age = person("age", period)
         p_irs = parameters(period).gov.irs.deductions.standard.aged_or_blind
         aged = age >= p_irs.age_threshold
-        return eligible_ssn_card_type & head_or_spouse & aged
+        return eligible_ssn_card_type & not_separate & head_or_spouse & aged

@@ -42,6 +42,27 @@
     taxable_income_deductions_if_itemizing: 5_100
     taxable_income_deductions_if_not_itemizing: 5_100
 
+- name: Married filing separately does not qualify for senior deduction
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 65
+        is_tax_unit_head_or_spouse: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [person1]
+        filing_status: SEPARATE
+        adjusted_gross_income: 90_000
+        salt_deduction: 0
+        standard_deduction: 0
+  output:
+    additional_senior_deduction_eligible_person: [false]
+    additional_senior_deduction: 0
+    taxable_income_deductions_if_itemizing: 0
+    taxable_income_deductions_if_not_itemizing: 0
+
 - name: Single non-senior, income above the phase-out
   period: 2025
   input:
@@ -110,6 +131,28 @@
     # Per senior: max($6,000 - $5,771.28, 0) = $228.72
     # Total: $228.72 * 2 = $457.44
     additional_senior_deduction: 457.44
+
+- name: Puerto Rico excluded income is added back for senior deduction MAGI
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 65
+        employment_income: 84_000
+        is_tax_unit_head_or_spouse: true
+        ssn_card_type: CITIZEN
+    tax_units:
+      tax_unit:
+        members: [person1]
+        adjusted_gross_income: 74_000
+        puerto_rico_income: 10_000
+        salt_deduction: 0
+        standard_deduction: 0
+  output:
+    # MAGI = AGI + excluded Puerto Rico income = $84,000
+    # Phase-out: 6% * ($84,000 - $75,000) = $540
+    additional_senior_deduction_magi: 84_000
+    additional_senior_deduction: 5_460
 
 - name: Joint filers, only one senior eligible (spouse age 60)
   period: 2025
