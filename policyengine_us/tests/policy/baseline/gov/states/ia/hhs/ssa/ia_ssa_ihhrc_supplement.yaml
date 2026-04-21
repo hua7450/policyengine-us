@@ -1,33 +1,54 @@
+# IAC 441—177.4(1)(f): IHHRC supplement pays actual cost up to max_cost_single
+# ($480.55) or max_cost_couple ($961.10) when both spouses need care.
+# IAC 441—177.4(1)(c): recipient must live in own home (not in RCF or FLH).
+# Income cap: countable monthly income <= max_cost_single/couple.
+
 - name: Case 1, individual IHHRC cost below max pays actual cost.
   period: 2025-01
+  absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 70
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
+        employment_income: 0
         ia_ssa_needs_in_home_health_related_care: true
         ia_ssa_ihhrc_cost_of_care: 450
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
     households:
       household:
         members: [person1]
         state_code: IA
   output:
-    # Cost $450 is below max $480.55 -> pays actual $450
+    # Cost $450 below max $480.55 -> pays actual $450
     ia_ssa_ihhrc_supplement: [450]
 
 - name: Case 2, individual IHHRC cost above max is capped at 480.55 dollars.
   period: 2025-01
+  absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 70
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
+        employment_income: 0
         ia_ssa_needs_in_home_health_related_care: true
         ia_ssa_ihhrc_cost_of_care: 600
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
     households:
       household:
         members: [person1]
@@ -36,17 +57,24 @@
     # Cost $600 > max $480.55 -> capped
     ia_ssa_ihhrc_supplement: [480.55]
 
-- name: Case 3, person does not need IHHRC receives zero supplement.
+- name: Case 3, person not needing IHHRC receives zero supplement.
   period: 2025-01
   input:
     people:
       person1:
         age: 70
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
+        employment_income: 0
         ia_ssa_needs_in_home_health_related_care: false
         ia_ssa_ihhrc_cost_of_care: 400
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
     households:
       household:
         members: [person1]
@@ -60,11 +88,19 @@
     people:
       person1:
         age: 70
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
+        employment_income: 0
         ssi_countable_resources: 5_000
         ia_ssa_needs_in_home_health_related_care: true
         ia_ssa_ihhrc_cost_of_care: 400
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
     households:
       household:
         members: [person1]
@@ -74,27 +110,29 @@
     ia_ssa_eligible: [false]
     ia_ssa_ihhrc_supplement: [0]
 
-- name: Case 5, couple both needing IHHRC use couple cap 961.10 dollars.
+- name: Case 5, couple both needing IHHRC use couple cap.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 70
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
+        employment_income: 0
         ia_ssa_needs_in_home_health_related_care: true
         ia_ssa_ihhrc_cost_of_care: 900
       person2:
         age: 68
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
+        employment_income: 0
         ia_ssa_needs_in_home_health_related_care: true
         ia_ssa_ihhrc_cost_of_care: 900
     marital_units:
       marital_unit:
+        members: [person1, person2]
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
         members: [person1, person2]
     households:
       household:
@@ -112,20 +150,22 @@
     people:
       person1:
         age: 70
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
+        employment_income: 0
         ia_ssa_needs_in_home_health_related_care: true
         ia_ssa_ihhrc_cost_of_care: 1_500
       person2:
         age: 68
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
+        employment_income: 0
         ia_ssa_needs_in_home_health_related_care: true
         ia_ssa_ihhrc_cost_of_care: 1_500
     marital_units:
       marital_unit:
+        members: [person1, person2]
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
         members: [person1, person2]
     households:
       household:
@@ -142,20 +182,22 @@
     people:
       person1:
         age: 70
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
+        employment_income: 0
         ia_ssa_needs_in_home_health_related_care: true
         ia_ssa_ihhrc_cost_of_care: 800
       person2:
         age: 68
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
+        employment_income: 0
         ia_ssa_needs_in_home_health_related_care: false
         ia_ssa_ihhrc_cost_of_care: 0
     marital_units:
       marital_unit:
+        members: [person1, person2]
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
         members: [person1, person2]
     households:
       household:
@@ -166,17 +208,14 @@
     ia_ssa_ihhrc_both_need_care: [false, false]
     ia_ssa_ihhrc_supplement: [480.55, 0]
 
-- name: Case 8, person with countable income above 480.55 single limit is ineligible.
+- name: Case 8, person with countable income above single cap is ineligible.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 70
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
-        social_security_retirement: 20_000
+        social_security_retirement: 20_000  # $1,667/mo gross
         ia_ssa_needs_in_home_health_related_care: true
         ia_ssa_ihhrc_cost_of_care: 400
     marital_units:
@@ -193,21 +232,18 @@
         members: [person1]
         state_code: IA
   output:
-    # SS $1,667/mo after SSI disregards exceeds single income cap $480.55
+    # Countable $1,647/mo exceeds single income cap $480.55
     # -> not in IHHRC category -> no supplement
     ia_ssa_ihhrc_supplement: [0]
 
-- name: Case 9, IHHRC income cap enforced against countable income even when below FBR.
+- name: Case 9, IHHRC income cap enforced against countable income even below FBR.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 70
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
-        social_security_retirement: 9_600
+        social_security_retirement: 9_600  # $800/mo gross
         ia_ssa_needs_in_home_health_related_care: true
         ia_ssa_ihhrc_cost_of_care: 400
     marital_units:
@@ -224,8 +260,6 @@
         members: [person1]
         state_code: IA
   output:
-    # $800/mo SS, countable $780/mo; below FBR $967 so the prior
-    # broken formula incorrectly made them IHHRC-eligible (it compared
-    # excess-over-FBR, which is 0 here). Correct check compares countable
-    # $780 against cap $480.55 -> ineligible for IHHRC.
+    # $800/mo SS gross, countable $780/mo; below FBR $967, but IHHRC cap
+    # compares countable $780 against $480.55 -> exceeds cap -> ineligible.
     ia_ssa_ihhrc_supplement: [0]

@@ -1,59 +1,9 @@
-- name: Case 1, FLH resident with zero income receives capped 142 dollar supplement.
-  period: 2025-01
-  input:
-    people:
-      person1:
-        age: 70
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
-        ia_ssa_resides_in_family_life_home: true
-    households:
-      household:
-        members: [person1]
-        state_code: IA
-  output:
-    # standard $1,129 - federal SSI $967 - $20 disregard = $142
-    # capped at $142 maximum
-    ia_ssa_flh_supplement: [142]
+# IAC 441—52.1(1): FLH is federally-administered per POMS SI 01415.050.F.
+# Federally-administered SSP formula:
+#   supplement = max(0, assistance_standard - max(countable, FBR))
+# capped at max_supplement ($142).
 
-- name: Case 2, person not in FLH receives zero FLH supplement.
-  period: 2025-01
-  input:
-    people:
-      person1:
-        age: 70
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
-        ia_ssa_resides_in_family_life_home: false
-    households:
-      household:
-        members: [person1]
-        state_code: IA
-  output:
-    ia_ssa_flh_supplement: [0]
-
-- name: Case 3, FLH resident with excess resources receives zero.
-  period: 2025-01
-  input:
-    people:
-      person1:
-        age: 70
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        ssi_countable_resources: 5_000
-        ia_ssa_resides_in_family_life_home: true
-    households:
-      household:
-        members: [person1]
-        state_code: IA
-  output:
-    # Resources $5,000 > single limit $2,000 -> ia_ssa_resources_eligible false
-    ia_ssa_eligible: [false]
-    ia_ssa_flh_supplement: [0]
-
-- name: Case 4, aged FLH resident integration (federal SSI plus state SSA).
+- name: Case 1, aged FLH resident with zero income (federal SSI plus capped state supplement).
   period: 2025-01
   absolute_error_margin: 0.01
   input:
@@ -76,43 +26,47 @@
         members: [person1]
         state_code: IA
   output:
-    # Federal SSI fills to FBR; FLH supplement capped at $142
+    # Federal SSI fills to FBR $967; assistance standard $1,129;
+    # raw supplement = 1,129 - max(0, 967) = 162; capped at $142.
     is_ssi_eligible: [true]
+    ssi: [967]
     ia_ssa_eligible: [true]
     ia_ssa_category: [FLH]
-    ssi: [967]
     ia_ssa_flh_supplement: [142]
     ia_ssa: [142]
 
-- name: Case 5, FLH resident 2026 still capped at 142 dollars.
-  period: 2026-01
+- name: Case 2, person not in FLH receives zero FLH supplement.
+  period: 2025-01
   input:
     people:
       person1:
         age: 70
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
-        ia_ssa_resides_in_family_life_home: true
+        employment_income: 0
+        ia_ssa_resides_in_family_life_home: false
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
     households:
       household:
         members: [person1]
         state_code: IA
   output:
-    # Cap is frozen at $142 even though standard and PNA rise in 2026
-    ia_ssa_flh_supplement: [142]
+    ia_ssa_flh_supplement: [0]
 
-- name: Case 6, FLH supplement phases down when countable income exceeds FBR.
+- name: Case 3, FLH resident with excess resources receives zero.
   period: 2025-01
-  absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 70
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
-        social_security_retirement: 12_840
+        employment_income: 0
+        ssi_countable_resources: 5_000
         ia_ssa_resides_in_family_life_home: true
     marital_units:
       marital_unit:
@@ -128,8 +82,86 @@
         members: [person1]
         state_code: IA
   output:
-    # $1,070/mo SS gross -> $1,050/mo countable. FLH assistance standard
-    # $1,129, FBR $967. Federally-administered formula:
+    # Resources $5,000 > single limit $2,000 -> ia_ssa_resources_eligible false
+    ia_ssa_eligible: [false]
+    ia_ssa_flh_supplement: [0]
+
+- name: Case 4, FLH resident 2026 still capped at 142 dollars.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        employment_income: 0
+        ia_ssa_resides_in_family_life_home: true
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # Cap is frozen at $142 even though standard and PNA rise in 2026
+    ia_ssa_flh_supplement: [142]
+
+- name: Case 5, FLH supplement phases down when countable income exceeds FBR.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        social_security_retirement: 12_840  # $1,070/mo gross
+        ia_ssa_resides_in_family_life_home: true
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # $1,070/mo SS gross -> $1,050/mo countable (after $20 disregard).
+    # Assistance standard $1,129; FBR $967.
     # max(0, 1129 - max(1050, 967)) = $79 (under the $142 cap).
-    # Prior broken formula paid the full $142 cap.
     ia_ssa_flh_supplement: [79]
+
+- name: Case 6, FLH supplement is zero when countable income equals or exceeds standard.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        social_security_retirement: 14_400  # $1,200/mo gross
+        ia_ssa_resides_in_family_life_home: true
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # Countable $1,180/mo; standard $1,129; raw = max(0, 1129 - 1180) = 0.
+    ia_ssa_flh_supplement: [0]

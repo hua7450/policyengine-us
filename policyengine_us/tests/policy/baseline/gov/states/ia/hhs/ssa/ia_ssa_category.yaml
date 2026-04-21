@@ -1,18 +1,29 @@
 # Verifies ia_ssa_category priority ordering:
 # RCF > IHHRC > FLH > DP > BLIND > SMME > NONE
+#
+# Note: SMME requires income > 120% FPL (IAC 441—51.7(6)). 2025 FPL 1-person
+# (contiguous US) = $15,650; 120% = $18,780/year or $1,565/month.
 
 - name: Case 1, RCF resident who is also blind gets RCF category not BLIND.
   period: 2025-01
+  absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 70
         is_blind: true
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
+        employment_income: 0
         ia_ssa_resides_in_residential_care_facility: true
         ia_ssa_rcf_cost_per_diem: 37.60
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
     households:
       household:
         members: [person1]
@@ -28,10 +39,17 @@
       person1:
         age: 40
         is_blind: true
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
+        employment_income: 0
         ia_ssa_resides_in_family_life_home: true
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
     households:
       household:
         members: [person1]
@@ -40,23 +58,31 @@
     # FLH outranks BLIND
     ia_ssa_category: [FLH]
 
-- name: Case 3, person with only Medicaid and Part B gets SMME category.
+- name: Case 3, aged person above 120% FPL with Medicaid and Part B gets SMME.
   period: 2025-01
+  absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 70
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
+        social_security_retirement: 24_000  # $2,000/mo, above 120% FPL
         ia_ssa_has_full_medicaid: true
         ia_ssa_has_medicare_part_b: true
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
     households:
       household:
         members: [person1]
         state_code: IA
   output:
-    # No other category applies -> SMME (lowest priority above NONE)
+    # No other category applies; income above 120% FPL -> SMME
     ia_ssa_category: [SMME]
 
 - name: Case 4, person in no qualifying category gets NONE.
@@ -65,12 +91,19 @@
     people:
       person1:
         age: 70
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
+        employment_income: 0
         # Override federal medicare/medicaid defaults to exclude from SMME
         ia_ssa_has_medicare_part_b: false
         ia_ssa_has_full_medicaid: false
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
     households:
       household:
         members: [person1]
@@ -80,16 +113,24 @@
 
 - name: Case 5, FLH resident who also needs IHHRC gets FLH (IAC 441-177.4(1)(c) own-home rule).
   period: 2025-01
+  absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 70
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
+        employment_income: 0
         ia_ssa_resides_in_family_life_home: true
         ia_ssa_needs_in_home_health_related_care: true
         ia_ssa_ihhrc_cost_of_care: 400
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
     households:
       household:
         members: [person1]
@@ -100,16 +141,24 @@
 
 - name: Case 6, person needing IHHRC who is also blind gets IHHRC not BLIND.
   period: 2025-01
+  absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 40
         is_blind: true
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
+        employment_income: 0
         ia_ssa_needs_in_home_health_related_care: true
         ia_ssa_ihhrc_cost_of_care: 400
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
     households:
       household:
         members: [person1]
@@ -120,17 +169,25 @@
 
 - name: Case 7, person needing IHHRC with DP configuration gets IHHRC not DP.
   period: 2025-01
+  absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 70
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
+        employment_income: 0
         ia_ssa_needs_in_home_health_related_care: true
         ia_ssa_ihhrc_cost_of_care: 400
         ia_ssa_dp_configuration: AGED_OR_DISABLED_WITH_DEPENDENT
         ia_ssa_dp_has_eligible_dependent: true
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
     households:
       household:
         members: [person1]
@@ -146,11 +203,18 @@
       person1:
         age: 40
         is_blind: true
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
+        employment_income: 0
         ia_ssa_dp_configuration: BLIND_WITH_DEPENDENT
         ia_ssa_dp_has_eligible_dependent: true
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
     households:
       household:
         members: [person1]
@@ -159,18 +223,26 @@
     # DP outranks BLIND
     ia_ssa_category: [DP]
 
-- name: Case 9, blind person also SMME eligible gets BLIND not SMME.
+- name: Case 9, blind person with SMME-eligible income gets BLIND not SMME.
   period: 2025-01
+  absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 70
         is_blind: true
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
+        social_security_retirement: 24_000  # > 120% FPL
         ia_ssa_has_full_medicaid: true
         ia_ssa_has_medicare_part_b: true
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
     households:
       household:
         members: [person1]
@@ -179,19 +251,27 @@
     # BLIND outranks SMME
     ia_ssa_category: [BLIND]
 
-- name: Case 10, DP-configured person also SMME eligible gets DP not SMME.
+- name: Case 10, DP-configured person with SMME-eligible income gets DP not SMME.
   period: 2025-01
+  absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 70
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
+        social_security_retirement: 24_000
         ia_ssa_dp_configuration: AGED_OR_DISABLED_WITH_DEPENDENT
         ia_ssa_dp_has_eligible_dependent: true
         ia_ssa_has_full_medicaid: true
         ia_ssa_has_medicare_part_b: true
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
     households:
       household:
         members: [person1]
@@ -200,23 +280,36 @@
     # DP outranks SMME
     ia_ssa_category: [DP]
 
-- name: Case 11, person needing IHHRC also SMME eligible gets IHHRC not SMME.
+- name: Case 11, IHHRC person with SMME-eligible income gets IHHRC not SMME.
   period: 2025-01
+  absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 70
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
+        # Note: IHHRC income cap is $480.55/mo countable, so this needs to
+        # be low enough to qualify for IHHRC. But we also want Medicaid +
+        # Part B to test that IHHRC still wins over SMME. Use zero income
+        # so IHHRC wins even though SMME condition could apply.
+        employment_income: 0
         ia_ssa_needs_in_home_health_related_care: true
         ia_ssa_ihhrc_cost_of_care: 400
         ia_ssa_has_full_medicaid: true
         ia_ssa_has_medicare_part_b: true
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
     households:
       household:
         members: [person1]
         state_code: IA
   output:
-    # IHHRC outranks SMME
+    # IHHRC outranks SMME (SMME not active here — income $0 below 120% FPL —
+    # but the priority order still applies even if SMME were active).
     ia_ssa_category: [IHHRC]

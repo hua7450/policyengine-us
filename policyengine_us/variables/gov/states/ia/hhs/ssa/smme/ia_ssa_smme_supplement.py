@@ -16,4 +16,4 @@ class ia_ssa_smme_supplement(Variable):
         category = person("ia_ssa_category", period)
         in_category = category == category.possible_values.SMME
         p = parameters(period).gov.states.ia.hhs.ssa
-        return in_category * p.smme
+        return in_category * p.smme.amount

@@ -1,13 +1,26 @@
+# IAC 441—52.1(2): DP is federally-administered per POMS SI 01415.050.F.
+# Federally-administered SSP formula:
+#   supplement = max(0, payment_standard - max(countable, FBR))
+# capped at max_per_person_cap ($503 in 2025, $518 in 2026).
+# Also requires dependent's countable income < dependent_income_limit.
+
 - name: Case 1, person with no DP configuration gets zero supplement.
   period: 2025-01
   input:
     people:
       person1:
         age: 70
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
+        employment_income: 0
         ia_ssa_dp_configuration: NONE
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
     households:
       household:
         members: [person1]
@@ -21,10 +34,19 @@
     people:
       person1:
         age: 70
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
+        employment_income: 0
         ssi_countable_resources: 5_000
         ia_ssa_dp_configuration: AGED_OR_DISABLED_WITH_DEPENDENT
+        ia_ssa_dp_has_eligible_dependent: true
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
     households:
       household:
         members: [person1]
@@ -36,16 +58,24 @@
 
 - name: Case 3, DP supplement capped at per-person maximum 503 dollars.
   period: 2025-01
+  absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 70
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
+        employment_income: 0
         ia_ssa_dp_configuration: BLIND_WITH_BLIND_SPOUSE_AND_DEPENDENT
         ia_ssa_dp_has_eligible_dependent: true
         ia_ssa_dp_dependent_countable_income: 0
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
     households:
       household:
         members: [person1]
@@ -56,16 +86,24 @@
 
 - name: Case 4, DP supplement cap rises to 518 dollars in 2026.
   period: 2026-01
+  absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 70
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
+        employment_income: 0
         ia_ssa_dp_configuration: BLIND_WITH_BLIND_SPOUSE_AND_DEPENDENT
         ia_ssa_dp_has_eligible_dependent: true
         ia_ssa_dp_dependent_countable_income: 0
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
     households:
       household:
         members: [person1]
@@ -73,7 +111,7 @@
   output:
     ia_ssa_dp_supplement: [518]
 
-- name: Case 5, aged client with aged spouse and dependent child at 2025 rates integration.
+- name: Case 5, aged client with aged spouse and dependent child integration.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
@@ -107,22 +145,33 @@
         members: [person1, person2, person3]
         state_code: IA
   output:
-    # person1: DP capped at $503; person2 defaults to SMME via federal medicaid/medicare enrolled; person3 child -> NONE
-    ia_ssa_category: [DP, SMME, NONE]
+    # person1: DP capped at $503.
+    # person2: income above 120% FPL for household of 3 would be required
+    # for SMME ($26,650 × 1.2 / 12 = $2,665/mo); but income is $0, so not
+    # SMME-eligible -> NONE.
+    # person3: child -> NONE.
+    ia_ssa_category: [DP, NONE, NONE]
     ia_ssa_dp_supplement: [503, 0, 0]
 
-- name: Case 6, dependent income above 503 limit disqualifies DP supplement.
+- name: Case 6, dependent income above limit disqualifies DP supplement.
   period: 2025-01
   input:
     people:
       person1:
         age: 70
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
+        employment_income: 0
         ia_ssa_dp_configuration: AGED_OR_DISABLED_WITH_DEPENDENT
         ia_ssa_dp_has_eligible_dependent: true
-        ia_ssa_dp_dependent_countable_income: 600
+        ia_ssa_dp_dependent_countable_income: 600  # > $503 limit
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
     households:
       household:
         members: [person1]
@@ -130,17 +179,14 @@
   output:
     ia_ssa_dp_supplement: [0]
 
-- name: Case 7, DP supplement phases down when countable income exceeds FBR plus cap.
+- name: Case 7, DP supplement phases down when countable income exceeds FBR.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
     people:
       person1:
         age: 70
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
-        social_security_retirement: 20_640
+        social_security_retirement: 20_640  # $1,720/mo
         ia_ssa_dp_configuration: BLIND_WITH_BLIND_SPOUSE_AND_DEPENDENT
         ia_ssa_dp_has_eligible_dependent: true
         ia_ssa_dp_dependent_countable_income: 0
@@ -161,5 +207,4 @@
     # $1,720/mo SS gross -> $1,700/mo countable. Payment standard $1,997,
     # FBR $967. Federally-administered formula:
     # max(0, 1997 - max(1700, 967)) = $297 (under the $503 cap).
-    # Prior broken formula kept this at the full $503 cap.
     ia_ssa_dp_supplement: [297]

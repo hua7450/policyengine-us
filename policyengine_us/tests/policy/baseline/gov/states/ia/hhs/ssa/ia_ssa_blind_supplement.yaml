@@ -1,81 +1,4 @@
-- name: Case 1, blind SSI-eligible adult receives flat 22 dollar supplement.
-  period: 2025-01
-  input:
-    people:
-      person1:
-        age: 40
-        is_blind: true
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
-    households:
-      household:
-        members: [person1]
-        state_code: IA
-  output:
-    ia_ssa_blind_supplement: [22]
-
-- name: Case 2, non-blind person receives no blind supplement.
-  period: 2025-01
-  input:
-    people:
-      person1:
-        age: 70
-        is_blind: false
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
-    households:
-      household:
-        members: [person1]
-        state_code: IA
-  output:
-    ia_ssa_blind_supplement: [0]
-
-- name: Case 3, blind person with excess resources receives no supplement.
-  period: 2025-01
-  input:
-    people:
-      person1:
-        age: 40
-        is_blind: true
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        ssi_countable_resources: 5_000
-    households:
-      household:
-        members: [person1]
-        state_code: IA
-  output:
-    # Resources $5,000 > single limit $2,000 -> ia_ssa_resources_eligible false
-    ia_ssa_resources_eligible: [false]
-    ia_ssa_eligible: [false]
-    ia_ssa_blind_supplement: [0]
-
-- name: Case 4, blind RCF resident receives zero blind supplement (IAC 441-52.1(4) exclusivity).
-  period: 2025-01
-  absolute_error_margin: 0.01
-  input:
-    people:
-      person1:
-        age: 70
-        is_blind: true
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
-        ia_ssa_resides_in_residential_care_facility: true
-        ia_ssa_rcf_cost_per_diem: 37.60
-    households:
-      household:
-        members: [person1]
-        state_code: IA
-  output:
-    # Per IAC 441-52.1(4), blind supplement only paid if not receiving
-    # another type of SSA. RCF category wins -> blind supplement is $0.
-    ia_ssa_category: [RCF]
-    ia_ssa_blind_supplement: [0]
-
-- name: Case 5, single blind Iowan integration (federal SSI plus state blind supplement).
+- name: Case 1, blind aged Iowan receives flat 22 dollar supplement plus federal SSI.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
@@ -99,11 +22,125 @@
         state_code: IA
   output:
     is_ssi_eligible: [true]
+    ssi: [967]
     ia_ssa_eligible: [true]
     ia_ssa_category: [BLIND]
-    ssi: [967]
     ia_ssa_blind_supplement: [22]
     ia_ssa: [22]
+
+- name: Case 2, non-blind aged Iowan receives no blind supplement.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 70
+        is_blind: false
+        employment_income: 0
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    ia_ssa_blind_supplement: [0]
+
+- name: Case 3, blind person with excess resources receives no supplement.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 40
+        is_blind: true
+        employment_income: 0
+        ssi_countable_resources: 5_000
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # Resources $5,000 > single limit $2,000 -> ia_ssa_resources_eligible false
+    ia_ssa_resources_eligible: [false]
+    ia_ssa_eligible: [false]
+    ia_ssa_blind_supplement: [0]
+
+- name: Case 4, blind RCF resident receives zero blind supplement (IAC 441-52.1(4) exclusivity).
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_blind: true
+        employment_income: 0
+        ia_ssa_resides_in_residential_care_facility: true
+        ia_ssa_rcf_cost_per_diem: 37.60
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # Per IAC 441-52.1(4), blind supplement only paid if not receiving
+    # another type of SSA. RCF category wins -> blind supplement is $0.
+    ia_ssa_category: [RCF]
+    ia_ssa_blind_supplement: [0]
+
+- name: Case 5, blind Iowan with earnings still gets blind supplement.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 40
+        is_blind: true
+        # Earned income: $500/mo; after blind/disabled working student?
+        # The blind supplement has no income test at the category level
+        # beyond SSI categorical eligibility (which ignores income).
+        employment_income: 6_000
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # Still ssi_eligible (passes ABD + resources + immigration).
+    is_ssi_eligible: [true]
+    ia_ssa_eligible: [true]
+    ia_ssa_category: [BLIND]
+    ia_ssa_blind_supplement: [22]
 
 - name: Case 6, blind person at 2026 still receives frozen 22 dollar supplement.
   period: 2026-01
@@ -112,12 +149,20 @@
       person1:
         age: 40
         is_blind: true
-        is_ssi_aged_blind_disabled: true
-        is_ssi_eligible: true
-        meets_ssi_resource_test: true
+        employment_income: 0
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
     households:
       household:
         members: [person1]
         state_code: IA
   output:
+    # Blind supplement frozen at $22 since 2017.
     ia_ssa_blind_supplement: [22]

@@ -1,4 +1,4 @@
-description: Iowa uses this multiplier on the maximum per diem to determine the residential care facility monthly income limit under the State Supplementary Assistance program.
+description: Iowa uses this number of days per month to convert the maximum per diem to a monthly residential care income limit under the State Supplementary Assistance program.
 
 values:
   2017-07-01: 31
