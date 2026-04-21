@@ -1,3 +1,10 @@
+## [1.659.6] - 2026-04-21
+
+### Fixed
+
+- Fix test_batched.py silently dropping `--batches N` and `--exclude` for folders without subdirectories, which caused duplicated and under-parallelized CI test runs.
+
+
 ## [1.659.5] - 2026-04-21
 
 ### Fixed
