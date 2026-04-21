@@ -647,9 +647,10 @@ programs:
         full_name: Massachusetts State Supplementary Payment
         variable: ma_state_supplement
       - state: KS
-        status: in_progress
+        status: complete
         name: Kansas SSPP
         full_name: Kansas State Supplemental Payment Program
+        variable: ks_sspp
       - state: IL
         status: complete
         name: Illinois AABD

@@ -1,7 +1,6 @@
 description: Kansas provides this amount as the monthly cash payment under the State Supplemental Payment Program.
 values:
-  2006-07-01: 20
-  2009-07-01: 32
+  2009-01-01: 32
 
 metadata:
   unit: currency-USD
