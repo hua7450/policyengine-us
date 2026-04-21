@@ -1,3 +1,10 @@
+## [1.661.0] - 2026-04-21
+
+### Added
+
+- Added Kansas State Supplemental Payment Program (SSPP) for SSI recipients in Medicaid-approved institutions.
+
+
 ## [1.660.1] - 2026-04-21
 
 ### Fixed
