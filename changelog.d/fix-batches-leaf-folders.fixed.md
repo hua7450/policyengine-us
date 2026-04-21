@@ -1,1 +1,1 @@
-Fix `--batches N` silently collapsing to 1 batch for folders without subdirectories.
+Fix test_batched.py silently dropping `--batches N` and `--exclude` for folders without subdirectories, which caused duplicated and under-parallelized CI test runs.
