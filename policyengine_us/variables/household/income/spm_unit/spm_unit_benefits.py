@@ -13,9 +13,12 @@ class spm_unit_benefits(Variable):
             "social_security",
             "ssi",
             "in_ssp",
+            "ct_ssp",
             "ga_ssp",
             "al_ssp",
             "ak_ssp",
+            "dc_ossp",  # DC benefits
+            "id_aabd",  # Idaho benefits
             "de_ssp",  # Delaware benefits
             "ks_sspp",  # Kansas benefits
             "hi_oss",
