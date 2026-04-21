@@ -66,7 +66,7 @@
     dc_ossp_eligible: true
     dc_ossp: 681
 
-- name: Case 4, income too high for SSI means no OSSP.
+- name: Case 4, income above combined FBR+OSSP level means no OSSP payment.
   absolute_error_margin: 0.01
   period: 2026-01
   input:
@@ -81,11 +81,22 @@
         members: [person1]
         state_code: DC
   output:
-    # SSI chain: $24,000/year SS = $2,000/month
-    # SSI countable: $2,000 - $20 = $1,980 > $994 FBR
-    # SSI = 0 → not an SSI recipient
+    # YEAR-defined variables are shown here as monthly values (the
+    # test period is 2026-01, so policyengine-core divides by 12).
+    # ssi_amount_if_eligible = $994 FBR (monthly)
+    # ssi_countable_income   = $24,000/12 − $20 = $1,980 (monthly)
+    # uncapped_ssi           = $994 − $1,980 = −$986 (monthly)
+    # ssi                    = max(0, uncapped_ssi) = $0
+    # Categorically SSI-eligible, so dc_ossp_eligible stays true
+    # (POMS SI 01401.001 "state supplement only" cases).
+    # income_excess = max(0, −(−986)) = $986 > OS-A $681
+    # → dc_ossp = max(0, $681 − $986) = 0.
+    ssi_amount_if_eligible: 994
+    ssi_countable_income: 1_980
+    uncapped_ssi: -986
     ssi: 0
-    dc_ossp_eligible: false
+    dc_ossp_eligible: true
+    dc_ossp_payment_amount: 681
     dc_ossp: 0
 
 - name: Case 5, couple both in Medicaid facility with no income.
