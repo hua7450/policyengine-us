@@ -49,6 +49,8 @@ values:
     - ma_tafdc
     # DC benefits
     - dc_ossp
+    # Kansas benefits
+    - ks_sspp
     # Hawaii benefits
     - hi_oss
   2024-01-01:
@@ -102,6 +104,8 @@ values:
     - ma_tafdc
     # DC benefits
     - dc_ossp
+    # Kansas benefits
+    - ks_sspp
     # Hawaii benefits
     - hi_oss
 metadata:
