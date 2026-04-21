@@ -228,7 +228,27 @@ def split_into_batches(
 
             return batches
 
-    # Default: return the entire path as a single batch
+    # Default: honor num_batches generically. If the caller asked for >1
+    # batch, split the recursive yaml list into that many chunks so any
+    # folder (leaf or otherwise) gets real subprocess isolation. Falling
+    # back to a single-path batch previously meant --batches N silently
+    # collapsed to 1 for folders that weren't matched by a special handler.
+    if num_batches > 1:
+        yaml_files = sorted(base_path.rglob("*.yaml"))
+        if not yaml_files:
+            return []
+        chunk_size = len(yaml_files) // num_batches
+        remainder = len(yaml_files) % num_batches
+        batches = []
+        start = 0
+        for i in range(num_batches):
+            end = start + chunk_size + (1 if i < remainder else 0)
+            chunk = [str(f) for f in yaml_files[start:end]]
+            if chunk:
+                batches.append(chunk)
+            start = end
+        return batches
+
     return [[str(base_path)]]
 
 
