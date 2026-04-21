@@ -1,6 +1,6 @@
 # Tests for fl_oss_living_arrangement variable.
-# Formula derives from federal ssi_federal_living_arrangement (Medicaid facility)
-# and state fl_oss_community_care_type (ALF, AFCH, MHRTF).
+# FAC 65A-2.032/.033/.036 cover ALF, AFCH, and MHRTF only.
+# Medicaid facility residents are not an OSS coverage group.
 
 - name: Case 1, ALF community care type maps to ALF.
   period: 2025-01
@@ -55,54 +55,4 @@
         members: [person1]
         state_code: FL
   output:
-    fl_oss_living_arrangement: NONE
-
-- name: Case 5, federal Code D derives MEDICAID_FACILITY.
-  period: 2025-01
-  input:
-    people:
-      person1:
-        age: 70
-        ssi_lives_in_medical_treatment_facility: true
-        ssi_medicaid_pays_majority_of_care: true
-    households:
-      household:
-        members: [person1]
-        state_code: FL
-  output:
-    fl_oss_living_arrangement: MEDICAID_FACILITY
-
-- name: Case 6, federal Code D takes priority over community care type.
-  period: 2025-01
-  input:
-    people:
-      person1:
-        age: 70
-        ssi_lives_in_medical_treatment_facility: true
-        ssi_medicaid_pays_majority_of_care: true
-        fl_oss_community_care_type: ALF
-    households:
-      household:
-        members: [person1]
-        state_code: FL
-  output:
-    # Federal Medicaid facility detection overrides state community care input.
-    fl_oss_living_arrangement: MEDICAID_FACILITY
-
-- name: Case 7, medical facility without Medicaid paying majority is not Code D.
-  period: 2025-01
-  input:
-    people:
-      person1:
-        age: 70
-        ssi_lives_in_medical_treatment_facility: true
-        ssi_medicaid_pays_majority_of_care: false
-    households:
-      household:
-        members: [person1]
-        state_code: FL
-  output:
-    # Without Medicaid paying majority of care, federal living arrangement
-    # is not MEDICAL_TREATMENT_FACILITY, so falls through to community care
-    # type (default NONE).
     fl_oss_living_arrangement: NONE

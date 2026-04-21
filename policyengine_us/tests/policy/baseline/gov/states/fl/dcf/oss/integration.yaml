@@ -252,84 +252,7 @@
     # OSS = min(max($752.40 - $480, 0), $78.40) = $78.40.
     fl_oss: [78.40]
 
-- name: Case 10, Medicaid facility individual, 2011, federal-state connection.
-  period: 2011-01
-  absolute_error_margin: 0.01
-  input:
-    people:
-      person1:
-        age: 70
-        ssi_lives_in_medical_treatment_facility: true
-        ssi_medicaid_pays_majority_of_care: true
-    households:
-      household:
-        members: [person1]
-        state_code: FL
-  output:
-    # Federal SSI: $30/month medical facility rate (no other income).
-    ssi: 30
-    fl_oss_eligible: [true]
-    # State supplement: $5/month flat (SSA 2011 Table 1).
-    # Combined: $30 + $5 = $35/month.
-    fl_oss: [5]
-
-- name: Case 11, Medicaid facility couple, 2011, federal-state connection.
-  period: 2011-01
-  absolute_error_margin: 0.01
-  input:
-    people:
-      person1:
-        age: 72
-        is_ssi_eligible: true
-        ssi_claim_is_joint: true
-        ssi_lives_in_medical_treatment_facility: true
-        ssi_medicaid_pays_majority_of_care: true
-      person2:
-        age: 68
-        is_ssi_eligible: true
-        ssi_claim_is_joint: true
-        ssi_lives_in_medical_treatment_facility: true
-        ssi_medicaid_pays_majority_of_care: true
-    marital_units:
-      marital_unit:
-        members: [person1, person2]
-    tax_units:
-      tax_unit:
-        members: [person1, person2]
-    households:
-      household:
-        members: [person1, person2]
-        state_code: FL
-  output:
-    # Federal SSI: $30/month each.
-    ssi: [30, 30]
-    fl_oss_eligible: [true, true]
-    # State supplement: $10/month couple = $5/month each.
-    fl_oss: [5, 5]
-
-- name: Case 12, Medicaid facility with high income, no SSI, ineligible.
-  period: 2025-01
-  absolute_error_margin: 0.01
-  input:
-    people:
-      person1:
-        age: 70
-        social_security: 12_000
-        ssi_lives_in_medical_treatment_facility: true
-        ssi_medicaid_pays_majority_of_care: true
-    households:
-      household:
-        members: [person1]
-        state_code: FL
-  output:
-    # SSI medical facility rate = $30. Countable = $980 > $30 → SSI = $0.
-    # Medicaid facility requires Group 1 (ssi > 0) — no Group 2 path
-    # because FAC 65A-2.036 defines no income standard for Medicaid facility.
-    ssi: [0]
-    fl_oss_eligible: [false]
-    fl_oss: [0]
-
-- name: Case 13, couple with high combined income, SSI equal split.
+- name: Case 10, couple with high combined income, SSI equal split.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
@@ -371,7 +294,7 @@
     # OSS per person = min(max($1,102.90 - $940, 0), $193.40) = min($162.90, $193.40) = $162.90.
     fl_oss: [162.90, 162.90]
 
-- name: Case 14, earnings with SSI earned income exclusions.
+- name: Case 11, earnings with SSI earned income exclusions.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
