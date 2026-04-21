@@ -47,6 +47,8 @@ values:
     # Massachusetts benefits
     - ma_eaedc
     - ma_tafdc
+    # DC benefits
+    - dc_ossp
     # Hawaii benefits
     - hi_oss
   2024-01-01:
@@ -98,6 +100,8 @@ values:
     # Massachusetts benefits
     - ma_eaedc
     - ma_tafdc
+    # DC benefits
+    - dc_ossp
     # Hawaii benefits
     - hi_oss
 metadata:
