@@ -4,6 +4,10 @@ values:
     # Delaware benefits
     - de_ssp
     - de_child_care_subsidies
+    # Indiana benefits
+    - in_ssp
+    # Connecticut benefits
+    - ct_ssp
     # Georgia benefits
     - ga_ssp
     # Massachusetts benefits
@@ -28,23 +32,37 @@ values:
     - ak_ssp
     # Iowa benefits
     - ia_ssa
+    # Idaho benefits
+    - id_aabd
     # Nebraska benefits
     - ne_child_care_subsidies
+    # South Carolina benefits
+    - sc_child_care_subsidies
     # New Mexico benefits
     - nm_ssi_state_supplement
     # South Carolina benefits
     - sc_ssi_state_supplement
     # Texas benefits
     - tx_ssi_state_supplement
+    # Virginia benefits
+    - va_child_care_subsidies
     # Massachusetts benefits
     - ma_eaedc
     - ma_tafdc
+    # DC benefits
+    - dc_ossp
+    # Kansas benefits
+    - ks_sspp
     # Hawaii benefits
     - hi_oss
   2024-01-01:
     # Delaware benefits
     - de_ssp
     - de_child_care_subsidies
+    # Indiana benefits
+    - in_ssp
+    # Connecticut benefits
+    - ct_ssp
     # Georgia benefits
     - ga_ssp
     # Massachusetts benefits
@@ -69,6 +87,8 @@ values:
     - ak_ssp
     # Iowa benefits
     - ia_ssa
+    # Idaho benefits
+    - id_aabd
     # Nebraska benefits
     - ne_child_care_subsidies
     # New Mexico benefits
@@ -77,11 +97,19 @@ values:
     - sc_ssi_state_supplement
     # Texas benefits
     - tx_ssi_state_supplement
+    # Virginia benefits
+    - va_child_care_subsidies
     # North Carolina benefits
     - nc_scca
+    # South Carolina benefits
+    - sc_child_care_subsidies
     # Massachusetts benefits
     - ma_eaedc
     - ma_tafdc
+    # DC benefits
+    - dc_ossp
+    # Kansas benefits
+    - ks_sspp
     # Hawaii benefits
     - hi_oss
 metadata:

@@ -1,3 +1,262 @@
+## [1.661.0] - 2026-04-21
+
+### Added
+
+- Added Kansas State Supplemental Payment Program (SSPP) for SSI recipients in Medicaid-approved institutions.
+
+
+## [1.660.1] - 2026-04-21
+
+### Fixed
+
+- Update SSI state supplement program registry to mark CT, DC, ID, IN, NM, SC, and TX as complete.
+
+
+## [1.660.0] - 2026-04-21
+
+### Added
+
+- Add DC Optional State Supplemental Payment (OSSP) program.
+
+
+## [1.659.6] - 2026-04-21
+
+### Fixed
+
+- Fix test_batched.py silently dropping `--batches N` and `--exclude` for folders without subdirectories, which caused duplicated and under-parallelized CI test runs.
+
+
+## [1.659.5] - 2026-04-21
+
+### Fixed
+
+- Fixed MT state_income_tax returning $0 for 2024+ by replacing min_(indiv, joint) with where(filing_separately, indiv, joint) in mt_income_tax_before_refundable_credits_unit.
+- Fixed OH senior citizen credit to check both head and spouse age per ORC 5747.055.
+
+
+## [1.659.4] - 2026-04-20
+
+### Fixed
+
+- Split heavy CI test jobs into parallel matrix runners with 60-min timeouts to avoid memory exhaustion on 16 GB GitHub Actions runners.
+
+
+## [1.659.3] - 2026-04-20
+
+### Fixed
+
+- Rewrite `federal_eitc_without_age_minimum` to compose the federal EITC without mutating the shared tax-benefit system, eliminating an order-dependent test pollution bug in Maryland EITC calculations.
+
+
+## [1.659.2] - 2026-04-20
+
+### Fixed
+
+- Reverted the 2029 sunset from `senior_deduction/amount.yaml` and removed its corresponding test — the sunset is handled at the deduction aggregator level, and zeroing the amount parameter broke the CRFB `senior_deduction_extension` tests.
+
+
+## [1.659.1] - 2026-04-20
+
+### Fixed
+
+- Fixed the federal senior deduction phase-out to apply per-senior rather than to the combined total, matching IRS Schedule 1-A Part V.
+
+
+## [1.659.0] - 2026-04-19
+
+### Added
+
+- Added `medicaid_premium` federal aggregator variable plus Indiana HIP POWER Account contribution (`in_hip_power_account_contribution`), and wired `medicaid_premium` into `spm_unit_medical_out_of_pocket_expenses`. Collection is currently paused in Indiana; the encoded schedule is reform-ready.
+
+
+## [1.658.0] - 2026-04-19
+
+### Added
+
+- Added `marketplace_net_premium` variable — annual Marketplace plan premium net of applied PTC.
+
+### Changed
+
+- SPM unit medical out-of-pocket expenses now uses rules-based `income_adjusted_part_b_premium` (base + IRMAA) in place of the imputed `medicare_part_b_premiums`, so reforms to the Medicare Part B base premium or IRMAA thresholds propagate through SPM resources.
+
+
+## [1.657.1] - 2026-04-19
+
+### Changed
+
+- Added `spm_unit_medical_out_of_pocket_expenses` that combines person-level imputed MOOP with rules-based tax-unit-level premiums (currently `chip_premium`). `spm_unit_spm_expenses` now reads the wrapper instead of listing MOOP and each premium separately.
+
+
+## [1.657.0] - 2026-04-19
+
+### Added
+
+- Added `per_capita_chip_gross` and `chip_gross` variables that reconstruct gross CHIP service value by adding CMS-21 state cost-sharing offsets to the net-of-premium MACPAC spending.
+
+
+## [1.656.2] - 2026-04-19
+
+### Fixed
+
+- Split the Full Suite YAML batch grouping in `tests/test_batched.py` so each heavy folder runs in its own isolated subprocess. Previous grouping (3 folders per contrib batch, paired gov/ folders in the baseline-other job) pushed peak memory to ~8-9 GB per subprocess, which OOMed the 16 GB ubuntu-latest runner once the policyengine-core 3.24+ overhead landed and surfaced as `The runner has received a shutdown signal` mid-batch. Each batch now targets ≤5 GB peak, eliminating the intermittent Full Suite failures without changing test coverage.
+
+
+## [1.656.1] - 2026-04-19
+
+### Changed
+
+- Include `chip_premium` in `spm_unit_spm_expenses` so CHIP premium reforms propagate to SPM resources.
+
+
+## [1.656.0] - 2026-04-19
+
+### Added
+
+- Added `household_health_costs` aggregate; `chip_premium` now reduces `household_net_income` when health benefits are counted as income.
+
+### Fixed
+
+- Added historical effective-date brackets for MO and NY CHIP premium schedules so `chip_premium` returns accurate 2020-2026 values for the 2024 data-imputation baseline anchor.
+
+
+## [1.655.1] - 2026-04-19
+
+### Fixed
+
+- Bump `policyengine-core` minimum to `>=3.25.0` to pick up the `set_input` preservation fix from PolicyEngine/policyengine-core#475. Addresses the `state_fips` / `tax_unit_itemizes` / household-dataset regression (PolicyEngine/policyengine-us#8058) where `apply_reform` wiped user-provided dataset inputs during structural reforms.
+
+
+## [1.655.0] - 2026-04-19
+
+### Added
+
+- Added `chip_premium` variable with CHIP premium and enrollment-fee implementations for 17 states (AL, CT, DE, FL, GA, IA, ID, IL, IN, KS, LA, MA, MI, MO, NY, TX, WI).
+
+
+## [1.654.0] - 2026-04-18
+
+### Added
+
+- Model CHIP enrollment separately from eligibility via `chip_enrolled`, `takes_up_chip_if_eligible`, `chip_take_up_seed`, and `gov.hhs.chip.takeup_rate` (default 0.93), matching the Medicaid takeup pattern. `chip`, `chip_federal_share`, `chip_federal_cost`, and `chip_state_cost` now gate on enrollment rather than raw eligibility.
+- Federal/state cost attribution for Medicaid (FMAP per 42 USC 1396d) and CHIP (enhanced FMAP per 42 USC 1397ee), plus cross-program `federal_benefit_cost` and `state_benefit_cost` aggregates.
+
+
+## [1.653.5] - 2026-04-18
+
+### Fixed
+
+- Excluded earnings of CT Care 4 Kids family members under 18 who are not parents of the applicant child from countable income, per RCSA 17b-749-05(b)(2)(E).
+- Excluded minor children's earnings from NJ CCAP countable income, per the CCAP application form (CC-1) which collects earnings only from applicant/co-applicant.
+- Excluded earnings of VA CCSP household members under 18 from countable income, per 8VAC20-790-40(H).
+- Documented that VA CCSP family day home rates vary by region only, not by age group, with new regression tests.
+
+
+## [1.653.4] - 2026-04-18
+
+### Changed
+
+- Bump policyengine-core floor to 3.24.4 (closes #8066).
+
+
+## [1.653.3] - 2026-04-18
+
+### Fixed
+
+- Stop classifying both spouses as COUPLE_ONE_ELIGIBLE for Alaska Adult Public Assistance when both are individually ABD-eligible but not jointly claiming.
+- Require the presence of at least one head/spouse for New Jersey CCAP activity eligibility so units with only dependents no longer vacuously pass the test.
+- Require the presence of at least one head/spouse for South Carolina CCAP activity eligibility so units with only dependents no longer vacuously pass the test.
+
+
+## [1.653.2] - 2026-04-18
+
+### Fixed
+
+- Scale the New Jersey CCAP family co-payment by children actually receiving care, not just all eligible children.
+- Apply the Connecticut Care 4 Kids activity test to the tax-unit head or spouse only, so a working dependent does not qualify the family.
+
+
+## [1.653.1] - 2026-04-18
+
+### Fixed
+
+- Migrate weekly-uv-lock workflow to GitHub App token (POLICYENGINE_GITHUB PAT expired).
+
+
+## [1.653.0] - 2026-04-18
+
+### Added
+
+- Implement South Carolina CCAP.
+
+
+## [1.652.0] - 2026-04-17
+
+### Added
+
+- Add Connecticut Child Care Assistance Program (CCAP/Care 4 Kids).
+
+### Fixed
+
+- Extend `tip_income_deduction_occupation_requirement_met` to recognize
+  SSTB status from the per-category `sstb_self_employment_income` input,
+  not only the legacy all-or-nothing `business_is_sstb` flag. This keeps
+  the §224 SSTB exclusion in force for self-employed tipped workers who
+  populate the new SSTB inputs added in #7944.
+- Applied the IRS Form 8917 cap to the pre-2021 tuition above-the-line deduction, which previously flowed into AGI uncapped.
+- Corrected the Lifetime Learning Credit phase-out thresholds to use pre-2021 IRS Form 8863 values, which differed from the American Opportunity Credit before the Consolidated Appropriations Act, 2021 harmonized them.
+- Add regression test that constructs the tax-benefit system and bump policyengine-core floor to 3.24.0 so parameter breakdown/children mismatches fail CI rather than at user import time (issue #8055).
+
+
+## [1.651.0] - 2026-04-17
+
+### Added
+
+- Add Virginia Child Care Subsidy Program (CCSP).
+
+
+## [1.650.0] - 2026-04-17
+
+### Added
+
+- Add decomposed marginal tax rate variables: federal_marginal_tax_rate, state_marginal_tax_rate, and fica_marginal_tax_rate.
+- Added Idaho Aid to the Aged, Blind, and Disabled (AABD) cash assistance program.
+- Add New Jersey Child Care Assistance Program (CCAP).
+- Added a contributed Minnesota HF4890 reform with income tax rate schedules by filing status.
+
+
+## [1.649.1] - 2026-04-17
+
+### Fixed
+
+- Propagate tax_unit_itemizes from the parent sim to the no_salt branch in ctc_limiting_tax_liability to avoid a refundable_ctc -> tax_unit_itemizes -> tax_liability_if_itemizing -> income_tax -> refundable_ctc cycle. Fixes #8059.
+
+
+## [1.649.0] - 2026-04-17
+
+### Added
+
+- Add Connecticut State Supplementary Payment (SSP).
+
+### Changed
+
+- Refine AK, AL, and DE SSP living arrangement variables. `ak_ssp_living_arrangement` now has entity Person (was Household); consumers must provide it at the Person level.
+- Update `CONTRIBUTING.md` and the weekly-uv-lock workflow to use the towncrier `changelog.d/` fragment format. The old `changelog_entry.yaml` flow was deprecated some time ago; the contributor docs and the weekly uv-lock bot both still created YAML entries, so the bot's own PRs failed the "Check changelog fragment" CI step and human contributors following the docs hit the same wall.
+
+
+## [1.648.0] - 2026-04-17
+
+### Added
+
+- Implement Indiana State Supplementary Payment (SSP).
+
+
+## [1.647.1] - 2026-04-17
+
+### Fixed
+
+- Freeze Maine standard deduction at pre-OBBBA amounts because Maine conforms to the Internal Revenue Code as of December 31, 2024 (36 MRSA Sec. 111) and did not adopt the One Big Beautiful Bill Act increase.
+
+
 ## [1.647.0] - 2026-04-17
 
 ### Added
