@@ -1,3 +1,10 @@
+## [1.660.1] - 2026-04-21
+
+### Fixed
+
+- Update SSI state supplement program registry to mark CT, DC, ID, IN, NM, SC, and TX as complete.
+
+
 ## [1.660.0] - 2026-04-21
 
 ### Added
