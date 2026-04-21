@@ -14,15 +14,11 @@ class ky_ssp_payment_standard(Variable):
     )
 
     def formula(person, period, parameters):
-        category = person.household("ky_ssp_category", period)
+        # 921 KAR 2:015 §9: per-person standard of need by category, claim
+        # type, and (for CARETAKER) whether one or both spouses receive care.
+        # Parameter stores per-person values — see payment_standard.yaml.
+        category = person("ky_ssp_category", period)
         claim_type = person("ky_ssp_claim_type", period)
-        care_receivers = person.household("ky_ssp_care_receivers", period)
+        care_receivers = person("ky_ssp_care_receivers", period)
         p = parameters(period).gov.states.ky.dcbs.ssp.payment_standard
-        monthly_amount = p[category][claim_type][care_receivers]
-        # Couples claiming jointly split the couple rate 50/50 across spouses.
-        monthly_amount = where(
-            claim_type == claim_type.possible_values.COUPLE_BOTH_ELIGIBLE,
-            monthly_amount / 2,
-            monthly_amount,
-        )
-        return monthly_amount * MONTHS_IN_YEAR
+        return p[category][claim_type][care_receivers] * MONTHS_IN_YEAR

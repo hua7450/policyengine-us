@@ -11,7 +11,7 @@ class KYSSPCategory(Enum):
 
 class ky_ssp_category(Variable):
     value_type = Enum
-    entity = Household
+    entity = Person
     label = "Kentucky SSP category"
     definition_period = YEAR
     defined_for = StateCode.KY

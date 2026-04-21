@@ -13,12 +13,20 @@ class ky_ssp_eligible(Variable):
     )
 
     def formula(person, period, parameters):
+        # 921 KAR 2:015 §4(1) — Group 2 pathway. An eligible individual must
+        # meet SSI categorical criteria (ABD, resources, immigration) and
+        # have income below the state standard. Actual SSI receipt is NOT
+        # required: §4(1)(b) only requires "insufficient income to meet the
+        # payment standards established in Section 9". §3(3) makes SSI
+        # application mandatory if potentially eligible, but non-receipt
+        # with income below the state standard still qualifies.
         categorically_eligible = person("is_ssi_eligible", period)
-        # 921 KAR 2:015 §4(1)(c) — age ≥ 18 required for all four categories.
+        # §4(1)(c): age ≥ 18 required for all four categories (PCH, CIS, FCH,
+        # Caretaker).
         is_adult = person("age", period) >= 18
-        category = person.household("ky_ssp_category", period)
+        category = person("ky_ssp_category", period)
         in_qualifying_category = category != category.possible_values.NONE
-        # 921 KAR 2:015 §4(1)(b) — insufficient income to meet the standard in §9.
+        # §4(1)(b): insufficient income to meet the standard in §9.
         countable_income = person("ssi_countable_income", period)
         payment_standard = person("ky_ssp_payment_standard", period)
         income_below_standard = countable_income < payment_standard

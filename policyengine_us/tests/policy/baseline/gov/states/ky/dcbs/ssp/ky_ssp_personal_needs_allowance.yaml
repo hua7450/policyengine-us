@@ -7,11 +7,11 @@
         is_ssi_aged_blind_disabled: true
         is_ssi_eligible: true
         meets_ssi_resource_test: true
+        ky_ssp_category: PCH
     households:
       household:
         members: [person1]
         state_code: KY
-        ky_ssp_category: PCH
   output:
     # PCH PNA = $60/mo * 12 = $720/yr
     ky_ssp_personal_needs_allowance: [720]
@@ -25,11 +25,11 @@
         is_ssi_aged_blind_disabled: true
         is_ssi_eligible: true
         meets_ssi_resource_test: true
+        ky_ssp_category: FCH
     households:
       household:
         members: [person1]
         state_code: KY
-        ky_ssp_category: FCH
   output:
     # FCH PNA = $40/mo * 12 = $480/yr
     ky_ssp_personal_needs_allowance: [480]
@@ -43,11 +43,11 @@
         is_ssi_aged_blind_disabled: true
         is_ssi_eligible: true
         meets_ssi_resource_test: true
+        ky_ssp_category: CIS
     households:
       household:
         members: [person1]
         state_code: KY
-        ky_ssp_category: CIS
   output:
     # CIS category => no PNA applies
     ky_ssp_personal_needs_allowance: [0]
@@ -61,11 +61,11 @@
         is_ssi_aged_blind_disabled: true
         is_ssi_eligible: true
         meets_ssi_resource_test: true
+        ky_ssp_category: CARETAKER
     households:
       household:
         members: [person1]
         state_code: KY
-        ky_ssp_category: CARETAKER
   output:
     # CARETAKER category => no PNA applies
     ky_ssp_personal_needs_allowance: [0]
@@ -79,10 +79,10 @@
         is_ssi_aged_blind_disabled: true
         is_ssi_eligible: true
         meets_ssi_resource_test: true
+        ky_ssp_category: NONE
     households:
       household:
         members: [person1]
         state_code: KY
-        ky_ssp_category: NONE
   output:
     ky_ssp_personal_needs_allowance: [0]

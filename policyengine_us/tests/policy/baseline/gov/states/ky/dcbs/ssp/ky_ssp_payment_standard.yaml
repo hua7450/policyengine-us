@@ -50,8 +50,8 @@
     ky_ssp_claim_type: COUPLE_BOTH_ELIGIBLE
     ky_ssp_care_receivers: ONE
   output:
-    # CARETAKER.COUPLE_BOTH_ELIGIBLE.ONE = $1,552/mo couple total
-    # Divide by 2 for per-person standard: $776/mo * 12 = $9,312/yr
+    # §9(1)(c) couple total $1,552/mo stored per-person as $776/mo
+    # $776 * 12 = $9,312/yr
     ky_ssp_payment_standard: 9_312
 
 - name: Case 6, Caretaker couple both eligible, both receive care.
@@ -62,8 +62,8 @@
     ky_ssp_claim_type: COUPLE_BOTH_ELIGIBLE
     ky_ssp_care_receivers: BOTH
   output:
-    # CARETAKER.COUPLE_BOTH_ELIGIBLE.BOTH = $1,606/mo couple total
-    # Divide by 2 for per-person standard: $803/mo * 12 = $9,636/yr
+    # §9(1)(c) couple total $1,606/mo stored per-person as $803/mo
+    # $803 * 12 = $9,636/yr
     ky_ssp_payment_standard: 9_636
 
 - name: Case 7, Caretaker couple one eligible with ineligible spouse (individual rate).
@@ -74,10 +74,11 @@
     ky_ssp_claim_type: COUPLE_ONE_ELIGIBLE
     ky_ssp_care_receivers: ONE
   output:
+    # §9(1)(c)1: eligible spouse with ineligible spouse uses individual rate.
     # CARETAKER.COUPLE_ONE_ELIGIBLE.ONE = $1,056/mo * 12 = $12,672/yr
     ky_ssp_payment_standard: 12_672
 
-- name: Case 8, PCH couple both eligible (treated as individuals; each gets half of combined).
+- name: Case 8, PCH couple both eligible — each uses full individual per-person rate.
   period: 2026
   input:
     state_code: KY
@@ -85,9 +86,10 @@
     ky_ssp_claim_type: COUPLE_BOTH_ELIGIBLE
     ky_ssp_care_receivers: ONE
   output:
-    # PCH COUPLE_BOTH_ELIGIBLE parameter = $1,610/mo (each treated as individual)
-    # Formula divides by 2 for COUPLE_BOTH_ELIGIBLE: $805/mo * 12 = $9,660/yr
-    ky_ssp_payment_standard: 9_660
+    # PCH has no reduced couple rate (§9(1)(a)); each person's standard is
+    # the individual rate. $1,610/mo * 12 = $19,320/yr per person.
+    # Combined couple standard = $38,640/yr, consistent with §9(2).
+    ky_ssp_payment_standard: 19_320
 
 - name: Case 9, NONE category returns zero payment standard.
   period: 2026
@@ -99,7 +101,7 @@
   output:
     ky_ssp_payment_standard: 0
 
-- name: Case 10, CIS couple both eligible (treated as individuals; half of combined).
+- name: Case 10, CIS couple both eligible — each uses full individual per-person rate.
   period: 2026
   input:
     state_code: KY
@@ -107,11 +109,11 @@
     ky_ssp_claim_type: COUPLE_BOTH_ELIGIBLE
     ky_ssp_care_receivers: ONE
   output:
-    # CIS COUPLE_BOTH_ELIGIBLE parameter = $1,514/mo (each treated as individual)
-    # Formula divides by 2 for COUPLE_BOTH_ELIGIBLE: $757/mo * 12 = $9,084/yr
-    ky_ssp_payment_standard: 9_084
+    # CIS has no reduced couple rate (§9(1)(d)). Per-person $1,514/mo.
+    # $1,514 * 12 = $18,168/yr.
+    ky_ssp_payment_standard: 18_168
 
-- name: Case 11, FCH couple both eligible (treated as individuals; half of combined).
+- name: Case 11, FCH couple both eligible — each uses full individual per-person rate.
   period: 2026
   input:
     state_code: KY
@@ -119,11 +121,11 @@
     ky_ssp_claim_type: COUPLE_BOTH_ELIGIBLE
     ky_ssp_care_receivers: ONE
   output:
-    # FCH COUPLE_BOTH_ELIGIBLE parameter = $1,166/mo (each treated as individual)
-    # Formula divides by 2 for COUPLE_BOTH_ELIGIBLE: $583/mo * 12 = $6,996/yr
-    ky_ssp_payment_standard: 6_996
+    # FCH has no reduced couple rate (§9(1)(b)). Per-person $1,166/mo.
+    # $1,166 * 12 = $13,992/yr.
+    ky_ssp_payment_standard: 13_992
 
-- name: Case 12, PCH couple one eligible (individual rate, no split).
+- name: Case 12, PCH couple one eligible (individual rate).
   period: 2026
   input:
     state_code: KY
@@ -131,8 +133,7 @@
     ky_ssp_claim_type: COUPLE_ONE_ELIGIBLE
     ky_ssp_care_receivers: ONE
   output:
-    # PCH.COUPLE_ONE_ELIGIBLE.ONE parameter = $1,610/mo
-    # Formula does NOT divide COUPLE_ONE_ELIGIBLE: $1,610 * 12 = $19,320/yr
+    # PCH.COUPLE_ONE_ELIGIBLE.ONE = $1,610/mo * 12 = $19,320/yr
     ky_ssp_payment_standard: 19_320
 
 - name: Case 13, Caretaker couple one eligible, care_receivers=BOTH (unused dimension).
@@ -143,8 +144,7 @@
     ky_ssp_claim_type: COUPLE_ONE_ELIGIBLE
     ky_ssp_care_receivers: BOTH
   output:
-    # CARETAKER.COUPLE_ONE_ELIGIBLE.BOTH parameter = $1,056/mo (individual rate)
-    # COUPLE_ONE_ELIGIBLE is not divided: $1,056 * 12 = $12,672/yr
+    # CARETAKER.COUPLE_ONE_ELIGIBLE.BOTH = $1,056/mo * 12 = $12,672/yr
     ky_ssp_payment_standard: 12_672
 
 - name: Case 14, PCH care_receivers=BOTH individual (dimension unused for non-Caretaker).

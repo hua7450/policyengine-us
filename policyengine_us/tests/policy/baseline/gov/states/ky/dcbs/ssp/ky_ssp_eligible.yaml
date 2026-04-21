@@ -8,11 +8,11 @@
         is_ssi_eligible: true
         meets_ssi_resource_test: true
         ssi_countable_income: 0
+        ky_ssp_category: PCH
     households:
       household:
         members: [person1]
         state_code: KY
-        ky_ssp_category: PCH
   output:
     ky_ssp_eligible: [true]
 
@@ -26,11 +26,11 @@
         is_ssi_eligible: true
         meets_ssi_resource_test: true
         ssi_countable_income: 0
+        ky_ssp_category: NONE
     households:
       household:
         members: [person1]
         state_code: KY
-        ky_ssp_category: NONE
   output:
     # Category NONE => not in a qualifying category => not eligible
     ky_ssp_eligible: [false]
@@ -45,11 +45,11 @@
         is_ssi_eligible: false
         meets_ssi_resource_test: true
         ssi_countable_income: 0
+        ky_ssp_category: PCH
     households:
       household:
         members: [person1]
         state_code: KY
-        ky_ssp_category: PCH
   output:
     # Fails is_ssi_eligible => not eligible
     ky_ssp_eligible: [false]
@@ -64,11 +64,11 @@
         is_ssi_eligible: true
         meets_ssi_resource_test: true
         ssi_countable_income: 0
+        ky_ssp_category: CARETAKER
     households:
       household:
         members: [person1]
         state_code: KY
-        ky_ssp_category: CARETAKER
   output:
     # 921 KAR 2:015 §4(1)(c)3 requires caretaker recipients to be at least 18.
     ky_ssp_eligible: [false]
@@ -83,11 +83,11 @@
         is_ssi_eligible: true
         meets_ssi_resource_test: true
         ssi_countable_income: 0
+        ky_ssp_category: FCH
     households:
       household:
         members: [person1]
         state_code: KY
-        ky_ssp_category: FCH
   output:
     ky_ssp_eligible: [true]
 
@@ -101,11 +101,11 @@
         is_ssi_eligible: true
         meets_ssi_resource_test: true
         ssi_countable_income: 0
+        ky_ssp_category: CIS
     households:
       household:
         members: [person1]
         state_code: KY
-        ky_ssp_category: CIS
   output:
     ky_ssp_eligible: [true]
 
@@ -119,11 +119,11 @@
         is_ssi_eligible: false
         meets_ssi_resource_test: false
         ssi_countable_income: 0
+        ky_ssp_category: PCH
     households:
       household:
         members: [person1]
         state_code: KY
-        ky_ssp_category: PCH
   output:
     ky_ssp_eligible: [false]
 
@@ -139,11 +139,11 @@
         # Countable income ($11,928/yr) is below the PCH annual standard
         # ($19,320) so §4(1)(b) is satisfied.
         ssi_countable_income: 11_928
+        ky_ssp_category: PCH
     households:
       household:
         members: [person1]
         state_code: KY
-        ky_ssp_category: PCH
   output:
     ky_ssp_eligible: [true]
 
@@ -158,11 +158,11 @@
         meets_ssi_resource_test: true
         # Countable income ($50,000) exceeds PCH standard ($19,320) — not eligible.
         ssi_countable_income: 50_000
+        ky_ssp_category: PCH
     households:
       household:
         members: [person1]
         state_code: KY
-        ky_ssp_category: PCH
   output:
     ky_ssp_eligible: [false]
 
@@ -176,11 +176,11 @@
         is_ssi_eligible: true
         meets_ssi_resource_test: true
         ssi_countable_income: 0
+        ky_ssp_category: PCH
     households:
       household:
         members: [person1]
         state_code: KY
-        ky_ssp_category: PCH
   output:
     # 921 KAR 2:015 §4(1)(c)1 requires PCH residents to be at least 18.
     ky_ssp_eligible: [false]

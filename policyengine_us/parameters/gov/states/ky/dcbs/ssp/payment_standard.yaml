@@ -89,13 +89,16 @@ CARETAKER:
     BOTH:
       2000-01-01: 0
       2026-01-01: 1_056
+  # §9(1)(c): couple rates are reduced. Regulation states couple totals
+  # ($1,552 for one-care, $1,606 for both-care); stored here as per-person
+  # (total / 2) so the formula treats every category uniformly.
   COUPLE_BOTH_ELIGIBLE:
     ONE:
       2000-01-01: 0
-      2026-01-01: 1_552
+      2026-01-01: 776
     BOTH:
       2000-01-01: 0
-      2026-01-01: 1_606
+      2026-01-01: 803
   COUPLE_ONE_ELIGIBLE:
     ONE:
       2000-01-01: 0

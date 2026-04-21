@@ -5,6 +5,17 @@ class ky_ssp(Variable):
     value_type = float
     entity = Person
     label = "Kentucky State Supplementary Payment"
+    documentation = (
+        "Kentucky State Supplementation per 921 KAR 2:015 and KRS 205.245. "
+        "Four covered living arrangements per §4(1)(c): Personal Care Home "
+        "(PCH), Family Care Home (FCH), Community Integration Supplementation "
+        "(CIS, for residents with severe mental illness), and Caretaker "
+        "Services in a private residence. Medicaid/Title XIX nursing home "
+        "residents are NOT covered by this program. SSI receipt is not "
+        "required (§4(1)(b) — Group 2 pathway): applicants meeting SSI "
+        "categorical criteria whose countable income is below the §9 "
+        "standard of need receive a supplement."
+    )
     unit = USD
     definition_period = YEAR
     defined_for = StateCode.KY
@@ -16,21 +27,20 @@ class ky_ssp(Variable):
     )
 
     def formula(person, period):
-        # 921 KAR 2:015 §8(2): subtract total countable income from the
-        # standard of need in §9.
+        # §8(2): supplement = max(0, standard_of_need − countable_income).
+        # For eligible joint couples (§9(2)), SSI already attributes combined
+        # income equally to each spouse via ssi_marital_{earned,unearned}_income,
+        # and per-person standards stored in payment_standard (half of couple
+        # totals for CARETAKER) reproduce the §9(2)(b) "one-half of the
+        # deficit to each" outcome without explicit marital_unit averaging.
+        #
+        # APPROXIMATION: Per OMVOLV examples, the Caretaker "Eligible Couple,
+        # One Receives Care" standard ($1,552) is paid entirely to the care
+        # receiver (per MS 1200 §B.6). This model stores that standard as
+        # per-person ($776) and pays each spouse an equal share. The household
+        # total matches the regulation exactly; only the per-spouse split
+        # differs.
         payment_standard = person("ky_ssp_payment_standard", period)
         countable_income = person("ssi_countable_income", period)
-        state_supplement = max_(0, payment_standard - countable_income) * person(
-            "ky_ssp_eligible", period
-        )
-        # §9(2): "in a couple case, if both are eligible" the couple's income
-        # is combined and one-half of the deficit is payable to each. Require
-        # both spouses to be actually SSI-eligible (not merely both ABD), per
-        # §9(1)(c) which reserves the couple rates for "eligible couple, both
-        # aged, blind, or having a disability".
-        both_eligible = person.marital_unit.sum(person("is_ssi_eligible", period)) == 2
-        return where(
-            both_eligible,
-            person.marital_unit.sum(state_supplement) / 2,
-            state_supplement,
-        )
+        eligible = person("ky_ssp_eligible", period)
+        return max_(0, payment_standard - countable_income) * eligible

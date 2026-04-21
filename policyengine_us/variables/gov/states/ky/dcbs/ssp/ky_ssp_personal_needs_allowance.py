@@ -16,7 +16,7 @@ class ky_ssp_personal_needs_allowance(Variable):
     def formula(person, period, parameters):
         # Informational only: the PNA is retained by the resident out of
         # the SSP standard paid to the facility, not deducted from ky_ssp.
-        category = person.household("ky_ssp_category", period)
+        category = person("ky_ssp_category", period)
         categories = category.possible_values
         p = parameters(period).gov.states.ky.dcbs.ssp.personal_needs_allowance
         monthly_amount = select(
