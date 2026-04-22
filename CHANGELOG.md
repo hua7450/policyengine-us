@@ -1,3 +1,10 @@
+## [1.663.0] - 2026-04-22
+
+### Added
+
+- Maryland military retirement income subtraction (Md. Code Tax-General § 10-207(q)) from 2021 onward, including the Keep Our Heroes Home Act increase to $12,500 / $20,000 effective 2023.
+
+
 ## [1.662.1] - 2026-04-22
 
 ### Fixed
