@@ -1,6 +1,19 @@
 from policyengine_us.model_api import *
 
 
+# Implicit SSI living-arrangement invariant: an OSS-eligible person is
+# always OWN_HOUSEHOLD in ssi_federal_living_arrangement. None of the
+# three reduction triggers fires for a legitimate ALF/AFCH/MHRTF
+# resident: MEDICAL_TREATMENT_FACILITY requires Medicaid paying >50%
+# (OSS exists because it is not); CHILD_IN_PARENTAL_HOUSEHOLD requires
+# under-18 (OSS requires aged/blind/disabled); ANOTHER_PERSONS_HOUSEHOLD
+# requires free shelter and meals from a private household (OSS
+# residents pay the provider). FAC 65A-2 gates eligibility on facility
+# type, not on SSI code, so this formula does not cross-check against
+# ssi_federal_living_arrangement; inconsistent inputs (e.g. setting
+# both fl_oss_community_care_type = ALF and
+# ssi_lives_in_medical_treatment_facility = True) will produce
+# nonsensical results.
 class fl_oss_eligible(Variable):
     value_type = bool
     entity = Person
