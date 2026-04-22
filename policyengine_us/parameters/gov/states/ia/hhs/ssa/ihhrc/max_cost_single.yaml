@@ -1,4 +1,4 @@
-description: Iowa limits the in-home health-related care supplement and countable income to this amount when one member of the household needs care under the State Supplementary Assistance program.
+description: Iowa limits the in-home health-related care supplement and countable income to this amount per person under the State Supplementary Assistance program.
 
 values:
   2017-07-01: 480.55
@@ -10,5 +10,5 @@ metadata:
   reference:
     - title: Iowa Administrative Code 441—177.4(1)(f)
       href: https://www.legis.iowa.gov/docs/iac/chapter/01-07-2026.441.177.pdf#page=2
-    - title: Iowa Administrative Code 441—52.1(5)
-      href: https://www.legis.iowa.gov/docs/iac/chapter/01-07-2026.441.52.pdf#page=2
+    - title: Iowa Administrative Code 441—177.10(3)
+      href: https://www.legis.iowa.gov/docs/iac/chapter/01-07-2026.441.177.pdf#page=4

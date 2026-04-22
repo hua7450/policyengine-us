@@ -1,7 +1,9 @@
-# IAC 441—177.4(1)(f): IHHRC supplement pays actual cost up to max_cost_single
-# ($480.55) or max_cost_couple ($961.10) when both spouses need care.
+# IAC 441—177.10(3): IHHRC max benefit payable is $480.55 per person, inclusive
+# of all services for all providers. The $961.10 in 441—177.4(1)(f) is the
+# combined couple income cap, NOT a per-person payment cap.
 # IAC 441—177.4(1)(c): recipient must live in own home (not in RCF or FLH).
-# Income cap: countable monthly income <= max_cost_single/couple.
+# IAC 441—177.4(1)(f): income cap — individual countable income <= $480.55, or
+# combined couple countable income <= $961.10 when both spouses need care.
 
 - name: Case 1, individual IHHRC cost below max pays actual cost.
   period: 2025-01
@@ -139,11 +141,13 @@
         members: [person1, person2]
         state_code: IA
   output:
-    # Both need care -> couple cap $961.10; each cost $900 < cap -> $900 each
+    # Both need care -> combined income cap $961.10 (combined countable = 0).
+    # Payment max is $480.55 per person (441—177.10(3)).
+    # Each cost $900 > per-person max $480.55 -> capped at $480.55 each.
     ia_ssa_ihhrc_both_need_care: [true, true]
-    ia_ssa_ihhrc_supplement: [900, 900]
+    ia_ssa_ihhrc_supplement: [480.55, 480.55]
 
-- name: Case 6, couple both needing IHHRC above couple cap capped at 961.10 dollars.
+- name: Case 6, couple both needing IHHRC with high cost capped at 480.55 dollars per person.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
@@ -172,8 +176,10 @@
         members: [person1, person2]
         state_code: IA
   output:
-    # Both need care -> couple cap $961.10; each cost $1500 > cap -> capped
-    ia_ssa_ihhrc_supplement: [961.10, 961.10]
+    # Both need care -> combined income cap $961.10 (combined countable = 0).
+    # Payment max is $480.55 per person (441—177.10(3)).
+    # Each cost $1,500 > per-person max $480.55 -> capped at $480.55 each.
+    ia_ssa_ihhrc_supplement: [480.55, 480.55]
 
 - name: Case 7, couple with only one spouse needing IHHRC uses single cap.
   period: 2025-01
@@ -263,3 +269,38 @@
     # $800/mo SS gross, countable $780/mo; below FBR $967, but IHHRC cap
     # compares countable $780 against $480.55 -> exceeds cap -> ineligible.
     ia_ssa_ihhrc_supplement: [0]
+
+- name: Case 10, couple both needing IHHRC uses combined couple income cap of 961.10 dollars.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        social_security_retirement: 7_200  # $600/mo gross
+        ia_ssa_needs_in_home_health_related_care: true
+        ia_ssa_ihhrc_cost_of_care: 400
+      person2:
+        age: 68
+        social_security_retirement: 7_200  # $600/mo gross
+        ia_ssa_needs_in_home_health_related_care: true
+        ia_ssa_ihhrc_cost_of_care: 400
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IA
+  output:
+    # Each spouse's countable unearned is about $580/mo after $20 disregard,
+    # combined ~$1,160 which exceeds the couple income cap of $961.10.
+    # IAC 441—177.4(1)(f): both spouses fail the combined cap -> ineligible.
+    ia_ssa_ihhrc_both_need_care: [true, true]
+    ia_ssa_ihhrc_supplement: [0, 0]

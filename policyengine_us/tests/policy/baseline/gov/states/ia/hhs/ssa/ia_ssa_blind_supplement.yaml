@@ -166,3 +166,61 @@
   output:
     # Blind supplement frozen at $22 since 2017.
     ia_ssa_blind_supplement: [22]
+
+- name: Case 7, blind person with income above FBR plus state standard gets zero supplement.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_blind: true
+        social_security_retirement: 14_400  # $1,200/mo gross
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # $1,200/mo SS gross -> $1,180/mo countable (after $20 disregard).
+    # FBR $967, blind state standard $22, total $989.
+    # Federally-administered formula: max(0, 989 - max(1180, 967)) = 0.
+    ia_ssa_category: [BLIND]
+    ia_ssa_blind_supplement: [0]
+
+- name: Case 8, blind person with income just above FBR gets partial supplement.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        is_blind: true
+        social_security_retirement: 12_000  # $1,000/mo gross
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # $1,000/mo SS gross -> $980/mo countable (after $20 disregard).
+    # FBR $967, blind state standard $22, total $989.
+    # Federally-administered formula: max(0, 989 - max(980, 967)) = 9.
+    ia_ssa_category: [BLIND]
+    ia_ssa_blind_supplement: [9]

@@ -41,12 +41,15 @@ class ia_ssa_category(Variable):
         rcf_income_eligible = client_participation < rcf_income_threshold
         needs_ihhrc = person("ia_ssa_needs_in_home_health_related_care", period)
         both_need_care = person("ia_ssa_ihhrc_both_need_care", period)
-        ihhrc_income_cap = where(
-            both_need_care, p.ihhrc.max_cost_couple, p.ihhrc.max_cost_single
+        # IAC 441—177.4(1)(f): countable income of the individual and spouse
+        # living in the home shall be limited to $480.55 per month if one needs
+        # care or $961.10 (combined) if both need care.
+        couple_countable = person.marital_unit.sum(countable_monthly)
+        ihhrc_income_eligible = where(
+            both_need_care,
+            couple_countable <= p.ihhrc.max_cost_couple,
+            countable_monthly <= p.ihhrc.max_cost_single,
         )
-        # IAC 441—177.4(1)(f): cap is compared against the person's monthly
-        # countable income, not the excess over the federal SSI benefit rate.
-        ihhrc_income_eligible = countable_monthly <= ihhrc_income_cap
         in_flh = person("ia_ssa_resides_in_family_life_home", period)
         # IAC 441—177.4(1)(c): IHHRC recipients must live in their own home,
         # so exclude those residing in an RCF or family-life home.

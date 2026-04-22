@@ -16,4 +16,14 @@ class ia_ssa_blind_supplement(Variable):
         category = person("ia_ssa_category", period)
         in_category = category == category.possible_values.BLIND
         p = parameters(period).gov.states.ia.hhs.ssa
-        return in_category * p.blind
+        # Iowa blind is federally-administered per POMS SI 01415.050.F. For
+        # federally-administered SSP, the state supplement equals
+        # max(0, total_standard − max(countable_income, FBR)): it stays at the
+        # full state amount while income is below the FBR and then phases down
+        # dollar-for-dollar as income rises above the FBR.
+        countable_monthly = (
+            person("ssi_countable_income", period.this_year) / MONTHS_IN_YEAR
+        )
+        fbr = parameters(period).gov.ssa.ssi.amount.individual
+        raw_supplement = max_(0, (fbr + p.blind) - max_(countable_monthly, fbr))
+        return in_category * raw_supplement
