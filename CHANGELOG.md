@@ -1,3 +1,10 @@
+## [1.662.0] - 2026-04-22
+
+### Added
+
+- Add California AB 2591 contributed reform: standard deduction at the federal poverty line.
+
+
 ## [1.661.0] - 2026-04-21
 
 ### Added
