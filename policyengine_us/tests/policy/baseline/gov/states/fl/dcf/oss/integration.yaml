@@ -62,12 +62,13 @@
     ssi: [135, 135]
     # State OSS: couple provider rate = 2 * $991.40 - $97 = $1,885.80.
     # Per person = $942.90. Total needs = $942.90 + $160 = $1,102.90.
-    # OSS per person = min(max($1,102.90 - $590, 0), $193.40) = $193.40.
+    # Couple max = $368.80, per person $184.40 (same as individual cap).
+    # OSS per person = min(max($1,102.90 - $590, 0), $184.40) = $184.40.
     fl_oss_eligible: [true, true]
     fl_oss_couple_rate_applies: [true, true]
     fl_oss_provider_rate: [942.90, 942.90]
-    fl_oss_max_oss: [193.40, 193.40]
-    fl_oss: [193.40, 193.40]
+    fl_oss_max_oss: [184.40, 184.40]
+    fl_oss: [184.40, 184.40]
 
 - name: Case 3, Group 2 non-SSI recipient, $1,000/month Social Security.
   period: 2025-01
@@ -290,8 +291,9 @@
     fl_oss_eligible: [true, true]
     fl_oss_provider_rate: [942.90, 942.90]
     fl_oss_income_standard: [996.90, 996.90]
-    fl_oss_max_oss: [193.40, 193.40]
-    # OSS per person = min(max($1,102.90 - $940, 0), $193.40) = min($162.90, $193.40) = $162.90.
+    # Couple max = $368.80, per person $184.40 (same as individual cap).
+    fl_oss_max_oss: [184.40, 184.40]
+    # OSS per person = min(max($1,102.90 - $940, 0), $184.40) = min($162.90, $184.40) = $162.90.
     fl_oss: [162.90, 162.90]
 
 - name: Case 11, earnings with SSI earned income exclusions.
@@ -318,3 +320,49 @@
     fl_oss_eligible: [true]
     # OSS = min(max($1,151.40 - $207.50, 0), $184.40) = $184.40.
     fl_oss: [184.40]
+
+- name: Case 12, mixed-track MHRTF couple, each gets individual rates (regression).
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 45
+        is_disabled: true
+        social_security: 12_120
+        fl_oss_community_care_type: MHRTF
+        fl_oss_program_track: REDESIGN
+      person2:
+        age: 42
+        is_disabled: true
+        social_security: 12_120
+        fl_oss_community_care_type: MHRTF
+        fl_oss_program_track: PROTECTED
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: FL
+  output:
+    # Combined SS $2,020/mo - $20 exclusion = $2,000 countable, equal-split
+    # = $1,000 per person. Both fail Group 1 ($725 couple FBR < $1,000).
+    # Both pass Group 2 ($1,000 ≤ Redesign $1,045.40 and ≤ Protected $1,152).
+    is_ssi_eligible: [true, true]
+    ssi_countable_income: [1_000, 1_000]
+    ssi: [0, 0]
+    fl_oss_eligible: [true, true]
+    # Tracks mismatch → couple rate does not apply → each spouse takes
+    # their own individual provider rate and max OSS cap.
+    # Bug (pre-fix) would have halved couple rates: provider
+    # = [942.90, 1103.50], max_oss = [193.40, 345], fl_oss = [102.90, 263.50].
+    fl_oss_couple_rate_applies: [false, false]
+    fl_oss_provider_rate: [991.40, 1_152]
+    fl_oss_max_oss: [184.40, 345]
+    # person1 OSS = min(max($991.40 + $160 - $1,000, 0), $184.40) = $151.40.
+    # person2 OSS = min(max($1,152 + $160 - $1,000, 0), $345) = $312.
+    fl_oss: [151.40, 312]

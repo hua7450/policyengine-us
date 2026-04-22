@@ -224,9 +224,9 @@
   output:
     fl_oss_eligible: [true, true]
     # Per person total needs = $1,102.90. Income = $0.
-    # Calculated per person = $1,102.90. Max per person = $193.40.
-    # Capped at $193.40 each.
-    fl_oss: [193.40, 193.40]
+    # Uncapped per person = $1,102.90. Max per person = $368.80/2 = $184.40.
+    # Capped at $184.40 each.
+    fl_oss: [184.40, 184.40]
 
 # ──────────────────────────────────────────────────────────────
 # Very high income → $0 benefit (well above income standard)
@@ -324,8 +324,8 @@
 # This means Protected track effectively didn't exist before Jul 2024.
 # ──────────────────────────────────────────────────────────────
 
-- name: Case 12, Protected track before Jul 2024, ineligible (track not in effect).
-  period: 2024-01
+- name: Case 12, Protected track before Jan 2023, ineligible (track not in effect).
+  period: 2022-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -342,12 +342,13 @@
         members: [person1]
         state_code: FL
   output:
-    # Protected track not in effect before Jul 2024.
+    # Protected track not in effect before Jan 2023 (see 2024-06 Appendix A-12
+    # earliest shown column is Jan 2023).
     fl_oss_eligible: [false]
     fl_oss: [0]
 
-- name: Case 13, Protected couple before Jul 2024, ineligible (track not in effect).
-  period: 2024-01
+- name: Case 13, Protected couple before Jan 2023, ineligible (track not in effect).
+  period: 2022-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -378,7 +379,7 @@
         members: [person1, person2]
         state_code: FL
   output:
-    # Protected track not in effect before Jul 2024.
+    # Protected track not in effect before Jan 2023.
     fl_oss_eligible: [false, false]
     fl_oss: [0, 0]
 
@@ -579,8 +580,10 @@
         is_ssi_eligible: true
         ssi_claim_is_joint: true
         uncapped_ssi: 12
-        # $909.50/month * 12 = $10,914/year.
-        ssi_countable_income: 10_914
+        # Per-person max couple OSS = $368.80/2 = $184.40.
+        # Target income = total_needs - max = $1,102.90 - $184.40 = $918.50/month.
+        # $918.50/month * 12 = $11,022/year.
+        ssi_countable_income: 11_022
       person2:
         fl_oss_community_care_type: AFCH
         fl_oss_program_track: REDESIGN
@@ -588,7 +591,7 @@
         is_ssi_eligible: true
         ssi_claim_is_joint: true
         uncapped_ssi: 12
-        ssi_countable_income: 10_914
+        ssi_countable_income: 11_022
     marital_units:
       marital_unit:
         members: [person1, person2]
@@ -601,8 +604,8 @@
         state_code: FL
   output:
     fl_oss_eligible: [true, true]
-    # Per person: min(max(0, $1,102.90 - $909.50), $193.40) = min($193.40, $193.40) = $193.40.
-    fl_oss: [193.40, 193.40]
+    # Per person: min(max(0, $1,102.90 - $918.50), $184.40) = min($184.40, $184.40) = $184.40.
+    fl_oss: [184.40, 184.40]
 
 # ──────────────────────────────────────────────────────────────
 # Couple income standard boundary (Redesign)
@@ -810,3 +813,36 @@
   output:
     fl_oss_eligible: [false]
     fl_oss: [0]
+
+# ──────────────────────────────────────────────────────────────
+# Protected track in effect Jan 2023 through Jun 2024 (pre-Jul-2024 rates)
+# 2024-06 Appendix A-12: provider rate $1,128(I), max OSS $239(I), PNA $54.
+# ──────────────────────────────────────────────────────────────
+
+- name: Case 28, Protected individual Jan 2024, pre-Jul-2024 rates apply.
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        fl_oss_community_care_type: MHRTF
+        fl_oss_program_track: PROTECTED
+        age: 45
+        is_ssi_eligible: true
+        ssi_claim_is_joint: false
+        uncapped_ssi: 1_200
+        ssi_countable_income: 0
+    households:
+      household:
+        members: [person1]
+        state_code: FL
+  output:
+    # Protected in effect from Jan 2023 (per 2024-06 Appendix A-12).
+    fl_oss_eligible: [true]
+    # Provider rate = FBR 2024 $943 + $185 offset = $1,128.
+    fl_oss_provider_rate: [1_128]
+    # Max OSS (Protected, I) Jan 2024 = $239.
+    fl_oss_max_oss: [239]
+    # Total needs = $1,128 + $54 PNA = $1,182. Income = $0.
+    # OSS = min(max($1,182, 0), $239) = $239.
+    fl_oss: [239]
