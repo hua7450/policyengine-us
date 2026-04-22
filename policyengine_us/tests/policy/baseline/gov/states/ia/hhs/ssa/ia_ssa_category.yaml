@@ -223,7 +223,7 @@
     # DP outranks BLIND
     ia_ssa_category: [DP]
 
-- name: Case 9, blind person with SMME-eligible income gets BLIND not SMME.
+- name: Case 9, blind person with SMME-range income falls to SMME not BLIND.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
@@ -231,7 +231,7 @@
       person1:
         age: 70
         is_blind: true
-        social_security_retirement: 24_000  # > 120% FPL
+        social_security_retirement: 24_000  # $2,000/mo -> countable $1,980
         ia_ssa_has_full_medicaid: true
         ia_ssa_has_medicare_part_b: true
     marital_units:
@@ -248,8 +248,11 @@
         members: [person1]
         state_code: IA
   output:
-    # BLIND outranks SMME
-    ia_ssa_category: [BLIND]
+    # Blind income gate (FBR $967 + $22 = $989). Countable $1,980 > $989 ->
+    # BLIND branch skipped. SMME income floor is 120% FPL ($1,565); $1,980 >
+    # $1,565 -> SMME applies. BLIND and SMME income ranges are disjoint, so
+    # priority ordering between them is academic.
+    ia_ssa_category: [SMME]
 
 - name: Case 10, DP-configured person with SMME-eligible income gets DP not SMME.
   period: 2025-01

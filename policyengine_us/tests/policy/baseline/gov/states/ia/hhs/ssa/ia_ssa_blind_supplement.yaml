@@ -191,9 +191,10 @@
         state_code: IA
   output:
     # $1,200/mo SS gross -> $1,180/mo countable (after $20 disregard).
-    # FBR $967, blind state standard $22, total $989.
-    # Federally-administered formula: max(0, 989 - max(1180, 967)) = 0.
-    ia_ssa_category: [BLIND]
+    # FBR $967, blind state standard $22, total $989. Countable $1,180
+    # exceeds $989 -> blind income gate in ia_ssa_category excludes, so
+    # category drops to NONE and supplement is $0.
+    ia_ssa_category: [NONE]
     ia_ssa_blind_supplement: [0]
 
 - name: Case 8, blind person with income just above FBR gets partial supplement.

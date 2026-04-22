@@ -58,6 +58,12 @@ class ia_ssa_category(Variable):
         dp_configuration = person("ia_ssa_dp_configuration", period)
         in_dp = dp_configuration != dp_configuration.possible_values.NONE
         is_blind = person("is_blind", period.this_year)
+        # IAC 441—52.1(4) blind standard is a federally-administered SSP;
+        # supplement phases to zero when countable income reaches FBR +
+        # state standard. Mirror that ceiling in the category gate so blind
+        # recipients with excess income fall through to the next category.
+        fbr = parameters(period).gov.ssa.ssi.amount.individual
+        blind_income_eligible = countable_monthly < fbr + p.blind
         smme_eligible = person("ia_ssa_smme_eligible", period)
         return select(
             [
@@ -65,7 +71,7 @@ class ia_ssa_category(Variable):
                 eligible & needs_ihhrc & in_own_home & ihhrc_income_eligible,
                 eligible & in_flh,
                 eligible & has_dependent & in_dp,
-                eligible & is_blind,
+                eligible & is_blind & blind_income_eligible,
                 eligible & smme_eligible,
             ],
             [
