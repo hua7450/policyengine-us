@@ -1,3 +1,10 @@
+## [1.662.1] - 2026-04-22
+
+### Fixed
+
+- Cap the Oklahoma earned income tax credit at remaining tax liability in years where it is non-refundable (2016-2021).
+
+
 ## [1.662.0] - 2026-04-22
 
 ### Added
