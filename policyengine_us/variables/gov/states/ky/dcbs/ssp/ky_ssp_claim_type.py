@@ -21,17 +21,24 @@ class ky_ssp_claim_type(Variable):
     )
 
     def formula(person, period, parameters):
-        # 921 KAR 2:015 §9(1)(c) ties couple rates to "eligible couple, both
-        # aged, blind, or having a disability" — i.e. both actually SSI-eligible
-        # (ABD + resource test + immigration), not merely both ABD.
-        is_eligible = person("is_ssi_eligible", period)
-        eligible_count = person.marital_unit.sum(is_eligible)
+        # §9(1)(c) couple rates apply to an "eligible couple" — both spouses
+        # must qualify for SSP itself, not merely for SSI. The §4(1) SSP
+        # categorical tests (SSI-eligible + age ≥ 18 + qualifying living
+        # arrangement) are applied here. The §4(1)(b) income test is
+        # intentionally excluded to avoid a cycle through
+        # ky_ssp_payment_standard → ky_ssp_claim_type.
+        is_ssi_eligible = person("is_ssi_eligible", period)
+        is_adult = person("age", period) >= 18
+        category = person("ky_ssp_category", period)
+        in_qualifying_category = category != category.possible_values.NONE
+        ssp_categorically_eligible = is_ssi_eligible & is_adult & in_qualifying_category
+        eligible_count = person.marital_unit.sum(ssp_categorically_eligible)
         marital_unit_size = person.marital_unit.nb_persons()
-        both_eligible = (eligible_count == 2) & is_eligible
-        # §9(1)(c)1: eligible individual with an ineligible spouse in a
-        # 2-person marital unit uses the individual standard.
+        both_eligible = (eligible_count == 2) & ssp_categorically_eligible
         one_eligible_couple = (
-            (eligible_count == 1) & is_eligible & (marital_unit_size == 2)
+            (eligible_count == 1)
+            & ssp_categorically_eligible
+            & (marital_unit_size == 2)
         )
         return select(
             [both_eligible, one_eligible_couple],

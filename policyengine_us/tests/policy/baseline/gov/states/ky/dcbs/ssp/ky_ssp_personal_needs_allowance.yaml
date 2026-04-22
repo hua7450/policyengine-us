@@ -86,3 +86,23 @@
         state_code: KY
   output:
     ky_ssp_personal_needs_allowance: [0]
+
+- name: Case 6, ineligible PCH resident (minor) receives no personal needs allowance.
+  period: 2026
+  input:
+    people:
+      person1:
+        age: 10
+        is_ssi_aged_blind_disabled: true
+        is_ssi_eligible: true
+        meets_ssi_resource_test: true
+        ky_ssp_category: PCH
+    households:
+      household:
+        members: [person1]
+        state_code: KY
+  output:
+    # §4(1)(c) requires age ≥ 18 => ky_ssp_eligible is false => no SSP
+    # payment => no PNA to retain.
+    ky_ssp_eligible: [false]
+    ky_ssp_personal_needs_allowance: [0]
