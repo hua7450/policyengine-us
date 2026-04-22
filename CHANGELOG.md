@@ -1,3 +1,10 @@
+## [1.664.0] - 2026-04-22
+
+### Added
+
+- Add Washington millionaires tax (9.9% on income above $1M) and WFTC age expansion (18+) per ESSB 6346. Removes contributed reform since bill is now law.
+
+
 ## [1.663.0] - 2026-04-22
 
 ### Added
