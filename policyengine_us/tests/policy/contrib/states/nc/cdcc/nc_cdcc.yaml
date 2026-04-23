@@ -52,6 +52,26 @@
     nc_refundable_credits: 3_000
     nc_income_tax: -2_500
 
+- name: NC CDCC stacks with NC EITC contrib when both are active
+  period: 2026
+  reforms:
+    - policyengine_us.reforms.states.nc.eitc.nc_eitc
+    - policyengine_us.reforms.states.nc.cdcc.nc_cdcc
+  input:
+    gov.contrib.states.nc.eitc.match: 0.1
+    gov.contrib.states.nc.cdcc.in_effect: true
+    state_code: NC
+    eitc: 2_000
+    cdcc_potential: 1_000
+    nc_income_tax_before_credits: 1_000
+    nc_use_tax: 0
+    nc_non_refundable_credits: 0
+  output:
+    nc_eitc: 200
+    nc_cdcc: 300
+    nc_refundable_credits: 500
+    nc_income_tax: 500
+
 - name: Non-NC filer receives no NC CDCC
   period: 2026
   reforms: policyengine_us.reforms.states.nc.cdcc.nc_cdcc

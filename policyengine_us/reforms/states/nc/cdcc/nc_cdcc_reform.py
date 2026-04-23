@@ -25,7 +25,14 @@ def create_nc_cdcc() -> Reform:
         defined_for = StateCode.NC
 
         def formula(tax_unit, period, parameters):
-            return tax_unit("nc_cdcc", period)
+            # Stack with nc_eitc when the NC EITC contrib reform is also
+            # active, so enabling both NC contrib credits sums rather than
+            # overwrites.
+            total = tax_unit("nc_cdcc", period)
+            variables = tax_unit.simulation.tax_benefit_system.variables
+            if "nc_eitc" in variables:
+                total = total + tax_unit("nc_eitc", period)
+            return total
 
     class nc_income_tax(Variable):
         value_type = float
