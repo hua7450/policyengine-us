@@ -177,9 +177,43 @@
         members: [person1]
         state_code: IA
   output:
+    # Dependent income exceeds the limit -> DP category gate fails. Person
+    # is 70 with no other qualifying category -> NONE -> supplement 0.
+    ia_ssa_category: [NONE]
     ia_ssa_dp_supplement: [0]
 
-- name: Case 7, DP supplement phases down when countable income exceeds FBR.
+- name: Case 7, 2017 DP aged-or-disabled-with-dependent uses 1114 dollar standard and 379 dollar cap.
+  period: 2017-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        employment_income: 0
+        ia_ssa_dp_configuration: AGED_OR_DISABLED_WITH_DEPENDENT
+        ia_ssa_dp_has_eligible_dependent: true
+        ia_ssa_dp_dependent_countable_income: 0
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # 2017 AGED_OR_DISABLED_WITH_DEPENDENT payment standard $1,114; FBR $735;
+    # max_per_person_cap $379. Federally-administered formula:
+    # max(0, 1114 - max(0, 735)) = $379 -> capped at $379.
+    ia_ssa_category: [DP]
+    ia_ssa_dp_supplement: [379]
+
+- name: Case 8, DP supplement phases down when countable income exceeds FBR.
   period: 2025-01
   absolute_error_margin: 0.01
   input:

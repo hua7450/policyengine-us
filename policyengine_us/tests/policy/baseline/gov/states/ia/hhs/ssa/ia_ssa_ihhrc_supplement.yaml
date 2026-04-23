@@ -1,9 +1,14 @@
+# IAC 441—177.10(2)(a): payment = max(0, min(cost, per-person cap) -
+#   client participation), where client participation is marital-unit
+#   countable income minus the basic SSI standard disregard (the applicable
+#   FBR for a single or joint claim), split evenly across the marital unit.
 # IAC 441—177.10(3): IHHRC max benefit payable is $480.55 per person, inclusive
-# of all services for all providers. The $961.10 in 441—177.4(1)(f) is the
-# combined couple income cap, NOT a per-person payment cap.
+#   of all services for all providers. The $961.10 in 441—177.4(1)(f) is the
+#   combined couple income cap, NOT a per-person payment cap.
 # IAC 441—177.4(1)(c): recipient must live in own home (not in RCF or FLH).
-# IAC 441—177.4(1)(f): income cap — individual countable income <= $480.55, or
-# combined couple countable income <= $961.10 when both spouses need care.
+# IAC 441—177.4(1)(f): income cap on countable income after the basic SSI
+#   standard disregard — individual <= $480.55, or combined couple <= $961.10
+#   when both spouses need care.
 
 - name: Case 1, individual IHHRC cost below max pays actual cost.
   period: 2025-01
@@ -238,11 +243,11 @@
         members: [person1]
         state_code: IA
   output:
-    # Countable $1,647/mo exceeds single income cap $480.55
-    # -> not in IHHRC category -> no supplement
+    # Countable $1,647/mo minus individual FBR disregard $967 = $680, which
+    # exceeds the single cap $480.55 -> not in IHHRC category -> no supplement.
     ia_ssa_ihhrc_supplement: [0]
 
-- name: Case 9, IHHRC income cap enforced against countable income even below FBR.
+- name: Case 9, single person with countable income below FBR gets full supplement.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
@@ -266,11 +271,12 @@
         members: [person1]
         state_code: IA
   output:
-    # $800/mo SS gross, countable $780/mo; below FBR $967, but IHHRC cap
-    # compares countable $780 against $480.55 -> exceeds cap -> ineligible.
-    ia_ssa_ihhrc_supplement: [0]
+    # $800/mo SS gross, countable $780/mo. Individual FBR disregard $967 makes
+    # income after disregard 0 -> passes single cap. Client participation is
+    # 0 -> supplement equals cost $400.
+    ia_ssa_ihhrc_supplement: [400]
 
-- name: Case 10, couple both needing IHHRC uses combined couple income cap of 961.10 dollars.
+- name: Case 10, couple both needing IHHRC with combined countable below couple FBR.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
@@ -299,8 +305,44 @@
         members: [person1, person2]
         state_code: IA
   output:
-    # Each spouse's countable unearned is about $580/mo after $20 disregard,
-    # combined ~$1,160 which exceeds the couple income cap of $961.10.
-    # IAC 441—177.4(1)(f): both spouses fail the combined cap -> ineligible.
+    # Each spouse's countable unearned is about $580/mo after the $20 general
+    # disregard, combined ~$1,160. Couple FBR disregard $1,450 leaves 0 after
+    # disregard -> passes couple cap $961.10. Client participation is 0 ->
+    # each person's supplement equals cost $400.
+    ia_ssa_ihhrc_both_need_care: [true, true]
+    ia_ssa_ihhrc_supplement: [400, 400]
+
+- name: Case 11, couple both needing IHHRC with combined countable above couple cap.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        social_security_retirement: 15_840  # $1,320/mo gross
+        ia_ssa_needs_in_home_health_related_care: true
+        ia_ssa_ihhrc_cost_of_care: 400
+      person2:
+        age: 68
+        social_security_retirement: 15_840  # $1,320/mo gross
+        ia_ssa_needs_in_home_health_related_care: true
+        ia_ssa_ihhrc_cost_of_care: 400
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IA
+  output:
+    # Each spouse's countable ~$1,300/mo; combined ~$2,600. After couple FBR
+    # disregard $1,450 -> $1,150 countable, which exceeds the couple cap
+    # $961.10 -> both ineligible.
     ia_ssa_ihhrc_both_need_care: [true, true]
     ia_ssa_ihhrc_supplement: [0, 0]

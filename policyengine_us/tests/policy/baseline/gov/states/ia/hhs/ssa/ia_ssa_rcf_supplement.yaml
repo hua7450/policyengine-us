@@ -202,7 +202,38 @@
     # 31 * $37.60 income limit -> not in RCF category -> no supplement
     ia_ssa_rcf_supplement: [0]
 
-- name: Case 8, RCF resident with excess resources receives zero supplement.
+- name: Case 8, 2018 RCF resident uses the 99 dollar PNA effective March 2018.
+  period: 2018-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        employment_income: 0
+        ia_ssa_resides_in_residential_care_facility: true
+        ia_ssa_rcf_cost_per_diem: 30.60
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # Federal SSI fills to 2018 FBR $750. 2018 RCF: max_per_diem $30.60,
+    # PNA $99 (per March 28, 2018 IAC rule update). CP $750 - $99 = $651.
+    # Cost of care 31 * $30.60 = $948.60. Supplement $948.60 - $651 = $297.60.
+    ssi: [750]
+    ia_ssa_category: [RCF]
+    ia_ssa_rcf_supplement: [297.60]
+
+- name: Case 9, RCF resident with excess resources receives zero supplement.
   period: 2025-01
   input:
     people:

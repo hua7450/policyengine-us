@@ -45,8 +45,12 @@ BLIND_WITH_AGED_OR_DISABLED_SPOUSE_AND_DEPENDENT:
   2017-01-01: 1_504
   2018-01-01: 1_534
   2025-01-01: 1_975
-  # Iowa HHS published 2026 value is $3,031, a ~53% jump over 2025 $1,975 —
-  # anomalous vs other configurations' ~2.85% COLA but published as stated.
+  # 2026 value $3,031 as published on the Iowa HHS SSA standards page is a
+  # +53.5% jump vs 2025 ($1,975), out of step with the ~2.85% COLA applied to
+  # every other DP configuration. An expected ~$2,031 would match that COLA,
+  # so $3,031 may reflect an Iowa HHS publication error. Encoded as published;
+  # pending confirmation from Iowa HHS. If Iowa HHS corrects the figure,
+  # update here.
   2026-01-01: 3_031
 BLIND_WITH_BLIND_SPOUSE_AND_DEPENDENT:
   2011-01-01: 1_399

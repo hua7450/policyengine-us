@@ -30,6 +30,4 @@ class ia_ssa_dp_supplement(Variable):
         fbr = parameters(period).gov.ssa.ssi.amount.individual
         raw_supplement = max_(0, payment_standard - max_(countable_monthly, fbr))
         capped_supplement = min_(raw_supplement, p.dp.max_per_person_cap)
-        dependent_income = person("ia_ssa_dp_dependent_countable_income", period)
-        dependent_income_eligible = dependent_income < p.dp.dependent_income_limit
-        return in_category * dependent_income_eligible * capped_supplement
+        return in_category * capped_supplement

@@ -43,40 +43,50 @@
   output:
     ia_ssa_resources_eligible: [true]
 
-- name: Case 4, joint SSI couple at 3,000 limit is eligible.
+- name: Case 4, joint SSI couple at combined 3,000 dollar limit is eligible.
   period: 2025-01
   input:
     people:
       person1:
         age: 70
-        ssi_countable_resources: 3_000
+        ssi_countable_resources: 1_500
         ssi_claim_is_joint: true
       person2:
         age: 68
-        ssi_countable_resources: 3_000
+        ssi_countable_resources: 1_500
         ssi_claim_is_joint: true
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
     households:
       household:
         members: [person1, person2]
         state_code: IA
   output:
+    # Federal SSI counts couple resources against the couple limit. Combined
+    # $3,000 equals the limit -> both eligible.
     ia_ssa_resources_eligible: [true, true]
 
-- name: Case 5, joint SSI couple 1 dollar above 3,000 limit is ineligible.
+- name: Case 5, joint SSI couple with 2,000 dollars each (combined 4,000 dollars) is ineligible.
   period: 2025-01
   input:
     people:
       person1:
         age: 70
-        ssi_countable_resources: 3_001
+        ssi_countable_resources: 2_000
         ssi_claim_is_joint: true
       person2:
         age: 68
-        ssi_countable_resources: 3_001
+        ssi_countable_resources: 2_000
         ssi_claim_is_joint: true
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
     households:
       household:
         members: [person1, person2]
         state_code: IA
   output:
+    # Combined $4,000 exceeds the couple limit $3,000 -> both ineligible, even
+    # though each individual is below the single limit.
     ia_ssa_resources_eligible: [false, false]
