@@ -9,24 +9,50 @@ metadata:
   reference:
     - title: Iowa Administrative Code 441—52.1(2)
       href: https://www.legis.iowa.gov/docs/iac/chapter/01-07-2026.441.52.pdf#page=1
-    - title: Iowa HHS State Supplementary Assistance Standards
+    - title: SSA State Assistance Programs for SSI Recipients — Iowa (January 2011), Table 1 OS code C totals
+      href: https://www.ssa.gov/policy/docs/progdesc/ssi_st_asst/2011/ia.pdf#page=2
+    - title: Iowa Administrative Code 441—52.1(2), January 4, 2017 supplement
+      href: https://www.legis.iowa.gov/docs/aco/supplement/01-04-2017.pdf#page=119
+    - title: Iowa Administrative Code 441—52.1, March 28, 2018 rule update
+      href: https://www.legis.iowa.gov/docs/iac/rule/03-28-2018.441.52.1.pdf#page=1
+    - title: Iowa HHS General Letter 6-B-46 (effective January 1, 2025)
+      href: https://hhs.iowa.gov/media/15607/download
+    - title: Iowa HHS State Supplementary Assistance Standards (current)
       href: https://hhs.iowa.gov/assistance-programs/state-supplementary-assistance
 
 AGED_OR_DISABLED_WITH_DEPENDENT:
-  2017-07-01: 1_470
+  2011-01-01: 1_018
+  2017-01-01: 1_114
+  2018-01-01: 1_137
+  2025-01-01: 1_470
   2026-01-01: 1_512
 AGED_OR_DISABLED_WITH_SPOUSE_AND_DEPENDENT:
-  2017-07-01: 1_953
+  2011-01-01: 1_355
+  2017-01-01: 1_482
+  2018-01-01: 1_512
+  2025-01-01: 1_953
   2026-01-01: 2_009
 BLIND_WITH_DEPENDENT:
-  2017-07-01: 1_492
+  2011-01-01: 1_040
+  2017-01-01: 1_136
+  2018-01-01: 1_159
+  2025-01-01: 1_492
   2026-01-01: 1_534
 BLIND_WITH_AGED_OR_DISABLED_SPOUSE_AND_DEPENDENT:
-  2017-07-01: 1_975
-  # Verified against Iowa HHS SSA payment standards page (hhs.iowa.gov/assistance-programs/state-supplementary-assistance): the 2026 value is $3,031, a ~53% jump over the 2017 baseline. Anomalous vs other configurations' ~2.85% COLA but published as stated.
+  # 2011: SSA Table 1 shows both-blind couple $1,399; footnote a reduces by $22
+  # when only one member is blind, giving $1,377.
+  2011-01-01: 1_377
+  2017-01-01: 1_504
+  2018-01-01: 1_534
+  2025-01-01: 1_975
+  # Iowa HHS published 2026 value is $3,031, a ~53% jump over 2025 $1,975 —
+  # anomalous vs other configurations' ~2.85% COLA but published as stated.
   2026-01-01: 3_031
 BLIND_WITH_BLIND_SPOUSE_AND_DEPENDENT:
-  2017-07-01: 1_997
+  2011-01-01: 1_399
+  2017-01-01: 1_526
+  2018-01-01: 1_556
+  2025-01-01: 1_997
   2026-01-01: 2_053
 NONE:
-  2017-07-01: 0
+  2011-01-01: 0
