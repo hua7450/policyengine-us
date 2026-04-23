@@ -242,9 +242,11 @@
 # ============================================================================
 # IAC 441—52.1(2): DP is federally-administered per POMS SI 01415.050.F.
 # Federally-administered SSP formula:
-#   supplement = max(0, payment_standard - max(countable, FBR))
-# capped at max_per_person_cap ($503 in 2025, $518 in 2026).
-# Also requires dependent's countable income < dependent_income_limit.
+#   supplement = min(max(0, (FBR + state_supplement) - max(countable, FBR)),
+#                    max_per_person_cap)
+# max_per_person_cap = $503 in 2025, $518 in 2026.
+# Also requires dependent's countable income < dependent_income_limit
+# (enforced in ia_ssa_living_arrangement).
 
 - name: Case 1, person with no DP configuration gets zero supplement.
   period: 2025-01
@@ -490,10 +492,15 @@
 # ============================================================================
 # IAC 441—52.1(1): FLH is federally-administered per POMS SI 01415.050.F.
 # Federally-administered SSP formula:
-#   supplement = max(0, assistance_standard - max(countable, FBR))
-# capped at max_supplement ($142).
+#   base      = min(max(0, (FBR + state_supplement) - max(countable, FBR)),
+#                    max_supplement)
+#   extra     = max(0, state_supplement - max_supplement) if countable == 0
+#   supplement = base + extra
+# $142 cap on the federally-administered portion; the Department pays the
+# extra directly when SSA's $20 general-income disregard goes unused on an
+# SSI-only recipient.
 
-- name: Case 1, aged FLH resident with zero income (federal SSI plus capped state supplement).
+- name: Case 1, aged FLH resident with zero income receives capped supplement plus Department top-up.
   period: 2025-01
   absolute_error_margin: 0.01
   input:
@@ -516,13 +523,15 @@
         members: [person1]
         state_code: IA
   output:
-    # Federal SSI fills to FBR $967; assistance standard $1,129;
-    # raw supplement = 1,129 - max(0, 967) = 162; capped at $142.
+    # Federal SSI fills to FBR $967; state supplement $162, capped at $142.
+    # With no other income the SSI $20 general-income disregard goes unused,
+    # so Iowa HHS pays the remaining $20 as a Department top-up, totaling
+    # $162 — bringing federal + state payments to the full $1,129 standard.
     is_ssi_eligible: [true]
     ssi: [967]
     ia_ssa_eligible: [true]
     ia_ssa_living_arrangement: [FLH]
-    ia_ssa: [142]
+    ia_ssa: [162]
 
 - name: Case 2, person not in FLH receives zero FLH supplement.
   period: 2025-01
@@ -575,7 +584,7 @@
     ia_ssa_eligible: [false]
     ia_ssa: [0]
 
-- name: Case 4, FLH resident 2026 still capped at 142 dollars.
+- name: Case 4, FLH resident 2026 zero income receives 162 dollars (capped 142 plus 20 dollar top-up).
   period: 2026-01
   absolute_error_margin: 0.01
   input:
@@ -598,8 +607,9 @@
         members: [person1]
         state_code: IA
   output:
-    # Cap is frozen at $142 even though standard and PNA rise in 2026
-    ia_ssa: [142]
+    # Cap frozen at $142; 2026 state supplement $162, so Department top-up
+    # of $20 applies to SSI-only recipient. Total Iowa payment $162.
+    ia_ssa: [162]
 
 - name: Case 5, FLH supplement phases down when countable income exceeds FBR.
   period: 2025-01
@@ -1006,6 +1016,45 @@
     # $961.10 -> both ineligible.
     ia_ssa_ihhrc_both_need_care: [true, true]
     ia_ssa: [0, 0]
+
+- name: Case 12, couple with only one recipient charges all participation to that recipient.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 70
+        # $800/mo unearned per spouse; couple-combined ~$1,580 countable
+        # after the $20 disregard, exceeding the couple FBR $1,450 by $130.
+        social_security_retirement: 9_600
+        ia_ssa_needs_in_home_health_related_care: true
+        ia_ssa_ihhrc_cost_of_care: 400
+      person2:
+        age: 68
+        social_security_retirement: 9_600
+        ia_ssa_needs_in_home_health_related_care: false
+        ia_ssa_ihhrc_cost_of_care: 0
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: IA
+  output:
+    # person1 is the sole IHHRC recipient. Per IAC 441-177.10(2)(a) all of
+    # the household's remaining income after the FBR disregard is client
+    # participation for the one set of services, so person1 shoulders the
+    # full $130. Supplement = min($400, $480.55) − $130 = $270. person2 is
+    # not in the IHHRC category and receives $0.
+    ia_ssa_ihhrc_both_need_care: [false, false]
+    ia_ssa: [270, 0]
 
 # ============================================================================
 # RCF (Residential Care Facility) supplement tests (IAC 441—52.1(3)).

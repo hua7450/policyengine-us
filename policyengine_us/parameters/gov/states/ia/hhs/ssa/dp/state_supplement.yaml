@@ -1,9 +1,9 @@
-description: Iowa provides this amount as the dependent person assistance standard under the State Supplementary Assistance program.
+description: Iowa provides this state supplement amount above the federal SSI benefit rate (FBR) for dependent person configurations under the State Supplementary Assistance program.
 
 metadata:
   unit: currency-USD
   period: month
-  label: Iowa SSA dependent person assistance standard
+  label: Iowa SSA dependent person state supplement
   breakdown:
     - ia_ssa_dp_configuration
   reference:
@@ -21,42 +21,43 @@ metadata:
       href: https://hhs.iowa.gov/assistance-programs/state-supplementary-assistance
 
 AGED_OR_DISABLED_WITH_DEPENDENT:
-  2011-01-01: 1_018
-  2017-01-01: 1_114
-  2018-01-01: 1_137
-  2025-01-01: 1_470
-  2026-01-01: 1_512
+  2011-01-01: 344
+  2017-01-01: 379
+  2018-01-01: 387
+  2025-01-01: 503
+  2026-01-01: 518
 AGED_OR_DISABLED_WITH_SPOUSE_AND_DEPENDENT:
-  2011-01-01: 1_355
-  2017-01-01: 1_482
-  2018-01-01: 1_512
-  2025-01-01: 1_953
-  2026-01-01: 2_009
+  2011-01-01: 681
+  2017-01-01: 747
+  2018-01-01: 762
+  2025-01-01: 986
+  2026-01-01: 1_015
 BLIND_WITH_DEPENDENT:
-  2011-01-01: 1_040
-  2017-01-01: 1_136
-  2018-01-01: 1_159
-  2025-01-01: 1_492
-  2026-01-01: 1_534
+  2011-01-01: 366
+  2017-01-01: 401
+  2018-01-01: 409
+  2025-01-01: 525
+  2026-01-01: 540
 BLIND_WITH_AGED_OR_DISABLED_SPOUSE_AND_DEPENDENT:
-  # 2011: SSA Table 1 shows both-blind couple $1,399; footnote a reduces by $22
-  # when only one member is blind, giving $1,377.
-  2011-01-01: 1_377
-  2017-01-01: 1_504
-  2018-01-01: 1_534
-  2025-01-01: 1_975
-  # 2026 value $3,031 as published on the Iowa HHS SSA standards page is a
-  # +53.5% jump vs 2025 ($1,975), out of step with the ~2.85% COLA applied to
-  # every other DP configuration. An expected ~$2,031 would match that COLA,
+  # 2011 Iowa HHS total $1,377 minus individual FBR $674 = state portion $703.
+  # (SSA 2011 Table 1 shows both-blind couple total $1,399; footnote a reduces
+  # the total by $22 when only one spouse is blind, giving $1,377.)
+  2011-01-01: 703
+  2017-01-01: 769
+  2018-01-01: 784
+  2025-01-01: 1_008
+  # 2026 Iowa HHS published total is $3,031; state portion = $3,031 − $994 FBR
+  # = $2,037. This is a +91.8% jump vs the 2025 state portion ($1,008), out of
+  # step with the ~2.85% COLA that every other DP configuration tracks. An
+  # expected state-portion of ~$1,037 (total ~$2,031) would match that COLA,
   # so $3,031 may reflect an Iowa HHS publication error. Encoded as published;
-  # pending confirmation from Iowa HHS. If Iowa HHS corrects the figure,
-  # update here.
-  2026-01-01: 3_031
+  # pending confirmation from Iowa HHS.
+  2026-01-01: 2_037
 BLIND_WITH_BLIND_SPOUSE_AND_DEPENDENT:
-  2011-01-01: 1_399
-  2017-01-01: 1_526
-  2018-01-01: 1_556
-  2025-01-01: 1_997
-  2026-01-01: 2_053
+  2011-01-01: 725
+  2017-01-01: 791
+  2018-01-01: 806
+  2025-01-01: 1_030
+  2026-01-01: 1_059
 NONE:
   2011-01-01: 0
