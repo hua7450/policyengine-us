@@ -30,6 +30,8 @@ values:
     - al_ssp
     # Alaska benefits
     - ak_ssp
+    # Florida benefits
+    - fl_oss
     # Idaho benefits
     - id_aabd
     # Kentucky benefits
@@ -85,6 +87,8 @@ values:
     - al_ssp
     # Alaska benefits
     - ak_ssp
+    # Florida benefits
+    - fl_oss
     # Idaho benefits
     - id_aabd
     # Kentucky benefits

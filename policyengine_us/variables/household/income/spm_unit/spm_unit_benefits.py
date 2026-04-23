@@ -21,6 +21,7 @@ class spm_unit_benefits(Variable):
             "id_aabd",  # Idaho benefits
             "ky_ssp",  # Kentucky benefits
             "de_ssp",  # Delaware benefits
+            "fl_oss",
             "ks_sspp",  # Kansas benefits
             "hi_oss",
             "ma_state_supplement",  # Massachusetts benefits
