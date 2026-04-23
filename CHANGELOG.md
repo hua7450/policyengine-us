@@ -1,3 +1,38 @@
+## [1.665.0] - 2026-04-22
+
+### Added
+
+- Add Florida Optional State Supplementation (OSS).
+
+
+## [1.664.0] - 2026-04-22
+
+### Added
+
+- Add Washington millionaires tax (9.9% on income above $1M) and WFTC age expansion (18+) per ESSB 6346. Removes contributed reform since bill is now law.
+
+
+## [1.663.0] - 2026-04-22
+
+### Added
+
+- Maryland military retirement income subtraction (Md. Code Tax-General § 10-207(q)) from 2021 onward, including the Keep Our Heroes Home Act increase to $12,500 / $20,000 effective 2023.
+
+
+## [1.662.1] - 2026-04-22
+
+### Fixed
+
+- Cap the Oklahoma earned income tax credit at remaining tax liability in years where it is non-refundable (2016-2021).
+
+
+## [1.662.0] - 2026-04-22
+
+### Added
+
+- Add California AB 2591 contributed reform: standard deduction at the federal poverty line.
+
+
 ## [1.661.0] - 2026-04-21
 
 ### Added
