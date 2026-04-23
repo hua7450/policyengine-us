@@ -665,6 +665,37 @@
     # Countable $1,180/mo; standard $1,129; raw = max(0, 1129 - 1180) = 0.
     ia_ssa: [0]
 
+- name: Case 7, blind FLH resident gets max_supplement plus 22 dollar blind increment.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 40
+        is_blind: true
+        employment_income: 0
+        ia_ssa_resides_in_family_life_home: true
+    marital_units:
+      marital_unit:
+        members: [person1]
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: IA
+  output:
+    # POMS OS code I (FLH blind): state portion = max_supplement $142 plus
+    # $22 blind increment = $164. The blind increment replaces the
+    # Department top-up ($22 > $20), so Department does not pay a top-up
+    # on top.
+    ia_ssa_living_arrangement: [FLH]
+    ia_ssa: [164]
+
 # ============================================================================
 # IHHRC (In-Home Health-Related Care) supplement tests (IAC 441—177).
 # ============================================================================

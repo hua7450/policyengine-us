@@ -42,20 +42,30 @@ class ia_ssa(Variable):
         dp_raw = max_(0, (individual_fbr + dp_state_supplement) - countable_or_fbr)
         dp_amt = min_(dp_raw, p.dp.max_per_person_cap)
         # FLH — IAC 441—52.1(1): state supplement capped at max_supplement
-        # ($142 frozen since 2011). For recipients whose only income is SSI
-        # (countable_monthly == 0), SSA's $20 general-income disregard goes
-        # unused, so Iowa HHS issues a separate Department payment equal to
-        # (state_supplement − max_supplement) to close the gap and bring total
-        # income to the full standard. In 2011 the state supplement equals
-        # max_supplement so no extra is owed; from 2017 onward the extra is $20.
+        # ($142 frozen since 2011). Two add-ons on top of the capped base:
+        #   - Blind recipients (POMS OS code I) receive the $22 blind
+        #     increment on top of the federally-administered cap, giving a
+        #     state portion of $164 in years with a $142 cap.
+        #   - Non-blind recipients with SSI-only income (countable_monthly
+        #     == 0) receive a separate Department top-up equal to
+        #     (state_supplement − max_supplement) so total income reaches
+        #     the full standard; SSA's $20 general-income disregard goes
+        #     unused in that case.
+        # The two add-ons are alternatives (blind increment replaces the
+        # Department top-up), not additive.
         flh_v_shape = max_(
             0, (individual_fbr + p.flh.state_supplement) - countable_or_fbr
         )
         flh_base = min_(flh_v_shape, p.flh.max_supplement)
+        is_blind = person("is_blind", period.this_year)
         flh_extra = where(
-            countable_monthly == 0,
-            max_(0, p.flh.state_supplement - p.flh.max_supplement),
-            0,
+            is_blind,
+            p.blind,
+            where(
+                countable_monthly == 0,
+                max_(0, p.flh.state_supplement - p.flh.max_supplement),
+                0,
+            ),
         )
         flh_amt = flh_base + flh_extra
         # RCF — IAC 441—52.1(3): cost-of-care minus client participation.

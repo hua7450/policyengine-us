@@ -46,13 +46,16 @@ BLIND_WITH_AGED_OR_DISABLED_SPOUSE_AND_DEPENDENT:
   2017-01-01: 769
   2018-01-01: 784
   2025-01-01: 1_008
-  # 2026 Iowa HHS published total is $3,031; state portion = $3,031 − $994 FBR
-  # = $2,037. This is a +91.8% jump vs the 2025 state portion ($1,008), out of
-  # step with the ~2.85% COLA that every other DP configuration tracks. An
-  # expected state-portion of ~$1,037 (total ~$2,031) would match that COLA,
-  # so $3,031 may reflect an Iowa HHS publication error. Encoded as published;
-  # pending confirmation from Iowa HHS.
-  2026-01-01: 2_037
+  # Iowa HHS's 2026 page publishes this configuration at $3,031 total — a
+  # +53.5% jump vs 2025 ($1,975), out of step with the ~2.85% COLA applied to
+  # every other DP configuration and in conflict with the "-$22 when only one
+  # spouse is blind" footnote rule that holds for 2011/2017/2018/2025. The
+  # $3,031 value appears to be an Iowa HHS publication error (likely a
+  # transposed digit from an intended $2,031). Encoded as the COLA-consistent
+  # total $2,031 (state portion $1,037 = $2,031 − $994 FBR), which preserves
+  # the 14-year footnote pattern; revisit if Iowa HHS corrects the page or
+  # issues a General Letter confirming the higher figure.
+  2026-01-01: 1_037
 BLIND_WITH_BLIND_SPOUSE_AND_DEPENDENT:
   2011-01-01: 725
   2017-01-01: 791
