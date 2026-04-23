@@ -30,15 +30,15 @@ class ia_ssa_category(Variable):
             person("ssi_countable_income", period.this_year) / MONTHS_IN_YEAR
         )
         ssi_monthly = person("ssi", period.this_year) / MONTHS_IN_YEAR
-        # Iowa-administered RCF client participation uses total monthly income
-        # (SSI countable + federal SSI payment), not the |FBR − income| V-shape.
+        # IAC 441—51.4(3): RCF income eligibility compares gross monthly income
+        # (SSI countable + federal SSI payment, before disregards) against 31 ×
+        # max_per_diem. Disregards including the personal needs allowance
+        # affect only the payment calculation in ia_ssa_rcf_supplement, not
+        # the eligibility gate here.
         total_rcf_income = countable_monthly + ssi_monthly
         in_rcf = person("ia_ssa_resides_in_residential_care_facility", period)
-        client_participation = max_(
-            0, total_rcf_income - p.rcf.personal_needs_allowance
-        )
         rcf_income_threshold = p.rcf.days_multiplier * p.rcf.max_per_diem
-        rcf_income_eligible = client_participation < rcf_income_threshold
+        rcf_income_eligible = total_rcf_income < rcf_income_threshold
         needs_ihhrc = person("ia_ssa_needs_in_home_health_related_care", period)
         both_need_care = person("ia_ssa_ihhrc_both_need_care", period)
         # IAC 441—177.4(1)(f): countable income of the individual and spouse
