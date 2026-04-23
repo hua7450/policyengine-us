@@ -5,14 +5,14 @@ class ky_ssp_eligible(Variable):
     value_type = bool
     entity = Person
     label = "Eligible for Kentucky State Supplementary Payment"
-    definition_period = YEAR
+    definition_period = MONTH
     defined_for = StateCode.KY
     reference = (
         "https://apps.legislature.ky.gov/law/kar/titles/921/002/015/",
         "https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=7671",
     )
 
-    def formula(person, period, parameters):
+    def formula(person, period):
         # 921 KAR 2:015 §4(1) — Group 2 pathway. An eligible individual must
         # meet SSI categorical criteria (ABD, resources, immigration) and
         # have income below the state standard. Actual SSI receipt is NOT
@@ -23,7 +23,7 @@ class ky_ssp_eligible(Variable):
         categorically_eligible = person("is_ssi_eligible", period)
         # §4(1)(c): age ≥ 18 required for all four categories (PCH, CIS, FCH,
         # Caretaker).
-        is_adult = person("age", period) >= 18
+        is_adult = person("is_adult", period)
         category = person("ky_ssp_category", period)
         in_qualifying_category = category != category.possible_values.NONE
         # §4(1)(b): insufficient income to meet the standard in §9.

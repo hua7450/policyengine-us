@@ -17,7 +17,7 @@ class ky_ssp(Variable):
         "standard of need receive a supplement."
     )
     unit = USD
-    definition_period = YEAR
+    definition_period = MONTH
     defined_for = StateCode.KY
     exhaustive_parameter_dependencies = "gov.states.ky.dcbs.ssp"
     reference = (

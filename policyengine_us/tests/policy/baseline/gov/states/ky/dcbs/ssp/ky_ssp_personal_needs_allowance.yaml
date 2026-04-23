@@ -1,5 +1,5 @@
 - name: Case 1, PCH resident receives PCH personal needs allowance.
-  period: 2026
+  period: 2026-01
   input:
     people:
       person1:
@@ -13,11 +13,11 @@
         members: [person1]
         state_code: KY
   output:
-    # PCH PNA = $60/mo * 12 = $720/yr
-    ky_ssp_personal_needs_allowance: [720]
+    # PCH PNA = $60/mo.
+    ky_ssp_personal_needs_allowance: [60]
 
 - name: Case 2, FCH resident receives FCH personal needs allowance.
-  period: 2026
+  period: 2026-01
   input:
     people:
       person1:
@@ -31,11 +31,11 @@
         members: [person1]
         state_code: KY
   output:
-    # FCH PNA = $40/mo * 12 = $480/yr
-    ky_ssp_personal_needs_allowance: [480]
+    # FCH PNA = $40/mo.
+    ky_ssp_personal_needs_allowance: [40]
 
 - name: Case 3, CIS resident receives no personal needs allowance.
-  period: 2026
+  period: 2026-01
   input:
     people:
       person1:
@@ -49,11 +49,11 @@
         members: [person1]
         state_code: KY
   output:
-    # CIS category => no PNA applies
+    # CIS category => no PNA applies.
     ky_ssp_personal_needs_allowance: [0]
 
 - name: Case 4, Caretaker resident receives no personal needs allowance.
-  period: 2026
+  period: 2026-01
   input:
     people:
       person1:
@@ -67,11 +67,11 @@
         members: [person1]
         state_code: KY
   output:
-    # CARETAKER category => no PNA applies
+    # CARETAKER category => no PNA applies.
     ky_ssp_personal_needs_allowance: [0]
 
 - name: Case 5, NONE category receives no personal needs allowance.
-  period: 2026
+  period: 2026-01
   input:
     people:
       person1:
@@ -88,7 +88,7 @@
     ky_ssp_personal_needs_allowance: [0]
 
 - name: Case 6, ineligible PCH resident (minor) receives no personal needs allowance.
-  period: 2026
+  period: 2026-01
   input:
     people:
       person1:

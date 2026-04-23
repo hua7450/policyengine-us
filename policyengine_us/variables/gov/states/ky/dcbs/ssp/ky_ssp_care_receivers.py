@@ -10,7 +10,7 @@ class ky_ssp_care_receivers(Variable):
     value_type = Enum
     entity = Person
     label = "Kentucky SSP caretaker couple care receivers"
-    definition_period = YEAR
+    definition_period = MONTH
     defined_for = StateCode.KY
     possible_values = KYSSPCareReceivers
     default_value = KYSSPCareReceivers.ONE

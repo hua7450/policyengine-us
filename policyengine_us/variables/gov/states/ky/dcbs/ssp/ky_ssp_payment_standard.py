@@ -6,7 +6,7 @@ class ky_ssp_payment_standard(Variable):
     entity = Person
     label = "Kentucky SSP payment standard"
     unit = USD
-    definition_period = YEAR
+    definition_period = MONTH
     defined_for = StateCode.KY
     reference = (
         "https://apps.legislature.ky.gov/law/kar/titles/921/002/015/",
@@ -21,4 +21,4 @@ class ky_ssp_payment_standard(Variable):
         claim_type = person("ky_ssp_claim_type", period)
         care_receivers = person("ky_ssp_care_receivers", period)
         p = parameters(period).gov.states.ky.dcbs.ssp.payment_standard
-        return p[category][claim_type][care_receivers] * MONTHS_IN_YEAR
+        return p[category][claim_type][care_receivers]

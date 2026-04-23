@@ -1,20 +1,20 @@
 # Integration tests for Kentucky State Supplementary Payment.
 # Uses real income sources (social_security, employment_income) rather than
 # injected SSI intermediates, so the federal SSI → state SSP chain is
-# exercised end-to-end.
+# exercised end-to-end. Tests use MONTH period with monthly expected values.
 #
-# Key reference values (MS 1200, effective 1/1/2026):
-#   PCH standard:                          $1,610/mo  = $19,320/yr
-#   CIS standard:                          $1,514/mo  = $18,168/yr
-#   FCH standard:                          $1,166/mo  = $13,992/yr
-#   Caretaker individual:                  $1,056/mo  = $12,672/yr
-#   Caretaker couple, one receives care:   $1,552/mo  total
-#   Caretaker couple, both receive care:   $1,606/mo  total
-#   Federal SSI FBR (individual, 2026):      $994/mo  = $11,928/yr
-#   PCH PNA / FCH PNA:                      $60 / $40 per month
+# Key reference values (MS 1200, effective 1/1/2026, monthly):
+#   PCH standard:                          $1,610
+#   CIS standard:                          $1,514
+#   FCH standard:                          $1,166
+#   Caretaker individual:                  $1,056
+#   Caretaker couple, one receives care:   $1,552 (per-person $776)
+#   Caretaker couple, both receive care:   $1,606 (per-person $803)
+#   Federal SSI FBR (individual, 2026):      $994
+#   PCH PNA / FCH PNA:                        $60 / $40
 
 - name: Case 1, aged PCH individual with SSI and Social Security.
-  period: 2026
+  period: 2026-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -37,19 +37,18 @@
         members: [person1]
         state_code: KY
   output:
-    # Federal SSI: $800 unearned − $20 general exclusion = $780/mo countable
-    # Annual countable = $9,360.
-    ssi_countable_income: [9_360]
-    # Federal SSI = FBR − countable = $11,928 − $9,360 = $2,568.
-    ssi: [2_568]
+    # Federal SSI: $800 unearned − $20 general exclusion = $780/mo countable.
+    ssi_countable_income: [780]
+    # Federal SSI = FBR − countable = $994 − $780 = $214/mo.
+    ssi: [214]
     is_ssi_eligible: [true]
     ky_ssp_eligible: [true]
-    ky_ssp_payment_standard: [19_320]
-    # §8(2): ky_ssp = max(0, $19,320 − $9,360) = $9,960.
-    ky_ssp: [9_960]
+    ky_ssp_payment_standard: [1_610]
+    # §8(2): ky_ssp = max(0, $1,610 − $780) = $830/mo.
+    ky_ssp: [830]
 
 - name: Case 2, aged PCH individual with no income receives full PCH supplement.
-  period: 2026
+  period: 2026-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -71,14 +70,14 @@
         state_code: KY
   output:
     ssi_countable_income: [0]
-    ssi: [11_928]
+    ssi: [994]
     ky_ssp_eligible: [true]
-    ky_ssp_payment_standard: [19_320]
+    ky_ssp_payment_standard: [1_610]
     # §8(2): full PCH standard because countable income = 0.
-    ky_ssp: [19_320]
+    ky_ssp: [1_610]
 
 - name: Case 3, Group 2 pathway — SSI-eligible but income above federal FBR.
-  period: 2026
+  period: 2026-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -102,20 +101,20 @@
         members: [person1]
         state_code: KY
   output:
-    # Countable = $13,200 − $20*12 = $12,960.
-    ssi_countable_income: [12_960]
-    # Federal SSI = max(0, $11,928 − $12,960) = $0 → no SSI receipt.
+    # Countable = $1,100 − $20 = $1,080/mo.
+    ssi_countable_income: [1_080]
+    # Federal SSI = max(0, $994 − $1,080) = $0 → no SSI receipt.
     ssi: [0]
     # But still SSI-eligible categorically (ABD + resources) per §4(1)(a).
     is_ssi_eligible: [true]
     # And income below PCH standard — §4(1)(b) satisfied.
     ky_ssp_eligible: [true]
-    ky_ssp_payment_standard: [19_320]
-    # ky_ssp = max(0, $19,320 − $12,960) = $6,360.
-    ky_ssp: [6_360]
+    ky_ssp_payment_standard: [1_610]
+    # ky_ssp = max(0, $1,610 − $1,080) = $530/mo.
+    ky_ssp: [530]
 
 - name: Case 4, income above state standard fails §4(1)(b).
-  period: 2026
+  period: 2026-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -138,12 +137,12 @@
         members: [person1]
         state_code: KY
   output:
-    # Countable = $24,000 − $240 = $23,760 > $19,320 → not eligible.
+    # Countable = $2,000 − $20 = $1,980/mo > $1,610 → not eligible.
     ky_ssp_eligible: [false]
     ky_ssp: [0]
 
 - name: Case 5, SSI recipient with earned income uses $65+50% exclusion.
-  period: 2026
+  period: 2026-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -168,17 +167,16 @@
     # SSI earned income exclusions: $20 general + $65 earned → $85/mo.
     # Then 50% of remainder excluded.
     # Monthly countable earned = max(0, $500 − $85) × 0.5 = $207.50.
-    # Annual countable = $207.50 × 12 = $2,490.
-    ssi_countable_income: [2_490]
-    # SSI = $11,928 − $2,490 = $9,438.
-    ssi: [9_438]
+    ssi_countable_income: [207.50]
+    # SSI = $994 − $207.50 = $786.50/mo.
+    ssi: [786.50]
     ky_ssp_eligible: [true]
-    ky_ssp_payment_standard: [18_168]
-    # ky_ssp = $18,168 − $2,490 = $15,678.
-    ky_ssp: [15_678]
+    ky_ssp_payment_standard: [1_514]
+    # ky_ssp = $1,514 − $207.50 = $1,306.50/mo.
+    ky_ssp: [1_306.50]
 
 - name: Case 6, eligible individual with ineligible spouse (Caretaker).
-  period: 2026
+  period: 2026-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -208,12 +206,12 @@
     ky_ssp_claim_type: [COUPLE_ONE_ELIGIBLE, INDIVIDUAL]
     # person1 uses Caretaker "individual with ineligible spouse" rate $1,056/mo.
     # person2: not eligible, no supplement.
-    ky_ssp_payment_standard: [12_672, 0]
+    ky_ssp_payment_standard: [1_056, 0]
     ky_ssp_eligible: [true, false]
-    ky_ssp: [12_672, 0]
+    ky_ssp: [1_056, 0]
 
 - name: Case 7, Caretaker couple — both SSI-eligible, both receive care.
-  period: 2026
+  period: 2026-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -241,14 +239,14 @@
   output:
     # Both SSI-eligible aged → COUPLE_BOTH_ELIGIBLE.
     ky_ssp_claim_type: [COUPLE_BOTH_ELIGIBLE, COUPLE_BOTH_ELIGIBLE]
-    # Per-person standard $803/mo * 12 = $9,636/yr (half of $1,606 couple total).
-    ky_ssp_payment_standard: [9_636, 9_636]
+    # Per-person standard $803/mo (half of $1,606 couple total).
+    ky_ssp_payment_standard: [803, 803]
     ky_ssp_eligible: [true, true]
-    # Each: $9,636 − $0 = $9,636. Couple total = $19,272 = $1,606 × 12.
-    ky_ssp: [9_636, 9_636]
+    # Each: $803 − $0 = $803. Couple total = $1,606/mo.
+    ky_ssp: [803, 803]
 
 - name: Case 8, Caretaker couple — both SSI-eligible, only one receives care.
-  period: 2026
+  period: 2026-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -276,16 +274,16 @@
         state_code: KY
   output:
     ky_ssp_claim_type: [COUPLE_BOTH_ELIGIBLE, COUPLE_BOTH_ELIGIBLE]
-    # Per-person $776/mo * 12 = $9,312/yr (half of $1,552 couple total).
+    # Per-person $776/mo (half of $1,552 couple total).
     # Note: OMVOLV example #6 pays the full $1,552 to the care receiver only.
     # This model distributes equally across both eligible spouses; household
-    # total matches the regulation ($18,624 = $1,552 × 12).
-    ky_ssp_payment_standard: [9_312, 9_312]
+    # total matches the regulation ($1,552/mo).
+    ky_ssp_payment_standard: [776, 776]
     ky_ssp_eligible: [true, true]
-    ky_ssp: [9_312, 9_312]
+    ky_ssp: [776, 776]
 
 - name: Case 9, minor fails §4(1)(c) age ≥ 18 requirement.
-  period: 2026
+  period: 2026-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -312,7 +310,7 @@
     ky_ssp: [0]
 
 - name: Case 10, non-Kentucky resident receives no state supplement.
-  period: 2026
+  period: 2026-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -337,7 +335,7 @@
     ky_ssp: [0]
 
 - name: Case 11, SSI-eligible adult in NONE category is not SSP-eligible.
-  period: 2026
+  period: 2026-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -362,10 +360,10 @@
     ky_ssp_eligible: [false]
     ky_ssp: [0]
     # Federal SSI still flows normally.
-    ssi: [11_928]
+    ssi: [994]
 
 - name: Case 12, FCH individual with zero income receives full FCH supplement.
-  period: 2026
+  period: 2026-01
   absolute_error_margin: 0.01
   input:
     people:
@@ -388,7 +386,7 @@
         state_code: KY
   output:
     ky_ssp_eligible: [true]
-    ky_ssp_payment_standard: [13_992]
-    ky_ssp: [13_992]
-    # FCH PNA = $40/mo × 12 = $480/yr.
-    ky_ssp_personal_needs_allowance: [480]
+    ky_ssp_payment_standard: [1_166]
+    ky_ssp: [1_166]
+    # FCH PNA = $40/mo.
+    ky_ssp_personal_needs_allowance: [40]

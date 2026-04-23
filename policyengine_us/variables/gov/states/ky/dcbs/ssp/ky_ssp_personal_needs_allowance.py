@@ -6,7 +6,7 @@ class ky_ssp_personal_needs_allowance(Variable):
     entity = Person
     label = "Kentucky SSP personal needs allowance"
     unit = USD
-    definition_period = YEAR
+    definition_period = MONTH
     defined_for = StateCode.KY
     reference = (
         "https://apps.legislature.ky.gov/law/kar/titles/921/002/015/",
@@ -26,4 +26,4 @@ class ky_ssp_personal_needs_allowance(Variable):
             [p.pch, p.fch],
             default=0,
         )
-        return monthly_amount * MONTHS_IN_YEAR * eligible
+        return monthly_amount * eligible

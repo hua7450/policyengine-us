@@ -1,5 +1,5 @@
 - name: Case 1, single SSI-eligible individual in qualifying category.
-  period: 2026
+  period: 2026-01
   input:
     people:
       person1:
@@ -19,7 +19,7 @@
     ky_ssp_claim_type: [INDIVIDUAL]
 
 - name: Case 2, couple with both SSP-eligible.
-  period: 2026
+  period: 2026-01
   input:
     people:
       person1:
@@ -45,7 +45,7 @@
     ky_ssp_claim_type: [COUPLE_BOTH_ELIGIBLE, COUPLE_BOTH_ELIGIBLE]
 
 - name: Case 3, eligible spouse with ABD but resource-ineligible spouse uses individual rate.
-  period: 2026
+  period: 2026-01
   input:
     people:
       person1:
@@ -73,7 +73,7 @@
     ky_ssp_claim_type: [COUPLE_ONE_ELIGIBLE, INDIVIDUAL]
 
 - name: Case 4, eligible individual with non-ABD spouse uses one-eligible-couple.
-  period: 2026
+  period: 2026-01
   input:
     people:
       person1:
@@ -96,7 +96,7 @@
     ky_ssp_claim_type: [COUPLE_ONE_ELIGIBLE, INDIVIDUAL]
 
 - name: Case 5, unmarried solo person is INDIVIDUAL.
-  period: 2026
+  period: 2026-01
   input:
     people:
       person1:
@@ -115,7 +115,7 @@
     ky_ssp_claim_type: [INDIVIDUAL]
 
 - name: Case 6, SSI-eligible couple where only one spouse is in an SSP-qualifying category.
-  period: 2026
+  period: 2026-01
   input:
     people:
       person1:
@@ -144,7 +144,7 @@
     ky_ssp_claim_type: [COUPLE_ONE_ELIGIBLE, INDIVIDUAL]
 
 - name: Case 7, SSI-eligible minor with SSI-eligible adult spouse — minor fails §4(1)(c) age test.
-  period: 2026
+  period: 2026-01
   input:
     people:
       person1:

@@ -1,5 +1,5 @@
 - name: Case 1, SSI-eligible aged adult in PCH is eligible.
-  period: 2026
+  period: 2026-01
   input:
     people:
       person1:
@@ -17,7 +17,7 @@
     ky_ssp_eligible: [true]
 
 - name: Case 2, SSI-eligible adult with NONE category is not eligible.
-  period: 2026
+  period: 2026-01
   input:
     people:
       person1:
@@ -32,11 +32,11 @@
         members: [person1]
         state_code: KY
   output:
-    # Category NONE => not in a qualifying category => not eligible
+    # Category NONE => not in a qualifying category => not eligible.
     ky_ssp_eligible: [false]
 
 - name: Case 3, not SSI-eligible with PCH category is not eligible.
-  period: 2026
+  period: 2026-01
   input:
     people:
       person1:
@@ -51,11 +51,11 @@
         members: [person1]
         state_code: KY
   output:
-    # Fails is_ssi_eligible => not eligible
+    # Fails is_ssi_eligible => not eligible.
     ky_ssp_eligible: [false]
 
 - name: Case 4, SSI-eligible minor in CARETAKER fails §4(1)(c)3 age ≥ 18 requirement.
-  period: 2026
+  period: 2026-01
   input:
     people:
       person1:
@@ -74,7 +74,7 @@
     ky_ssp_eligible: [false]
 
 - name: Case 5, SSI-eligible adult in FCH is eligible.
-  period: 2026
+  period: 2026-01
   input:
     people:
       person1:
@@ -92,7 +92,7 @@
     ky_ssp_eligible: [true]
 
 - name: Case 6, SSI-eligible adult in CIS is eligible.
-  period: 2026
+  period: 2026-01
   input:
     people:
       person1:
@@ -110,7 +110,7 @@
     ky_ssp_eligible: [true]
 
 - name: Case 7, fails resource test so not SSI-eligible and not SSP-eligible.
-  period: 2026
+  period: 2026-01
   input:
     people:
       person1:
@@ -128,7 +128,7 @@
     ky_ssp_eligible: [false]
 
 - name: Case 8, countable income below PCH standard is eligible.
-  period: 2026
+  period: 2026-01
   input:
     people:
       person1:
@@ -136,8 +136,8 @@
         is_ssi_aged_blind_disabled: true
         is_ssi_eligible: true
         meets_ssi_resource_test: true
-        # Countable income ($11,928/yr) is below the PCH annual standard
-        # ($19,320) so §4(1)(b) is satisfied.
+        # Countable income ($994/mo) is below the PCH monthly standard
+        # ($1,610) so §4(1)(b) is satisfied. Annual input = $11,928.
         ssi_countable_income: 11_928
         ky_ssp_category: PCH
     households:
@@ -148,7 +148,7 @@
     ky_ssp_eligible: [true]
 
 - name: Case 9, countable income above the PCH standard fails §4(1)(b).
-  period: 2026
+  period: 2026-01
   input:
     people:
       person1:
@@ -156,7 +156,8 @@
         is_ssi_aged_blind_disabled: true
         is_ssi_eligible: true
         meets_ssi_resource_test: true
-        # Countable income ($50,000) exceeds PCH standard ($19,320) — not eligible.
+        # Countable income ($4,167/mo) exceeds PCH standard ($1,610) — not eligible.
+        # Annual input = $50,000.
         ssi_countable_income: 50_000
         ky_ssp_category: PCH
     households:
@@ -167,7 +168,7 @@
     ky_ssp_eligible: [false]
 
 - name: Case 10, SSI-eligible minor in PCH fails §4(1)(c)1 age ≥ 18 requirement.
-  period: 2026
+  period: 2026-01
   input:
     people:
       person1:

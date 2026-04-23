@@ -1,96 +1,103 @@
 - name: Case 1, eligible PCH individual with zero income receives full standard.
-  period: 2026
+  period: 2026-01
   input:
     state_code: KY
     ky_ssp_eligible: true
+    # ssi_countable_income is YEAR-period → annual input; auto-divided to monthly.
     ssi_countable_income: 0
-    ky_ssp_payment_standard: 19_320
+    # ky_ssp_payment_standard is MONTH-period → monthly input.
+    ky_ssp_payment_standard: 1_610
   output:
-    # supplement = max(0, 19_320 - 0) * eligible(1) = 19_320
-    ky_ssp: 19_320
+    # supplement = max(0, 1_610 - 0) * eligible(1) = 1_610/mo.
+    ky_ssp: 1_610
 
 - name: Case 2, small countable income reduces the supplement.
-  period: 2026
+  period: 2026-01
   input:
     state_code: KY
     ky_ssp_eligible: true
-    ssi_countable_income: 5_000
-    ky_ssp_payment_standard: 19_320
+    # $500/mo countable = $6,000/yr annual input.
+    ssi_countable_income: 6_000
+    ky_ssp_payment_standard: 1_610
   output:
-    # supplement = max(0, 19_320 - 5_000) = 14_320
-    ky_ssp: 14_320
+    # supplement = max(0, 1_610 - 500) = 1_110/mo.
+    ky_ssp: 1_110
 
 - name: Case 3, moderate countable income reduces the supplement further.
-  period: 2026
+  period: 2026-01
   input:
     state_code: KY
     ky_ssp_eligible: true
+    # $1,000/mo countable = $12,000/yr annual input.
     ssi_countable_income: 12_000
-    ky_ssp_payment_standard: 19_320
+    ky_ssp_payment_standard: 1_610
   output:
-    # supplement = max(0, 19_320 - 12_000) = 7_320
-    ky_ssp: 7_320
+    # supplement = max(0, 1_610 - 1_000) = 610/mo.
+    ky_ssp: 610
 
 - name: Case 4, countable income above the standard floors benefit at zero.
-  period: 2026
+  period: 2026-01
   input:
     state_code: KY
     ky_ssp_eligible: true
-    ssi_countable_income: 25_000
-    ky_ssp_payment_standard: 19_320
+    # $2,000/mo countable = $24,000/yr annual input.
+    ssi_countable_income: 24_000
+    ky_ssp_payment_standard: 1_610
   output:
-    # supplement = max(0, 19_320 - 25_000) = 0
+    # supplement = max(0, 1_610 - 2_000) = 0.
     ky_ssp: 0
 
 - name: Case 5, ineligible individual gets zero benefit.
-  period: 2026
+  period: 2026-01
   input:
     state_code: KY
     ky_ssp_eligible: false
     ssi_countable_income: 0
-    ky_ssp_payment_standard: 19_320
+    ky_ssp_payment_standard: 1_610
   output:
-    # Not eligible => supplement * 0 = 0
+    # Not eligible => supplement * 0 = 0.
     ky_ssp: 0
 
 - name: Case 6, extreme countable income does not inflate benefit.
-  period: 2026
+  period: 2026-01
   input:
     state_code: KY
     ky_ssp_eligible: true
+    # $5M/mo countable = $60M/yr annual input.
     ssi_countable_income: 60_000_000
-    ky_ssp_payment_standard: 19_320
+    ky_ssp_payment_standard: 1_610
   output:
-    # supplement = max(0, 19_320 - 60_000_000) = 0
+    # supplement = max(0, 1_610 - 5_000_000) = 0.
     ky_ssp: 0
 
 - name: Case 7, countable income exactly equals the payment standard.
-  period: 2026
+  period: 2026-01
   input:
     state_code: KY
     ky_ssp_eligible: true
+    # $1,610/mo countable = $19,320/yr annual input.
     ssi_countable_income: 19_320
-    ky_ssp_payment_standard: 19_320
+    ky_ssp_payment_standard: 1_610
   output:
-    # supplement = max(0, 19_320 - 19_320) = 0
+    # supplement = max(0, 1_610 - 1_610) = 0.
     ky_ssp: 0
 
 - name: Case 8, both-eligible couple CARETAKER both-care pays per-person standard to each.
-  period: 2026
+  period: 2026-01
   input:
     people:
       person1:
         ky_ssp_eligible: true
         ssi_countable_income: 0
-        # CARETAKER.COUPLE_BOTH_ELIGIBLE.BOTH stored per-person at $803/mo
-        # * 12 = $9,636/yr. §9(2) combined income is already equally split
-        # into each spouse's ssi_countable_income, so the per-person formula
-        # reproduces the couple-total outcome.
-        ky_ssp_payment_standard: 9_636
+        # CARETAKER.COUPLE_BOTH_ELIGIBLE.BOTH stored per-person at $803/mo.
+        # §9(2) combined income is already equally split into each spouse's
+        # ssi_countable_income, so the per-person formula reproduces the
+        # couple-total outcome.
+        ky_ssp_payment_standard: 803
       person2:
         ky_ssp_eligible: true
         ssi_countable_income: 0
-        ky_ssp_payment_standard: 9_636
+        ky_ssp_payment_standard: 803
     marital_units:
       marital_unit:
         members: [person1, person2]
@@ -99,24 +106,23 @@
         members: [person1, person2]
         state_code: KY
   output:
-    # Each person: supplement = max(0, 9_636 - 0) * 1 = 9_636
-    # Couple total = 2 * 9_636 = $19,272/yr = $1,606/mo (matches §9(1)(c) couple rate)
-    ky_ssp: [9_636, 9_636]
+    # Each person: supplement = max(0, 803 - 0) * 1 = 803/mo.
+    # Couple total = 2 * 803 = $1,606/mo (matches §9(1)(c) couple rate).
+    ky_ssp: [803, 803]
 
 - name: Case 9, both-eligible couple CARETAKER one-care pays per-person standard to each.
-  period: 2026
+  period: 2026-01
   input:
     people:
       person1:
         ky_ssp_eligible: true
         ssi_countable_income: 0
-        # CARETAKER.COUPLE_BOTH_ELIGIBLE.ONE stored per-person at $776/mo
-        # * 12 = $9,312/yr.
-        ky_ssp_payment_standard: 9_312
+        # CARETAKER.COUPLE_BOTH_ELIGIBLE.ONE stored per-person at $776/mo.
+        ky_ssp_payment_standard: 776
       person2:
         ky_ssp_eligible: true
         ssi_countable_income: 0
-        ky_ssp_payment_standard: 9_312
+        ky_ssp_payment_standard: 776
     marital_units:
       marital_unit:
         members: [person1, person2]
@@ -125,46 +131,48 @@
         members: [person1, person2]
         state_code: KY
   output:
-    # Each person: supplement = max(0, 9_312 - 0) * 1 = 9_312
-    # Couple total = 2 * 9_312 = $18,624/yr = $1,552/mo
-    ky_ssp: [9_312, 9_312]
+    # Each person: supplement = max(0, 776 - 0) * 1 = 776/mo.
+    # Couple total = 2 * 776 = $1,552/mo.
+    ky_ssp: [776, 776]
 
 - name: Case 10, countable income one dollar below standard leaves one dollar supplement.
-  period: 2026
+  period: 2026-01
   input:
     state_code: KY
     ky_ssp_eligible: true
-    ssi_countable_income: 19_319
-    ky_ssp_payment_standard: 19_320
+    # $1,609/mo countable = $19,308/yr annual input.
+    ssi_countable_income: 19_308
+    ky_ssp_payment_standard: 1_610
   output:
-    # supplement = max(0, 19_320 - 19_319) = 1
+    # supplement = max(0, 1_610 - 1_609) = 1/mo.
     ky_ssp: 1
 
 - name: Case 11, countable income one dollar above standard floors benefit at zero.
-  period: 2026
+  period: 2026-01
   input:
     state_code: KY
     ky_ssp_eligible: true
-    ssi_countable_income: 19_321
-    ky_ssp_payment_standard: 19_320
+    # $1,611/mo countable = $19,332/yr annual input.
+    ssi_countable_income: 19_332
+    ky_ssp_payment_standard: 1_610
   output:
-    # supplement = max(0, 19_320 - 19_321) = 0
+    # supplement = max(0, 1_610 - 1_611) = 0.
     ky_ssp: 0
 
 - name: Case 12, one SSP-eligible + one ineligible spouse receives individual benefit.
-  period: 2026
+  period: 2026-01
   input:
     people:
       person1:
         ky_ssp_eligible: true
         ssi_countable_income: 0
-        ky_ssp_payment_standard: 19_320
+        ky_ssp_payment_standard: 1_610
       person2:
         # Spouse is not SSP-eligible (e.g., fails resource test or not in
         # qualifying category).
         ky_ssp_eligible: false
         ssi_countable_income: 0
-        ky_ssp_payment_standard: 19_320
+        ky_ssp_payment_standard: 1_610
     marital_units:
       marital_unit:
         members: [person1, person2]
@@ -176,4 +184,4 @@
     # Eligible spouse receives full individual benefit; ineligible spouse
     # receives nothing. §9(2) couple combining applies only "if both are
     # eligible" — here only person1 is SSP-eligible.
-    ky_ssp: [19_320, 0]
+    ky_ssp: [1_610, 0]
