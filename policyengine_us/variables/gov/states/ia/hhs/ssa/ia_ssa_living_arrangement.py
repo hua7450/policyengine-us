@@ -1,7 +1,7 @@
 from policyengine_us.model_api import *
 
 
-class IASSACategory(Enum):
+class IASSALivingArrangement(Enum):
     RCF = "Residential care facility"
     IHHRC = "In-home health-related care"
     FLH = "Family-life home"
@@ -11,13 +11,13 @@ class IASSACategory(Enum):
     NONE = "Not in an Iowa SSA category"
 
 
-class ia_ssa_category(Variable):
+class ia_ssa_living_arrangement(Variable):
     value_type = Enum
     entity = Person
     definition_period = MONTH
-    label = "Iowa SSA category"
-    possible_values = IASSACategory
-    default_value = IASSACategory.NONE
+    label = "Iowa SSA living arrangement"
+    possible_values = IASSALivingArrangement
+    default_value = IASSALivingArrangement.NONE
     defined_for = StateCode.IA
     reference = "https://www.legis.iowa.gov/docs/iac/chapter/01-07-2026.441.52.pdf"
 
@@ -72,9 +72,10 @@ class ia_ssa_category(Variable):
         dp_configuration = person("ia_ssa_dp_configuration", period)
         in_dp = dp_configuration != dp_configuration.possible_values.NONE
         # IAC 441—52.1(2): DP requires the dependent's countable income to be
-        # below the dependent income limit. Gate DP at the category level so
-        # people who qualify for DP but fail the dependent-income test fall
-        # through to Blind / SMME rather than receiving a zero DP supplement.
+        # below the dependent income limit. Gate DP at the living-arrangement
+        # level so people who qualify for DP but fail the dependent-income
+        # test fall through to Blind / SMME rather than receiving a zero DP
+        # supplement.
         dependent_income = person("ia_ssa_dp_dependent_countable_income", period)
         dependent_income_eligible = dependent_income < p.dp.dependent_income_limit
         is_blind = person("is_blind", period.this_year)
@@ -94,12 +95,12 @@ class ia_ssa_category(Variable):
                 eligible & smme_eligible,
             ],
             [
-                IASSACategory.RCF,
-                IASSACategory.IHHRC,
-                IASSACategory.FLH,
-                IASSACategory.DP,
-                IASSACategory.BLIND,
-                IASSACategory.SMME,
+                IASSALivingArrangement.RCF,
+                IASSALivingArrangement.IHHRC,
+                IASSALivingArrangement.FLH,
+                IASSALivingArrangement.DP,
+                IASSALivingArrangement.BLIND,
+                IASSALivingArrangement.SMME,
             ],
-            default=IASSACategory.NONE,
+            default=IASSALivingArrangement.NONE,
         )

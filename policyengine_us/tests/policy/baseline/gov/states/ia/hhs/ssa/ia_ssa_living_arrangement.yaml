@@ -1,4 +1,4 @@
-# Verifies ia_ssa_category priority ordering:
+# Verifies ia_ssa_living_arrangement priority ordering:
 # RCF > IHHRC > FLH > DP > BLIND > SMME > NONE
 #
 # Note: SMME requires income > 120% FPL (IAC 441—51.6(6)). 2025 FPL 1-person
@@ -30,7 +30,7 @@
         state_code: IA
   output:
     # RCF outranks BLIND
-    ia_ssa_category: [RCF]
+    ia_ssa_living_arrangement: [RCF]
 
 - name: Case 2, FLH resident who is also blind gets FLH category not BLIND.
   period: 2025-01
@@ -56,7 +56,7 @@
         state_code: IA
   output:
     # FLH outranks BLIND
-    ia_ssa_category: [FLH]
+    ia_ssa_living_arrangement: [FLH]
 
 - name: Case 3, aged person above 120% FPL with Medicaid and Part B gets SMME.
   period: 2025-01
@@ -83,7 +83,7 @@
         state_code: IA
   output:
     # No other category applies; income above 120% FPL -> SMME
-    ia_ssa_category: [SMME]
+    ia_ssa_living_arrangement: [SMME]
 
 - name: Case 4, person in no qualifying category gets NONE.
   period: 2025-01
@@ -109,7 +109,7 @@
         members: [person1]
         state_code: IA
   output:
-    ia_ssa_category: [NONE]
+    ia_ssa_living_arrangement: [NONE]
 
 - name: Case 5, FLH resident who also needs IHHRC gets FLH (IAC 441-177.4(1)(c) own-home rule).
   period: 2025-01
@@ -137,7 +137,7 @@
         state_code: IA
   output:
     # IHHRC requires living in own home; FLH resident fails that check -> FLH wins
-    ia_ssa_category: [FLH]
+    ia_ssa_living_arrangement: [FLH]
 
 - name: Case 6, person needing IHHRC who is also blind gets IHHRC not BLIND.
   period: 2025-01
@@ -165,7 +165,7 @@
         state_code: IA
   output:
     # IHHRC outranks BLIND
-    ia_ssa_category: [IHHRC]
+    ia_ssa_living_arrangement: [IHHRC]
 
 - name: Case 7, person needing IHHRC with DP configuration gets IHHRC not DP.
   period: 2025-01
@@ -194,7 +194,7 @@
         state_code: IA
   output:
     # IHHRC outranks DP
-    ia_ssa_category: [IHHRC]
+    ia_ssa_living_arrangement: [IHHRC]
 
 - name: Case 8, person with DP configuration who is also blind gets DP not BLIND.
   period: 2025-01
@@ -221,7 +221,7 @@
         state_code: IA
   output:
     # DP outranks BLIND
-    ia_ssa_category: [DP]
+    ia_ssa_living_arrangement: [DP]
 
 - name: Case 9, blind person with SMME-range income falls to SMME not BLIND.
   period: 2025-01
@@ -252,7 +252,7 @@
     # BLIND branch skipped. SMME income floor is 120% FPL ($1,565); $1,980 >
     # $1,565 -> SMME applies. BLIND and SMME income ranges are disjoint, so
     # priority ordering between them is academic.
-    ia_ssa_category: [SMME]
+    ia_ssa_living_arrangement: [SMME]
 
 - name: Case 10, DP-configured person with SMME-eligible income gets DP not SMME.
   period: 2025-01
@@ -281,7 +281,7 @@
         state_code: IA
   output:
     # DP outranks SMME
-    ia_ssa_category: [DP]
+    ia_ssa_living_arrangement: [DP]
 
 - name: Case 11, IHHRC person with SMME-eligible income gets IHHRC not SMME.
   period: 2025-01
@@ -315,7 +315,7 @@
   output:
     # IHHRC outranks SMME (SMME not active here — income $0 below 120% FPL —
     # but the priority order still applies even if SMME were active).
-    ia_ssa_category: [IHHRC]
+    ia_ssa_living_arrangement: [IHHRC]
 
 - name: Case 12, blind person with DP configuration and over-income dependent falls to BLIND.
   period: 2025-01
@@ -344,7 +344,7 @@
         state_code: IA
   output:
     # Dependent income $600 exceeds the $503 2025 dependent income limit, so
-    # the DP category gate fails. Person is blind with $0 countable (< FBR +
+    # the DP living-arrangement gate fails. Person is blind with $0 countable (< FBR +
     # blind standard) -> falls through to BLIND category.
-    ia_ssa_category: [BLIND]
-    ia_ssa_dp_supplement: [0]
+    ia_ssa_living_arrangement: [BLIND]
+    ia_ssa: [22]
