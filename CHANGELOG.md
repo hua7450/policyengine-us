@@ -1,3 +1,10 @@
+## [1.666.0] - 2026-04-23
+
+### Added
+
+- North Carolina Child and Dependent Care Credit contrib reform (refundable, 30% match of federal credit, 2026+).
+
+
 ## [1.665.0] - 2026-04-22
 
 ### Added
