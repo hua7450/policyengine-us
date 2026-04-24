@@ -8,3 +8,8 @@ class wa_show_all_cash_assistance_programs(Variable):
     definition_period = MONTH
     default_value = False
     defined_for = StateCode.WA
+    # Consumer-facing toggle that bypasses immigration-based mutual
+    # exclusivity across TANF, SFA, and RCA so that frontend calculators
+    # can display all three programs' benefit amounts side by side for the
+    # same household. Does not override demographic, income, or resource
+    # tests.

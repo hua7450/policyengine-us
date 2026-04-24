@@ -13,6 +13,10 @@ class wa_rca_eligible(Variable):
         "https://www.ecfr.gov/current/title-45/subtitle-B/chapter-IV/part-400/subpart-D/section-400.47",
         "https://www.ecfr.gov/current/title-45/subtitle-B/chapter-IV/part-400/subpart-J/section-400.211",
     )
+    # Two WAC 388-400-0030 exclusions are not tracked at the moment:
+    # (2)(b) applicants denied/terminated from TANF for noncompliance
+    # (requires TANF sanction history) and (2)(c) full-time students in
+    # higher education.
 
     def formula(spm_unit, period, parameters):
         members_rca_imm_eligible = spm_unit.members(

@@ -12,6 +12,12 @@ class wa_sfa_immigration_status_eligible(Variable):
         "https://app.leg.wa.gov/wac/default.aspx?cite=388-424-0015",
         "https://app.leg.wa.gov/rcw/default.aspx?cite=74.08A.010",
     )
+    # Only the qualified-alien-in-5-year-bar pathway (WAC 388-424-0015(1)(a))
+    # is modeled. Other SFA pathways from WAC 388-400-0010 — nonqualified
+    # aliens meeting WA residency, T/U-visa and VAWA survivors of certain
+    # crimes, 19-20 year old students, caretaker relatives of such students,
+    # and pregnant women convicted of multi-state fraud — are not tracked
+    # at the moment.
 
     def formula(person, period, parameters):
         is_qualified = person("is_citizen_or_legal_immigrant", period.this_year)
