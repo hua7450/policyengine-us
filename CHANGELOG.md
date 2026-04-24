@@ -1,3 +1,10 @@
+## [1.666.2] - 2026-04-24
+
+### Fixed
+
+- Backfilled Medicaid and CHIP income limit parameters to 2018 using official CMS sources, including thresholds stored with the 5 percentage-point MAGI disregard.
+
+
 ## [1.666.1] - 2026-04-23
 
 ### Fixed
