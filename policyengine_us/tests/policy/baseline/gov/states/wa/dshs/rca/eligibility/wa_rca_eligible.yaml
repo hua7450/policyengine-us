@@ -9,11 +9,11 @@
   output:
     wa_rca_eligible: true
 
-- name: Case 2, single refugee adult within window - eligible.
+- name: Case 2, Afghan humanitarian parolee within window - eligible.
   period: 2024-01
   input:
     state_code: WA
-    immigration_status: REFUGEE
+    immigration_status: PAROLED_ONE_YEAR
     years_since_us_entry: 0
     wa_tanf_income_eligible: true
     wa_tanf_resources_eligible: true
