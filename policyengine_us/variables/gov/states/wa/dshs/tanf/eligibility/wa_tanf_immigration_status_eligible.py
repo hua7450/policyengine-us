@@ -9,7 +9,8 @@ class wa_tanf_immigration_status_eligible(Variable):
     defined_for = StateCode.WA
     reference = (
         "https://www.law.cornell.edu/uscode/text/8/1613",
-        "https://app.leg.wa.gov/wac/default.aspx?cite=388-424-0020",
+        "https://app.leg.wa.gov/wac/default.aspx?cite=388-424-0006",
+        "https://app.leg.wa.gov/wac/default.aspx?cite=388-424-0010",
     )
 
     def formula(person, period, parameters):

@@ -17,12 +17,19 @@ class wa_sfa_eligible(Variable):
         has_sfa_eligible_immigrant = (
             add(spm_unit, period, ["wa_sfa_immigration_status_eligible"]) > 0
         )
+        # Per WAC 388-400-0010, SFA is explicitly for families federally
+        # ineligible for TANF. Exclude at SPM-unit level to prevent mixed-
+        # status households from receiving both.
+        has_tanf_eligible_immigrant = (
+            add(spm_unit, period, ["wa_tanf_immigration_status_eligible"]) > 0
+        )
+        sfa_pathway = has_sfa_eligible_immigrant & ~has_tanf_eligible_immigrant
         show_all = spm_unit("wa_show_all_cash_assistance_programs", period)
         income_eligible = spm_unit("wa_tanf_income_eligible", period)
         resources_eligible = spm_unit("wa_tanf_resources_eligible", period.this_year)
         return (
             demographic_eligible
-            & (has_sfa_eligible_immigrant | show_all)
+            & (sfa_pathway | show_all)
             & income_eligible
             & resources_eligible
         )

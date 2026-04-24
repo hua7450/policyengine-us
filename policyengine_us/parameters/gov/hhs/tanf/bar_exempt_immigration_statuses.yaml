@@ -6,12 +6,11 @@ values:
     - ASYLEE
     - CUBAN_HAITIAN_ENTRANT
     - DEPORTATION_WITHHELD
-    - CONDITIONAL_ENTRANT
 
 metadata:
   unit: list
   period: year
   label: TANF five-year bar exempt immigration statuses
   reference:
-    - title: 8 USC 1613(b) - Exceptions to five-year limited eligibility
+    - title: 8 USC 1613(b)(1) - Exceptions to five-year limited eligibility
       href: https://www.law.cornell.edu/uscode/text/8/1613

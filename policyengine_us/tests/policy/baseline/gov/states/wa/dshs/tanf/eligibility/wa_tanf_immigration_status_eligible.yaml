@@ -83,3 +83,30 @@
     immigration_status: DACA
   output:
     wa_tanf_immigration_status_eligible: false
+
+- name: Case 11, deportation-withheld just arrived is eligible (bar-exempt).
+  period: 2024-01
+  input:
+    state_code: WA
+    immigration_status: DEPORTATION_WITHHELD
+    years_since_us_entry: 0
+  output:
+    wa_tanf_immigration_status_eligible: true
+
+- name: Case 12, conditional entrant in 5-year bar is ineligible.
+  period: 2024-01
+  input:
+    state_code: WA
+    immigration_status: CONDITIONAL_ENTRANT
+    years_since_us_entry: 2
+  output:
+    wa_tanf_immigration_status_eligible: false
+
+- name: Case 13, conditional entrant past 5-year bar is eligible.
+  period: 2024-01
+  input:
+    state_code: WA
+    immigration_status: CONDITIONAL_ENTRANT
+    years_since_us_entry: 6
+  output:
+    wa_tanf_immigration_status_eligible: true

@@ -1,18 +1,20 @@
-- name: Case 1, refugee meets all requirements - eligible.
+- name: Case 1, refugee within 12-month window, no TANF/SFA competition - eligible.
   period: 2024-01
   input:
     state_code: WA
     immigration_status: REFUGEE
+    years_since_us_entry: 0
     wa_tanf_income_eligible: true
     wa_tanf_resources_eligible: true
   output:
     wa_rca_eligible: true
 
-- name: Case 2, single refugee adult without children - eligible (no child required).
+- name: Case 2, single refugee adult within window - eligible.
   period: 2024-01
   input:
     state_code: WA
     immigration_status: REFUGEE
+    years_since_us_entry: 0
     wa_tanf_income_eligible: true
     wa_tanf_resources_eligible: true
   output:
@@ -28,37 +30,61 @@
   output:
     wa_rca_eligible: false
 
-- name: Case 4, refugee income-ineligible - ineligible.
+- name: Case 4, refugee past 12-month window - ineligible.
   period: 2024-01
   input:
     state_code: WA
     immigration_status: REFUGEE
+    years_since_us_entry: 2
+    wa_tanf_income_eligible: true
+    wa_tanf_resources_eligible: true
+  output:
+    wa_rca_eligible: false
+
+- name: Case 5, refugee using default years_since_us_entry (5) - ineligible.
+  period: 2024-01
+  input:
+    state_code: WA
+    immigration_status: REFUGEE
+    wa_tanf_income_eligible: true
+    wa_tanf_resources_eligible: true
+  output:
+    wa_rca_eligible: false
+
+- name: Case 6, refugee income-ineligible - ineligible.
+  period: 2024-01
+  input:
+    state_code: WA
+    immigration_status: REFUGEE
+    years_since_us_entry: 0
     wa_tanf_income_eligible: false
     wa_tanf_resources_eligible: true
   output:
     wa_rca_eligible: false
 
-- name: Case 5, refugee resources-ineligible - ineligible.
+- name: Case 7, refugee resources-ineligible - ineligible.
   period: 2024-01
   input:
     state_code: WA
     immigration_status: REFUGEE
+    years_since_us_entry: 0
     wa_tanf_income_eligible: true
     wa_tanf_resources_eligible: false
   output:
     wa_rca_eligible: false
 
-- name: Case 6, non-WA refugee - ineligible.
+- name: Case 8, non-WA refugee - ineligible.
   period: 2024-01
   input:
     state_code: OR
     immigration_status: REFUGEE
+    years_since_us_entry: 0
     wa_tanf_income_eligible: true
     wa_tanf_resources_eligible: true
   output:
     wa_rca_eligible: false
 
-- name: Case 7, undocumented - ineligible.
+- name: Case 9, undocumented - ineligible.
   period: 2024-01
   input:
     state_code: WA
