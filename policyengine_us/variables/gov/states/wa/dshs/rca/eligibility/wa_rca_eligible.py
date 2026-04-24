@@ -21,6 +21,11 @@ class wa_rca_eligible(Variable):
         has_rca_eligible_immigrant = (
             add(spm_unit, period, ["wa_rca_immigration_status_eligible"]) > 0
         )
+        show_all = spm_unit("wa_show_all_cash_assistance_programs", period)
         income_eligible = spm_unit("wa_tanf_income_eligible", period)
         resources_eligible = spm_unit("wa_tanf_resources_eligible", period.this_year)
-        return has_rca_eligible_immigrant & income_eligible & resources_eligible
+        return (
+            (has_rca_eligible_immigrant | show_all)
+            & income_eligible
+            & resources_eligible
+        )
