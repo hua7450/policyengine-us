@@ -1,5 +1,9 @@
 description: Washington considers these immigration statuses eligible for the Refugee Cash Assistance program.
 
+# PAROLED_ONE_YEAR is treated as RCA-eligible to cover Afghan (P.L. 117-43)
+# and Ukrainian (P.L. 117-128) humanitarian parolees. PolicyEngine does not
+# distinguish those populations from other INA 212(d)(5) parolees, so this
+# over-grants RCA to the small population of non-humanitarian parolees.
 values:
   1996-08-22:
     - REFUGEE
