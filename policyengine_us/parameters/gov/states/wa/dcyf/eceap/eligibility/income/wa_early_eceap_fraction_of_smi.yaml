@@ -1,0 +1,14 @@
+description: Washington limits income to this fraction of the state median income when determining family financial need under the Early Childhood Education and Assistance Program for children under age three.
+
+values:
+  2024-01-01: 0.5
+
+metadata:
+  unit: /1
+  period: year
+  label: Washington Early ECEAP income threshold as fraction of state median income
+  reference:
+    - title: RCW 43.216.505 Eligible children
+      href: https://app.leg.wa.gov/RCW/default.aspx?cite=43.216.505
+    - title: Fair Start for Kids Act Summary, Section 403
+      href: https://www.startearly.org/app/uploads/2021/06/Final-Summary-of-Fair-Start-for-Kids-Act.pdf#page=7

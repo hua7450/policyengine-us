@@ -1,0 +1,14 @@
+description: Washington limits Early Childhood Education and Assistance Program participants under the birth-to-three variant to children below this age.
+
+values:
+  2024-01-01: 3
+
+metadata:
+  unit: year
+  period: year
+  label: Washington Early ECEAP children age limit
+  reference:
+    - title: RCW 43.216.505 Eligible children
+      href: https://app.leg.wa.gov/RCW/default.aspx?cite=43.216.505
+    - title: Fair Start for Kids Act Summary, Section 403
+      href: https://www.startearly.org/app/uploads/2021/06/Final-Summary-of-Fair-Start-for-Kids-Act.pdf#page=7

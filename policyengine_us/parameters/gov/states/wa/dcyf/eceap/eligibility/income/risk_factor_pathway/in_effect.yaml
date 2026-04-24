@@ -1,0 +1,13 @@
+description: Washington uses this indicator to determine whether the risk-factor pathway applies under the Early Childhood Education and Assistance Program.
+
+values:
+  2024-01-01: true
+  2030-08-01: false
+
+metadata:
+  unit: bool
+  period: year
+  label: Washington ECEAP risk-factor pathway in effect
+  reference:
+    - title: RCW 43.216.512 Expanded enrollment
+      href: https://app.leg.wa.gov/RCW/default.aspx?cite=43.216.512

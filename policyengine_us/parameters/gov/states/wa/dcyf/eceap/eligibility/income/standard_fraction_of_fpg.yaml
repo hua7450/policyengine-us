@@ -1,0 +1,14 @@
+description: Washington limits income to this fraction of the federal poverty guideline when determining family financial need under the Early Childhood Education and Assistance Program.
+
+values:
+  2024-01-01: 1.1
+
+metadata:
+  unit: /1
+  period: year
+  label: Washington ECEAP income threshold as fraction of federal poverty guideline
+  reference:
+    - title: DCYF 2025 ECEAP Income Eligibility Limits - Federal Poverty Level
+      href: https://www.dcyf.wa.gov/sites/default/files/pdf/eceap/ECEAP-Federal-Poverty-Level-Chart.pdf
+    - title: RCW 43.216.505 Eligible children
+      href: https://app.leg.wa.gov/RCW/default.aspx?cite=43.216.505

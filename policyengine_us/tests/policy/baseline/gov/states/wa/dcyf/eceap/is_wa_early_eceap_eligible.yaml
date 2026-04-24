@@ -1,0 +1,224 @@
+- name: Family of 3 with 2-year-old at $50,000 (within 50% SMI), Early ECEAP eligible.
+  period: 2026
+  input:
+    people:
+      parent:
+        age: 30
+        employment_income: 50_000
+      child:
+        age: 2
+        employment_income: 0
+      sibling:
+        age: 6
+        employment_income: 0
+    spm_units:
+      spm_unit:
+        members: [parent, child, sibling]
+    tax_units:
+      tax_unit:
+        members: [parent, child, sibling]
+    households:
+      household:
+        members: [parent, child, sibling]
+        state_code: WA
+  output:
+    # 50% SMI family of 3 = $58,511 -> $50,000 < $58,511, income-eligible.
+    # Child age 2 is under Early ECEAP age limit (3).
+    is_wa_early_eceap_eligible: [false, true, false]
+
+- name: Family with 2-year-old at $65,000 (above 50% SMI), not Early ECEAP eligible.
+  period: 2026
+  input:
+    people:
+      parent:
+        age: 30
+        employment_income: 65_000
+      child:
+        age: 2
+        employment_income: 0
+      sibling:
+        age: 6
+        employment_income: 0
+    spm_units:
+      spm_unit:
+        members: [parent, child, sibling]
+    tax_units:
+      tax_unit:
+        members: [parent, child, sibling]
+    households:
+      household:
+        members: [parent, child, sibling]
+        state_code: WA
+  output:
+    # $65,000 > 50% SMI (~$61,701). No categorical path. Not eligible.
+    is_wa_early_eceap_eligible: [false, false, false]
+
+- name: Family with 3-year-old at low income, not Early ECEAP eligible (age 3 is ECEAP, not Early).
+  period: 2026
+  input:
+    people:
+      parent:
+        age: 30
+        employment_income: 20_000
+      child:
+        age: 3
+        employment_income: 0
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+    households:
+      household:
+        members: [parent, child]
+        state_code: WA
+  output:
+    # Age 3 is at Early ECEAP age limit (exclusive). Eligible for ECEAP instead.
+    is_wa_early_eceap_eligible: [false, false]
+
+- name: Homeless 1-year-old with high income, Early ECEAP eligible via categorical path.
+  period: 2026
+  input:
+    people:
+      parent:
+        age: 30
+        employment_income: 120_000
+      child:
+        age: 1
+        employment_income: 0
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+    households:
+      household:
+        members: [parent, child]
+        state_code: WA
+        is_homeless: true
+  output:
+    is_wa_early_eceap_eligible: [false, true]
+
+- name: Oregon family with 2-year-old at low income, not eligible due to residency.
+  period: 2026
+  input:
+    people:
+      parent:
+        age: 30
+        employment_income: 20_000
+      child:
+        age: 2
+        employment_income: 0
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+    households:
+      household:
+        members: [parent, child]
+        state_code: OR
+  output:
+    is_wa_early_eceap_eligible: [false, false]
+
+# ---- Edge cases ----
+
+- name: Multi-child family with 2-year-old and 4-year-old, only 2-year-old is Early ECEAP-eligible.
+  period: 2026
+  input:
+    people:
+      parent:
+        age: 30
+        employment_income: 30_000
+      child_early:
+        age: 2
+        employment_income: 0
+      child_eceap:
+        age: 4
+        employment_income: 0
+    spm_units:
+      spm_unit:
+        members: [parent, child_early, child_eceap]
+    tax_units:
+      tax_unit:
+        members: [parent, child_early, child_eceap]
+    households:
+      household:
+        members: [parent, child_early, child_eceap]
+        state_code: WA
+  output:
+    # Only the 2-year-old qualifies for Early ECEAP (under age 3).
+    is_wa_early_eceap_eligible: [false, true, false]
+
+- name: Age 0 infant with low income, Early ECEAP eligible.
+  period: 2026
+  input:
+    people:
+      parent:
+        age: 30
+        employment_income: 20_000
+      child:
+        age: 0
+        employment_income: 0
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+    households:
+      household:
+        members: [parent, child]
+        state_code: WA
+  output:
+    is_wa_early_eceap_eligible: [false, true]
+
+- name: High-income family with 2-year-old with IEP, Early ECEAP eligible via categorical.
+  period: 2026
+  input:
+    people:
+      parent:
+        age: 30
+        employment_income: 120_000
+      child:
+        age: 2
+        employment_income: 0
+        has_individualized_education_program: true
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+    households:
+      household:
+        members: [parent, child]
+        state_code: WA
+  output:
+    is_wa_early_eceap_eligible: [false, true]
+
+- name: Idaho family with 2-year-old, not eligible due to residency.
+  period: 2026
+  input:
+    people:
+      parent:
+        age: 30
+        employment_income: 20_000
+      child:
+        age: 2
+        employment_income: 0
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+    households:
+      household:
+        members: [parent, child]
+        state_code: ID
+  output:
+    is_wa_early_eceap_eligible: [false, false]
