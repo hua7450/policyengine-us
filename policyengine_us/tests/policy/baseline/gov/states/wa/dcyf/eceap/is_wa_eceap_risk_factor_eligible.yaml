@@ -15,6 +15,7 @@
     spm_units:
       spm_unit:
         members: [parent, child, sibling]
+        tanf: 0
     tax_units:
       tax_unit:
         members: [parent, child, sibling]
@@ -45,6 +46,7 @@
     spm_units:
       spm_unit:
         members: [parent, child, sibling]
+        tanf: 0
     tax_units:
       tax_unit:
         members: [parent, child, sibling]
@@ -72,6 +74,7 @@
     spm_units:
       spm_unit:
         members: [parent, child, sibling]
+        tanf: 0
     tax_units:
       tax_unit:
         members: [parent, child, sibling]
@@ -101,6 +104,7 @@
     spm_units:
       spm_unit:
         members: [parent, child, sibling]
+        tanf: 0
     tax_units:
       tax_unit:
         members: [parent, child, sibling]
@@ -129,6 +133,7 @@
     spm_units:
       spm_unit:
         members: [parent, child, sibling]
+        tanf: 0
     tax_units:
       tax_unit:
         members: [parent, child, sibling]
@@ -157,6 +162,7 @@
     spm_units:
       spm_unit:
         members: [parent, child, sibling]
+        tanf: 0
     tax_units:
       tax_unit:
         members: [parent, child, sibling]
@@ -182,6 +188,7 @@
     spm_units:
       spm_unit:
         members: [parent, child]
+        tanf: 0
     tax_units:
       tax_unit:
         members: [parent, child]
@@ -217,6 +224,7 @@
     spm_units:
       spm_unit:
         members: [parent, child, sibling]
+        tanf: 0
     tax_units:
       tax_unit:
         members: [parent, child, sibling]
@@ -243,6 +251,7 @@
     spm_units:
       spm_unit:
         members: [parent, child]
+        tanf: 0
     tax_units:
       tax_unit:
         members: [parent, child]
@@ -278,6 +287,7 @@
     spm_units:
       spm_unit:
         members: [parent, child, sibling]
+        tanf: 0
     tax_units:
       tax_unit:
         members: [parent, child, sibling]
@@ -312,6 +322,7 @@
     spm_units:
       spm_unit:
         members: [parent, child, sibling]
+        tanf: 0
     tax_units:
       tax_unit:
         members: [parent, child, sibling]
@@ -347,6 +358,7 @@
     spm_units:
       spm_unit:
         members: [parent, child, sibling]
+        tanf: 0
     tax_units:
       tax_unit:
         members: [parent, child, sibling]
@@ -382,6 +394,7 @@
     spm_units:
       spm_unit:
         members: [parent, child, sibling]
+        tanf: 0
     tax_units:
       tax_unit:
         members: [parent, child, sibling]
@@ -416,6 +429,7 @@
     spm_units:
       spm_unit:
         members: [parent, child, sibling]
+        tanf: 0
     tax_units:
       tax_unit:
         members: [parent, child, sibling]
@@ -426,6 +440,43 @@
   output:
     # 50% SMI family of 3 in 2026 ~= $61,701.43. $61,701 <= upper bound.
     is_wa_eceap_risk_factor_eligible: [false, true, false]
+
+- name: 2026 single-parent household in 36-50% SMI band, eligible via single-parent risk factor.
+  period: 2026
+  input:
+    people:
+      parent:
+        age: 30
+        employment_income: 50_000
+        is_english_proficient: true
+        is_single_parent_household: true
+      child:
+        age: 4
+        employment_income: 0
+        is_english_proficient: true
+        is_single_parent_household: false
+      sibling:
+        age: 6
+        employment_income: 0
+        is_english_proficient: true
+        is_single_parent_household: false
+    spm_units:
+      spm_unit:
+        members: [parent, child, sibling]
+        tanf: 0
+    tax_units:
+      tax_unit:
+        members: [parent, child, sibling]
+    households:
+      household:
+        members: [parent, child, sibling]
+        state_code: WA
+  output:
+    # 36% SMI family of 3 = $44,425; 50% SMI = $61,701. $50,000 is in band.
+    # Single-parent flag is True only on the unmarried tax-unit head (parent),
+    # but the risk factor projects to all SPM unit members so the child is
+    # eligible via the single-parent path.
+    is_wa_eceap_risk_factor_eligible: [true, true, true]
 
 - name: 2026 family just above 50% SMI upper bound with dev delay, above risk pathway.
   period: 2026
@@ -450,6 +501,7 @@
     spm_units:
       spm_unit:
         members: [parent, child, sibling]
+        tanf: 0
     tax_units:
       tax_unit:
         members: [parent, child, sibling]

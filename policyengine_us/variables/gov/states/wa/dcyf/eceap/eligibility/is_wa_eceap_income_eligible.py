@@ -16,7 +16,11 @@ class is_wa_eceap_income_eligible(Variable):
     def formula(person, period, parameters):
         p = parameters(period).gov.states.wa.dcyf.eceap.eligibility.income
         spm_unit = person.spm_unit
-        income = spm_unit("ccdf_income", period)
+        # DCYF income verification (WAC 110-425-0080) counts market income plus
+        # cash transfers (TANF, SSI, Social Security) and child support; the
+        # broader ccdf_income excludes government transfers and so understates
+        # ECEAP family income.
+        income = spm_unit("wa_eceap_family_income", period)
         if p.uses_fpg:
             threshold = spm_unit("spm_unit_fpg", period) * p.standard_fraction_of_fpg
         else:

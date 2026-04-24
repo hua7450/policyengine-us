@@ -21,7 +21,11 @@ class is_wa_eceap_risk_factor_eligible(Variable):
             return False
 
         spm_unit = person.spm_unit
-        income = spm_unit("ccdf_income", period)
+        # DCYF income verification (WAC 110-425-0080) counts market income plus
+        # cash transfers (TANF, SSI, Social Security) and child support; the
+        # broader ccdf_income excludes government transfers and so understates
+        # ECEAP family income.
+        income = spm_unit("wa_eceap_family_income", period)
         smi = spm_unit("hhs_smi", period)
         # Income must exceed the standard threshold but be at or below the
         # risk-factor pathway upper bound (50% SMI).
@@ -41,7 +45,13 @@ class is_wa_eceap_risk_factor_eligible(Variable):
         migrant = person("is_migratory_child", period)
         developmental_delay = person("has_developmental_delay", period)
         has_iep = person("has_individualized_education_program", period)
-        single_parent = person("is_single_parent_household", period)
-        has_risk_factor = esl | migrant | developmental_delay | has_iep | single_parent
+        # is_single_parent_household is only True on the unmarried tax-unit
+        # head; project from the parent to the child via the SPM unit.
+        single_parent_in_unit = (
+            add(spm_unit, period, ["is_single_parent_household"]) > 0
+        )
+        has_risk_factor = (
+            esl | migrant | developmental_delay | has_iep | single_parent_in_unit
+        )
 
         return in_income_band & has_risk_factor

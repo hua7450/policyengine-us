@@ -14,6 +14,7 @@
     spm_units:
       spm_unit:
         members: [parent, child, sibling]
+        tanf: 0
     tax_units:
       tax_unit:
         members: [parent, child, sibling]
@@ -42,6 +43,7 @@
     spm_units:
       spm_unit:
         members: [parent, child, sibling]
+        tanf: 0
     tax_units:
       tax_unit:
         members: [parent, child, sibling]
@@ -69,6 +71,7 @@
     spm_units:
       spm_unit:
         members: [parent, child, sibling]
+        tanf: 0
     tax_units:
       tax_unit:
         members: [parent, child, sibling]
@@ -93,6 +96,7 @@
     spm_units:
       spm_unit:
         members: [parent, child]
+        tanf: 0
     tax_units:
       tax_unit:
         members: [parent, child]
@@ -121,6 +125,7 @@
     spm_units:
       spm_unit:
         members: [parent, child, sibling]
+        tanf: 0
     tax_units:
       tax_unit:
         members: [parent, child, sibling]
@@ -148,6 +153,7 @@
     spm_units:
       spm_unit:
         members: [parent, child, sibling]
+        tanf: 0
     tax_units:
       tax_unit:
         members: [parent, child, sibling]
@@ -171,6 +177,7 @@
     spm_units:
       spm_unit:
         members: [parent, child]
+        tanf: 0
     tax_units:
       tax_unit:
         members: [parent, child]
@@ -212,6 +219,7 @@
     spm_units:
       spm_unit:
         members: [parent1, parent2, c1, c2, c3, c4, c5, c6]
+        tanf: 0
     tax_units:
       tax_unit:
         members: [parent1, parent2, c1, c2, c3, c4, c5, c6]
@@ -254,6 +262,7 @@
     spm_units:
       spm_unit:
         members: [parent1, parent2, c1, c2, c3, c4, c5, c6]
+        tanf: 0
     tax_units:
       tax_unit:
         members: [parent1, parent2, c1, c2, c3, c4, c5, c6]
@@ -277,6 +286,7 @@
     spm_units:
       spm_unit:
         members: [parent, child]
+        tanf: 0
     tax_units:
       tax_unit:
         members: [parent, child]

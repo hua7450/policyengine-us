@@ -9,7 +9,7 @@ class is_wa_early_eceap_eligible(Variable):
     defined_for = StateCode.WA
     reference = (
         "https://app.leg.wa.gov/RCW/default.aspx?cite=43.216.505",
-        "https://www.startearly.org/app/uploads/2021/06/Final-Summary-of-Fair-Start-for-Kids-Act.pdf#page=7",
+        "https://www.startearly.org/app/uploads/2021/06/Final-Summary-of-Fair-Start-for-Kids-Act.pdf#page=9",
     )
 
     def formula(person, period, parameters):
