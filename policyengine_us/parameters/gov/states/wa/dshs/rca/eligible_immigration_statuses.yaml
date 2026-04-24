@@ -1,0 +1,22 @@
+description: Washington considers these immigration statuses eligible for the Refugee Cash Assistance program.
+
+values:
+  1996-08-22:
+    - REFUGEE
+    - ASYLEE
+    - CUBAN_HAITIAN_ENTRANT
+    - DEPORTATION_WITHHELD
+    - CONDITIONAL_ENTRANT
+    - PAROLED_ONE_YEAR
+
+metadata:
+  unit: list
+  period: year
+  label: Washington RCA eligible immigration statuses
+  reference:
+    - title: 8 USC 1522 - Authorization for Refugee Assistance
+      href: https://www.law.cornell.edu/uscode/text/8/1522
+    - title: 45 CFR 400.43 - Requirements for Documentation of Immigration Status
+      href: https://www.ecfr.gov/current/title-45/subtitle-B/chapter-IV/part-400/subpart-D/section-400.43
+    - title: WAC 388-466-0120 - Refugee assistance
+      href: https://app.leg.wa.gov/wac/default.aspx?cite=388-466-0120

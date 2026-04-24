@@ -1,0 +1,94 @@
+- name: Case 1, LPR in bar with child meets all requirements - eligible.
+  period: 2024-01
+  input:
+    state_code: WA
+    immigration_status: LEGAL_PERMANENT_RESIDENT
+    years_since_us_entry: 2
+    is_demographic_tanf_eligible: true
+    wa_tanf_income_eligible: true
+    wa_tanf_resources_eligible: true
+  output:
+    wa_sfa_eligible: true
+
+- name: Case 2, LPR past bar - ineligible (qualifies for TANF instead).
+  period: 2024-01
+  input:
+    state_code: WA
+    immigration_status: LEGAL_PERMANENT_RESIDENT
+    years_since_us_entry: 6
+    is_demographic_tanf_eligible: true
+    wa_tanf_income_eligible: true
+    wa_tanf_resources_eligible: true
+  output:
+    wa_sfa_eligible: false
+
+- name: Case 3, refugee - ineligible (qualifies for TANF instead).
+  period: 2024-01
+  input:
+    state_code: WA
+    immigration_status: REFUGEE
+    years_since_us_entry: 0
+    is_demographic_tanf_eligible: true
+    wa_tanf_income_eligible: true
+    wa_tanf_resources_eligible: true
+  output:
+    wa_sfa_eligible: false
+
+- name: Case 4, LPR in bar without demographic eligibility - ineligible.
+  period: 2024-01
+  input:
+    state_code: WA
+    immigration_status: LEGAL_PERMANENT_RESIDENT
+    years_since_us_entry: 2
+    is_demographic_tanf_eligible: false
+    wa_tanf_income_eligible: true
+    wa_tanf_resources_eligible: true
+  output:
+    wa_sfa_eligible: false
+
+- name: Case 5, LPR in bar with income ineligible - ineligible.
+  period: 2024-01
+  input:
+    state_code: WA
+    immigration_status: LEGAL_PERMANENT_RESIDENT
+    years_since_us_entry: 2
+    is_demographic_tanf_eligible: true
+    wa_tanf_income_eligible: false
+    wa_tanf_resources_eligible: true
+  output:
+    wa_sfa_eligible: false
+
+- name: Case 6, LPR in bar with resources ineligible - ineligible.
+  period: 2024-01
+  input:
+    state_code: WA
+    immigration_status: LEGAL_PERMANENT_RESIDENT
+    years_since_us_entry: 2
+    is_demographic_tanf_eligible: true
+    wa_tanf_income_eligible: true
+    wa_tanf_resources_eligible: false
+  output:
+    wa_sfa_eligible: false
+
+- name: Case 7, undocumented - ineligible.
+  period: 2024-01
+  input:
+    state_code: WA
+    immigration_status: UNDOCUMENTED
+    is_demographic_tanf_eligible: true
+    wa_tanf_income_eligible: true
+    wa_tanf_resources_eligible: true
+  output:
+    wa_sfa_eligible: false
+
+- name: Case 8, non-WA state - ineligible.
+  period: 2024-01
+  input:
+    state_code: OR
+    immigration_status: LEGAL_PERMANENT_RESIDENT
+    years_since_us_entry: 2
+    is_demographic_tanf_eligible: true
+    wa_tanf_income_eligible: true
+    wa_tanf_resources_eligible: true
+  output:
+    wa_sfa_eligible: false

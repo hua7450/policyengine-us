@@ -417,6 +417,28 @@ programs:
         full_name: Wyoming Personal Opportunities With Employment Responsibilities
         variable: wy_power
 
+  - id: wa_sfa
+    name: Washington SFA
+    full_name: Washington State Family Assistance
+    category: Benefits
+    agency: State
+    status: complete
+    coverage: WA
+    variable: wa_sfa
+    parameter_prefix: gov.states.wa.dshs
+    verified_start_year: 2016
+
+  - id: wa_rca
+    name: Washington RCA
+    full_name: Washington Refugee Cash Assistance
+    category: Benefits
+    agency: State
+    status: complete
+    coverage: WA
+    variable: wa_rca
+    parameter_prefix: gov.states.wa.dshs.rca
+    verified_start_year: 2016
+
   - id: ccdf
     name: CCDF
     full_name: Child Care and Development Fund

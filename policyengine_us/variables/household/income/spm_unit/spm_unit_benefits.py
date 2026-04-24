@@ -43,6 +43,8 @@ class spm_unit_benefits(Variable):
             "spm_unit_broadband_subsidy",
             "spm_unit_energy_subsidy",
             "tanf",
+            "wa_sfa",
+            "wa_rca",
             "high_efficiency_electric_home_rebate",
             "residential_efficiency_electrification_rebate",
             "unemployment_compensation",

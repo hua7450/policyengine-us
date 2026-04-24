@@ -1,0 +1,17 @@
+description: The United States exempts these immigration statuses from the five-year bar on federal Temporary Assistance for Needy Families.
+
+values:
+  1996-08-22:
+    - REFUGEE
+    - ASYLEE
+    - CUBAN_HAITIAN_ENTRANT
+    - DEPORTATION_WITHHELD
+    - CONDITIONAL_ENTRANT
+
+metadata:
+  unit: list
+  period: year
+  label: TANF five-year bar exempt immigration statuses
+  reference:
+    - title: 8 USC 1613(b) - Exceptions to five-year limited eligibility
+      href: https://www.law.cornell.edu/uscode/text/8/1613

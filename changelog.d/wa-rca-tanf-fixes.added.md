@@ -1,0 +1,1 @@
+Washington State Family Assistance and Refugee Cash Assistance programs, a `years_since_us_entry` person-level input, and a `wa_tanf_immigration_status_eligible` variable that enforces the federal five-year bar with its statutory exemptions.
