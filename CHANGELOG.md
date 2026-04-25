@@ -1,3 +1,10 @@
+## [1.667.1] - 2026-04-25
+
+### Fixed
+
+- Fix farm operations income, business self-employment tax, and labor supply response inputs.
+
+
 ## [1.667.0] - 2026-04-25
 
 ### Added
