@@ -31,7 +31,7 @@
     wa_sfa: 0
     wa_rca: 0
 
-- name: Case 2, LPR in 5-year bar with child receives SFA only.
+- name: Case 2, LPR-only family in 5-year bar receives SFA only.
   period: 2024-01
   absolute_error_margin: 0.1
   input:
@@ -43,6 +43,8 @@
       person2:
         age: 5
         is_tax_unit_dependent: true
+        immigration_status: LEGAL_PERMANENT_RESIDENT
+        years_since_us_entry: 2
     spm_units:
       spm_unit:
         members: [person1, person2]
@@ -51,6 +53,8 @@
         members: [person1, person2]
         state_code: WA
   output:
+    # Child immigration_status set explicitly: it defaults to CITIZEN, which
+    # would otherwise route the unit to TANF via the citizen-child pathway.
     wa_tanf_eligible: false
     wa_sfa_eligible: true
     wa_rca_eligible: false
@@ -70,6 +74,8 @@
       person2:
         age: 5
         is_tax_unit_dependent: true
+        immigration_status: REFUGEE
+        years_since_us_entry: 0
     spm_units:
       spm_unit:
         members: [person1, person2]
@@ -225,7 +231,7 @@
     wa_sfa: 0
     wa_rca: 0
 
-- name: Case 9, undocumented immigrant with child is ineligible for all 3.
+- name: Case 9, fully undocumented family is ineligible for all 3.
   period: 2024-01
   absolute_error_margin: 0.1
   input:
@@ -236,6 +242,7 @@
       person2:
         age: 5
         is_tax_unit_dependent: true
+        immigration_status: UNDOCUMENTED
     spm_units:
       spm_unit:
         members: [person1, person2]
@@ -244,6 +251,8 @@
         members: [person1, person2]
         state_code: WA
   output:
+    # Child immigration_status set explicitly: it defaults to CITIZEN, which
+    # would otherwise route the unit to TANF via the citizen-child pathway.
     wa_tanf_eligible: false
     wa_sfa_eligible: false
     wa_rca_eligible: false
@@ -296,6 +305,8 @@
       person2:
         age: 5
         is_tax_unit_dependent: true
+        immigration_status: REFUGEE
+        years_since_us_entry: 0
     spm_units:
       spm_unit:
         members: [person1, person2]
@@ -314,3 +325,36 @@
     wa_tanf: 570
     wa_sfa: 570
     wa_rca: 570
+
+- name: Case 12, Afghan or Ukrainian humanitarian parolee family with child receives TANF only.
+  period: 2024-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        immigration_status: PAROLED_ONE_YEAR
+        years_since_us_entry: 0
+      person2:
+        age: 5
+        is_tax_unit_dependent: true
+        immigration_status: PAROLED_ONE_YEAR
+        years_since_us_entry: 0
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: WA
+  output:
+    # PAROLED_ONE_YEAR stands in for Afghan (P.L. 117-43) and Ukrainian
+    # (P.L. 117-128) humanitarian parolees, who are bar-exempt for TANF.
+    # TANF therefore applies; RCA is blocked by 45 CFR 400.47.
+    wa_tanf_eligible: true
+    wa_sfa_eligible: false
+    wa_rca_eligible: false
+    # Family size 2 payment standard Jan 2024: $570
+    wa_tanf: 570
+    wa_sfa: 0
+    wa_rca: 0

@@ -110,3 +110,12 @@
     years_since_us_entry: 6
   output:
     wa_tanf_immigration_status_eligible: true
+
+- name: Case 14, Afghan or Ukrainian humanitarian parolee just arrived is eligible (bar-exempt).
+  period: 2024-01
+  input:
+    state_code: WA
+    immigration_status: PAROLED_ONE_YEAR
+    years_since_us_entry: 0
+  output:
+    wa_tanf_immigration_status_eligible: true

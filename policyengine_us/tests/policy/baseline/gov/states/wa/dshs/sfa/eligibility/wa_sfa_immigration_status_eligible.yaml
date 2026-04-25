@@ -24,14 +24,14 @@
   output:
     wa_sfa_immigration_status_eligible: false
 
-- name: Case 4, paroled one-year alien in bar is SFA-eligible.
+- name: Case 4, paroled one-year alien is not SFA-eligible (TANF bar-exempt as humanitarian parolee).
   period: 2024-01
   input:
     state_code: WA
     immigration_status: PAROLED_ONE_YEAR
     years_since_us_entry: 1
   output:
-    wa_sfa_immigration_status_eligible: true
+    wa_sfa_immigration_status_eligible: false
 
 - name: Case 5, refugee is not SFA-eligible (TANF bar-exempt).
   period: 2024-01

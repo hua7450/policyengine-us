@@ -1,11 +1,19 @@
 description: The United States exempts these immigration statuses from the five-year bar on federal Temporary Assistance for Needy Families.
 
+# PAROLED_ONE_YEAR is treated as bar-exempt to cover Afghan (P.L. 117-43)
+# and Ukrainian (P.L. 117-128) humanitarian parolees, who are statutorily
+# treated as refugees for federal benefit purposes. We do not distinguish
+# those populations from other INA 212(d)(5) parolees at the moment, so
+# this over-grants the bar exemption to the small population of
+# non-humanitarian parolees. Kept consistent with the RCA eligible-status
+# list at parameters/gov/states/wa/dshs/rca/eligible_immigration_statuses.yaml.
 values:
   1996-08-22:
     - REFUGEE
     - ASYLEE
     - CUBAN_HAITIAN_ENTRANT
     - DEPORTATION_WITHHELD
+    - PAROLED_ONE_YEAR
 
 metadata:
   unit: list

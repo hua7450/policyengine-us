@@ -6,7 +6,6 @@ class wa_show_all_cash_assistance_programs(Variable):
     entity = SPMUnit
     label = "Treat all Washington cash assistance programs as immigration-eligible for display"
     definition_period = MONTH
-    default_value = False
     defined_for = StateCode.WA
     # Consumer-facing toggle that bypasses immigration-based mutual
     # exclusivity across TANF, SFA, and RCA so that frontend calculators
