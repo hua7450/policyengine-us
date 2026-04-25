@@ -1,3 +1,10 @@
+## [1.667.0] - 2026-04-25
+
+### Added
+
+- Add shared CPS tax-unit construction helper rules.
+
+
 ## [1.666.2] - 2026-04-24
 
 ### Fixed
