@@ -1,1 +1,0 @@
-Washington `wa_show_all_cash_assistance_programs` override that bypasses the immigration gate on TANF, SFA, and RCA for consumers that want to display all three programs' benefit amounts side by side.
