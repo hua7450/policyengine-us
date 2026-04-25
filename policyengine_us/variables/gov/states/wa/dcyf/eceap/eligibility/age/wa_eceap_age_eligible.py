@@ -1,18 +1,18 @@
 from policyengine_us.model_api import *
 
 
-class is_wa_early_eceap_age_eligible(Variable):
+class wa_eceap_age_eligible(Variable):
     value_type = bool
     entity = Person
-    label = "Age-eligible for Washington Early ECEAP"
+    label = "Age-eligible for Washington ECEAP"
     definition_period = YEAR
     defined_for = StateCode.WA
     reference = (
         "https://app.leg.wa.gov/RCW/default.aspx?cite=43.216.505",
-        "https://www.startearly.org/app/uploads/2021/06/Final-Summary-of-Fair-Start-for-Kids-Act.pdf#page=9",
+        "https://app.leg.wa.gov/WAC/default.aspx?cite=110-425-0080",
     )
 
     def formula(person, period, parameters):
         age = person("age", period)
         p = parameters(period).gov.states.wa.dcyf.eceap.eligibility.age
-        return age < p.wa_early_eceap_age_limit
+        return p.age_range.calc(age)

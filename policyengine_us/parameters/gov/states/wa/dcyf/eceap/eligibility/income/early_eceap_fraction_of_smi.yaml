@@ -1,7 +1,7 @@
 description: Washington limits income to this fraction of the state median income when determining family financial need under the Early Childhood Education and Assistance Program for children under age three.
 
 values:
-  2024-01-01: 0.5
+  2025-10-01: 0.5
 
 metadata:
   unit: /1

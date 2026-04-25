@@ -1,7 +1,7 @@
 from policyengine_us.model_api import *
 
 
-class is_wa_eceap_categorically_eligible(Variable):
+class wa_eceap_categorically_eligible(Variable):
     value_type = bool
     entity = Person
     label = "Categorically eligible for Washington ECEAP"
@@ -17,7 +17,10 @@ class is_wa_eceap_categorically_eligible(Variable):
         # modelable categorical paths. Indian-child, ESIT, ECLIPSE, and IDEA
         # Part C paths from RCW 43.216.505 are not modeled because we don't
         # track tribal enrollment or these prior-program indicators at the
-        # moment.
+        # moment. is_enrolled_in_head_start captures current federal Head Start
+        # enrollment as a loose proxy for the four statutory prior-participation
+        # pathways (Early Head Start, ESIT, birth-to-three ECEAP, IDEA Part C);
+        # the proxy understates eligibility for children no longer enrolled.
         is_homeless = person.household("is_homeless", period)
         has_iep = person("has_individualized_education_program", period)
         prior_head_start = person("is_enrolled_in_head_start", period)

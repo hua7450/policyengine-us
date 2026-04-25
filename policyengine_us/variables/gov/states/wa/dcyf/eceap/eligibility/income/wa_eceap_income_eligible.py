@@ -1,7 +1,7 @@
 from policyengine_us.model_api import *
 
 
-class is_wa_eceap_income_eligible(Variable):
+class wa_eceap_income_eligible(Variable):
     value_type = bool
     entity = Person
     label = "Income-eligible for Washington ECEAP under the standard pathway"

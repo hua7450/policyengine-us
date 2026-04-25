@@ -1,7 +1,7 @@
 from policyengine_us.model_api import *
 
 
-class is_wa_eceap_risk_factor_eligible(Variable):
+class wa_eceap_risk_factor_eligible(Variable):
     value_type = bool
     entity = Person
     label = "Risk-factor eligible for Washington ECEAP"
@@ -26,11 +26,14 @@ class is_wa_eceap_risk_factor_eligible(Variable):
         # broader ccdf_income excludes government transfers and so understates
         # ECEAP family income.
         income = spm_unit("wa_eceap_family_income", period)
-        smi = spm_unit("hhs_smi", period)
-        # Income must exceed the standard threshold but be at or below the
-        # risk-factor pathway upper bound (50% SMI).
-        lower_bound = smi * p.standard_fraction_of_smi
-        upper_bound = smi * p.risk_factor_pathway.fraction_of_smi
+        if p.risk_factor_pathway.uses_fpg:
+            fpg = spm_unit("spm_unit_fpg", period)
+            lower_bound = fpg * p.risk_factor_pathway.lower_fraction_of_fpg
+            upper_bound = fpg * p.risk_factor_pathway.fraction_of_fpg
+        else:
+            smi = spm_unit("hhs_smi", period)
+            lower_bound = smi * p.standard_fraction_of_smi
+            upper_bound = smi * p.risk_factor_pathway.fraction_of_smi
         in_income_band = (income > lower_bound) & (income <= upper_bound)
 
         # Modelable risk factors from RCW 43.216.512 and DCYF priority points.
@@ -47,8 +50,8 @@ class is_wa_eceap_risk_factor_eligible(Variable):
         has_iep = person("has_individualized_education_program", period)
         # is_single_parent_household is only True on the unmarried tax-unit
         # head; project from the parent to the child via the SPM unit.
-        single_parent_in_unit = (
-            add(spm_unit, period, ["is_single_parent_household"]) > 0
+        single_parent_in_unit = person.spm_unit.any(
+            person("is_single_parent_household", period)
         )
         has_risk_factor = (
             esl | migrant | developmental_delay | has_iep | single_parent_in_unit

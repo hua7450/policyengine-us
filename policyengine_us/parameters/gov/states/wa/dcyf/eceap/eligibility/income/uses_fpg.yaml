@@ -1,7 +1,7 @@
 description: Washington uses this indicator to determine whether the federal poverty guideline (vs state median income) is the income eligibility basis under the Early Childhood Education and Assistance Program.
 
 values:
-  2024-01-01: true
+  2021-07-25: true
   2025-10-01: false
 
 metadata:

@@ -1,5 +1,5 @@
-- name: Family of 3 in 2024 at $28,000, ECEAP eligible under 110% FPL era.
-  period: 2024
+- name: Family of 3 in 2025 at $28,000, ECEAP eligible under 110% FPL era.
+  period: 2025
   input:
     people:
       parent:
@@ -23,9 +23,9 @@
         members: [parent, child, sibling]
         state_code: WA
   output:
-    # Family of 3 at 110% FPL (2024) = $29,448 -> $28,000 < $29,448, income-eligible.
+    # Family of 3 at 110% FPL (2025) = $29,315 -> $28,000 < $29,315, income-eligible.
     # Child age 4 within ECEAP age range (3-4).
-    is_wa_eceap_eligible: [false, true, false]
+    wa_eceap_eligible: [false, true, false]
 
 - name: Family of 3 in 2026 at $42,000, ECEAP eligible under 36% SMI era.
   period: 2026
@@ -54,7 +54,7 @@
   output:
     # 36% SMI family of 3 = $42,128 -> $42,000 < $42,128, income-eligible.
     # Child age 3 within ECEAP age range.
-    is_wa_eceap_eligible: [false, true, false]
+    wa_eceap_eligible: [false, true, false]
 
 - name: Family of 3 in 2026 at $45,000, not ECEAP eligible (above 36% SMI, no categorical).
   period: 2026
@@ -86,7 +86,7 @@
         state_code: WA
   output:
     # $45,000 > 36% SMI ($42,128). No categorical path, no risk factor. Not eligible.
-    is_wa_eceap_eligible: [false, false, false]
+    wa_eceap_eligible: [false, false, false]
 
 - name: Family of 3 in 2031 at $55,000, ECEAP eligible under 50% SMI era.
   period: 2031
@@ -114,7 +114,7 @@
         state_code: WA
   output:
     # 50% SMI family of 3 = $58,511 -> $55,000 < $58,511, income-eligible.
-    is_wa_eceap_eligible: [false, true, false]
+    wa_eceap_eligible: [false, true, false]
 
 - name: Homeless 4-year-old with high income, ECEAP eligible via categorical path.
   period: 2026
@@ -140,7 +140,7 @@
         is_homeless: true
   output:
     # Homelessness is a categorical path: eligible regardless of income.
-    is_wa_eceap_eligible: [false, true]
+    wa_eceap_eligible: [false, true]
 
 - name: 5-year-old at kindergarten age, not ECEAP eligible.
   period: 2026
@@ -165,7 +165,7 @@
         state_code: WA
   output:
     # Age 5 is above ECEAP age range (3-4).
-    is_wa_eceap_eligible: [false, false]
+    wa_eceap_eligible: [false, false]
 
 - name: Oregon family with 4-year-old and low income, not eligible due to residency.
   period: 2026
@@ -189,7 +189,7 @@
         members: [parent, child]
         state_code: OR
   output:
-    is_wa_eceap_eligible: [false, false]
+    wa_eceap_eligible: [false, false]
 
 # ---- Edge cases ----
 
@@ -219,7 +219,7 @@
         state_code: WA
   output:
     # Only the 4-year-old qualifies for ECEAP (age 3-4 range).
-    is_wa_eceap_eligible: [false, false, true]
+    wa_eceap_eligible: [false, false, true]
 
 - name: High-income family with IEP child, ECEAP eligible via categorical path.
   period: 2026
@@ -245,7 +245,7 @@
         state_code: WA
   output:
     # Income above any threshold but IEP is categorical path.
-    is_wa_eceap_eligible: [false, true]
+    wa_eceap_eligible: [false, true]
 
 - name: High-income family with prior Head Start child, ECEAP eligible via categorical path.
   period: 2026
@@ -270,7 +270,7 @@
         members: [parent, child]
         state_code: WA
   output:
-    is_wa_eceap_eligible: [false, true]
+    wa_eceap_eligible: [false, true]
 
 - name: Idaho family with 4-year-old and low income, not eligible due to residency.
   period: 2026
@@ -294,10 +294,10 @@
         members: [parent, child]
         state_code: ID
   output:
-    is_wa_eceap_eligible: [false, false]
+    wa_eceap_eligible: [false, false]
 
-- name: 2024 FPL era at zero income, ECEAP eligible.
-  period: 2024
+- name: 2025 FPL era at zero income, ECEAP eligible.
+  period: 2025
   input:
     people:
       parent:
@@ -318,4 +318,4 @@
         members: [parent, child]
         state_code: WA
   output:
-    is_wa_eceap_eligible: [false, true]
+    wa_eceap_eligible: [false, true]

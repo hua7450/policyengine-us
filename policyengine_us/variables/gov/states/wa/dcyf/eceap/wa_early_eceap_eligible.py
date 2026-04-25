@@ -1,7 +1,7 @@
 from policyengine_us.model_api import *
 
 
-class is_wa_early_eceap_eligible(Variable):
+class wa_early_eceap_eligible(Variable):
     value_type = bool
     entity = Person
     label = "Eligible for Washington Early ECEAP"
@@ -13,7 +13,7 @@ class is_wa_early_eceap_eligible(Variable):
     )
 
     def formula(person, period, parameters):
-        age_eligible = person("is_wa_early_eceap_age_eligible", period)
-        income_eligible = person("is_wa_early_eceap_income_eligible", period)
-        categorically_eligible = person("is_wa_eceap_categorically_eligible", period)
+        age_eligible = person("wa_early_eceap_age_eligible", period)
+        income_eligible = person("wa_early_eceap_income_eligible", period)
+        categorically_eligible = person("wa_eceap_categorically_eligible", period)
         return age_eligible & (income_eligible | categorically_eligible)

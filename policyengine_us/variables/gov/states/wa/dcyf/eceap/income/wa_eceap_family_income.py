@@ -18,4 +18,8 @@ class wa_eceap_family_income(Variable):
         "ssi",
         "social_security",
         "child_support_received",
+        "unemployment_compensation",
+        "alimony_income",
+        "veterans_benefits",
+        "workers_compensation",
     ]

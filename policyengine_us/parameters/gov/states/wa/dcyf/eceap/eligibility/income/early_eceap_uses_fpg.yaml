@@ -1,0 +1,15 @@
+description: Washington uses this indicator to determine whether the federal poverty guideline (vs state median income) is the income eligibility basis for the Birth to Three Early ECEAP.
+
+values:
+  2021-07-25: true
+  2025-10-01: false
+
+metadata:
+  unit: bool
+  period: year
+  label: Washington Early ECEAP uses federal poverty guideline as income basis
+  reference:
+    - title: "HB 1945 House Bill Report (Feb 2024): pre-rollover Birth to Three ECEAP used 130% FPL"
+      href: https://lawfilesext.leg.wa.gov/biennium/2023-24/Pdf/Bill%20Reports/House/1945-S%20HBR%20APH%2024.pdf
+    - title: DCYF 2026 ECEAP Income Eligibility Levels - State Median Income (effective 2025-10-01)
+      href: https://www.dcyf.wa.gov/sites/default/files/pdf/eceap/State-Median-Income-Chart.pdf

@@ -1,7 +1,7 @@
 from policyengine_us.model_api import *
 
 
-class is_wa_early_eceap_income_eligible(Variable):
+class wa_early_eceap_income_eligible(Variable):
     value_type = bool
     entity = Person
     label = "Income-eligible for Washington Early ECEAP"
@@ -20,5 +20,8 @@ class is_wa_early_eceap_income_eligible(Variable):
         # broader ccdf_income excludes government transfers and so understates
         # ECEAP family income.
         income = spm_unit("wa_eceap_family_income", period)
-        threshold = spm_unit("hhs_smi", period) * p.wa_early_eceap_fraction_of_smi
+        if p.early_eceap_uses_fpg:
+            threshold = spm_unit("spm_unit_fpg", period) * p.early_eceap_fraction_of_fpg
+        else:
+            threshold = spm_unit("hhs_smi", period) * p.early_eceap_fraction_of_smi
         return income <= threshold

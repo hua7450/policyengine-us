@@ -7,7 +7,7 @@
     is_enrolled_in_head_start: false
     state_code: WA
   output:
-    is_wa_eceap_categorically_eligible: false
+    wa_eceap_categorically_eligible: false
 
 - name: Homeless child, categorically eligible.
   period: 2026
@@ -18,7 +18,7 @@
     is_enrolled_in_head_start: false
     state_code: WA
   output:
-    is_wa_eceap_categorically_eligible: true
+    wa_eceap_categorically_eligible: true
 
 - name: Child with IEP, categorically eligible.
   period: 2026
@@ -29,7 +29,7 @@
     is_enrolled_in_head_start: false
     state_code: WA
   output:
-    is_wa_eceap_categorically_eligible: true
+    wa_eceap_categorically_eligible: true
 
 - name: Prior Head Start enrollment, categorically eligible.
   period: 2026
@@ -40,7 +40,7 @@
     is_enrolled_in_head_start: true
     state_code: WA
   output:
-    is_wa_eceap_categorically_eligible: true
+    wa_eceap_categorically_eligible: true
 
 - name: Multiple categorical paths satisfied, categorically eligible.
   period: 2026
@@ -51,7 +51,7 @@
     is_enrolled_in_head_start: true
     state_code: WA
   output:
-    is_wa_eceap_categorically_eligible: true
+    wa_eceap_categorically_eligible: true
 
 - name: Homeless child in Oregon, not eligible due to residency.
   period: 2026
@@ -62,4 +62,4 @@
     is_enrolled_in_head_start: false
     state_code: OR
   output:
-    is_wa_eceap_categorically_eligible: false
+    wa_eceap_categorically_eligible: false
