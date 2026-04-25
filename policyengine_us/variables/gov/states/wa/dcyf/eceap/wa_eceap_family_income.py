@@ -12,14 +12,4 @@ class wa_eceap_family_income(Variable):
         "https://app.leg.wa.gov/RCW/default.aspx?cite=43.216.505",
         "https://app.leg.wa.gov/WAC/default.aspx?cite=110-425-0080",
     )
-    adds = [
-        "market_income",
-        "tanf",
-        "ssi",
-        "social_security",
-        "child_support_received",
-        "unemployment_compensation",
-        "alimony_income",
-        "veterans_benefits",
-        "workers_compensation",
-    ]
+    adds = "gov.states.wa.dcyf.eceap.income_sources"

@@ -14,5 +14,5 @@ class wa_eceap_age_eligible(Variable):
 
     def formula(person, period, parameters):
         age = person("age", period)
-        p = parameters(period).gov.states.wa.dcyf.eceap.eligibility.age
+        p = parameters(period).gov.states.wa.dcyf.eceap.eligibility
         return p.age_range.calc(age)
