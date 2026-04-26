@@ -1,4 +1,4 @@
-description: Washington limits income to this fraction of the federal poverty guideline when determining family financial need under the Birth to Three ECEAP (pre-2025-10-01 regime).
+description: Washington limits income to this fraction of the federal poverty guideline when determining family financial need under the Birth to Three ECEAP (pre-2026-07-01 regime).
 
 values:
   2021-07-25: 1.3
@@ -8,5 +8,5 @@ metadata:
   period: year
   label: Washington Birth to Three ECEAP income threshold as fraction of federal poverty guideline
   reference:
-    - title: RCW 43.216.505 Eligible children
-      href: https://app.leg.wa.gov/RCW/default.aspx?cite=43.216.505
+    - title: RCW 43.216.578 Birth to three ECEAP
+      href: https://app.leg.wa.gov/RCW/default.aspx?cite=43.216.578

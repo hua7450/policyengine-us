@@ -7,17 +7,17 @@ class wa_birth_to_three_eceap_income_eligible(Variable):
     label = "Income-eligible for Washington Birth to Three ECEAP"
     definition_period = YEAR
     defined_for = StateCode.WA
-    reference = (
-        "https://app.leg.wa.gov/RCW/default.aspx?cite=43.216.505",
-        "https://www.startearly.org/app/uploads/2021/06/Final-Summary-of-Fair-Start-for-Kids-Act.pdf#page=9",
-    )
+    reference = "https://app.leg.wa.gov/RCW/default.aspx?cite=43.216.578"
 
     def formula(person, period, parameters):
-        p = parameters(period).gov.states.wa.dcyf.eceap
+        # Birth to Three uses its own FPG/SMI toggle: 130% FPL until
+        # 2026-07-01, then 50% SMI. Standard ECEAP transitions on 2025-07-01,
+        # so we cannot share the parent toggle.
+        p = parameters(period).gov.states.wa.dcyf.eceap.birth_to_three_eceap
         spm_unit = person.spm_unit
         income = spm_unit("wa_eceap_family_income", period)
         if p.uses_fpg:
-            threshold = spm_unit("spm_unit_fpg", period) * p.birth_to_three_eceap.income.fpg_rate
+            threshold = spm_unit("spm_unit_fpg", period) * p.income.fpg_rate
         else:
-            threshold = spm_unit("hhs_smi", period) * p.birth_to_three_eceap.income.smi_rate
+            threshold = spm_unit("hhs_smi", period) * p.income.smi_rate
         return income <= threshold

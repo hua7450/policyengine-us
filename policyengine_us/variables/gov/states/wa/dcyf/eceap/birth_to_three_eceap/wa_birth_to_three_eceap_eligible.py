@@ -7,13 +7,15 @@ class wa_birth_to_three_eceap_eligible(Variable):
     label = "Eligible for Washington Birth to Three ECEAP"
     definition_period = YEAR
     defined_for = StateCode.WA
-    reference = (
-        "https://app.leg.wa.gov/RCW/default.aspx?cite=43.216.505",
-        "https://www.startearly.org/app/uploads/2021/06/Final-Summary-of-Fair-Start-for-Kids-Act.pdf#page=9",
-    )
+    reference = "https://app.leg.wa.gov/RCW/default.aspx?cite=43.216.578"
 
     def formula(person, period, parameters):
+        # RCW 43.216.578 differs from RCW 43.216.505: Birth to Three's only
+        # categorical pathway is Basic Food (federal SNAP or state FAP); it
+        # does NOT include the homeless or IEP pathways from standard ECEAP.
+        # FAP serves SNAP-ineligible legal immigrants and is not modeled
+        # separately at the moment, so we use is_snap_eligible as the proxy.
         age_eligible = person("wa_birth_to_three_eceap_age_eligible", period)
         income_eligible = person("wa_birth_to_three_eceap_income_eligible", period)
-        categorically_eligible = person("wa_eceap_categorically_eligible", period)
-        return age_eligible & (income_eligible | categorically_eligible)
+        snap_eligible = person.spm_unit("is_snap_eligible", period)
+        return age_eligible & (income_eligible | snap_eligible)
