@@ -1,3 +1,10 @@
+## [1.668.0] - 2026-04-26
+
+### Added
+
+- - Added 2026 ACA lowest-cost bronze plan (`lcbp`) rating-area premiums and bronze companion variables.
+
+
 ## [1.667.1] - 2026-04-25
 
 ### Fixed
