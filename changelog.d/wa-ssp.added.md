@@ -1,1 +1,1 @@
-Added Washington State Supplementary Payment (SSP) program.
+Implement Washington State Supplementary Payment for SSI recipients.
