@@ -22,10 +22,18 @@
   output:
     wa_eceap_age_eligible: true
 
-- name: Age 5, kindergarten-age, above ECEAP age range.
+- name: Age 5, generous reading - eligible to capture mid-year turn-5 carry-over.
   period: 2025
   input:
     age: 5
+    state_code: WA
+  output:
+    wa_eceap_age_eligible: true
+
+- name: Age 6, above ECEAP age range.
+  period: 2025
+  input:
+    age: 6
     state_code: WA
   output:
     wa_eceap_age_eligible: false

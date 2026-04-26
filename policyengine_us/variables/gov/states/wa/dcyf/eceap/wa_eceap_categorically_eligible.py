@@ -13,15 +13,8 @@ class wa_eceap_categorically_eligible(Variable):
     )
 
     def formula(person, period, parameters):
-        # Homeless, IEP, and prior Head Start enrollment are the three
-        # modelable categorical paths. Indian-child, ESIT, ECLIPSE, and IDEA
-        # Part C paths from RCW 43.216.505 are not modeled because we don't
-        # track tribal enrollment or these prior-program indicators at the
-        # moment. is_enrolled_in_head_start captures current federal Head Start
-        # enrollment as a loose proxy for the four statutory prior-participation
-        # pathways (Early Head Start, ESIT, birth-to-three ECEAP, IDEA Part C);
-        # the proxy understates eligibility for children no longer enrolled.
+        # Homeless and IEP are the two modelable categorical paths under
+        # RCW 43.216.505(4).
         is_homeless = person.household("is_homeless", period)
         has_iep = person("has_individualized_education_program", period)
-        prior_head_start = person("is_enrolled_in_head_start", period)
-        return is_homeless | has_iep | prior_head_start
+        return is_homeless | has_iep

@@ -24,7 +24,7 @@
         state_code: WA
   output:
     # Family of 3 at 130% FPL (2025) = $34,645 -> $28,000 < $34,645, income-eligible.
-    # Child age 4 within ECEAP age range (3-4).
+    # Child age 4 within ECEAP age range (3-5).
     wa_eceap_eligible: [false, true, false]
 
 - name: Family of 3 in 2026 at $42,000, ECEAP eligible under 36% SMI era.
@@ -142,7 +142,7 @@
     # Homelessness is a categorical path: eligible regardless of income.
     wa_eceap_eligible: [false, true]
 
-- name: 5-year-old at kindergarten age, not ECEAP eligible.
+- name: 6-year-old above ECEAP age range, not eligible.
   period: 2026
   input:
     people:
@@ -150,7 +150,7 @@
         age: 30
         employment_income: 20_000
       child:
-        age: 5
+        age: 6
         employment_income: 0
     spm_units:
       spm_unit:
@@ -164,7 +164,7 @@
         members: [parent, child]
         state_code: WA
   output:
-    # Age 5 is above ECEAP age range (3-4).
+    # Age 6 is above the generous ECEAP age range (3-5).
     wa_eceap_eligible: [false, false]
 
 - name: Oregon family with 4-year-old and low income, not eligible due to residency.
@@ -218,7 +218,7 @@
         members: [parent, child_early, child_eceap]
         state_code: WA
   output:
-    # Only the 4-year-old qualifies for ECEAP (age 3-4 range).
+    # Only the 4-year-old qualifies for ECEAP (age 3-5 range; 2-year-old too young).
     wa_eceap_eligible: [false, false, true]
 
 - name: High-income family with IEP child, ECEAP eligible via categorical path.
@@ -245,31 +245,6 @@
         state_code: WA
   output:
     # Income above any threshold but IEP is categorical path.
-    wa_eceap_eligible: [false, true]
-
-- name: High-income family with prior Head Start child, ECEAP eligible via categorical path.
-  period: 2026
-  input:
-    people:
-      parent:
-        age: 30
-        employment_income: 120_000
-      child:
-        age: 4
-        employment_income: 0
-        is_enrolled_in_head_start: true
-    spm_units:
-      spm_unit:
-        members: [parent, child]
-        tanf: 0
-    tax_units:
-      tax_unit:
-        members: [parent, child]
-    households:
-      household:
-        members: [parent, child]
-        state_code: WA
-  output:
     wa_eceap_eligible: [false, true]
 
 - name: Idaho family with 4-year-old and low income, not eligible due to residency.

@@ -14,5 +14,5 @@ class wa_early_eceap_age_eligible(Variable):
 
     def formula(person, period, parameters):
         age = person("age", period)
-        p = parameters(period).gov.states.wa.dcyf.eceap.early_eceap.eligibility
+        p = parameters(period).gov.states.wa.dcyf.eceap.early_eceap
         return age < p.age_limit

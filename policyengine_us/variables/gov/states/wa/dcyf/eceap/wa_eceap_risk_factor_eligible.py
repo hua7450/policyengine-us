@@ -13,28 +13,25 @@ class wa_eceap_risk_factor_eligible(Variable):
     )
 
     def formula(person, period, parameters):
-        eceap = parameters(period).gov.states.wa.dcyf.eceap
-        p = eceap.eligibility.income
+        p = parameters(period).gov.states.wa.dcyf.eceap
         # The risk-factor pathway (RCW 43.216.512) expires 2030-08-01, when
         # the standard threshold rises to 50% SMI and the pathway becomes
         # redundant.
-        if not p.risk_factor_pathway.in_effect:
+        if not p.income.risk_factor_pathway.in_effect:
             return False
 
         spm_unit = person.spm_unit
-        # DCYF income verification (WAC 110-425-0080) counts market income plus
-        # cash transfers (TANF, SSI, Social Security) and child support; the
-        # broader ccdf_income excludes government transfers and so understates
-        # ECEAP family income.
         income = spm_unit("wa_eceap_family_income", period)
-        if eceap.uses_fpg:
+        # The risk-factor band starts where the standard pathway ends, so the
+        # lower bound reuses the parent fpg_rate / smi_rate parameter.
+        if p.uses_fpg:
             fpg = spm_unit("spm_unit_fpg", period)
-            lower_bound = fpg * p.risk_factor_pathway.lower_fpg_rate
-            upper_bound = fpg * p.risk_factor_pathway.fpg_rate
+            lower_bound = fpg * p.income.fpg_rate
+            upper_bound = fpg * p.income.risk_factor_pathway.fpg_rate
         else:
             smi = spm_unit("hhs_smi", period)
-            lower_bound = smi * p.smi_rate
-            upper_bound = smi * p.risk_factor_pathway.smi_rate
+            lower_bound = smi * p.income.smi_rate
+            upper_bound = smi * p.income.risk_factor_pathway.smi_rate
         in_income_band = (income > lower_bound) & (income <= upper_bound)
 
         # Modelable risk factors from RCW 43.216.512 and DCYF priority points.

@@ -8,7 +8,5 @@ metadata:
   period: year
   label: Washington Early ECEAP income threshold as fraction of federal poverty guideline
   reference:
-    - title: "HB 1945 House Bill Report (Feb 2024): \"The Birth to Three ECEAP serves children under 36 months old with a family income at or below 130 percent of the FPL.\""
-      href: https://lawfilesext.leg.wa.gov/biennium/2023-24/Pdf/Bill%20Reports/House/1945-S%20HBR%20APH%2024.pdf
     - title: RCW 43.216.505 Eligible children
       href: https://app.leg.wa.gov/RCW/default.aspx?cite=43.216.505
