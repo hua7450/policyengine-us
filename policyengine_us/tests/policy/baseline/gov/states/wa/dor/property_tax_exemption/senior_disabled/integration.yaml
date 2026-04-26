@@ -1,0 +1,354 @@
+# Integration tests for Washington Senior Citizens and Disabled Persons
+# Property Tax Exemption (RCW 84.36.379-389; WAC 458-16A-100..150).
+#
+# Eligibility: age 61+ OR social_security_disability > 0; SPM-unit owner-occupant;
+# combined disposable income (annual) <= Tier 3 threshold for the household's county.
+#
+# Combined disposable income (RCW 84.36.383(7), simplified):
+#   add-backs: AGI + tax_exempt_pension_income + military_basic_pay + veterans_benefits
+#              + tax_exempt_social_security + tax_exempt_interest_income + capital_gains
+#              + qualified_dividend_income
+#   deductions: medical_out_of_pocket_expenses + long_term_health_insurance_premiums
+#
+# Tier reduction rates (statewide approximations of the layered statutory exemption):
+#   Tier 1 (income <= T1): 0.8 * real_estate_taxes
+#   Tier 2 (T1 < income <= T2): 0.6 * real_estate_taxes
+#   Tier 3 (T2 < income <= T3): 0.4 * real_estate_taxes
+#   Above T3: $0 (ineligible)
+
+- name: Case 1, eligible senior in King County qualifies for Tier 1.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 65
+        real_estate_taxes: 7_200
+    tax_units:
+      tax_unit:
+        members: [person1]
+        adjusted_gross_income: 40_000
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: WA
+        county: KING_COUNTY_WA
+        tenure_type: OWNED_OUTRIGHT
+  output:
+    # combined_disposable_income = AGI = 40_000 (no add-backs / deductions)
+    # King County 2024: T1=$60k, T2=$72k, T3=$84k
+    # 40_000 <= T1 60_000 -> Tier 1
+    wa_pte_age_eligible: true
+    wa_pte_owner_occupant: true
+    wa_pte_income_eligible: true
+    wa_pte_eligible: true
+    wa_pte_tier: 1
+    # 7_200 / 12 = 600 monthly; 600 * 0.8 = 480
+    wa_senior_disabled_property_tax_exemption: 480
+
+- name: Case 2, eligible disabled person under age threshold qualifies for Tier 1.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 45
+        social_security_disability: 12_000
+        real_estate_taxes: 4_800
+    tax_units:
+      tax_unit:
+        members: [person1]
+        adjusted_gross_income: 25_000
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: WA
+        county: KING_COUNTY_WA
+        tenure_type: OWNED_WITH_MORTGAGE
+  output:
+    # combined_disposable_income = AGI 25_000 (SSDI typically already in AGI)
+    # 25_000 <= T1 60_000 -> Tier 1
+    wa_pte_age_eligible: false
+    wa_pte_disability_eligible: true
+    wa_pte_eligible: true
+    wa_pte_tier: 1
+    # 4_800 / 12 = 400 monthly; 400 * 0.8 = 320
+    wa_senior_disabled_property_tax_exemption: 320
+
+- name: Case 3, King County income just at Tier 2 boundary gets 60% reduction.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 70
+        real_estate_taxes: 6_000
+    tax_units:
+      tax_unit:
+        members: [person1]
+        adjusted_gross_income: 72_000
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: WA
+        county: KING_COUNTY_WA
+        tenure_type: OWNED_OUTRIGHT
+  output:
+    # King County 2024 T2 = $72,000
+    # 72_000 > T1 (60_000) and <= T2 (72_000) -> Tier 2
+    wa_pte_eligible: true
+    wa_pte_tier: 2
+    # 6_000 / 12 = 500 monthly; 500 * 0.6 = 300
+    wa_senior_disabled_property_tax_exemption: 300
+
+- name: Case 4, King County income just at Tier 3 boundary gets 40% reduction.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 70
+        real_estate_taxes: 6_000
+    tax_units:
+      tax_unit:
+        members: [person1]
+        adjusted_gross_income: 84_000
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: WA
+        county: KING_COUNTY_WA
+        tenure_type: OWNED_OUTRIGHT
+  output:
+    # King County 2024 T3 = $84,000
+    # 84_000 > T2 (72_000) and <= T3 (84_000) -> Tier 3
+    wa_pte_eligible: true
+    wa_pte_tier: 3
+    # 6_000 / 12 = 500 monthly; 500 * 0.4 = 200
+    wa_senior_disabled_property_tax_exemption: 200
+
+- name: Case 5, King County income just over Tier 3 is ineligible.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 70
+        real_estate_taxes: 6_000
+    tax_units:
+      tax_unit:
+        members: [person1]
+        adjusted_gross_income: 84_001
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: WA
+        county: KING_COUNTY_WA
+        tenure_type: OWNED_OUTRIGHT
+  output:
+    # 84_001 > T3 (84_000) -> ineligible
+    wa_pte_income_eligible: false
+    wa_pte_eligible: false
+    wa_pte_tier: 0
+    wa_senior_disabled_property_tax_exemption: 0
+
+- name: Case 6, senior renter is ineligible.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 70
+        real_estate_taxes: 0
+    tax_units:
+      tax_unit:
+        members: [person1]
+        adjusted_gross_income: 30_000
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: WA
+        county: KING_COUNTY_WA
+        tenure_type: RENTED
+  output:
+    wa_pte_age_eligible: true
+    wa_pte_owner_occupant: false
+    wa_pte_eligible: false
+    wa_senior_disabled_property_tax_exemption: 0
+
+- name: Case 7, young owner without disability is ineligible.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 50
+        social_security_disability: 0
+        real_estate_taxes: 5_000
+    tax_units:
+      tax_unit:
+        members: [person1]
+        adjusted_gross_income: 40_000
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: WA
+        county: KING_COUNTY_WA
+        tenure_type: OWNED_WITH_MORTGAGE
+  output:
+    wa_pte_age_eligible: false
+    wa_pte_disability_eligible: false
+    wa_pte_eligible: false
+    wa_senior_disabled_property_tax_exemption: 0
+
+- name: Case 8, same income eligible in King County but ineligible in Adams County.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 70
+        real_estate_taxes: 4_800
+    tax_units:
+      tax_unit:
+        members: [person1]
+        adjusted_gross_income: 50_000
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: WA
+        county: ADAMS_COUNTY_WA
+        tenure_type: OWNED_OUTRIGHT
+  output:
+    # Adams County 2024: T1=$30,300, T2=$36,000, T3=$41,000
+    # 50_000 > T3 (41_000) -> ineligible
+    wa_pte_income_eligible: false
+    wa_pte_eligible: false
+    wa_pte_tier: 0
+    wa_senior_disabled_property_tax_exemption: 0
+
+- name: Case 9, negative countable income does not inflate benefit beyond cap.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 70
+        real_estate_taxes: 6_000
+    tax_units:
+      tax_unit:
+        members: [person1]
+        adjusted_gross_income: -5_000_000
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: WA
+        county: KING_COUNTY_WA
+        tenure_type: OWNED_OUTRIGHT
+  output:
+    # combined_disposable_income = -5,000,000 still falls under Tier 1
+    # Benefit must be capped at monthly real_estate_taxes * tier_1_rate, not inflated
+    # 6_000 / 12 = 500; 500 * 0.8 = 400
+    wa_pte_eligible: true
+    wa_pte_tier: 1
+    wa_senior_disabled_property_tax_exemption: 400
+
+- name: Case 10, 2019 King County pre-2020 thresholds - $40k income at Tier 3 boundary.
+  period: 2019-01
+  input:
+    people:
+      person1:
+        age: 70
+        real_estate_taxes: 6_000
+    tax_units:
+      tax_unit:
+        members: [person1]
+        adjusted_gross_income: 40_000
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: WA
+        county: KING_COUNTY_WA
+        tenure_type: OWNED_OUTRIGHT
+  output:
+    # Pre-2020 statewide flat: T1=$30k, T2=$35k, T3=$40k
+    # Same income/county pair gets a different tier across years; verifies
+    # historical thresholds load correctly (vs Case 1 where 40k = Tier 1 in 2024)
+    wa_pte_eligible: true
+    wa_pte_tier: 3
+    # 6_000/12 * 0.4 = 200
+    wa_senior_disabled_property_tax_exemption: 200
+
+- name: Case 11, OR state household receives no benefit.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 70
+        real_estate_taxes: 6_000
+    tax_units:
+      tax_unit:
+        members: [person1]
+        adjusted_gross_income: 30_000
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: OR
+        tenure_type: OWNED_OUTRIGHT
+  output:
+    # defined_for = StateCode.WA on wa_pte_eligible blocks calculation
+    wa_pte_eligible: false
+    wa_senior_disabled_property_tax_exemption: 0
+
+- name: Case 12, married couple combined AGI determines tier.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 70
+        real_estate_taxes: 4_800
+      person2:
+        age: 68
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+        adjusted_gross_income: 80_000
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: WA
+        county: KING_COUNTY_WA
+        tenure_type: OWNED_OUTRIGHT
+  output:
+    # Combined AGI 80k > T2 72k and <= T3 84k -> Tier 3
+    # 4800/12 * 0.4 = 160
+    wa_pte_eligible: true
+    wa_pte_tier: 3
+    wa_senior_disabled_property_tax_exemption: 160

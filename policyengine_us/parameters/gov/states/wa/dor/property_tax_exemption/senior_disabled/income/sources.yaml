@@ -1,0 +1,30 @@
+description: Washington counts these income sources toward combined disposable income under the Senior Citizens and Disabled Persons Property Tax Exemption program.
+values:
+  2008-01-01:
+    - adjusted_gross_income
+    # RCW 84.36.383(7)(d) — pension and annuity receipts not in AGI
+    - tax_exempt_pension_income
+    # RCW 84.36.383(7)(e) — military pay/benefits not in AGI
+    - military_basic_pay
+    # RCW 84.36.383(7)(f) — veterans benefits not in AGI; statute excludes attendant-care, medical-aid, VA disability comp, DIC. Not modeled — we don't track these subcomponents at the moment.
+    - veterans_benefits
+    # RCW 84.36.383(7)(g) — Social Security and Railroad Retirement not in AGI
+    - tax_exempt_social_security
+    # RCW 84.36.383(7)(i) — state/municipal bond interest not in AGI
+    - tax_exempt_interest_income
+    # RCW 84.36.383(7)(a) — capital gains. Statute carves out the §121 home-sale reinvested gain. Not modeled — we don't track reinvestment status at the moment.
+    - capital_gains
+    # RCW 84.36.383(7)(h) — dividends. AGI already captures ordinary dividends; this adds qualified-dividend amounts otherwise excluded.
+    - qualified_dividend_income
+
+metadata:
+  unit: list
+  period: year
+  label: Washington senior/disabled property tax exemption combined disposable income sources
+  reference:
+    - title: RCW 84.36.383(7)
+      href: https://app.leg.wa.gov/RCW/default.aspx?cite=84.36.383
+    - title: WAC 458-16A-120
+      href: https://app.leg.wa.gov/WAC/default.aspx?cite=458-16A-120
+    - title: Washington DOR Property Tax Exemption for Senior Citizens and People with Disabilities (PT0017)
+      href: https://dor.wa.gov/sites/default/files/2022-02/PTExemption_Senior.pdf

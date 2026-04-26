@@ -1,0 +1,223 @@
+- name: Case 1, Tier 1 senior in King County receives 80% reduction.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 70
+        real_estate_taxes: 6_000
+    tax_units:
+      tax_unit:
+        members: [person1]
+        adjusted_gross_income: 40_000
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: WA
+        county: KING_COUNTY_WA
+        tenure_type: OWNED_OUTRIGHT
+  output:
+    # Tier 1 (income $40k <= $60k T1)
+    # Annual taxes $6,000 -> monthly $500
+    # Monthly benefit: $500 * 0.8 = $400
+    wa_senior_disabled_property_tax_exemption: 400
+
+- name: Case 2, Tier 2 senior in King County receives 60% reduction.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 70
+        real_estate_taxes: 6_000
+    tax_units:
+      tax_unit:
+        members: [person1]
+        adjusted_gross_income: 70_000
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: WA
+        county: KING_COUNTY_WA
+        tenure_type: OWNED_OUTRIGHT
+  output:
+    # Tier 2 (income $70k > T1 $60k and <= T2 $72k)
+    # Monthly benefit: $500 * 0.6 = $300
+    wa_senior_disabled_property_tax_exemption: 300
+
+- name: Case 3, Tier 3 senior in King County receives 40% reduction.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 70
+        real_estate_taxes: 6_000
+    tax_units:
+      tax_unit:
+        members: [person1]
+        adjusted_gross_income: 80_000
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: WA
+        county: KING_COUNTY_WA
+        tenure_type: OWNED_OUTRIGHT
+  output:
+    # Tier 3 (income $80k > T2 $72k and <= T3 $84k)
+    # Monthly benefit: $500 * 0.4 = $200
+    wa_senior_disabled_property_tax_exemption: 200
+
+- name: Case 4, ineligible household receives no benefit.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 70
+        real_estate_taxes: 6_000
+    tax_units:
+      tax_unit:
+        members: [person1]
+        adjusted_gross_income: 100_000
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: WA
+        county: KING_COUNTY_WA
+        tenure_type: OWNED_OUTRIGHT
+  output:
+    # Income $100k > T3 $84k -> ineligible
+    wa_senior_disabled_property_tax_exemption: 0
+
+- name: Case 5, negative countable income does not inflate benefit beyond cap.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 70
+        real_estate_taxes: 6_000
+    tax_units:
+      tax_unit:
+        members: [person1]
+        adjusted_gross_income: -5_000_000
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: WA
+        county: KING_COUNTY_WA
+        tenure_type: OWNED_OUTRIGHT
+  output:
+    # Negative income still falls under Tier 1
+    # Benefit capped at real_estate_taxes/12 * tier_1_rate, never inflated
+    # $500 * 0.8 = $400
+    wa_senior_disabled_property_tax_exemption: 400
+
+- name: Case 6, zero real_estate_taxes yields zero benefit even when eligible.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 70
+        real_estate_taxes: 0
+    tax_units:
+      tax_unit:
+        members: [person1]
+        adjusted_gross_income: 40_000
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: WA
+        county: KING_COUNTY_WA
+        tenure_type: OWNED_OUTRIGHT
+  output:
+    # Tier 1 eligible, but no tax bill -> 0 * 0.8 = 0
+    wa_senior_disabled_property_tax_exemption: 0
+
+- name: Case 7, zero AGI senior in King County qualifies for Tier 1.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 70
+        real_estate_taxes: 4_800
+    tax_units:
+      tax_unit:
+        members: [person1]
+        adjusted_gross_income: 0
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: WA
+        county: KING_COUNTY_WA
+        tenure_type: OWNED_OUTRIGHT
+  output:
+    # No add-back categories present, income = 0 <= Tier 1 -> Tier 1
+    # 4800/12 * 0.8 = 320
+    wa_senior_disabled_property_tax_exemption: 320
+
+- name: Case 8, OR state household receives no benefit (defined_for filter).
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 70
+        real_estate_taxes: 6_000
+    tax_units:
+      tax_unit:
+        members: [person1]
+        adjusted_gross_income: 30_000
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: OR
+        tenure_type: OWNED_OUTRIGHT
+  output:
+    # defined_for = StateCode.WA on wa_pte_eligible blocks the benefit
+    wa_senior_disabled_property_tax_exemption: 0
+
+- name: Case 9, age 60 with SSDI is benefit-eligible via disability path.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 60
+        social_security_disability: 12_000
+        real_estate_taxes: 6_000
+    tax_units:
+      tax_unit:
+        members: [person1]
+        adjusted_gross_income: 30_000
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: WA
+        county: KING_COUNTY_WA
+        tenure_type: OWNED_OUTRIGHT
+  output:
+    # Age 60 < 61 (not age-eligible), but SSDI > 0 (disability-eligible)
+    # Tier 1 (30k <= 60k); 6000/12 * 0.8 = 400
+    wa_senior_disabled_property_tax_exemption: 400
