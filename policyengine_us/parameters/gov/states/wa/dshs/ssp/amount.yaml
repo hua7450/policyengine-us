@@ -1,0 +1,43 @@
+description: Washington provides this amount as the monthly supplement under the State Supplementary Payment program.
+
+metadata:
+  unit: currency-USD
+  period: month
+  label: Washington SSP supplement amount
+  breakdown:
+    - wa_ssp_payment_category
+  reference:
+    - title: WAC 388-478-0055 Monthly state supplemental payment standards
+      href: https://app.leg.wa.gov/wac/default.aspx?cite=388-478-0055
+    - title: WSR 06-16-071 (eff. 2006-08-28)
+      href: https://lawfilesext.leg.wa.gov/law/wsr/2006/16/06-16-071.htm
+    - title: WSR 07-22-022 (eff. 2007-11-26)
+      href: https://lawfilesext.leg.wa.gov/law/wsr/2007/22/07-22-022.htm
+    - title: WSR 08-16-067 (eff. 2008-09-01)
+      href: https://lawfilesext.leg.wa.gov/law/wsr/2008/16/08-16-067.htm
+    - title: WSR 13-22-037 (eff. 2013-12-01)
+      href: https://lawfilesext.leg.wa.gov/law/wsr/2013/22/13-22-037.htm
+    - title: WSR 18-24-032 (eff. 2019-01-01)
+      href: https://lawfilesext.leg.wa.gov/law/wsr/2018/24/18-24-032.htm
+    - title: WSR 20-23-053 (eff. 2021-01-01)
+      href: https://lawfilesext.leg.wa.gov/law/wsr/2020/23/20-23-053.htm
+    - title: WSR 23-24-009 (eff. 2023-12-28)
+      href: https://lawfilesext.leg.wa.gov/law/wsr/2023/24/23-24-009.htm
+    - title: WSR 24-06-025 (eff. 2024-04-01)
+      href: https://lawfilesext.leg.wa.gov/law/wsr/2024/06/24-06-025.htm
+
+STANDARD:
+  2006-08-28: 46
+  2013-12-01: 40
+  2021-01-01: 38.25
+  2024-04-01: 35.50
+
+MEDICAL_INSTITUTION:
+  2006-08-28: 23.68
+  2007-11-26: 25.45
+  2008-09-01: 27.28
+  2019-01-01: 40
+  2023-12-28: 70
+
+NONE:
+  2006-08-28: 0
