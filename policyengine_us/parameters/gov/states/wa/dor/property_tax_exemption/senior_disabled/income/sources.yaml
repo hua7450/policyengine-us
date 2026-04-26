@@ -12,10 +12,18 @@ values:
     - tax_exempt_social_security
     # RCW 84.36.383(7)(i) — state/municipal bond interest not in AGI
     - tax_exempt_interest_income
-    # RCW 84.36.383(7)(a) — capital gains. Statute carves out the §121 home-sale reinvested gain. Not modeled — we don't track reinvestment status at the moment.
-    - capital_gains
-    # RCW 84.36.383(7)(h) — dividends. AGI already captures ordinary dividends; this adds qualified-dividend amounts otherwise excluded.
-    - qualified_dividend_income
+    # RCW 84.36.383(7)(a) — capital gains add-back. AGI already includes
+    # net capital gains (capped by the federal $3,000 loss limit), so the
+    # statutory add-back targets the §121 home-sale gain that taxpayers
+    # excluded from AGI. Not modeled — we don't have a separate variable
+    # for the §121 home-sale exclusion at the moment.
+    # RCW 84.36.383(7)(b)/(c) — depreciation and capital/business/rental
+    # loss add-backs. Not modeled — we don't track these subcomponents
+    # of AGI separately at the moment.
+    # RCW 84.36.383(7)(h) — dividend receipts not in AGI (e.g., certain
+    # tax-exempt fund distributions). Not modeled — qualified and ordinary
+    # dividends already flow through AGI; we don't have a variable for
+    # non-AGI dividend receipts at the moment.
 
 metadata:
   unit: list

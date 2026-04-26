@@ -6,8 +6,7 @@
 #
 # Combined disposable income (RCW 84.36.383(7), simplified):
 #   add-backs: AGI + tax_exempt_pension_income + military_basic_pay + veterans_benefits
-#              + tax_exempt_social_security + tax_exempt_interest_income + capital_gains
-#              + qualified_dividend_income
+#              + tax_exempt_social_security + tax_exempt_interest_income
 #   deductions: medical_out_of_pocket_expenses + long_term_health_insurance_premiums
 #
 # Tier reduction rates (statewide approximations of the layered statutory exemption):

@@ -129,3 +129,91 @@
   output:
     # 84,001 > 84,000 -> ineligible (verifies <= boundary)
     wa_pte_income_eligible: false
+
+- name: Case 7, 2022 King County (2020-2023 era) income at Tier 3 is eligible.
+  period: 2022-01
+  input:
+    people:
+      person1:
+        age: 70
+    tax_units:
+      tax_unit:
+        members: [person1]
+        adjusted_gross_income: 58_423
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: WA
+        county: KING_COUNTY_WA
+  output:
+    # King County 2020-2023 era T3 = $58,423; income at threshold -> eligible
+    wa_pte_income_eligible: true
+
+- name: Case 8, 2022 King County (2020-2023 era) income above Tier 3 is ineligible.
+  period: 2022-01
+  input:
+    people:
+      person1:
+        age: 70
+    tax_units:
+      tax_unit:
+        members: [person1]
+        adjusted_gross_income: 60_000
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: WA
+        county: KING_COUNTY_WA
+  output:
+    # King County 2020-2023 era T3 = $58,423; $60,000 > T3 -> ineligible
+    wa_pte_income_eligible: false
+
+- name: Case 9, 2028 King County (2027-2029 era) income at Tier 3 is eligible.
+  period: 2028-01
+  input:
+    people:
+      person1:
+        age: 70
+    tax_units:
+      tax_unit:
+        members: [person1]
+        adjusted_gross_income: 101_000
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: WA
+        county: KING_COUNTY_WA
+  output:
+    # King County 2027-2029 era T3 = $101,000; income at threshold -> eligible
+    wa_pte_income_eligible: true
+
+- name: Case 10, 2028 King County (2027-2029 era) income above Tier 3 is ineligible.
+  period: 2028-01
+  input:
+    people:
+      person1:
+        age: 70
+    tax_units:
+      tax_unit:
+        members: [person1]
+        adjusted_gross_income: 110_000
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: WA
+        county: KING_COUNTY_WA
+  output:
+    # King County 2027-2029 era T3 = $101,000; $110,000 > T3 -> ineligible
+    wa_pte_income_eligible: false
