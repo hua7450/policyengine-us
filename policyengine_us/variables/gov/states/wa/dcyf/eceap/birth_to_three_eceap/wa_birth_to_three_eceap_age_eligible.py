@@ -1,10 +1,10 @@
 from policyengine_us.model_api import *
 
 
-class wa_early_eceap_eligible(Variable):
+class wa_birth_to_three_eceap_age_eligible(Variable):
     value_type = bool
     entity = Person
-    label = "Eligible for Washington Early ECEAP"
+    label = "Age-eligible for Washington Birth to Three ECEAP"
     definition_period = YEAR
     defined_for = StateCode.WA
     reference = (
@@ -13,7 +13,6 @@ class wa_early_eceap_eligible(Variable):
     )
 
     def formula(person, period, parameters):
-        age_eligible = person("wa_early_eceap_age_eligible", period)
-        income_eligible = person("wa_early_eceap_income_eligible", period)
-        categorically_eligible = person("wa_eceap_categorically_eligible", period)
-        return age_eligible & (income_eligible | categorically_eligible)
+        age = person("age", period)
+        p = parameters(period).gov.states.wa.dcyf.eceap.birth_to_three_eceap
+        return age < p.age_limit

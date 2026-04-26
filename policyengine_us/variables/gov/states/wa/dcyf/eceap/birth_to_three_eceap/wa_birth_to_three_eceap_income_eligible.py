@@ -1,10 +1,10 @@
 from policyengine_us.model_api import *
 
 
-class wa_early_eceap_income_eligible(Variable):
+class wa_birth_to_three_eceap_income_eligible(Variable):
     value_type = bool
     entity = Person
-    label = "Income-eligible for Washington Early ECEAP"
+    label = "Income-eligible for Washington Birth to Three ECEAP"
     definition_period = YEAR
     defined_for = StateCode.WA
     reference = (
@@ -17,7 +17,7 @@ class wa_early_eceap_income_eligible(Variable):
         spm_unit = person.spm_unit
         income = spm_unit("wa_eceap_family_income", period)
         if p.uses_fpg:
-            threshold = spm_unit("spm_unit_fpg", period) * p.early_eceap.income.fpg_rate
+            threshold = spm_unit("spm_unit_fpg", period) * p.birth_to_three_eceap.income.fpg_rate
         else:
-            threshold = spm_unit("hhs_smi", period) * p.early_eceap.income.smi_rate
+            threshold = spm_unit("hhs_smi", period) * p.birth_to_three_eceap.income.smi_rate
         return income <= threshold

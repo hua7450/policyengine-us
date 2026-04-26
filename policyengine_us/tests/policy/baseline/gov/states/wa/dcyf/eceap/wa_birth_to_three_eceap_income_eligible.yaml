@@ -25,7 +25,7 @@
   output:
     # 130% FPL family of 3 in 2025 = ($15,650 + 2*$5,500) * 1.30 = $34,645.
     # $34,000 < $34,645, so income-eligible.
-    wa_early_eceap_income_eligible: [true, true, true]
+    wa_birth_to_three_eceap_income_eligible: [true, true, true]
 
 - name: 2025 FPL era, family of 3 at $40,000, above 130% FPL threshold.
   period: 2025
@@ -53,7 +53,7 @@
         state_code: WA
   output:
     # 130% FPL family of 3 in 2025 = $34,645. $40,000 > $34,645, so not eligible.
-    wa_early_eceap_income_eligible: [false, false, false]
+    wa_birth_to_three_eceap_income_eligible: [false, false, false]
 
 - name: 2025 family of 3 at exactly 130% FPL ($34,645), boundary-eligible.
   period: 2025
@@ -81,7 +81,7 @@
         state_code: WA
   output:
     # 130% FPL family of 3 in 2025 = ($15,650 + 2*$5,500) * 1.30 = $34,645; at-boundary is eligible.
-    wa_early_eceap_income_eligible: [true, true, true]
+    wa_birth_to_three_eceap_income_eligible: [true, true, true]
 
 - name: 2025 family of 3 at $34,646, one dollar above 130% FPL, not eligible.
   period: 2025
@@ -108,7 +108,7 @@
         members: [parent, child, sibling]
         state_code: WA
   output:
-    wa_early_eceap_income_eligible: [false, false, false]
+    wa_birth_to_three_eceap_income_eligible: [false, false, false]
 
 - name: 2026 family of 3 at $55,000, below 50% SMI threshold.
   period: 2026
@@ -137,7 +137,7 @@
   output:
     # 50% SMI for WA family of 3 = $58,511 (DCYF 2026 SMI chart).
     # $55,000 < $58,511, so income-eligible.
-    wa_early_eceap_income_eligible: [true, true, true]
+    wa_birth_to_three_eceap_income_eligible: [true, true, true]
 
 - name: 2026 family of 3 at $65,000, above 50% SMI threshold.
   period: 2026
@@ -165,7 +165,7 @@
         state_code: WA
   output:
     # 50% SMI family of 3 in 2026 ~= $61,701. $65,000 > threshold.
-    wa_early_eceap_income_eligible: [false, false, false]
+    wa_birth_to_three_eceap_income_eligible: [false, false, false]
 
 - name: 2026 family of 3 at $61,701, at 50% SMI threshold.
   period: 2026
@@ -193,7 +193,7 @@
         state_code: WA
   output:
     # 50% SMI family of 3 in 2026 ~= $61,701.43; at-boundary is eligible.
-    wa_early_eceap_income_eligible: [true, true, true]
+    wa_birth_to_three_eceap_income_eligible: [true, true, true]
 
 - name: Oregon family below threshold, not eligible due to residency.
   period: 2026
@@ -217,7 +217,7 @@
         members: [parent, child]
         state_code: OR
   output:
-    wa_early_eceap_income_eligible: [false, false]
+    wa_birth_to_three_eceap_income_eligible: [false, false]
 
 # ---- Edge cases ----
 
@@ -247,7 +247,7 @@
         state_code: WA
   output:
     # 50% SMI family of 3 in 2026 ~= $61,701.43 (after uprating); $61,701 <= threshold.
-    wa_early_eceap_income_eligible: [true, true, true]
+    wa_birth_to_three_eceap_income_eligible: [true, true, true]
 
 - name: 2026 family of 3 at $61,702, one dollar above 50% SMI floor, not eligible.
   period: 2026
@@ -274,7 +274,7 @@
         members: [parent, child, sibling]
         state_code: WA
   output:
-    wa_early_eceap_income_eligible: [false, false, false]
+    wa_birth_to_three_eceap_income_eligible: [false, false, false]
 
 - name: Zero income family with 1-year-old, eligible.
   period: 2026
@@ -298,7 +298,7 @@
         members: [parent, child]
         state_code: WA
   output:
-    wa_early_eceap_income_eligible: [true, true]
+    wa_birth_to_three_eceap_income_eligible: [true, true]
 
 - name: 2026 family of 8 at $101,366, one dollar below 50% SMI floor, eligible.
   period: 2026
@@ -341,7 +341,7 @@
         state_code: WA
   output:
     # 50% SMI family of 8 in 2026 ~= $101,366.64. $101,366 <= threshold.
-    wa_early_eceap_income_eligible: [true, true, true, true, true, true, true, true]
+    wa_birth_to_three_eceap_income_eligible: [true, true, true, true, true, true, true, true]
 
 - name: 2026 family of 8 at $101,367, one dollar above 50% SMI floor, not eligible.
   period: 2026
@@ -383,7 +383,7 @@
         members: [parent1, parent2, c1, c2, c3, c4, c5, c6]
         state_code: WA
   output:
-    wa_early_eceap_income_eligible: [false, false, false, false, false, false, false, false]
+    wa_birth_to_three_eceap_income_eligible: [false, false, false, false, false, false, false, false]
 
 - name: Idaho family with 2-year-old, not eligible due to residency.
   period: 2026
@@ -407,4 +407,4 @@
         members: [parent, child]
         state_code: ID
   output:
-    wa_early_eceap_income_eligible: [false, false]
+    wa_birth_to_three_eceap_income_eligible: [false, false]

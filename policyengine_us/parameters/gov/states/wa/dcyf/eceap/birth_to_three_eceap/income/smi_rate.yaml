@@ -1,4 +1,4 @@
-description: Washington limits income to this fraction of the state median income when determining family financial need under the Early Childhood Education and Assistance Program for children under age three.
+description: Washington limits income to this fraction of the state median income when determining family financial need under the Birth to Three ECEAP.
 
 values:
   2025-10-01: 0.5
@@ -6,7 +6,7 @@ values:
 metadata:
   unit: /1
   period: year
-  label: Washington Early ECEAP income threshold as fraction of state median income
+  label: Washington Birth to Three ECEAP income threshold as fraction of state median income
   reference:
     - title: RCW 43.216.505 Eligible children
       href: https://app.leg.wa.gov/RCW/default.aspx?cite=43.216.505

@@ -1,4 +1,4 @@
-- name: Family of 3 with 2-year-old at $50,000 (within 50% SMI), Early ECEAP eligible.
+- name: Family of 3 with 2-year-old at $50,000 (within 50% SMI), Birth to Three ECEAP eligible.
   period: 2026
   input:
     people:
@@ -23,10 +23,10 @@
         state_code: WA
   output:
     # 50% SMI family of 3 = $58,511 -> $50,000 < $58,511, income-eligible.
-    # Child age 2 is under Early ECEAP age limit (3).
-    wa_early_eceap_eligible: [false, true, false]
+    # Child age 2 is under Birth to Three ECEAP age limit (3).
+    wa_birth_to_three_eceap_eligible: [false, true, false]
 
-- name: Family with 2-year-old at $65,000 (above 50% SMI), not Early ECEAP eligible.
+- name: Family with 2-year-old at $65,000 (above 50% SMI), not Birth to Three ECEAP eligible.
   period: 2026
   input:
     people:
@@ -51,9 +51,9 @@
         state_code: WA
   output:
     # $65,000 > 50% SMI (~$61,701). No categorical path. Not eligible.
-    wa_early_eceap_eligible: [false, false, false]
+    wa_birth_to_three_eceap_eligible: [false, false, false]
 
-- name: Family with 3-year-old at low income, not Early ECEAP eligible (age 3 is ECEAP, not Early).
+- name: Family with 3-year-old at low income, not Birth to Three ECEAP eligible (age 3 is ECEAP, not Early).
   period: 2026
   input:
     people:
@@ -74,10 +74,10 @@
         members: [parent, child]
         state_code: WA
   output:
-    # Age 3 is at Early ECEAP age limit (exclusive). Eligible for ECEAP instead.
-    wa_early_eceap_eligible: [false, false]
+    # Age 3 is at Birth to Three ECEAP age limit (exclusive). Eligible for ECEAP instead.
+    wa_birth_to_three_eceap_eligible: [false, false]
 
-- name: Homeless 1-year-old with high income, Early ECEAP eligible via categorical path.
+- name: Homeless 1-year-old with high income, Birth to Three ECEAP eligible via categorical path.
   period: 2026
   input:
     people:
@@ -99,7 +99,7 @@
         state_code: WA
         is_homeless: true
   output:
-    wa_early_eceap_eligible: [false, true]
+    wa_birth_to_three_eceap_eligible: [false, true]
 
 - name: Oregon family with 2-year-old at low income, not eligible due to residency.
   period: 2026
@@ -122,11 +122,11 @@
         members: [parent, child]
         state_code: OR
   output:
-    wa_early_eceap_eligible: [false, false]
+    wa_birth_to_three_eceap_eligible: [false, false]
 
 # ---- Edge cases ----
 
-- name: Multi-child family with 2-year-old and 4-year-old, only 2-year-old is Early ECEAP-eligible.
+- name: Multi-child family with 2-year-old and 4-year-old, only 2-year-old is Birth to Three ECEAP-eligible.
   period: 2026
   input:
     people:
@@ -150,10 +150,10 @@
         members: [parent, child_early, child_eceap]
         state_code: WA
   output:
-    # Only the 2-year-old qualifies for Early ECEAP (under age 3).
-    wa_early_eceap_eligible: [false, true, false]
+    # Only the 2-year-old qualifies for Birth to Three ECEAP (under age 3).
+    wa_birth_to_three_eceap_eligible: [false, true, false]
 
-- name: Age 0 infant with low income, Early ECEAP eligible.
+- name: Age 0 infant with low income, Birth to Three ECEAP eligible.
   period: 2026
   input:
     people:
@@ -174,9 +174,9 @@
         members: [parent, child]
         state_code: WA
   output:
-    wa_early_eceap_eligible: [false, true]
+    wa_birth_to_three_eceap_eligible: [false, true]
 
-- name: High-income family with 2-year-old with IEP, Early ECEAP eligible via categorical.
+- name: High-income family with 2-year-old with IEP, Birth to Three ECEAP eligible via categorical.
   period: 2026
   input:
     people:
@@ -198,7 +198,7 @@
         members: [parent, child]
         state_code: WA
   output:
-    wa_early_eceap_eligible: [false, true]
+    wa_birth_to_three_eceap_eligible: [false, true]
 
 - name: Idaho family with 2-year-old, not eligible due to residency.
   period: 2026
@@ -221,4 +221,4 @@
         members: [parent, child]
         state_code: ID
   output:
-    wa_early_eceap_eligible: [false, false]
+    wa_birth_to_three_eceap_eligible: [false, false]
