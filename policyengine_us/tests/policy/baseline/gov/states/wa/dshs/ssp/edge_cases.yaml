@@ -173,9 +173,9 @@
         state_code: WA
   output:
     # Both `in_medical_institution` and `in_standard_category` are true.
-    # `select()` lists MEDICAL_INSTITUTION first, so it wins -> 70, not 35.50.
+    # `select()` lists MEDICAL_INSTITUTION first, so it wins -> 75.78 (2025 COLA), not 35.50.
     wa_ssp_payment_category: MEDICAL_INSTITUTION
-    wa_ssp: [70]
+    wa_ssp: [75.78]
 
 - name: Case 9, married couple both SSI-eligible aged each receives STANDARD individually (no has_ineligible_spouse path).
   period: 2025-01

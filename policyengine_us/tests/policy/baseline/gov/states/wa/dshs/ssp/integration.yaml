@@ -147,9 +147,9 @@
   output:
     # ssi_federal_living_arrangement = MEDICAL_TREATMENT_FACILITY
     #   -> MEDICAL_INSTITUTION category (overrides STANDARD)
-    # 2025-01 medical institution rate = 70 (HB 1128 increase, eff. 2023-07-01)
+    # 2025-01 medical institution rate = 75.78 (HB 1128 increase eff. 2023-07-01, plus 2024+ COLA)
     wa_ssp_payment_category: MEDICAL_INSTITUTION
-    wa_ssp: [70]
+    wa_ssp: [75.78]
 
 - name: Case 7, historical 2010 aged SSI recipient receives 46 standard supplement.
   period: 2010-01
