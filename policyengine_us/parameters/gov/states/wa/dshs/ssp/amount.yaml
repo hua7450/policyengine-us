@@ -21,7 +21,9 @@ metadata:
       href: https://lawfilesext.leg.wa.gov/law/wsr/2018/24/18-24-032.htm
     - title: WSR 20-23-053 (eff. 2021-01-01)
       href: https://lawfilesext.leg.wa.gov/law/wsr/2020/23/20-23-053.htm
-    - title: WSR 23-24-009 (eff. 2023-12-28)
+    - title: WSR 23-14-065 (emergency, eff. 2023-07-01) — initial $70 medical institution rate per HB 1128
+      href: https://lawfilesext.leg.wa.gov/law/wsr/2023/14/23-14-065.htm
+    - title: WSR 23-24-009 (permanent, eff. 2023-12-28) — permanent adoption
       href: https://lawfilesext.leg.wa.gov/law/wsr/2023/24/23-24-009.htm
     - title: WSR 24-06-025 (eff. 2024-04-01)
       href: https://lawfilesext.leg.wa.gov/law/wsr/2024/06/24-06-025.htm
@@ -37,7 +39,7 @@ MEDICAL_INSTITUTION:
   2007-11-26: 25.45
   2008-09-01: 27.28
   2019-01-01: 40
-  2023-12-28: 70
+  2023-07-01: 70
 
 NONE:
   2006-08-28: 0
