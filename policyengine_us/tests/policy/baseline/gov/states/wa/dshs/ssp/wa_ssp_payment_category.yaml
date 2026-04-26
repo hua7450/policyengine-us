@@ -3,7 +3,7 @@
   input:
     age: 70
     is_ssi_eligible: true
-    uncapped_ssi: 12
+    ssi: 12
     state_code: WA
   output:
     wa_ssp_payment_category: STANDARD
@@ -14,29 +14,29 @@
     age: 40
     is_blind: true
     is_ssi_eligible: true
-    uncapped_ssi: 12
+    ssi: 12
     state_code: WA
   output:
     wa_ssp_payment_category: STANDARD
 
-- name: Disabled SSI recipient on or after 2023-12-28 maps to STANDARD
+- name: Disabled SSI recipient on or after 2023-07-01 maps to STANDARD
   period: 2024-01
   input:
     age: 40
     is_ssi_disabled: true
     is_ssi_eligible: true
-    uncapped_ssi: 12
+    ssi: 12
     state_code: WA
   output:
     wa_ssp_payment_category: STANDARD
 
-- name: Disabled-only SSI recipient before 2023-12-28 maps to NONE
+- name: Disabled-only SSI recipient before 2023-07-01 maps to NONE
   period: 2020-01
   input:
     age: 40
     is_ssi_disabled: true
     is_ssi_eligible: true
-    uncapped_ssi: 12
+    ssi: 12
     state_code: WA
   output:
     wa_ssp_payment_category: NONE
@@ -48,11 +48,11 @@
       person1:
         age: 70
         is_ssi_eligible: true
-        uncapped_ssi: 12
+        ssi: 12
       person2:
         age: 60
         is_ssi_eligible: false
-        uncapped_ssi: 0
+        ssi: 0
     marital_units:
       marital_unit:
         members: [person1, person2]
@@ -70,7 +70,7 @@
   input:
     age: 70
     is_ssi_eligible: true
-    uncapped_ssi: 12
+    ssi: 12
     ssi_lives_in_medical_treatment_facility: true
     ssi_medicaid_pays_majority_of_care: true
     state_code: WA
@@ -82,7 +82,7 @@
   input:
     age: 70
     is_ssi_eligible: true
-    uncapped_ssi: 12
+    ssi: 12
     state_code: OR
   output:
     wa_ssp_payment_category: NONE
@@ -92,7 +92,7 @@
   input:
     age: 70
     is_ssi_eligible: true
-    uncapped_ssi: 0
+    ssi: 0
     state_code: WA
   output:
     wa_ssp_payment_category: NONE
@@ -102,7 +102,7 @@
   input:
     age: 70
     is_ssi_eligible: false
-    uncapped_ssi: 0
+    ssi: 0
     state_code: WA
   output:
     wa_ssp_payment_category: NONE

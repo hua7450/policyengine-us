@@ -25,8 +25,16 @@ metadata:
       href: https://lawfilesext.leg.wa.gov/law/wsr/2023/14/23-14-065.htm
     - title: WSR 23-24-009 (permanent, eff. 2023-12-28) — permanent adoption
       href: https://lawfilesext.leg.wa.gov/law/wsr/2023/24/23-24-009.htm
+    - title: WSR 24-02-041 (emergency, eff. 2024-01-01)
+      href: https://lawfilesext.leg.wa.gov/law/wsr/2024/02/24-02EMER.pdf
     - title: WSR 24-06-025 (eff. 2024-04-01)
       href: https://lawfilesext.leg.wa.gov/law/wsr/2024/06/24-06-025.htm
+    - title: Washington Apple Health Income and Resource Standards (eff. 2024-01-01)
+      href: https://www.hca.wa.gov/assets/free-or-low-cost/income-standards-20240101.pdf
+    - title: Washington Apple Health Income and Resource Standards (eff. 2025-01-01)
+      href: https://www.hca.wa.gov/assets/free-or-low-cost/income-standards-20250101.pdf
+    - title: Washington Apple Health Income and Resource Standards (eff. 2026-01-01)
+      href: https://www.hca.wa.gov/assets/free-or-low-cost/income-standards-20260101.pdf
 
 STANDARD:
   2006-08-28: 46
@@ -40,6 +48,9 @@ MEDICAL_INSTITUTION:
   2008-09-01: 27.28
   2019-01-01: 40
   2023-07-01: 70
+  2024-01-01: 73.20
+  2025-01-01: 75.78
+  2026-01-01: 78.74
 
 NONE:
   2006-08-28: 0

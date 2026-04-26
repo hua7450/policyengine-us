@@ -19,14 +19,7 @@ class wa_ssp_payment_category(Variable):
 
     def formula(person, period, parameters):
         p = parameters(period).gov.states.wa.dshs.ssp
-        # WA SSP requires actual SSI receipt, not just categorical eligibility.
-        # We don't track SSP enrollment date at the moment, so anyone meeting
-        # the categorical criteria is treated as eligible — this overstates the
-        # true caseload because WA closed SSP to most new enrollees in 2023
-        # (DDA PVL, grandfathered/MIL, and BRS foster-child tracks not modeled).
-        is_ssi_eligible = person("is_ssi_eligible", period.this_year)
-        receives_ssi = person("uncapped_ssi", period.this_year) > 0
-        base_eligible = is_ssi_eligible & receives_ssi
+        base_eligible = person("ssi", period.this_year) > 0
 
         # SDX code D (medical treatment facility) maps to MEDICAL_INSTITUTION;
         # codes A/B/C (community living) map to STANDARD via the categorical paths.
@@ -48,11 +41,11 @@ class wa_ssp_payment_category(Variable):
         )
 
         marital_unit = person.marital_unit
-        ssi_eligible_count = marital_unit.sum(is_ssi_eligible)
+        ssi_recipient_count = marital_unit.sum(base_eligible)
         has_ineligible_spouse = (
             (marital_unit.nb_persons() == 2)
-            & (ssi_eligible_count == 1)
-            & is_ssi_eligible
+            & (ssi_recipient_count == 1)
+            & base_eligible
         )
 
         in_standard_category = aged | blind | disabled_qualifies | has_ineligible_spouse

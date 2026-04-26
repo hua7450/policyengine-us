@@ -1,4 +1,4 @@
-- name: Case 1, disabled-only person at 2023-01 ineligible (before WSR 23-24-009 effective date 2023-12-28).
+- name: Case 1, disabled-only person at 2023-01 ineligible (before WSR 23-14-065 effective date 2023-07-01).
   period: 2023-01
   absolute_error_margin: 0.01
   input:
@@ -7,7 +7,7 @@
         age: 40
         is_ssi_disabled: true
         is_ssi_eligible: true
-        uncapped_ssi: 12
+        ssi: 12
     spm_units:
       spm_unit:
         members: [person1]
@@ -16,12 +16,12 @@
         members: [person1]
         state_code: WA
   output:
-    # Disabled-category in_effect=false until 2023-12-28.
+    # Disabled-category in_effect=false until 2023-07-01.
     # 2023-01 -> NONE (not aged, not blind, no ineligible spouse).
     wa_ssp_payment_category: NONE
     wa_ssp: [0]
 
-- name: Case 2, disabled-only person at 2024-01 receives STANDARD 38.25 (post-WSR 23-24-009).
+- name: Case 2, disabled-only person at 2024-01 receives STANDARD 38.25 (post-WSR 23-14-065).
   period: 2024-01
   absolute_error_margin: 0.01
   input:
@@ -30,7 +30,7 @@
         age: 40
         is_ssi_disabled: true
         is_ssi_eligible: true
-        uncapped_ssi: 12
+        ssi: 12
     spm_units:
       spm_unit:
         members: [person1]
@@ -39,7 +39,7 @@
         members: [person1]
         state_code: WA
   output:
-    # Disabled-category in_effect flipped on 2023-12-28 -> STANDARD.
+    # Disabled-category in_effect flipped on 2023-07-01 -> STANDARD.
     # 2024-01 is before 2024-04-01 standard rate cut, so still 38.25 (2021-01-01 entry).
     wa_ssp_payment_category: STANDARD
     wa_ssp: [38.25]
@@ -52,7 +52,7 @@
       person1:
         age: 70
         is_ssi_eligible: true
-        uncapped_ssi: 12
+        ssi: 12
     spm_units:
       spm_unit:
         members: [person1]
@@ -72,7 +72,7 @@
       person1:
         age: 70
         is_ssi_eligible: true
-        uncapped_ssi: 12
+        ssi: 12
     spm_units:
       spm_unit:
         members: [person1]
@@ -92,7 +92,7 @@
       person1:
         age: 70
         is_ssi_eligible: true
-        uncapped_ssi: 12
+        ssi: 12
         ssi_lives_in_medical_treatment_facility: true
         ssi_medicaid_pays_majority_of_care: true
     spm_units:
@@ -107,7 +107,7 @@
     wa_ssp_payment_category: MEDICAL_INSTITUTION
     wa_ssp: [27.28]
 
-- name: Case 6, medical institution resident at 2023-01 still receives 40 (pre-WSR 23-24-009 increase to 70).
+- name: Case 6, medical institution resident at 2023-01 still receives 40 (pre-WSR 23-14-065 increase to 70).
   period: 2023-01
   absolute_error_margin: 0.01
   input:
@@ -115,7 +115,7 @@
       person1:
         age: 70
         is_ssi_eligible: true
-        uncapped_ssi: 12
+        ssi: 12
         ssi_lives_in_medical_treatment_facility: true
         ssi_medicaid_pays_majority_of_care: true
     spm_units:
@@ -126,7 +126,7 @@
         members: [person1]
         state_code: WA
   output:
-    # 2023-01 is before WSR 23-24-009 (eff. 2023-12-28) -> medical rate still 40.
+    # 2023-01 is before WSR 23-14-065 (eff. 2023-07-01) -> medical rate still 40.
     wa_ssp: [40]
 
 - name: Case 7, person who is both aged and blind still receives a single STANDARD payment.
@@ -138,7 +138,7 @@
         age: 70
         is_blind: true
         is_ssi_eligible: true
-        uncapped_ssi: 12
+        ssi: 12
     spm_units:
       spm_unit:
         members: [person1]
@@ -161,7 +161,7 @@
         age: 40
         is_blind: true
         is_ssi_eligible: true
-        uncapped_ssi: 12
+        ssi: 12
         ssi_lives_in_medical_treatment_facility: true
         ssi_medicaid_pays_majority_of_care: true
     spm_units:
@@ -185,11 +185,11 @@
       person1:
         age: 70
         is_ssi_eligible: true
-        uncapped_ssi: 12
+        ssi: 12
       person2:
         age: 68
         is_ssi_eligible: true
-        uncapped_ssi: 12
+        ssi: 12
     marital_units:
       marital_unit:
         members: [person1, person2]
@@ -214,11 +214,11 @@
       person1:
         age: 70
         is_ssi_eligible: true
-        uncapped_ssi: 12
+        ssi: 12
       person2:
         age: 50
         is_ssi_eligible: false
-        uncapped_ssi: 0
+        ssi: 0
     marital_units:
       marital_unit:
         members: [person1, person2]
@@ -244,7 +244,7 @@
       person1:
         age: 70
         is_ssi_eligible: true
-        uncapped_ssi: 0
+        ssi: 0
     spm_units:
       spm_unit:
         members: [person1]
@@ -266,7 +266,7 @@
       person1:
         age: 70
         is_ssi_eligible: true
-        uncapped_ssi: 12
+        ssi: 12
     spm_units:
       spm_unit:
         members: [person1]
@@ -287,7 +287,7 @@
       person1:
         age: 70
         is_ssi_eligible: true
-        uncapped_ssi: 12
+        ssi: 12
         ssi_lives_in_medical_treatment_facility: true
         ssi_medicaid_pays_majority_of_care: true
     spm_units:
@@ -309,7 +309,7 @@
       person1:
         age: 70
         is_ssi_eligible: true
-        uncapped_ssi: 12
+        ssi: 12
         ssi_lives_in_medical_treatment_facility: true
         ssi_medicaid_pays_majority_of_care: true
     spm_units:
@@ -332,7 +332,7 @@
       person1:
         age: 70
         is_ssi_eligible: true
-        uncapped_ssi: 12
+        ssi: 12
         ssi_lives_in_medical_treatment_facility: true
         ssi_medicaid_pays_majority_of_care: true
     spm_units:

@@ -34,16 +34,34 @@
   output:
     wa_ssp: 46
 
-- name: Medical institution rate of 70 in 2024 (post-2023-12-28 HB 1128 increase)
+- name: Medical institution rate of 73.20 in 2024 (post-2024-01-01 COLA)
   period: 2024-01
   absolute_error_margin: 0.01
   input:
     wa_ssp_payment_category: MEDICAL_INSTITUTION
     state_code: WA
   output:
-    wa_ssp: 70
+    wa_ssp: 73.20
 
-- name: Medical institution rate of 40 in 2020 (post-2019-01-01, pre-2023-12-28)
+- name: Medical institution rate of 75.78 in 2025
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    wa_ssp_payment_category: MEDICAL_INSTITUTION
+    state_code: WA
+  output:
+    wa_ssp: 75.78
+
+- name: Medical institution rate of 78.74 in 2026
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    wa_ssp_payment_category: MEDICAL_INSTITUTION
+    state_code: WA
+  output:
+    wa_ssp: 78.74
+
+- name: Medical institution rate of 40 in 2020 (post-2019-01-01, pre-2023-07-01)
   period: 2020-01
   absolute_error_margin: 0.01
   input:
