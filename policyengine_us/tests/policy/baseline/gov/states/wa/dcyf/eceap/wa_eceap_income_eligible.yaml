@@ -1,4 +1,4 @@
-- name: 2025 FPL era, family of 3 at $28,000, below 110% FPL threshold.
+- name: 2025 FPL era, family of 3 at $28,000, below 130% FPL ceiling, eligible.
   period: 2025
   input:
     people:
@@ -23,11 +23,11 @@
         members: [parent, child, sibling]
         state_code: WA
   output:
-    # 110% FPL family of 3 in 2025 = ($15,650 + 2*$5,500) * 1.10 = $29,315.
-    # $28,000 < $29,315, so income-eligible.
+    # 130% FPL family of 3 in 2025 = ($15,650 + 2*$5,500) * 1.30 = $34,645.
+    # $28,000 < $34,645, so income-eligible (within priority enrollment range below 110% FPL).
     wa_eceap_income_eligible: [true, true, true]
 
-- name: 2025 FPL era, family of 3 at $35,000, above 110% FPL threshold.
+- name: 2025 FPL era, family of 3 at $35,000, above 130% FPL ceiling, not eligible.
   period: 2025
   input:
     people:
@@ -52,7 +52,8 @@
         members: [parent, child, sibling]
         state_code: WA
   output:
-    # 110% FPL family of 3 in 2025 = $29,315. $35,000 > $29,315, so not income-eligible.
+    # 130% FPL family of 3 in 2025 = $34,645. $35,000 > $34,645, so not income-eligible.
+    # Risk-factor pathway (130-200% FPL with risk factor) is handled separately.
     wa_eceap_income_eligible: [false, false, false]
 
 - name: 2026 SMI era, family of 3 at $42,000, below 36% SMI threshold.
@@ -195,7 +196,7 @@
 
 # ---- Edge cases ----
 
-- name: 2025 family of 1 at exactly 110% FPL ($17,215), boundary-eligible.
+- name: 2025 family of 1 at exactly 110% FPL ($17,215), priority enrollment threshold, eligible.
   period: 2025
   input:
     people:
@@ -214,10 +215,11 @@
         members: [child]
         state_code: WA
   output:
-    # 110% FPL family of 1 in 2025 = $15,650 * 1.10 = $17,215; at-boundary is eligible.
+    # 110% FPL family of 1 in 2025 = $15,650 * 1.10 = $17,215. At the priority enrollment
+    # threshold (RCW 43.216.505); below the 130% FPL allowed-enrollment ceiling ($20,345).
     wa_eceap_income_eligible: [true]
 
-- name: 2025 family of 1 at $17,216, one dollar above 110% FPL, not eligible.
+- name: 2025 family of 1 at $17,216, in 110-130% FPL allowed-enrollment band, eligible.
   period: 2025
   input:
     people:
@@ -236,9 +238,11 @@
         members: [child]
         state_code: WA
   output:
-    wa_eceap_income_eligible: [false]
+    # $17,216 is above 110% FPL ($17,215) but below 130% FPL ($20,345).
+    # Allowed for enrollment under RCW 43.216.512, no risk factor required.
+    wa_eceap_income_eligible: [true]
 
-- name: 2025 family of 2 at exactly 110% FPL ($23,265), boundary-eligible.
+- name: 2025 family of 2 at exactly 110% FPL ($23,265), priority enrollment threshold, eligible.
   period: 2025
   input:
     people:
@@ -260,10 +264,11 @@
         members: [parent, child]
         state_code: WA
   output:
-    # 110% FPL family of 2 in 2025 = ($15,650 + $5,500) * 1.10 = $23,265.
+    # 110% FPL family of 2 in 2025 = ($15,650 + $5,500) * 1.10 = $23,265. At the priority
+    # enrollment threshold (RCW 43.216.505); below the 130% FPL allowed-enrollment ceiling.
     wa_eceap_income_eligible: [true, true]
 
-- name: 2025 family of 2 at $23,266, one dollar above 110% FPL, not eligible.
+- name: 2025 family of 2 at $23,266, in 110-130% FPL allowed-enrollment band, eligible.
   period: 2025
   input:
     people:
@@ -285,9 +290,11 @@
         members: [parent, child]
         state_code: WA
   output:
-    wa_eceap_income_eligible: [false, false]
+    # $23,266 is above 110% FPL ($23,265) but below 130% FPL ($27,495).
+    # Allowed for enrollment under RCW 43.216.512, no risk factor required.
+    wa_eceap_income_eligible: [true, true]
 
-- name: 2025 family of 3 at $29,314, one dollar below 110% FPL, eligible.
+- name: 2025 family of 3 at $29,314, one dollar below 110% FPL priority threshold, eligible.
   period: 2025
   input:
     people:
@@ -312,10 +319,10 @@
         members: [parent, child, sibling]
         state_code: WA
   output:
-    # 110% FPL family of 3 in 2025 = ($15,650 + 2*$5,500) * 1.10 = $29,315.
+    # 110% FPL family of 3 in 2025 = $29,315. Below priority threshold; eligible.
     wa_eceap_income_eligible: [true, true, true]
 
-- name: 2025 family of 3 at $29,316, one dollar above 110% FPL, not eligible.
+- name: 2025 family of 3 at $29,316, in 110-130% FPL allowed-enrollment band, eligible.
   period: 2025
   input:
     people:
@@ -340,9 +347,41 @@
         members: [parent, child, sibling]
         state_code: WA
   output:
+    # $29,316 is above 110% FPL ($29,315) but below 130% FPL ($34,645).
+    # Allowed for enrollment under RCW 43.216.512, no risk factor required.
+    wa_eceap_income_eligible: [true, true, true]
+
+- name: 2025 family of 3 at $34,646, one dollar above 130% FPL ceiling, not eligible.
+  period: 2025
+  input:
+    people:
+      parent:
+        age: 30
+        employment_income: 34_646
+      child:
+        age: 4
+        employment_income: 0
+      sibling:
+        age: 6
+        employment_income: 0
+    spm_units:
+      spm_unit:
+        members: [parent, child, sibling]
+        tanf: 0
+    tax_units:
+      tax_unit:
+        members: [parent, child, sibling]
+    households:
+      household:
+        members: [parent, child, sibling]
+        state_code: WA
+  output:
+    # 130% FPL family of 3 in 2025 = ($15,650 + 2*$5,500) * 1.30 = $34,645.
+    # $34,646 > $34,645, so above the FPL allowed-enrollment ceiling.
+    # Risk-factor pathway (130-200% FPL with risk factor) is handled separately.
     wa_eceap_income_eligible: [false, false, false]
 
-- name: 2025 family of 4 at exactly 110% FPL ($35,365), boundary-eligible.
+- name: 2025 family of 4 at exactly 110% FPL ($35,365), priority enrollment threshold, eligible.
   period: 2025
   input:
     people:
@@ -370,7 +409,8 @@
         members: [parent, child, sibling1, sibling2]
         state_code: WA
   output:
-    # 110% FPL family of 4 in 2025 = ($15,650 + 3*$5,500) * 1.10 = $35,365.
+    # 110% FPL family of 4 in 2025 = ($15,650 + 3*$5,500) * 1.10 = $35,365. At the priority
+    # enrollment threshold (RCW 43.216.505); below the 130% FPL allowed-enrollment ceiling.
     wa_eceap_income_eligible: [true, true, true, true]
 
 - name: 2026 family of 3 at $44,425, one dollar below 36% SMI floor, eligible.
@@ -484,7 +524,7 @@
   output:
     wa_eceap_income_eligible: [false, false, false]
 
-- name: 2025 transition year, family of 3 at $29,315, at 110% FPL boundary (FPL basis active).
+- name: 2025 transition year, family of 3 at $29,315, at 110% FPL priority threshold, eligible (FPL basis active).
   period: 2025
   input:
     people:
@@ -509,11 +549,11 @@
         members: [parent, child, sibling]
         state_code: WA
   output:
-    # Period 2025 reads 2025-01-01 parameters: FPL fraction = 1.1, SMI fraction = 0.
-    # 2025 FPG family of 3 = $15,650 + 2*$5,500 = $26,650; 110% = $29,315.
+    # Period 2025 reads 2025-01-01 parameters: FPL basis active, 130% FPL ceiling.
+    # 2025 FPG family of 3 = $15,650 + 2*$5,500 = $26,650; 110% = $29,315 (priority threshold).
     wa_eceap_income_eligible: [true, true, true]
 
-- name: 2025 transition year, family of 3 at $29,316, just above 110% FPL, not eligible.
+- name: 2025 transition year, family of 3 at $29,316, in 110-130% FPL allowed-enrollment band, eligible.
   period: 2025
   input:
     people:
@@ -538,7 +578,9 @@
         members: [parent, child, sibling]
         state_code: WA
   output:
-    wa_eceap_income_eligible: [false, false, false]
+    # $29,316 is above 110% FPL ($29,315) but below 130% FPL ($34,645).
+    # Allowed for enrollment under RCW 43.216.512, no risk factor required.
+    wa_eceap_income_eligible: [true, true, true]
 
 - name: Zero income family, well below any threshold, eligible.
   period: 2026

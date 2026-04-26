@@ -1,4 +1,4 @@
-- name: Family of 3 in 2025 at $28,000, ECEAP eligible under 110% FPL era.
+- name: Family of 3 in 2025 at $28,000, ECEAP eligible under FPL era (130% ceiling).
   period: 2025
   input:
     people:
@@ -23,7 +23,7 @@
         members: [parent, child, sibling]
         state_code: WA
   output:
-    # Family of 3 at 110% FPL (2025) = $29,315 -> $28,000 < $29,315, income-eligible.
+    # Family of 3 at 130% FPL (2025) = $34,645 -> $28,000 < $34,645, income-eligible.
     # Child age 4 within ECEAP age range (3-4).
     wa_eceap_eligible: [false, true, false]
 

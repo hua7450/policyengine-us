@@ -13,10 +13,11 @@ class wa_early_eceap_income_eligible(Variable):
     )
 
     def formula(person, period, parameters):
-        p = parameters(period).gov.states.wa.dcyf.eceap.early_eceap.eligibility.income
+        eceap = parameters(period).gov.states.wa.dcyf.eceap
+        p = eceap.early_eceap.eligibility.income
         spm_unit = person.spm_unit
         income = spm_unit("wa_eceap_family_income", period)
-        if p.uses_fpg:
+        if eceap.uses_fpg:
             threshold = spm_unit("spm_unit_fpg", period) * p.fraction_of_fpg
         else:
             threshold = spm_unit("hhs_smi", period) * p.fraction_of_smi
