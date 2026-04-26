@@ -2,7 +2,7 @@ description: Washington uses this indicator to determine whether the standalone 
 
 values:
   2006-08-28: false
-  2023-12-28: true
+  2023-07-01: true
 
 metadata:
   unit: bool
@@ -11,5 +11,7 @@ metadata:
   reference:
     - title: WAC 388-474-0012(2)(e) Eligibility for state supplemental payment
       href: https://app.leg.wa.gov/wac/default.aspx?cite=388-474-0012
+    - title: WSR 23-14-065 (emergency, eff. 2023-07-01) — added (2)(e) standalone disabled category per HB 1128
+      href: https://lawfilesext.leg.wa.gov/law/wsr/2023/14/23-14-065.htm
     - title: WSR 23-24-009 (eff. 2023-12-28)
       href: https://lawfilesext.leg.wa.gov/law/wsr/2023/24/23-24-009.htm
