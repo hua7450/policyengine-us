@@ -1,0 +1,61 @@
+- name: Case 1, undocumented member's income share is prorated in a prorating state.
+  period: 2026-01
+  absolute_error_margin: 0.001
+  input:
+    people:
+      person1:
+        age: 35
+        immigration_status: UNDOCUMENTED
+      person2:
+        age: 33
+      person3:
+        age: 8
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: TX
+  output:
+    snap_income_counted_share: [0.6667, 1, 1]
+
+- name: Case 2, ineligible student's income is not counted at all.
+  period: 2026-01
+  absolute_error_margin: 0.001
+  input:
+    people:
+      person1:
+        age: 40
+      person2:
+        age: 20
+        is_snap_ineligible_student: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: TX
+  output:
+    snap_income_counted_share: [1, 0]
+
+- name: Case 3, undocumented member's income is fully counted in a count-all state.
+  period: 2026-01
+  absolute_error_margin: 0.001
+  input:
+    people:
+      person1:
+        age: 35
+        immigration_status: UNDOCUMENTED
+      person2:
+        age: 8
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: MA
+  output:
+    snap_income_counted_share: [1, 1]

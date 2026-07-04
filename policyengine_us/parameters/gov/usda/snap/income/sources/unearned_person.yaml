@@ -1,10 +1,9 @@
-description: Income sources that count as unearned income for SNAP
+description: Person-level income sources that count as unearned income for SNAP
 
 values:
   2009-01-01:
     # (i)
     - ssi
-    - tanf
     - general_assistance
     # (ii)
     - pension_income # Includes annuities.
