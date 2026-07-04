@@ -1,3 +1,10 @@
+## [1.755.6] - 2026-07-04
+
+### Fixed
+
+- Fix the partner API impact Slack notification job crashing on pull requests that change more than 20 partner test files.
+
+
 ## [1.755.5] - 2026-07-02
 
 ### Fixed
