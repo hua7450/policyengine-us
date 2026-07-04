@@ -16,7 +16,12 @@ class wi_childcare_expense_subtraction(Variable):
 
     def formula(tax_unit, period, parameters):
         subtraction = parameters(period).gov.states.wi.tax.income.subtractions
-        uncapped_expenses = tax_unit("tax_unit_childcare_expenses", period)
+        # §71.05(6)(b)43. adopts the IRC §21 employment-related expense
+        # definition, which covers childcare plus care for a disabled adult
+        # qualifying individual (care_expenses).
+        childcare = tax_unit("tax_unit_childcare_expenses", period)
+        adult_care = add(tax_unit, period, ["care_expenses"])
+        uncapped_expenses = childcare + adult_care
         eligible_dependents = tax_unit("count_cdcc_eligible", period)
         count_eligible = min_(
             eligible_dependents, subtraction.childcare_expense.max_dependents
