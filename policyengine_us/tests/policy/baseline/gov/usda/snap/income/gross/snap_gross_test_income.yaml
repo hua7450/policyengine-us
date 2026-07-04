@@ -6,6 +6,7 @@
       person1:
         age: 35
         employment_income: 24_000
+        employment_income_before_lsr: 24_000
         immigration_status: UNDOCUMENTED
       person2:
         age: 33
@@ -32,6 +33,7 @@
       person1:
         age: 35
         employment_income: 24_000
+        employment_income_before_lsr: 24_000
         immigration_status: UNDOCUMENTED
       person2:
         age: 33

@@ -186,7 +186,8 @@
         state_code: TX
   output:
     snap_unit_size: 1
-    snap_work_requirement_income_proration_fraction: [1, 0.5]
+    snap_prorated_income_fraction: 0.5
+    snap_income_counted_share: [1, 0.5]
     snap_earned_income: 500
     snap_gross_income: 500
     snap: 230.40
