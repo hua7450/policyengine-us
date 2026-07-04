@@ -1,0 +1,451 @@
+# Kansas has not adopted the ACA Medicaid expansion (adult income limit = -inf),
+# has one of the lowest parent/caretaker limits in the country (38% FPL), and
+# requires child deprivation for parent Medicaid (two-parent households are
+# generally ineligible). Only cases whose outputs differ from the federal.yaml
+# (TX) baseline or that exercise a KS-specific parameter are included.
+- name: medicaid_adult_at_138pct_fpl_coverage_gap (ks)
+  period: 2026
+  absolute_error_margin: 0.1
+  input:
+    people:
+      head:
+        age: 30
+        is_tax_unit_head: true
+        is_tax_unit_spouse: false
+        is_tax_unit_dependent: false
+        is_disabled: false
+        is_pregnant: false
+        immigration_status_str: CITIZEN
+        employment_income: 22_000
+        is_medicare_eligible: false
+        ssi_countable_resources: 0
+        is_aca_eshi_eligible: false
+    households:
+      household:
+        members: &id001
+        - head
+        state_code_str: KS
+        zip_code: '67202'
+        county_str: SEDGWICK_COUNTY_KS
+    spm_units:
+      spm_unit:
+        members: *id001
+    tax_units:
+      tax_unit:
+        members: *id001
+        tax_unit_is_joint: false
+    families:
+      family:
+        members: *id001
+    marital_units:
+      mu_head:
+        members:
+        - head
+  output:
+    people:
+      head:
+        ssi: 0.0
+        is_ssi_eligible: false
+        is_ssi_aged: false
+        msp: 0.0
+        msp_eligible: false
+        medicaid: 0.0
+        is_medicaid_eligible: false
+        chip: 0.0
+        is_aca_ptc_eligible: true
+    tax_units:
+      tax_unit:
+        aca_ptc: 6_959.0
+        premium_tax_credit: 6_959.0
+- name: medicaid_two_parent_household_fails_ks_deprivation_rule (ks)
+  period: 2026
+  absolute_error_margin: 0.1
+  input:
+    people:
+      head:
+        age: 35
+        is_tax_unit_head: true
+        is_tax_unit_spouse: false
+        is_tax_unit_dependent: false
+        is_disabled: false
+        is_pregnant: false
+        immigration_status_str: CITIZEN
+        employment_income: 10_000
+        is_medicare_eligible: false
+        ssi_countable_resources: 0
+        is_aca_eshi_eligible: false
+      spouse:
+        age: 33
+        is_tax_unit_head: false
+        is_tax_unit_spouse: true
+        is_tax_unit_dependent: false
+        is_disabled: false
+        is_pregnant: false
+        immigration_status_str: CITIZEN
+        employment_income: 0
+        is_medicare_eligible: false
+        ssi_countable_resources: 0
+        is_aca_eshi_eligible: false
+      child1:
+        age: 5
+        is_tax_unit_head: false
+        is_tax_unit_spouse: false
+        is_tax_unit_dependent: true
+        is_disabled: false
+        is_pregnant: false
+        immigration_status_str: CITIZEN
+        employment_income: 0
+        is_medicare_eligible: false
+        ssi_countable_resources: 0
+        is_aca_eshi_eligible: false
+    households:
+      household:
+        members: &id002
+        - head
+        - spouse
+        - child1
+        state_code_str: KS
+        zip_code: '67202'
+        county_str: SEDGWICK_COUNTY_KS
+    spm_units:
+      spm_unit:
+        members: *id002
+    tax_units:
+      tax_unit:
+        members: *id002
+        tax_unit_is_joint: true
+    families:
+      family:
+        members: *id002
+    marital_units:
+      mu_couple:
+        members:
+        - head
+        - spouse
+      mu_child1:
+        members:
+        - child1
+  output:
+    people:
+      head:
+        ssi: 0.0
+        is_ssi_eligible: false
+        is_ssi_aged: false
+        msp: 0.0
+        msp_eligible: false
+        medicaid: 0.0
+        is_medicaid_eligible: false
+        chip: 0.0
+        is_aca_ptc_eligible: false
+      spouse:
+        ssi: 0.0
+        is_ssi_eligible: false
+        is_ssi_aged: false
+        msp: 0.0
+        msp_eligible: false
+        medicaid: 0.0
+        is_medicaid_eligible: false
+        chip: 0.0
+        is_aca_ptc_eligible: false
+      child1:
+        ssi: 0.0
+        is_ssi_eligible: false
+        is_ssi_aged: false
+        msp: 0.0
+        msp_eligible: false
+        medicaid: 6_655.48
+        is_medicaid_eligible: true
+        chip: 0.0
+        is_aca_ptc_eligible: false
+    tax_units:
+      tax_unit:
+        aca_ptc: 0.0
+        premium_tax_credit: 0.0
+- name: medicaid_single_parent_below_ks_parent_limit_38pct_fpl (ks)
+  period: 2026
+  absolute_error_margin: 0.1
+  input:
+    people:
+      head:
+        age: 35
+        is_tax_unit_head: true
+        is_tax_unit_spouse: false
+        is_tax_unit_dependent: false
+        is_disabled: false
+        is_pregnant: false
+        immigration_status_str: CITIZEN
+        employment_income: 8_000
+        is_medicare_eligible: false
+        ssi_countable_resources: 0
+        is_aca_eshi_eligible: false
+      child1:
+        age: 5
+        is_tax_unit_head: false
+        is_tax_unit_spouse: false
+        is_tax_unit_dependent: true
+        is_disabled: false
+        is_pregnant: false
+        immigration_status_str: CITIZEN
+        employment_income: 0
+        is_medicare_eligible: false
+        ssi_countable_resources: 0
+        is_aca_eshi_eligible: false
+    households:
+      household:
+        members: &id003
+        - head
+        - child1
+        state_code_str: KS
+        zip_code: '67202'
+        county_str: SEDGWICK_COUNTY_KS
+    spm_units:
+      spm_unit:
+        members: *id003
+    tax_units:
+      tax_unit:
+        members: *id003
+        tax_unit_is_joint: false
+    families:
+      family:
+        members: *id003
+    marital_units:
+      mu_head:
+        members:
+        - head
+      mu_child1:
+        members:
+        - child1
+  output:
+    people:
+      head:
+        ssi: 0.0
+        is_ssi_eligible: false
+        is_ssi_aged: false
+        msp: 0.0
+        msp_eligible: false
+        medicaid: 11_360.86
+        is_medicaid_eligible: true
+        chip: 0.0
+        is_aca_ptc_eligible: false
+      child1:
+        ssi: 0.0
+        is_ssi_eligible: false
+        is_ssi_aged: false
+        msp: 0.0
+        msp_eligible: false
+        medicaid: 7_112.10
+        is_medicaid_eligible: true
+        chip: 0.0
+        is_aca_ptc_eligible: false
+    tax_units:
+      tax_unit:
+        aca_ptc: 0.0
+        premium_tax_credit: 0.0
+- name: medicaid_parent_above_ks_parent_limit_coverage_gap (ks)
+  period: 2026
+  absolute_error_margin: 0.1
+  input:
+    people:
+      head:
+        age: 35
+        is_tax_unit_head: true
+        is_tax_unit_spouse: false
+        is_tax_unit_dependent: false
+        is_disabled: false
+        is_pregnant: false
+        immigration_status_str: CITIZEN
+        employment_income: 20_000
+        is_medicare_eligible: false
+        ssi_countable_resources: 0
+        is_aca_eshi_eligible: false
+      spouse:
+        age: 33
+        is_tax_unit_head: false
+        is_tax_unit_spouse: true
+        is_tax_unit_dependent: false
+        is_disabled: false
+        is_pregnant: false
+        immigration_status_str: CITIZEN
+        employment_income: 0
+        is_medicare_eligible: false
+        ssi_countable_resources: 0
+        is_aca_eshi_eligible: false
+      child1:
+        age: 5
+        is_tax_unit_head: false
+        is_tax_unit_spouse: false
+        is_tax_unit_dependent: true
+        is_disabled: false
+        is_pregnant: false
+        immigration_status_str: CITIZEN
+        employment_income: 0
+        is_medicare_eligible: false
+        ssi_countable_resources: 0
+        is_aca_eshi_eligible: false
+    households:
+      household:
+        members: &id004
+        - head
+        - spouse
+        - child1
+        state_code_str: KS
+        zip_code: '67202'
+        county_str: SEDGWICK_COUNTY_KS
+    spm_units:
+      spm_unit:
+        members: *id004
+    tax_units:
+      tax_unit:
+        members: *id004
+        tax_unit_is_joint: true
+    families:
+      family:
+        members: *id004
+    marital_units:
+      mu_couple:
+        members:
+        - head
+        - spouse
+      mu_child1:
+        members:
+        - child1
+  output:
+    people:
+      head:
+        ssi: 0.0
+        is_ssi_eligible: false
+        is_ssi_aged: false
+        msp: 0.0
+        msp_eligible: false
+        medicaid: 0.0
+        is_medicaid_eligible: false
+        chip: 0.0
+        is_aca_ptc_eligible: false
+      spouse:
+        ssi: 0.0
+        is_ssi_eligible: false
+        is_ssi_aged: false
+        msp: 0.0
+        msp_eligible: false
+        medicaid: 0.0
+        is_medicaid_eligible: false
+        chip: 0.0
+        is_aca_ptc_eligible: false
+      child1:
+        ssi: 0.0
+        is_ssi_eligible: false
+        is_ssi_aged: false
+        msp: 0.0
+        msp_eligible: false
+        medicaid: 6_655.48
+        is_medicaid_eligible: true
+        chip: 0.0
+        is_aca_ptc_eligible: false
+    tax_units:
+      tax_unit:
+        aca_ptc: 0.0
+        premium_tax_credit: 0.0
+- name: medicaid_infant_above_ks_infant_limit_171pct_fpl (ks)
+  period: 2026
+  absolute_error_margin: 0.1
+  input:
+    people:
+      head:
+        age: 35
+        is_tax_unit_head: true
+        is_tax_unit_spouse: false
+        is_tax_unit_dependent: false
+        is_disabled: false
+        is_pregnant: false
+        immigration_status_str: CITIZEN
+        employment_income: 50_000
+        is_medicare_eligible: false
+        ssi_countable_resources: 0
+        is_aca_eshi_eligible: false
+      spouse:
+        age: 33
+        is_tax_unit_head: false
+        is_tax_unit_spouse: true
+        is_tax_unit_dependent: false
+        is_disabled: false
+        is_pregnant: false
+        immigration_status_str: CITIZEN
+        employment_income: 0
+        is_medicare_eligible: false
+        ssi_countable_resources: 0
+        is_aca_eshi_eligible: false
+      child1:
+        age: 0
+        is_tax_unit_head: false
+        is_tax_unit_spouse: false
+        is_tax_unit_dependent: true
+        is_disabled: false
+        is_pregnant: false
+        immigration_status_str: CITIZEN
+        employment_income: 0
+        is_medicare_eligible: false
+        ssi_countable_resources: 0
+        is_aca_eshi_eligible: false
+    households:
+      household:
+        members: &id005
+        - head
+        - spouse
+        - child1
+        state_code_str: KS
+        zip_code: '67202'
+        county_str: SEDGWICK_COUNTY_KS
+    spm_units:
+      spm_unit:
+        members: *id005
+    tax_units:
+      tax_unit:
+        members: *id005
+        tax_unit_is_joint: true
+    families:
+      family:
+        members: *id005
+    marital_units:
+      mu_couple:
+        members:
+        - head
+        - spouse
+      mu_child1:
+        members:
+        - child1
+  output:
+    people:
+      head:
+        ssi: 0.0
+        is_ssi_eligible: false
+        is_ssi_aged: false
+        msp: 0.0
+        msp_eligible: false
+        medicaid: 0.0
+        is_medicaid_eligible: false
+        chip: 0.0
+        is_aca_ptc_eligible: true
+      spouse:
+        ssi: 0.0
+        is_ssi_eligible: false
+        is_ssi_aged: false
+        msp: 0.0
+        msp_eligible: false
+        medicaid: 0.0
+        is_medicaid_eligible: false
+        chip: 0.0
+        is_aca_ptc_eligible: true
+      child1:
+        ssi: 0.0
+        is_ssi_eligible: false
+        is_ssi_aged: false
+        msp: 0.0
+        msp_eligible: false
+        medicaid: 0.0
+        is_medicaid_eligible: false
+        chip: 0.0
+        is_aca_ptc_eligible: true
+    tax_units:
+      tax_unit:
+        aca_ptc: 18_746.25
+        premium_tax_credit: 18_746.25

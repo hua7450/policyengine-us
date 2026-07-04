@@ -1,1 +1,1 @@
-Remove Louisiana test cases from partner API contract tests; no API partner sends Louisiana households.
+Remove Louisiana test cases from partner API contract tests (no API partner sends Louisiana households) and add lean Kansas coverage: ks_tanf edge cases (county payment groups, income/resource boundaries, child-support split), a replay fixture for the observed Kansas request signature, and Kansas variants for Medicaid, CHIP, ACA PTC, and SNAP pinning non-expansion behavior.
