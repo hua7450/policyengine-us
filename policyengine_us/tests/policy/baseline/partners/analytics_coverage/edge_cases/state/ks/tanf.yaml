@@ -59,7 +59,7 @@
           - person1
           - person2
           - person3
-        state_code_str: KS
+        state_code: KS
         zip_code: '67202'
         # Sedgwick County (Wichita) is a Group III county.
         county_str: SEDGWICK_COUNTY_KS
@@ -131,7 +131,7 @@
           - person1
           - person2
           - person3
-        state_code_str: KS
+        state_code: KS
         zip_code: '66749'
         # Allen County (Iola) is a Group I rural county.
         county_str: ALLEN_COUNTY_KS
@@ -198,7 +198,7 @@
           - person1
           - person2
           - person3
-        state_code_str: KS
+        state_code: KS
         zip_code: '66067'
         # Franklin County (Ottawa) is a Group II high-cost rural county.
         county_str: FRANKLIN_COUNTY_KS
@@ -268,7 +268,7 @@
           - person1
           - person2
           - person3
-        state_code_str: KS
+        state_code: KS
         zip_code: '67202'
         county_str: SEDGWICK_COUNTY_KS
     spm_units:
@@ -336,7 +336,7 @@
           - person1
           - person2
           - person3
-        state_code_str: KS
+        state_code: KS
         zip_code: '67202'
         county_str: SEDGWICK_COUNTY_KS
     spm_units:
@@ -401,7 +401,7 @@
           - person1
           - person2
           - person3
-        state_code_str: KS
+        state_code: KS
         zip_code: '67202'
         county_str: SEDGWICK_COUNTY_KS
     spm_units:
@@ -460,7 +460,7 @@
         members: &id007
           - person1
           - person2
-        state_code_str: KS
+        state_code: KS
         zip_code: '66212'
         # Johnson County (Overland Park) is unlisted, so it falls to the
         # default Group IV tier.
@@ -520,7 +520,7 @@
         members: &id008
           - person1
           - person2
-        state_code_str: KS
+        state_code: KS
         zip_code: '67202'
         county_str: SEDGWICK_COUNTY_KS
     spm_units:
@@ -584,7 +584,7 @@
           - person1
           - person2
           - person3
-        state_code_str: KS
+        state_code: KS
         zip_code: '67202'
         county_str: SEDGWICK_COUNTY_KS
     spm_units:
