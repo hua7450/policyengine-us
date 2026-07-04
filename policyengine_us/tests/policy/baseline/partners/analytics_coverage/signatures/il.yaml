@@ -1,3 +1,13 @@
+# Signature-fidelity fix (2026-07-04): state_code added on each household per
+# analytics (every MFB state-output request sends the state_code enum);
+# employment_income / self_employment_income / capital_gains converted to the
+# *_before_lsr / *_before_response input keys that production's Simulation
+# wrapper backfills (issue #8802). Outputs re-pinned to current model values
+# under the corrected inputs.
+# Sanity check (signature_39) - il_tanf = $11,326.88/yr = the IL Cook County TANF
+# payment level ($11,326.88/yr) minus countable income $0 (the $4,000
+# il_tanf_countable_gross_earned_income input is fully disregarded). Genuine IL
+# (Cook County) amount, previously pinned $0 under the California default.
 - name: signature_39 (6 reqs, +3 dupes)
   period: 2026
   absolute_error_margin: 0.1
@@ -15,11 +25,11 @@
         is_full_time_college_student: false
         is_snap_ineligible_student: false
         immigration_status_str: CITIZEN
-        employment_income: 36000
-        self_employment_income: 0
+        employment_income_before_lsr: 36000
+        self_employment_income_before_lsr: 0
         social_security: 0
         social_security_disability: 0
-        capital_gains: 0
+        long_term_capital_gains_before_response: 0
         rental_income: 0
         taxable_ira_distributions: 0
         taxable_pension_income: 0
@@ -50,10 +60,10 @@
         is_full_time_college_student: false
         is_snap_ineligible_student: false
         immigration_status_str: CITIZEN
-        employment_income: 12000
-        self_employment_income: 0
+        employment_income_before_lsr: 12000
+        self_employment_income_before_lsr: 0
         social_security: 0
-        capital_gains: 0
+        long_term_capital_gains_before_response: 0
         rental_income: 0
         taxable_ira_distributions: 0
         taxable_pension_income: 0
@@ -84,8 +94,8 @@
         is_full_time_college_student: false
         is_snap_ineligible_student: false
         immigration_status_str: CITIZEN
-        employment_income: 0
-        self_employment_income: 0
+        employment_income_before_lsr: 0
+        self_employment_income_before_lsr: 0
         ssi_reported: 0
         ssi_countable_resources: 0
         ssi_earned_income: 0
@@ -109,8 +119,8 @@
         is_full_time_college_student: false
         is_snap_ineligible_student: false
         immigration_status_str: CITIZEN
-        employment_income: 0
-        self_employment_income: 0
+        employment_income_before_lsr: 0
+        self_employment_income_before_lsr: 0
         ssi_reported: 0
         ssi_countable_resources: 0
         ssi_earned_income: 0
@@ -124,6 +134,7 @@
         medicare_quarters_of_coverage: 0
     households:
       household:
+        state_code: IL
         members: &id001
         - head
         - spouse
@@ -174,16 +185,16 @@
   output:
     tax_units:
       tax_unit:
-        aca_ptc: 17036.81
+        aca_ptc: 9482.61
         ctc_value: 4400.0
         eitc: 3769.5
-        il_ctc: 0.0
-        il_eitc: 0.0
+        il_ctc: 301.56
+        il_eitc: 753.9
     people:
       head:
         il_aabd_person: 0.0
         il_bcc_eligible: false
-        il_fpp_eligible: false
+        il_fpp_eligible: true
         il_hbwd_eligible: false
         il_hbwd_person: 0.0
         il_mpe_eligible: false
@@ -199,8 +210,8 @@
         wic_category: 5
       spouse:
         il_aabd_person: 0.0
-        il_bcc_eligible: false
-        il_fpp_eligible: false
+        il_bcc_eligible: true
+        il_fpp_eligible: true
         il_hbwd_eligible: false
         il_hbwd_person: 0.0
         il_mpe_eligible: false
@@ -217,13 +228,13 @@
       child1:
         il_aabd_person: 0.0
         il_bcc_eligible: false
-        il_fpp_eligible: false
+        il_fpp_eligible: true
         il_hbwd_eligible: false
         il_hbwd_person: 0.0
         il_mpe_eligible: false
         is_medicare_eligible: false
         is_optional_senior_or_disabled_for_medicaid: false
-        medicaid: 7155.35
+        medicaid: 7710.68
         medicaid_category: 2
         msp: 0.0
         msp_category: 0
@@ -233,14 +244,14 @@
         wic_category: 5
       child2:
         il_aabd_person: 0.0
-        il_bcc_eligible: false
-        il_fpp_eligible: false
+        il_bcc_eligible: true
+        il_fpp_eligible: true
         il_hbwd_eligible: false
         il_hbwd_person: 0.0
         il_mpe_eligible: false
         is_medicare_eligible: false
         is_optional_senior_or_disabled_for_medicaid: false
-        medicaid: 7155.35
+        medicaid: 7710.68
         medicaid_category: 1
         msp: 0.0
         msp_category: 0
@@ -250,9 +261,9 @@
         wic_category: 4
     spm_units:
       spm_unit:
-        il_liheap_income_eligible: false
-        il_tanf: 0.0
-        lifeline: 228.0
+        il_liheap_income_eligible: true
+        il_tanf: 11326.88
+        lifeline: 111.0
         school_meal_daily_subsidy: 7.15
         school_meal_tier: 0
         snap: 11994.84
@@ -274,11 +285,11 @@
         is_snap_ineligible_student: false
         is_medicare_eligible: false
         immigration_status_str: CITIZEN
-        employment_income: 36000
-        self_employment_income: 0
+        employment_income_before_lsr: 36000
+        self_employment_income_before_lsr: 0
         social_security: 0
         social_security_disability: 0
-        capital_gains: 0
+        long_term_capital_gains_before_response: 0
         rental_income: 0
         taxable_ira_distributions: 0
         taxable_pension_income: 0
@@ -311,10 +322,10 @@
         is_snap_ineligible_student: false
         is_medicare_eligible: false
         immigration_status_str: CITIZEN
-        employment_income: 12000
-        self_employment_income: 0
+        employment_income_before_lsr: 12000
+        self_employment_income_before_lsr: 0
         social_security: 0
-        capital_gains: 0
+        long_term_capital_gains_before_response: 0
         rental_income: 0
         taxable_ira_distributions: 0
         taxable_pension_income: 0
@@ -347,8 +358,8 @@
         is_snap_ineligible_student: false
         is_medicare_eligible: false
         immigration_status_str: CITIZEN
-        employment_income: 0
-        self_employment_income: 0
+        employment_income_before_lsr: 0
+        self_employment_income_before_lsr: 0
         ssi: 0
         ssi_reported: 0
         ssi_countable_resources: 0
@@ -374,8 +385,8 @@
         is_snap_ineligible_student: false
         is_medicare_eligible: false
         immigration_status_str: CITIZEN
-        employment_income: 0
-        self_employment_income: 0
+        employment_income_before_lsr: 0
+        self_employment_income_before_lsr: 0
         ssi: 0
         ssi_reported: 0
         ssi_countable_resources: 0
@@ -390,6 +401,7 @@
         medicare_quarters_of_coverage: 0
     households:
       household:
+        state_code: IL
         members: *id001
         zip_code: '60601'
         county_str: COOK_COUNTY_IL
@@ -432,16 +444,16 @@
   output:
     tax_units:
       tax_unit:
-        aca_ptc: 17036.81
+        aca_ptc: 9482.61
         ctc_value: 4400.0
         eitc: 3769.5
-        il_ctc: 0.0
-        il_eitc: 0.0
+        il_ctc: 301.56
+        il_eitc: 753.9
     people:
       head:
         il_aabd_person: 0.0
         il_bcc_eligible: false
-        il_fpp_eligible: false
+        il_fpp_eligible: true
         il_hbwd_eligible: false
         il_hbwd_person: 0.0
         il_mpe_eligible: false
@@ -455,8 +467,8 @@
         wic_category: 5
       spouse:
         il_aabd_person: 0.0
-        il_bcc_eligible: false
-        il_fpp_eligible: false
+        il_bcc_eligible: true
+        il_fpp_eligible: true
         il_hbwd_eligible: false
         il_hbwd_person: 0.0
         il_mpe_eligible: false
@@ -471,12 +483,12 @@
       child1:
         il_aabd_person: 0.0
         il_bcc_eligible: false
-        il_fpp_eligible: false
+        il_fpp_eligible: true
         il_hbwd_eligible: false
         il_hbwd_person: 0.0
         il_mpe_eligible: false
         is_optional_senior_or_disabled_for_medicaid: false
-        medicaid: 7155.35
+        medicaid: 7710.68
         medicaid_category: 2
         msp: 0.0
         msp_category: 0
@@ -485,13 +497,13 @@
         wic_category: 5
       child2:
         il_aabd_person: 0.0
-        il_bcc_eligible: false
-        il_fpp_eligible: false
+        il_bcc_eligible: true
+        il_fpp_eligible: true
         il_hbwd_eligible: false
         il_hbwd_person: 0.0
         il_mpe_eligible: false
         is_optional_senior_or_disabled_for_medicaid: false
-        medicaid: 7155.35
+        medicaid: 7710.68
         medicaid_category: 1
         msp: 0.0
         msp_category: 0
@@ -500,9 +512,9 @@
         wic_category: 4
     spm_units:
       spm_unit:
-        il_liheap_income_eligible: false
-        il_tanf: 0.0
-        lifeline: 228.0
+        il_liheap_income_eligible: true
+        il_tanf: 11326.88
+        lifeline: 111.0
         school_meal_daily_subsidy: 7.15
         school_meal_tier: 0
         snap: 11994.84
@@ -523,11 +535,11 @@
         is_full_time_college_student: false
         is_snap_ineligible_student: false
         immigration_status_str: CITIZEN
-        employment_income: 36000
-        self_employment_income: 0
+        employment_income_before_lsr: 36000
+        self_employment_income_before_lsr: 0
         social_security: 0
         social_security_disability: 0
-        capital_gains: 0
+        long_term_capital_gains_before_response: 0
         rental_income: 0
         taxable_ira_distributions: 0
         taxable_pension_income: 0
@@ -559,10 +571,10 @@
         is_full_time_college_student: false
         is_snap_ineligible_student: false
         immigration_status_str: CITIZEN
-        employment_income: 12000
-        self_employment_income: 0
+        employment_income_before_lsr: 12000
+        self_employment_income_before_lsr: 0
         social_security: 0
-        capital_gains: 0
+        long_term_capital_gains_before_response: 0
         rental_income: 0
         taxable_ira_distributions: 0
         taxable_pension_income: 0
@@ -594,8 +606,8 @@
         is_full_time_college_student: false
         is_snap_ineligible_student: false
         immigration_status_str: CITIZEN
-        employment_income: 0
-        self_employment_income: 0
+        employment_income_before_lsr: 0
+        self_employment_income_before_lsr: 0
         ssi: 0
         ssi_reported: 0
         ssi_countable_resources: 0
@@ -620,8 +632,8 @@
         is_full_time_college_student: false
         is_snap_ineligible_student: false
         immigration_status_str: CITIZEN
-        employment_income: 0
-        self_employment_income: 0
+        employment_income_before_lsr: 0
+        self_employment_income_before_lsr: 0
         ssi: 0
         ssi_reported: 0
         ssi_countable_resources: 0
@@ -636,6 +648,7 @@
         medicare_quarters_of_coverage: 0
     households:
       household:
+        state_code: IL
         members: *id001
         zip_code: '60601'
         county_str: COOK_COUNTY_IL
@@ -678,16 +691,16 @@
   output:
     tax_units:
       tax_unit:
-        aca_ptc: 17036.81
+        aca_ptc: 9482.61
         ctc_value: 4400.0
         eitc: 3769.5
-        il_ctc: 0.0
-        il_eitc: 0.0
+        il_ctc: 301.56
+        il_eitc: 753.9
     people:
       head:
         il_aabd_person: 0.0
         il_bcc_eligible: false
-        il_fpp_eligible: false
+        il_fpp_eligible: true
         il_hbwd_eligible: false
         il_hbwd_person: 0.0
         il_mpe_eligible: false
@@ -703,8 +716,8 @@
         wic_category: 5
       spouse:
         il_aabd_person: 0.0
-        il_bcc_eligible: false
-        il_fpp_eligible: false
+        il_bcc_eligible: true
+        il_fpp_eligible: true
         il_hbwd_eligible: false
         il_hbwd_person: 0.0
         il_mpe_eligible: false
@@ -721,13 +734,13 @@
       child1:
         il_aabd_person: 0.0
         il_bcc_eligible: false
-        il_fpp_eligible: false
+        il_fpp_eligible: true
         il_hbwd_eligible: false
         il_hbwd_person: 0.0
         il_mpe_eligible: false
         is_medicare_eligible: false
         is_optional_senior_or_disabled_for_medicaid: false
-        medicaid: 7155.35
+        medicaid: 7710.68
         medicaid_category: 2
         msp: 0.0
         msp_category: 0
@@ -737,14 +750,14 @@
         wic_category: 5
       child2:
         il_aabd_person: 0.0
-        il_bcc_eligible: false
-        il_fpp_eligible: false
+        il_bcc_eligible: true
+        il_fpp_eligible: true
         il_hbwd_eligible: false
         il_hbwd_person: 0.0
         il_mpe_eligible: false
         is_medicare_eligible: false
         is_optional_senior_or_disabled_for_medicaid: false
-        medicaid: 7155.35
+        medicaid: 7710.68
         medicaid_category: 1
         msp: 0.0
         msp_category: 0
@@ -754,9 +767,9 @@
         wic_category: 4
     spm_units:
       spm_unit:
-        il_liheap_income_eligible: false
-        il_tanf: 0.0
-        lifeline: 228.0
+        il_liheap_income_eligible: true
+        il_tanf: 11326.88
+        lifeline: 111.0
         school_meal_daily_subsidy: 7.15
         school_meal_tier: 0
 - name: signature_131 (1 reqs, +1 dupes)
@@ -776,11 +789,11 @@
         is_full_time_college_student: false
         is_snap_ineligible_student: false
         immigration_status_str: CITIZEN
-        employment_income: 36000
-        self_employment_income: 0
+        employment_income_before_lsr: 36000
+        self_employment_income_before_lsr: 0
         social_security: 0
         social_security_disability: 0
-        capital_gains: 0
+        long_term_capital_gains_before_response: 0
         rental_income: 0
         taxable_ira_distributions: 0
         taxable_pension_income: 0
@@ -811,10 +824,10 @@
         is_full_time_college_student: false
         is_snap_ineligible_student: false
         immigration_status_str: CITIZEN
-        employment_income: 12000
-        self_employment_income: 0
+        employment_income_before_lsr: 12000
+        self_employment_income_before_lsr: 0
         social_security: 0
-        capital_gains: 0
+        long_term_capital_gains_before_response: 0
         rental_income: 0
         taxable_ira_distributions: 0
         taxable_pension_income: 0
@@ -845,8 +858,8 @@
         is_full_time_college_student: false
         is_snap_ineligible_student: false
         immigration_status_str: CITIZEN
-        employment_income: 0
-        self_employment_income: 0
+        employment_income_before_lsr: 0
+        self_employment_income_before_lsr: 0
         ssi_reported: 0
         ssi_countable_resources: 0
         ssi_earned_income: 0
@@ -870,8 +883,8 @@
         is_full_time_college_student: false
         is_snap_ineligible_student: false
         immigration_status_str: CITIZEN
-        employment_income: 0
-        self_employment_income: 0
+        employment_income_before_lsr: 0
+        self_employment_income_before_lsr: 0
         ssi_reported: 0
         ssi_countable_resources: 0
         ssi_earned_income: 0
@@ -885,6 +898,7 @@
         medicare_quarters_of_coverage: 0
     households:
       household:
+        state_code: IL
         members: *id001
         zip_code: '60601'
         county_str: COOK_COUNTY_IL
@@ -927,16 +941,16 @@
   output:
     tax_units:
       tax_unit:
-        aca_ptc: 17036.81
+        aca_ptc: 9482.61
         ctc_value: 4400.0
         eitc: 3769.5
-        il_ctc: 0.0
-        il_eitc: 0.0
+        il_ctc: 301.56
+        il_eitc: 753.9
     people:
       head:
         il_aabd_person: 0.0
         il_bcc_eligible: false
-        il_fpp_eligible: false
+        il_fpp_eligible: true
         il_hbwd_eligible: false
         il_hbwd_person: 0.0
         il_mpe_eligible: false
@@ -952,8 +966,8 @@
         wic_category: 5
       spouse:
         il_aabd_person: 0.0
-        il_bcc_eligible: false
-        il_fpp_eligible: false
+        il_bcc_eligible: true
+        il_fpp_eligible: true
         il_hbwd_eligible: false
         il_hbwd_person: 0.0
         il_mpe_eligible: false
@@ -970,13 +984,13 @@
       child1:
         il_aabd_person: 0.0
         il_bcc_eligible: false
-        il_fpp_eligible: false
+        il_fpp_eligible: true
         il_hbwd_eligible: false
         il_hbwd_person: 0.0
         il_mpe_eligible: false
         is_medicare_eligible: false
         is_optional_senior_or_disabled_for_medicaid: false
-        medicaid: 7155.35
+        medicaid: 7710.68
         medicaid_category: 2
         msp: 0.0
         msp_category: 0
@@ -986,14 +1000,14 @@
         wic_category: 5
       child2:
         il_aabd_person: 0.0
-        il_bcc_eligible: false
-        il_fpp_eligible: false
+        il_bcc_eligible: true
+        il_fpp_eligible: true
         il_hbwd_eligible: false
         il_hbwd_person: 0.0
         il_mpe_eligible: false
         is_medicare_eligible: false
         is_optional_senior_or_disabled_for_medicaid: false
-        medicaid: 7155.35
+        medicaid: 7710.68
         medicaid_category: 1
         msp: 0.0
         msp_category: 0
@@ -1003,9 +1017,9 @@
         wic_category: 4
     spm_units:
       spm_unit:
-        il_liheap_income_eligible: false
-        il_tanf: 0.0
-        lifeline: 228.0
+        il_liheap_income_eligible: true
+        il_tanf: 11326.88
+        lifeline: 111.0
         school_meal_daily_subsidy: 7.15
         school_meal_tier: 0
 - name: signature_145 (1 reqs)
@@ -1026,11 +1040,11 @@
         is_snap_ineligible_student: false
         is_medicare_eligible: false
         immigration_status_str: CITIZEN
-        employment_income: 36000
-        self_employment_income: 0
+        employment_income_before_lsr: 36000
+        self_employment_income_before_lsr: 0
         social_security: 0
         social_security_disability: 0
-        capital_gains: 0
+        long_term_capital_gains_before_response: 0
         rental_income: 0
         taxable_ira_distributions: 0
         taxable_pension_income: 0
@@ -1062,10 +1076,10 @@
         is_snap_ineligible_student: false
         is_medicare_eligible: false
         immigration_status_str: CITIZEN
-        employment_income: 12000
-        self_employment_income: 0
+        employment_income_before_lsr: 12000
+        self_employment_income_before_lsr: 0
         social_security: 0
-        capital_gains: 0
+        long_term_capital_gains_before_response: 0
         rental_income: 0
         taxable_ira_distributions: 0
         taxable_pension_income: 0
@@ -1097,8 +1111,8 @@
         is_snap_ineligible_student: false
         is_medicare_eligible: false
         immigration_status_str: CITIZEN
-        employment_income: 0
-        self_employment_income: 0
+        employment_income_before_lsr: 0
+        self_employment_income_before_lsr: 0
         ssi_reported: 0
         ssi_countable_resources: 0
         ssi_earned_income: 0
@@ -1123,8 +1137,8 @@
         is_snap_ineligible_student: false
         is_medicare_eligible: false
         immigration_status_str: CITIZEN
-        employment_income: 0
-        self_employment_income: 0
+        employment_income_before_lsr: 0
+        self_employment_income_before_lsr: 0
         ssi_reported: 0
         ssi_countable_resources: 0
         ssi_earned_income: 0
@@ -1138,6 +1152,7 @@
         medicare_quarters_of_coverage: 0
     households:
       household:
+        state_code: IL
         members: *id001
         zip_code: '60601'
         county_str: COOK_COUNTY_IL
@@ -1180,16 +1195,16 @@
   output:
     tax_units:
       tax_unit:
-        aca_ptc: 17036.81
+        aca_ptc: 9482.61
         ctc_value: 4400.0
         eitc: 3769.5
-        il_ctc: 0.0
-        il_eitc: 0.0
+        il_ctc: 301.56
+        il_eitc: 753.9
     people:
       head:
         il_aabd_person: 0.0
         il_bcc_eligible: false
-        il_fpp_eligible: false
+        il_fpp_eligible: true
         il_hbwd_eligible: false
         il_hbwd_person: 0.0
         il_mpe_eligible: false
@@ -1205,8 +1220,8 @@
         wic_category: 5
       spouse:
         il_aabd_person: 0.0
-        il_bcc_eligible: false
-        il_fpp_eligible: false
+        il_bcc_eligible: true
+        il_fpp_eligible: true
         il_hbwd_eligible: false
         il_hbwd_person: 0.0
         il_mpe_eligible: false
@@ -1223,13 +1238,13 @@
       child1:
         il_aabd_person: 0.0
         il_bcc_eligible: false
-        il_fpp_eligible: false
+        il_fpp_eligible: true
         il_hbwd_eligible: false
         il_hbwd_person: 0.0
         il_mpe_eligible: false
         is_medicare_eligible: false
         is_optional_senior_or_disabled_for_medicaid: false
-        medicaid: 7155.35
+        medicaid: 7710.68
         medicaid_category: 2
         msp: 0.0
         msp_category: 0
@@ -1239,14 +1254,14 @@
         wic_category: 5
       child2:
         il_aabd_person: 0.0
-        il_bcc_eligible: false
-        il_fpp_eligible: false
+        il_bcc_eligible: true
+        il_fpp_eligible: true
         il_hbwd_eligible: false
         il_hbwd_person: 0.0
         il_mpe_eligible: false
         is_medicare_eligible: false
         is_optional_senior_or_disabled_for_medicaid: false
-        medicaid: 7155.35
+        medicaid: 7710.68
         medicaid_category: 1
         msp: 0.0
         msp_category: 0
@@ -1256,9 +1271,9 @@
         wic_category: 4
     spm_units:
       spm_unit:
-        il_liheap_income_eligible: false
-        il_tanf: 0.0
-        lifeline: 228.0
+        il_liheap_income_eligible: true
+        il_tanf: 11326.88
+        lifeline: 111.0
         school_meal_daily_subsidy: 7.15
         school_meal_tier: 0
 - name: signature_170 (1 reqs)
@@ -1279,11 +1294,11 @@
         is_snap_ineligible_student: false
         is_medicare_eligible: false
         immigration_status_str: CITIZEN
-        employment_income: 36000
-        self_employment_income: 0
+        employment_income_before_lsr: 36000
+        self_employment_income_before_lsr: 0
         social_security: 0
         social_security_disability: 0
-        capital_gains: 0
+        long_term_capital_gains_before_response: 0
         rental_income: 0
         taxable_ira_distributions: 0
         taxable_pension_income: 0
@@ -1316,10 +1331,10 @@
         is_snap_ineligible_student: false
         is_medicare_eligible: false
         immigration_status_str: CITIZEN
-        employment_income: 12000
-        self_employment_income: 0
+        employment_income_before_lsr: 12000
+        self_employment_income_before_lsr: 0
         social_security: 0
-        capital_gains: 0
+        long_term_capital_gains_before_response: 0
         rental_income: 0
         taxable_ira_distributions: 0
         taxable_pension_income: 0
@@ -1352,8 +1367,8 @@
         is_snap_ineligible_student: false
         is_medicare_eligible: false
         immigration_status_str: CITIZEN
-        employment_income: 0
-        self_employment_income: 0
+        employment_income_before_lsr: 0
+        self_employment_income_before_lsr: 0
         ssi: 0
         ssi_reported: 0
         ssi_countable_resources: 0
@@ -1379,8 +1394,8 @@
         is_snap_ineligible_student: false
         is_medicare_eligible: false
         immigration_status_str: CITIZEN
-        employment_income: 0
-        self_employment_income: 0
+        employment_income_before_lsr: 0
+        self_employment_income_before_lsr: 0
         ssi: 0
         ssi_reported: 0
         ssi_countable_resources: 0
@@ -1395,6 +1410,7 @@
         medicare_quarters_of_coverage: 0
     households:
       household:
+        state_code: IL
         members: *id001
         zip_code: '60601'
         county_str: COOK_COUNTY_IL
@@ -1437,16 +1453,16 @@
   output:
     tax_units:
       tax_unit:
-        aca_ptc: 17036.81
+        aca_ptc: 9482.61
         ctc_value: 4400.0
         eitc: 3769.5
-        il_ctc: 0.0
-        il_eitc: 0.0
+        il_ctc: 301.56
+        il_eitc: 753.9
     people:
       head:
         il_aabd_person: 0.0
         il_bcc_eligible: false
-        il_fpp_eligible: false
+        il_fpp_eligible: true
         il_hbwd_eligible: false
         il_hbwd_person: 0.0
         il_mpe_eligible: false
@@ -1460,8 +1476,8 @@
         wic_category: 5
       spouse:
         il_aabd_person: 0.0
-        il_bcc_eligible: false
-        il_fpp_eligible: false
+        il_bcc_eligible: true
+        il_fpp_eligible: true
         il_hbwd_eligible: false
         il_hbwd_person: 0.0
         il_mpe_eligible: false
@@ -1476,12 +1492,12 @@
       child1:
         il_aabd_person: 0.0
         il_bcc_eligible: false
-        il_fpp_eligible: false
+        il_fpp_eligible: true
         il_hbwd_eligible: false
         il_hbwd_person: 0.0
         il_mpe_eligible: false
         is_optional_senior_or_disabled_for_medicaid: false
-        medicaid: 7155.35
+        medicaid: 7710.68
         medicaid_category: 2
         msp: 0.0
         msp_category: 0
@@ -1490,13 +1506,13 @@
         wic_category: 5
       child2:
         il_aabd_person: 0.0
-        il_bcc_eligible: false
-        il_fpp_eligible: false
+        il_bcc_eligible: true
+        il_fpp_eligible: true
         il_hbwd_eligible: false
         il_hbwd_person: 0.0
         il_mpe_eligible: false
         is_optional_senior_or_disabled_for_medicaid: false
-        medicaid: 7155.35
+        medicaid: 7710.68
         medicaid_category: 1
         msp: 0.0
         msp_category: 0
@@ -1505,9 +1521,9 @@
         wic_category: 4
     spm_units:
       spm_unit:
-        il_liheap_income_eligible: false
-        il_tanf: 0.0
-        lifeline: 228.0
+        il_liheap_income_eligible: true
+        il_tanf: 11326.88
+        lifeline: 111.0
         school_meal_daily_subsidy: 7.15
         school_meal_tier: 0
 - name: signature_180 (1 reqs)
@@ -1527,11 +1543,11 @@
         is_full_time_college_student: false
         is_snap_ineligible_student: false
         immigration_status_str: CITIZEN
-        employment_income: 36000
-        self_employment_income: 0
+        employment_income_before_lsr: 36000
+        self_employment_income_before_lsr: 0
         social_security: 0
         social_security_disability: 0
-        capital_gains: 0
+        long_term_capital_gains_before_response: 0
         rental_income: 0
         taxable_ira_distributions: 0
         taxable_pension_income: 0
@@ -1563,10 +1579,10 @@
         is_full_time_college_student: false
         is_snap_ineligible_student: false
         immigration_status_str: CITIZEN
-        employment_income: 12000
-        self_employment_income: 0
+        employment_income_before_lsr: 12000
+        self_employment_income_before_lsr: 0
         social_security: 0
-        capital_gains: 0
+        long_term_capital_gains_before_response: 0
         rental_income: 0
         taxable_ira_distributions: 0
         taxable_pension_income: 0
@@ -1598,8 +1614,8 @@
         is_full_time_college_student: false
         is_snap_ineligible_student: false
         immigration_status_str: CITIZEN
-        employment_income: 0
-        self_employment_income: 0
+        employment_income_before_lsr: 0
+        self_employment_income_before_lsr: 0
         ssi: 0
         ssi_reported: 0
         ssi_countable_resources: 0
@@ -1624,8 +1640,8 @@
         is_full_time_college_student: false
         is_snap_ineligible_student: false
         immigration_status_str: CITIZEN
-        employment_income: 0
-        self_employment_income: 0
+        employment_income_before_lsr: 0
+        self_employment_income_before_lsr: 0
         ssi: 0
         ssi_reported: 0
         ssi_countable_resources: 0
@@ -1640,6 +1656,7 @@
         medicare_quarters_of_coverage: 0
     households:
       household:
+        state_code: IL
         members: *id001
         zip_code: '60601'
         county_str: COOK_COUNTY_IL
@@ -1682,16 +1699,16 @@
   output:
     tax_units:
       tax_unit:
-        aca_ptc: 17036.81
+        aca_ptc: 9482.61
         ctc_value: 4400.0
         eitc: 3769.5
-        il_ctc: 0.0
-        il_eitc: 0.0
+        il_ctc: 301.56
+        il_eitc: 753.9
     people:
       head:
         il_aabd_person: 0.0
         il_bcc_eligible: false
-        il_fpp_eligible: false
+        il_fpp_eligible: true
         il_hbwd_eligible: false
         il_hbwd_person: 0.0
         il_mpe_eligible: false
@@ -1706,8 +1723,8 @@
         wic_category: 5
       spouse:
         il_aabd_person: 0.0
-        il_bcc_eligible: false
-        il_fpp_eligible: false
+        il_bcc_eligible: true
+        il_fpp_eligible: true
         il_hbwd_eligible: false
         il_hbwd_person: 0.0
         il_mpe_eligible: false
@@ -1723,13 +1740,13 @@
       child1:
         il_aabd_person: 0.0
         il_bcc_eligible: false
-        il_fpp_eligible: false
+        il_fpp_eligible: true
         il_hbwd_eligible: false
         il_hbwd_person: 0.0
         il_mpe_eligible: false
         is_medicare_eligible: false
         is_optional_senior_or_disabled_for_medicaid: false
-        medicaid: 7155.35
+        medicaid: 7710.68
         medicaid_category: 2
         msp: 0.0
         msp_category: 0
@@ -1738,14 +1755,14 @@
         wic_category: 5
       child2:
         il_aabd_person: 0.0
-        il_bcc_eligible: false
-        il_fpp_eligible: false
+        il_bcc_eligible: true
+        il_fpp_eligible: true
         il_hbwd_eligible: false
         il_hbwd_person: 0.0
         il_mpe_eligible: false
         is_medicare_eligible: false
         is_optional_senior_or_disabled_for_medicaid: false
-        medicaid: 7155.35
+        medicaid: 7710.68
         medicaid_category: 1
         msp: 0.0
         msp_category: 0
@@ -1754,9 +1771,9 @@
         wic_category: 4
     spm_units:
       spm_unit:
-        il_liheap_income_eligible: false
-        il_tanf: 0.0
-        lifeline: 228.0
+        il_liheap_income_eligible: true
+        il_tanf: 11326.88
+        lifeline: 111.0
         school_meal_daily_subsidy: 7.15
         school_meal_tier: 0
         snap: 11994.84
