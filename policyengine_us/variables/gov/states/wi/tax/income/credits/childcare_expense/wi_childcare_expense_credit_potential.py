@@ -27,7 +27,13 @@ class wi_childcare_expense_credit_potential(Variable):
             # federal per-individual limit under IRC §21(c).
             count_eligible = tax_unit("capped_count_cdcc_eligible", period)
             wi_expense_limit = wi_max_expense * count_eligible
-            raw_expenses = tax_unit("tax_unit_childcare_expenses", period)
+            # §71.07(9g)(b)2. swaps only the §21(c) dollar cap for the (c)5.
+            # limits, so the §21 employment-related expense definition
+            # applies: childcare plus care for a disabled adult qualifying
+            # individual (care_expenses).
+            childcare = tax_unit("tax_unit_childcare_expenses", period)
+            adult_care = add(tax_unit, period, ["care_expenses"])
+            raw_expenses = childcare + adult_care
             # Cap to WI limit, then also cap to min head/spouse earned (§21(d))
             wi_capped_expenses = min_(raw_expenses, wi_expense_limit)
             wi_relevant_expenses = min_(
