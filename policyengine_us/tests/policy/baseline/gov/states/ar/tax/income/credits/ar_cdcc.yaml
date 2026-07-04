@@ -1,7 +1,7 @@
 - name: No cdcc
   period: 2022
   input:
-    cdcc: 0
+    ar_federal_cdcc: 0
     state_code: AR
     ar_income_tax_before_non_refundable_credits_unit: 1000000
   output:
@@ -9,7 +9,9 @@
 - name: Some cdcc, 20%
   period: 2022
   input:
-    cdcc: 1000
+    # From 2021 onward the Arkansas base is the pinned 2013-law replica
+    # (ar_federal_cdcc), matched at 20 percent.
+    ar_federal_cdcc: 1000
     state_code: AR
     ar_income_tax_before_non_refundable_credits_unit: 1000000
   output:
