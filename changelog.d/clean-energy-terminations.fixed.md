@@ -1,1 +1,0 @@
-Fixed the residential clean energy credit, energy efficient home improvement credit, and new/used clean vehicle credits to reflect their termination under the One Big Beautiful Bill Act (Pub. L. 119-21).
