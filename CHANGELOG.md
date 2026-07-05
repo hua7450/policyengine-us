@@ -1,3 +1,11 @@
+## [1.756.6] - 2026-07-05
+
+### Fixed
+
+- - Added Saver's Credit joint AGI rate thresholds for 2024, 2025, and 2026 from IRS Notices 2023-75, 2024-80, and 2025-67.
+- Fixed the 2020 unemployment compensation exclusion to require AGI strictly below $150,000.
+
+
 ## [1.756.5] - 2026-07-05
 
 ### Fixed
