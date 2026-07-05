@@ -1,3 +1,11 @@
+## [1.756.1] - 2026-07-05
+
+### Fixed
+
+- Fixed the reported federal Child Tax Credit value and EITC child count for permanently disabled adult dependents.
+- Modeled a Basic Health Program benefit value for enrolled households.
+
+
 ## [1.756.0] - 2026-07-05
 
 ### Added
