@@ -1,7 +1,8 @@
 # Integration tests for Montana Best Beginnings Child Care Scholarship (CCAP).
 # End-to-end scenarios exercising age classification, the 3-D provider rate lookup,
-# the sliding-scale copay, the TANF flat-$10 copay, the income test (200% FPG /
-# 85% SMI), the activity requirement, and the final benefit + annual aggregator.
+# the sliding-scale copay, the TANF flat-$10 copay, the income test (150% FPG
+# initial / 185% FPG graduated, 85% SMI overlay), the activity requirement, and
+# the final benefit + the state and federal child-care-subsidy aggregators.
 # 2026 (contiguous) FPG: size 2 = 21,640; size 3 = 27,320 (annual).
 # Provider rates effective 07-01-2025 (BBS Provider Reimbursement Monthly Rates).
 
@@ -236,8 +237,14 @@
   output:
     # max rate (school age provider, school age, full-time) = 572
     # copay: GMI 2,000 * 1.0% = 20; charge 750 > 572 -> capped at 572
-    # monthly benefit = 572 - 20 = 552; annual aggregator = 12 * 552 = 6,624
+    # monthly benefit = 572 - 20 = 552; annual aggregator = 12 * 552 = 6,624.
     mt_child_care_subsidies: 6_624
+    # Registration roll-up: mt_child_care_subsidies must flow into the federal
+    # CCDF child_care_subsidies aggregator (child_care_subsidy_programs.yaml) and
+    # the household_state_benefits total (household_state_benefits.yaml).
+    # Asserting both guards against a dropped registration line in either file.
+    child_care_subsidies: 6_624
+    household_state_benefits: 6_624
 
 # --- Edge case integration scenarios: 185% standard ceiling, benefit floor at 0,
 # and the highest single max rate (infant at a center, full-time). ---

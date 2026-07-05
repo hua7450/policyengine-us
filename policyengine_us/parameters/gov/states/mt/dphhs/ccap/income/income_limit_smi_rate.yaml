@@ -22,7 +22,7 @@ metadata:
   period: year
   label: Montana CCAP income limit share of state median income
   reference:
-    - title: Best Beginnings Child Care Sliding Fee Scale (effective 2025-07-01)
-      href: https://dphhs.mt.gov/assets/ecfsd/childcare/policymanual/SlidingFeeScale07012023.pdf
+    - title: Best Beginnings Child Care Sliding Fee Scale (document header "Effective 07-01-2025"; URL filename says 2023)
+      href: https://dphhs.mt.gov/assets/ecfsd/childcare/policymanual/SlidingFeeScale07012023.pdf#page=1
     - title: 45 CFR 98.20(a)(2) (CCDF income eligibility maximum of 85% of State median income)
       href: https://www.ecfr.gov/current/title-45/section-98.20#p-98.20(a)(2)

@@ -26,6 +26,10 @@ values:
     # circular dependency (mt_tanf's dependent care deduction reads childcare_expenses,
     # which nets out child_care_subsidies). TANF cash-assistance families are handled
     # via the is_tanf_enrolled categorical pathway and the flat $10 copay instead.
+    #
+    # Not modeled: the CC26 (p.14) disregard for court-ordered child support PAID
+    # OUT by a household member. Only child_support_received is counted above;
+    # child support paid is not deducted from countable income at the moment.
 
 metadata:
   unit: list
@@ -34,3 +38,5 @@ metadata:
   reference:
     - title: Child Care 2-6 Income Evaluation Table (pp. 1-14)
       href: https://dphhs.mt.gov/assets/ecfsd/childcare/policymanual/CC26IncomeTable070718.pdf#page=1
+    - title: Mont. Admin. R. 37.80.102 (income definitions for child care assistance)
+      href: https://www.law.cornell.edu/regulations/montana/Mont-Admin-r-37.80.102

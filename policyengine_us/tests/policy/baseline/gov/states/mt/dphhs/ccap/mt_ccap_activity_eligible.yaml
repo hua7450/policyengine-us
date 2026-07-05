@@ -422,3 +422,29 @@
         state_code: MT
   output:
     mt_ccap_activity_eligible: true
+
+# --- Incarceration waiver is limited to two-parent ("intact") families. A LONE
+# incarcerated parent does NOT get the waiver, so with no work hours and no other
+# approved activity the household fails the activity test. ---
+- name: Case 19, single incarcerated parent does not get the two-parent incarceration waiver.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+        weekly_hours_worked_before_lsr: 0
+        is_full_time_student: false
+        is_incarcerated: true
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: MT
+  output:
+    # Incarceration only waives work hours in a two-parent family; a single
+    # incarcerated parent has no work and no waiver -> not activity-eligible.
+    mt_ccap_activity_eligible: false

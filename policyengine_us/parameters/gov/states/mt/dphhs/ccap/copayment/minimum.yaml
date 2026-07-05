@@ -11,5 +11,7 @@ metadata:
   period: month
   label: Montana CCAP minimum monthly copayment
   reference:
-    - title: Best Beginnings Child Care Sliding Fee Scale (effective 2025-07-01)
-      href: https://dphhs.mt.gov/assets/ecfsd/childcare/policymanual/SlidingFeeScale07012023.pdf
+    # The hosted filename reads "07012023" but the document header is
+    # "Effective 07-01-2025"; the 2025-07-01 effective date is authoritative.
+    - title: Best Beginnings Child Care Sliding Fee Scale (document header "Effective 07-01-2025"; URL filename says 2023)
+      href: https://dphhs.mt.gov/assets/ecfsd/childcare/policymanual/SlidingFeeScale07012023.pdf#page=1

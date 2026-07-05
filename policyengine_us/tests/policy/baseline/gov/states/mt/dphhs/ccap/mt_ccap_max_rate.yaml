@@ -326,3 +326,22 @@
         state_code: MT
   output:
     mt_ccap_max_rate: [0, 1_210]
+
+- name: Case 19, school age provider infant/toddler half-time is NA (encoded 0).
+  period: 2026-01
+  # Completes the SAP NA coverage: both SAP infant/toddler cells (half- and full-
+  # time) are 0 on the published table. Case 12 covers full-time; this is half-time.
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 1
+        mt_ccap_provider_type: SCHOOL_AGE_PROVIDER
+        mt_ccap_care_time: HALF_TIME
+    households:
+      household:
+        members: [person1, person2]
+        state_code: MT
+  output:
+    mt_ccap_max_rate: [0, 0]

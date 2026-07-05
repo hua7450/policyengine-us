@@ -143,6 +143,106 @@
   output:
     mt_ccap_income_eligible: false
 
+# Tight boundary coverage around the exact-cent FPG limits (size 3, 2026):
+#   150% FPG = 40,980/yr (3,415.00/mo); 185% FPG = 50,542/yr (4,211.83/mo).
+# The formula uses an exclusive `<`, so the threshold is tested $1 on either
+# side. NOTE: the exact-cent limit (e.g. income == 40,980) is float32-precision
+# sensitive — monthly countable income and monthly FPG are each derived by
+# dividing annual figures by 12, and the round-trip can leave the two within a
+# float ULP of each other. These $1-offset cases pin the intended behavior
+# without depending on that ambiguous exact-boundary rounding.
+- name: Case 6a, applicant one dollar below the 150% FPG limit is eligible.
+  period: 2026-01
+  # 40,979/yr -> 3,414.92/mo, just under the 3,415.00/mo (150% FPG) initial limit.
+  input:
+    people:
+      person1:
+        employment_income: 40_979
+      person2:
+        age: 4
+      person3:
+        age: 7
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        is_tanf_enrolled: false
+        mt_ccap_enrolled: false
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: MT
+  output:
+    mt_ccap_income_eligible: true
+
+- name: Case 6b, applicant one dollar above the 150% FPG limit is ineligible.
+  period: 2026-01
+  # 40,981/yr -> 3,415.08/mo, just over the 3,415.00/mo (150% FPG) initial limit.
+  input:
+    people:
+      person1:
+        employment_income: 40_981
+      person2:
+        age: 4
+      person3:
+        age: 7
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        is_tanf_enrolled: false
+        mt_ccap_enrolled: false
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: MT
+  output:
+    mt_ccap_income_eligible: false
+
+- name: Case 6c, continuing recipient one dollar below the 185% FPG limit is eligible.
+  period: 2026-01
+  # 50,541/yr -> 4,211.75/mo, just under the 4,211.83/mo (185% FPG) graduated limit.
+  input:
+    people:
+      person1:
+        employment_income: 50_541
+      person2:
+        age: 4
+      person3:
+        age: 7
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        is_tanf_enrolled: false
+        mt_ccap_enrolled: true
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: MT
+  output:
+    mt_ccap_income_eligible: true
+
+- name: Case 6d, continuing recipient one dollar above the 185% FPG limit is ineligible.
+  period: 2026-01
+  # 50,543/yr -> 4,211.92/mo, just over the 4,211.83/mo (185% FPG) graduated limit.
+  input:
+    people:
+      person1:
+        employment_income: 50_543
+      person2:
+        age: 4
+      person3:
+        age: 7
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        is_tanf_enrolled: false
+        mt_ccap_enrolled: true
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: MT
+  output:
+    mt_ccap_income_eligible: false
+
 - name: Case 7, TANF recipient over the 185% FPG limit is still income-eligible.
   period: 2026-01
   # 52,000 annual (190% FPG): over the non-TANF limits, but categorically eligible.
@@ -212,16 +312,16 @@
 
 # --- 85% SMI overlay isolation (large household where 0.85*SMI < 1.85*FPG).
 # Size 13 (2 parents + 11 children) 2026, contiguous: 185% FPG = 155,622 annual
-# (12,968.50/mo); 85% SMI = 148,217 annual (12,351.42/mo). Between these two the SMI
+# (12,968.50/mo); 85% SMI = 140,554 annual (11,712.84/mo). Between these two the SMI
 # overlay rejects an otherwise FPG-eligible continuing recipient. ---
 - name: Case 10, continuing recipient above 85% SMI but below 185% FPG is ineligible (SMI overlay).
   period: 2026-01
-  # 152,000 annual = 12,666.67/mo: above 0.85 SMI (12,351.42) yet below 1.85 FPG (12,968.50).
+  # 148,000 annual = 12,333.33/mo: above 0.85 SMI (11,712.84) yet below 1.85 FPG (12,968.50).
   input:
     people:
       person1:
         age: 35
-        employment_income: 152_000
+        employment_income: 148_000
       person2:
         age: 34
       person3:
@@ -260,12 +360,12 @@
 
 - name: Case 11, continuing recipient below 85% SMI is eligible (companion to Case 10).
   period: 2026-01
-  # 146,000 annual = 12,166.67/mo: below both 0.85 SMI (12,351.42) and 1.85 FPG (12,968.50).
+  # 138,000 annual = 11,500.00/mo: below both 0.85 SMI (11,712.84) and 1.85 FPG (12,968.50).
   input:
     people:
       person1:
         age: 35
-        employment_income: 146_000
+        employment_income: 138_000
       person2:
         age: 34
       person3:
