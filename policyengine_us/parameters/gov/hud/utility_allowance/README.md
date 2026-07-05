@@ -41,6 +41,16 @@ not know a household's actual fuel type or which specific utilities it pays.
   before it begins).
 - `bedrooms` — bedroom count, or `-1` for single-room occupancy (SRO). Households
   larger than a schedule's top bedroom size reuse that top value. Counties whose
-  PHA publishes no SRO row (all except LA County) receive 75% of their
-  zero-bedroom value, per [24 CFR 982.604(b)](https://www.law.cornell.edu/cfr/text/24/982.604).
+  PHA publishes no SRO row (all except LA County) receive a share of their
+  zero-bedroom value (75% per
+  [24 CFR 982.604(b)](https://www.law.cornell.edu/cfr/text/24/982.604)), set by
+  the `sro_share_of_zero_bedroom` parameter and applied in the
+  `hud_utility_allowance` formula.
 - `monthly_value` — monthly utility allowance in dollars.
+
+## Parameters
+
+- `sro_share_of_zero_bedroom.yaml` — the SRO utility allowance as a share of the
+  zero-bedroom allowance (0.75 per 24 CFR 982.604(b)). Applied post-lookup in the
+  formula for counties whose PHA publishes no dedicated SRO row; a published SRO
+  row (LA County) takes precedence and is not scaled.

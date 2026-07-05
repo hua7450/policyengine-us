@@ -141,6 +141,28 @@
   output:
     hud_utility_allowance: 0
 
+- name: Unset county_fips returns zero (microsimulation household with no county)
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    # county_fips left unset (empty string default) - matches how a household
+    # with no imputed county appears; must not match any schedule row.
+    is_sro: false
+    bedrooms: 2
+    tenant_pays_utilities: true
+  output:
+    hud_utility_allowance: 0
+
+- name: Unset county_fips SRO returns zero (share scaling must not fabricate a value)
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    is_sro: true
+    bedrooms: 0
+    tenant_pays_utilities: true
+  output:
+    hud_utility_allowance: 0
+
 - name: Tenant not responsible for utilities receives no allowance
   period: 2025
   absolute_error_margin: 0.01

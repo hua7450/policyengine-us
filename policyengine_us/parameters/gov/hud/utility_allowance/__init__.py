@@ -21,8 +21,10 @@ Gas rows, gas service charges, and electric heat-pump rows are excluded.
 `county_fips`, `year` (the schedule's effective year), and `bedrooms` (with
 `-1` denoting single-room occupancy). `utility_allowance_schedule(year)` returns
 the effective schedule for a given year, expanded to bedrooms 0-8. Counties
-whose PHA publishes no SRO row receive 75% of their zero-bedroom value per
-24 CFR 982.604(b).
+whose PHA publishes no SRO row fall back to their zero-bedroom value flagged
+with `sro_uses_zero_bedroom_share`; the SRO share of the zero-bedroom allowance
+(75% per 24 CFR 982.604(b)) is a reform-visible parameter applied post-lookup
+in the `hud_utility_allowance` formula.
 """
 
 from functools import lru_cache
@@ -37,10 +39,6 @@ FOLDER = Path(__file__).parent
 MAX_BEDROOMS = 8
 # Sentinel bedroom key for single-room-occupancy (SRO) units.
 SRO_BEDROOMS = -1
-# 24 CFR 982.604(b): the utility allowance for SRO housing is 75% of the
-# zero-bedroom allowance. Applied when a PHA publishes no SRO row; a published
-# SRO row (LA County) takes precedence.
-SRO_ZERO_BEDROOM_RATE = 0.75
 
 
 def _load_county_utility_allowances() -> pd.DataFrame:
@@ -67,7 +65,13 @@ def _effective_year_by_county(target_year: int) -> pd.Series:
 @lru_cache(maxsize=None)
 def utility_allowance_schedule(target_year: int) -> pd.DataFrame:
     """Effective monthly utility allowance per county and bedroom size for a
-    year, expanded to bedrooms 0-`MAX_BEDROOMS` (plus SRO where published)."""
+    year, expanded to bedrooms 0-`MAX_BEDROOMS` (plus SRO).
+
+    The returned frame carries a `sro_uses_zero_bedroom_share` flag: it is True
+    only for the SRO row of a county whose PHA publishes no dedicated SRO row,
+    where `monthly_value` holds the (unscaled) zero-bedroom allowance. The
+    `hud_utility_allowance` formula scales those rows by the SRO share parameter
+    (75% per 24 CFR 982.604(b)); published SRO rows pass through unscaled."""
     df = county_utility_allowances
     effective = _effective_year_by_county(target_year)
     selected = df[
@@ -79,10 +83,22 @@ def utility_allowance_schedule(target_year: int) -> pd.DataFrame:
         by_bedroom = dict(zip(group["bedrooms"], group["monthly_value"]))
         largest = max(bedroom for bedroom in by_bedroom if bedroom >= 0)
         for bedrooms in range(MAX_BEDROOMS + 1):
-            rows.append(
-                (county_fips, bedrooms, by_bedroom.get(bedrooms, by_bedroom[largest]))
-            )
-        sro_value = by_bedroom.get(SRO_BEDROOMS, by_bedroom[0] * SRO_ZERO_BEDROOM_RATE)
-        rows.append((county_fips, SRO_BEDROOMS, sro_value))
+            value = by_bedroom.get(bedrooms, by_bedroom[largest])
+            rows.append((county_fips, bedrooms, value, False))
+        if SRO_BEDROOMS in by_bedroom:
+            # Published SRO row: use it directly, no share scaling.
+            rows.append((county_fips, SRO_BEDROOMS, by_bedroom[SRO_BEDROOMS], False))
+        else:
+            # No published SRO row: hold the zero-bedroom value and flag it for
+            # the SRO-share scaling applied in the formula.
+            rows.append((county_fips, SRO_BEDROOMS, by_bedroom[0], True))
 
-    return pd.DataFrame(rows, columns=["county_fips", "bedrooms", "monthly_value"])
+    return pd.DataFrame(
+        rows,
+        columns=[
+            "county_fips",
+            "bedrooms",
+            "monthly_value",
+            "sro_uses_zero_bedroom_share",
+        ],
+    )

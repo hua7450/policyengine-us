@@ -43,6 +43,12 @@ class hud_utility_allowance(Variable):
     defined_for = "tenant_pays_utilities"
 
     def formula(household, period, parameters):
+        # Key on county_fips, matching hud_fair_market_rent (the fallback
+        # payment standard) so both HUD dollar amounts resolve off the same
+        # geography signal. county_fips is populated for every household in the
+        # microdata (unlike the county enum, which is not stored and would
+        # decode to the first-in-state county), so this is the reliable key in
+        # both the household and microsimulation paths.
         county_fips = household("county_fips", period)
         bedrooms = household("bedrooms", period)
         is_sro = household("is_sro", period)
@@ -60,6 +66,24 @@ class hud_utility_allowance(Variable):
                 "bedrooms": lookup_bedrooms,
             }
         )
-        matched = df.merge(schedule, on=["county_fips", "bedrooms"], how="left")
+        # validate="many_to_one": many households may share one schedule row,
+        # but the schedule must be unique per (county_fips, bedrooms). Fails
+        # loudly if a future CSV ever duplicates a merge key.
+        matched = df.merge(
+            schedule,
+            on=["county_fips", "bedrooms"],
+            how="left",
+            validate="many_to_one",
+        )
         monthly = matched["monthly_value"].fillna(0).to_numpy()
+        # SRO units in counties without a published SRO row take a share of the
+        # zero-bedroom allowance (75% per 24 CFR 982.604(b)), applied here as a
+        # reform-visible parameter rather than baked into the schedule.
+        sro_share = parameters(
+            period
+        ).gov.hud.utility_allowance.sro_share_of_zero_bedroom
+        uses_share = (
+            matched["sro_uses_zero_bedroom_share"].fillna(False).astype(bool).to_numpy()
+        )
+        monthly = where(uses_share, monthly * sro_share, monthly)
         return monthly * MONTHS_IN_YEAR
