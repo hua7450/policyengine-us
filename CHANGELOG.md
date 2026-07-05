@@ -1,3 +1,10 @@
+## [1.756.9] - 2026-07-05
+
+### Fixed
+
+- Move `uprating:` blocks from sibling-of-`values:` to `metadata:` across 33 parameter files (107 nodes: ME, NE, ND, NY, OH, RI state income tax, plus RI and NY contrib reforms), which the parameter loader was silently ignoring, freezing those thresholds and amounts at their last explicit value. Add a code-health test (`test_uprating_placement.py`) that fails on any future `values`/`uprating` sibling to guard against recurrence.
+
+
 ## [1.756.8] - 2026-07-05
 
 ### Fixed
