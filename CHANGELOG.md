@@ -1,3 +1,14 @@
+## [1.760.0] - 2026-07-05
+
+### Added
+
+- Added a SNAP work requirements state coverage document and coverage tests for HR1 ABAWD effective dates across states.
+
+### Changed
+
+- Document SNAP work requirement modeling simplifications (ABAWD 3-in-36 time limit, voluntary quit, annual hours and unemployment compensation proxies) and correct the mislabeled HR1 ABAWD in-effect parameter.
+
+
 ## [1.759.0] - 2026-07-05
 
 ### Added
