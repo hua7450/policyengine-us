@@ -1,3 +1,10 @@
+## [1.755.7] - 2026-07-05
+
+### Fixed
+
+- Update Colorado OAP and AND-CS grant standards for 2026.
+
+
 ## [1.755.6] - 2026-07-04
 
 ### Fixed
