@@ -1,1 +1,0 @@
-Counted permanently and totally disabled adult dependents as qualifying children in the California, DC, Illinois, Colorado, Washington, and Minnesota EITC-style credits that rebuild the qualifying-child count directly.

@@ -1,3 +1,10 @@
+## [1.756.4] - 2026-07-05
+
+### Fixed
+
+- Counted permanently and totally disabled adult dependents as qualifying children in the California, DC, Illinois, Colorado, Washington, and Minnesota EITC-style credits that rebuild the qualifying-child count directly.
+
+
 ## [1.756.3] - 2026-07-05
 
 ### Fixed
