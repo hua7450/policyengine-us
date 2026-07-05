@@ -1,3 +1,10 @@
+## [1.756.3] - 2026-07-05
+
+### Fixed
+
+- Fixed CHIP health benefit value counting for CHIP-eligible people who do not enroll.
+
+
 ## [1.756.2] - 2026-07-05
 
 ### Fixed
