@@ -18,8 +18,11 @@ class nm_ccap_income_eligible(Variable):
         # families are income-eligible regardless of income from that date.
         if not p.income_limit_in_effect:
             return True
-        # 8.15.2.9 / 8.15.2.12: initial certification caps income at 200% FPL;
-        # enrolled families remain eligible (recertification) up to 250% FPL.
+        # 8.15.2.9 / 8.15.2.12 codify an initial cap of 200% FPL and a
+        # continuation cap of 250% FPL, but ECECD has operated at broader
+        # ceilings since 2022-05-01 (400% initial / 425% continuation per the
+        # LFC brief). fpl_limit.initial / .continuation carry those operative
+        # values by date, so this formula uses whichever ceiling was in force.
         countable_income = spm_unit("nm_ccap_countable_income", period)
         fpg = spm_unit("spm_unit_fpg", period)
         enrolled = spm_unit("nm_ccap_enrolled", period)
