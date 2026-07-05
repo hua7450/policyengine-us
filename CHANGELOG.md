@@ -1,3 +1,10 @@
+## [1.756.10] - 2026-07-05
+
+### Fixed
+
+- Fix Delaware Filing Status 4 to allocate non-refundable credits per-column instead of pooling at the tax-unit level, and elect the filing status on post-credit liability so the joint path is chosen when combined separate filing would waste credits.
+
+
 ## [1.756.9] - 2026-07-05
 
 ### Fixed
