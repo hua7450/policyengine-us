@@ -1,3 +1,20 @@
+## [1.759.0] - 2026-07-05
+
+### Added
+
+- Add county-level HUD utility allowance schedules for Texas (TDHCA) and Kansas, move the schedules into parameters, and update Los Angeles County to the FY2025 schedule.
+- Model Hawaii and Alaska delayed adoption (2025-11-01) of the HR1 SNAP ABAWD work requirement changes via state-level hr1_in_effect parameters, and remove the unused exempt-states parameter.
+
+### Changed
+
+- Speed up and memory-harden CI: cache New York's pinned EITC/CTC tax-benefit systems (#8114), report per-case durations and per-batch peak memory in CI logs, and re-batch the test suite from measured per-batch peak RSS — finer single-worker batches across more runners so every subprocess stays at or below roughly half of the 16 GB runner memory, splitting the two heaviest contrib reform test files (RI CTC, CRFB employer payroll tax percentage) and the microsimulation pytest run into their own subprocesses.
+
+### Fixed
+
+- Apply the IRC § 21(e)(2) joint-return rule and § 21(e)(4) separated-taxpayer exception to the Wisconsin childcare expense credit (2024+) and subtraction, the New York CDCC, and the Hawaii CDCC, and restrict Hawaii's deemed earned income floor to a spouse who is a student or incapable of self-care.
+- Added North Dakota to the CCDF coverage list, matching its existing state implementation entry.
+
+
 ## [1.758.0] - 2026-07-05
 
 ### Added
