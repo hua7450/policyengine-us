@@ -1,3 +1,10 @@
+## [1.756.8] - 2026-07-05
+
+### Fixed
+
+- - Added explicit 2026 values to Nebraska, Maine, and Rhode Island income tax parameters, and 2024-2025 values to New York's itemized deduction phase-out threshold, that had been frozen by a misplaced uprating block (#8905).
+
+
 ## [1.756.7] - 2026-07-05
 
 ### Fixed
