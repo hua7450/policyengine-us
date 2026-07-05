@@ -8,7 +8,7 @@ class nv_ccdp(Variable):
     label = "Nevada CCDP benefit amount"
     definition_period = MONTH
     defined_for = "nv_ccdp_eligible"
-    reference = "https://dss.nv.gov/uploadedFiles/dwssnvgov/content/Care/Child%20Care%20Manual%20July%202024.pdf#page=29"
+    reference = "https://www.dss.nv.gov/siteassets/dwss.nv.gov/content/care/Child_Care_Manual_July_2024.pdf#page=29"
 
     def formula(spm_unit, period, parameters):
         # MS 163: subsidy = min(provider charge, state maximum rate) - family

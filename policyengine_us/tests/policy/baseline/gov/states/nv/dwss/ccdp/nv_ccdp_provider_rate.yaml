@@ -192,6 +192,81 @@
     # 0 months -> INFANT; LOWEST_PERCENTILE x CENTER x INFANT = 53.50
     nv_ccdp_provider_rate: 53.50
 
+# Remaining STAR_1 base cells not yet asserted above, completing full coverage
+# of the region x provider-type x age-group STAR_1 grid (Manual MS 633.2 p.107).
+
+- name: Center, lowest-percentile region, school age.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person:
+        age: 6
+        immigration_status: CITIZEN
+        nv_ccdp_provider_type: CENTER
+    households:
+      household:
+        members: [person]
+        state_code: NV
+        county: WASHOE_COUNTY_NV
+  output:
+    # 72 months -> SCHOOL_AGE; LOWEST_PERCENTILE x CENTER x SCHOOL_AGE = 42.50
+    nv_ccdp_provider_rate: 42.50
+
+- name: Family child care, Clark County, toddler.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person:
+        age: 2
+        immigration_status: CITIZEN
+        nv_ccdp_provider_type: FCC
+    households:
+      household:
+        members: [person]
+        state_code: NV
+        county: CLARK_COUNTY_NV
+  output:
+    # 24 months -> TODDLER; MOST_POPULOUS x FCC x TODDLER = 45
+    nv_ccdp_provider_rate: 45
+
+- name: Family child care, Clark County, school age.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person:
+        age: 6
+        immigration_status: CITIZEN
+        nv_ccdp_provider_type: FCC
+    households:
+      household:
+        members: [person]
+        state_code: NV
+        county: CLARK_COUNTY_NV
+  output:
+    # 72 months -> SCHOOL_AGE; MOST_POPULOUS x FCC x SCHOOL_AGE = 46
+    nv_ccdp_provider_rate: 46
+
+- name: Family child care, lowest-percentile region, preschool.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person:
+        age: 4
+        immigration_status: CITIZEN
+        nv_ccdp_provider_type: FCC
+    households:
+      household:
+        members: [person]
+        state_code: NV
+        county: WASHOE_COUNTY_NV
+  output:
+    # 48 months -> PRESCHOOL; LOWEST_PERCENTILE x FCC x PRESCHOOL = 40
+    nv_ccdp_provider_rate: 40
+
 # Star-rating tier coverage: each star above STAR_1 adds $1.00/day. The cases
 # above (no star input) confirm the STAR_1 base default; the cases below
 # exercise stars 2-5 across center/fcc and both regions.

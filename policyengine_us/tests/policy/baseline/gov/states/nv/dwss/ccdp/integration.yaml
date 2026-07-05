@@ -46,6 +46,13 @@
     # expense per child = 30_000 / 12 = 2_500 (does not bind).
     # benefit = max(min(2_500, 1_354.38) - 0, 0) = 1_354.38.
     nv_ccdp: 1_354.38
+    # Registration roll-up: nv_ccdp must flow into the state child-care wrapper,
+    # the federal CCDF child_care_subsidies aggregator, and the household state
+    # benefits total. Asserting all three guards against a dropped registration
+    # line in child_care_subsidy_programs.yaml or household_state_benefits.yaml.
+    nv_child_care_subsidies: 1_354.38
+    child_care_subsidies: 1_354.38
+    household_state_benefits: 1_354.38
 
 - name: Case 2, Washoe County family child care preschool, intake, $90 copay.
   period: 2025-01

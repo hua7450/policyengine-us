@@ -8,7 +8,7 @@ class nv_ccdp_countable_income(Variable):
     definition_period = YEAR
     unit = USD
     defined_for = StateCode.NV
-    reference = "https://dss.nv.gov/uploadedFiles/dwssnvgov/content/Care/Child%20Care%20Manual%20July%202024.pdf#page=55"
+    reference = "https://www.dss.nv.gov/siteassets/dwss.nv.gov/content/care/Child_Care_Manual_July_2024.pdf#page=54"
 
     def formula(spm_unit, period, parameters):
         p = parameters(period).gov.states.nv.dwss.ccdp.income

@@ -7,7 +7,7 @@ class nv_ccdp_income_eligible(Variable):
     label = "Eligible for Nevada CCDP based on income"
     definition_period = MONTH
     defined_for = StateCode.NV
-    reference = "https://dss.nv.gov/uploadedFiles/dwssnvgov/content/Care/CC%20PT%2006-25%20ANNUAL%20INCOME%20CHANGES%2010.02.2025.pdf#page=1"
+    reference = "https://www.dss.nv.gov/siteassets/dwss.nv.gov/content/care/CC_PT_06-25_ANNUAL_INCOME_CHANGES_10.02.2025.pdf#page=1"
 
     def formula(spm_unit, period, parameters):
         p = parameters(period).gov.states.nv.dwss.ccdp.income

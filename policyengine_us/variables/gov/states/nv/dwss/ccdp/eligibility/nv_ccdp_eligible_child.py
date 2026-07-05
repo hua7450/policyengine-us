@@ -7,7 +7,7 @@ class nv_ccdp_eligible_child(Variable):
     label = "Eligible child for Nevada CCDP"
     definition_period = MONTH
     defined_for = StateCode.NV
-    reference = "https://dss.nv.gov/uploadedFiles/dwssnvgov/content/Care/Child%20Care%20Manual%20July%202024.pdf#page=36"
+    reference = "https://www.dss.nv.gov/siteassets/dwss.nv.gov/content/care/Child_Care_Manual_July_2024.pdf#page=36"
 
     def formula(person, period, parameters):
         # MS 210: child must be under 13. MS 211: a child with a special need

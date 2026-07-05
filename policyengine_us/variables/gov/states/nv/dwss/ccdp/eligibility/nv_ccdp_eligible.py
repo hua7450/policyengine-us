@@ -7,7 +7,7 @@ class nv_ccdp_eligible(Variable):
     label = "Eligible for Nevada CCDP"
     definition_period = MONTH
     defined_for = StateCode.NV
-    reference = "https://dss.nv.gov/uploadedFiles/dwssnvgov/content/Care/Child%20Care%20Manual%20July%202024.pdf#page=36"
+    reference = "https://www.dss.nv.gov/siteassets/dwss.nv.gov/content/care/Child_Care_Manual_July_2024.pdf#page=36"
 
     def formula(spm_unit, period, parameters):
         # MS 218 residency is enforced by defined_for = StateCode.NV.
