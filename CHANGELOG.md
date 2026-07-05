@@ -1,3 +1,11 @@
+## [1.756.5] - 2026-07-05
+
+### Fixed
+
+- - Fixed the Indiana EITC to use the current-year federal EITC for childless filers as well as filers with children, matching Schedule IN-EIC Section A, which applies the 10% match to all filers.
+- Backfilled the `state_code` enum from a `state_code_str`-only household input so every state-dependent variable resolves the intended state instead of the California default.
+
+
 ## [1.756.4] - 2026-07-05
 
 ### Fixed
