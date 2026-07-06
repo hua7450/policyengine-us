@@ -1,3 +1,74 @@
+## [1.762.1] - 2026-07-06
+
+### Fixed
+
+- Excluded private employer (IRC section 401) pension income from the Oklahoma retirement benefit subtraction before tax year 2022.
+
+
+## [1.762.0] - 2026-07-06
+
+### Added
+
+- SNAP ABAWD work requirement support for qualifying work-program hours and workfare participation under 7 CFR 273.24(a)(1).
+
+### Fixed
+
+- Include disabled-adult care expenses (care_expenses) in the IRC § 21-conforming expense bases of the Virginia and Idaho dependent care deductions, the Oregon WFHDC credit, the Minnesota CDCC, and the Wisconsin childcare expense credit (2024 onward) and subtraction.
+- Apply Vermont's 2022 low-income AGI cap to the child and dependent care credit, end the 50 percent low-income credit after 2021, add the pre-2022 24 percent nonrefundable credit under 32 V.S.A. 5822(d)(1), and correct the state CDCC registry.
+
+
+## [1.761.1] - 2026-07-06
+
+### Fixed
+
+- Pack contrib/states CI test batches by reform-combo memory weight so no subprocess exceeds ~9 GB predicted peak, split the four over-budget dependent exemption/credit reform test files (OR, DE, OH, MD), and add a code-health test capping the reform-combo weight a single test file can carry.
+- Corrected the Georgia parent/caretaker Medicaid income limit to 0.33 FPL (28% dollar-based standard plus the 5% MAGI disregard) from 2024.
+- Updated the New York TANF earned income disregard to 62% (2023-06-01), 63% (2024-06-01), and 64% (2025-06-01) per the annual OTDA administrative directives.
+
+
+## [1.761.0] - 2026-07-06
+
+### Added
+
+- Add Nevada Child Care and Development Program (CCDP).
+- SNAP ABAWD former foster youth exemption (7 CFR 273.24(c)(9), pre-HR1 only) with tests, and documentation plus test coverage notes for the post-HR1 IHCIA Indian exemption input.
+
+
+## [1.760.0] - 2026-07-05
+
+### Added
+
+- Added a SNAP work requirements state coverage document and coverage tests for HR1 ABAWD effective dates across states.
+
+### Changed
+
+- Document SNAP work requirement modeling simplifications (ABAWD 3-in-36 time limit, voluntary quit, annual hours and unemployment compensation proxies) and correct the mislabeled HR1 ABAWD in-effect parameter.
+
+
+## [1.759.0] - 2026-07-05
+
+### Added
+
+- Add county-level HUD utility allowance schedules for Texas (TDHCA) and Kansas, move the schedules into parameters, and update Los Angeles County to the FY2025 schedule.
+- Model Hawaii and Alaska delayed adoption (2025-11-01) of the HR1 SNAP ABAWD work requirement changes via state-level hr1_in_effect parameters, and remove the unused exempt-states parameter.
+
+### Changed
+
+- Speed up and memory-harden CI: cache New York's pinned EITC/CTC tax-benefit systems (#8114), report per-case durations and per-batch peak memory in CI logs, and re-batch the test suite from measured per-batch peak RSS — finer single-worker batches across more runners so every subprocess stays at or below roughly half of the 16 GB runner memory, splitting the two heaviest contrib reform test files (RI CTC, CRFB employer payroll tax percentage) and the microsimulation pytest run into their own subprocesses.
+
+### Fixed
+
+- Apply the IRC § 21(e)(2) joint-return rule and § 21(e)(4) separated-taxpayer exception to the Wisconsin childcare expense credit (2024+) and subtraction, the New York CDCC, and the Hawaii CDCC, and restrict Hawaii's deemed earned income floor to a spouse who is a student or incapable of self-care.
+- Added North Dakota to the CCDF coverage list, matching its existing state implementation entry.
+
+
+## [1.758.0] - 2026-07-05
+
+### Added
+
+- Added SNAP ABAWD discretionary exemption hook: parameter for the exemption share of covered individuals under 7 U.S.C. 2015(o)(6) and a person-level input ORed into the ABAWD time limit exceptions.
+
+
 ## [1.757.0] - 2026-07-05
 
 ### Added
