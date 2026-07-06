@@ -1,1 +1,0 @@
-Compute the Arkansas Child and Dependent Care Credit from IRC § 21 as in effect on January 2, 2013 per Ark. Code Ann. § 26-51-502(b), replicating Form AR2441's pre-ARPA computation from 2021 onward so the credit adopts neither ARPA's 2021 expansion nor the scheduled 2026 federal change, and using the credit allowable before the federal liability limitation.
