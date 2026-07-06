@@ -1,1 +1,0 @@
-Applied the Illinois TANF minimum payment: income must fall below the payment level by at least one dollar for eligibility, monthly benefits round down to the nearest dollar, and benefits below one dollar are not paid.

@@ -1,3 +1,11 @@
+## [1.764.4] - 2026-07-06
+
+### Fixed
+
+- Applied the Illinois TANF minimum payment: income must fall below the payment level by at least one dollar for eligibility, monthly benefits round down to the nearest dollar, and benefits below one dollar are not paid.
+- Made the Massachusetts TAFDC financial eligibility income test inclusive at the Need Standard, per 106 CMR 704.260.
+
+
 ## [1.764.3] - 2026-07-06
 
 ### Fixed
