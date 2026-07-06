@@ -1,3 +1,10 @@
+## [1.762.1] - 2026-07-06
+
+### Fixed
+
+- Excluded private employer (IRC section 401) pension income from the Oklahoma retirement benefit subtraction before tax year 2022.
+
+
 ## [1.762.0] - 2026-07-06
 
 ### Added
