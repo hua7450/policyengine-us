@@ -1,3 +1,20 @@
+## [1.765.3] - 2026-07-06
+
+### Fixed
+
+- - California AMT no longer double-adds disallowed itemized deductions; Schedule P (540) Part I now adds regular taxable income plus specific AMT adjustments minus the restored itemized deductions limitation (line 18), instead of adding the full pre-limitation itemized deductions.
+  - Arizona property tax credit now selects the higher Table 2 credit schedule for any claimant living with one or more other persons (including a non-spouse cohabitant), matching ARS 43-1072(A)(3)(b), rather than only for married couples and cohabitating spouses.
+  - Louisiana FITAP now rounds the grant deficit down to a whole dollar and pays no grant when the rounded deficit is below $10, per DCFS manual B-641-1-FITAP.
+  - Nevada TANF now rounds the monthly benefit down to a whole dollar and issues no regular benefit below $10, per Eligibility and Payments Manual A-660.12.
+
+
+## [1.765.2] - 2026-07-06
+
+### Fixed
+
+- Corrected four Colorado income tax provisions: the section 199A addback Schedule F farming exception, the 2026 federal deduction addback exemptions ($1,000 single / $2,000 joint), the 2026 child and dependent care credit (70% of the federal credit before the section 26 liability limitation, AGI up to $60,000), and the low-income child care credit statutory sunset after 2025.
+
+
 ## [1.765.1] - 2026-07-06
 
 ### Fixed
