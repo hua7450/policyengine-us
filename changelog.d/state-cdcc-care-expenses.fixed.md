@@ -1,0 +1,1 @@
+Include disabled-adult care expenses (care_expenses) in the IRC § 21-conforming expense bases of the Virginia and Idaho dependent care deductions, the Oregon WFHDC credit, the Minnesota CDCC, and the Wisconsin childcare expense credit (2024 onward) and subtraction.

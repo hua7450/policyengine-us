@@ -67,3 +67,15 @@
         state_code: WI
   output:
     wi_childcare_expense_subtraction: 2_000
+
+- name: WI childcare_expense_subtraction includes care expenses for a disabled adult qualifying individual
+  absolute_error_margin: 0.01
+  period: 2021
+  input:
+    tax_unit_childcare_expenses: 0
+    care_expenses: 2_000
+    count_cdcc_eligible: 1
+    min_head_spouse_earned: 3_000
+    state_code: WI
+  output:
+    wi_childcare_expense_subtraction: 2_000
