@@ -1,3 +1,10 @@
+## [1.764.3] - 2026-07-06
+
+### Fixed
+
+- - Migrated 156 partner YAML test fixtures from the derived `employment_income` input key to the actual `employment_income_before_lsr` input, fixing a latent bug where TANF and other earned-income-list programs silently saw $0 earnings in the `build_from_dict` test path; repinned the 17 output values this revealed as wrong across 8 fixture files (Head Start, school meals, Massachusetts EAEDC and TAFDC, Oregon SNAP).
+
+
 ## [1.764.2] - 2026-07-06
 
 ### Fixed
