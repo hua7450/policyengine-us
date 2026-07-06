@@ -58,6 +58,8 @@ values:
     # Nebraska benefits
     - ne_aabd
     - ne_child_care_subsidies
+    # Nevada benefits
+    - nv_child_care_subsidies
     # South Carolina benefits
     - sc_child_care_subsidies
     # New Mexico benefits
@@ -146,6 +148,8 @@ values:
     # Nebraska benefits
     - ne_aabd
     - ne_child_care_subsidies
+    # Nevada benefits
+    - nv_child_care_subsidies
     # New Mexico benefits
     - nm_ssi_state_supplement
     # South Carolina benefits
@@ -240,6 +244,8 @@ values:
     # Nebraska benefits
     - ne_aabd
     - ne_child_care_subsidies
+    # Nevada benefits
+    - nv_child_care_subsidies
     # New Mexico benefits
     - nm_ssi_state_supplement
     # South Carolina benefits
