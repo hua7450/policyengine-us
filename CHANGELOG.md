@@ -1,3 +1,80 @@
+## [1.765.1] - 2026-07-06
+
+### Fixed
+
+- - Exempted post-retirement-age distributions from eligible Pennsylvania employer retirement plans (401(k), 403(b), SEP, Keogh) from PA taxable compensation, matching the existing IRA treatment.
+  - Moved the New Jersey 529 (NJBEST) contribution deduction from gross-income subtractions to taxable-income deductions so it no longer shifts the gross-income filing threshold.
+
+
+## [1.765.0] - 2026-07-06
+
+### Added
+
+- Added tests confirming Michigan, Missouri, and New Mexico state SSI supplement values for 2017-2019.
+
+
+## [1.764.6] - 2026-07-06
+
+### Fixed
+
+- Added FY2025 HUD Small Area Fair Market Rents so period 2025 uses FY2025 SAFMRs instead of borrowing FY2026 values.
+
+
+## [1.764.5] - 2026-07-06
+
+### Fixed
+
+- Fixed the Arkansas TEA below-trigger payment to pay the full flat grant per TEA Policy Manual 2362 and raised the Alabama TANF work expense deduction to the 30 percent promulgated in Ala. Admin. Code r. 660-2-2-.30.
+
+
+## [1.764.4] - 2026-07-06
+
+### Fixed
+
+- Applied the Illinois TANF minimum payment: income must fall below the payment level by at least one dollar for eligibility, monthly benefits round down to the nearest dollar, and benefits below one dollar are not paid.
+- Made the Massachusetts TAFDC financial eligibility income test inclusive at the Need Standard, per 106 CMR 704.260.
+
+
+## [1.764.3] - 2026-07-06
+
+### Fixed
+
+- - Migrated 156 partner YAML test fixtures from the derived `employment_income` input key to the actual `employment_income_before_lsr` input, fixing a latent bug where TANF and other earned-income-list programs silently saw $0 earnings in the `build_from_dict` test path; repinned the 17 output values this revealed as wrong across 8 fixture files (Head Start, school meals, Massachusetts EAEDC and TAFDC, Oregon SNAP).
+
+
+## [1.764.2] - 2026-07-06
+
+### Fixed
+
+- Cast two bool-bracket `.calc()` results to `bool` before negating them with `~` — in the Medicaid community engagement pass-through SNAP age exemption check and the ACA required contribution percentage income-eligibility check — preventing a bitwise-NOT-on-int64 bug from becoming live if the surrounding combining logic is ever refactored.
+
+
+## [1.764.1] - 2026-07-06
+
+### Fixed
+
+- Wired New York's orphaned itemized-deduction phase-out parameter into the IT-196 Line 40 pre-TCJA overall limitation (26 U.S.C. 68 via NY Tax Law 615 conformity), reducing itemized deductions by the lesser of 3% of federal AGI over the applicable amount or 80% of the deductions subject to the limitation.
+
+
+## [1.764.0] - 2026-07-06
+
+### Added
+
+- SNAP work registration exemption hooks for TANF work requirement compliance, drug/alcohol treatment program participation, and unemployment compensation applicants under 7 CFR 273.7(b)(1).
+
+
+## [1.763.0] - 2026-07-06
+
+### Added
+
+- Implement New Mexico Child Care Assistance Program (CCAP).
+- Model Alaska borough-level SNAP ABAWD time limit waivers, waiving the work requirement time limit for residents of waived boroughs and census areas identified by county FIPS code.
+
+### Fixed
+
+- Compute the Arkansas Child and Dependent Care Credit from IRC § 21 as in effect on January 2, 2013 per Ark. Code Ann. § 26-51-502(b), replicating Form AR2441's pre-ARPA computation from 2021 onward so the credit adopts neither ARPA's 2021 expansion nor the scheduled 2026 federal change, and using the credit allowable before the federal liability limitation.
+
+
 ## [1.762.1] - 2026-07-06
 
 ### Fixed
