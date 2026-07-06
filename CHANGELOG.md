@@ -1,3 +1,12 @@
+## [1.761.1] - 2026-07-06
+
+### Fixed
+
+- Pack contrib/states CI test batches by reform-combo memory weight so no subprocess exceeds ~9 GB predicted peak, split the four over-budget dependent exemption/credit reform test files (OR, DE, OH, MD), and add a code-health test capping the reform-combo weight a single test file can carry.
+- Corrected the Georgia parent/caretaker Medicaid income limit to 0.33 FPL (28% dollar-based standard plus the 5% MAGI disregard) from 2024.
+- Updated the New York TANF earned income disregard to 62% (2023-06-01), 63% (2024-06-01), and 64% (2025-06-01) per the annual OTDA administrative directives.
+
+
 ## [1.761.0] - 2026-07-06
 
 ### Added

@@ -1,1 +1,0 @@
-Pack contrib/states CI test batches by reform-combo memory weight so no subprocess exceeds ~9 GB predicted peak, split the four over-budget dependent exemption/credit reform test files (OR, DE, OH, MD), and add a code-health test capping the reform-combo weight a single test file can carry.
