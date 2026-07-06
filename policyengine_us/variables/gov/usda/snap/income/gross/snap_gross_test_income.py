@@ -22,6 +22,21 @@ class snap_gross_test_income(Variable):
         income = person("snap_earned_income_person", period) + person(
             "snap_unearned_income_person", period
         )
+        se_weight = max_(person("snap_gross_self_employment_income_person", period), 0)
+        total_weight = spm_unit.sum(se_weight)
+        full_count_weight = spm_unit.sum(se_weight * full_count_gross)
+        unit_self_employment = spm_unit(
+            "snap_self_employment_income_after_expense_deduction", period
+        )
+        full_count_self_employment = where(
+            total_weight > 0,
+            unit_self_employment
+            * full_count_weight
+            / where(total_weight > 0, total_weight, 1),
+            0,
+        )
+        full_count_income = (
+            spm_unit.sum(full_count_gross * income) + full_count_self_employment
+        )
         fraction = spm_unit("snap_prorated_income_fraction", period)
-        excluded_share = spm_unit.sum(full_count_gross * income) * (1 - fraction)
-        return gross_income + excluded_share
+        return gross_income + full_count_income * (1 - fraction)
