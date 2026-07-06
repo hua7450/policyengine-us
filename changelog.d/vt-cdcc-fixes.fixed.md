@@ -1,1 +1,0 @@
-Apply Vermont's 2022 low-income AGI cap to the child and dependent care credit, end the 50 percent low-income credit after 2021, add the pre-2022 24 percent nonrefundable credit under 32 V.S.A. 5822(d)(1), and correct the state CDCC registry.

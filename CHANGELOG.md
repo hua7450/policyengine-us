@@ -1,3 +1,15 @@
+## [1.762.0] - 2026-07-06
+
+### Added
+
+- SNAP ABAWD work requirement support for qualifying work-program hours and workfare participation under 7 CFR 273.24(a)(1).
+
+### Fixed
+
+- Include disabled-adult care expenses (care_expenses) in the IRC § 21-conforming expense bases of the Virginia and Idaho dependent care deductions, the Oregon WFHDC credit, the Minnesota CDCC, and the Wisconsin childcare expense credit (2024 onward) and subtraction.
+- Apply Vermont's 2022 low-income AGI cap to the child and dependent care credit, end the 50 percent low-income credit after 2021, add the pre-2022 24 percent nonrefundable credit under 32 V.S.A. 5822(d)(1), and correct the state CDCC registry.
+
+
 ## [1.761.1] - 2026-07-06
 
 ### Fixed
