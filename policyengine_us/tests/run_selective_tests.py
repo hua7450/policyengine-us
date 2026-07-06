@@ -39,6 +39,14 @@ class SelectiveTestRunner:
         self.base_branch = base_branch
         self.max_test_targets = int(os.environ.get("SELECTIVE_TEST_MAX_TARGETS", "25"))
         self.max_test_files = int(os.environ.get("SELECTIVE_TEST_MAX_FILES", "250"))
+        # Cap on the direct-file fallback: each YAML test file loads the full
+        # tax-benefit system inside ONE coverage-instrumented process, so a
+        # broad PR (e.g. 13 contrib suites) accumulates memory until the
+        # GitHub runner dies. Beyond this many direct files, defer to the
+        # sharded full-suite jobs instead.
+        self.max_direct_test_files = int(
+            os.environ.get("SELECTIVE_TEST_MAX_DIRECT_FILES", "8")
+        )
 
         # Define regex patterns for matching files to tests
         # Paths that contain only aggregation lists and should not
@@ -376,6 +384,14 @@ class SelectiveTestRunner:
             "\nSelective test scope is too broad for quick feedback "
             f"({len(test_paths)} targets / ~{total_test_files} test files)."
         )
+        if len(bounded_test_paths) > self.max_direct_test_files:
+            print(
+                f"Even the directly changed tests are too many for one "
+                f"quick-feedback process ({len(bounded_test_paths)} files > "
+                f"{self.max_direct_test_files}); deferring to the sharded "
+                "full suite jobs, which run them all."
+            )
+            return set()
         if bounded_test_paths:
             print(
                 "Running only directly changed tests and explicit file targets; "
@@ -460,7 +476,7 @@ class SelectiveTestRunner:
                         )
 
         if with_coverage:
-            pytest_args = [
+            base_cmd = [
                 sys.executable,
                 "-m",
                 "coverage",
@@ -472,9 +488,9 @@ class SelectiveTestRunner:
             # Add --include flag to only track relevant files
             if include_patterns:
                 include_pattern = ",".join(include_patterns)
-                pytest_args.extend(["--include", include_pattern])
+                base_cmd.extend(["--include", include_pattern])
 
-            pytest_args.extend(
+            base_cmd.extend(
                 [
                     "-m",
                     "policyengine_core.scripts.policyengine_command",
@@ -484,7 +500,7 @@ class SelectiveTestRunner:
                 ]
             )
         else:
-            pytest_args = [
+            base_cmd = [
                 sys.executable,
                 "-m",
                 "policyengine_core.scripts.policyengine_command",
@@ -493,15 +509,20 @@ class SelectiveTestRunner:
                 "policyengine_us",
             ]
 
-        # Add test paths
-        pytest_args.extend(sorted(test_paths))
+        # Run each location in its own subprocess: reformed tax-benefit
+        # systems and per-case simulations accumulate for the life of a
+        # process, so a single process running every selected location can
+        # exceed runner memory even when each location alone is fine.
+        # Coverage's -a flag appends results across the invocations.
+        worst_returncode = 0
+        for test_path in sorted(test_paths):
+            cmd = base_cmd + [test_path]
+            print(f"\nRunning command: {' '.join(cmd)}")
+            result = subprocess.run(cmd)
+            if result.returncode != 0:
+                worst_returncode = result.returncode
 
-        print(f"\nRunning command: {' '.join(pytest_args)}")
-
-        # Run pytest
-        result = subprocess.run(pytest_args)
-
-        return result.returncode
+        return worst_returncode
 
     def run_all_tests(self) -> int:
         """Run all tests (fallback option)."""
