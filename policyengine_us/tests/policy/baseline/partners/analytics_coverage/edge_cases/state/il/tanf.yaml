@@ -53,9 +53,10 @@
         # Demographic boundary (17 < 18 minor-child limit) at zero income ->
         # full payment level for unit size 3:
         # Jan-Sep: 0.35 x 26,650/12 = 777.29; Oct-Dec: 0.35 x 27,320/12 =
-        # 796.83 -> 9 x 777.29 + 3 x 796.83 = 9,386.13.
-        il_tanf: 9_386.12
-        tanf: 9_386.12
+        # 796.83, each floored to whole dollars (IDHS PM 10-01-02) ->
+        # 9 x 777 + 3 x 796 = 9,381.
+        il_tanf: 9_381.0
+        tanf: 9_381.0
 - name: tanf_only_child_age_18_ineligible (il)
   period: 2026
   absolute_error_margin: 0.1
@@ -158,9 +159,10 @@
     spm_units:
       spm_unit:
         # 75% earned disregard: countable = 0.25 x 500/mo = 125/mo; grant =
-        # size-3 payment level minus 125 -> 9,386.13 - 12 x 125 = 7,886.13.
-        il_tanf: 7_886.12
-        tanf: 7_886.12
+        # monthly payment level minus 125, floored to whole dollars ->
+        # 9 x (777.29 - 125 -> 652) + 3 x (796.83 - 125 -> 671) = 7,881.
+        il_tanf: 7_881.0
+        tanf: 7_881.0
 - name: tanf_income_just_below_initial_eligibility_threshold (il)
   period: 2026
   absolute_error_margin: 0.1
@@ -214,9 +216,10 @@
         # 777.29 -> ineligible; Mar-Sep (2026 IED FPG): 1,134.17 - 361.04 =
         # 773.13 <= 777.29 -> eligible; Oct-Dec: 792.67 <= 796.83 ->
         # eligible. Grant = payment level - 0.25 x 1,134.17 = 493.75
-        # (Mar-Sep) / 513.29 (Oct-Dec) -> 7 x 493.75 + 3 x 513.29 = 4,996.13.
-        il_tanf: 4_996.12
-        tanf: 4_996.12
+        # (Mar-Sep) / 513.29 (Oct-Dec), floored monthly to whole dollars
+        # (IDHS PM 10-01-02) -> 7 x 493 + 3 x 513 = 4,990.
+        il_tanf: 4_990.0
+        tanf: 4_990.0
 - name: tanf_income_at_initial_eligibility_threshold (il)
   period: 2026
   absolute_error_margin: 0.1

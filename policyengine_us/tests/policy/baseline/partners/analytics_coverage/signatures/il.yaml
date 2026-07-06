@@ -4,9 +4,10 @@
 # *_before_lsr / *_before_response input keys that production's Simulation
 # wrapper backfills (issue #8802). Outputs re-pinned to current model values
 # under the corrected inputs.
-# Sanity check (signature_39) - il_tanf = $11,326.88/yr = the IL Cook County TANF
+# Sanity check (signature_39) - il_tanf = $11,319/yr = the IL Cook County TANF
 # payment level ($11,326.88/yr) minus countable income $0 (the $4,000
-# il_tanf_countable_gross_earned_income input is fully disregarded). Genuine IL
+# il_tanf_countable_gross_earned_income input is fully disregarded), with each
+# monthly grant floored to whole dollars (IDHS PM 10-01-02). Genuine IL
 # (Cook County) amount, previously pinned $0 under the California default.
 - name: signature_39 (6 reqs, +3 dupes)
   period: 2026
@@ -262,7 +263,7 @@
     spm_units:
       spm_unit:
         il_liheap_income_eligible: true
-        il_tanf: 11326.88
+        il_tanf: 11319.0
         lifeline: 111.0
         school_meal_daily_subsidy: 7.15
         school_meal_tier: 0
@@ -513,7 +514,7 @@
     spm_units:
       spm_unit:
         il_liheap_income_eligible: true
-        il_tanf: 11326.88
+        il_tanf: 11319.0
         lifeline: 111.0
         school_meal_daily_subsidy: 7.15
         school_meal_tier: 0
@@ -768,7 +769,7 @@
     spm_units:
       spm_unit:
         il_liheap_income_eligible: true
-        il_tanf: 11326.88
+        il_tanf: 11319.0
         lifeline: 111.0
         school_meal_daily_subsidy: 7.15
         school_meal_tier: 0
@@ -1018,7 +1019,7 @@
     spm_units:
       spm_unit:
         il_liheap_income_eligible: true
-        il_tanf: 11326.88
+        il_tanf: 11319.0
         lifeline: 111.0
         school_meal_daily_subsidy: 7.15
         school_meal_tier: 0
@@ -1272,7 +1273,7 @@
     spm_units:
       spm_unit:
         il_liheap_income_eligible: true
-        il_tanf: 11326.88
+        il_tanf: 11319.0
         lifeline: 111.0
         school_meal_daily_subsidy: 7.15
         school_meal_tier: 0
@@ -1522,7 +1523,7 @@
     spm_units:
       spm_unit:
         il_liheap_income_eligible: true
-        il_tanf: 11326.88
+        il_tanf: 11319.0
         lifeline: 111.0
         school_meal_daily_subsidy: 7.15
         school_meal_tier: 0
@@ -1772,7 +1773,7 @@
     spm_units:
       spm_unit:
         il_liheap_income_eligible: true
-        il_tanf: 11326.88
+        il_tanf: 11319.0
         lifeline: 111.0
         school_meal_daily_subsidy: 7.15
         school_meal_tier: 0
