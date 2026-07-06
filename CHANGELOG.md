@@ -1,3 +1,10 @@
+## [1.766.1] - 2026-07-06
+
+### Fixed
+
+- Extend the Maryland EITC federal minimum-age disregard to married childless filers.
+
+
 ## [1.766.0] - 2026-07-06
 
 ### Added
