@@ -1,3 +1,10 @@
+## [1.764.6] - 2026-07-06
+
+### Fixed
+
+- Added FY2025 HUD Small Area Fair Market Rents so period 2025 uses FY2025 SAFMRs instead of borrowing FY2026 values.
+
+
 ## [1.764.5] - 2026-07-06
 
 ### Fixed
