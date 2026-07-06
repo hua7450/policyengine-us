@@ -1,3 +1,10 @@
+## [1.765.5] - 2026-07-06
+
+### Fixed
+
+- - Reduced the federal Child and Dependent Care Credit dollar limit by employer-provided dependent care benefits excluded under IRC section 129, as required by section 21(c) and Form 2441 Part III, and added the One Big Beautiful Bill Act increase to the section 129 exclusion cap.
+
+
 ## [1.765.4] - 2026-07-06
 
 ### Fixed
