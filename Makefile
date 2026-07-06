@@ -28,12 +28,12 @@ test-yaml-structural:
 	$(BATCH) $(TESTS)/policy/contrib --exclude states
 test-yaml-structural-heavy:
 	$(BATCH) $(TESTS)/policy/contrib/states --batches 1
-# Contrib states: 4 shards (was 3), one batch at a time. states-shard-1
-# OOM'd two-wide on CI run 28698452678 — oh's folder alone peaked
-# 12.4 GB before joining test_batched.py's PER_FILE_STATES set, and ri's
-# ctc reform file peaked 14.6 GB before it was split into three files.
-# With oh/ri per-file plus the ri split, the worst subprocess is ~6-7 GB;
-# --workers 1 keeps only one such peak resident.
+# Contrib states: 4 shards, one batch at a time. test_batched.py packs each
+# state's files into batches capped by reform-combo weight (each distinct
+# reform combo pins ~1.45 GB in policyengine-core's never-evicted cache),
+# so every subprocess stays under ~9 GB predicted peak no matter how many
+# reform test files a state accumulates. --workers 1 keeps only one such
+# peak resident.
 test-yaml-structural-heavy-shard-1:
 	$(BATCH) $(TESTS)/policy/contrib/states --batches 1 --shard 1/4 --workers 1
 test-yaml-structural-heavy-shard-2:

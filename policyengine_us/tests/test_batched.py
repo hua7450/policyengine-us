@@ -16,7 +16,9 @@ import threading
 from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor
 from concurrent.futures import wait as futures_wait
 from pathlib import Path
-from typing import List, Dict, Optional
+from typing import FrozenSet, List, Dict, Optional, Tuple
+
+import yaml
 
 
 def count_yaml_files(directory: Path) -> int:
@@ -31,6 +33,116 @@ def batch_cost(batch_paths: List[str]) -> int:
     return sum(
         count_yaml_files(Path(p)) if Path(p).is_dir() else 1 for p in batch_paths
     )
+
+
+# --- Reform-combo memory weighting ------------------------------------------
+#
+# policyengine-core's YAML runner builds one full deep copy of the
+# tax-benefit system per distinct (reforms, parametric-overrides)
+# combination a test case requests, and caches it for the life of the
+# subprocess — the cache is never evicted. Peak subprocess RSS is therefore
+# driven by how many DISTINCT combos a batch accumulates, not by how many
+# files or cases it runs. Calibrated against 46 contrib/states batches on
+# 16 GB ubuntu-latest runners (CI run 28756084246, 2026-07-05):
+#
+#   peak_rss_mb ≈ 1450 + 1450 * structural_combos
+#
+# with the batch that accumulated 11 combos peaking at 15.2 GB and killing
+# sibling runs ("The runner has received a shutdown signal").
+
+# One structural combo (a `reforms:` entry, with or without parameter
+# overrides) ≈ 1.45 GB of permanently-resident memory.
+STRUCTURAL_COMBO_WEIGHT = 1.0
+# Parametric-only overrides skip the reform apply and share more of the
+# parameter tree; historical RI sweeps measured ~0.2-0.3 GB per combo.
+PARAM_ONLY_COMBO_WEIGHT = 0.25
+# 1.45 + 1.45 * 5 ≈ 8.7 GB predicted peak — just over half the 16 GB
+# runner, leaving the other half as headroom for future tests.
+MAX_BATCH_COMBO_WEIGHT = 5.0
+
+# A combo key mirrors policyengine-core's tax-benefit-system cache key:
+# the case's reforms plus its dotted-path parameter overrides (values
+# included — each distinct value set is a separate cached system).
+ComboKey = Tuple[Tuple[str, ...], FrozenSet[Tuple[str, str]]]
+
+
+def file_reform_combos(yaml_file: Path) -> FrozenSet[ComboKey]:
+    """Distinct (reforms, parametric-overrides) combos a test file triggers.
+
+    Unparseable or non-test YAML contributes no weight; the real test run
+    surfaces any genuine syntax error.
+    """
+    try:
+        cases = yaml.safe_load(yaml_file.read_text())
+    except (OSError, yaml.YAMLError):
+        return frozenset()
+    if not isinstance(cases, list):
+        return frozenset()
+    combos = set()
+    for case in cases:
+        if not isinstance(case, dict):
+            continue
+        reforms = case.get("reforms")
+        if isinstance(reforms, list):
+            reforms_key = tuple(str(r) for r in reforms)
+        elif reforms is None:
+            reforms_key = ()
+        else:
+            reforms_key = (str(reforms),)
+        overrides = frozenset(
+            (key, repr(value))
+            for key, value in (case.get("input") or {}).items()
+            if isinstance(key, str) and "." in key
+        )
+        if reforms_key or overrides:
+            combos.add((reforms_key, overrides))
+    return frozenset(combos)
+
+
+def combo_weight(combos: FrozenSet[ComboKey]) -> float:
+    """Memory weight of a set of combos, in structural-combo units."""
+    structural = sum(1 for reforms, _ in combos if reforms)
+    param_only = len(combos) - structural
+    return structural * STRUCTURAL_COMBO_WEIGHT + param_only * PARAM_ONLY_COMBO_WEIGHT
+
+
+def pack_files_by_combo_weight(files: List[Path]) -> List[List[str]]:
+    """Pack files into batches so no subprocess exceeds the combo budget.
+
+    Greedy in sorted order: a file joins the current batch if the batch's
+    DISTINCT combo set (mirroring the runner's cache, so identical combos
+    across files count once) stays within MAX_BATCH_COMBO_WEIGHT. A single
+    file over the budget gets its own batch — the runner cannot split below
+    file granularity — with a loud warning; the code-health test
+    test_reform_combo_budget.py fails such files at authoring time.
+    """
+    batches: List[List[str]] = []
+    current: List[str] = []
+    current_combos: set = set()
+    for file in files:
+        file_combos = file_reform_combos(file)
+        merged = current_combos | file_combos
+        if current and combo_weight(frozenset(merged)) > MAX_BATCH_COMBO_WEIGHT:
+            batches.append(current)
+            current = []
+            current_combos = set()
+            merged = set(file_combos)
+        current.append(str(file))
+        current_combos = merged
+        file_weight = combo_weight(file_combos)
+        if file_weight > MAX_BATCH_COMBO_WEIGHT:
+            print(
+                f"WARNING: {file} alone carries reform-combo weight "
+                f"{file_weight:.2f} (> {MAX_BATCH_COMBO_WEIGHT}); it gets a "
+                f"dedicated subprocess but should be split into smaller "
+                f"files (see tests/code_health/test_reform_combo_budget.py)."
+            )
+            batches.append(current)
+            current = []
+            current_combos = set()
+    if current:
+        batches.append(current)
+    return batches
 
 
 def _read_vm_hwm_mb(pid: int) -> Optional[float]:
@@ -155,36 +267,26 @@ def split_into_batches(
 
         return batches
 
-    # Special handling for contrib/states - each subfolder is its own batch
-    # to allow garbage collection between state tests
-    # Memory usage per state varies significantly (1.3 GB - 5.2 GB measured)
-    # Note: contrib/congress runs all together (~6.3 GB total, under 7 GB limit)
+    # Special handling for contrib/states — pack each state's files into
+    # batches capped by reform-combo weight (see the weighting block at the
+    # top of this file). Folder-per-batch with a hand-maintained heavy-state
+    # list OOM'd within a day of tuning: two merged PRs added reform files
+    # to 13 state folders and the GA batch silently grew from 3 to 11
+    # distinct combos (15.2 GB peak on a 16 GB runner, CI run 28756084246).
+    # Weight-capped packing splits any folder automatically as combos
+    # accumulate, so new reform tests self-balance instead of re-breaking
+    # the layout. States are never mixed into one batch, keeping failures
+    # attributable; light states still run as a single subprocess.
     if str(base_path).endswith("contrib/states"):
-        # States whose reform YAMLs are heavy enough that running the folder's
-        # files together in one subprocess stacks their peaks past the 16 GB
-        # runner cap → OOM ("runner received a shutdown signal"). Each
-        # force-applied reform deepcopies the full parameter tree (~4-5 GB
-        # peak/case, see #8559); isolating per-file frees each peak between
-        # files. RI is the worst offender — its ctc_reform_test.yaml sweeps
-        # ~66 reform combinations and previously OOMed shard-2 mid-run when it
-        # shared a subprocess with exemption_reform_test.yaml. OH's folder
-        # measured 12.4 GB as one batch on CI (run 28698452678).
-        PER_FILE_STATES = {"oh", "ri"}
-
         subdirs = sorted([item for item in base_path.iterdir() if item.is_dir()])
         batches = []
         for subdir in subdirs:
-            if subdir.name in PER_FILE_STATES:
-                # One batch per YAML so each file gets a fresh subprocess.
-                batches.extend([str(f)] for f in sorted(subdir.rglob("*.yaml")))
-            else:
-                # Each state folder becomes its own batch.
-                batches.append([str(subdir)])
+            batches.extend(pack_files_by_combo_weight(sorted(subdir.rglob("*.yaml"))))
 
-        # Also include any root-level YAML files as a separate batch
-        root_files = sorted(list(base_path.glob("*.yaml")))
+        # Also include any root-level YAML files as trailing batches
+        root_files = sorted(base_path.glob("*.yaml"))
         if root_files:
-            batches.append([str(file) for file in root_files])
+            batches.extend(pack_files_by_combo_weight(root_files))
 
         return batches if batches else [[str(base_path)]]
 
@@ -736,35 +838,12 @@ def main():
     # Apply sharding: slice every Nth batch starting from the shard index.
     # Alphabetical subfolder ordering means new folders auto-distribute by
     # position rather than requiring manual re-assignment per runner.
+    # (An earlier special case pinned RI's batches to the last shard because
+    # RI was far heavier than any other state; combo-weight packing now caps
+    # every batch at the same budget, so the plain stride applies.)
     if shard_count is not None:
         all_batch_count = len(batches)
-        is_states = str(test_path).endswith("contrib/states")
-
-        def _is_ri(batch):
-            # A batch belongs to RI if its path's state component (the segment
-            # right after contrib/states) is "ri". Works for both the per-file
-            # RI batches (.../states/ri/ctc_reform_test.yaml) and any folder
-            # batch (.../states/ri).
-            parts = Path(batch[0]).parts
-            if "states" not in parts:
-                return False
-            i = parts.index("states")
-            return len(parts) > i + 1 and parts[i + 1] == "ri"
-
-        ri_batches = [b for b in batches if _is_ri(b)] if is_states else []
         batches = batches[shard_idx - 1 :: shard_count]
-        if ri_batches:
-            # RI's CTC reform sweeps ~66 parameter combinations, each cloning
-            # the full tax-benefit system — far heavier than any other state,
-            # and its files are isolated per-file above. In the plain
-            # alphabetical stride RI lands on a shard with other heavy states
-            # (ny, ct, ut), unbalancing the contrib stage. Relocate all RI
-            # batches to the last shard; every other state keeps its
-            # positional assignment. (Same spirit as the NY split in the
-            # Makefile.)
-            batches = [b for b in batches if not _is_ri(b)]
-            if shard_idx == shard_count:
-                batches = batches + ri_batches
         print(
             f"Sharding: running shard {shard_idx}/{shard_count} "
             f"({len(batches)} of {all_batch_count} batches)"
