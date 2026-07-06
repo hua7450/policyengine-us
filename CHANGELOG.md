@@ -1,3 +1,13 @@
+## [1.766.4] - 2026-07-06
+
+### Fixed
+
+- - Corrected the Colorado age 55-64 Social Security subtraction to allow the full taxable Social Security amount when AGI is at or below the filing-status threshold, per HB24-1142 (effective 2025).
+  - Updated Kentucky CCAP 85% SMI income limits to DCC-113 R.12/24 (effective 2025-10-01).
+  - Fixed the SNAP ABAWD dependent-child gate to key on any household member under the age threshold, per 7 CFR 273.24(c)(4), and removed the duplicate dead exemption branch.
+- The NYC School Tax Credit now computes through a formula so household output shows only the final credit rather than its fixed and rate-reduction components.
+
+
 ## [1.766.3] - 2026-07-06
 
 ### Fixed
