@@ -1,3 +1,11 @@
+## [1.761.0] - 2026-07-06
+
+### Added
+
+- Add Nevada Child Care and Development Program (CCDP).
+- SNAP ABAWD former foster youth exemption (7 CFR 273.24(c)(9), pre-HR1 only) with tests, and documentation plus test coverage notes for the post-HR1 IHCIA Indian exemption input.
+
+
 ## [1.760.0] - 2026-07-05
 
 ### Added
