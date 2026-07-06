@@ -1,6 +1,10 @@
 description: Percent of annual income beyond which medical expenses are deducted from HUD adjusted income.
 values:
   2001-01-19: 0.03
+  # HOTMA final rule effective date; universal mandatory PHA compliance
+  # followed on 2025-07-01 (Notice PIH 2024-38). The transitional 5%/7.5%
+  # phased hardship relief is not modeled.
+  2024-01-01: 0.1
 metadata:
   unit: /1
   label: HUD medical expense deduction income threshold

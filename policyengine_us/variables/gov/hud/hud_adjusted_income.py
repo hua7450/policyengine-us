@@ -13,8 +13,9 @@ class hud_adjusted_income(Variable):
     def formula(spm_unit, period, parameters):
         # Extract annual income.
         income = spm_unit("hud_annual_income", period)
-        # Count dependents - children only for now.
-        child_count = add(spm_unit, period, ["is_child"])
+        # Dependents per 24 CFR 5.603: under-18, disabled, or full-time
+        # student members other than the head or spouse.
+        dependent_count = add(spm_unit, period, ["is_hud_dependent"])
         # Identify if elderly or disabled.
         elderly_disabled = spm_unit("is_hud_elderly_disabled_family", period)
         # Extract childcare expenses.
@@ -30,7 +31,7 @@ class hud_adjusted_income(Variable):
         moop_deductible = max_(0, moop - moop_threshold)
         moop_ded = moop_deductible * elderly_disabled
         # Add dependent and elderly disabled deductions.
-        dependent_ded = ded.dependent.amount * child_count
+        dependent_ded = ded.dependent.amount * dependent_count
         elderly_disabled_ded = ded.elderly_disabled.amount * elderly_disabled
         # Calculate and return adjusted income, non-negative.
         return max_(

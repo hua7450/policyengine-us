@@ -124,3 +124,86 @@
     other_medical_expenses: 20_000
   output:
     hud_adjusted_income: 10_000
+
+- name: Post-HOTMA elderly or disabled deduction and 10 percent medical expense threshold.
+  period: 2024
+  input:
+    hud_annual_income: 10_000
+    age: 65
+    other_medical_expenses: 1_500
+  output:
+    # $10,000 - $525 elderly/disabled - ($1,500 - 10% * $10,000) medical.
+    hud_adjusted_income: 8_975
+
+- name: Post-HOTMA medical expenses at exactly the 10 percent threshold are not deductible.
+  period: 2024
+  input:
+    hud_annual_income: 10_000
+    age: 65
+    other_medical_expenses: 1_000
+  output:
+    # $10,000 - $525 elderly/disabled; medical deduction is zero at the threshold.
+    hud_adjusted_income: 9_475
+
+- name: A disabled adult dependent receives the dependent deduction.
+  period: 2024
+  input:
+    people:
+      head:
+        age: 45
+        is_household_head: true
+      person:
+        age: 25
+        is_disabled: true
+    tax_units:
+      tax_unit1:
+        members: [head]
+      tax_unit2:
+        members: [person]
+    spm_units:
+      spm_unit:
+        members: [head, person]
+        hud_annual_income: 10_000
+  output:
+    # $10,000 - $480 dependent - $525 elderly/disabled (disabled adult member).
+    hud_adjusted_income: 8_995
+
+- name: An adult full-time student dependent receives the dependent deduction.
+  period: 2024
+  input:
+    people:
+      head:
+        age: 45
+        is_household_head: true
+      person:
+        age: 20
+        is_full_time_student: true
+    tax_units:
+      tax_unit1:
+        members: [head]
+      tax_unit2:
+        members: [person]
+    spm_units:
+      spm_unit:
+        members: [head, person]
+        hud_annual_income: 10_000
+  output:
+    # $10,000 - $480 dependent; family is not elderly or disabled.
+    hud_adjusted_income: 9_520
+
+- name: 2026 inflation-adjusted deduction amounts apply.
+  period: 2026
+  input:
+    people:
+      head:
+        age: 65
+        is_household_head: true
+      person:
+        age: 16
+    spm_units:
+      spm_unit:
+        members: [head, person]
+        hud_annual_income: 10_000
+  output:
+    # $10,000 - $500 dependent - $550 elderly/disabled.
+    hud_adjusted_income: 8_950

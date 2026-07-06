@@ -1,0 +1,1 @@
+Update HUD adjusted income for HOTMA (24 CFR 5.611): raise the elderly or disabled deduction to $525 in 2024 and $550 in 2026, the dependent deduction to $500 in 2026, and the medical expense threshold from 3% to 10% of annual income; count disabled adults and full-time students as dependents per 24 CFR 5.603.
