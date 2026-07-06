@@ -206,7 +206,7 @@
       tax_unit:
         co_ctc: 600.0
         co_eitc: 942.37
-        ctc_value: 4400.0
+        ctc_value: 3400.0
         eitc: 3769.5
     spm_units:
       spm_unit:
@@ -404,7 +404,7 @@
       tax_unit:
         co_ctc: 600.0
         co_eitc: 942.37
-        ctc_value: 4400.0
+        ctc_value: 3400.0
         eitc: 3769.5
     spm_units:
       spm_unit:
@@ -605,7 +605,7 @@
       tax_unit:
         co_ctc: 600.0
         co_eitc: 942.37
-        ctc_value: 4400.0
+        ctc_value: 3400.0
         eitc: 3769.5
     spm_units:
       spm_unit:
@@ -892,7 +892,7 @@
       tax_unit:
         co_ctc: 600.0
         co_eitc: 942.37
-        ctc_value: 4400.0
+        ctc_value: 3400.0
         eitc: 3769.5
     spm_units:
       spm_unit:
@@ -1094,7 +1094,7 @@
       tax_unit:
         co_ctc: 600.0
         co_eitc: 942.37
-        ctc_value: 4400.0
+        ctc_value: 3400.0
         eitc: 3769.5
     spm_units:
       spm_unit:

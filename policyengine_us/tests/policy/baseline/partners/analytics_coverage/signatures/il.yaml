@@ -186,7 +186,7 @@
     tax_units:
       tax_unit:
         aca_ptc: 9482.61
-        ctc_value: 4400.0
+        ctc_value: 3400.0
         eitc: 3769.5
         il_ctc: 301.56
         il_eitc: 753.9
@@ -445,7 +445,7 @@
     tax_units:
       tax_unit:
         aca_ptc: 9482.61
-        ctc_value: 4400.0
+        ctc_value: 3400.0
         eitc: 3769.5
         il_ctc: 301.56
         il_eitc: 753.9
@@ -692,7 +692,7 @@
     tax_units:
       tax_unit:
         aca_ptc: 9482.61
-        ctc_value: 4400.0
+        ctc_value: 3400.0
         eitc: 3769.5
         il_ctc: 301.56
         il_eitc: 753.9
@@ -942,7 +942,7 @@
     tax_units:
       tax_unit:
         aca_ptc: 9482.61
-        ctc_value: 4400.0
+        ctc_value: 3400.0
         eitc: 3769.5
         il_ctc: 301.56
         il_eitc: 753.9
@@ -1196,7 +1196,7 @@
     tax_units:
       tax_unit:
         aca_ptc: 9482.61
-        ctc_value: 4400.0
+        ctc_value: 3400.0
         eitc: 3769.5
         il_ctc: 301.56
         il_eitc: 753.9
@@ -1454,7 +1454,7 @@
     tax_units:
       tax_unit:
         aca_ptc: 9482.61
-        ctc_value: 4400.0
+        ctc_value: 3400.0
         eitc: 3769.5
         il_ctc: 301.56
         il_eitc: 753.9
@@ -1700,7 +1700,7 @@
     tax_units:
       tax_unit:
         aca_ptc: 9482.61
-        ctc_value: 4400.0
+        ctc_value: 3400.0
         eitc: 3769.5
         il_ctc: 301.56
         il_eitc: 753.9

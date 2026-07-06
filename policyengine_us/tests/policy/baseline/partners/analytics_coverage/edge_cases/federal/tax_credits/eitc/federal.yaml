@@ -75,7 +75,7 @@
         eitc: 4_427.0
         eitc_eligible: true
         ctc: 2_200.0
-        ctc_value: 2_200.0
+        ctc_value: 1_700.0
         refundable_ctc: 1_700.0
         cdcc: 0.0
         adjusted_gross_income: 31_160.0
@@ -148,7 +148,7 @@
         eitc: 4_267.2
         eitc_eligible: true
         ctc: 2_200.0
-        ctc_value: 2_200.0
+        ctc_value: 1_700.0
         refundable_ctc: 1_700.0
         cdcc: 0.0
         adjusted_gross_income: 32_160.0
@@ -300,7 +300,7 @@
         eitc: 4_260.81
         eitc_eligible: true
         ctc: 2_200.0
-        ctc_value: 2_200.0
+        ctc_value: 1_700.0
         refundable_ctc: 1_700.0
         cdcc: 0.0
         adjusted_gross_income: 32_200.0
@@ -375,7 +375,7 @@
         eitc: 0.0
         eitc_eligible: false
         ctc: 2_200.0
-        ctc_value: 2_200.0
+        ctc_value: 1_700.0
         refundable_ctc: 1_700.0
         cdcc: 0.0
         adjusted_gross_income: 32_201.0
@@ -445,12 +445,13 @@
         # Age 18 < 19 qualifying-child age limit -> 1-child schedule.
         # Earnings 20_000: phased in = min(4_427, 0.34 x 20_000) = 4_427 and
         # 20_000 < 31_160 phase-out start -> eitc = 4_427.
-        # Child 18 is too old for CTC (under 17), so only the 500 other-
-        # dependent credit applies; income_tax = -(4_427 + 0) = -4_427.
+        # Child 18 is too old for CTC (under 17); the 500 other-dependent
+        # credit is nonrefundable and there is no liability, so ctc_value 0;
+        # income_tax = -(4_427 + 0) = -4_427.
         eitc: 4_427.0
         eitc_eligible: true
         ctc: 500.0
-        ctc_value: 500.0
+        ctc_value: 0.0
         refundable_ctc: 0.0
         cdcc: 0.0
         adjusted_gross_income: 20_000.0
@@ -525,7 +526,7 @@
         eitc: 521.71
         eitc_eligible: true
         ctc: 500.0
-        ctc_value: 500.0
+        ctc_value: 0.0
         refundable_ctc: 0.0
         cdcc: 0.0
         adjusted_gross_income: 20_000.0
@@ -598,7 +599,7 @@
         eitc: 4_427.0
         eitc_eligible: true
         ctc: 500.0
-        ctc_value: 500.0
+        ctc_value: 0.0
         refundable_ctc: 0.0
         cdcc: 0.0
         adjusted_gross_income: 20_000.0
@@ -941,7 +942,7 @@
         eitc: 4_427.0
         eitc_eligible: true
         ctc: 2_200.0
-        ctc_value: 2_200.0
+        ctc_value: 2_090.0
         refundable_ctc: 1_700.0
         cdcc: 0.0
         adjusted_gross_income: 20_000.0
@@ -1081,7 +1082,7 @@
         eitc: 4_168.2
         eitc_eligible: true
         ctc: 2_200.0
-        ctc_value: 2_200.0
+        ctc_value: 1_700.0
         refundable_ctc: 1_700.0
         cdcc: 0.0
         adjusted_gross_income: 31_470.0

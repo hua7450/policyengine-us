@@ -53,9 +53,9 @@
       spm_unit:
         # Income 25,000 <= LA County size-2 extremely-low limit 36,400 ->
         # eligible (childless couple, so no CalWORKs enters HUD income).
-        # LA utility allowance 1bd = 271 x 12 = 3,252 -> gross rent =
-        # 21,000 + 3,252 = 24,252.
+        # LA utility allowance 1bd (LACDA FY2025 schedule) = 290 x 12 = 3,480
+        # -> gross rent = 21,000 + 3,480 = 24,480.
         # TTP = max(10% x 25,000 = 2,500; 30% x 25,000 = 7,500; 25) = 7,500.
         # LA payment standard 1bd = 2,096 x 12 = 25,152 -> max subsidy 17,652.
-        # Gross rent 24,252 - TTP 7,500 = 16,752 (rent side binds).
-        housing_assistance: 16_752.0
+        # Gross rent 24,480 - TTP 7,500 = 16,980 (rent side binds).
+        housing_assistance: 16_980.0

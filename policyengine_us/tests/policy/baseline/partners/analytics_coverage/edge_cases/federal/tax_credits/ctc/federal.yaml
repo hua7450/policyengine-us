@@ -69,7 +69,8 @@
         eitc_eligible: true
         # Age 16 < 17 limit -> full base amount: $2,200 (amount/base.yaml 2025+).
         ctc: 2_200.0
-        # ctc_value = min(ctc, phase-in) = min(2,200, 15% x (80,000 - 2,500)) = 2,200.
+        # ctc_value: tax liability at 80,000 covers the nonrefundable CTC in
+        # full, so the whole 2,200 is delivered.
         ctc_value: 2_200.0
         # Liability (5,240) fully absorbs the CTC, so no refundable portion.
         refundable_ctc: 0.0
@@ -652,8 +653,9 @@
         eitc_eligible: true
         # Two qualifying children -> 2 x 2,200 = 4,400.
         ctc: 4_400.0
-        # ctc_value = min(ctc, phase-in) = min(4,400, 15% x 27,500) = 4,125.
-        ctc_value: 4_125.0
+        # ctc_value = min(ctc, liability + refundable) = min(4,400, 585 + 3,400)
+        # = 3,985.
+        ctc_value: 3_985.0
         # Refundable cap binds: phase-in headroom is 3,815 (= min(4,400,
         # 585 + 4,125) - 585 of liability already used), but the per-child
         # refundable maximum is 2 x 1,700 = 3,400 < 3,815.

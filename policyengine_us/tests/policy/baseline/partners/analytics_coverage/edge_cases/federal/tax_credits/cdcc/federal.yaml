@@ -76,7 +76,7 @@
         eitc: 4_427.0
         eitc_eligible: true
         ctc: 2_200.0
-        ctc_value: 1_875.0
+        ctc_value: 1_700.0
         refundable_ctc: 1_700.0
         # 3_000 x 0.5 = 1_500 pre-cap; liability cap 0 binds.
         cdcc_potential: 1_500.0
@@ -964,7 +964,7 @@
         eitc: 3_450.62
         eitc_eligible: true
         ctc: 2_200.0
-        ctc_value: 2_200.0
+        ctc_value: 1_860.0
         refundable_ctc: 1_700.0
         # 3_000 x (0.5 - ceil(15_000 / 2_000) x 0.01) = 1_260.
         cdcc_potential: 1_260.0

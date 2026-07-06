@@ -172,7 +172,7 @@
     tax_units:
       tax_unit:
         aca_ptc: 18447.99
-        ctc_value: 4400.0
+        ctc_value: 3400.0
         eitc: 3769.5
         ma_child_and_family_credit: 880.0
         ma_eitc: 1507.8
@@ -413,7 +413,7 @@
     tax_units:
       tax_unit:
         aca_ptc: 18447.99
-        ctc_value: 4400.0
+        ctc_value: 3400.0
         eitc: 3769.5
         ma_child_and_family_credit: 880.0
         ma_eitc: 1507.8
@@ -651,7 +651,7 @@
     tax_units:
       tax_unit:
         aca_ptc: 18447.99
-        ctc_value: 4400.0
+        ctc_value: 3400.0
         eitc: 3769.5
         ma_child_and_family_credit: 880.0
         ma_eitc: 1507.8
@@ -892,7 +892,7 @@
     tax_units:
       tax_unit:
         aca_ptc: 18447.99
-        ctc_value: 4400.0
+        ctc_value: 3400.0
         eitc: 3769.5
         ma_child_and_family_credit: 880.0
         ma_eitc: 1507.8
@@ -1134,7 +1134,7 @@
     tax_units:
       tax_unit:
         aca_ptc: 18447.99
-        ctc_value: 4400.0
+        ctc_value: 3400.0
         eitc: 3769.5
         ma_child_and_family_credit: 880.0
         ma_eitc: 1507.8

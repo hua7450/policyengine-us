@@ -275,8 +275,9 @@
         eitc: 4_427.0
         eitc_eligible: true
         ctc: 2_200.0
-        # ctc_value = min(ctc 2_200, phase-in 15% x (20_000 - 2_500) = 2_625) = 2_200.
-        ctc_value: 2_200.0
+        # ctc_value = liability 0 + refundable_ctc 1_700 (nonrefundable portion
+        # unusable: 20_000 < 24_150 HoH deduction).
+        ctc_value: 1_700.0
         # Refundable per-child cap binds: min(1_700 x 1 child, 2_625 phase-in,
         # ctc 2_200) = 1_700 (no tax liability, 20_000 < 24_150 HoH deduction).
         refundable_ctc: 1_700.0
@@ -406,8 +407,9 @@
         # CTC qualifying-child age cliff: age 17 exceeds the under-17 limit, so
         # the dependent gets the 500 other-dependent credit instead of 2_200.
         ctc: 500.0
-        # ctc_value = min(500, 15% x (20_000 - 2_500) = 2_625) = 500.
-        ctc_value: 500.0
+        # ctc_value = 0: the other-dependent credit is nonrefundable and there
+        # is no tax liability (20_000 < 24_150 HoH deduction).
+        ctc_value: 0.0
         # The other-dependent credit is nonrefundable and there are no CTC
         # qualifying children, so the refundable maximum is 1_700 x 0 = 0.
         refundable_ctc: 0.0
@@ -472,8 +474,8 @@
         eitc: 1_852.62
         eitc_eligible: true
         ctc: 2_200.0
-        # ctc_value = min(2_200, 15% x (40_000 - 2_500) = 5_625) = 2_200.
-        ctc_value: 2_200.0
+        # ctc_value = remaining liability 475 + refundable 1_700 = 2_175.
+        ctc_value: 2_175.0
         # 2026 CDCC rate at AGI 40_000: 50% - 1% x ceil((40_000 - 15_000)/2_000)
         # = 50% - 13% = 37%; expenses capped at min(4_000, 3_000, earnings) = 3_000;
         # cdcc = 37% x 3_000 = 1_110 (< 1_585 pre-credit tax, so uncapped).
