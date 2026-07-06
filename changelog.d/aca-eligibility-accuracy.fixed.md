@@ -1,1 +1,0 @@
-- Fixed the ACA 700% FPL cliff contrib reform to reuse the baseline ACA coverage and premium-paying gate, so Basic Health Program, Oregon Healthier Oregon, VA/CHAMPVA, and other minimum-essential-coverage exclusions and the below-FPL immigration exception apply to the reform.
