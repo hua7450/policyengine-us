@@ -1,3 +1,10 @@
+## [1.765.0] - 2026-07-06
+
+### Added
+
+- Added tests confirming Michigan, Missouri, and New Mexico state SSI supplement values for 2017-2019.
+
+
 ## [1.764.6] - 2026-07-06
 
 ### Fixed
