@@ -1,3 +1,10 @@
+## [1.766.3] - 2026-07-06
+
+### Fixed
+
+- - Aligned Florida TCA payment standard, income tests, earned income disregard, and minimum issuance with the DCF ESS Program Policy Manual and Appendix A-5.
+
+
 ## [1.766.2] - 2026-07-06
 
 ### Fixed

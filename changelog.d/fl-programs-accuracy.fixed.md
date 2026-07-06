@@ -1,1 +1,0 @@
-- Aligned Florida TCA payment standard, income tests, earned income disregard, and minimum issuance with the DCF ESS Program Policy Manual and Appendix A-5.
