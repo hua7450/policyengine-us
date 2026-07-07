@@ -3,7 +3,7 @@ values:
   2024-01-01:
     - ma_eaedc
     - ma_tafdc
-    - snap
+    - snap_enrolled
     # Medicaid includes MassHealth CarePlus, MassHealth Family Assistance,
     # MassHealth Limited, and MassHealth Standard
     - medicaid_enrolled

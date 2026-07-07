@@ -2,7 +2,7 @@ description: Program participation that entitles a non-tribal household to the L
 values:
   2016-12-01:
     - medicaid_enrolled
-    - snap
+    - snap_enrolled
     - ssi
     # Also not implemented:
     # - Veterans and Survivors Pension Benefit

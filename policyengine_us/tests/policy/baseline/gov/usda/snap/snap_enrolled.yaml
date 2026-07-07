@@ -1,0 +1,39 @@
+- name: Case 1, defaults to calculated SNAP participation when use_reported_snap is false.
+  period: 2025-01
+  input:
+    snap: 200
+  output:
+    snap_enrolled: true
+
+- name: Case 2, not enrolled by default when the calculated SNAP amount is zero.
+  period: 2025-01
+  input:
+    snap: 0
+  output:
+    snap_enrolled: false
+
+- name: Case 3, reported participation wins over a zero calculated amount.
+  period: 2025-01
+  input:
+    use_reported_snap: true
+    receives_snap: true
+    snap: 0
+  output:
+    snap_enrolled: true
+
+- name: Case 4, a positive calculated amount is ignored when participation is not reported.
+  period: 2025-01
+  input:
+    use_reported_snap: true
+    snap: 200
+  output:
+    snap_enrolled: false
+
+- name: Case 5, reported participation applies over the whole year.
+  period: 2025
+  input:
+    use_reported_snap: true
+    receives_snap: true
+    snap: 0
+  output:
+    snap_enrolled: true

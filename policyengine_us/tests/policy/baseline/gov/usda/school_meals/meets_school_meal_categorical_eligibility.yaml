@@ -90,3 +90,34 @@
       is_homeless: [False, False, True, True, False, False, False, False]
   output:
       meets_school_meal_categorical_eligibility: [True, True, True, True, False, False, False, False]
+
+- name: Reported SNAP participation qualifies despite a zero calculated amount.
+  period: 2025
+  input:
+      use_reported_snap: true
+      receives_snap: true
+      snap: 0
+      tanf: 0
+      fdpir: 0
+      was_in_foster_care: false
+      is_homeless: false
+      is_runaway_child: false
+      is_migratory_child: false
+      is_head_start_eligible: false
+  output:
+      meets_school_meal_categorical_eligibility: true
+
+- name: Reported non-participation overrides a positive calculated SNAP amount.
+  period: 2025
+  input:
+      use_reported_snap: true
+      snap: 1
+      tanf: 0
+      fdpir: 0
+      was_in_foster_care: false
+      is_homeless: false
+      is_runaway_child: false
+      is_migratory_child: false
+      is_head_start_eligible: false
+  output:
+      meets_school_meal_categorical_eligibility: false
