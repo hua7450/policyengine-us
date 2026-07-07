@@ -1,3 +1,73 @@
+## [1.766.5] - 2026-07-07
+
+### Fixed
+
+- - Honored the IRC § 21(e)(4) separated-taxpayer exception in the South Carolina child and dependent care credit.
+  - Stopped the Idaho and Georgia contributed child tax credit reforms from applying in years before their in_effect activation date.
+  - Computed the Kentucky, Maine, and Vermont child and dependent care credits from the pre-OBBBA federal IRC § 21 credit for 2026, matching each state's static conformity to the Internal Revenue Code as of December 31, 2024.
+  - Reduced the California, Idaho, and Virginia child and dependent care benefit bases by employer-provided dependent care benefits excluded under IRC § 129, matching each state's form treatment and the federal IRC § 21(c) reduction.
+
+
+## [1.766.4] - 2026-07-06
+
+### Fixed
+
+- - Corrected the Colorado age 55-64 Social Security subtraction to allow the full taxable Social Security amount when AGI is at or below the filing-status threshold, per HB24-1142 (effective 2025).
+  - Updated Kentucky CCAP 85% SMI income limits to DCC-113 R.12/24 (effective 2025-10-01).
+  - Fixed the SNAP ABAWD dependent-child gate to key on any household member under the age threshold, per 7 CFR 273.24(c)(4), and removed the duplicate dead exemption branch.
+- The NYC School Tax Credit now computes through a formula so household output shows only the final credit rather than its fixed and rate-reduction components.
+
+
+## [1.766.3] - 2026-07-06
+
+### Fixed
+
+- - Aligned Florida TCA payment standard, income tests, earned income disregard, and minimum issuance with the DCF ESS Program Policy Manual and Appendix A-5.
+
+
+## [1.766.2] - 2026-07-06
+
+### Fixed
+
+- - Fixed the ACA 700% FPL cliff contrib reform to reuse the baseline ACA coverage and premium-paying gate, so Basic Health Program, Oregon Healthier Oregon, VA/CHAMPVA, and other minimum-essential-coverage exclusions and the below-FPL immigration exception apply to the reform.
+
+
+## [1.766.1] - 2026-07-06
+
+### Fixed
+
+- Extend the Maryland EITC federal minimum-age disregard to married childless filers.
+
+
+## [1.766.0] - 2026-07-06
+
+### Added
+
+- Added FY2026 HUD Section 8 income limits so period 2026 uses the current 30/50/80 percent AMI eligibility limits (effective 2026-05-01) instead of FY2025.
+
+
+## [1.765.6] - 2026-07-06
+
+### Fixed
+
+- - Added the Maine EITC childless age expansion (36 M.R.S. Sec. 5219-S) so filers aged 18-24 without a qualifying child receive the credit.
+  - Corrected the 2025 Maine sales tax fairness credit base amount to $215 for joint, head of household, and surviving spouse filers.
+
+
+## [1.765.5] - 2026-07-06
+
+### Fixed
+
+- - Reduced the federal Child and Dependent Care Credit dollar limit by employer-provided dependent care benefits excluded under IRC section 129, as required by section 21(c) and Form 2441 Part III, and added the One Big Beautiful Bill Act increase to the section 129 exclusion cap.
+
+
+## [1.765.4] - 2026-07-06
+
+### Fixed
+
+- Update the Georgia parent/caretaker Medicaid income limit to 0.31 FPL from 2025, reflecting the frozen-dollar standard's drift to 26% of FPL (plus the 5% MAGI disregard) per MACPAC Exhibit 36 (July 2025).
+
+
 ## [1.765.3] - 2026-07-06
 
 ### Fixed
