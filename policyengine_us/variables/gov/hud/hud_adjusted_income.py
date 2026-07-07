@@ -25,7 +25,9 @@ class hud_adjusted_income(Variable):
         # childcare cannot exceed the employment income included in annual
         # income.
         earned_income = spm_unit("hud_countable_earned_income", period)
-        childcare_ded = min_(spm_unit("childcare_expenses", period), earned_income)
+        childcare_ded = min_(
+            spm_unit("childcare_expenses", period), max_(earned_income, 0)
+        )
         # TODO: Attendant care (save for later)
         # Medical expenses for elderly/disabled families.
         ded = parameters(period).gov.hud.adjusted_income.deductions

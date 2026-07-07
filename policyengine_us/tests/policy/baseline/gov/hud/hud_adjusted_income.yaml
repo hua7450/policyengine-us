@@ -101,6 +101,17 @@
     # Childcare deduction limited to $3,000 of employment income.
     hud_adjusted_income: 7_000
 
+- name: Childcare expense deduction is zero when earned income is negative.
+  period: 2024
+  input:
+    hud_annual_income: 10_000
+    self_employment_income: -1_000
+    childcare_expenses: 500
+  output:
+    # A self-employment loss cannot turn the cap into a negative deduction
+    # that would raise adjusted income above annual income.
+    hud_adjusted_income: 10_000
+
 - name: Single elderly person with medical expenses will have elderly-disabled deduction and medical expense deduction.
   period: 2022
   input:
