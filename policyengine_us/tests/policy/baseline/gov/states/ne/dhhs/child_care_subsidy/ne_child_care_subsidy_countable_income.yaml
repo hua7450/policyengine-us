@@ -123,3 +123,21 @@
   output:
     # max(-5,000 + 2,000, 0)
     ne_child_care_subsidy_countable_income: 0
+
+- name: Case 7, active farm operations income counts.
+  period: 2024
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        farm_operations_income: 18_000
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: NE
+  output:
+    ne_child_care_subsidy_countable_income: 18_000
