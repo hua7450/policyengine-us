@@ -72,3 +72,31 @@
     ssi_reported: 1
   output:
     meets_snap_categorical_eligibility: true
+
+- name: Reported TANF creates eligibility when use_reported_tanf is true.
+  period: 2022
+  input:
+    is_tanf_non_cash_eligible: false
+    use_reported_tanf: true
+    tanf_reported: 3_000
+  output:
+    meets_snap_categorical_eligibility: true
+
+- name: With use_reported_tanf and no reported amount or enrollment, calculated TANF does not create eligibility.
+  period: 2022
+  input:
+    is_tanf_non_cash_eligible: false
+    use_reported_tanf: true
+    tanf: 3_000
+  output:
+    meets_snap_categorical_eligibility: false
+
+- name: With use_reported_tanf and is_tanf_enrolled, calculated TANF creates eligibility.
+  period: 2022-01
+  input:
+    is_tanf_non_cash_eligible: false
+    use_reported_tanf: true
+    is_tanf_enrolled: true
+    tanf: 3_000
+  output:
+    meets_snap_categorical_eligibility: true

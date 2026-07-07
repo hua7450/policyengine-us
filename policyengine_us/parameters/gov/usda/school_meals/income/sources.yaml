@@ -10,7 +10,7 @@ values:
     - gi_cash_assistance
     - social_security
     - ssi
-    - tanf
+    - applicable_tanf
     - pension_income
     - survivor_benefits
     - financial_assistance

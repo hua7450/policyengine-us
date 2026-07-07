@@ -8,7 +8,7 @@ values:
     - snap
     - ssi
     - ma_state_supplement
-    - tanf
+    - applicable_tanf
     - wic
 metadata:
   unit: list

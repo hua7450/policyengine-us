@@ -19,4 +19,4 @@ class hud_countable_unearned_income(Variable):
         )
         # TANF is a family benefit assigned to the unit, not an individual, so
         # it is counted whole and is not subject to the foster-member mask.
-        return unearned_income + spm_unit("tanf", period)
+        return unearned_income + spm_unit("applicable_tanf", period)

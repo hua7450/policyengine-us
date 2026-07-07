@@ -6,7 +6,7 @@ values:
     - is_medicare_eligible # medicare
     - wic
     - snap
-    - tanf
+    - applicable_tanf
     # Comprehensive Energy Assistance Program (CEAP)
     # Housing Choice Voucher Program (Section 8)
     

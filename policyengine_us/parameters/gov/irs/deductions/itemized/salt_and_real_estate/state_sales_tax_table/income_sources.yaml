@@ -19,5 +19,5 @@ values:
     - tax_exempt_pension_income
     - tax_exempt_retirement_distributions
     # Public assistance payments.
-    - tanf
+    - applicable_tanf
     - ssi

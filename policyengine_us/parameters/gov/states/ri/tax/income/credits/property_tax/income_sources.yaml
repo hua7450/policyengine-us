@@ -8,7 +8,7 @@ values:
     - tax_exempt_social_security
     - tax_exempt_unemployment_compensation
     - alimony_income
-    - tanf
+    - applicable_tanf
     - child_support_received
     - workers_compensation
 

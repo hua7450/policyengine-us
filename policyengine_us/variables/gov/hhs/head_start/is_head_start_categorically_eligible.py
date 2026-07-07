@@ -18,6 +18,8 @@ class is_head_start_categorically_eligible(Variable):
         )
 
         # Family-level: family eligible for public assistance (aggregated at spm_unit)
-        family_eligible = add(person.spm_unit, period, ["tanf", "ssi", "snap"]) > 0
+        family_eligible = (
+            add(person.spm_unit, period, ["applicable_tanf", "ssi", "snap"]) > 0
+        )
 
         return family_eligible | person_eligible

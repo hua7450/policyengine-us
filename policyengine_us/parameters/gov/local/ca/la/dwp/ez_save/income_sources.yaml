@@ -16,7 +16,7 @@ values:
     - alimony_income
     - social_security
     - ssi
-    - tanf
+    - applicable_tanf
     - snap
     - veterans_benefits
     - unemployment_compensation

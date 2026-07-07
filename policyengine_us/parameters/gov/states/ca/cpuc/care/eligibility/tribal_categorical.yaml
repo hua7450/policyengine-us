@@ -1,7 +1,7 @@
 description: California provides CARE eligibility to tribal households that are enrolled in these programs.
 values:
   2022-06-01:
-    - tanf
+    - applicable_tanf
     - head_start
     # Also these, not in our model:
     # Bureau of Indian Affairs General Assistance

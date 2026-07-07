@@ -1,0 +1,46 @@
+- name: Case 1, defaults to calculated TANF when use_reported_tanf is false.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    tanf: 3_600
+  output:
+    applicable_tanf: 3_600
+
+- name: Case 2, uses the reported amount when provided.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    use_reported_tanf: true
+    tanf_reported: 5_000
+    tanf: 3_600
+  output:
+    applicable_tanf: 5_000
+
+- name: Case 3, falls back to calculated TANF when enrolled without a reported amount.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    use_reported_tanf: true
+    is_tanf_enrolled: true
+    tanf: 3_600
+  output:
+    # 3,600 / 12 in the January period.
+    applicable_tanf: 300
+
+- name: Case 4, zero when neither a reported amount nor enrollment is provided.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    use_reported_tanf: true
+    tanf: 3_600
+  output:
+    applicable_tanf: 0
+
+- name: Case 5, the reported amount wins even without the enrollment flag.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    use_reported_tanf: true
+    tanf_reported: 5_000
+  output:
+    applicable_tanf: 5_000

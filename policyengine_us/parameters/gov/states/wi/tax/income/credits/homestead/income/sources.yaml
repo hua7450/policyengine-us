@@ -18,4 +18,4 @@ values:
     # cash transfer income sources:
     - ssi
     # wi_state_supplement
-    - tanf
+    - applicable_tanf

@@ -26,7 +26,7 @@ values:
   # Child support
   - child_support_received
   # Public assistance payments
-  - tanf
+  - applicable_tanf
   - ssi
   - snap
   - wic

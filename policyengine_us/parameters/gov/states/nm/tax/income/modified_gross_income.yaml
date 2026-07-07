@@ -3,7 +3,7 @@ values:
   2021-01-01:
     - tax_unit_social_security
     - capital_gains
-    - tanf
+    - applicable_tanf
     - ssi
     - interest_income
     - dividend_income

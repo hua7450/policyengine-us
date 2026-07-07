@@ -3,7 +3,7 @@ values:
   2023-01-01:
     - snap
     - school_meal_net_subsidy
-    - tanf
+    - applicable_tanf
     - wic
     - medicaid_enrolled
     - ssi

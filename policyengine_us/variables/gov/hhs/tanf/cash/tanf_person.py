@@ -12,4 +12,4 @@ class tanf_person(Variable):
     unit = USD
 
     def formula(person, period, parameters):
-        return person.spm_unit("tanf", period) / person.spm_unit.nb_persons()
+        return person.spm_unit("applicable_tanf", period) / person.spm_unit.nb_persons()

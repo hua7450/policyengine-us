@@ -4,7 +4,7 @@ values:
   2009-01-01:
     # (i)
     - ssi
-    - tanf
+    - applicable_tanf
     - general_assistance
     # (ii)
     - pension_income # Includes annuities.

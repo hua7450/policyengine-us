@@ -12,4 +12,4 @@ class tx_ceap_countable_income(Variable):
         "https://www.tdhca.texas.gov/sites/default/files/community-affairs/docs/26-LIHEAP-Plan-Amend1.pdf#page=8",
         "https://www.law.cornell.edu/regulations/texas/10-Tex-Admin-Code-SS-6-4",
     )
-    adds = ["tx_ceap_countable_income_person", "tanf"]
+    adds = ["tx_ceap_countable_income_person", "applicable_tanf"]
