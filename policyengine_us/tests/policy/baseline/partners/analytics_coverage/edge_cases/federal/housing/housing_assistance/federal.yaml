@@ -230,7 +230,7 @@
   output:
     spm_units:
       spm_unit:
-        # Income 20,000 <= 24,650 extremely-low limit -> eligible.
+        # Income 20,000 <= 25,450 extremely-low limit (FY2026) -> eligible.
         # TTP = max(10% x 20,000 = 2,000; 30% x 20,000 = 6,000; 25) = 6,000.
         # Payment standard = 0bd SAFMR 2,380 x 12 = 28,560 -> max subsidy
         # 28,560 - 6,000 = 22,560. Gross rent 36,000 - TTP = 30,000, so the
@@ -247,7 +247,7 @@
         is_tax_unit_spouse: false
         is_tax_unit_dependent: false
         is_disabled: false
-        employment_income_before_lsr: 65_700
+        employment_income_before_lsr: 67_850
         pre_subsidy_rent: 24_000
     households:
       household:
@@ -278,11 +278,12 @@
   output:
     spm_units:
       spm_unit:
-        # Income 65,700 = size-1 low-income limit exactly -> LOW -> eligible.
-        # TTP = max(10% x 65,700 = 6,570; 30% x 65,700 = 19,710; 25) = 19,710.
-        # Payment standard = 1bd SAFMR 29,640 -> max subsidy 9,930.
-        # Gross rent 24,000 - TTP 19,710 = 4,290 (rent side binds).
-        housing_assistance: 4_290.0
+        # Income 67,850 = size-1 low-income limit exactly (FY2026) -> LOW ->
+        # eligible.
+        # TTP = max(10% x 67,850 = 6,785; 30% x 67,850 = 20,355; 25) = 20,355.
+        # Payment standard = 1bd SAFMR 29,640 -> max subsidy 9,285.
+        # Gross rent 24,000 - TTP 20,355 = 3,645 (rent side binds).
+        housing_assistance: 3_645.0
 - name: housing_assistance_income_above_low_income_limit_ineligible (federal)
   period: 2026
   absolute_error_margin: 0.1
@@ -294,7 +295,7 @@
         is_tax_unit_spouse: false
         is_tax_unit_dependent: false
         is_disabled: false
-        employment_income_before_lsr: 65_701
+        employment_income_before_lsr: 67_851
         pre_subsidy_rent: 24_000
     households:
       household:
@@ -325,9 +326,10 @@
   output:
     spm_units:
       spm_unit:
-        # Deliberate income-route ineligible boundary pin: 65,701 exceeds the
-        # size-1 low-income limit of 65,700 by $1 (MODERATE, not LOW), and
-        # receives_housing_assistance is not set -> ineligible despite rent.
+        # Deliberate income-route ineligible boundary pin: 67,851 exceeds the
+        # FY2026 size-1 low-income limit of 67,850 by $1 (MODERATE, not LOW),
+        # and receives_housing_assistance is not set -> ineligible despite
+        # rent.
         housing_assistance: 0.0
 - name: housing_assistance_receives_flag_income_above_limits (federal)
   period: 2026
