@@ -11,7 +11,7 @@
   absolute_error_margin: 0.01
   input:
     use_reported_tanf: true
-    tanf_reported: 5_000
+    reported_tanf_amount: 5_000
     tanf: 3_600
   output:
     applicable_tanf: 5_000
@@ -41,22 +41,6 @@
   absolute_error_margin: 0.01
   input:
     use_reported_tanf: true
-    tanf_reported: 5_000
-  output:
-    applicable_tanf: 5_000
-
-- name: Case 6, reported amounts sum across household members.
-  period: 2025
-  absolute_error_margin: 0.01
-  input:
-    people:
-      person1:
-        tanf_reported: 3_000
-      person2:
-        tanf_reported: 2_000
-    spm_units:
-      spm_unit:
-        members: [person1, person2]
-        use_reported_tanf: true
+    reported_tanf_amount: 5_000
   output:
     applicable_tanf: 5_000

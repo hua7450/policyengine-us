@@ -78,7 +78,7 @@
   input:
     is_tanf_non_cash_eligible: false
     use_reported_tanf: true
-    tanf_reported: 3_000
+    reported_tanf_amount: 3_000
   output:
     meets_snap_categorical_eligibility: true
 

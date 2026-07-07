@@ -11,7 +11,7 @@ class applicable_tanf(Variable):
         "TANF amount to use when another program needs to know whether "
         "a family receives TANF or how much TANF to count. Usually this "
         "is the calculated tanf amount. If use_reported_tanf is True, a "
-        "positive tanf_reported amount is used first. If no positive "
+        "positive reported_tanf_amount is used first. If no positive "
         "reported amount is provided but is_tanf_enrolled is True, this "
         "uses the calculated tanf amount. If neither is provided, this "
         "is zero."
@@ -19,7 +19,7 @@ class applicable_tanf(Variable):
 
     def formula(spm_unit, period, parameters):
         use_reported = spm_unit("use_reported_tanf", period.this_year)
-        reported = add(spm_unit, period, ["tanf_reported"])
+        reported = spm_unit("reported_tanf_amount", period)
         enrolled = spm_unit("is_tanf_enrolled", period)
         computed = spm_unit("tanf", period)
         reported_value = where(reported > 0, reported, enrolled * computed)
