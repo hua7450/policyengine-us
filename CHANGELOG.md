@@ -1,3 +1,10 @@
+## [1.767.0] - 2026-07-07
+
+### Added
+
+- Added a CHIP current-coverage input and counted it in reported non-Marketplace coverage checks.
+
+
 ## [1.766.6] - 2026-07-07
 
 ### Changed
