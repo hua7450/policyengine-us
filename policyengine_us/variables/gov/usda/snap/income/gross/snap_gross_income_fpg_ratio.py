@@ -10,6 +10,6 @@ class snap_gross_income_fpg_ratio(Variable):
     unit = "/1"
 
     def formula(spm_unit, period):
-        income = spm_unit("snap_gross_test_income", period)
+        income = spm_unit("snap_gross_income", period)
         fpg = spm_unit("snap_fpg", period)
         return income / fpg

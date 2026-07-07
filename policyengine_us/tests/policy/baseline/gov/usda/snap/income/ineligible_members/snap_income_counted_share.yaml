@@ -59,3 +59,45 @@
         state_code: MA
   output:
     snap_income_counted_share: [1, 1]
+
+- name: Case 4, ABAWD time-limit-ineligible member's income share is prorated.
+  period: 2026-01
+  absolute_error_margin: 0.001
+  input:
+    people:
+      person1:
+        age: 35
+        meets_snap_general_work_requirements: true
+        meets_snap_work_requirements_person: false
+      person2:
+        age: 33
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: TX
+  output:
+    snap_income_counted_share: [0.5, 1]
+
+- name: Case 5, income of a member sanctioned under the general work requirements is fully counted.
+  period: 2026-01
+  absolute_error_margin: 0.001
+  input:
+    people:
+      person1:
+        age: 35
+        meets_snap_general_work_requirements: false
+        meets_snap_work_requirements_person: false
+      person2:
+        age: 33
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: TX
+  output:
+    snap_income_counted_share: [1, 1]

@@ -9,4 +9,4 @@ class snap_unearned_income_person(Variable):
     reference = "https://www.law.cornell.edu/cfr/text/7/273.9#b_2"
     unit = USD
 
-    adds = "gov.usda.snap.income.sources.unearned_person"
+    adds = "gov.usda.snap.income.sources.unearned"

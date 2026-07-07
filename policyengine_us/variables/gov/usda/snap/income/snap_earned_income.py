@@ -17,20 +17,24 @@ class snap_earned_income(Variable):
         person = spm_unit.members
         employment = person("snap_earned_income_person", period)
         share = person("snap_income_counted_share", period)
-        # Self-employment income net of the expense deduction is computed at
-        # the SPM unit level; attribute it to members in proportion to their
-        # gross self-employment income.
-        se_weight = max_(person("snap_gross_self_employment_income_person", period), 0)
-        total_weight = spm_unit.sum(se_weight)
-        counted_weight = spm_unit.sum(se_weight * share)
-        unit_self_employment = spm_unit(
+        # Self-employment income net of the expense deduction is computed
+        # at the SPM unit level; attribute it to members in proportion to
+        # their signed gross self-employment income, so losses stay
+        # attached to the member who incurred them. Non-countable earners
+        # remain in the attribution base, so their shares are dropped
+        # rather than reattributed to countable earners.
+        countable = person("snap_countable_earner", period)
+        gross_self_employment = person(
+            "snap_gross_self_employment_income_person", period
+        )
+        unit_gross = spm_unit.sum(gross_self_employment)
+        unit_net = spm_unit(
             "snap_self_employment_income_after_expense_deduction", period
         )
+        counted_weight = spm_unit.sum(gross_self_employment * countable * share)
         counted_self_employment = where(
-            total_weight > 0,
-            unit_self_employment
-            * counted_weight
-            / where(total_weight > 0, total_weight, 1),
+            unit_gross > 0,
+            unit_net * counted_weight / where(unit_gross > 0, unit_gross, 1),
             0,
         )
-        return spm_unit.sum(employment * share) + counted_self_employment
+        return max_(spm_unit.sum(employment * share) + counted_self_employment, 0)

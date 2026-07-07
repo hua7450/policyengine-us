@@ -160,13 +160,19 @@
         members: [person1, person2]
         state_code: TX
   output:
-    snap_expense_counted_share: 0.5
-    # $200/month childcare x 0.5 = $100
-    snap_dependent_care_deduction: 100
-    # ($1,000/month housing x 0.5) - 0.5 x net income pre-shelter = $254.50
-    snap_excess_shelter_expense_deduction: 254.5
+    # With 2 household members and 1 prorated member paying per capita:
+    # the eligible member's half counts in full and the prorated member's
+    # half is divided evenly, with the eligible member's share counted:
+    # 1/2 + 1/2 x 1/2 = 0.75.
+    snap_expense_counted_share: 0.75
+    # $200/month childcare x 0.75 = $150
+    snap_dependent_care_deduction: 150
+    # ($1,000/month housing x 0.75) - 0.5 x net income pre-shelter = $529.50
+    snap_excess_shelter_expense_deduction: 529.5
     snap_earned_income: 1_000
-    snap: 227.2
+    # Net income is fully offset by deductions, so the unit receives the
+    # one-person maximum allotment.
+    snap: 298
 
 - name: Case 7, ineligible student's income is not counted.
   period: 2026-01
@@ -241,3 +247,91 @@
   output:
     is_snap_eligible: false
     snap: 0
+
+- name: Case 10, excluded K-12 child earner's self-employment income is not counted.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 35
+        self_employment_income: 24_000
+        self_employment_income_before_lsr: 24_000
+      person2:
+        age: 16
+        is_in_k12_school: true
+        self_employment_income: 18_000
+        self_employment_income_before_lsr: 18_000
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: TX
+  output:
+    # Texas takes no flat percentage deduction, so the parent's $2,000
+    # monthly self-employment income is counted and the child's $1,500 is
+    # excluded under 7 CFR 273.9(c)(7).
+    snap_earned_income: 2_000
+    # Net income: $2,000 - $400 earned income deduction - $209 standard
+    # deduction = $1,391; benefit: $546 - 0.3 x $1,391 = $128.70.
+    snap: 128.7
+
+- name: Case 11, prorated member's self-employment income is prorated like employment income.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 35
+        self_employment_income: 24_000
+        self_employment_income_before_lsr: 24_000
+        immigration_status: UNDOCUMENTED
+      person2:
+        age: 33
+      person3:
+        age: 8
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: TX
+  output:
+    snap_unit_size: 2
+    # $2,000 monthly self-employment income x 2/3, mirroring Case 3.
+    snap_earned_income: 1_333.33
+    snap: 288.9
+
+- name: Case 12, prorated member's self-employment loss offsets other income at the prorated share.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 35
+        self_employment_income: 24_000
+        self_employment_income_before_lsr: 24_000
+      person2:
+        age: 33
+        self_employment_income: -12_000
+        self_employment_income_before_lsr: -12_000
+        immigration_status: UNDOCUMENTED
+      person3:
+        age: 8
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: TX
+  output:
+    snap_unit_size: 2
+    # The eligible member's $2,000 monthly income counts in full and the
+    # prorated member's $1,000 loss offsets it at 2/3:
+    # $2,000 - $1,000 x 2/3 = $1,333.33.
+    snap_earned_income: 1_333.33
+    snap: 288.9

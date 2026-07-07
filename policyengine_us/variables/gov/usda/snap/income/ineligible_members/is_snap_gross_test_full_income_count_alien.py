@@ -12,12 +12,7 @@ class is_snap_gross_test_full_income_count_alien(Variable):
 
     def formula(person, period, parameters):
         p = parameters(period).gov.usda.snap.income.ineligible_members
-        immigration_ineligible = ~person("is_snap_immigration_status_eligible", period)
-        status = person("immigration_status", period.this_year).decode_to_str()
         state = person.household("state_code_str", period)
-        state_discretion_status = np.isin(status, p.pre_prwora_statuses)
+        discretion_alien = person("is_snap_state_discretion_ineligible_alien", period)
         hybrid_state = np.isin(state, p.gross_test_full_count_states)
-        student = person("is_snap_ineligible_student", period)
-        return (
-            ~student & immigration_ineligible & state_discretion_status & hybrid_state
-        )
+        return discretion_alien & hybrid_state

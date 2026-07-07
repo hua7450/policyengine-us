@@ -34,10 +34,11 @@
   output:
     is_snap_prorated_income_member: false
 
-- name: Case 5, citizen failing work requirements is prorated.
+- name: Case 5, citizen failing the ABAWD time limit is prorated.
   period: 2026-01
   input:
     immigration_status: CITIZEN
+    meets_snap_general_work_requirements: true
     meets_snap_work_requirements_person: false
     state_code: TX
   output:
@@ -50,5 +51,25 @@
     meets_snap_work_requirements_person: true
     is_snap_ineligible_student: true
     state_code: TX
+  output:
+    is_snap_prorated_income_member: false
+
+- name: Case 7, citizen sanctioned under the general work requirements is counted in full, not prorated.
+  period: 2026-01
+  input:
+    immigration_status: CITIZEN
+    meets_snap_general_work_requirements: false
+    meets_snap_work_requirements_person: false
+    state_code: TX
+  output:
+    is_snap_prorated_income_member: false
+
+- name: Case 8, count-all state election governs an undocumented member who also fails the ABAWD time limit.
+  period: 2026-01
+  input:
+    immigration_status: UNDOCUMENTED
+    meets_snap_general_work_requirements: true
+    meets_snap_work_requirements_person: false
+    state_code: MA
   output:
     is_snap_prorated_income_member: false

@@ -18,25 +18,42 @@ class snap_gross_test_income(Variable):
         # income test.
         gross_income = spm_unit("snap_gross_income", period)
         person = spm_unit.members
-        full_count_gross = person("is_snap_gross_test_full_income_count_alien", period)
-        income = person("snap_earned_income_person", period) + person(
-            "snap_unearned_income_person", period
+        full_count = person("is_snap_gross_test_full_income_count_alien", period)
+        share = person("snap_income_counted_share", period)
+        employment = person("snap_earned_income_person", period)
+        unearned = person("snap_unearned_income_person", period)
+        uncounted_income = spm_unit.sum(
+            full_count * (employment + unearned) * (1 - share)
         )
-        se_weight = max_(person("snap_gross_self_employment_income_person", period), 0)
-        total_weight = spm_unit.sum(se_weight)
-        full_count_weight = spm_unit.sum(se_weight * full_count_gross)
-        unit_self_employment = spm_unit(
+        # Add back the uncounted portion of these aliens' self-employment
+        # income, attributed by signed gross self-employment income as in
+        # snap_earned_income.
+        countable = person("snap_countable_earner", period)
+        gross_self_employment = person(
+            "snap_gross_self_employment_income_person", period
+        )
+        unit_gross = spm_unit.sum(gross_self_employment)
+        unit_net = spm_unit(
             "snap_self_employment_income_after_expense_deduction", period
         )
-        full_count_self_employment = where(
-            total_weight > 0,
-            unit_self_employment
-            * full_count_weight
-            / where(total_weight > 0, total_weight, 1),
+        uncounted_weight = spm_unit.sum(
+            gross_self_employment * countable * full_count * (1 - share)
+        )
+        uncounted_self_employment = where(
+            unit_gross > 0,
+            unit_net * uncounted_weight / where(unit_gross > 0, unit_gross, 1),
             0,
         )
-        full_count_income = (
-            spm_unit.sum(full_count_gross * income) + full_count_self_employment
+        # Count these aliens' child support payments in full as well, in
+        # states that deduct child support when computing gross income.
+        child_support = person("child_support_expense", period)
+        uncounted_child_support = spm_unit.sum(full_count * child_support * (1 - share))
+        state = spm_unit.household("state_code_str", period)
+        p = parameters(period).gov.usda.snap.income.deductions
+        cs_deductible = p.child_support[state]
+        return (
+            gross_income
+            + uncounted_income
+            + uncounted_self_employment
+            - cs_deductible * uncounted_child_support
         )
-        fraction = spm_unit("snap_prorated_income_fraction", period)
-        return gross_income + full_count_income * (1 - fraction)

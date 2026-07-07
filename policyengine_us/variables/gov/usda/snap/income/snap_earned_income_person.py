@@ -10,4 +10,4 @@ class snap_earned_income_person(Variable):
     unit = USD
     defined_for = "snap_countable_earner"
 
-    adds = "gov.usda.snap.income.sources.earned_person"
+    adds = "gov.usda.snap.income.sources.earned"

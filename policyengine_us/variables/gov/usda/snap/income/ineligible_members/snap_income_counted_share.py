@@ -6,6 +6,7 @@ class snap_income_counted_share(Variable):
     entity = Person
     label = "SNAP share of income counted toward the household"
     definition_period = MONTH
+    unit = "/1"
     reference = (
         "https://www.law.cornell.edu/cfr/text/7/273.11#c_2_ii",
         "https://www.law.cornell.edu/cfr/text/7/273.11#d",

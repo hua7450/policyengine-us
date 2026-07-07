@@ -15,15 +15,18 @@ class is_snap_prorated_income_member(Variable):
     def formula(person, period, parameters):
         p = parameters(period).gov.usda.snap.income.ineligible_members
         immigration_ineligible = ~person("is_snap_immigration_status_eligible", period)
-        status = person("immigration_status", period.this_year).decode_to_str()
         state = person.household("state_code_str", period)
-        state_discretion_status = np.isin(status, p.pre_prwora_statuses)
+        discretion_alien = person("is_snap_state_discretion_ineligible_alien", period)
         counts_all = np.isin(state, p.count_all_income_states)
-        full_count_alien = immigration_ineligible & state_discretion_status & counts_all
-        prorated_alien = immigration_ineligible & ~full_count_alien
-        # NOTE: All members failing work requirements are prorated under
-        # 273.11(c)(2); full counting for 273.7 sanctions under 273.11(c)(1)
-        # is not yet modeled.
-        fails_work_requirements = ~person("meets_snap_work_requirements_person", period)
+        full_count_alien = discretion_alien & counts_all
         student = person("is_snap_ineligible_student", period)
-        return ~student & (prorated_alien | fails_work_requirements)
+        prorated_alien = immigration_ineligible & ~student & ~full_count_alien
+        # ABAWD time-limit ineligible members are prorated under
+        # 273.11(c)(2); members sanctioned for noncompliance with the
+        # general work requirements fall under 273.11(c)(1), which counts
+        # their income and expenses in full. In count-all states the
+        # state's full-count election for the alien's income governs.
+        fails_abawd_time_limit = person(
+            "meets_snap_general_work_requirements", period
+        ) & ~person("meets_snap_work_requirements_person", period)
+        return prorated_alien | (fails_abawd_time_limit & ~student & ~full_count_alien)

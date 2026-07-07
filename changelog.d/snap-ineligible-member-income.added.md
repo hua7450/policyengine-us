@@ -1,1 +1,1 @@
-Prorate the income and deductible expenses of SNAP-ineligible household members per 7 CFR 273.11(c) and (d), including state income counting options for ineligible immigrants and full exclusion of ineligible students' income.
+Prorate the income and deductible expenses of SNAP-ineligible household members per 7 CFR 273.11(c) and (d), including full income counting for members sanctioned under the general work requirements, state income counting options for ineligible immigrants, and full exclusion of ineligible students' income.
