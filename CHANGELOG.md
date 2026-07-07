@@ -1,3 +1,10 @@
+## [1.767.1] - 2026-07-07
+
+### Fixed
+
+- - Hardened ACA ZIP3 parsing so missing, nonnumeric, leading-zero, and ZIP+4 ZIP codes parse correctly instead of silently failing SLCSP rating-area lookups.
+
+
 ## [1.767.0] - 2026-07-07
 
 ### Added
