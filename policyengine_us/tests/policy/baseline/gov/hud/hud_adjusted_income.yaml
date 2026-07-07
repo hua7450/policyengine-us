@@ -247,6 +247,58 @@
     # $10,000 - $480 dependent; family is not elderly or disabled.
     hud_adjusted_income: 9_520
 
+- name: Attendant care expenses for a disabled adult dependent are deductible above the income threshold.
+  period: 2026
+  input:
+    people:
+      head:
+        age: 45
+        is_household_head: true
+        employment_income: 30_000
+      person:
+        age: 25
+        is_disabled: true
+        care_expenses: 5_000
+    tax_units:
+      tax_unit1:
+        members: [head]
+      tax_unit2:
+        members: [person]
+    spm_units:
+      spm_unit:
+        members: [head, person]
+        hud_annual_income: 30_000
+  output:
+    # $30,000 - $500 dependent - $550 elderly/disabled - ($5,000 attendant
+    # care - 10% * $30,000) = $30,000 - $500 - $550 - $2,000.
+    hud_adjusted_income: 26_950
+
+- name: Attendant care expenses are capped at employment income before the threshold applies.
+  period: 2026
+  input:
+    people:
+      head:
+        age: 45
+        is_household_head: true
+        employment_income: 2_000
+      person:
+        age: 25
+        is_disabled: true
+        care_expenses: 5_000
+    tax_units:
+      tax_unit1:
+        members: [head]
+      tax_unit2:
+        members: [person]
+    spm_units:
+      spm_unit:
+        members: [head, person]
+        hud_annual_income: 10_000
+  output:
+    # Attendant care capped at $2,000 employment income; $2,000 - 10% *
+    # $10,000 = $1,000 deductible. $10,000 - $500 - $550 - $1,000.
+    hud_adjusted_income: 7_950
+
 - name: 2026 inflation-adjusted deduction amounts apply.
   period: 2026
   input:

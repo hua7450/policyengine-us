@@ -28,14 +28,19 @@ class hud_adjusted_income(Variable):
         childcare_ded = min_(
             spm_unit("childcare_expenses", period), max_(earned_income, 0)
         )
-        # TODO: Attendant care (save for later)
-        # Medical expenses for elderly/disabled families.
+        # Medical and disability assistance expenses per 24 CFR 5.611(a)(3):
+        # the sum of unreimbursed medical expenses (elderly or disabled
+        # families only) and attendant care expenses for disabled members
+        # (any family), deductible to the extent the sum exceeds a share of
+        # annual income. The attendant care portion cannot exceed the
+        # employment income it enables (24 CFR 5.611(a)(3)(ii)).
         ded = parameters(period).gov.hud.adjusted_income.deductions
         moop = spm_unit("hud_medical_expenses", period)
-        # Only expenses beyond a percent of income are deductible.
+        attendant_care = add(spm_unit, period, ["care_expenses"])
+        capped_attendant_care = min_(attendant_care, max_(earned_income, 0))
+        health_and_care_expenses = moop * elderly_disabled + capped_attendant_care
         moop_threshold = ded.moop.threshold * income
-        moop_deductible = max_(0, moop - moop_threshold)
-        moop_ded = moop_deductible * elderly_disabled
+        moop_ded = max_(0, health_and_care_expenses - moop_threshold)
         # Add dependent and elderly disabled deductions.
         dependent_ded = ded.dependent.amount * dependent_count
         elderly_disabled_ded = ded.elderly_disabled.amount * elderly_disabled
