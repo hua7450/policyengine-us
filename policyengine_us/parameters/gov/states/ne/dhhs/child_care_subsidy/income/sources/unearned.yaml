@@ -2,7 +2,6 @@ description: Nebraska counts these income sources as unearned income under the C
 values:
   2011-06-28:
     - applicable_ssi
-    - ne_aabd
     - social_security
     - dividend_income
     - interest_income
@@ -19,10 +18,14 @@ metadata:
   period: year
   label: Nebraska Child Care Subsidy unearned income sources
   reference:
-    - title: 392 NAC 3-005.02(1)-(2), (7)-(9), (12), (16)-(19), (23)-(25)
+    - title: 392 NAC 3-005.02(1), (7)-(9), (12), (16)-(19), (23)-(25)
       href: https://dhhs.ne.gov/Documents/Title-392-Complete.pdf#page=13
     - title: Nebraska DHHS Title 392 Guidance Document, 392 NAC 2-010.01(A)
       href: https://dhhs.ne.gov/Guidance%20Docs/Title%20392%20-%20Child%20Care%20Subsidy.pdf#page=3
+# We do not include AABD payments (item 2) at the moment to avoid a circular
+# dependency — `ne_aabd`'s standard of need depends on `housing_cost`, which
+# depends on `housing_assistance`, which depends on TANF, which deducts
+# childcare expenses net of child care subsidies (including this program).
 # 392 NAC 3-005.03 excludes the ADC grant, earned income credits, tax refunds,
 # gifts, loans, lump-sum inheritances or insurance payments, capital gains,
 # SNAP and other federal nutrition benefits, educational grants, adoption or
