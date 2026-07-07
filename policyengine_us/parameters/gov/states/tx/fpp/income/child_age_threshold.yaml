@@ -1,0 +1,11 @@
+description: Texas exempts the earned income of children under this age when determining countable income under the Family Planning Program.
+values:
+  2016-07-01: 18
+
+metadata:
+  unit: year
+  period: year
+  label: Texas Family Planning Program child age threshold
+  reference:
+    - title: 1 Tex. Admin. Code § 382.109(1)(A), (3)(A)
+      href: https://www.law.cornell.edu/regulations/texas/1-Tex-Admin-Code-SS-382-109
