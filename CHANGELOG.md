@@ -1,3 +1,14 @@
+## [1.767.3] - 2026-07-07
+
+### Changed
+
+- Nebraska Child Care Subsidy income eligibility and family fee now use gross countable income per 392 NAC 3-005.02, replacing federal adjusted gross income and SPM unit net income.
+
+### Fixed
+
+- Compute Texas Family Planning Program income eligibility from countable income under 1 TAC §382.109 (gross countable sources, exemptions, dependent care and child support deductions) instead of SPM unit net income.
+
+
 ## [1.767.2] - 2026-07-07
 
 ### Changed
