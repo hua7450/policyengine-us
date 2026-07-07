@@ -42,6 +42,20 @@ def test_three_digit_zip_code_leading_zero():
     assert result[0] == "012"
 
 
+def test_three_digit_zip_code_puerto_rico_leading_zero():
+    """00601 -> 006"""
+    sim = _make_sim("00601")
+    result = sim.calculate("three_digit_zip_code", 2026)
+    assert result[0] == "006"
+
+
+def test_three_digit_zip_code_int_coerced_four_digit():
+    """1234 (leading zero dropped by int parsing) -> 012"""
+    sim = _make_sim("1234")
+    result = sim.calculate("three_digit_zip_code", 2026)
+    assert result[0] == "012"
+
+
 def test_three_digit_zip_code_missing_zip():
     """UNKNOWN -> empty ZIP3"""
     sim = _make_sim("UNKNOWN")
