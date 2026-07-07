@@ -8,5 +8,7 @@ class tanf_reported(Variable):
     unit = USD
     definition_period = YEAR
     documentation = (
-        "Reported amount of Temporary Assistance for Needy Families benefits received."
+        "Amount of Temporary Assistance for Needy Families benefits the "
+        "household reports receiving. Programs only count this amount "
+        "when use_reported_tanf is True; see applicable_tanf."
     )

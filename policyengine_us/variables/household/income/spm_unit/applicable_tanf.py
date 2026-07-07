@@ -8,10 +8,14 @@ class applicable_tanf(Variable):
     unit = USD
     label = "Applicable TANF for program income tests"
     documentation = (
-        "TANF amount counted in program income tests. Uses calculated "
-        "tanf by default. When use_reported_tanf is True, uses "
-        "tanf_reported if positive, calculated tanf if is_tanf_enrolled "
-        "is True, and zero otherwise."
+        "TANF amount that programs count in income tests and receipt "
+        "checks. By default this equals the calculated tanf, so "
+        "microsimulation results are unchanged. When an API partner "
+        "sets use_reported_tanf to True, it resolves in order: (1) a "
+        "positive tanf_reported amount is used as given; (2) otherwise, "
+        "if is_tanf_enrolled is True, the calculated tanf is used; (3) "
+        "otherwise the household is treated as receiving no TANF and "
+        "this is zero."
     )
 
     def formula(spm_unit, period, parameters):

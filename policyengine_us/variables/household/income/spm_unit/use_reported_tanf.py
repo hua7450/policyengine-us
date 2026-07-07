@@ -8,8 +8,11 @@ class use_reported_tanf(Variable):
     default_value = False
     label = "Use reported TANF in program income tests"
     documentation = (
-        "When True, programs that count applicable_tanf use tanf_reported "
-        "if provided, calculated tanf if is_tanf_enrolled is True, and "
-        "zero otherwise. This lets API partners report actual TANF "
-        "receipt without overriding the calculated tanf amount."
+        "API partner opt-in toggle for reported TANF. When False (the "
+        "default, including all microsimulation runs), applicable_tanf "
+        "equals the calculated tanf. When True, applicable_tanf follows "
+        "the partner-reported information instead: the tanf_reported "
+        "amount when one is provided, the calculated tanf when the "
+        "household is flagged as enrolled via is_tanf_enrolled, and "
+        "zero when neither is provided."
     )
