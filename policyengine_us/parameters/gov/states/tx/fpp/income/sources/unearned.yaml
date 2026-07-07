@@ -8,20 +8,12 @@ values:
     - disability_benefits
     - unemployment_compensation
     - workers_compensation
-    # Dividends and interest are countable until the May 16, 2024
-    # amendment exempted them under 1 TAC 382.109(3)(L)-(M).
-    - dividend_income
-    - interest_income
-    - veterans_benefits
-  2024-05-16:
-    - social_security
-    - pension_income
-    - disability_benefits
-    - unemployment_compensation
-    - workers_compensation
-    # HHSC Revision 24-2 exempts VA special-needs payments, but still
-    # counts regular Department of Veterans Affairs payments.
-    - veterans_benefits
+  # 1 TAC 382.109(3)(L) and (3)(M) have exempted dividends, interest
+  # and royalties, and Veteran's Administration payments since the
+  # 2016 adoption; the May 16, 2024 amendment (49 TexReg 3199) did
+  # not change the exemption list. The HHSC Policy Manual Revision
+  # 24-2 income descriptions still describe regular VA payments as
+  # countable; the regulation controls.
   # Child support received is counted separately with a monthly
   # disregard; cash gifts over $300 per federal fiscal quarter,
   # mineral rights, recurring lump sums, non-educational loans, and

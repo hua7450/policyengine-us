@@ -75,3 +75,13 @@
         state_code: TX
   output:
     tx_fpp_income_eligible: false
+
+- name: Case 7, income exactly at the limit is eligible.
+  period: 2026
+  input:
+    state_code: TX
+    age: 30
+    # Exactly 2.5 x 15,960 = 39,900 for a household of one.
+    employment_income: 39_900
+  output:
+    tx_fpp_income_eligible: true

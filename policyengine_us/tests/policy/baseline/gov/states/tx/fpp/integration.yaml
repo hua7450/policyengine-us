@@ -159,7 +159,7 @@
     tx_fpp_eligible: [true]
     tx_fpp_benefit: [266.84]
 
-- name: Case 8, regular VA benefits remain countable after 2024.
+- name: Case 8, veterans benefits are exempt from countable income.
   period: 2026
   input:
     people:
@@ -175,9 +175,10 @@
         members: [person1]
         state_code: TX
   output:
-    # Countable income includes 35,000 earnings and 6,000 regular VA
-    # benefits, exceeding the 39,900 one-person limit.
-    tx_fpp_countable_income: [41_000]
-    tx_fpp_income_eligible: [false]
-    tx_fpp_eligible: [false]
-    tx_fpp_benefit: [0]
+    # Countable income is the 35,000 earnings; the 6,000 Veteran's
+    # Administration payment is exempt per 1 TAC 382.109(3)(M), so
+    # income stays below the 39,900 one-person limit.
+    tx_fpp_countable_income: [35_000]
+    tx_fpp_income_eligible: [true]
+    tx_fpp_eligible: [true]
+    tx_fpp_benefit: [266.84]
