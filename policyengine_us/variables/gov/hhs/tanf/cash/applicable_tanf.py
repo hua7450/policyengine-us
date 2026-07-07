@@ -19,7 +19,7 @@ class applicable_tanf(Variable):
 
     def formula(spm_unit, period, parameters):
         use_reported = spm_unit("use_reported_tanf", period.this_year)
-        reported = spm_unit("tanf_reported", period)
+        reported = add(spm_unit, period, ["tanf_reported"])
         enrolled = spm_unit("is_tanf_enrolled", period)
         computed = spm_unit("tanf", period)
         reported_value = where(reported > 0, reported, enrolled * computed)
