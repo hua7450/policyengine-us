@@ -1,3 +1,24 @@
+## [1.767.1] - 2026-07-07
+
+### Fixed
+
+- - Hardened ACA ZIP3 parsing so missing, nonnumeric, leading-zero, and ZIP+4 ZIP codes parse correctly instead of silently failing SLCSP rating-area lookups.
+
+
+## [1.767.0] - 2026-07-07
+
+### Added
+
+- Added a CHIP current-coverage input and counted it in reported non-Marketplace coverage checks.
+
+
+## [1.766.6] - 2026-07-07
+
+### Changed
+
+- Rework partner API contract tests to mirror live partner traffic: remove Louisiana cases (no partner sends Louisiana households), add lean Kansas coverage, set state via the state_code enum so fixtures stop evaluating under the California default, complete the before-labor-supply-response input migration for the remaining derived inputs (self-employment, SSTB, weekly hours, capital gains), replace artifact zero-benefit cases with parameter-derived positive and boundary pins, prune duplicate cases, add coverage for high-traffic untested outputs (Texas CEAP, Washington Apple Health kids eligibility, expansion-county general assistance), and fix signature-replay fixtures to use the exact input keys partners send.
+
+
 ## [1.766.5] - 2026-07-07
 
 ### Fixed
