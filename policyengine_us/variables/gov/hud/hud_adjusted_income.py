@@ -21,7 +21,11 @@ class hud_adjusted_income(Variable):
         # Extract childcare expenses.
         # "Any reasonable child care expenses necessary to enable a member of
         # the family to be employed or to further his or her education."
-        childcare_expenses = spm_unit("childcare_expenses", period)
+        # Per 24 CFR 5.611(a)(4), the deduction for employment-enabling
+        # childcare cannot exceed the employment income included in annual
+        # income.
+        earned_income = spm_unit("hud_countable_earned_income", period)
+        childcare_ded = min_(spm_unit("childcare_expenses", period), earned_income)
         # TODO: Attendant care (save for later)
         # Medical expenses for elderly/disabled families.
         ded = parameters(period).gov.hud.adjusted_income.deductions
@@ -35,10 +39,6 @@ class hud_adjusted_income(Variable):
         elderly_disabled_ded = ded.elderly_disabled.amount * elderly_disabled
         # Calculate and return adjusted income, non-negative.
         return max_(
-            income
-            - dependent_ded
-            - elderly_disabled_ded
-            - childcare_expenses
-            - moop_ded,
+            income - dependent_ded - elderly_disabled_ded - childcare_ded - moop_ded,
             0,
         )
