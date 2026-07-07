@@ -13,7 +13,7 @@ values:
     - alimony_income
     - child_support_received
     - social_security
-    - ssi
+    - applicable_ssi
     - unemployment_compensation
     - workers_compensation
     # The following are exempted income

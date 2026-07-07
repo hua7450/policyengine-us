@@ -11,7 +11,7 @@ values:
     - pension_income
     - retirement_distributions
     - disability_benefits
-    - ssi
+    - applicable_ssi
     - veterans_benefits
     - military_retirement_pay
     - unemployment_compensation

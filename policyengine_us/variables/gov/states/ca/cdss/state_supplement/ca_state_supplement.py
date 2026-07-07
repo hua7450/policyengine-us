@@ -12,6 +12,6 @@ class ca_state_supplement(Variable):
 
     def formula(spm_unit, period, parameters):
         payment_standard = spm_unit("ca_state_supplement_payment_standard", period)
-        ssi = add(spm_unit, period, ["ssi"])
+        ssi = add(spm_unit, period, ["applicable_ssi"])
         countable_income = add(spm_unit, period, ["ssi_countable_income"])
         return max_(0, payment_standard - ssi - countable_income)

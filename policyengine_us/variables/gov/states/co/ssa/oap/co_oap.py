@@ -10,7 +10,7 @@ class co_oap(Variable):
 
     def formula(person, period, parameters):
         income = person("ssi_countable_income", period)
-        ssi = person("ssi", period)
+        ssi = person("applicable_ssi", period)
         total_countable_income = ssi + income
         p = parameters(period).gov.states.co.ssa.oap
         grant_standard = p.grant_standard * MONTHS_IN_YEAR

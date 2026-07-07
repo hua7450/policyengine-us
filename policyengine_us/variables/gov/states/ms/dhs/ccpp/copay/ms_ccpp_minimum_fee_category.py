@@ -19,7 +19,7 @@ class ms_ccpp_minimum_fee_category(Variable):
         has_ssi_disabled_parent = spm_unit.any(
             is_head_or_spouse
             & person("is_ssi_disabled", period.this_year)
-            & (person("ssi", period) > 0)
+            & (person("applicable_ssi", period) > 0)
         )
         age = person("age", period.this_year)
         has_special_needs_child = spm_unit.any(

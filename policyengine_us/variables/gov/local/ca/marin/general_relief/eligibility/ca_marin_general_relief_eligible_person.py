@@ -16,9 +16,9 @@ class ca_marin_general_relief_eligible_person(Variable):
         # Standards Sec II.I bars the individual recipient ("An
         # Applicant/Recipient receiving SSI/SSP is not eligible for General
         # Relief") -- person-scoped like the fleeing-felon and probation bars,
-        # so other members of the unit remain aidable. `ssi > 0` already
+        # so other members of the unit remain aidable. `applicable_ssi > 0` already
         # implies SSI receipt. CAPI (California's SSI-equivalent cash for
         # immigrants) needs no separate bar: CAPI recipients are non-qualified
         # noncitizens who fail the immigration check.
-        receives_ssi = person("ssi", period) > 0
+        receives_ssi = person("applicable_ssi", period) > 0
         return immigration_eligible & ~receives_ssi

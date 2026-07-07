@@ -13,7 +13,7 @@ values:
     - pension_income
     - retirement_distributions
     - social_security
-    - ssi
+    - applicable_ssi
     - railroad_benefits
     - general_assistance
     - disability_benefits

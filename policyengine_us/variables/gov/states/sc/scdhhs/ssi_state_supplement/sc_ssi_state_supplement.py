@@ -18,5 +18,5 @@ class sc_ssi_state_supplement(Variable):
         p = parameters(period).gov.states.sc.scdhhs.ssi_state_supplement
         nil = p.net_income_limit
         countable_income = person("ssi_countable_income", period)
-        ssi = person("ssi", period)
+        ssi = person("applicable_ssi", period)
         return max_(0, nil - countable_income - ssi)

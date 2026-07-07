@@ -28,6 +28,6 @@ class in_ssp_rcap(Variable):
         )
         average_days_per_month = 365 / MONTHS_IN_YEAR
         state_standard = per_diem * average_days_per_month
-        ssi_monthly = person("ssi", period)
+        ssi_monthly = person("applicable_ssi", period)
         countable_income = person("ssi_countable_income", period)
         return max_(state_standard - ssi_monthly - countable_income, 0)

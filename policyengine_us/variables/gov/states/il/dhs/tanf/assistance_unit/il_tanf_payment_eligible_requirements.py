@@ -16,7 +16,7 @@ class il_tanf_payment_eligible_requirements(Variable):
         immigration_status_eligible = person(
             "il_tanf_immigration_status_eligible_person", period
         )
-        ssi = person("ssi", period)
+        ssi = person("applicable_ssi", period)
         receives_ssi = ssi > 0
 
         return ~receives_ssi & immigration_status_eligible

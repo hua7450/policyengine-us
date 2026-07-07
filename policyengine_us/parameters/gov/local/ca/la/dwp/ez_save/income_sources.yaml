@@ -15,7 +15,7 @@ values:
     - child_support_received
     - alimony_income
     - social_security
-    - ssi
+    - applicable_ssi
     - tanf
     - snap
     - veterans_benefits

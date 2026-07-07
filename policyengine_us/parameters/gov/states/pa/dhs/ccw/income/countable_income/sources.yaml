@@ -7,7 +7,7 @@ values:
     - social_security
     - social_security_disability
     - social_security_survivors
-    - ssi
+    - applicable_ssi
     - pension_income
     - military_retirement_pay
     - unemployment_compensation

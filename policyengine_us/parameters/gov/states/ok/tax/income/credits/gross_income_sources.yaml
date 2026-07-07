@@ -21,7 +21,7 @@ values:
     - child_support_received
     - illicit_income
     - miscellaneous_income
-    - ssi
+    - applicable_ssi
     # - ok_state_supplement
     - general_assistance
     - eitc

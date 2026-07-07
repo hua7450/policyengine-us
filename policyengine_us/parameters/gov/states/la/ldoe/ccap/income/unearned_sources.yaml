@@ -2,7 +2,7 @@ description: Louisiana counts these recurring unearned income sources of all hou
 values:
   2022-02-01:
     - social_security
-    - ssi
+    - applicable_ssi
     - veterans_benefits
     - pension_income
     - disability_benefits
@@ -15,7 +15,7 @@ values:
   # as a separate input at the moment, so only the first repeal affects the model.
   2025-04-20:
     - social_security
-    - ssi
+    - applicable_ssi
     - veterans_benefits
     - pension_income
     - disability_benefits

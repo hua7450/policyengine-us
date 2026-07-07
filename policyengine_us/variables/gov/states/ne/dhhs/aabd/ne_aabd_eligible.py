@@ -14,8 +14,8 @@ class ne_aabd_eligible(Variable):
 
     def formula(person, period):
         # Per 469 NAC 3-006.01A1, AABD-PMT requires the person to be an
-        # SSI recipient. ssi > 0 already implies categorical (aged/blind/
-        # disabled), resource, immigration eligibility, the federal
-        # income test, and takeup -- so no separate is_ssi_eligible
-        # check is needed.
-        return person("ssi", period) > 0
+        # SSI recipient. applicable_ssi > 0 already implies categorical
+        # (aged/blind/disabled), resource, immigration eligibility, the
+        # federal income test, and takeup -- so no separate
+        # is_ssi_eligible check is needed.
+        return person("applicable_ssi", period) > 0

@@ -18,7 +18,7 @@ values:
     - alimony_income
     - strike_benefits
     - social_security
-    - ssi
+    - applicable_ssi
     - general_assistance
     - unemployment_compensation
     - child_support_received

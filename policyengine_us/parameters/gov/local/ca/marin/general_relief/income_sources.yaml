@@ -37,7 +37,7 @@ values:
     # SSI recipients are barred at the person level (Section II.I), but a
     # barred spouse's income must still be considered under Section II.N, so
     # SSI counts toward the unit's pooled income.
-    - ssi
+    - applicable_ssi
 metadata:
   unit: list
   period: year

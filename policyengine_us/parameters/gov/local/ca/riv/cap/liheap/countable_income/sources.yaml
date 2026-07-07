@@ -9,7 +9,7 @@ values:
     - pension_income
     - unemployment_compensation
     - social_security
-    - ssi 
+    - applicable_ssi
     - ca_tanf
     - ca_state_supplement
 

@@ -22,7 +22,7 @@ class ga_ssp_eligible_person(Variable):
             "ga_ssp_in_nursing_home_or_institutionalized_hospice",
             period,
         )
-        ssi_amount = person("ssi", period)
+        ssi_amount = person("applicable_ssi", period)
         # in_federal_medicaid_facility already confirms MEDICAL_TREATMENT_FACILITY
         # arrangement, so any positive SSI confirms institutional SSI receipt.
         receives_institutional_ssi = ssi_amount > 0

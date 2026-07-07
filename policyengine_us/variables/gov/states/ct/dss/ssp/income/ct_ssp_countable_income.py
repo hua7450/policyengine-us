@@ -22,7 +22,7 @@ class ct_ssp_countable_income(Variable):
             period,
             [
                 "ssi_unearned_income",
-                "ssi",
+                "applicable_ssi",
                 "ssi_unearned_income_deemed_from_ineligible_spouse",
             ],
         )

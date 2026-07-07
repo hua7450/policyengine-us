@@ -34,7 +34,7 @@ class mn_msa_net_income_eligible(Variable):
             arrangement == LA.COUPLE_LIVING_WITH_OTHERS
         )
         is_medicaid_facility = arrangement == LA.MEDICAID_FACILITY
-        ssi = person("ssi", period)
+        ssi = person("applicable_ssi", period)
         receives_ssi = ssi > 0
         ssi_fbr = person("ssi_amount_if_eligible", period)
         p = parameters(period).gov.ssa.ssi.income.exclusions

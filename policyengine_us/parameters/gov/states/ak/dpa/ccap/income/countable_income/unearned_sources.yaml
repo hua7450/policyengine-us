@@ -10,7 +10,7 @@ values:
     - child_support_received
     - alimony_income
     - social_security
-    - ssi
+    - applicable_ssi
     - unemployment_compensation
     - veterans_benefits
     - rental_income

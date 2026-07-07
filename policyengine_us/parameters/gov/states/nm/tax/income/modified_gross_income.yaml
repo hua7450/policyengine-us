@@ -4,7 +4,7 @@ values:
     - tax_unit_social_security
     - capital_gains
     - tanf
-    - ssi
+    - applicable_ssi
     - interest_income
     - dividend_income
     - alimony_income

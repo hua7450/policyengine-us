@@ -9,7 +9,7 @@ values:
     - interest_income
     - gi_cash_assistance
     - social_security
-    - ssi
+    - applicable_ssi
     - tanf
     - pension_income
     - survivor_benefits

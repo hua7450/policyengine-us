@@ -7,7 +7,7 @@ values:
     - social_security_retirement
     - social_security_disability
     - social_security_survivors
-    - ssi
+    - applicable_ssi
     - dividend_income
     - interest_income
     - rental_income

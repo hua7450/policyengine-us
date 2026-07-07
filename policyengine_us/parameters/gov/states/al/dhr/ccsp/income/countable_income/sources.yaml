@@ -8,7 +8,7 @@ values:
     - pension_income
     - unemployment_compensation
     - workers_compensation
-    - ssi
+    - applicable_ssi
     - al_ssp
     - interest_income
     - dividend_income

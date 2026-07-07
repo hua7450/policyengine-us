@@ -6,7 +6,7 @@ values:
     - tax_exempt_pension_income
     - tax_exempt_interest_income
     - snap
-    - ssi
+    - applicable_ssi
     - ma_state_supplement
     - tanf
     - wic

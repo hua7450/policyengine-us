@@ -14,7 +14,7 @@ values:
     - social_security_retirement
     - social_security_disability
     - social_security_survivors
-    - ssi
+    - applicable_ssi
     - unemployment_compensation
     - workers_compensation
     - alimony_income

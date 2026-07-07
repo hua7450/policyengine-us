@@ -114,3 +114,21 @@
         state_code: NE
   output:
     ne_aabd_eligible: true
+
+- name: Case 8, partner-reported SSI counts when use_reported_ssi is enabled.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 30
+        is_ssi_aged_blind_disabled: false
+        is_ssi_eligible: false
+        # Model computes ssi = 0, but the partner reports actual receipt.
+        ssi_reported: 6_000
+        use_reported_ssi: true
+    households:
+      household:
+        members: [person1]
+        state_code: NE
+  output:
+    ne_aabd_eligible: true

@@ -10,7 +10,7 @@ values:
     # and dependents components, so social_security_disability is not listed
     # separately to avoid double-counting Social Security Disability Insurance.
     - social_security
-    - ssi
+    - applicable_ssi
     - unemployment_compensation
     - veterans_benefits
     - workers_compensation

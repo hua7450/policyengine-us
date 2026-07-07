@@ -16,7 +16,7 @@ class mt_tanf_payment_eligible_requirements(Variable):
         immigration_status_eligible = person(
             "mt_tanf_immigration_status_eligible_person", period
         )
-        ssi = person("ssi", period)
+        ssi = person("applicable_ssi", period)
         receives_ssi = ssi > 0
         is_in_foster_care = person("is_in_foster_care", period)
 

@@ -12,7 +12,7 @@ class nc_tanf_household_size(Variable):
     defined_for = StateCode.NC
 
     def formula(spm_unit, period, parameters):
-        ssi_income = spm_unit.members("ssi", period)
+        ssi_income = spm_unit.members("applicable_ssi", period)
 
         # Eligible members are those with no SSI income
         eligible_members = ssi_income <= 0

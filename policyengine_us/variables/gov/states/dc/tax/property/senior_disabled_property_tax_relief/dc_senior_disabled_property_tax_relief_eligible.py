@@ -23,7 +23,11 @@ class dc_senior_disabled_property_tax_relief_eligible(Variable):
             add(
                 person,
                 period,
-                ["ssi", "social_security_disability", "total_disability_payments"],
+                [
+                    "applicable_ssi",
+                    "social_security_disability",
+                    "total_disability_payments",
+                ],
             )
             > 0
         )

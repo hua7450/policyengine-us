@@ -16,13 +16,14 @@ class la_oss(Variable):
     def formula(person, period, parameters):
         # Per SSA 2011 LA report: state supplement = state standard - federal
         # SSI payment - countable income. The federal payment is the actual
-        # `ssi` (post-reduction for institutional residents), not the constant
-        # institutional FBR — using the constant under-pays people with
-        # low-but-positive countable income still receiving partial SSI, and
-        # also under-pays non-SSI recipients in LTC. J-300's $1.00 floor and
+        # `applicable_ssi` (post-reduction for institutional residents),
+        # not the constant institutional FBR — using the constant
+        # under-pays people with low-but-positive countable income still
+        # receiving partial SSI, and also under-pays non-SSI recipients
+        # in LTC. J-300's $1.00 floor and
         # $0.50/$0.49 round-up rule are not modeled at the moment.
         p = parameters(period).gov.states.la.hhs.oss
-        ssi = person("ssi", period)
+        ssi = person("applicable_ssi", period)
         countable_income = person("ssi_countable_income", period)
         raw = p.personal_care_needs_allowance - ssi - countable_income
         return min_(max_(raw, 0), p.maximum_payment)

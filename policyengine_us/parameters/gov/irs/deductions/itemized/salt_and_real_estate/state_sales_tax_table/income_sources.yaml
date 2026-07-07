@@ -20,4 +20,4 @@ values:
     - tax_exempt_retirement_distributions
     # Public assistance payments.
     - tanf
-    - ssi
+    - applicable_ssi

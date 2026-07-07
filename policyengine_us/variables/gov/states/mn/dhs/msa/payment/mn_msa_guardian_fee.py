@@ -33,7 +33,7 @@ class mn_msa_guardian_fee(Variable):
                 "ssi_unearned_income_deemed_from_ineligible_parent",
             ],
         )
-        ssi = person("ssi", period)
+        ssi = person("applicable_ssi", period)
         ssi_fbr = person("ssi_amount_if_eligible", period)
         gross = income + where(ssi > 0, ssi_fbr, 0)
         unit_gross = person.marital_unit.sum(gross)

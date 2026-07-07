@@ -3,7 +3,7 @@ values:
   2016-12-01:
     - medicaid_enrolled
     - snap
-    - ssi
+    - applicable_ssi
     # Also not implemented:
     # - Veterans and Survivors Pension Benefit
 metadata:

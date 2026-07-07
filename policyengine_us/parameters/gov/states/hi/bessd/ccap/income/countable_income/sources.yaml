@@ -9,7 +9,7 @@ values:
     - social_security_survivors
     # Recurring SSI is countable; HAR 17-798.2-11(5)(B) excludes only
     # retroactive lump-sum SSI, not recurring monthly SSI payments.
-    - ssi
+    - applicable_ssi
     - dividend_income
     - interest_income
     - rental_income

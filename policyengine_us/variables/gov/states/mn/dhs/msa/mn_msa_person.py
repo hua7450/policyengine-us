@@ -42,7 +42,7 @@ class mn_msa_person(Variable):
         # special needs remain attached to the spouse with the allowance.
         couple_special_needs = person.marital_unit.sum(special_needs)
         special_needs_share = special_needs / max_(couple_special_needs, 1)
-        ssi = person("ssi", period)
+        ssi = person("applicable_ssi", period)
         receives_ssi = ssi > 0
         ssi_fbr = person("ssi_amount_if_eligible", period)
         p = parameters(period).gov.ssa.ssi.income.exclusions

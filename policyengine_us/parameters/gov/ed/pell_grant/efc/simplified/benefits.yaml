@@ -6,7 +6,7 @@ values:
     - tanf
     - wic
     - medicaid_enrolled
-    - ssi
+    - applicable_ssi
 metadata:
   unit: list
   label: Qualifying benefits for EFC simplified formula

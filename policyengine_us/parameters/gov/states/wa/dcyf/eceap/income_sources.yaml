@@ -4,7 +4,7 @@ values:
   2021-07-25:
     - market_income
     - tanf
-    - ssi
+    - applicable_ssi
     - social_security
     - child_support_received
     - unemployment_compensation

@@ -22,7 +22,7 @@ class mo_ssp(Variable):
         # 0715.010.10 at the moment; it only applies to the closed
         # 1973-conversion cohort.
         p = parameters(period).gov.states.mo.dss.ssp
-        federal_ssi = person("ssi", period)
+        federal_ssi = person("applicable_ssi", period)
         sab_remainder = max_(p.sab.maximum_payment - federal_ssi, 0)
         sab_grant = where(
             (sab_remainder > 0) & (sab_remainder < 1),

@@ -12,7 +12,7 @@ values:
     - pension_income
     - retirement_distributions
     - disability_benefits
-    - ssi
+    - applicable_ssi
     # TANF is countable per Rule §2.C.4, but excluded here to avoid
     # circular dependency: tanf → childcare_expenses → me_ccap → me_ccap_countable_income → tanf
     - veterans_benefits
