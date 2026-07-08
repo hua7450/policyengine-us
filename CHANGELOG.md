@@ -1,3 +1,10 @@
+## [1.768.0] - 2026-07-08
+
+### Added
+
+- Add enrollment-gated gross Medicare Part B premiums and an explicit lagged IRMAA MAGI input path.
+
+
 ## [1.767.4] - 2026-07-08
 
 ### Fixed
