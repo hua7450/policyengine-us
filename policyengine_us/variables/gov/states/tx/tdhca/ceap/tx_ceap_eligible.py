@@ -34,7 +34,7 @@ class tx_ceap_eligible(Variable):
         # Categorical eligibility per 42 USC 8624(b)(2)(A)
         # and FY 2024 State Plan Section 1.4
         tanf = spm_unit("is_tanf_enrolled", period)
-        snap = spm_unit("is_snap_eligible", period)
+        snap = spm_unit("snap_enrolled", period)
         person = spm_unit.members
         ssi = spm_unit.any(person("is_ssi_eligible", period))
         categorically_eligible = tanf | snap | ssi
