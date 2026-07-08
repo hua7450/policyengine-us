@@ -3,7 +3,7 @@
   input:
     state_code: DC
     dc_tanf_gross_earned_income: 0
-    is_tanf_enrolled: false
+    receives_tanf: false
   output:
     dc_tanf_earned_income_after_disregard_person: 0
 
@@ -12,7 +12,7 @@
   input:
     state_code: DC
     dc_tanf_gross_earned_income: 4_000
-    is_tanf_enrolled: false
+    receives_tanf: false
   output:
     dc_tanf_earned_income_after_disregard_person: 2_080 # $160 * 12 disregard only.
 
@@ -21,6 +21,6 @@
   input:
     state_code: DC
     dc_tanf_gross_earned_income: 4_020
-    is_tanf_enrolled: true
+    receives_tanf: true
   output:
     dc_tanf_earned_income_after_disregard_person: 693 # $160 * 12 and additional two thirds disregard

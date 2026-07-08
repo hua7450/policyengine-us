@@ -88,7 +88,7 @@
     spm_units:
       spm_unit:
         members: [parent, child]
-        is_tanf_enrolled: true
+        receives_tanf: true
         spm_unit_assets: 5_000
     households:
       household:
@@ -149,7 +149,7 @@
     spm_units:
       spm_unit:
         members: [parent, child]
-        is_tanf_enrolled: true
+        receives_tanf: true
         spm_unit_assets: 2_000_000
     households:
       household:

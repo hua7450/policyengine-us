@@ -16,7 +16,7 @@ class ak_atap_countable_earned_income_person(Variable):
         # (a)(2) + (b) Continuing recipients: $150 flat + percentage
         p = parameters(period).gov.states.ak.dpa.atap.income
         gross_earned = person("tanf_gross_earned_income", period)
-        is_enrolled = person.spm_unit("is_tanf_enrolled", period)
+        is_enrolled = person.spm_unit("receives_tanf", period)
 
         # New applicants: $90 flat deduction only
         new_applicant_countable = max_(

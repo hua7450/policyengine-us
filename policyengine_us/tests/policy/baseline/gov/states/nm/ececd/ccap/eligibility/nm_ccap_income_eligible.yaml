@@ -5,7 +5,7 @@
 # the higher continuation ceiling. The codified NMAC ceilings are 200% / 250%,
 # but ECECD has operated at 400% initial / 425% continuation since 2022-05-01,
 # so 2024-2025 cases below use the operative 400% / 425% ceilings that were
-# actually in force. TANF-enrolled families (is_tanf_enrolled) are
+# actually in force. TANF-enrolled families (receives_tanf) are
 # categorically income-eligible (Priority 2 bypass). Universal Child Care
 # removes the income limit entirely from 2025-11-01 (income_limit_in_effect
 # turns off), so families are income-eligible regardless of income from that
@@ -131,13 +131,13 @@
       spm_unit:
         members: [person1, person2]
         nm_ccap_enrolled: false
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2]
         state_code: NM
   output:
-    # is_tanf_enrolled -> Priority 2 categorical income eligibility.
+    # receives_tanf -> Priority 2 categorical income eligibility.
     nm_ccap_income_eligible: true
 
 # ============================================================

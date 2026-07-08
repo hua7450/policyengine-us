@@ -42,5 +42,5 @@ class va_ccsp_copay(Variable):
         family_copay = min_(total_from_scale, income_cap)
 
         # TANF recipients exempt from copay
-        is_tanf = spm_unit("is_tanf_enrolled", period)
+        is_tanf = spm_unit("receives_tanf", period)
         return where(is_tanf, 0, family_copay)

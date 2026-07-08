@@ -1,6 +1,6 @@
 # ia_cca_income_exception: SPMUnit, bool, MONTH.
 # Iowa serves certain families without regard to income (IAC 441-170.2(1)"b"):
-# FIP/TANF recipients (via is_tanf_enrolled), families with a child in protective
+# FIP/TANF recipients (via receives_tanf), families with a child in protective
 # child care, and licensed foster parents needing care for a foster child.
 
 - name: FIP-enrolled family qualifies through the income exception.
@@ -15,7 +15,7 @@
     spm_units:
       spm_unit:
         members: [parent, child]
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [parent, child]
@@ -75,7 +75,7 @@
     spm_units:
       spm_unit:
         members: [parent, child]
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [parent, child]

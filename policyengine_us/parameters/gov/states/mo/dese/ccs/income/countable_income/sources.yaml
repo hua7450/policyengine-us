@@ -31,7 +31,7 @@ values:
     # - tanf (the Manual sec. 9.1 sliding fee treats Temporary Assistance as the
     #   family's only income under the $1/year rule; also omitted to avoid the
     #   Child Care Subsidy -> TANF circular dependency, handled via
-    #   is_tanf_enrolled in mo_ccs_copay)
+    #   receives_tanf in mo_ccs_copay)
     # - capital_gains (Manual sec. 5.6.2(3) — treated as a resource, not income)
     # Excluded types with no PolicyEngine variable (foster care, adoption
     # subsidy, LIHEAP, SNAP value, HUD allowances, tribal funds, restitution

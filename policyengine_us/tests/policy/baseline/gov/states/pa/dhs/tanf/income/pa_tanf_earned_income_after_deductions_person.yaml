@@ -10,7 +10,7 @@
   period: 2024-01
   input:
     employment_income_before_lsr: 12_000
-    is_tanf_enrolled: true
+    receives_tanf: true
     state_code: PA
   output:
     # Monthly: $12,000/12 = $1,000
@@ -22,7 +22,7 @@
   period: 2024-01
   input:
     employment_income_before_lsr: 12_000
-    is_tanf_enrolled: false
+    receives_tanf: false
     state_code: PA
   output:
     # Monthly: $12,000/12 = $1,000
@@ -34,7 +34,7 @@
   period: 2024-01
   input:
     employment_income_before_lsr: 36_000
-    is_tanf_enrolled: true
+    receives_tanf: true
     state_code: PA
   output:
     # Monthly: $36,000/12 = $3,000
@@ -46,7 +46,7 @@
   period: 2024-01
   input:
     employment_income_before_lsr: 36_000
-    is_tanf_enrolled: false
+    receives_tanf: false
     state_code: PA
   output:
     # Monthly: $36,000/12 = $3,000
@@ -57,7 +57,7 @@
   period: 2024-01
   input:
     employment_income_before_lsr: 2_400
-    is_tanf_enrolled: true
+    receives_tanf: true
     state_code: PA
   output:
     # Monthly: $2,400/12 = $200
@@ -69,7 +69,7 @@
   period: 2024-01
   input:
     employment_income_before_lsr: 3_000
-    is_tanf_enrolled: false
+    receives_tanf: false
     spm_unit_size: 3
     state_code: PA
   output:
@@ -87,7 +87,7 @@
   period: 2019-01
   input:
     employment_income_before_lsr: 12_000
-    is_tanf_enrolled: true
+    receives_tanf: true
     state_code: PA
   output:
     # Monthly: $12,000/12 = $1,000
@@ -100,7 +100,7 @@
   period: 2019-01
   input:
     employment_income_before_lsr: 36_000
-    is_tanf_enrolled: true
+    receives_tanf: true
     state_code: PA
   output:
     # Monthly: $36,000/12 = $3,000
@@ -113,7 +113,7 @@
   period: 2019-01
   input:
     employment_income_before_lsr: 2_400
-    is_tanf_enrolled: true
+    receives_tanf: true
     state_code: PA
   output:
     # Monthly: $2,400/12 = $200

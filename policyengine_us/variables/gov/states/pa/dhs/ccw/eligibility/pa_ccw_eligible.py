@@ -16,7 +16,7 @@ class pa_ccw_eligible(Variable):
         income_eligible = spm_unit("pa_ccw_income_eligible", period)
         asset_eligible = spm_unit("is_ccdf_asset_eligible", period.this_year)
         activity_eligible = spm_unit("pa_ccw_activity_eligible", period.this_year)
-        not_on_tanf = ~spm_unit("is_tanf_enrolled", period)
+        not_on_tanf = ~spm_unit("receives_tanf", period)
         return (
             has_eligible_child
             & income_eligible

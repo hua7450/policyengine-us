@@ -14,6 +14,6 @@ class la_ccap_categorically_eligible(Variable):
         # and children in foster care. STEP participation is approximated by
         # TANF enrollment; we don't track STEP work-program status separately
         # at the moment.
-        tanf_enrolled = spm_unit("is_tanf_enrolled", period)
+        tanf_enrolled = spm_unit("receives_tanf", period)
         has_foster_child = add(spm_unit, period, ["is_in_foster_care"]) > 0
         return tanf_enrolled | has_foster_child

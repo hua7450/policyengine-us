@@ -5,7 +5,7 @@
 #   alimony_income, child_support_received, dividend_income, interest_income,
 #   rental_income, veterans_benefits, military_retirement_pay
 # Note: tanf excluded from sources to break circular dependency
-# (TANF recipients are categorically eligible via is_tanf_enrolled)
+# (TANF recipients are categorically eligible via receives_tanf)
 
 - name: Case 1, employment and unearned income counted.
   period: 2025-01

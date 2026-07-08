@@ -24,7 +24,7 @@ values:
     #   omit TANF to avoid the CCAP <-> TANF circular dependency
     #   (ky_ccap_countable_income -> tanf -> k-tap dependent-care deduction ->
     #   childcare_expenses -> child_care_subsidies -> ky_ccap). The
-    #   is_tanf_enrolled bypass in ky_ccap_activity_eligible already makes
+    #   receives_tanf bypass in ky_ccap_activity_eligible already makes
     #   Kentucky Works families categorically activity-eligible.
     # Provisions we don't model at the moment:
     # - §8(4)(c) educational grants/loans/scholarships/work-study,

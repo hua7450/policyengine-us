@@ -14,7 +14,7 @@ class vt_ccfap_categorically_exempt(Variable):
 
     def formula(spm_unit, period, parameters):
         # Reach Up (VT TANF) recipients — MONTH variable
-        reach_up = spm_unit("is_tanf_enrolled", period)
+        reach_up = spm_unit("receives_tanf", period)
         # Protective services — YEAR variable
         protective = (
             add(

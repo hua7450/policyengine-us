@@ -17,5 +17,5 @@ class nh_ccap_income_eligible(Variable):
         income_limit = smi * p.income_limit_smi_rate
         income_test = countable_income <= income_limit
         # He-C 6910.06(a)(1): TANF recipients automatically qualify
-        tanf_eligible = spm_unit("is_tanf_enrolled", period)
+        tanf_eligible = spm_unit("receives_tanf", period)
         return income_test | tanf_eligible

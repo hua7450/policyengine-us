@@ -31,7 +31,7 @@ class sc_ccap_copay(Variable):
         # Family-level copay exemptions (Section 3.4.2, p.108).
         # Head Start copay waiver is per-child, handled below.
         protective = spm_unit("sc_ccap_protective_services", period)
-        is_tanf = spm_unit("is_tanf_enrolled", period)
+        is_tanf = spm_unit("receives_tanf", period)
         p_elig = parameters(period).gov.states.sc.dss.ccap.eligibility
         person = spm_unit.members
         is_disabled = person("is_disabled", period.this_year)

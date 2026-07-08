@@ -22,7 +22,7 @@ class nh_fanf_countable_earned_income(Variable):
         # but this is not implemented due to lack of job classification data.
         p = parameters(period).gov.states.nh.dhhs.fanf.income.earned_income_disregard
         gross_earned = add(spm_unit, period, ["tanf_gross_earned_income"])
-        is_enrolled = spm_unit("is_tanf_enrolled", period)
+        is_enrolled = spm_unit("receives_tanf", period)
         disregard_rate = where(is_enrolled, p.recipient_rate, p.applicant_rate)
         after_disregard = gross_earned * (1 - disregard_rate)
 

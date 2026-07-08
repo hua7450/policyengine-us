@@ -159,7 +159,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: true
+        receives_tanf: true
         de_tanf_countable_income: 1_500
     households:
       household:
@@ -184,7 +184,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: true
+        receives_tanf: true
         de_tanf_countable_income: 1_700
     households:
       household:
@@ -210,7 +210,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: true
+        receives_tanf: true
         de_tanf_countable_income: 1_665.625
     households:
       household:
@@ -233,7 +233,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: true
+        receives_tanf: true
         de_tanf_net_income: 500
         de_tanf_countable_income: 300
     households:

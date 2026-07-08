@@ -98,7 +98,7 @@
       spm_unit:
         members: [person1, person2, person3]
         meets_ccdf_activity_test: false
-        is_tanf_enrolled: false
+        receives_tanf: false
         nv_ccdp_enrolled: false
     households:
       household:

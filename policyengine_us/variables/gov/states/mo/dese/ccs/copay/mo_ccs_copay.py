@@ -73,7 +73,7 @@ class mo_ccs_copay(Variable):
         # 2025.010 item 3), unlike the sliding fee tier above.
         gross_income = spm_unit("mo_ccs_countable_income", period)
         smi_floor = spm_unit("hhs_smi", period) * p.smi_minimum_rate
-        is_tanf = spm_unit("is_tanf_enrolled", period)
+        is_tanf = spm_unit("receives_tanf", period)
         pays_minimum = is_tanf | (gross_income < smi_floor)
         minimum_fee = p.minimum_annual_fee / MONTHS_IN_YEAR
         return where(pays_minimum, minimum_fee, monthly_fee)

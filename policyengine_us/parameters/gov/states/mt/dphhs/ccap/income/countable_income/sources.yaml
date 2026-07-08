@@ -25,7 +25,7 @@ values:
     # TANF cash (child-only/tribal) is excluded here to break the childcare<->TANF
     # circular dependency (mt_tanf's dependent care deduction reads childcare_expenses,
     # which nets out child_care_subsidies). TANF cash-assistance families are handled
-    # via the is_tanf_enrolled categorical pathway and the flat $10 copay instead.
+    # via the receives_tanf categorical pathway and the flat $10 copay instead.
     #
     # Not modeled: the CC26 (p.14) disregard for court-ordered child support PAID
     # OUT by a household member. Only child_support_received is counted above;

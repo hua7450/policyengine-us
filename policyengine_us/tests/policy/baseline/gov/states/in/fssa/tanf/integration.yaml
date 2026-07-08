@@ -50,7 +50,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled: true
+        receives_tanf: true
         spm_unit_cash_assets: 800
     households:
       household:
@@ -88,7 +88,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled: true
+        receives_tanf: true
         spm_unit_cash_assets: 700
     households:
       household:
@@ -127,7 +127,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: false
+        receives_tanf: false
         spm_unit_cash_assets: 900
     households:
       household:
@@ -167,7 +167,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3, person4]
-        is_tanf_enrolled: true
+        receives_tanf: true
         spm_unit_cash_assets: 1_500
     households:
       household:
@@ -207,7 +207,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: true
+        receives_tanf: true
         spm_unit_cash_assets: 500
     households:
       household:
@@ -271,7 +271,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: true
+        receives_tanf: true
         spm_unit_cash_assets: 500
     households:
       household:
@@ -305,7 +305,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled: false
+        receives_tanf: false
         spm_unit_cash_assets: 800
     households:
       household:
@@ -343,7 +343,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: false
+        receives_tanf: false
         spm_unit_cash_assets: 500
     households:
       household:
@@ -380,7 +380,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: false
+        receives_tanf: false
         spm_unit_cash_assets: 500
     households:
       household:
@@ -413,7 +413,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: false
+        receives_tanf: false
         spm_unit_cash_assets: 500
     households:
       household:

@@ -21,7 +21,7 @@ class ar_tea_countable_earned_income(Variable):
         after_work_expense = gross_earned * (1 - p.expense_rate)
 
         # Step 2: Apply 60% work incentive deduction (only for ongoing recipients)
-        is_enrolled = spm_unit("is_tanf_enrolled", period)
+        is_enrolled = spm_unit("receives_tanf", period)
 
         # For initial applicants: only 20% work expense deduction
         # For ongoing recipients: 20% work expense + 60% work incentive

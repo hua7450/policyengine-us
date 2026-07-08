@@ -19,7 +19,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2, person3]
@@ -65,7 +65,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2, person3]
@@ -110,7 +110,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: true
+        receives_tanf: true
         ca_tanf_exempt: true
     households:
       household:
@@ -151,7 +151,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [person1, person2, person3]
@@ -192,7 +192,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2, person3]
@@ -233,7 +233,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3, person4]
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [person1, person2, person3, person4]

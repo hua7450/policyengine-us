@@ -53,7 +53,7 @@
     spm_units:
       spm_unit:
         members: [parent, child]
-        is_tanf_enrolled: true
+        receives_tanf: true
         dc_tanf_meets_work_requirements: true
     households:
       household:
@@ -92,7 +92,7 @@
     spm_units:
       spm_unit:
         members: [parent, child]
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [parent, child]
@@ -117,7 +117,7 @@
     spm_units:
       spm_unit:
         members: [parent1, parent2, child]
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [parent1, parent2, child]

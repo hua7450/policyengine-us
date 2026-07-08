@@ -40,7 +40,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2, person3]
@@ -68,7 +68,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [person1, person2, person3]
@@ -93,7 +93,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2]
@@ -123,7 +123,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2, person3]
@@ -151,7 +151,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2, person3]
@@ -184,7 +184,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [person1, person2, person3]
@@ -208,7 +208,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [person1, person2, person3]
@@ -232,7 +232,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [person1, person2, person3]
@@ -255,7 +255,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [person1, person2, person3]
@@ -278,7 +278,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2, person3]
@@ -301,7 +301,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2, person3]
@@ -326,7 +326,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [person1, person2, person3]
@@ -344,7 +344,7 @@
     in_tanf_countable_income_for_eligibility: 510
     in_tanf_gross_income: 797
     spm_unit_size: 3
-    is_tanf_enrolled: false
+    receives_tanf: false
     state_code: IN
   output:
     in_tanf_initial_gross_income_standard: 797
@@ -356,7 +356,7 @@
   input:
     in_tanf_countable_income_for_eligibility: 2_277
     spm_unit_size: 3
-    is_tanf_enrolled: true
+    receives_tanf: true
     state_code: IN
   output:
     in_tanf_fpg: 2_277

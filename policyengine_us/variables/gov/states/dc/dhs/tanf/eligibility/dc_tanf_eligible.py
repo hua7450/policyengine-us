@@ -11,7 +11,7 @@ class dc_tanf_eligible(Variable):
 
     def formula(spm_unit, period, parameters):
         basic = spm_unit("dc_tanf_basic_eligibility_requirements", period)
-        enrolled = spm_unit("is_tanf_enrolled", period)
+        enrolled = spm_unit("receives_tanf", period)
         meets_work = spm_unit("dc_tanf_meets_work_requirements", period)
         # Non-enrolled applicants must meet work requirements for eligibility.
         # Enrolled recipients who fail get a benefit sanction instead (in dc_tanf).

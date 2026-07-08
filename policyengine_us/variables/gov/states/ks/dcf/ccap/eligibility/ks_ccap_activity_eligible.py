@@ -34,5 +34,5 @@ class ks_ccap_activity_eligible(Variable):
         )
         non_tanf_eligible = has_caretaker & no_ineligible_caretaker
         # KEESM 2820: TANF work-program participants have no minimum-hours test.
-        is_tanf = spm_unit("is_tanf_enrolled", period)
+        is_tanf = spm_unit("receives_tanf", period)
         return is_tanf | non_tanf_eligible

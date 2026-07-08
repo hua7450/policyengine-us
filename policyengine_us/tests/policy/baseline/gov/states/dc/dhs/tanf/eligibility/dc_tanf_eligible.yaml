@@ -61,7 +61,7 @@
     dc_tanf_income_eligible: true
     dc_tanf_resources_eligible: true
     dc_tanf_meets_work_requirements: false
-    is_tanf_enrolled: true
+    receives_tanf: true
   output:
     # Enrolled DC cases stay eligible and take the separate sanction path in
     # dc_tanf_work_sanction_rate instead of failing the basic screen outright.

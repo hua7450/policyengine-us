@@ -13,7 +13,7 @@ class ia_fip_resources_eligible(Variable):
 
     def formula(spm_unit, period, parameters):
         p = parameters(period).gov.states.ia.dhs.fip.resources
-        current_recipient = spm_unit("is_tanf_enrolled", period)
+        current_recipient = spm_unit("receives_tanf", period)
         limit = where(
             current_recipient,
             p.recipient_limit,

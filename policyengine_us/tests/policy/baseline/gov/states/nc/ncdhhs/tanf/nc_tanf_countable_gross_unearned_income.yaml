@@ -12,7 +12,7 @@
     gi_cash_assistance: 0
     social_security: 0
     child_support_received: 0
-    is_tanf_enrolled: false
+    receives_tanf: false
   output:
     nc_tanf_countable_gross_unearned_income: 0
 
@@ -30,7 +30,7 @@
     gi_cash_assistance: 0
     social_security: 0
     child_support_received: 5_000
-    is_tanf_enrolled: true
+    receives_tanf: true
   output:
     nc_tanf_countable_gross_unearned_income: 0
 
@@ -48,7 +48,7 @@
     gi_cash_assistance: 0
     social_security: 0
     child_support_received: 5_000
-    is_tanf_enrolled: false
+    receives_tanf: false
   output:
     nc_tanf_countable_gross_unearned_income: 5_000
 
@@ -66,6 +66,6 @@
     gi_cash_assistance: 1_000
     social_security: 1_000
     child_support_received: 0
-    is_tanf_enrolled: false
+    receives_tanf: false
   output:
     nc_tanf_countable_gross_unearned_income: 9_000

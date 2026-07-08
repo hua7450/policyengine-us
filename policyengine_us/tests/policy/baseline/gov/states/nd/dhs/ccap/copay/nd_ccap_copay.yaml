@@ -246,7 +246,7 @@
         nd_ccap_income_eligible: true
         is_ccdf_asset_eligible: true
         nd_ccap_activity_eligible: true
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2]

@@ -3,7 +3,7 @@
 #   <= 32.99% SMI -> $0; 33%-42% SMI -> $90; above 42% SMI -> $150.
 # The $150 band begins just above 42% SMI (threshold 0.4201) per the operational
 # CC PT 06-25 fee chart; the State Plan summary's "43%" is superseded by the chart.
-# Waived for TANF/NEON (is_tanf_enrolled), CPS/foster placements, and homeless.
+# Waived for TANF/NEON (receives_tanf), CPS/foster placements, and homeless.
 # Family of 3, period 2025-01 -> monthly SMI = 6_721.82.
 
 - name: Income below 33% SMI yields a zero copay.
@@ -94,7 +94,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2, person3]

@@ -1,6 +1,6 @@
 # Integration tests for Arkansas TEA (Transitional Employment Assistance)
 # These tests verify the complete benefit calculation pipeline from inputs to final benefit
-# Note: These tests use is_tanf_enrolled: true to simulate ongoing recipients
+# Note: These tests use receives_tanf: true to simulate ongoing recipients
 
 - name: Case 1, family of 3 with no income receives full benefit.
   period: 2024-01
@@ -17,7 +17,7 @@
       spm_unit:
         members: [person1, person2, person3]
         spm_unit_cash_assets: 1_000
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2, person3]
@@ -58,7 +58,7 @@
       spm_unit:
         members: [person1, person2, person3]
         spm_unit_cash_assets: 500
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2, person3]
@@ -98,7 +98,7 @@
       spm_unit:
         members: [person1, person2]
         spm_unit_cash_assets: 2_000
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2]
@@ -141,7 +141,7 @@
       spm_unit:
         members: [person1, person2, person3, person4]
         spm_unit_cash_assets: 1_500
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2, person3, person4]
@@ -179,7 +179,7 @@
       spm_unit:
         members: [person1, person2, person3]
         spm_unit_cash_assets: 500
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2, person3]
@@ -218,7 +218,7 @@
       spm_unit:
         members: [person1, person2, person3]
         spm_unit_cash_assets: 1_000
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2, person3]
@@ -254,7 +254,7 @@
       spm_unit:
         members: [person1, person2]
         spm_unit_cash_assets: 5_000
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2]
@@ -291,7 +291,7 @@
       spm_unit:
         members: [person1, person2, person3]
         spm_unit_cash_assets: 500
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [person1, person2, person3]
@@ -330,7 +330,7 @@
       spm_unit:
         members: [person1, person2, person3]
         spm_unit_cash_assets: 1_000
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2, person3]
@@ -369,7 +369,7 @@
       spm_unit:
         members: [person1, person2, person3]
         spm_unit_cash_assets: 1_000
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2, person3]
@@ -408,7 +408,7 @@
       spm_unit:
         members: [person1, person2]
         spm_unit_cash_assets: 1_000
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [person1, person2]
@@ -449,7 +449,7 @@
       spm_unit:
         members: [person1, person2, person3, person4]
         spm_unit_cash_assets: 1_000
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [person1, person2, person3, person4]
@@ -489,7 +489,7 @@
       spm_unit:
         members: [person1, person2]
         spm_unit_cash_assets: 1_000
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2]
@@ -531,7 +531,7 @@
       spm_unit:
         members: [person1, person2, person3]
         spm_unit_cash_assets: 1_000
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2, person3]
@@ -570,7 +570,7 @@
       spm_unit:
         members: [person1, person2, person3]
         spm_unit_cash_assets: 1_000
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2, person3]
@@ -610,7 +610,7 @@
       spm_unit:
         members: [person1, person2]
         spm_unit_cash_assets: 1_000
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2]
@@ -647,7 +647,7 @@
       spm_unit:
         members: [person1, person2]
         spm_unit_cash_assets: 1_000
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2]

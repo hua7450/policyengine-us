@@ -435,7 +435,7 @@
       spm_unit:
         members: [parent, child]
         ia_cca_enrolled: false
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [parent, child]

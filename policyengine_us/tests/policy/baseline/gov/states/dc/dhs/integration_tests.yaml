@@ -12,7 +12,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled: false
+        receives_tanf: false
         childcare_expenses: 5_000
     tax_units:
       tax_unit:
@@ -77,7 +77,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled: false
+        receives_tanf: false
     tax_units:
       tax_unit:
         members: [person1, person2]
@@ -110,7 +110,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled: false
+        receives_tanf: false
     tax_units:
       tax_unit:
         members: [person1, person2]
@@ -149,7 +149,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: false
+        receives_tanf: false
     tax_units:
       tax_unit:
         members: [person1, person2, person3]

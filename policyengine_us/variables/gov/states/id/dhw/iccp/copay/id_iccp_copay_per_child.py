@@ -76,7 +76,7 @@ class id_iccp_copay_per_child(Variable):
         # foster children from the copay. The chart scopes the TAFI exemption to
         # families below 100% FPG; the 503 sub-condition limiting it to TAFI
         # families in non-employment activities is not tracked at the moment.
-        tafi = person.spm_unit("is_tanf_enrolled", period)
+        tafi = person.spm_unit("receives_tanf", period)
         fpg = person.spm_unit("spm_unit_fpg", period)
         below_tafi_fpl = income < fpg * p.tafi_exemption_fpl_rate
         tafi_exempt = tafi & below_tafi_fpl

@@ -13,11 +13,11 @@ class ia_cca_income_exception(Variable):
         # Iowa serves certain families without regard to income
         # (IAC 441-170.2(1)"b"): FIP/TANF recipients, families with a child
         # in protective child care, and licensed foster parents needing
-        # care for a foster child. We use is_tanf_enrolled (a bare input)
+        # care for a foster child. We use receives_tanf (a bare input)
         # for the FIP path to break the CCAP-to-TANF circular dependency.
         # PROMISE JOBS and court-ordered care have no PolicyEngine input at
         # the moment, so we don't model those exception paths.
-        on_fip = spm_unit("is_tanf_enrolled", period)
+        on_fip = spm_unit("receives_tanf", period)
         person = spm_unit.members
         protective = person("receives_or_needs_protective_services", period)
         foster = person("is_in_foster_care", period)

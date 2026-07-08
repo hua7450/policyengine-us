@@ -64,10 +64,10 @@ class ok_stc(Variable):
         # For details, see Form 538-S in the 511 packets referenced above
         p = parameters(period).gov.states.ok.tax.income.credits.sales_tax
         # Exclusion: TANF recipients are not eligible. Use actual enrollment
-        # (is_tanf_enrolled) rather than the modeled ok_tanf benefit, so that
+        # (receives_tanf) rather than the modeled ok_tanf benefit, so that
         # tax filers who are not receiving TANF still qualify even when the
         # model would impute TANF eligibility for them.
-        tanf_ineligible = add(tax_unit, period, ["is_tanf_enrolled"]) > 0
+        tanf_ineligible = add(tax_unit, period, ["receives_tanf"]) > 0
         # Get gross household income for eligibility tests
         income = tax_unit("ok_gross_income", period)
         # Pathway 1: Low income (gross income <= $20,000)

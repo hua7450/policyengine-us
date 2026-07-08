@@ -41,7 +41,7 @@ values:
     # The other ~30 exempt categories in 8.15.2.11.C(6) (SNAP, TANF, SSI,
     # unemployment, child support, energy assistance, foster care payments,
     # etc.) are excluded by omission from this positive list. Omitting TANF
-    # also avoids a CCAP <-> TANF circular dependency; the is_tanf_enrolled
+    # also avoids a CCAP <-> TANF circular dependency; the receives_tanf
     # bypass in nm_ccap_income_eligible already makes TANF-active families
     # categorically income-eligible.
 

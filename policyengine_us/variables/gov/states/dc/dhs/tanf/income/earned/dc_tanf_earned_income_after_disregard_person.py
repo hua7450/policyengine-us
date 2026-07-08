@@ -13,7 +13,7 @@ class dc_tanf_earned_income_after_disregard_person(Variable):
     def formula(person, period, parameters):
         gross_earnings = person("dc_tanf_gross_earned_income", period)
         p = parameters(period).gov.states.dc.dhs.tanf.income.deductions
-        enrolled = person.spm_unit("is_tanf_enrolled", period)
+        enrolled = person.spm_unit("receives_tanf", period)
         earnings_after_flat_exclusion = max_(
             gross_earnings - p.work_related_expense.amount, 0
         )

@@ -12,7 +12,7 @@
       spm_unit:
         members: [person1, person2]
         spm_unit_cash_assets: 500
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [person1, person2]
@@ -57,7 +57,7 @@
         members: [person1, person2]
         spm_unit_cash_assets: 800
         childcare_expenses: 2_400  # $200/month
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [person1, person2]
@@ -108,7 +108,7 @@
       spm_unit:
         members: [person1, person2, person3]
         spm_unit_cash_assets: 15_000
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [person1, person2, person3]
@@ -154,7 +154,7 @@
       spm_unit:
         members: [person1, person2]
         spm_unit_cash_assets: 800
-        is_tanf_enrolled: true  # Continuing recipient
+        receives_tanf: true  # Continuing recipient
     households:
       household:
         members: [person1, person2]
@@ -193,7 +193,7 @@
       spm_unit:
         members: [person1, person2]
         spm_unit_cash_assets: 800
-        is_tanf_enrolled: false  # New applicant
+        receives_tanf: false  # New applicant
     households:
       household:
         members: [person1, person2]
@@ -236,7 +236,7 @@
       spm_unit:
         members: [person1, person2, person3]
         spm_unit_cash_assets: 500
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [person1, person2, person3]
@@ -273,7 +273,7 @@
       spm_unit:
         members: [person1, person2, person3]
         spm_unit_cash_assets: 500
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [person1, person2, person3]

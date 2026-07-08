@@ -11,7 +11,7 @@ class ct_tfa_income_eligible(Variable):
 
     def formula(spm_unit, period, parameters):
         p = parameters(period).gov.states.ct.dss.tfa.income.recipient
-        is_tanf_enrolled = spm_unit("is_tanf_enrolled", period)
+        receives_tanf = spm_unit("receives_tanf", period)
         # New applicant income check
         countable_income_at_application = spm_unit(
             "ct_tfa_countable_income_at_application", period
@@ -29,7 +29,7 @@ class ct_tfa_income_eligible(Variable):
         fpg_limit = p.income_limit_rate * fpg
         income_eligible_at_grant_calculation = gross_earnings <= fpg_limit
         return where(
-            is_tanf_enrolled,
+            receives_tanf,
             income_eligible_at_grant_calculation,
             income_eligible_at_application,
         )

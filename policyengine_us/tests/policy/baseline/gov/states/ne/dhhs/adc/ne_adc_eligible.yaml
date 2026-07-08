@@ -21,7 +21,7 @@
       spm_unit:
         members: [person1, person2]
         spm_unit_cash_assets: 1_000
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2]
@@ -44,7 +44,7 @@
       spm_unit:
         members: [person1, person2]
         spm_unit_cash_assets: 1_000
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2]
@@ -94,7 +94,7 @@
       spm_unit:
         members: [person1, person2]
         spm_unit_cash_assets: 1_000
-        is_tanf_enrolled: false  # Initial applicant
+        receives_tanf: false  # Initial applicant
     households:
       household:
         members: [person1, person2]
@@ -120,7 +120,7 @@
       spm_unit:
         members: [person1, person2]
         spm_unit_cash_assets: 1_000
-        is_tanf_enrolled: true  # Ongoing recipient
+        receives_tanf: true  # Ongoing recipient
     households:
       household:
         members: [person1, person2]

@@ -29,7 +29,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled: false
+        receives_tanf: false
         childcare_expenses: 5_000
         dc_tanf_meets_work_requirements: true
     tax_units:
@@ -60,7 +60,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled: true
+        receives_tanf: true
         childcare_expenses: 0
         dc_tanf_meets_work_requirements: true
     tax_units:
@@ -91,7 +91,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled: false
+        receives_tanf: false
         childcare_expenses: 1_200
         dc_tanf_meets_work_requirements: true
     tax_units:

@@ -45,5 +45,5 @@ class ks_ccap_family_share(Variable):
         fpg_ratio = income / monthly_fpg
         tier_floor_bound = np.floor(p.tier_floor.calc(fpg_ratio) * monthly_fpg + 0.5)
         deduction = np.floor(p.rate.calc(fpg_ratio) * tier_floor_bound + 0.5)
-        is_tanf = spm_unit("is_tanf_enrolled", period)
+        is_tanf = spm_unit("receives_tanf", period)
         return where(is_tanf, 0, deduction)

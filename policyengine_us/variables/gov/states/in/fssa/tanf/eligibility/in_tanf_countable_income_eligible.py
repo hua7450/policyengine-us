@@ -40,5 +40,5 @@ class in_tanf_countable_income_eligible(Variable):
             gross_income < gross_threshold
         )
 
-        is_enrolled = spm_unit("is_tanf_enrolled", period)
+        is_enrolled = spm_unit("receives_tanf", period)
         return where(is_enrolled, continuing_eligible, initial_eligible)

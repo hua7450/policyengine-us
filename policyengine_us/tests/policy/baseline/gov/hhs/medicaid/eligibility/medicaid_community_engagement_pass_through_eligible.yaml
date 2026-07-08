@@ -26,7 +26,7 @@
     spm_units:
       spm_unit:
         members: [person1]
-        is_tanf_enrolled: true
+        receives_tanf: true
         meets_tanf_work_requirements: true
     households:
       household:

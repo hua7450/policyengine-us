@@ -36,7 +36,7 @@
       spm_unit:
         members: [person1, person2]
         spm_unit_pre_subsidy_childcare_expenses: 20_000
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2]

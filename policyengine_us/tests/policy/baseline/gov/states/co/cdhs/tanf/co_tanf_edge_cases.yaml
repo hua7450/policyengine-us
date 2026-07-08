@@ -21,7 +21,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: true
+        receives_tanf: true
     tax_units:
       tax_unit:
         members: [person1, person2, person3]
@@ -203,7 +203,7 @@
   input:
     state_code: CO
     co_tanf_countable_gross_earned_income: 1_080
-    is_tanf_enrolled: false
+    receives_tanf: false
   output:
     # Not enrolled: max($1,080 - $90 * 12, 0) = max($0, 0) = $0
     co_tanf_countable_earned_income_need: 0
@@ -214,7 +214,7 @@
   input:
     state_code: CO
     co_tanf_countable_gross_earned_income: 1_081
-    is_tanf_enrolled: false
+    receives_tanf: false
   output:
     # Not enrolled: max($1,081 - $1,080, 0) = $1
     co_tanf_countable_earned_income_need: 1
@@ -227,7 +227,7 @@
   input:
     state_code: CO
     co_tanf_countable_gross_earned_income: 6_000
-    is_tanf_enrolled: true
+    receives_tanf: true
   output:
     # Enrolled: $6,000 * (1 - 0.67) = $6,000 * 0.33 = $1,980
     co_tanf_countable_earned_income_need: 1_980
@@ -238,7 +238,7 @@
   input:
     state_code: CO
     co_tanf_countable_gross_earned_income: 6_000
-    is_tanf_enrolled: false
+    receives_tanf: false
   output:
     # Not enrolled: max($6,000 - $1,080, 0) = $4,920
     co_tanf_countable_earned_income_need: 4_920
@@ -312,7 +312,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled: true
+        receives_tanf: true
     tax_units:
       tax_unit:
         members: [person1, person2]
@@ -351,7 +351,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled: false
+        receives_tanf: false
     tax_units:
       tax_unit:
         members: [person1, person2]
@@ -478,7 +478,7 @@
   input:
     state_code: CO
     co_tanf_countable_gross_earned_income: 0
-    is_tanf_enrolled: true
+    receives_tanf: true
   output:
     # $0 * 0.33 = $0
     co_tanf_countable_earned_income_need: 0

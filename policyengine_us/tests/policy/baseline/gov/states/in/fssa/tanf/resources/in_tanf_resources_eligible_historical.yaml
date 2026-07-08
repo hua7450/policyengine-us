@@ -6,7 +6,7 @@
   input:
     state_code: IN
     in_tanf_countable_resources: 1_400
-    is_tanf_enrolled: true
+    receives_tanf: true
   output:
     in_tanf_resources_eligible: true
 
@@ -15,7 +15,7 @@
   input:
     state_code: IN
     in_tanf_countable_resources: 1_500
-    is_tanf_enrolled: true
+    receives_tanf: true
   output:
     in_tanf_resources_eligible: true
 
@@ -24,7 +24,7 @@
   input:
     state_code: IN
     in_tanf_countable_resources: 1_501
-    is_tanf_enrolled: true
+    receives_tanf: true
   output:
     in_tanf_resources_eligible: false
 
@@ -33,7 +33,7 @@
   input:
     state_code: IN
     in_tanf_countable_resources: 999
-    is_tanf_enrolled: false
+    receives_tanf: false
   output:
     in_tanf_resources_eligible: true
 
@@ -44,7 +44,7 @@
   input:
     state_code: IN
     in_tanf_countable_resources: 5_000
-    is_tanf_enrolled: true
+    receives_tanf: true
   output:
     in_tanf_resources_eligible: false
 
@@ -53,6 +53,6 @@
   input:
     state_code: IN
     in_tanf_countable_resources: 5_000
-    is_tanf_enrolled: true
+    receives_tanf: true
   output:
     in_tanf_resources_eligible: true

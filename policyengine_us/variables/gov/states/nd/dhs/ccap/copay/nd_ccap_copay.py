@@ -32,6 +32,6 @@ class nd_ccap_copay(Variable):
         # median income and for TANF recipients (400-28-90-20). Diversion and
         # Crossroads recipients are also waived but are not tracked at the
         # moment.
-        is_tanf_enrolled = spm_unit("is_tanf_enrolled", period)
-        waived = (income_to_smi <= p.waiver_smi_threshold) | is_tanf_enrolled
+        receives_tanf = spm_unit("receives_tanf", period)
+        waived = (income_to_smi <= p.waiver_smi_threshold) | receives_tanf
         return where(waived, 0, copay)

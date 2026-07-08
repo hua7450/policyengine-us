@@ -5,7 +5,7 @@
   period: 2024-01
   input:
     state_code: OR
-    is_tanf_enrolled: false
+    receives_tanf: false
     employment_income_before_lsr: 0
   output:
     or_tanf_eli_eligible: false
@@ -14,7 +14,7 @@
   period: 2024-01
   input:
     state_code: OR
-    is_tanf_enrolled: false
+    receives_tanf: false
     employment_income_before_lsr: 6_000
   output:
     or_tanf_eli_eligible: false
@@ -23,7 +23,7 @@
   period: 2024-01
   input:
     state_code: OR
-    is_tanf_enrolled: true
+    receives_tanf: true
     employment_income_before_lsr: 0
   output:
     or_tanf_eli_eligible: false
@@ -32,7 +32,7 @@
   period: 2024-01
   input:
     state_code: OR
-    is_tanf_enrolled: true
+    receives_tanf: true
     employment_income_before_lsr: 6_000
   output:
     or_tanf_eli_eligible: true
@@ -41,7 +41,7 @@
   period: 2024-01
   input:
     state_code: OR
-    is_tanf_enrolled: true
+    receives_tanf: true
     self_employment_income_before_lsr: 3_600
   output:
     or_tanf_eli_eligible: true

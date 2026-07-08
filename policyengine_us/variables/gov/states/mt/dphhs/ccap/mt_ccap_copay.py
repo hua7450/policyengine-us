@@ -23,5 +23,5 @@ class mt_ccap_copay(Variable):
         # percentage or the $10 minimum.
         sliding_copay = max_(gmi * p.copay_rate.calc(fpg_ratio), p.minimum)
         # TANF cash-assistance recipients pay a flat $10 minimum copayment.
-        tanf_enrolled = spm_unit("is_tanf_enrolled", period)
+        tanf_enrolled = spm_unit("receives_tanf", period)
         return where(tanf_enrolled, p.minimum, sliding_copay)

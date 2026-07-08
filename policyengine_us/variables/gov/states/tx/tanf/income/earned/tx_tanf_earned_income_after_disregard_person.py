@@ -25,7 +25,7 @@ class tx_tanf_earned_income_after_disregard_person(Variable):
         # Step 2: Apply appropriate earned income disregard
         # Check if household is enrolled in TANF
         spm_unit = person.spm_unit
-        is_enrolled = spm_unit("is_tanf_enrolled", period)
+        is_enrolled = spm_unit("receives_tanf", period)
 
         # For applicants (not enrolled): 1/3 disregard
         applicant_disregard = after_work_expense * p.disregards.applicant_fraction

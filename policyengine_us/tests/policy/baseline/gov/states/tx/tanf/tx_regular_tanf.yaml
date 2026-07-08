@@ -58,7 +58,7 @@
       spm_unit:
         members: [person1, person2]
         spm_unit_cash_assets: 500
-        is_tanf_enrolled: false
+        receives_tanf: false
         tx_ottanf_crisis_criteria: true
     households:
       household:

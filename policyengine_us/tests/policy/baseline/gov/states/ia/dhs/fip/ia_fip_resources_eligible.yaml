@@ -9,7 +9,7 @@
       spm_unit:
         members: [person1]
         spm_unit_cash_assets: 1_500
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [person1]
@@ -29,7 +29,7 @@
       spm_unit:
         members: [person1]
         spm_unit_cash_assets: 2_500
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [person1]
@@ -49,7 +49,7 @@
       spm_unit:
         members: [person1]
         spm_unit_cash_assets: 4_000
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1]
@@ -69,7 +69,7 @@
       spm_unit:
         members: [person1]
         spm_unit_cash_assets: 6_000
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1]
@@ -89,7 +89,7 @@
       spm_unit:
         members: [person1]
         spm_unit_cash_assets: 2_000
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [person1]

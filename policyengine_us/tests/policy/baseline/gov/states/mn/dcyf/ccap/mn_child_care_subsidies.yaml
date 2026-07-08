@@ -18,7 +18,7 @@
       spm_unit:
         members: [person1, person2]
         mn_ccap_enrolled: false
-        is_tanf_enrolled: false
+        receives_tanf: false
         spm_unit_pre_subsidy_childcare_expenses: 18_000  # 1,500/month
     households:
       household:
@@ -44,7 +44,7 @@
       spm_unit:
         members: [person1, person2]
         mn_ccap_enrolled: false
-        is_tanf_enrolled: false
+        receives_tanf: false
         spm_unit_pre_subsidy_childcare_expenses: 0
     households:
       household:
@@ -75,7 +75,7 @@
       spm_unit:
         members: [person1, person2]
         mn_ccap_enrolled: false
-        is_tanf_enrolled: false
+        receives_tanf: false
         spm_unit_pre_subsidy_childcare_expenses: 18_000  # 1,500/month
     households:
       household:

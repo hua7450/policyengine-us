@@ -424,7 +424,7 @@
     spm_units:
       spm_unit:
         members: [head, child1]
-        is_tanf_enrolled: true
+        receives_tanf: true
     tax_units:
       tax_unit:
         members: [head, child1]

@@ -34,7 +34,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2]
@@ -84,7 +84,7 @@
   input:
     in_tanf_countable_income_for_eligibility: 319
     in_tanf_payment_standard: 320
-    is_tanf_enrolled: false
+    receives_tanf: false
     state_code: IN
   output:
     in_tanf_countable_income_eligible: true
@@ -96,7 +96,7 @@
   input:
     in_tanf_countable_income_for_eligibility: 320
     in_tanf_payment_standard: 320
-    is_tanf_enrolled: false
+    receives_tanf: false
     state_code: IN
   output:
     in_tanf_countable_income_eligible: false
@@ -108,7 +108,7 @@
   input:
     state_code: IN
     in_tanf_countable_resources: 1_000
-    is_tanf_enrolled: false
+    receives_tanf: false
   output:
     in_tanf_resources_eligible: true
     # $1,000 <= $1,000 = true
@@ -119,7 +119,7 @@
   input:
     state_code: IN
     in_tanf_countable_resources: 1_001
-    is_tanf_enrolled: false
+    receives_tanf: false
   output:
     in_tanf_resources_eligible: false
 
@@ -129,7 +129,7 @@
   input:
     state_code: IN
     in_tanf_countable_resources: 10_000
-    is_tanf_enrolled: true
+    receives_tanf: true
   output:
     in_tanf_resources_eligible: true
 

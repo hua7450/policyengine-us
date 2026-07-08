@@ -65,7 +65,7 @@
       spm_unit:
         members: [parent, child]
         spm_unit_cash_assets: 5_000
-        is_tanf_enrolled: true  # Currently enrolled
+        receives_tanf: true  # Currently enrolled
     households:
       household:
         members: [parent, child]

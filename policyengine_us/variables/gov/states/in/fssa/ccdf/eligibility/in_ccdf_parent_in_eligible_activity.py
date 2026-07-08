@@ -25,5 +25,5 @@ class in_ccdf_parent_in_eligible_activity(Variable):
         )
         is_student = person("is_full_time_student", period.this_year)
         is_disabled = person("is_disabled", period.this_year)
-        is_tanf_enrolled = person.spm_unit("is_tanf_enrolled", period)
-        return has_earnings | is_student | is_disabled | is_tanf_enrolled
+        receives_tanf = person.spm_unit("receives_tanf", period)
+        return has_earnings | is_student | is_disabled | receives_tanf

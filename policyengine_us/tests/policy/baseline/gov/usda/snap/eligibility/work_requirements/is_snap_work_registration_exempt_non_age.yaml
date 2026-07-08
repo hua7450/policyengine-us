@@ -128,7 +128,7 @@
     spm_units:
       spm_unit:
         members: [person1]
-        is_tanf_enrolled: true
+        receives_tanf: true
   output:
     is_snap_work_registration_exempt_non_age: true
 
@@ -143,7 +143,7 @@
     spm_units:
       spm_unit:
         members: [person1]
-        is_tanf_enrolled: false
+        receives_tanf: false
   output:
     is_snap_work_registration_exempt_non_age: false
 
@@ -158,7 +158,7 @@
     spm_units:
       spm_unit:
         members: [person1]
-        is_tanf_enrolled: true
+        receives_tanf: true
   output:
     is_snap_work_registration_exempt_non_age: false
 

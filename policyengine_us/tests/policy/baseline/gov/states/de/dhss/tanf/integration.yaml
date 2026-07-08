@@ -383,7 +383,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: true
+        receives_tanf: true
     tax_units:
       tax_unit:
         members: [person1, person2, person3]
@@ -607,7 +607,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: false  # Applicant - NOT enrolled
+        receives_tanf: false  # Applicant - NOT enrolled
     tax_units:
       tax_unit:
         members: [person1, person2, person3]
@@ -647,7 +647,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: true  # Recipient - IS enrolled
+        receives_tanf: true  # Recipient - IS enrolled
     tax_units:
       tax_unit:
         members: [person1, person2, person3]

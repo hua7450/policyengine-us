@@ -98,7 +98,7 @@
   input:
     state_code: OR
     spm_unit_size: 3
-    is_tanf_enrolled: true
+    receives_tanf: true
     or_tanf_countable_income: 800
     or_tanf_adjusted_income: 500
     employment_income_before_lsr: 6_000
@@ -113,7 +113,7 @@
   input:
     state_code: OR
     spm_unit_size: 3
-    is_tanf_enrolled: true
+    receives_tanf: true
     or_tanf_countable_income: 1_012
     or_tanf_adjusted_income: 600
     employment_income_before_lsr: 6_000
@@ -128,7 +128,7 @@
   input:
     state_code: OR
     spm_unit_size: 3
-    is_tanf_enrolled: true
+    receives_tanf: true
     or_tanf_countable_income: 1_011
     or_tanf_adjusted_income: 600
     employment_income_before_lsr: 6_000
@@ -143,7 +143,7 @@
   input:
     state_code: OR
     spm_unit_size: 3
-    is_tanf_enrolled: true
+    receives_tanf: true
     or_tanf_countable_income: 700
     or_tanf_adjusted_income: 400
   output:
@@ -158,7 +158,7 @@
   input:
     state_code: OR
     spm_unit_size: 3
-    is_tanf_enrolled: false
+    receives_tanf: false
     or_tanf_countable_income: 700
     or_tanf_adjusted_income: 400
     employment_income_before_lsr: 6_000

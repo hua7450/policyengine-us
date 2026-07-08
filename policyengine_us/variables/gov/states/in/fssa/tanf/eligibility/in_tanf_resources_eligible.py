@@ -15,7 +15,7 @@ class in_tanf_resources_eligible(Variable):
     def formula(spm_unit, period, parameters):
         p = parameters(period).gov.states["in"].fssa.tanf.resources.limit
         countable = spm_unit("in_tanf_countable_resources", period)
-        is_enrolled = spm_unit("is_tanf_enrolled", period)
+        is_enrolled = spm_unit("receives_tanf", period)
 
         limit = where(
             is_enrolled,

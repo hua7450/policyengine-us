@@ -2,7 +2,7 @@
 # TX TANF (1 TAC 372; Texas Works Handbook A-1340/C-110), 2026 parameters
 # (effective 2025-10-01): payment standard 418/month for caretaker-with-second-
 # parent size 3, 331/month for caretaker-without-second-parent size 2.
-# Applicants (is_tanf_enrolled defaults false) must pass BOTH the budgetary
+# Applicants (receives_tanf defaults false) must pass BOTH the budgetary
 # needs test (income after 120 work expense < budgetary needs) and the
 # recognizable needs test (countable income < 25% of budgetary needs).
 # Countable earned income = (gross - 120 work expense) x (1 - 1/3 disregard).

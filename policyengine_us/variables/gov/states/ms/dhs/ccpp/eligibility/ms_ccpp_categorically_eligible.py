@@ -14,7 +14,7 @@ class ms_ccpp_categorically_eligible(Variable):
         # recipients, homeless children, and children in protective services.
         # Transitional Child Care, Healthy Families Mississippi, and teen-parent
         # pathways are not tracked at the moment.
-        is_tanf = spm_unit("is_tanf_enrolled", period)
+        is_tanf = spm_unit("receives_tanf", period)
         is_homeless = spm_unit.household("is_homeless", period.this_year)
         has_protective_child = (
             add(

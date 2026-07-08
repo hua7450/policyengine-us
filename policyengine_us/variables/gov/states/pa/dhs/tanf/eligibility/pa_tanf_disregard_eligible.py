@@ -15,7 +15,7 @@ class pa_tanf_disregard_eligible(Variable):
         person = spm_unit.members
         p = parameters(period).gov.states.pa.dhs.tanf.income.deductions
 
-        is_enrolled = spm_unit("is_tanf_enrolled", period)
+        is_enrolled = spm_unit("receives_tanf", period)
 
         gross_earned = person("tanf_gross_earned_income", period)
         preliminary_earned_per_person = max_(gross_earned - p.work_expense.initial, 0)

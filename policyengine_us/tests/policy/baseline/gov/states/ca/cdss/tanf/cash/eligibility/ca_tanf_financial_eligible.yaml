@@ -2,7 +2,7 @@
   period: 2023
   input:
     state_code: CA
-    is_tanf_enrolled: true
+    receives_tanf: true
     ca_tanf_applicant_financial_test: true
     ca_tanf_recipient_financial_test: true
   output:
@@ -12,7 +12,7 @@
   period: 2023
   input:
     state_code: CA
-    is_tanf_enrolled: true
+    receives_tanf: true
     ca_tanf_applicant_financial_test: false
     ca_tanf_recipient_financial_test: true
   output:
@@ -22,7 +22,7 @@
   period: 2023
   input:
     state_code: CA
-    is_tanf_enrolled: true
+    receives_tanf: true
     ca_tanf_applicant_financial_test: true
     ca_tanf_recipient_financial_test: true
   output:
@@ -32,7 +32,7 @@
   period: 2023
   input:
     state_code: CA
-    is_tanf_enrolled: true
+    receives_tanf: true
     ca_tanf_applicant_financial_test: true
     ca_tanf_recipient_financial_test: false
   output:
@@ -42,7 +42,7 @@
   period: 2023
   input:
     state_code: CA
-    is_tanf_enrolled: false
+    receives_tanf: false
     ca_tanf_applicant_financial_test: true
     ca_tanf_recipient_financial_test: true
   output:
@@ -52,7 +52,7 @@
   period: 2023
   input:
     state_code: CA
-    is_tanf_enrolled: false
+    receives_tanf: false
     ca_tanf_applicant_financial_test: false
     ca_tanf_recipient_financial_test: true
   output:
@@ -62,7 +62,7 @@
   period: 2023
   input:
     state_code: CA
-    is_tanf_enrolled: false
+    receives_tanf: false
     ca_tanf_applicant_financial_test: true
     ca_tanf_recipient_financial_test: false
   output:
@@ -72,7 +72,7 @@
   period: 2023
   input:
     state_code: CA
-    is_tanf_enrolled: false
+    receives_tanf: false
     ca_tanf_applicant_financial_test: false
     ca_tanf_recipient_financial_test: false
   output:

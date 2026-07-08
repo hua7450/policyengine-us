@@ -47,5 +47,5 @@ class ks_ccap_income_eligible(Variable):
         income_eligible = income <= income_limit
         # KEESM 7540: a family need not demonstrate financial need (the income
         # test) when someone in the household is a TANF recipient.
-        is_tanf = spm_unit("is_tanf_enrolled", period)
+        is_tanf = spm_unit("receives_tanf", period)
         return is_tanf | income_eligible

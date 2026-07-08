@@ -47,5 +47,5 @@ class mt_ccap_income_eligible(Variable):
         income_eligible = fpg_eligible & smi_eligible
         # TANF cash-assistance families are categorically income eligible (TANF
         # child care pathway; their income is far below the FPG limits regardless).
-        tanf_enrolled = spm_unit("is_tanf_enrolled", period)
+        tanf_enrolled = spm_unit("receives_tanf", period)
         return income_eligible | tanf_enrolled

@@ -14,7 +14,7 @@ class mt_ccap_eligible(Variable):
 
     def formula(spm_unit, period, parameters):
         # Modeled pathways: non-TANF income-eligible working families and
-        # TANF cash-assistance families (via is_tanf_enrolled). Tribal,
+        # TANF cash-assistance families (via receives_tanf). Tribal,
         # tribal-TANF, and CFSD-referral pathways are not modeled at the moment
         # (no tribal-enrollment or CFSD-referral inputs).
         has_eligible_child = add(spm_unit, period, ["mt_ccap_eligible_child"]) > 0

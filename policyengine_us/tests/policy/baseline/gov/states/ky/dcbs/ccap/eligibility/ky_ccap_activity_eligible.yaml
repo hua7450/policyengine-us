@@ -1,6 +1,6 @@
 # KY CCAP activity eligibility (Section 4(1)): single parent >= 20 hrs/wk;
 # couple combined >= 40 hrs/wk with lesser worker >= 5 hrs/wk; or Kentucky
-# Works enrollment (is_tanf_enrolled) as a categorical bypass.
+# Works enrollment (receives_tanf) as a categorical bypass.
 # weekly_hours_worked_before_lsr default is 40, so the "not working" cases
 # set it explicitly to a low value.
 
@@ -92,7 +92,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2]
@@ -116,7 +116,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [person1, person2]
@@ -224,7 +224,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [person1, person2]
@@ -252,7 +252,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [person1, person2]
@@ -276,7 +276,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled: false
+        receives_tanf: false
         # Represents a pathway we don't model individually, such as SNAP E&T
         # (Section 6), education or job training (Section 7), or the
         # transitional job-search pathway (Section 4(2)).

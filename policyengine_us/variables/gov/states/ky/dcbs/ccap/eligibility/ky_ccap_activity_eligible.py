@@ -47,7 +47,7 @@ class ky_ccap_activity_eligible(Variable):
         work_eligible = where(
             num_caretakers >= 2, couple_eligible, single_parent_eligible
         )
-        is_tanf = spm_unit("is_tanf_enrolled", period)
+        is_tanf = spm_unit("receives_tanf", period)
         is_protection_permanency = spm_unit.any(
             person("is_in_foster_care", period)
             | person("receives_or_needs_protective_services", period.this_year)

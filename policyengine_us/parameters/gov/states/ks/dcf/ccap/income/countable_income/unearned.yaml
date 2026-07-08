@@ -28,7 +28,7 @@ values:
     #     ks_ccap_countable_income -> tanf -> (TANF child-care deduction)
     #       -> childcare_expenses -> ks_ccap -> ks_ccap_income_eligible
     #       -> ks_ccap_countable_income
-    #   The is_tanf_enrolled bypass in ks_ccap_income_eligible already makes
+    #   The receives_tanf bypass in ks_ccap_income_eligible already makes
     #   TANF-active families categorically income-eligible.
 
 metadata:

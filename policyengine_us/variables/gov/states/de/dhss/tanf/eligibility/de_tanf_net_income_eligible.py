@@ -13,7 +13,7 @@ class de_tanf_net_income_eligible(Variable):
         # Per State Plan Exhibits 1 & 2:
         # Applicants: $90 + childcare, compare to Payment Standard
         # Recipients: $90 + childcare + $30+1/3, compare to Standard of Need
-        is_enrolled = spm_unit("is_tanf_enrolled", period)
+        is_enrolled = spm_unit("receives_tanf", period)
 
         # Applicant net income: $90 + childcare only
         applicant_net_income = spm_unit("de_tanf_net_income", period)

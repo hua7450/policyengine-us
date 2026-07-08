@@ -146,7 +146,7 @@
         spm_unit_size: 1
         spm_unit_cash_assets: 500
         is_demographic_tanf_eligible: true
-        is_tanf_enrolled: true  # Enrolled - uses countable income test
+        receives_tanf: true  # Enrolled - uses countable income test
     households:
       household:
         members: [person1]

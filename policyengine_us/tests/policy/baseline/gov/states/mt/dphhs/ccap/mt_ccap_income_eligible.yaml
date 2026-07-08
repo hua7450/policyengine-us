@@ -19,7 +19,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: false
+        receives_tanf: false
         mt_ccap_enrolled: false
     households:
       household:
@@ -42,7 +42,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: false
+        receives_tanf: false
         mt_ccap_enrolled: false
     households:
       household:
@@ -65,7 +65,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: false
+        receives_tanf: false
         mt_ccap_enrolled: false
     households:
       household:
@@ -88,7 +88,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: false
+        receives_tanf: false
         mt_ccap_enrolled: true
     households:
       household:
@@ -111,7 +111,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: false
+        receives_tanf: false
         mt_ccap_enrolled: true
     households:
       household:
@@ -134,7 +134,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: false
+        receives_tanf: false
         mt_ccap_enrolled: true
     households:
       household:
@@ -165,7 +165,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: false
+        receives_tanf: false
         mt_ccap_enrolled: false
     households:
       household:
@@ -188,7 +188,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: false
+        receives_tanf: false
         mt_ccap_enrolled: false
     households:
       household:
@@ -211,7 +211,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: false
+        receives_tanf: false
         mt_ccap_enrolled: true
     households:
       household:
@@ -234,7 +234,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: false
+        receives_tanf: false
         mt_ccap_enrolled: true
     households:
       household:
@@ -257,7 +257,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: true
+        receives_tanf: true
         mt_ccap_enrolled: false
     households:
       household:
@@ -279,7 +279,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: false
+        receives_tanf: false
         mt_ccap_enrolled: false
     households:
       household:
@@ -301,7 +301,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
-        is_tanf_enrolled: false
+        receives_tanf: false
         mt_ccap_enrolled: true
     households:
       household:
@@ -349,7 +349,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3, person4, person5, person6, person7, person8, person9, person10, person11, person12, person13]
-        is_tanf_enrolled: false
+        receives_tanf: false
         mt_ccap_enrolled: true
     households:
       household:
@@ -393,7 +393,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3, person4, person5, person6, person7, person8, person9, person10, person11, person12, person13]
-        is_tanf_enrolled: false
+        receives_tanf: false
         mt_ccap_enrolled: true
     households:
       household:

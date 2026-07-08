@@ -148,7 +148,7 @@
     spm_units:
       spm_unit:
         members: [parent, child]
-        is_tanf_enrolled: true  # ATAP is Alaska's TANF; PASS I waives copay
+        receives_tanf: true  # ATAP is Alaska's TANF; PASS I waives copay
         spm_unit_pre_subsidy_childcare_expenses: 9_600  # $800/mo for preschool home care
     households:
       household:
@@ -156,7 +156,7 @@
         state_code: AK
         county_str: ANCHORAGE_MUNICIPALITY_AK
   output:
-    # is_tanf_enrolled=True -> copay waived to 0 per Manual §4040-3 D
+    # receives_tanf=True -> copay waived to 0 per Manual §4040-3 D
     # Anchorage licensed_home FT_MONTH preschool = 700
     # Benefit = min(10_000, 700) - 0 = 700
     ak_ccap_copay: 0

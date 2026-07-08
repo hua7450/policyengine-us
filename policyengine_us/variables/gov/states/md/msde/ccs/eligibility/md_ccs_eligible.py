@@ -19,7 +19,7 @@ class md_ccs_eligible(Variable):
         # COMAR 13A.14.06.03F(1) waives the income test for TCA applicants or
         # recipients. We don't track TANF applicants separately from recipients
         # at the moment; the regulation covers both.
-        is_tca = spm_unit("is_tanf_enrolled", period)
+        is_tca = spm_unit("receives_tanf", period)
         receives_ssi = add(spm_unit, period, ["ssi"]) > 0
         return (
             has_eligible_child

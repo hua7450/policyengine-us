@@ -25,7 +25,7 @@ class mn_ccap_income_eligible(Variable):
         enrolled = spm_unit("mn_ccap_enrolled", period)
         # Minnesota Family Investment Program / Diversionary Work Program
         # families enter at 67% of SMI; all other families enter at 47%.
-        on_mfip_or_dwp = spm_unit("is_tanf_enrolled", period)
+        on_mfip_or_dwp = spm_unit("receives_tanf", period)
         entrance_rate = where(
             on_mfip_or_dwp,
             p.entrance_mfip,

@@ -14,9 +14,9 @@
 #   Size 3: Need Standard = $1,003, Payment Standard = $551.65
 #   Size 4: Need Standard = $1,163, Payment Standard = $639.65
 #
-# NOTE: Most tests model ONGOING recipients (is_tanf_enrolled: true)
+# NOTE: Most tests model ONGOING recipients (receives_tanf: true)
 #       who receive the 50% earned income disregard.
-#       Case 8 models an INITIAL applicant (is_tanf_enrolled: false)
+#       Case 8 models an INITIAL applicant (receives_tanf: false)
 #       who receives the 20% earned income disregard.
 
 - name: Case 1, family of 3 with no income receives maximum benefit.
@@ -36,7 +36,7 @@
       spm_unit:
         members: [person1, person2, person3]
         spm_unit_cash_assets: 1_000
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2, person3]
@@ -69,7 +69,7 @@
       spm_unit:
         members: [person1, person2, person3]
         spm_unit_cash_assets: 2_000
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2, person3]
@@ -107,7 +107,7 @@
       spm_unit:
         members: [person1, person2, person3, person4]
         spm_unit_cash_assets: 3_000
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2, person3, person4]
@@ -141,7 +141,7 @@
       spm_unit:
         members: [person1, person2, person3]
         spm_unit_cash_assets: 1_000
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2, person3]
@@ -172,7 +172,7 @@
       spm_unit:
         members: [person1, person2]
         spm_unit_cash_assets: 1_000
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2]
@@ -207,7 +207,7 @@
       spm_unit:
         members: [person1, person2, person3]
         spm_unit_cash_assets: 2_000
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2, person3]
@@ -241,7 +241,7 @@
       spm_unit:
         members: [person1, person2]
         spm_unit_cash_assets: 1_000
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2]
@@ -261,7 +261,7 @@
 
 # Historical period integration tests
 # These verify the full calculation pipeline at different historical periods.
-# Pattern: family of 3, no income, ongoing recipient (is_tanf_enrolled: true).
+# Pattern: family of 3, no income, ongoing recipient (receives_tanf: true).
 # Benefit = Payment Standard = Need Standard * 0.55
 
 - name: Case 8, initial applicant with earned income receives benefit with 20% disregard.
@@ -281,7 +281,7 @@
       spm_unit:
         members: [person1, person2, person3]
         spm_unit_cash_assets: 1_000
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [person1, person2, person3]
@@ -315,7 +315,7 @@
       spm_unit:
         members: [person1, person2, person3]
         spm_unit_cash_assets: 1_000
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2, person3]
@@ -349,7 +349,7 @@
       spm_unit:
         members: [person1, person2, person3]
         spm_unit_cash_assets: 1_000
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2, person3]
@@ -383,7 +383,7 @@
       spm_unit:
         members: [person1, person2, person3]
         spm_unit_cash_assets: 1_000
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2, person3]
@@ -417,7 +417,7 @@
       spm_unit:
         members: [person1, person2, person3]
         spm_unit_cash_assets: 1_000
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2, person3]
@@ -451,7 +451,7 @@
       spm_unit:
         members: [person1, person2, person3]
         spm_unit_cash_assets: 1_000
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2, person3]

@@ -48,7 +48,7 @@ class mn_ccap_activity_eligible(Variable):
         # their employment plan (section 4.6.3). The minimum-wage test and the
         # job-search, education, and training pathways are not separately
         # tracked, so the meets_ccdf_activity_test input covers them.
-        on_mfip_or_dwp = spm_unit("is_tanf_enrolled", period)
+        on_mfip_or_dwp = spm_unit("receives_tanf", period)
         fallback = spm_unit("meets_ccdf_activity_test", period.this_year)
         # Section 4.6.9: families experiencing homelessness are exempt from the
         # activity requirement. We don't track the length of the exemption at the

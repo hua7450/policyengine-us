@@ -13,7 +13,7 @@ class va_ccsp_income_test_waived(Variable):
     )
 
     def formula(spm_unit, period, parameters):
-        tanf_enrolled = spm_unit("is_tanf_enrolled", period)
+        tanf_enrolled = spm_unit("receives_tanf", period)
         person = spm_unit.members
         has_medicaid = spm_unit.any(person("receives_medicaid", period.this_year))
         has_wic = spm_unit.any(person("receives_wic", period))

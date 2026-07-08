@@ -20,7 +20,7 @@ class md_ccs_weekly_copay(Variable):
         # TCA/SSI recipients pay $0 copayment per COMAR 13A.14.06.12A(1).
         # We don't track TANF applicants separately from recipients at the
         # moment; the regulation covers both.
-        is_tca = spm_unit("is_tanf_enrolled", period)
+        is_tca = spm_unit("receives_tanf", period)
         receives_ssi = add(spm_unit, period, ["ssi"]) > 0
 
         # SNAP/WIC recipients have copayments waived per Chapter 525 of 2022

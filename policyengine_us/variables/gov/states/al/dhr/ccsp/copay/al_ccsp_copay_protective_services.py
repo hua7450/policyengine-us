@@ -28,7 +28,7 @@ class al_ccsp_copay_protective_services(Variable):
         #
         # TANF-Other Relative (#7, child-only TANF) is NOT modeled: AL has
         # two TANF categories, JOBS (#1, work-mandatory) and TANF-Other
-        # Relative (#7), and only #7 waives the copay. is_tanf_enrolled
+        # Relative (#7), and only #7 waives the copay. receives_tanf
         # cannot distinguish them, so keying off it would wrongly waive
         # JOBS families' copays.
         #

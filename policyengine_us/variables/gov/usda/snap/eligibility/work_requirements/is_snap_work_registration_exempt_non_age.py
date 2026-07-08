@@ -27,7 +27,7 @@ class is_snap_work_registration_exempt_non_age(Variable):
         # because a person cannot be subject to TANF work requirements
         # without receiving TANF.
         complying_with_tanf_work_requirements = person.spm_unit(
-            "is_tanf_enrolled", period
+            "receives_tanf", period
         ) & person("is_complying_with_tanf_work_requirements", period)
         # (iv) Responsible for care of dependent child under 6
         is_dependent = person("is_tax_unit_dependent", period)

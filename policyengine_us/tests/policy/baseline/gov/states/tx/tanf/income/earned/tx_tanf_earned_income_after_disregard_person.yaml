@@ -3,7 +3,7 @@
   absolute_error_margin: 0.01
   input:
     tx_tanf_gross_earned_income: 600
-    is_tanf_enrolled: false
+    receives_tanf: false
     state_code: TX
   output:
     tx_tanf_earned_income_after_disregard_person: 321.60
@@ -12,7 +12,7 @@
   period: 2025-01
   input:
     tx_tanf_gross_earned_income: 600
-    is_tanf_enrolled: true
+    receives_tanf: true
     state_code: TX
   output:
     tx_tanf_earned_income_after_disregard_person: 48
@@ -21,7 +21,7 @@
   period: 2025-01
   input:
     tx_tanf_gross_earned_income: 2_000
-    is_tanf_enrolled: true
+    receives_tanf: true
     state_code: TX
   output:
     tx_tanf_earned_income_after_disregard_person: 480
@@ -30,7 +30,7 @@
   period: 2025-01
   input:
     tx_tanf_gross_earned_income: 0
-    is_tanf_enrolled: false
+    receives_tanf: false
     state_code: TX
   output:
     tx_tanf_earned_income_after_disregard_person: 0

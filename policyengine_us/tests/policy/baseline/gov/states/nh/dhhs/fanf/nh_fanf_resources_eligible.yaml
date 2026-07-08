@@ -16,7 +16,7 @@
   period: 2024-01
   input:
     state_code: NH
-    is_tanf_enrolled: false
+    receives_tanf: false
     spm_unit_cash_assets: 1_000
   output:
     nh_fanf_resources_eligible: true
@@ -25,7 +25,7 @@
   period: 2024-01
   input:
     state_code: NH
-    is_tanf_enrolled: false
+    receives_tanf: false
     spm_unit_cash_assets: 1_001
   output:
     nh_fanf_resources_eligible: false
@@ -34,7 +34,7 @@
   period: 2024-01
   input:
     state_code: NH
-    is_tanf_enrolled: true
+    receives_tanf: true
     spm_unit_cash_assets: 5_000
   output:
     nh_fanf_resources_eligible: true
@@ -43,7 +43,7 @@
   period: 2024-01
   input:
     state_code: NH
-    is_tanf_enrolled: true
+    receives_tanf: true
     spm_unit_cash_assets: 5_001
   output:
     nh_fanf_resources_eligible: false
@@ -52,7 +52,7 @@
   period: 2024-01
   input:
     state_code: NH
-    is_tanf_enrolled: false
+    receives_tanf: false
     spm_unit_cash_assets: 3_000
   output:
     nh_fanf_resources_eligible: false
@@ -61,7 +61,7 @@
   period: 2024-01
   input:
     state_code: NH
-    is_tanf_enrolled: true
+    receives_tanf: true
     spm_unit_cash_assets: 3_000
   output:
     nh_fanf_resources_eligible: true
@@ -70,7 +70,7 @@
   period: 2024-01
   input:
     state_code: NH
-    is_tanf_enrolled: true
+    receives_tanf: true
     spm_unit_cash_assets: 0
   output:
     nh_fanf_resources_eligible: true
@@ -79,7 +79,7 @@
   period: 2024-01
   input:
     state_code: NH
-    is_tanf_enrolled: false
+    receives_tanf: false
     spm_unit_cash_assets: 999
   output:
     # $999 < $1,000 limit = eligible

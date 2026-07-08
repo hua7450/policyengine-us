@@ -49,7 +49,7 @@
     spm_units:
       spm_unit:
         members: [head, child]
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [head, child]
@@ -83,7 +83,7 @@
         members: [head, spouse, child1, child2, child3, child4]
         state_code: OK
   output:
-    # Family is not enrolled in TANF (is_tanf_enrolled defaults to false),
+    # Family is not enrolled in TANF (receives_tanf defaults to false),
     # so the credit applies even though the model would impute TANF
     # eligibility. 6 exemptions * $40 = $240. See policyengine-taxsim#988.
     ok_stc: 240

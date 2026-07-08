@@ -27,7 +27,7 @@ values:
     # - MS 306.41/306.42 TANF and Tribal TANF are countable but excluded here to
     #   avoid a circular dependency (nv_ccdp_countable_income -> tanf -> ... ->
     #   childcare_expenses -> child_care_subsidies -> nv_ccdp); the
-    #   is_tanf_enrolled hook handles the NEON pathway and copay waiver instead.
+    #   receives_tanf hook handles the NEON pathway and copay waiver instead.
     #   General Assistance (306.42) does not flow through childcare, so it is
     #   counted above.
     # - Interest income is not enumerated as a countable type in MS 306, so

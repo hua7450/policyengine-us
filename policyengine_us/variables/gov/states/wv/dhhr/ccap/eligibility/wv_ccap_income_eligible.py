@@ -17,10 +17,10 @@ class wv_ccap_income_eligible(Variable):
         # "Over-Income Policy Exception" for enrolled recipients (Manual §4.7.1)
         # is not modeled at the moment. We also don't distinguish child-only
         # TANF cases (Manual §3.2.1.4 requires them to pass the FPL test) from
-        # full TANF — is_tanf_enrolled treats both as categorically eligible.
+        # full TANF — receives_tanf treats both as categorically eligible.
         p = parameters(period).gov.states.wv.dhhr.ccap.income
         countable_income = spm_unit("wv_ccap_countable_income", period)
         fpg = spm_unit("spm_unit_fpg", period)
         fpl_eligible = countable_income <= fpg * p.fpl_limit
-        is_tanf = spm_unit("is_tanf_enrolled", period)
+        is_tanf = spm_unit("receives_tanf", period)
         return is_tanf | fpl_eligible

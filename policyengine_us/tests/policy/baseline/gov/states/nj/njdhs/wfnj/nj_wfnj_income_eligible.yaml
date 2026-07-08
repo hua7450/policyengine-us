@@ -3,7 +3,7 @@
   input:
     state_code: NJ
     spm_unit_size: 1
-    is_tanf_enrolled: false
+    receives_tanf: false
   output:
     # New applicant: gross income $0 <= $321 max allowable
     nj_wfnj_income_eligible: true
@@ -14,7 +14,7 @@
     state_code: NJ
     spm_unit_size: 1
     social_security: 2_400  # $200/month
-    is_tanf_enrolled: false
+    receives_tanf: false
   output:
     # New applicant: gross $200 <= $321, countable $200 < $214
     nj_wfnj_income_eligible: true
@@ -25,7 +25,7 @@
     state_code: NJ
     spm_unit_size: 1
     social_security: 4_800  # $400/month
-    is_tanf_enrolled: false
+    receives_tanf: false
   output:
     # New applicant: gross income $400 > $321 max allowable
     nj_wfnj_income_eligible: false
@@ -36,7 +36,7 @@
     state_code: NJ
     spm_unit_size: 1
     social_security: 2_400  # $200/month
-    is_tanf_enrolled: true
+    receives_tanf: true
   output:
     # Enrolled: countable income $200 < $214 max benefit
     nj_wfnj_income_eligible: true
@@ -47,7 +47,7 @@
     state_code: NJ
     spm_unit_size: 1
     social_security: 2_568  # $214/month
-    is_tanf_enrolled: true
+    receives_tanf: true
   output:
     # Enrolled: countable income $214 >= $214 max benefit
     nj_wfnj_income_eligible: false
@@ -58,7 +58,7 @@
     state_code: NJ
     spm_unit_size: 1
     social_security: 2_556  # $213/month
-    is_tanf_enrolled: true
+    receives_tanf: true
   output:
     # Enrolled: countable income $213 < $214 max benefit
     nj_wfnj_income_eligible: true
@@ -69,7 +69,7 @@
     state_code: NJ
     spm_unit_size: 1
     employment_income_before_lsr: 3_600  # $300/month gross
-    is_tanf_enrolled: false
+    receives_tanf: false
   output:
     # Gross income = $300, max allowable = $321: passes
     # Countable = $0 (100% disregard in January), max benefit = $214: passes
@@ -82,7 +82,7 @@
     spm_unit_size: 1
     social_security: 1_200  # $100/month unearned
     employment_income_before_lsr: 3_600  # $300/month earned (disregarded in Jan)
-    is_tanf_enrolled: true
+    receives_tanf: true
   output:
     # Gross = $400 > $321 (would fail gross test)
     # Countable = $100 (earned disregarded) < $214: passes

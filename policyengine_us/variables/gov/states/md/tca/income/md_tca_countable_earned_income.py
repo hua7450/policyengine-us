@@ -16,7 +16,7 @@ class md_tca_countable_earned_income(Variable):
         # income as a simplification.
         p = parameters(period).gov.states.md.tca.income.deductions.earned
         gross_earned = add(spm_unit, period, ["tanf_gross_earned_income"])
-        is_enrolled = spm_unit("is_tanf_enrolled", period)
+        is_enrolled = spm_unit("receives_tanf", period)
         # 20% disregard for applicants, 40% disregard for enrolled recipients
         rate = where(is_enrolled, p.recipient, p.applicant)
         after_disregard = gross_earned * (1 - rate)

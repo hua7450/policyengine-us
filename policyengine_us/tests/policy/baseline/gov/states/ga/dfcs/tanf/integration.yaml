@@ -69,7 +69,7 @@
       spm_unit:
         members: [parent, child1, child2]
         spm_unit_cash_assets: 500
-        is_tanf_enrolled: false  # New applicant
+        receives_tanf: false  # New applicant
     households:
       household:
         members: [parent, child1, child2]
@@ -104,7 +104,7 @@
       spm_unit:
         members: [parent, child1, child2]
         spm_unit_cash_assets: 500
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [parent, child1, child2]
@@ -135,7 +135,7 @@
         members: [parent, child]
         spm_unit_cash_assets: 500
         childcare_expenses: 2_400  # $200/month
-        is_tanf_enrolled: false  # New applicant
+        receives_tanf: false  # New applicant
     households:
       household:
         members: [parent, child]
@@ -169,7 +169,7 @@
         members: [parent, child]
         spm_unit_cash_assets: 500
         childcare_expenses: 2_100  # $175/month
-        is_tanf_enrolled: false  # New applicant
+        receives_tanf: false  # New applicant
     households:
       household:
         members: [parent, child]
@@ -289,7 +289,7 @@
       spm_unit:
         members: [parent, child1, child2]
         spm_unit_cash_assets: 500
-        is_tanf_enrolled: false  # New applicant
+        receives_tanf: false  # New applicant
     households:
       household:
         members: [parent, child1, child2]
@@ -323,7 +323,7 @@
       spm_unit:
         members: [parent, child1, child2]
         spm_unit_cash_assets: 500
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [parent, child1, child2]
@@ -350,7 +350,7 @@
       spm_unit:
         members: [parent, child1, child2]
         spm_unit_cash_assets: 500
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [parent, child1, child2]
@@ -502,7 +502,7 @@
       spm_unit:
         members: [parent, child1, child2]
         spm_unit_cash_assets: 500
-        is_tanf_enrolled: false  # New applicant
+        receives_tanf: false  # New applicant
     households:
       household:
         members: [parent, child1, child2]

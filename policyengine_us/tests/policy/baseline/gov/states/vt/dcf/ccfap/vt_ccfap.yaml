@@ -78,7 +78,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled:
+        receives_tanf:
           2025-01: true
     households:
       household:

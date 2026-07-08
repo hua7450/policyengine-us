@@ -16,7 +16,7 @@
   period: 2024-01
   input:
     state_code: NH
-    is_tanf_enrolled: false
+    receives_tanf: false
     tanf_gross_earned_income: 1_000
   output:
     # Applicant: 1,000 * (1 - 0.20) = 800
@@ -26,7 +26,7 @@
   period: 2024-01
   input:
     state_code: NH
-    is_tanf_enrolled: true
+    receives_tanf: true
     tanf_gross_earned_income: 1_000
   output:
     # Recipient: 1,000 * (1 - 0.75) = 250
@@ -44,7 +44,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled: false
+        receives_tanf: false
         childcare_expenses: 3_600  # $300/month
     households:
       household:
@@ -68,7 +68,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled: true
+        receives_tanf: true
         childcare_expenses: 3_600
     households:
       household:
@@ -92,7 +92,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled: true
+        receives_tanf: true
         childcare_expenses: 2_400
     households:
       household:
@@ -116,7 +116,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled: true
+        receives_tanf: true
         childcare_expenses: 3_600
     households:
       household:

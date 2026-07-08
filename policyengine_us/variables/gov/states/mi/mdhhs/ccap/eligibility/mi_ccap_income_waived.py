@@ -24,9 +24,9 @@ class mi_ccap_income_waived(Variable):
         # Foster Care: active MDHHS foster care case for the child.
         foster_care = add(spm_unit, period, ["is_in_foster_care"]) > 0
         # FIP-related: child or P/SP receives FIP or SSI. MI FIP is TANF; we
-        # use is_tanf_enrolled (not computed FIP eligibility) to break the
+        # use receives_tanf (not computed FIP eligibility) to break the
         # CCAP-TANF circular dependency.
-        fip_related = spm_unit("is_tanf_enrolled", period) | (
+        fip_related = spm_unit("receives_tanf", period) | (
             add(spm_unit, period, ["ssi"]) > 0
         )
         # Homeless under the McKinney-Vento Act (self-attested).

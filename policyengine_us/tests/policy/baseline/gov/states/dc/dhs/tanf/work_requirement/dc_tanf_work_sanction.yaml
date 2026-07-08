@@ -2,7 +2,7 @@
   period: 2023-01
   input:
     state_code: DC
-    is_tanf_enrolled: true
+    receives_tanf: true
     dc_tanf_eligible: true
     dc_tanf_standard_payment: 100
     dc_tanf_countable_income: 0
@@ -15,7 +15,7 @@
   period: 2023-01
   input:
     state_code: DC
-    is_tanf_enrolled: false
+    receives_tanf: false
     dc_tanf_eligible: true
     dc_tanf_standard_payment: 100
     dc_tanf_countable_income: 0

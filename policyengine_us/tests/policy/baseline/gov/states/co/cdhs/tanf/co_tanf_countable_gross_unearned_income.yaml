@@ -13,7 +13,7 @@
     social_security: 0
 
     child_support_received: 0
-    is_tanf_enrolled: false
+    receives_tanf: false
   output:
     co_tanf_countable_gross_unearned_income: 0
 
@@ -32,7 +32,7 @@
     social_security: 0
 
     child_support_received: 5_000
-    is_tanf_enrolled: true
+    receives_tanf: true
   output:
     co_tanf_countable_gross_unearned_income: 0
 
@@ -51,7 +51,7 @@
     social_security: 0
 
     child_support_received: 5_000
-    is_tanf_enrolled: false
+    receives_tanf: false
   output:
     co_tanf_countable_gross_unearned_income: 5_000
 
@@ -69,7 +69,7 @@
     gi_cash_assistance: 1_000
     social_security: 1_000
     child_support_received: 0
-    is_tanf_enrolled: false
+    receives_tanf: false
   output:
     co_tanf_countable_gross_unearned_income: 9_000
 
@@ -81,7 +81,7 @@
   input:
     state_code: CO
     child_support_received: 3_600
-    is_tanf_enrolled: true
+    receives_tanf: true
   output:
     co_tanf_countable_gross_unearned_income: 0
 
@@ -91,7 +91,7 @@
   input:
     state_code: CO
     child_support_received: 3_600
-    is_tanf_enrolled: false
+    receives_tanf: false
   output:
     co_tanf_countable_gross_unearned_income: 3_600
 
@@ -103,7 +103,7 @@
   input:
     state_code: CO
     child_support_received: 4_800
-    is_tanf_enrolled: true
+    receives_tanf: true
   output:
     co_tanf_countable_gross_unearned_income: 0
 
@@ -115,7 +115,7 @@
     veterans_benefits: 2_400
     social_security: 3_600
     child_support_received: 1_200
-    is_tanf_enrolled: false
+    receives_tanf: false
   output:
     # $2,400 + $3,600 + $1,200 (not enrolled, so child support counted) = $7,200
     co_tanf_countable_gross_unearned_income: 7_200

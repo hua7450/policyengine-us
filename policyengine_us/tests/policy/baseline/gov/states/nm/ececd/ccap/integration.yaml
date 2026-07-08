@@ -171,7 +171,7 @@
       spm_unit:
         members: [person1, person2]
         nm_ccap_enrolled: false
-        is_tanf_enrolled: true
+        receives_tanf: true
         spm_unit_assets: 1_000
         spm_unit_pre_subsidy_childcare_expenses: 18_000
     households:

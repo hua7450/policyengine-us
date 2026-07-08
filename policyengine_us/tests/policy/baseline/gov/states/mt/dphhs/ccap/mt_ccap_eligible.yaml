@@ -15,7 +15,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [person1, person2]
@@ -36,7 +36,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [person1, person2]
@@ -58,7 +58,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [person1, person2]
@@ -79,7 +79,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [person1, person2]
@@ -101,7 +101,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [person1, person2]
@@ -122,7 +122,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled: false
+        receives_tanf: false
         spm_unit_assets: 1_500_000  # over the CCDF $1,000,000 limit
     households:
       household:
@@ -147,7 +147,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled: false
+        receives_tanf: false
         spm_unit_assets: 1_000_000  # exactly at the CCDF limit
     households:
       household:
@@ -158,7 +158,7 @@
 
 - name: Case 8, TANF-enrolled over-income family is eligible via the categorical pathway.
   period: 2026-01
-  # income above 200% FPG, but is_tanf_enrolled makes the family income-eligible; all other gates pass.
+  # income above 200% FPG, but receives_tanf makes the family income-eligible; all other gates pass.
   input:
     people:
       person1:
@@ -170,7 +170,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2]
@@ -193,7 +193,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2]
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [person1, person2]
@@ -221,7 +221,7 @@
     spm_units:
       spm_unit:
         members: [person1, person2, person3, person4, person5]
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [person1, person2, person3, person4, person5]

@@ -11,7 +11,7 @@ class oh_owf_income_eligible(Variable):
 
     def formula(spm_unit, period, parameters):
         # Check enrollment status
-        enrolled = spm_unit("is_tanf_enrolled", period)
+        enrolled = spm_unit("receives_tanf", period)
 
         # Initial eligibility test: gross income < 50% FPL (new applicants)
         initial_eligible = spm_unit("oh_owf_initial_income_eligible", period)

@@ -31,7 +31,7 @@ class nm_ccap_income_eligible(Variable):
         )
         fpl_eligible = countable_income <= income_limit
         # 8.15.2.9 Priority 2: families transitioning off TANF need not meet
-        # the income test. is_tanf_enrolled is a bare input that breaks the
+        # the income test. receives_tanf is a bare input that breaks the
         # CCAP <-> TANF circular dependency.
-        is_tanf = spm_unit("is_tanf_enrolled", period)
+        is_tanf = spm_unit("receives_tanf", period)
         return is_tanf | fpl_eligible

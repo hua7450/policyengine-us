@@ -16,7 +16,7 @@ class mi_fip_income_eligible(Variable):
         # BEM 518 Page 3: Financial need exists when the group passes
         # the Qualifying Deficit Test (initial) or Issuance Deficit Test (ongoing)
 
-        enrolled = spm_unit("is_tanf_enrolled", period)
+        enrolled = spm_unit("receives_tanf", period)
         payment_standard = spm_unit("mi_fip_payment_standard", period)
 
         # New applicants: Use Qualifying Deficit Test (BEM 520 Section C)

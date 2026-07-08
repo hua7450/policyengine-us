@@ -18,7 +18,7 @@ class nv_ccdp_activity_eligible(Variable):
         #     caretaker where another adult is in an approved activity); it is a
         #     user input flagging that the responsible caretaker(s) participate
         #     in an approved activity.
-        #   - is_tanf_enrolled covers POC 410 (TANF NEON referrals); using the
+        #   - receives_tanf covers POC 410 (TANF NEON referrals); using the
         #     enrollment input rather than computed TANF eligibility breaks the
         #     CCDP <-> TANF circular dependency.
         #   - is_homeless covers POC 440 (Homeless Self-Sufficiency Plan), a
@@ -36,7 +36,7 @@ class nv_ccdp_activity_eligible(Variable):
         # schedules at the moment (MS 400 series), nor the job-search 90-day or
         # student/job-search funding-availability limits.
         meets_activity_test = spm_unit("meets_ccdf_activity_test", period.this_year)
-        is_tanf_enrolled = spm_unit("is_tanf_enrolled", period)
+        receives_tanf = spm_unit("receives_tanf", period)
         is_homeless = spm_unit.household("is_homeless", period.this_year)
         # Restrict the protective-care pathway to an nv_ccdp_eligible_child so a
         # non-eligible household member does not confer eligibility.
@@ -47,6 +47,4 @@ class nv_ccdp_activity_eligible(Variable):
             | person("receives_or_needs_protective_services", period.this_year)
         )
         has_protective_child = spm_unit.any(in_protective_care)
-        return (
-            meets_activity_test | is_tanf_enrolled | is_homeless | has_protective_child
-        )
+        return meets_activity_test | receives_tanf | is_homeless | has_protective_child

@@ -18,6 +18,4 @@ class ms_ccpp_copay_waived(Variable):
         homeless_no_income = spm_unit.household("is_homeless", period.this_year) & (
             monthly_income == 0
         )
-        return (
-            at_or_below_fpl | spm_unit("is_tanf_enrolled", period) | homeless_no_income
-        )
+        return at_or_below_fpl | spm_unit("receives_tanf", period) | homeless_no_income

@@ -359,7 +359,7 @@
         members: [person1, person2]
         spm_unit_pre_subsidy_childcare_expenses: 18_000
         va_ccsp_locality_group: GROUP_I
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [person1, person2]

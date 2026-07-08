@@ -131,7 +131,7 @@
     spm_units:
       spm_unit:
         members: [parent, child]
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [parent, child]
@@ -156,7 +156,7 @@
     spm_units:
       spm_unit:
         members: [parent, child]
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [parent, child]
@@ -200,7 +200,7 @@
     spm_units:
       spm_unit:
         members: [parent, child]
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [parent, child]
@@ -227,7 +227,7 @@
     spm_units:
       spm_unit:
         members: [parent, child]
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [parent, child]

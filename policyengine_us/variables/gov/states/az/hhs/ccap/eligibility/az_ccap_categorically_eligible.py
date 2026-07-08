@@ -21,7 +21,7 @@ class az_ccap_categorically_eligible(Variable):
         # regard to income only when they need child care to maintain employment, so
         # we require an employed head/spouse. (Jobs-program participation is folded
         # into Cash Assistance / TANF enrollment, as it is not separately tracked.)
-        cash_assistance_for_work = spm_unit("is_tanf_enrolled", period) & spm_unit.any(
+        cash_assistance_for_work = spm_unit("receives_tanf", period) & spm_unit.any(
             head_or_spouse & employed
         )
         # R6-5-4914(A)(3): DCS/DDD referrals and foster-care families qualify

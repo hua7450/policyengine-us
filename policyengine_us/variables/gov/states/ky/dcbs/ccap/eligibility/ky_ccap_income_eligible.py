@@ -41,7 +41,7 @@ class ky_ccap_income_eligible(Variable):
         base_limit = p.main[capped_size]
         extra_members = max_(family_size - 8, 0)
         income_limit = base_limit + extra_members * p.additional
-        is_tanf = spm_unit("is_tanf_enrolled", period)
+        is_tanf = spm_unit("receives_tanf", period)
         person = spm_unit.members
         is_protection_permanency = spm_unit.any(
             person("is_in_foster_care", period)

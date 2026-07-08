@@ -27,7 +27,7 @@ class nv_ccdp_copay(Variable):
         # Manual MS 180/181 (Co-Payments) waives the copay for exactly three
         # categories: TANF/NEON referrals, CPS/foster placements, and homeless
         # households (plus a discretionary case-by-case waiver by the CCDP
-        # Chief). Use is_tanf_enrolled for the NEON waiver to avoid the
+        # Chief). Use receives_tanf for the NEON waiver to avoid the
         # CCDP <-> TANF circular dependency. Waivers apply at the whole-family
         # level; we don't track per-child copay waivers at the moment.
         # State Plan Section 3.3.1 also checks boxes to waive copays for families
@@ -37,7 +37,7 @@ class nv_ccdp_copay(Variable):
         # Head Start waiver is specifically for wraparound-collaboration cases,
         # not all enrollees). We follow the operative Manual list and do not
         # model the disability or Head Start waivers at the moment.
-        is_tanf_enrolled = spm_unit("is_tanf_enrolled", period)
+        receives_tanf = spm_unit("receives_tanf", period)
         person = spm_unit.members
         is_eligible_child = person("nv_ccdp_eligible_child", period)
         in_protective_care = is_eligible_child & (
@@ -46,5 +46,5 @@ class nv_ccdp_copay(Variable):
         )
         has_protective_child = spm_unit.any(in_protective_care)
         is_homeless = spm_unit.household("is_homeless", period.this_year)
-        waived = is_tanf_enrolled | has_protective_child | is_homeless
+        waived = receives_tanf | has_protective_child | is_homeless
         return where(waived, 0, copay)

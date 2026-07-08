@@ -14,7 +14,7 @@
     spm_units:
       spm_unit:
         members: [adult]
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [adult]
@@ -33,7 +33,7 @@
     spm_units:
       spm_unit:
         members: [adult]
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [adult]
@@ -52,7 +52,7 @@
     spm_units:
       spm_unit:
         members: [adult]
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [adult]
@@ -73,7 +73,7 @@
     spm_units:
       spm_unit:
         members: [adult]
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [adult]
@@ -94,7 +94,7 @@
     spm_units:
       spm_unit:
         members: [adult]
-        is_tanf_enrolled: true
+        receives_tanf: true
     households:
       household:
         members: [adult]
@@ -115,7 +115,7 @@
     spm_units:
       spm_unit:
         members: [adult]
-        is_tanf_enrolled: false
+        receives_tanf: false
     households:
       household:
         members: [adult]

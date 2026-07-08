@@ -1,7 +1,7 @@
 - name: Case 1, enrolled recipient, automatic eligibility.
   period: 2024-01
   input:
-    is_tanf_enrolled: true
+    receives_tanf: true
     state_code: PA
   output:
     pa_tanf_disregard_eligible: true
@@ -11,7 +11,7 @@
   input:
     employment_income_before_lsr: 3_000
     social_security: 0
-    is_tanf_enrolled: false
+    receives_tanf: false
     spm_unit_size: 3
     state_code: PA
   output:
@@ -26,7 +26,7 @@
   input:
     employment_income_before_lsr: 12_000
     social_security: 0
-    is_tanf_enrolled: false
+    receives_tanf: false
     spm_unit_size: 3
     state_code: PA
   output:
@@ -41,7 +41,7 @@
   input:
     employment_income_before_lsr: 8_124
     social_security: 0
-    is_tanf_enrolled: false
+    receives_tanf: false
     spm_unit_size: 3
     state_code: PA
   output:
@@ -56,7 +56,7 @@
   input:
     employment_income_before_lsr: 8_112
     social_security: 0
-    is_tanf_enrolled: false
+    receives_tanf: false
     spm_unit_size: 3
     state_code: PA
   output:
@@ -71,7 +71,7 @@
   input:
     employment_income_before_lsr: 3_000
     social_security: 3_600
-    is_tanf_enrolled: false
+    receives_tanf: false
     spm_unit_size: 3
     state_code: PA
   output:
@@ -87,7 +87,7 @@
   input:
     employment_income_before_lsr: 6_000
     social_security: 3_600
-    is_tanf_enrolled: false
+    receives_tanf: false
     spm_unit_size: 3
     state_code: PA
   output:
@@ -103,7 +103,7 @@
   input:
     employment_income_before_lsr: 6_000
     social_security: 0
-    is_tanf_enrolled: false
+    receives_tanf: false
     spm_unit_size: 6
     state_code: PA
   output:

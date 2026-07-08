@@ -57,11 +57,11 @@
     spm_units:
       spm_unit1:
         members: [person1, person2]
-        is_tanf_enrolled: false
+        receives_tanf: false
         childcare_expenses: 4_300
       spm_unit2:
         members: [person3, person4]
-        is_tanf_enrolled: false
+        receives_tanf: false
         childcare_expenses: 4_300
     tax_units:
       tax_unit:

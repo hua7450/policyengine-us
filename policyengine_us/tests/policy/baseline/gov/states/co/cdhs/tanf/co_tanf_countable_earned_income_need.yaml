@@ -3,7 +3,7 @@
   input:
     state_code: CO
     co_tanf_countable_gross_earned_income: 0
-    is_tanf_enrolled: false
+    receives_tanf: false
   output:
     co_tanf_countable_earned_income_need: 0
 
@@ -12,7 +12,7 @@
   input:
     state_code: CO
     co_tanf_countable_gross_earned_income: 1_000 * 12
-    is_tanf_enrolled: false
+    receives_tanf: false
   output:
     co_tanf_countable_earned_income_need: 910 * 12 # $90 disregard only.
 
@@ -21,7 +21,7 @@
   input:
     state_code: CO
     co_tanf_countable_gross_earned_income: 1_000
-    is_tanf_enrolled: true
+    receives_tanf: true
   output:
     co_tanf_countable_earned_income_need: 330 # 67% disregard
 
@@ -33,7 +33,7 @@
   input:
     state_code: CO
     co_tanf_countable_gross_earned_income: 6_000
-    is_tanf_enrolled: false
+    receives_tanf: false
   output:
     # $6,000 - ($90 * 12) = $6,000 - $1,080 = $4,920
     co_tanf_countable_earned_income_need: 4_920
@@ -44,7 +44,7 @@
   input:
     state_code: CO
     co_tanf_countable_gross_earned_income: 6_000
-    is_tanf_enrolled: true
+    receives_tanf: true
   output:
     # $6,000 * (1 - 0.67) = $6,000 * 0.33 = $1,980
     co_tanf_countable_earned_income_need: 1_980
@@ -57,7 +57,7 @@
   input:
     state_code: CO
     co_tanf_countable_gross_earned_income: 6_000
-    is_tanf_enrolled: false
+    receives_tanf: false
   output:
     # $6,000 - ($90 * 12) = $6,000 - $1,080 = $4,920
     co_tanf_countable_earned_income_need: 4_920
@@ -68,7 +68,7 @@
   input:
     state_code: CO
     co_tanf_countable_gross_earned_income: 6_000
-    is_tanf_enrolled: true
+    receives_tanf: true
   output:
     # $6,000 * (1 - 0.67) = $6,000 * 0.33 = $1,980
     co_tanf_countable_earned_income_need: 1_980
@@ -81,7 +81,7 @@
   input:
     state_code: CO
     co_tanf_countable_gross_earned_income: 600
-    is_tanf_enrolled: false
+    receives_tanf: false
   output:
     # $600 - ($90 * 12) = $600 - $1,080 = max(-$480, 0) = $0
     co_tanf_countable_earned_income_need: 0

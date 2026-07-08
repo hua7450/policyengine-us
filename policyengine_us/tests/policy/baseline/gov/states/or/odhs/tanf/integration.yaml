@@ -300,7 +300,7 @@
       spm_unit:
         members: [person1, person2, person3]
         spm_unit_cash_assets: 0
-        is_tanf_enrolled: true
+        receives_tanf: true
     tax_units:
       tax_unit:
         members: [person1, person2, person3]

@@ -28,7 +28,7 @@ class ia_fip_income_eligible(Variable):
         # The work incentive disregard does NOT apply to the net income test (step 2)
         # for initial eligibility. Continuing recipients skip step 2 entirely.
 
-        is_enrolled = spm_unit("is_tanf_enrolled", period)
+        is_enrolled = spm_unit("receives_tanf", period)
         gross_income_eligible = spm_unit("ia_fip_gross_income_eligible", period)
         net_income_eligible = spm_unit("ia_fip_net_income_eligible", period)
         countable_income_eligible = spm_unit("ia_fip_countable_income_eligible", period)

@@ -28,7 +28,7 @@ class tx_tanf_income_eligible(Variable):
         # - New applicants: Must pass budgetary test AND recognizable test
         # - Continuing recipients: Must pass recognizable test only
 
-        is_enrolled = spm_unit("is_tanf_enrolled", period)
+        is_enrolled = spm_unit("receives_tanf", period)
         passes_budgetary = spm_unit("tx_tanf_budgetary_needs_test", period)
         passes_recognizable = spm_unit("tx_tanf_recognizable_needs_test", period)
 

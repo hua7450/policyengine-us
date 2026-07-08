@@ -11,6 +11,6 @@ class or_tanf_eli_eligible(Variable):
 
     def formula(spm_unit, period, parameters):
         # ELI applies when currently enrolled in TANF AND has earned income
-        is_enrolled = spm_unit("is_tanf_enrolled", period)
+        is_enrolled = spm_unit("receives_tanf", period)
         earned_income = add(spm_unit, period, ["tanf_gross_earned_income"])
         return is_enrolled & (earned_income > 0)
