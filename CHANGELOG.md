@@ -1,3 +1,28 @@
+## [1.767.3] - 2026-07-07
+
+### Changed
+
+- Nebraska Child Care Subsidy income eligibility and family fee now use gross countable income per 392 NAC 3-005.02, replacing federal adjusted gross income and SPM unit net income.
+
+### Fixed
+
+- Compute Texas Family Planning Program income eligibility from countable income under 1 TAC §382.109 (gross countable sources, exemptions, dependent care and child support deductions) instead of SPM unit net income.
+
+
+## [1.767.2] - 2026-07-07
+
+### Changed
+
+- Update HUD adjusted income for HOTMA (24 CFR 5.611): raise the elderly or disabled deduction to $525 in 2024 and $550 in 2026, the dependent deduction to $500 in 2026, and raise the medical expense threshold from 3% to 10% of annual income at the 2025-07-01 mandatory compliance deadline, treating all families as new admissions; count disabled adults and full-time students as dependents per 24 CFR 5.603; cap the childcare expense deduction at employment income per 24 CFR 5.611(a)(4); treat the oldest household member as the family head when no household head is designated; include attendant care expenses for disabled members in the medical expense deduction per 24 CFR 5.611(a)(3)(ii), capped at employment income.
+
+
+## [1.767.1] - 2026-07-07
+
+### Fixed
+
+- - Hardened ACA ZIP3 parsing so missing, nonnumeric, leading-zero, and ZIP+4 ZIP codes parse correctly instead of silently failing SLCSP rating-area lookups.
+
+
 ## [1.767.0] - 2026-07-07
 
 ### Added
