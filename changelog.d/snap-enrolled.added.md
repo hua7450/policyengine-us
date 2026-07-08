@@ -1,1 +1,1 @@
-Add snap_enrolled and use_reported_snap so API partners can report actual SNAP participation to programs whose eligibility depends on SNAP receipt.
+Add snap_enrolled and use_reported_snap so API partners can report actual SNAP participation to programs whose eligibility depends on SNAP receipt, and applicable_snap with reported_snap_amount so programs that count SNAP benefits as income follow the reported amount.

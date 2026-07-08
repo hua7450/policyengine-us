@@ -17,7 +17,7 @@ values:
     - social_security
     - ssi
     - tanf
-    - snap
+    - applicable_snap
     - veterans_benefits
     - unemployment_compensation
     - pension_income

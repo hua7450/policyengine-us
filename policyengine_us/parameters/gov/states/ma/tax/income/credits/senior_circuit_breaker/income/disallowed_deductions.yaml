@@ -5,7 +5,7 @@ values:
     - tax_exempt_unemployment_compensation
     - tax_exempt_pension_income
     - tax_exempt_interest_income
-    - snap
+    - applicable_snap
     - ssi
     - ma_state_supplement
     - tanf

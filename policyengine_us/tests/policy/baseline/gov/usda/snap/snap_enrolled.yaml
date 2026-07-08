@@ -37,3 +37,36 @@
     snap: 0
   output:
     snap_enrolled: true
+
+- name: Case 6, a positive reported amount counts as participation.
+  period: 2025-01
+  input:
+    use_reported_snap: true
+    reported_snap_amount: 1_200
+    snap: 0
+  output:
+    snap_enrolled: true
+
+- name: Case 7, reported non-participation does not change the computed snap amount.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    state_code: TX
+    employment_income: 0
+    use_reported_snap: true
+    receives_snap: false
+  output:
+    snap: 292
+    snap_enrolled: false
+
+- name: Case 8, reported participation does not add dollars to the computed snap amount.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    state_code: TX
+    employment_income: 120_000
+    use_reported_snap: true
+    receives_snap: true
+  output:
+    snap: 0
+    snap_enrolled: true

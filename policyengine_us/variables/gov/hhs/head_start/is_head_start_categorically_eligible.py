@@ -17,9 +17,13 @@ class is_head_start_categorically_eligible(Variable):
             "was_in_foster_care", period
         )
 
-        # Family-level: family eligible for public assistance (aggregated at spm_unit)
+        # Family-level: family eligible for public assistance (aggregated at
+        # spm_unit). 45 CFR 1302.12(c)(1)(ii) requires only eligibility for
+        # public assistance, so a positive computed SNAP amount qualifies as
+        # evidence of eligibility even when reported participation is false;
+        # snap_enrolled additionally captures reported participation.
         family_eligible = (
-            add(person.spm_unit, period, ["tanf", "ssi", "snap_enrolled"]) > 0
-        )
+            add(person.spm_unit, period, ["tanf", "ssi", "snap"]) > 0
+        ) | person.spm_unit("snap_enrolled", period)
 
         return family_eligible | person_eligible

@@ -28,7 +28,7 @@ values:
   # Public assistance payments
   - tanf
   - ssi
-  - snap
+  - applicable_snap
   - wic
   # Social Security
   - social_security

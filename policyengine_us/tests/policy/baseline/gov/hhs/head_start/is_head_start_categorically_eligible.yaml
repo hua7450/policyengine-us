@@ -164,3 +164,19 @@
     # 140% FPL for 2-person household in 2024
     # Computed SNAP > 0 at this income, making family categorically eligible
     is_head_start_categorically_eligible: [true, true]
+
+- name: Case 10, computed SNAP receipt qualifies even when participation is not reported.
+  period: 2024
+  input:
+    use_reported_snap: true
+    receives_snap: false
+    tanf: 0
+    ssi: 0
+    # A positive computed SNAP amount is evidence of SNAP eligibility, which
+    # 45 CFR 1302.12(c)(1)(ii) requires; reported non-participation does not
+    # remove it.
+    snap: 200
+    is_homeless: false
+    was_in_foster_care: false
+  output:
+    is_head_start_categorically_eligible: true

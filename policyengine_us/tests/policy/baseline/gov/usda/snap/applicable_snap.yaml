@@ -1,0 +1,46 @@
+- name: Case 1, defaults to calculated SNAP when use_reported_snap is false.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    snap: 3_600
+  output:
+    applicable_snap: 3_600
+
+- name: Case 2, uses the reported amount when provided.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    use_reported_snap: true
+    reported_snap_amount: 5_000
+    snap: 3_600
+  output:
+    applicable_snap: 5_000
+
+- name: Case 3, falls back to calculated SNAP when participating without a reported amount.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    use_reported_snap: true
+    receives_snap: true
+    # snap is month-defined, so this is January's amount.
+    snap: 300
+  output:
+    applicable_snap: 300
+
+- name: Case 4, zero when neither a reported amount nor participation is provided.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    use_reported_snap: true
+    snap: 3_600
+  output:
+    applicable_snap: 0
+
+- name: Case 5, the reported amount wins even without the participation flag.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    use_reported_snap: true
+    reported_snap_amount: 5_000
+  output:
+    applicable_snap: 5_000
