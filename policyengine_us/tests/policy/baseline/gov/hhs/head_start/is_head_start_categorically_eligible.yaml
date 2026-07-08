@@ -164,3 +164,55 @@
     # 140% FPL for 2-person household in 2024
     # Computed SNAP > 0 at this income, making family categorically eligible
     is_head_start_categorically_eligible: [true, true]
+
+- name: Case 10, reported SSI qualifies even with a zero calculated amount.
+  period: 2024
+  input:
+    people:
+      person1:
+        age: 30
+        use_reported_ssi: true
+        ssi_reported: 5_000
+        ssi: 0
+      person2:
+        age: 4
+        use_reported_ssi: true
+        ssi: 0
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        tanf: 0
+        snap: 0
+    households:
+      household:
+        members: [person1, person2]
+        is_homeless: false
+  output:
+    is_head_start_categorically_eligible: [true, true]
+
+- name: Case 11, calculated SSI still qualifies when the partner reports no SSI.
+  period: 2024
+  input:
+    people:
+      person1:
+        age: 30
+        use_reported_ssi: true
+        ssi: 5_000
+      person2:
+        age: 4
+        use_reported_ssi: true
+        ssi: 0
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        tanf: 0
+        snap: 0
+    households:
+      household:
+        members: [person1, person2]
+        is_homeless: false
+  output:
+    # 45 CFR 1302.12(c)(1)(ii) covers families potentially eligible for
+    # public assistance, so the calculated amount qualifies regardless of
+    # the reported value.
+    is_head_start_categorically_eligible: [true, true]
