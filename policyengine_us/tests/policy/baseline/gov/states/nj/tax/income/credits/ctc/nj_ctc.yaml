@@ -290,3 +290,78 @@
         state_code: NJ
   output:
     nj_ctc: 0
+
+# FY2027 budget (P.L.2026, c.26 / S-4531): credit raised 25% for tax years
+# 2026-2028, reverting in 2029.
+
+- name: 2026 filer with 2 children under 6 and income under $30,000 gets $2,500 (25% increase)
+  period: 2026
+  input:
+    people:
+      person1:
+        age: 21
+        is_tax_unit_dependent: false
+      person2:
+        age: 5
+        is_tax_unit_dependent: true
+      person3:
+        age: 3
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        nj_ctc_eligible: true
+        nj_taxable_income: 20_000
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: NJ
+  output:
+    nj_ctc: 2_500  # 2 * $1,250
+
+- name: 2026 filer with 1 child under 6 and income $60,000-$80,000 gets $250 (25% increase)
+  period: 2026
+  input:
+    people:
+      person1:
+        age: 21
+        is_tax_unit_dependent: false
+      person2:
+        age: 5
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        nj_ctc_eligible: true
+        nj_taxable_income: 65_000
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: NJ
+  output:
+    nj_ctc: 250  # 1 * $250
+
+- name: 2029 filer with 2 children under 6 and income under $30,000 reverts to $2,000
+  period: 2029
+  input:
+    people:
+      person1:
+        age: 21
+        is_tax_unit_dependent: false
+      person2:
+        age: 5
+        is_tax_unit_dependent: true
+      person3:
+        age: 3
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        nj_ctc_eligible: true
+        nj_taxable_income: 20_000
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: NJ
+  output:
+    nj_ctc: 2_000  # 2 * $1,000 (post-sunset)
