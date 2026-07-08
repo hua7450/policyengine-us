@@ -1,0 +1,1 @@
+Add receives_ssi and reported_ssi_amount as the API partner inputs for reported SSI: under use_reported_ssi, the receives_ssi flag decides participation and applicable_ssi counts reported_ssi_amount when provided, falling back to the calculated amount; ssi_reported remains as a survey-data variable.

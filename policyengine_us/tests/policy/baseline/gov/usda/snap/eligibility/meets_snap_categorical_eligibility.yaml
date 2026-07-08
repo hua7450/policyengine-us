@@ -69,6 +69,7 @@
   input:
     is_tanf_non_cash_eligible: false
     use_reported_ssi: true
-    ssi_reported: 1
+    receives_ssi: true
+    reported_ssi_amount: 1
   output:
     meets_snap_categorical_eligibility: true

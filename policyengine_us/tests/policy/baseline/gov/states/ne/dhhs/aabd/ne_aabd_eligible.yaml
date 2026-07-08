@@ -124,7 +124,8 @@
         is_ssi_aged_blind_disabled: false
         is_ssi_eligible: false
         # Model computes ssi = 0, but the partner reports actual receipt.
-        ssi_reported: 6_000
+        receives_ssi: true
+        reported_ssi_amount: 6_000
         use_reported_ssi: true
     households:
       household:

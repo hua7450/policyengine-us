@@ -165,7 +165,8 @@
       person1:
         age: 70
         social_security: 9_000
-        ssi_reported: 4_000
+        receives_ssi: true
+        reported_ssi_amount: 4_000
         use_reported_ssi: true
     spm_units:
       spm_unit:

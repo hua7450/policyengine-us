@@ -172,7 +172,8 @@
       person1:
         age: 30
         use_reported_ssi: true
-        ssi_reported: 5_000
+        receives_ssi: true
+        reported_ssi_amount: 5_000
         ssi: 0
       person2:
         age: 4

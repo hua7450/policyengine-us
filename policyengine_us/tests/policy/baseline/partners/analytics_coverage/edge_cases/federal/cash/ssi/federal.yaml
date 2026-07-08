@@ -367,7 +367,8 @@
         is_pregnant: false
         immigration_status_str: CITIZEN
         employment_income_before_lsr: 0
-        ssi_reported: 6_000
+        receives_ssi: true
+        reported_ssi_amount: 6_000
         use_reported_ssi: true
         is_medicare_eligible: false
         ssi_countable_resources: 0
@@ -398,7 +399,7 @@
         # full FBR $994/mo x 12 = $11,928.
         ssi: 11_928
         # Programs that count SSI see the reported amount instead when
-        # use_reported_ssi is true: applicable_ssi = ssi_reported = $6,000.
+        # use_reported_ssi is true: applicable_ssi = reported_ssi_amount = $6,000.
         applicable_ssi: 6_000
         is_ssi_eligible: true
         is_ssi_aged: true
