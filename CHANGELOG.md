@@ -1,3 +1,10 @@
+## [1.767.4] - 2026-07-08
+
+### Fixed
+
+- Retired `has_marketplace_health_coverage` from active input discovery by making it a compatibility alias, and canonicalized household health benefit accounting on annual health-value variables such as `assigned_aca_ptc`.
+
+
 ## [1.767.3] - 2026-07-07
 
 ### Changed
