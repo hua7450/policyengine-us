@@ -9,12 +9,12 @@ class applicable_tanf(Variable):
     label = "Applicable TANF for program income tests"
     documentation = (
         "TANF amount to count when another program includes TANF in an "
-        "income test. Usually this is the calculated tanf amount. If "
-        "use_reported_tanf is True, a positive reported_tanf_amount is "
-        "used first. If no positive reported amount is provided but "
-        "is_tanf_enrolled is True, this uses the calculated tanf "
-        "amount. If neither is provided, this is zero. Programs that "
-        "only need TANF receipt use tanf_enrolled instead."
+        "income test. Usually this is the calculated tanf amount. When "
+        "use_reported_tanf is True, the is_tanf_enrolled flag decides "
+        "participation: zero without it; with it, a positive "
+        "reported_tanf_amount if provided, the calculated tanf amount "
+        "otherwise. Programs that only need TANF receipt use "
+        "tanf_enrolled instead."
     )
 
     def formula(spm_unit, period, parameters):
@@ -22,5 +22,5 @@ class applicable_tanf(Variable):
         reported = spm_unit("reported_tanf_amount", period)
         enrolled = spm_unit("is_tanf_enrolled", period)
         computed = spm_unit("tanf", period)
-        reported_value = where(reported > 0, reported, enrolled * computed)
+        reported_value = enrolled * where(reported > 0, reported, computed)
         return where(use_reported, reported_value, computed)

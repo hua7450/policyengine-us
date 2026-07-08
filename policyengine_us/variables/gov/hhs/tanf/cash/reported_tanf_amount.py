@@ -10,6 +10,7 @@ class reported_tanf_amount(Variable):
     documentation = (
         "Amount of Temporary Assistance for Needy Families benefits the "
         "household reports receiving. API partner input; programs only "
-        "count this amount when use_reported_tanf is True, and the "
+        "count this amount when use_reported_tanf is True and "
+        "is_tanf_enrolled marks the unit as enrolled, and the "
         "calculated tanf variable is never affected. See applicable_tanf."
     )

@@ -6,11 +6,12 @@
   output:
     applicable_tanf: 3_600
 
-- name: Case 2, uses the reported amount when provided.
+- name: Case 2, uses the reported amount when enrolled.
   period: 2025
   absolute_error_margin: 0.01
   input:
     use_reported_tanf: true
+    is_tanf_enrolled: true
     reported_tanf_amount: 5_000
     tanf: 3_600
   output:
@@ -36,11 +37,12 @@
   output:
     applicable_tanf: 0
 
-- name: Case 5, the reported amount wins even without the enrollment flag.
+- name: Case 5, a reported amount without the enrollment flag counts as zero.
   period: 2025
   absolute_error_margin: 0.01
   input:
     use_reported_tanf: true
     reported_tanf_amount: 5_000
   output:
-    applicable_tanf: 5_000
+    # The is_tanf_enrolled flag decides participation; the amount has no vote.
+    applicable_tanf: 0

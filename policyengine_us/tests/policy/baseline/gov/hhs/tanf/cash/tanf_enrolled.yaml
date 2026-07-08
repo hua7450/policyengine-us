@@ -21,14 +21,15 @@
   output:
     tanf_enrolled: true
 
-- name: Case 4, a positive reported amount marks the unit as enrolled.
+- name: Case 4, a reported amount without the flag does not mark the unit as enrolled.
   period: 2025-01
   input:
     use_reported_tanf: true
     reported_tanf_amount: 3_600
     tanf: 0
   output:
-    tanf_enrolled: true
+    # The is_tanf_enrolled flag decides participation; the amount has no vote.
+    tanf_enrolled: false
 
 - name: Case 5, a positive calculated amount is ignored when neither reported input is provided.
   period: 2025-01
