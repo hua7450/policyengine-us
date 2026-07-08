@@ -1,0 +1,48 @@
+- name: Case 1, defaults to calculated TANF participation when use_reported_tanf is false.
+  period: 2025-01
+  input:
+    tanf: 300
+  output:
+    tanf_enrolled: true
+
+- name: Case 2, not enrolled by default when the calculated TANF amount is zero.
+  period: 2025-01
+  input:
+    tanf: 0
+  output:
+    tanf_enrolled: false
+
+- name: Case 3, the enrollment flag wins over a zero calculated amount.
+  period: 2025-01
+  input:
+    use_reported_tanf: true
+    is_tanf_enrolled: true
+    tanf: 0
+  output:
+    tanf_enrolled: true
+
+- name: Case 4, a positive reported amount marks the unit as enrolled.
+  period: 2025-01
+  input:
+    use_reported_tanf: true
+    reported_tanf_amount: 3_600
+    tanf: 0
+  output:
+    tanf_enrolled: true
+
+- name: Case 5, a positive calculated amount is ignored when neither reported input is provided.
+  period: 2025-01
+  input:
+    use_reported_tanf: true
+    tanf: 300
+  output:
+    tanf_enrolled: false
+
+- name: Case 6, the enrollment flag applies over the whole year.
+  period: 2025
+  input:
+    use_reported_tanf: true
+    is_tanf_enrolled: true
+    tanf: 0
+  output:
+    tanf_enrolled: true

@@ -4,7 +4,7 @@ values:
   2009-01-01:
     - ssi
     - is_tanf_non_cash_eligible
-    - applicable_tanf
+    - tanf_enrolled
 
 metadata:
   reference:

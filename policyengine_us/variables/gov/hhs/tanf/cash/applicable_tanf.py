@@ -8,13 +8,13 @@ class applicable_tanf(Variable):
     unit = USD
     label = "Applicable TANF for program income tests"
     documentation = (
-        "TANF amount to use when another program needs to know whether "
-        "a family receives TANF or how much TANF to count. Usually this "
-        "is the calculated tanf amount. If use_reported_tanf is True, a "
-        "positive reported_tanf_amount is used first. If no positive "
-        "reported amount is provided but is_tanf_enrolled is True, this "
-        "uses the calculated tanf amount. If neither is provided, this "
-        "is zero."
+        "TANF amount to count when another program includes TANF in an "
+        "income test. Usually this is the calculated tanf amount. If "
+        "use_reported_tanf is True, a positive reported_tanf_amount is "
+        "used first. If no positive reported amount is provided but "
+        "is_tanf_enrolled is True, this uses the calculated tanf "
+        "amount. If neither is provided, this is zero. Programs that "
+        "only need TANF receipt use tanf_enrolled instead."
     )
 
     def formula(spm_unit, period, parameters):

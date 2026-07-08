@@ -91,12 +91,22 @@
   output:
     meets_snap_categorical_eligibility: false
 
-- name: With use_reported_tanf and is_tanf_enrolled, calculated TANF creates eligibility.
+- name: With use_reported_tanf and is_tanf_enrolled, the enrollment flag creates eligibility.
   period: 2022-01
   input:
     is_tanf_non_cash_eligible: false
     use_reported_tanf: true
     is_tanf_enrolled: true
     tanf: 3_000
+  output:
+    meets_snap_categorical_eligibility: true
+
+- name: The enrollment flag creates eligibility even when the calculated TANF amount is zero.
+  period: 2022-01
+  input:
+    is_tanf_non_cash_eligible: false
+    use_reported_tanf: true
+    is_tanf_enrolled: true
+    tanf: 0
   output:
     meets_snap_categorical_eligibility: true

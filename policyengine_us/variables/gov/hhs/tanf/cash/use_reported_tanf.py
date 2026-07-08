@@ -10,9 +10,12 @@ class use_reported_tanf(Variable):
     documentation = (
         "API partner opt-in toggle for reported TANF. When False (the "
         "default, including all microsimulation runs), applicable_tanf "
-        "equals the calculated tanf. When True, applicable_tanf follows "
-        "the partner-reported information instead: reported_tanf_amount "
-        "when one is provided, the calculated tanf when the "
-        "household is flagged as enrolled via is_tanf_enrolled, and "
-        "zero when neither is provided."
+        "equals the calculated tanf and tanf_enrolled reflects whether "
+        "it is positive. When True, both follow the partner-reported "
+        "information instead: applicable_tanf counts "
+        "reported_tanf_amount when one is provided, the calculated "
+        "tanf when the household is flagged as enrolled via "
+        "is_tanf_enrolled, and zero when neither is provided; "
+        "tanf_enrolled is True when a positive reported_tanf_amount or "
+        "the is_tanf_enrolled flag is provided."
     )
