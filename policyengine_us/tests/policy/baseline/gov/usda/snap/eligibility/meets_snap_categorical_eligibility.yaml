@@ -73,3 +73,13 @@
     reported_ssi_amount: 1
   output:
     meets_snap_categorical_eligibility: true
+
+- name: The receives_ssi flag creates eligibility even without an amount and a zero calculated SSI.
+  period: 2022
+  input:
+    is_tanf_non_cash_eligible: false
+    use_reported_ssi: true
+    receives_ssi: true
+    ssi: 0
+  output:
+    meets_snap_categorical_eligibility: true

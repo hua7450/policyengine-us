@@ -23,7 +23,7 @@ class dc_ccsp_qualified_need_eligible(Variable):
         # parent is age >= 62 or get social_security_disability or ssi
         is_elderly = age >= p.elderly
         received_ssdi_or_ssi = (
-            add(spm_unit, period, ["social_security_disability", "applicable_ssi"]) > 0
+            add(spm_unit, period, ["social_security_disability", "ssi_enrolled"]) > 0
         )
         is_head_or_spouse = person("is_tax_unit_head_or_spouse", period)
         has_elderly_parent = (

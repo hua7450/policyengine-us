@@ -22,7 +22,7 @@ class wa_ssp_payment_category(Variable):
 
     def formula(person, period, parameters):
         p = parameters(period).gov.states.wa.dshs.ssp
-        base_eligible = person("applicable_ssi", period) > 0
+        base_eligible = person("ssi_enrolled", period)
 
         # SDX code D (medical treatment facility) maps to MEDICAL_INSTITUTION;
         # codes A/B/C (community living) map to STANDARD via the categorical paths.

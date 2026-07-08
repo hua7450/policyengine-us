@@ -20,7 +20,7 @@ class is_head_start_categorically_eligible(Variable):
         # Family-level: eligible for, or potentially eligible for, public
         # assistance per 45 CFR 1302.12(c)(1)(ii) — receipt is not required,
         # so reported SSI and the calculated amounts both qualify.
-        reported_ssi = add(person.spm_unit, period, ["applicable_ssi"]) > 0
+        reported_ssi = add(person.spm_unit, period, ["ssi_enrolled"]) > 0
         family_eligible = reported_ssi | (
             add(person.spm_unit, period, ["tanf", "ssi", "snap"]) > 0
         )

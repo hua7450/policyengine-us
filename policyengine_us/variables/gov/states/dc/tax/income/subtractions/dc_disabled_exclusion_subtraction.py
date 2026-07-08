@@ -19,7 +19,7 @@ class dc_disabled_exclusion_subtraction(Variable):
         # Determine disablity-related eligibility
         is_disabled = person("is_permanently_and_totally_disabled", period)
         gets_ssi_or_ssdi = (
-            add(person, period, ["applicable_ssi", "social_security_disability"]) > 0
+            add(person, period, ["ssi_enrolled", "social_security_disability"]) > 0
         )
         disabled_eligible = is_disabled & gets_ssi_or_ssdi
         # Determine income-related eligibility

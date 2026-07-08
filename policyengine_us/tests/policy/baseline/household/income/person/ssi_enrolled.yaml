@@ -1,0 +1,55 @@
+- name: Case 1, defaults to calculated SSI participation when use_reported_ssi is false.
+  period: 2024
+  input:
+    people:
+      person1:
+        age: 40
+        ssi: 9_000
+  output:
+    ssi_enrolled: true
+
+- name: Case 2, not enrolled by default when the calculated SSI amount is zero.
+  period: 2024
+  input:
+    people:
+      person1:
+        age: 40
+        ssi: 0
+  output:
+    ssi_enrolled: false
+
+- name: Case 3, the receives_ssi flag wins over a zero calculated amount.
+  period: 2024
+  input:
+    people:
+      person1:
+        age: 40
+        use_reported_ssi: true
+        receives_ssi: true
+        ssi: 0
+  output:
+    ssi_enrolled: true
+
+- name: Case 4, a reported amount without the flag does not mark the person as enrolled.
+  period: 2024
+  input:
+    people:
+      person1:
+        age: 40
+        use_reported_ssi: true
+        reported_ssi_amount: 6_000
+        ssi: 0
+  output:
+    # The receives_ssi flag decides participation; the amount has no vote.
+    ssi_enrolled: false
+
+- name: Case 5, a positive calculated amount is ignored when the flag is not provided.
+  period: 2024
+  input:
+    people:
+      person1:
+        age: 40
+        use_reported_ssi: true
+        ssi: 9_000
+  output:
+    ssi_enrolled: false

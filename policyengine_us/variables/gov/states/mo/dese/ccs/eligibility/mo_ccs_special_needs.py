@@ -24,7 +24,7 @@ class mo_ccs_special_needs(Variable):
         is_disabled = person("is_disabled", period.this_year)
         # A child receiving SSI is a child with special needs
         # (5 CSR 25-200.050(11)(A)).
-        receives_ssi = person("applicable_ssi", period) > 0
+        receives_ssi = person("ssi_enrolled", period)
         # A protective-services child is a child with special needs
         # (5 CSR 25-200.050(11)(D)).
         is_protective = person("mo_ccs_protective_services", period)

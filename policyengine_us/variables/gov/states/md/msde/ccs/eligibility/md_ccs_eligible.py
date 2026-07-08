@@ -20,7 +20,7 @@ class md_ccs_eligible(Variable):
         # recipients. We don't track TANF applicants separately from recipients
         # at the moment; the regulation covers both.
         is_tca = spm_unit("is_tanf_enrolled", period)
-        receives_ssi = add(spm_unit, period, ["applicable_ssi"]) > 0
+        receives_ssi = add(spm_unit, period, ["ssi_enrolled"]) > 0
         return (
             has_eligible_child
             & activity_eligible

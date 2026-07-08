@@ -17,7 +17,7 @@ class ks_sspp_eligible(Variable):
 
     def formula(person, period, parameters):
         p = parameters(period).gov.states.ks.kdhe.sspp.eligibility
-        receives_ssi = person("applicable_ssi", period) > 0
+        receives_ssi = person("ssi_enrolled", period)
         federal_la = person("ssi_federal_living_arrangement", period)
         in_medical_facility = (
             federal_la == SSIFederalLivingArrangement.MEDICAL_TREATMENT_FACILITY
