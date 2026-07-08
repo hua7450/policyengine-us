@@ -1,3 +1,10 @@
+## [1.768.1] - 2026-07-08
+
+### Fixed
+
+- Removed Virginia's unenacted July 2023 TANF standards increase; the standard multiplier now stops at 1.155.
+
+
 ## [1.768.0] - 2026-07-08
 
 ### Added
