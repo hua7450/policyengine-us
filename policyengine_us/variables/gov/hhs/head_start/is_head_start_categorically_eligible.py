@@ -17,9 +17,13 @@ class is_head_start_categorically_eligible(Variable):
             "was_in_foster_care", period
         )
 
-        # Family-level: family eligible for public assistance (aggregated at spm_unit)
-        family_eligible = (
-            add(person.spm_unit, period, ["tanf_enrolled", "ssi", "snap"]) > 0
+        # Family-level: eligible for, or potentially eligible for, public
+        # assistance per 45 CFR 1302.12(c)(1)(ii) — receipt is not required,
+        # so reported TANF enrollment and a positive calculated tanf amount
+        # both qualify.
+        tanf_enrolled = person.spm_unit("tanf_enrolled", period)
+        family_eligible = tanf_enrolled | (
+            add(person.spm_unit, period, ["tanf", "ssi", "snap"]) > 0
         )
 
         return family_eligible | person_eligible
