@@ -31,12 +31,12 @@ class tx_ceap_eligible(Variable):
         income_limit = max_(fpg_limit, smi_limit)
         income_eligible = income <= income_limit
 
-        # Categorical eligibility per 42 USC 8624(b)(2)(A)
-        # and FY 2024 State Plan Section 1.4
-        tanf = spm_unit("is_tanf_enrolled", period)
+        # Categorical eligibility per 42 USC 8624(b)(2)(A) and FY 2024
+        # State Plan Section 1.4 — households where a member receives
+        # TANF, SNAP, or SSI.
+        tanf = spm_unit("tanf_enrolled", period)
         snap = spm_unit("is_snap_eligible", period)
-        person = spm_unit.members
-        ssi = spm_unit.any(person("is_ssi_eligible", period))
+        ssi = add(spm_unit, period, ["applicable_ssi"]) > 0
         categorically_eligible = tanf | snap | ssi
 
         return income_eligible | categorically_eligible
