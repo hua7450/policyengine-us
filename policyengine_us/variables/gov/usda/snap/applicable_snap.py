@@ -10,10 +10,10 @@ class applicable_snap(Variable):
     documentation = (
         "SNAP amount to use when another program counts SNAP benefits as "
         "income. Usually this is the calculated snap amount. If "
-        "use_reported_snap is True, a positive reported_snap_amount is "
-        "used first. If no positive reported amount is provided but "
-        "receives_snap is True, this uses the calculated snap amount. "
-        "If neither is provided, this is zero."
+        "use_reported_snap is True, receives_snap controls: when True, a "
+        "positive reported_snap_amount is used if provided and the "
+        "calculated snap amount otherwise; when False, this is zero "
+        "regardless of any reported amount."
     )
 
     def formula(spm_unit, period, parameters):
@@ -21,5 +21,5 @@ class applicable_snap(Variable):
         reported = spm_unit("reported_snap_amount", period)
         enrolled = spm_unit("receives_snap", period)
         computed = spm_unit("snap", period)
-        reported_value = where(reported > 0, reported, enrolled * computed)
+        reported_value = enrolled * where(reported > 0, reported, computed)
         return where(use_reported, reported_value, computed)

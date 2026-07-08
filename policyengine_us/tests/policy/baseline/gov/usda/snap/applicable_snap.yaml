@@ -6,11 +6,12 @@
   output:
     applicable_snap: 3_600
 
-- name: Case 2, uses the reported amount when provided.
+- name: Case 2, uses the reported amount when participating.
   period: 2025
   absolute_error_margin: 0.01
   input:
     use_reported_snap: true
+    receives_snap: true
     reported_snap_amount: 5_000
     snap: 3_600
   output:
@@ -36,11 +37,22 @@
   output:
     applicable_snap: 0
 
-- name: Case 5, the reported amount wins even without the participation flag.
+- name: Case 5, a reported amount alone does not count without the participation flag.
   period: 2025
   absolute_error_margin: 0.01
   input:
     use_reported_snap: true
     reported_snap_amount: 5_000
   output:
-    applicable_snap: 5_000
+    applicable_snap: 0
+
+- name: Case 6, reported non-participation wins over a reported amount.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    use_reported_snap: true
+    receives_snap: false
+    reported_snap_amount: 5_000
+    snap: 3_600
+  output:
+    applicable_snap: 0

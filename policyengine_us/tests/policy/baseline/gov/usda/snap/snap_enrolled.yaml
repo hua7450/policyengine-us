@@ -38,14 +38,14 @@
   output:
     snap_enrolled: true
 
-- name: Case 6, a positive reported amount counts as participation.
+- name: Case 6, a reported amount alone does not count as participation.
   period: 2025-01
   input:
     use_reported_snap: true
     reported_snap_amount: 1_200
     snap: 0
   output:
-    snap_enrolled: true
+    snap_enrolled: false
 
 - name: Case 7, reported non-participation does not change the computed snap amount.
   period: 2025-01
