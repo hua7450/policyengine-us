@@ -2,7 +2,7 @@ description: List of programs that qualify a household for an increased rebate u
 values:
   2016-01-01:
     - medicaid_enrolled
-    - applicable_ssi
+    - ssi_enrolled
     # Also:
     # - tanf # Not yet implemented in California.
     # Medi-Cal (Income Qualified Medi-Cal Only)

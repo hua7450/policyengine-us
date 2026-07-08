@@ -2,7 +2,7 @@ description: The District of Columbia considers receipt of these benefits as dis
 values:
   1975-01-01:
     - dc_tanf
-    - applicable_ssi
+    - ssi_enrolled
     - unemployment_compensation
 
 metadata:

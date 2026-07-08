@@ -4,7 +4,7 @@ values:
     - medicaid_enrolled
     - wic
     - snap
-    - applicable_ssi
+    - ssi_enrolled
     # Also these, not in our model:
     # NSL
     # Healthy Families A & B
