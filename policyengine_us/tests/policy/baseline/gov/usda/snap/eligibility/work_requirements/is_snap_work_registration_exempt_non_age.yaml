@@ -117,7 +117,7 @@
 
 # --- (iii) Subject to and complying with TANF work requirements ---
 
-- name: Case 9, TANF enrollee complying with TANF work requirements is exempt.
+- name: Case 9, TANF recipient complying with TANF work requirements is exempt.
   period: 2026-01
   input:
     people:
@@ -128,11 +128,11 @@
     spm_units:
       spm_unit:
         members: [person1]
-        is_tanf_enrolled: true
+        tanf: 100
   output:
     is_snap_work_registration_exempt_non_age: true
 
-- name: Case 10, complying with TANF work requirements but not enrolled in TANF is not exempt.
+- name: Case 10, complying with TANF work requirements but not receiving TANF is not exempt.
   period: 2026-01
   input:
     people:
@@ -143,11 +143,11 @@
     spm_units:
       spm_unit:
         members: [person1]
-        is_tanf_enrolled: false
+        tanf: 0
   output:
     is_snap_work_registration_exempt_non_age: false
 
-- name: Case 11, TANF enrollee not complying with TANF work requirements is not exempt.
+- name: Case 11, TANF recipient not complying with TANF work requirements is not exempt.
   period: 2026-01
   input:
     people:
@@ -158,7 +158,7 @@
     spm_units:
       spm_unit:
         members: [person1]
-        is_tanf_enrolled: true
+        tanf: 100
   output:
     is_snap_work_registration_exempt_non_age: false
 

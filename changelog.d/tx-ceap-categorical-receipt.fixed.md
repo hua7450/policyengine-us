@@ -1,1 +1,1 @@
-Key Texas Comprehensive Energy Assistance Program categorical eligibility on calculated TANF, SNAP, and SSI receipt per 42 USC 8624(b)(2)(A), replacing the enrollment-flag and eligibility-only checks.
+Key categorical eligibility and receipt checks on calculated benefits: TX CEAP (42 USC 8624(b)(2)(A)), the Medicaid community engagement TANF pass-through, the SNAP work registration TANF exemption (7 CFR 273.7(b)(1)(iii)), and the Oklahoma sales tax relief credit TANF exclusion.

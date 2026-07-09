@@ -14,7 +14,7 @@ class medicaid_community_engagement_pass_through_eligible(Variable):
     def formula(person, period, parameters):
         snap_work = parameters(period).gov.usda.snap.work_requirements
         snap = person.spm_unit("snap", period) > 0
-        tanf = person.spm_unit("is_tanf_enrolled", period)
+        tanf = person.spm_unit("tanf", period) > 0
 
         age = person("monthly_age", period)
         # Cast to bool: single_amount bool brackets return int (0/1), which
