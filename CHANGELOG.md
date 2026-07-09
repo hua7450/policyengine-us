@@ -1,3 +1,10 @@
+## [1.768.2] - 2026-07-09
+
+### Changed
+
+- Update New Jersey for the FY2027 budget: increase the child tax credit 25% for tax years 2026-2028, apply the Stay NJ $200,000 income limit and income-tiered benefit caps from tax year 2027, and remove the ANCHOR senior bonus for homeowners from tax year 2025.
+
+
 ## [1.768.1] - 2026-07-08
 
 ### Fixed
