@@ -32,9 +32,8 @@ class tx_ceap_eligible(Variable):
         income_eligible = income <= income_limit
 
         # Categorical eligibility per 42 USC 8624(b)(2)(A) and FY 2024
-        # State Plan Section 1.4 — households where a member receives
-        # TANF, SNAP, or SSI, so the check keys on the calculated
-        # benefits rather than eligibility or enrollment flags.
+        # State Plan Section 1.4: households where a member receives
+        # TANF, SNAP, or SSI.
         tanf = spm_unit("tanf", period) > 0
         snap = spm_unit("snap", period) > 0
         ssi = add(spm_unit, period, ["ssi"]) > 0
