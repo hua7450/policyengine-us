@@ -76,13 +76,36 @@
   output:
     nj_staynj_eligible: true
 
-- name: 2027 income at the $200,000 limit is ineligible (strict less than).
+- name: 2027 income exactly $200,000 is eligible (not in excess of $200,000).
   period: 2027
   input:
     people:
       person1:
         age: 65
         employment_income: 200_000
+        real_estate_taxes: 10_000
+        is_tax_unit_head: true
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+        spm_unit_tenure_type: OWNER_WITH_MORTGAGE
+    households:
+      household:
+        members: [person1]
+        state_fips: 34
+  output:
+    nj_staynj_eligible: true
+
+- name: 2027 income just over $200,000 is ineligible.
+  period: 2027
+  input:
+    people:
+      person1:
+        age: 65
+        employment_income: 200_001
         real_estate_taxes: 10_000
         is_tax_unit_head: true
     tax_units:

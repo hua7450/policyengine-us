@@ -811,3 +811,27 @@
   output:
     # Senior renter, income <= $150K: $450 base + $250 senior bonus = $700.
     nj_anchor: 700
+
+- name: 2025 non-senior homeowner is unaffected by the senior-bonus removal ($1,500).
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 40
+        employment_income: 100_000
+        real_estate_taxes: 5_000
+        is_tax_unit_head: true
+    tax_units:
+      tax_unit:
+        members: [person1]
+    spm_units:
+      spm_unit:
+        members: [person1]
+        spm_unit_tenure_type: OWNER_WITH_MORTGAGE
+    households:
+      household:
+        members: [person1]
+        state_fips: 34
+  output:
+    # Non-senior homeowner, income <= $150K: still $1,500 (change only affects seniors).
+    nj_anchor: 1_500

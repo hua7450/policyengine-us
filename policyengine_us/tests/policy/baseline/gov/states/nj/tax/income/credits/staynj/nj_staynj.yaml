@@ -190,7 +190,7 @@
   output:
     nj_staynj: 4_000
 
-- name: 2027 income exactly $100,000 falls in the $5,000 tier.
+- name: 2027 income exactly $100,000 stays in the $6,500 tier (upper-inclusive band).
   period: 2027
   input:
     people:
@@ -213,9 +213,35 @@
         members: [person1]
         state_fips: 34
   output:
+    # "not in excess of $100,000" -> $6,500 cap; min($10,000, $6,500) = $6,500
+    nj_staynj: 6_500
+
+- name: 2027 income just above $100,000 falls in the $5,000 tier.
+  period: 2027
+  input:
+    people:
+      person1:
+        age: 70
+        employment_income: 100_001
+        real_estate_taxes: 20_000
+        is_tax_unit_head: true
+    tax_units:
+      tax_unit:
+        members: [person1]
+        nj_anchor: 0
+        nj_capped_senior_freeze: 0
+    spm_units:
+      spm_unit:
+        members: [person1]
+        spm_unit_tenure_type: OWNER_WITH_MORTGAGE
+    households:
+      household:
+        members: [person1]
+        state_fips: 34
+  output:
     nj_staynj: 5_000
 
-- name: 2027 income exactly $150,000 falls in the $4,000 tier.
+- name: 2027 income exactly $150,000 stays in the $5,000 tier (upper-inclusive band).
   period: 2027
   input:
     people:
@@ -238,15 +264,42 @@
         members: [person1]
         state_fips: 34
   output:
-    nj_staynj: 4_000
+    # "not in excess of $150,000" -> $5,000 cap
+    nj_staynj: 5_000
 
-- name: 2027 income at the $200,000 limit is ineligible.
+- name: 2027 income exactly $200,000 is eligible at the $4,000 tier (not in excess of $200,000).
   period: 2027
   input:
     people:
       person1:
         age: 70
         employment_income: 200_000
+        real_estate_taxes: 20_000
+        is_tax_unit_head: true
+    tax_units:
+      tax_unit:
+        members: [person1]
+        nj_anchor: 0
+        nj_capped_senior_freeze: 0
+    spm_units:
+      spm_unit:
+        members: [person1]
+        spm_unit_tenure_type: OWNER_WITH_MORTGAGE
+    households:
+      household:
+        members: [person1]
+        state_fips: 34
+  output:
+    # income exactly $200,000 remains eligible; $150K-$200K tier -> $4,000 cap
+    nj_staynj: 4_000
+
+- name: 2027 income over $200,000 is ineligible.
+  period: 2027
+  input:
+    people:
+      person1:
+        age: 70
+        employment_income: 200_001
         real_estate_taxes: 20_000
         is_tax_unit_head: true
     tax_units:
