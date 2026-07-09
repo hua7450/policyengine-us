@@ -17,8 +17,16 @@ class mo_tanf_child_care_deduction(Variable):
         p = parameters(period).gov.states.mo.dss.tanf.child_care_deduction
         person = spm_unit.members
         dependent = person("is_tax_unit_dependent", period)
+        # Per 13 CSR 40-2.120(6)(A)5, the disregard also covers care of an
+        # incapacitated individual living in the same home as the dependent
+        # child, at the $175 age-two-or-older tier.
+        incapacitated_adult = person("is_adult", period.this_year) & person(
+            "is_incapable_of_self_care", period.this_year
+        )
         age = person("age", period.this_year)
         childcare_expenses = spm_unit("childcare_expenses", period)
-        max_deduction_per_child = p.amount.calc(age) * dependent
-        total_max_deduction = spm_unit.sum(max_deduction_per_child)
-        return min_(childcare_expenses, total_max_deduction)
+        adult_care_expenses = add(spm_unit, period, ["care_expenses"])
+        care_recipient = dependent | incapacitated_adult
+        max_deduction_per_person = p.amount.calc(age) * care_recipient
+        total_max_deduction = spm_unit.sum(max_deduction_per_person)
+        return min_(childcare_expenses + adult_care_expenses, total_max_deduction)

@@ -8,9 +8,11 @@ class va_tanf_childcare_deduction(Variable):
     unit = USD
     definition_period = MONTH
     defined_for = StateCode.VA
-    reference = "https://www.dss.virginia.gov/files/division/bp/tanf/manual/300_11-20.pdf#page=56"
+    reference = "https://www.dss.virginia.gov/media/vdss/benefit-programs/documents/tanfx2fview/tanf/Combined-Full-Manual-07-24_1.pdf#page=175"
 
     def formula(spm_unit, period, parameters):
+        # Per VA TANF Manual section 305.3 item 5, the disregard covers care
+        # of each child or incapacitated adult in the assistance unit.
         p = parameters(period).gov.states.va.dss.tanf.income.deductions.dependent_care
         person = spm_unit.members
         age = person("age", period.this_year)
@@ -20,5 +22,6 @@ class va_tanf_childcare_deduction(Variable):
         )
         care_recipient = dependent | disabled_adult
         childcare_expenses = spm_unit("childcare_expenses", period)
+        adult_care_expenses = add(spm_unit, period, ["care_expenses"])
         max_deduction = spm_unit.sum(p.full_time.calc(age) * care_recipient)
-        return min_(childcare_expenses, max_deduction)
+        return min_(childcare_expenses + adult_care_expenses, max_deduction)

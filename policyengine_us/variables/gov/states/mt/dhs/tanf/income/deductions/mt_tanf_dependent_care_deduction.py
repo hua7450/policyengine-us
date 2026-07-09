@@ -23,8 +23,14 @@ class mt_tanf_dependent_care_deduction(Variable):
         )
         is_eligible_person = is_dependent & (is_child | is_incapable_of_self_care)
 
-        dependent_expenses = spm_unit("childcare_expenses", period)
+        # Per TANF manual 602-1, the disregard covers care for each minor
+        # child or incapacitated adult, so adult care expenses count too.
+        childcare_expenses = spm_unit("childcare_expenses", period)
+        adult_care_expenses = add(spm_unit, period, ["care_expenses"])
         dependent_deduction_person = p.amount * is_eligible_person
         total_dependent_deduction = spm_unit.sum(dependent_deduction_person)
 
-        return min_(dependent_expenses, total_dependent_deduction)
+        return min_(
+            childcare_expenses + adult_care_expenses,
+            total_dependent_deduction,
+        )

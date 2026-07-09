@@ -184,3 +184,26 @@
     # Actual expenses: $5,000/year
     # Deduction: min($5,000, $4,500) = $4,500
     va_tanf_childcare_deduction: 4_500
+
+- name: Case 8, disabled adult care expenses count toward the deduction.
+  period: 2023-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 35
+        is_disabled: true
+        care_expenses: 1_200
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: VA
+  output:
+    # Per VA TANF Manual 305.3 item 5: incapacitated adult care up to
+    # $175/month (full-time). Expenses = 1,200 / 12 = 100/month.
+    va_tanf_childcare_deduction: 100

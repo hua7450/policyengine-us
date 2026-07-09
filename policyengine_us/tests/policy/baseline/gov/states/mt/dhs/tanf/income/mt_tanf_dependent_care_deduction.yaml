@@ -144,3 +144,27 @@
     # spm_unit2: person3 and person5 → 2 * 200 = 400/month
     # min(5_000/12, 400) = min(416.67, 400) = 400
     mt_tanf_dependent_care_deduction: [400, 400]
+
+- name: Case 11, incapacitated adult dependent care expenses.
+  period: 2023-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 35
+        is_tax_unit_dependent: true
+        is_incapable_of_self_care: true
+        care_expenses: 1_200
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: MT
+  output:
+    # Per TANF manual 602-1: $200/month cap per incapacitated adult.
+    # Expenses = 1,200 / 12 = 100/month, below the cap.
+    mt_tanf_dependent_care_deduction: 100
