@@ -1,3 +1,10 @@
+## [1.768.3] - 2026-07-09
+
+### Fixed
+
+- Include paid Medicare Part A premiums and Part D IRMAA in SPM medical out-of-pocket expenses, and default Medicare quarters of coverage to 40 so enrollees with unobserved work history are premium-free for Part A.
+
+
 ## [1.768.2] - 2026-07-09
 
 ### Changed
