@@ -1,3 +1,90 @@
+## [1.768.1] - 2026-07-08
+
+### Fixed
+
+- Removed Virginia's unenacted July 2023 TANF standards increase; the standard multiplier now stops at 1.155.
+
+
+## [1.768.0] - 2026-07-08
+
+### Added
+
+- Add enrollment-gated gross Medicare Part B premiums and an explicit lagged IRMAA MAGI input path.
+
+
+## [1.767.4] - 2026-07-08
+
+### Fixed
+
+- Retired `has_marketplace_health_coverage` from active input discovery by making it a compatibility alias, and canonicalized household health benefit accounting on annual health-value variables such as `assigned_aca_ptc`.
+
+
+## [1.767.3] - 2026-07-07
+
+### Changed
+
+- Nebraska Child Care Subsidy income eligibility and family fee now use gross countable income per 392 NAC 3-005.02, replacing federal adjusted gross income and SPM unit net income.
+
+### Fixed
+
+- Compute Texas Family Planning Program income eligibility from countable income under 1 TAC §382.109 (gross countable sources, exemptions, dependent care and child support deductions) instead of SPM unit net income.
+
+
+## [1.767.2] - 2026-07-07
+
+### Changed
+
+- Update HUD adjusted income for HOTMA (24 CFR 5.611): raise the elderly or disabled deduction to $525 in 2024 and $550 in 2026, the dependent deduction to $500 in 2026, and raise the medical expense threshold from 3% to 10% of annual income at the 2025-07-01 mandatory compliance deadline, treating all families as new admissions; count disabled adults and full-time students as dependents per 24 CFR 5.603; cap the childcare expense deduction at employment income per 24 CFR 5.611(a)(4); treat the oldest household member as the family head when no household head is designated; include attendant care expenses for disabled members in the medical expense deduction per 24 CFR 5.611(a)(3)(ii), capped at employment income.
+
+
+## [1.767.1] - 2026-07-07
+
+### Fixed
+
+- - Hardened ACA ZIP3 parsing so missing, nonnumeric, leading-zero, and ZIP+4 ZIP codes parse correctly instead of silently failing SLCSP rating-area lookups.
+
+
+## [1.767.0] - 2026-07-07
+
+### Added
+
+- Added a CHIP current-coverage input and counted it in reported non-Marketplace coverage checks.
+
+
+## [1.766.6] - 2026-07-07
+
+### Changed
+
+- Rework partner API contract tests to mirror live partner traffic: remove Louisiana cases (no partner sends Louisiana households), add lean Kansas coverage, set state via the state_code enum so fixtures stop evaluating under the California default, complete the before-labor-supply-response input migration for the remaining derived inputs (self-employment, SSTB, weekly hours, capital gains), replace artifact zero-benefit cases with parameter-derived positive and boundary pins, prune duplicate cases, add coverage for high-traffic untested outputs (Texas CEAP, Washington Apple Health kids eligibility, expansion-county general assistance), and fix signature-replay fixtures to use the exact input keys partners send.
+
+
+## [1.766.5] - 2026-07-07
+
+### Fixed
+
+- - Honored the IRC § 21(e)(4) separated-taxpayer exception in the South Carolina child and dependent care credit.
+  - Stopped the Idaho and Georgia contributed child tax credit reforms from applying in years before their in_effect activation date.
+  - Computed the Kentucky, Maine, and Vermont child and dependent care credits from the pre-OBBBA federal IRC § 21 credit for 2026, matching each state's static conformity to the Internal Revenue Code as of December 31, 2024.
+  - Reduced the California, Idaho, and Virginia child and dependent care benefit bases by employer-provided dependent care benefits excluded under IRC § 129, matching each state's form treatment and the federal IRC § 21(c) reduction.
+
+
+## [1.766.4] - 2026-07-06
+
+### Fixed
+
+- - Corrected the Colorado age 55-64 Social Security subtraction to allow the full taxable Social Security amount when AGI is at or below the filing-status threshold, per HB24-1142 (effective 2025).
+  - Updated Kentucky CCAP 85% SMI income limits to DCC-113 R.12/24 (effective 2025-10-01).
+  - Fixed the SNAP ABAWD dependent-child gate to key on any household member under the age threshold, per 7 CFR 273.24(c)(4), and removed the duplicate dead exemption branch.
+- The NYC School Tax Credit now computes through a formula so household output shows only the final credit rather than its fixed and rate-reduction components.
+
+
+## [1.766.3] - 2026-07-06
+
+### Fixed
+
+- - Aligned Florida TCA payment standard, income tests, earned income disregard, and minimum issuance with the DCF ESS Program Policy Manual and Appendix A-5.
+
+
 ## [1.766.2] - 2026-07-06
 
 ### Fixed
