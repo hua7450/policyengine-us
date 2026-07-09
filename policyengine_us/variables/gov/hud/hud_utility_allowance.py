@@ -15,7 +15,7 @@ class hud_utility_allowance(Variable):
         "Monthly utility allowance for HUD programs, annualized. Set per public "
         "housing agency by bedroom size; encoded for the counties PolicyEngine "
         "models (LA County, the Texas TDHCA service area, six Texas metro PHAs, "
-        "and four Kansas PHAs). Each schedule is summed over all tenant-paid "
+        "and six Kansas PHA jurisdictions). Each schedule is summed over all tenant-paid "
         "utilities assuming a Multi-Family, all-electric unit. SRO units use the "
         "published SRO row "
         "where one exists, otherwise 75% of the zero-bedroom value per 24 CFR "
@@ -51,12 +51,21 @@ class hud_utility_allowance(Variable):
         "https://habctx.org/wp-content/uploads/2025/06/Multi-Family-UA-2026.pdf",
         # Wichita Housing Authority (Sedgwick County), effective 2025-07-01.
         "https://www.wichita.gov/DocumentCenter/View/31965/2025-Utility-Allowances",
+        # Wichita Housing Authority (Sedgwick and Butler Counties; Harvey
+        # County except the City of Newton), effective 2026.
+        "https://www.wichita.gov/DocumentCenter/View/37084/2026-Utility-Allowances-PDF",
         # Topeka Housing Authority (Shawnee County), effective 2025.
         "https://www.tha.gov/wp-content/uploads/2025/04/All-Utility-Allowances.pdf",
         # Kansas City Kansas Housing Authority (Wyandotte County), 2026.
         "https://www.kckha.org/Documents/Housing/HCV/2026%20Utility%20Schedules-Kansas%20City%20KS-HUD%2052667-2026%20(0-5%20BR).pdf",
         # Johnson County Housing Authority (Johnson County), effective 2026-03-01.
         "https://www.jocogov.org/sites/default/files/files/2026-03/2026%20Utility%20Allowances-R.pdf",
+        # Manhattan Housing Authority (Riley County), large apartment schedule,
+        # effective 2024-11-20, with its water/sewer attachment.
+        "https://www.mhaks.com/212/Utility-Allowances",
+        # Lawrence-Douglas County Housing Authority, high-rise/apartment
+        # schedule adopted for the 2025 voucher program.
+        "https://storage.googleapis.com/wzukusers/user-31752601/documents/15086e89c84648f5bb744ea2e2fddd8c/September%2023%202024%20Board%20Meeting.pdf",
     )
     defined_for = "tenant_pays_utilities"
 
