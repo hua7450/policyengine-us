@@ -15,6 +15,10 @@ class wa_working_families_tax_credit(Variable):
     reference = (
         "https://app.leg.wa.gov/RCW/default.aspx?cite=82.08.0206",
         "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Senate%20Passed%20Legislature/6346-S.PL.pdf#page=61",
+        # IRC 152(c)(3)(B), included in the federal EITC rules as in effect on
+        # June 9, 2022, waives the qualifying-child age test for permanently
+        # and totally disabled individuals.
+        "https://www.law.cornell.edu/uscode/text/26/152#c_3_B",
     )
     defined_for = StateCode.WA
 
@@ -31,8 +35,15 @@ class wa_working_families_tax_credit(Variable):
         person = tax_unit.members
         has_tin = person("has_tin", period)
         is_head_or_spouse = person("is_tax_unit_head_or_spouse", period)
+        # IRC 152(c)(3)(B) (part of the frozen 2022-06-09 federal EITC rules)
+        # waives the age test for a permanently and totally disabled
+        # dependent, matching the federal eitc_child_count.
+        is_disabled_dependent = person("is_tax_unit_dependent", period) & person(
+            "is_permanently_and_totally_disabled", period
+        )
         child_count = tax_unit.sum(
-            person("is_qualifying_child_dependent", period) & has_tin
+            (person("is_qualifying_child_dependent", period) | is_disabled_dependent)
+            & has_tin
         )
         filer_has_tin = tax_unit.sum(is_head_or_spouse & ~has_tin) == 0
         federal_identification_eligible = tax_unit(
@@ -124,7 +135,11 @@ class wa_working_families_tax_credit(Variable):
         # amount is reached at the applicable maximum qualifying income.
         # https://app.leg.wa.gov/billsummary?BillNumber=1888&Year=2021&Initiative=false
         phase_out_rate = (max_amount - p.min_amount) / phase_out_start_reduction
-        excess = max_(0, earnings - phase_out_start)
+        # RCW 82.08.0206(3)(b) measures the reduction against the federal
+        # phase-out income (the greater of earned income or AGI) -- the same
+        # measure used for the maximum-qualifying-income ceiling above -- not
+        # earned income alone.
+        excess = max_(0, higher_income - phase_out_start)
         reduction = max_(0, excess * phase_out_rate)
         phased_out_amount = max_amount - reduction
         # minimum benefit applies if calculated amount exceeds zero

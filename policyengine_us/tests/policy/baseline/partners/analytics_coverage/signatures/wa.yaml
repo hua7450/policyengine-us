@@ -1,3 +1,13 @@
+# Signature-fidelity fix (2026-07-04): state_code added on each household per
+# analytics (every MFB state-output request sends the state_code enum);
+# employment_income / self_employment_income / capital_gains converted to the
+# *_before_lsr / *_before_response input keys that production's Simulation
+# wrapper backfills (issue #8802). Outputs re-pinned to current model values
+# under the corrected inputs.
+# Sanity check (signature_5) - wa_working_families_tax_credit = $1,017.55 = the
+# 2-child WFTC maximum credit (p.amount.calc(2) = 1017.55), unreduced because the
+# $48,000 income is below the phase-out start (federal EITC here = $3,769.50).
+# Genuine WA amount, previously pinned $0 under the California default.
 - name: signature_5 (35 reqs, +4 dupes)
   period: 2026
   absolute_error_margin: 0.1
@@ -11,10 +21,10 @@
         is_blind: false
         is_snap_ineligible_student: false
         immigration_status_str: CITIZEN
-        employment_income: 36000
-        self_employment_income: 0
+        employment_income_before_lsr: 36000
+        self_employment_income_before_lsr: 0
         social_security: 0
-        capital_gains: 0
+        long_term_capital_gains_before_response: 0
         rental_income: 0
         taxable_ira_distributions: 0
         taxable_pension_income: 0
@@ -33,10 +43,10 @@
         is_blind: false
         is_snap_ineligible_student: false
         immigration_status_str: CITIZEN
-        employment_income: 12000
-        self_employment_income: 0
+        employment_income_before_lsr: 12000
+        self_employment_income_before_lsr: 0
         social_security: 0
-        capital_gains: 0
+        long_term_capital_gains_before_response: 0
         rental_income: 0
         taxable_ira_distributions: 0
         taxable_pension_income: 0
@@ -55,8 +65,8 @@
         is_blind: false
         is_snap_ineligible_student: false
         immigration_status_str: CITIZEN
-        employment_income: 0
-        self_employment_income: 0
+        employment_income_before_lsr: 0
+        self_employment_income_before_lsr: 0
         ssi_reported: 0
         ssi_countable_resources: 0
         ssi_earned_income: 0
@@ -71,8 +81,8 @@
         is_blind: false
         is_snap_ineligible_student: false
         immigration_status_str: CITIZEN
-        employment_income: 0
-        self_employment_income: 0
+        employment_income_before_lsr: 0
+        self_employment_income_before_lsr: 0
         ssi_reported: 0
         ssi_countable_resources: 0
         ssi_earned_income: 0
@@ -81,6 +91,7 @@
         child_support_expense: 0
     households:
       household:
+        state_code: WA
         members: &id001
         - head
         - spouse
@@ -125,7 +136,7 @@
     tax_units:
       tax_unit:
         eitc: 3769.5
-        wa_working_families_tax_credit: 0.0
+        wa_working_families_tax_credit: 1017.55
     people:
       head:
         is_disabled: false
@@ -141,7 +152,7 @@
         ssi: 0.0
     spm_units:
       spm_unit:
-        lifeline: 228.0
+        lifeline: 111.0
         snap: 11994.84
 - name: signature_9 (25 reqs, +8 dupes)
   period: 2026
@@ -157,10 +168,10 @@
         is_blind: false
         is_snap_ineligible_student: false
         immigration_status_str: CITIZEN
-        employment_income: 36000
-        self_employment_income: 0
+        employment_income_before_lsr: 36000
+        self_employment_income_before_lsr: 0
         social_security: 0
-        capital_gains: 0
+        long_term_capital_gains_before_response: 0
         rental_income: 0
         taxable_ira_distributions: 0
         taxable_pension_income: 0
@@ -180,10 +191,10 @@
         is_blind: false
         is_snap_ineligible_student: false
         immigration_status_str: CITIZEN
-        employment_income: 12000
-        self_employment_income: 0
+        employment_income_before_lsr: 12000
+        self_employment_income_before_lsr: 0
         social_security: 0
-        capital_gains: 0
+        long_term_capital_gains_before_response: 0
         rental_income: 0
         taxable_ira_distributions: 0
         taxable_pension_income: 0
@@ -203,8 +214,8 @@
         is_blind: false
         is_snap_ineligible_student: false
         immigration_status_str: CITIZEN
-        employment_income: 0
-        self_employment_income: 0
+        employment_income_before_lsr: 0
+        self_employment_income_before_lsr: 0
         ssi_reported: 0
         ssi_countable_resources: 0
         ssi_earned_income: 0
@@ -220,8 +231,8 @@
         is_blind: false
         is_snap_ineligible_student: false
         immigration_status_str: CITIZEN
-        employment_income: 0
-        self_employment_income: 0
+        employment_income_before_lsr: 0
+        self_employment_income_before_lsr: 0
         ssi_reported: 0
         ssi_countable_resources: 0
         ssi_earned_income: 0
@@ -230,6 +241,7 @@
         child_support_expense: 0
     households:
       household:
+        state_code: WA
         members: *id001
     spm_units:
       spm_unit:
@@ -266,10 +278,10 @@
     tax_units:
       tax_unit:
         eitc: 3769.5
-        wa_working_families_tax_credit: 0.0
+        wa_working_families_tax_credit: 1017.55
     spm_units:
       spm_unit:
-        lifeline: 228.0
+        lifeline: 111.0
         snap: 11994.84
     people:
       head:
@@ -294,10 +306,10 @@
         is_blind: false
         is_snap_ineligible_student: false
         immigration_status_str: CITIZEN
-        employment_income: 36000
-        self_employment_income: 0
+        employment_income_before_lsr: 36000
+        self_employment_income_before_lsr: 0
         social_security: 0
-        capital_gains: 0
+        long_term_capital_gains_before_response: 0
         rental_income: 0
         taxable_ira_distributions: 0
         taxable_pension_income: 0
@@ -318,10 +330,10 @@
         is_blind: false
         is_snap_ineligible_student: false
         immigration_status_str: CITIZEN
-        employment_income: 12000
-        self_employment_income: 0
+        employment_income_before_lsr: 12000
+        self_employment_income_before_lsr: 0
         social_security: 0
-        capital_gains: 0
+        long_term_capital_gains_before_response: 0
         rental_income: 0
         taxable_ira_distributions: 0
         taxable_pension_income: 0
@@ -342,8 +354,8 @@
         is_blind: false
         is_snap_ineligible_student: false
         immigration_status_str: CITIZEN
-        employment_income: 0
-        self_employment_income: 0
+        employment_income_before_lsr: 0
+        self_employment_income_before_lsr: 0
         ssi: 0
         ssi_reported: 0
         ssi_countable_resources: 0
@@ -360,8 +372,8 @@
         is_blind: false
         is_snap_ineligible_student: false
         immigration_status_str: CITIZEN
-        employment_income: 0
-        self_employment_income: 0
+        employment_income_before_lsr: 0
+        self_employment_income_before_lsr: 0
         ssi: 0
         ssi_reported: 0
         ssi_countable_resources: 0
@@ -371,6 +383,7 @@
         child_support_expense: 0
     households:
       household:
+        state_code: WA
         members: *id001
     spm_units:
       spm_unit:
@@ -407,10 +420,10 @@
     tax_units:
       tax_unit:
         eitc: 3769.5
-        wa_working_families_tax_credit: 0.0
+        wa_working_families_tax_credit: 1017.55
     spm_units:
       spm_unit:
-        lifeline: 228.0
+        lifeline: 111.0
         snap: 11994.84
     people:
       head:
@@ -435,10 +448,10 @@
         is_blind: false
         is_snap_ineligible_student: false
         immigration_status_str: CITIZEN
-        employment_income: 36000
-        self_employment_income: 0
+        employment_income_before_lsr: 36000
+        self_employment_income_before_lsr: 0
         social_security: 0
-        capital_gains: 0
+        long_term_capital_gains_before_response: 0
         rental_income: 0
         taxable_ira_distributions: 0
         taxable_pension_income: 0
@@ -458,10 +471,10 @@
         is_blind: false
         is_snap_ineligible_student: false
         immigration_status_str: CITIZEN
-        employment_income: 12000
-        self_employment_income: 0
+        employment_income_before_lsr: 12000
+        self_employment_income_before_lsr: 0
         social_security: 0
-        capital_gains: 0
+        long_term_capital_gains_before_response: 0
         rental_income: 0
         taxable_ira_distributions: 0
         taxable_pension_income: 0
@@ -481,8 +494,8 @@
         is_blind: false
         is_snap_ineligible_student: false
         immigration_status_str: CITIZEN
-        employment_income: 0
-        self_employment_income: 0
+        employment_income_before_lsr: 0
+        self_employment_income_before_lsr: 0
         ssi_reported: 0
         ssi_countable_resources: 0
         ssi_earned_income: 0
@@ -498,8 +511,8 @@
         is_blind: false
         is_snap_ineligible_student: false
         immigration_status_str: CITIZEN
-        employment_income: 0
-        self_employment_income: 0
+        employment_income_before_lsr: 0
+        self_employment_income_before_lsr: 0
         ssi_reported: 0
         ssi_countable_resources: 0
         ssi_earned_income: 0
@@ -508,6 +521,7 @@
         child_support_expense: 0
     households:
       household:
+        state_code: WA
         members: *id001
     spm_units:
       spm_unit:
@@ -544,10 +558,10 @@
     tax_units:
       tax_unit:
         eitc: 3769.5
-        wa_working_families_tax_credit: 0.0
+        wa_working_families_tax_credit: 1017.55
     spm_units:
       spm_unit:
-        lifeline: 228.0
+        lifeline: 111.0
     people:
       head:
         ssi: 0.0

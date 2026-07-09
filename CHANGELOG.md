@@ -1,3 +1,773 @@
+## [1.768.3] - 2026-07-09
+
+### Fixed
+
+- Include paid Medicare Part A premiums and Part D IRMAA in SPM medical out-of-pocket expenses, and default Medicare quarters of coverage to 40 so enrollees with unobserved work history are premium-free for Part A.
+
+
+## [1.768.2] - 2026-07-09
+
+### Changed
+
+- Update New Jersey for the FY2027 budget: increase the child tax credit 25% for tax years 2026-2028, apply the Stay NJ $200,000 income limit and income-tiered benefit caps from tax year 2027, and remove the ANCHOR senior bonus for homeowners from tax year 2025.
+
+
+## [1.768.1] - 2026-07-08
+
+### Fixed
+
+- Removed Virginia's unenacted July 2023 TANF standards increase; the standard multiplier now stops at 1.155.
+
+
+## [1.768.0] - 2026-07-08
+
+### Added
+
+- Add enrollment-gated gross Medicare Part B premiums and an explicit lagged IRMAA MAGI input path.
+
+
+## [1.767.4] - 2026-07-08
+
+### Fixed
+
+- Retired `has_marketplace_health_coverage` from active input discovery by making it a compatibility alias, and canonicalized household health benefit accounting on annual health-value variables such as `assigned_aca_ptc`.
+
+
+## [1.767.3] - 2026-07-07
+
+### Changed
+
+- Nebraska Child Care Subsidy income eligibility and family fee now use gross countable income per 392 NAC 3-005.02, replacing federal adjusted gross income and SPM unit net income.
+
+### Fixed
+
+- Compute Texas Family Planning Program income eligibility from countable income under 1 TAC §382.109 (gross countable sources, exemptions, dependent care and child support deductions) instead of SPM unit net income.
+
+
+## [1.767.2] - 2026-07-07
+
+### Changed
+
+- Update HUD adjusted income for HOTMA (24 CFR 5.611): raise the elderly or disabled deduction to $525 in 2024 and $550 in 2026, the dependent deduction to $500 in 2026, and raise the medical expense threshold from 3% to 10% of annual income at the 2025-07-01 mandatory compliance deadline, treating all families as new admissions; count disabled adults and full-time students as dependents per 24 CFR 5.603; cap the childcare expense deduction at employment income per 24 CFR 5.611(a)(4); treat the oldest household member as the family head when no household head is designated; include attendant care expenses for disabled members in the medical expense deduction per 24 CFR 5.611(a)(3)(ii), capped at employment income.
+
+
+## [1.767.1] - 2026-07-07
+
+### Fixed
+
+- - Hardened ACA ZIP3 parsing so missing, nonnumeric, leading-zero, and ZIP+4 ZIP codes parse correctly instead of silently failing SLCSP rating-area lookups.
+
+
+## [1.767.0] - 2026-07-07
+
+### Added
+
+- Added a CHIP current-coverage input and counted it in reported non-Marketplace coverage checks.
+
+
+## [1.766.6] - 2026-07-07
+
+### Changed
+
+- Rework partner API contract tests to mirror live partner traffic: remove Louisiana cases (no partner sends Louisiana households), add lean Kansas coverage, set state via the state_code enum so fixtures stop evaluating under the California default, complete the before-labor-supply-response input migration for the remaining derived inputs (self-employment, SSTB, weekly hours, capital gains), replace artifact zero-benefit cases with parameter-derived positive and boundary pins, prune duplicate cases, add coverage for high-traffic untested outputs (Texas CEAP, Washington Apple Health kids eligibility, expansion-county general assistance), and fix signature-replay fixtures to use the exact input keys partners send.
+
+
+## [1.766.5] - 2026-07-07
+
+### Fixed
+
+- - Honored the IRC § 21(e)(4) separated-taxpayer exception in the South Carolina child and dependent care credit.
+  - Stopped the Idaho and Georgia contributed child tax credit reforms from applying in years before their in_effect activation date.
+  - Computed the Kentucky, Maine, and Vermont child and dependent care credits from the pre-OBBBA federal IRC § 21 credit for 2026, matching each state's static conformity to the Internal Revenue Code as of December 31, 2024.
+  - Reduced the California, Idaho, and Virginia child and dependent care benefit bases by employer-provided dependent care benefits excluded under IRC § 129, matching each state's form treatment and the federal IRC § 21(c) reduction.
+
+
+## [1.766.4] - 2026-07-06
+
+### Fixed
+
+- - Corrected the Colorado age 55-64 Social Security subtraction to allow the full taxable Social Security amount when AGI is at or below the filing-status threshold, per HB24-1142 (effective 2025).
+  - Updated Kentucky CCAP 85% SMI income limits to DCC-113 R.12/24 (effective 2025-10-01).
+  - Fixed the SNAP ABAWD dependent-child gate to key on any household member under the age threshold, per 7 CFR 273.24(c)(4), and removed the duplicate dead exemption branch.
+- The NYC School Tax Credit now computes through a formula so household output shows only the final credit rather than its fixed and rate-reduction components.
+
+
+## [1.766.3] - 2026-07-06
+
+### Fixed
+
+- - Aligned Florida TCA payment standard, income tests, earned income disregard, and minimum issuance with the DCF ESS Program Policy Manual and Appendix A-5.
+
+
+## [1.766.2] - 2026-07-06
+
+### Fixed
+
+- - Fixed the ACA 700% FPL cliff contrib reform to reuse the baseline ACA coverage and premium-paying gate, so Basic Health Program, Oregon Healthier Oregon, VA/CHAMPVA, and other minimum-essential-coverage exclusions and the below-FPL immigration exception apply to the reform.
+
+
+## [1.766.1] - 2026-07-06
+
+### Fixed
+
+- Extend the Maryland EITC federal minimum-age disregard to married childless filers.
+
+
+## [1.766.0] - 2026-07-06
+
+### Added
+
+- Added FY2026 HUD Section 8 income limits so period 2026 uses the current 30/50/80 percent AMI eligibility limits (effective 2026-05-01) instead of FY2025.
+
+
+## [1.765.6] - 2026-07-06
+
+### Fixed
+
+- - Added the Maine EITC childless age expansion (36 M.R.S. Sec. 5219-S) so filers aged 18-24 without a qualifying child receive the credit.
+  - Corrected the 2025 Maine sales tax fairness credit base amount to $215 for joint, head of household, and surviving spouse filers.
+
+
+## [1.765.5] - 2026-07-06
+
+### Fixed
+
+- - Reduced the federal Child and Dependent Care Credit dollar limit by employer-provided dependent care benefits excluded under IRC section 129, as required by section 21(c) and Form 2441 Part III, and added the One Big Beautiful Bill Act increase to the section 129 exclusion cap.
+
+
+## [1.765.4] - 2026-07-06
+
+### Fixed
+
+- Update the Georgia parent/caretaker Medicaid income limit to 0.31 FPL from 2025, reflecting the frozen-dollar standard's drift to 26% of FPL (plus the 5% MAGI disregard) per MACPAC Exhibit 36 (July 2025).
+
+
+## [1.765.3] - 2026-07-06
+
+### Fixed
+
+- - California AMT no longer double-adds disallowed itemized deductions; Schedule P (540) Part I now adds regular taxable income plus specific AMT adjustments minus the restored itemized deductions limitation (line 18), instead of adding the full pre-limitation itemized deductions.
+  - Arizona property tax credit now selects the higher Table 2 credit schedule for any claimant living with one or more other persons (including a non-spouse cohabitant), matching ARS 43-1072(A)(3)(b), rather than only for married couples and cohabitating spouses.
+  - Louisiana FITAP now rounds the grant deficit down to a whole dollar and pays no grant when the rounded deficit is below $10, per DCFS manual B-641-1-FITAP.
+  - Nevada TANF now rounds the monthly benefit down to a whole dollar and issues no regular benefit below $10, per Eligibility and Payments Manual A-660.12.
+
+
+## [1.765.2] - 2026-07-06
+
+### Fixed
+
+- Corrected four Colorado income tax provisions: the section 199A addback Schedule F farming exception, the 2026 federal deduction addback exemptions ($1,000 single / $2,000 joint), the 2026 child and dependent care credit (70% of the federal credit before the section 26 liability limitation, AGI up to $60,000), and the low-income child care credit statutory sunset after 2025.
+
+
+## [1.765.1] - 2026-07-06
+
+### Fixed
+
+- - Exempted post-retirement-age distributions from eligible Pennsylvania employer retirement plans (401(k), 403(b), SEP, Keogh) from PA taxable compensation, matching the existing IRA treatment.
+  - Moved the New Jersey 529 (NJBEST) contribution deduction from gross-income subtractions to taxable-income deductions so it no longer shifts the gross-income filing threshold.
+
+
+## [1.765.0] - 2026-07-06
+
+### Added
+
+- Added tests confirming Michigan, Missouri, and New Mexico state SSI supplement values for 2017-2019.
+
+
+## [1.764.6] - 2026-07-06
+
+### Fixed
+
+- Added FY2025 HUD Small Area Fair Market Rents so period 2025 uses FY2025 SAFMRs instead of borrowing FY2026 values.
+
+
+## [1.764.5] - 2026-07-06
+
+### Fixed
+
+- Fixed the Arkansas TEA below-trigger payment to pay the full flat grant per TEA Policy Manual 2362 and raised the Alabama TANF work expense deduction to the 30 percent promulgated in Ala. Admin. Code r. 660-2-2-.30.
+
+
+## [1.764.4] - 2026-07-06
+
+### Fixed
+
+- Applied the Illinois TANF minimum payment: income must fall below the payment level by at least one dollar for eligibility, monthly benefits round down to the nearest dollar, and benefits below one dollar are not paid.
+- Made the Massachusetts TAFDC financial eligibility income test inclusive at the Need Standard, per 106 CMR 704.260.
+
+
+## [1.764.3] - 2026-07-06
+
+### Fixed
+
+- - Migrated 156 partner YAML test fixtures from the derived `employment_income` input key to the actual `employment_income_before_lsr` input, fixing a latent bug where TANF and other earned-income-list programs silently saw $0 earnings in the `build_from_dict` test path; repinned the 17 output values this revealed as wrong across 8 fixture files (Head Start, school meals, Massachusetts EAEDC and TAFDC, Oregon SNAP).
+
+
+## [1.764.2] - 2026-07-06
+
+### Fixed
+
+- Cast two bool-bracket `.calc()` results to `bool` before negating them with `~` — in the Medicaid community engagement pass-through SNAP age exemption check and the ACA required contribution percentage income-eligibility check — preventing a bitwise-NOT-on-int64 bug from becoming live if the surrounding combining logic is ever refactored.
+
+
+## [1.764.1] - 2026-07-06
+
+### Fixed
+
+- Wired New York's orphaned itemized-deduction phase-out parameter into the IT-196 Line 40 pre-TCJA overall limitation (26 U.S.C. 68 via NY Tax Law 615 conformity), reducing itemized deductions by the lesser of 3% of federal AGI over the applicable amount or 80% of the deductions subject to the limitation.
+
+
+## [1.764.0] - 2026-07-06
+
+### Added
+
+- SNAP work registration exemption hooks for TANF work requirement compliance, drug/alcohol treatment program participation, and unemployment compensation applicants under 7 CFR 273.7(b)(1).
+
+
+## [1.763.0] - 2026-07-06
+
+### Added
+
+- Implement New Mexico Child Care Assistance Program (CCAP).
+- Model Alaska borough-level SNAP ABAWD time limit waivers, waiving the work requirement time limit for residents of waived boroughs and census areas identified by county FIPS code.
+
+### Fixed
+
+- Compute the Arkansas Child and Dependent Care Credit from IRC § 21 as in effect on January 2, 2013 per Ark. Code Ann. § 26-51-502(b), replicating Form AR2441's pre-ARPA computation from 2021 onward so the credit adopts neither ARPA's 2021 expansion nor the scheduled 2026 federal change, and using the credit allowable before the federal liability limitation.
+
+
+## [1.762.1] - 2026-07-06
+
+### Fixed
+
+- Excluded private employer (IRC section 401) pension income from the Oklahoma retirement benefit subtraction before tax year 2022.
+
+
+## [1.762.0] - 2026-07-06
+
+### Added
+
+- SNAP ABAWD work requirement support for qualifying work-program hours and workfare participation under 7 CFR 273.24(a)(1).
+
+### Fixed
+
+- Include disabled-adult care expenses (care_expenses) in the IRC § 21-conforming expense bases of the Virginia and Idaho dependent care deductions, the Oregon WFHDC credit, the Minnesota CDCC, and the Wisconsin childcare expense credit (2024 onward) and subtraction.
+- Apply Vermont's 2022 low-income AGI cap to the child and dependent care credit, end the 50 percent low-income credit after 2021, add the pre-2022 24 percent nonrefundable credit under 32 V.S.A. 5822(d)(1), and correct the state CDCC registry.
+
+
+## [1.761.1] - 2026-07-06
+
+### Fixed
+
+- Pack contrib/states CI test batches by reform-combo memory weight so no subprocess exceeds ~9 GB predicted peak, split the four over-budget dependent exemption/credit reform test files (OR, DE, OH, MD), and add a code-health test capping the reform-combo weight a single test file can carry.
+- Corrected the Georgia parent/caretaker Medicaid income limit to 0.33 FPL (28% dollar-based standard plus the 5% MAGI disregard) from 2024.
+- Updated the New York TANF earned income disregard to 62% (2023-06-01), 63% (2024-06-01), and 64% (2025-06-01) per the annual OTDA administrative directives.
+
+
+## [1.761.0] - 2026-07-06
+
+### Added
+
+- Add Nevada Child Care and Development Program (CCDP).
+- SNAP ABAWD former foster youth exemption (7 CFR 273.24(c)(9), pre-HR1 only) with tests, and documentation plus test coverage notes for the post-HR1 IHCIA Indian exemption input.
+
+
+## [1.760.0] - 2026-07-05
+
+### Added
+
+- Added a SNAP work requirements state coverage document and coverage tests for HR1 ABAWD effective dates across states.
+
+### Changed
+
+- Document SNAP work requirement modeling simplifications (ABAWD 3-in-36 time limit, voluntary quit, annual hours and unemployment compensation proxies) and correct the mislabeled HR1 ABAWD in-effect parameter.
+
+
+## [1.759.0] - 2026-07-05
+
+### Added
+
+- Add county-level HUD utility allowance schedules for Texas (TDHCA) and Kansas, move the schedules into parameters, and update Los Angeles County to the FY2025 schedule.
+- Model Hawaii and Alaska delayed adoption (2025-11-01) of the HR1 SNAP ABAWD work requirement changes via state-level hr1_in_effect parameters, and remove the unused exempt-states parameter.
+
+### Changed
+
+- Speed up and memory-harden CI: cache New York's pinned EITC/CTC tax-benefit systems (#8114), report per-case durations and per-batch peak memory in CI logs, and re-batch the test suite from measured per-batch peak RSS — finer single-worker batches across more runners so every subprocess stays at or below roughly half of the 16 GB runner memory, splitting the two heaviest contrib reform test files (RI CTC, CRFB employer payroll tax percentage) and the microsimulation pytest run into their own subprocesses.
+
+### Fixed
+
+- Apply the IRC § 21(e)(2) joint-return rule and § 21(e)(4) separated-taxpayer exception to the Wisconsin childcare expense credit (2024+) and subtraction, the New York CDCC, and the Hawaii CDCC, and restrict Hawaii's deemed earned income floor to a spouse who is a student or incapable of self-care.
+- Added North Dakota to the CCDF coverage list, matching its existing state implementation entry.
+
+
+## [1.758.0] - 2026-07-05
+
+### Added
+
+- Added SNAP ABAWD discretionary exemption hook: parameter for the exemption share of covered individuals under 7 U.S.C. 2015(o)(6) and a person-level input ORed into the ABAWD time limit exceptions.
+
+
+## [1.757.0] - 2026-07-05
+
+### Added
+
+- Added local income taxes for Yonkers, NY (resident surcharge and nonresident earnings tax), Wilmington, DE (earned income tax), and the Louisville/Jefferson County and Lexington/Fayette County, KY occupational license fees.
+- Add Montana Child Care Assistance Program (Best Beginnings Child Care Scholarship).
+
+### Changed
+
+- Registered nine existing local taxes in the program coverage registry (programs.yaml): Philadelphia wage tax, Kansas City and St. Louis earnings taxes, Indiana county income tax, Multnomah County Preschool for All tax, and the Denver, Glendale, Greenwood Village, and Sheridan occupational privilege taxes.
+
+### Fixed
+
+- Limited Alabama CHIP From-Conception-to-End-of-Pregnancy eligibility to its phased-in counties before statewide coverage from October 1, 2024.
+- Fix Maine property tax fairness credit senior benefit base, which never applied at the age-65 threshold because its enhanced-base parameter was mistyped as a marginal scale, and which no longer inflation-adjusts for 2026 onward because its uprating block was misplaced on the bracket instead of the amount.
+- Fix Wisconsin Act 15 retirement income exclusion to reduce WI income before the standard-deduction phaseout, so elderly filers with retirement income are no longer over-taxed.
+
+
+## [1.756.10] - 2026-07-05
+
+### Fixed
+
+- Fix Delaware Filing Status 4 to allocate non-refundable credits per-column instead of pooling at the tax-unit level, and elect the filing status on post-credit liability so the joint path is chosen when combined separate filing would waste credits.
+
+
+## [1.756.9] - 2026-07-05
+
+### Fixed
+
+- Move `uprating:` blocks from sibling-of-`values:` to `metadata:` across 33 parameter files (107 nodes: ME, NE, ND, NY, OH, RI state income tax, plus RI and NY contrib reforms), which the parameter loader was silently ignoring, freezing those thresholds and amounts at their last explicit value. Add a code-health test (`test_uprating_placement.py`) that fails on any future `values`/`uprating` sibling to guard against recurrence.
+
+
+## [1.756.8] - 2026-07-05
+
+### Fixed
+
+- - Added explicit 2026 values to Nebraska, Maine, and Rhode Island income tax parameters, and 2024-2025 values to New York's itemized deduction phase-out threshold, that had been frozen by a misplaced uprating block (#8905).
+
+
+## [1.756.7] - 2026-07-05
+
+### Fixed
+
+- Fixed the residential clean energy credit, energy efficient home improvement credit, and new/used clean vehicle credits to reflect their termination under the One Big Beautiful Bill Act (Pub. L. 119-21).
+
+
+## [1.756.6] - 2026-07-05
+
+### Fixed
+
+- - Added Saver's Credit joint AGI rate thresholds for 2024, 2025, and 2026 from IRS Notices 2023-75, 2024-80, and 2025-67.
+- Fixed the 2020 unemployment compensation exclusion to require AGI strictly below $150,000.
+
+
+## [1.756.5] - 2026-07-05
+
+### Fixed
+
+- - Fixed the Indiana EITC to use the current-year federal EITC for childless filers as well as filers with children, matching Schedule IN-EIC Section A, which applies the 10% match to all filers.
+- Backfilled the `state_code` enum from a `state_code_str`-only household input so every state-dependent variable resolves the intended state instead of the California default.
+
+
+## [1.756.4] - 2026-07-05
+
+### Fixed
+
+- Counted permanently and totally disabled adult dependents as qualifying children in the California, DC, Illinois, Colorado, Washington, and Minnesota EITC-style credits that rebuild the qualifying-child count directly.
+
+
+## [1.756.3] - 2026-07-05
+
+### Fixed
+
+- Fixed CHIP health benefit value counting for CHIP-eligible people who do not enroll.
+
+
+## [1.756.2] - 2026-07-05
+
+### Fixed
+
+- Included non-Schedule-D capital gain distributions in gross income, the preferential-rate capital gains base, and net investment income.
+- - Treated people denied Medicaid by work requirements as ineligible for ACA marketplace premium payment and premium tax credits.
+
+
+## [1.756.1] - 2026-07-05
+
+### Fixed
+
+- Fixed the reported federal Child Tax Credit value and EITC child count for permanently disabled adult dependents.
+- Modeled a Basic Health Program benefit value for enrolled households.
+
+
+## [1.756.0] - 2026-07-05
+
+### Added
+
+- Added an Alabama dependent exemption contributed reform with an adjustable per-dependent amount and optional age limit.
+- Added an optional age limit to the Arkansas dependent tax credit contributed reform.
+- Added an Arizona dependent tax credit contributed reform with an adjustable per-dependent amount and optional age limit.
+- Add California dependent credit age-gate contributed reform.
+- Add Georgia refundable child tax credit contributed reform.
+- Added Georgia dependent exemption age-gate contributed reform.
+- Add Iowa dependent credit age-gate contributed reform.
+- Add Idaho child tax credit revival contributed reform, with an optional refundable top-up.
+- Added Illinois dependent exemption age-gate contributed reform.
+- Added Kansas dependent exemption age-gate contributed reform.
+- Wire Maryland county income tax into the household tax and SALT aggregates, adding the local earned income credit and local poverty level credit.
+- Add Minnesota dependent exemption age-gate contributed reform.
+- Added Mississippi dependent exemption age-gate contributed reform.
+- Implemented North Dakota Child Care Assistance Program (CCAP).
+- Add New Jersey dependent exemption age-gate contributed reform.
+- Added a New York dependent exemption contributed reform with an adjustable per-dependent amount and an optional age limit.
+- Add South Carolina dependent exemption age-gate contributed reform.
+- Add schedule_d_capital_gain_distributions (memo component of long_term_capital_gains for Schedule D line 13 amounts) and capital_gain_distributions (total across both reporting routes).
+
+### Changed
+
+- Consolidated Nebraska Child Care Subsidy under the CCDF program coverage metadata, removing the duplicate standalone program entry.
+- Restructured Virginia income tax subtractions to attribute each subtraction to the recipient spouse through a shared person-level subtractions list used by both the tax-unit and per-person totals, leaving all calculated values unchanged.
+
+### Fixed
+
+- Fixed the Arizona property tax credit (Form 140PTC) to use the Table 2 (cohabitating) schedule for married couples living together per ARS 43-1072(B)(2).
+- California AMT (Schedule P Line 4) no longer adds back acquisition home mortgage interest, matching the federal AMT treatment.
+- Use the federally loss-limited net capital gain in the Delaware pension exclusion eligible-income basket.
+- Corrected the Virginia per-person adjusted gross income used by the Spouse Tax Adjustment to attribute each Virginia subtraction (Social Security, railroad retirement, unemployment, US government interest, military and disability subtractions, and the age deduction) to the spouse who received the income, preventing the adjustment from being wrongly granted to couples where one spouse only has Virginia-exempt income.
+- - Fix the Vermont retirement-income exemption eligibility gate to use the Social Security phase-out threshold for Social Security filers.
+- Compute the Indiana EITC for filers with children from the current-year federal EITC, per Schedule IN-EIC Section B, instead of a frozen 2023 IRC snapshot.
+- Limited the Missouri state-income-tax add-back to the federal SALT deduction after the OBBBA cap phase-down.
+- Exclude general sales tax from the New York itemized deduction per NY Tax Law section 615(c)(1).
+
+
+## [1.755.7] - 2026-07-05
+
+### Fixed
+
+- Update Colorado OAP and AND-CS grant standards for 2026.
+
+
+## [1.755.6] - 2026-07-04
+
+### Fixed
+
+- Fix the partner API impact Slack notification job crashing on pull requests that change more than 20 partner test files.
+
+
+## [1.755.5] - 2026-07-02
+
+### Fixed
+
+- Fix county computation over datasets and complete the County enum. Households storing county_fips (but no county) now map counties from FIPS instead of collapsing to first_county_in_state, restoring in_nyc and NYC income tax in microsimulation. The County enum gains 61 missing entries (31 state counties and independent cities including O'Brien County IA and nine Virginia cities, plus 30 territory rows), appended at the end because datasets persist county as enum indices. Unmappable county names return UNKNOWN instead of raising, and three_digit_zip_code no longer crashes on non-numeric zip codes.
+
+
+## [1.755.4] - 2026-07-02
+
+### Fixed
+
+- Include 5-year-olds in the Head Start age range, matching 45 CFR 1302.12(b), which covers children from age 3 up to compulsory school age.
+
+
+## [1.755.3] - 2026-07-02
+
+### Fixed
+
+- Apply New Jersey's filing-threshold tax floor (N.J.S.A. 54A:2-4) to New Jersey income tax before refundable credits, which previously bypassed it.
+- Reinstate California's non-MAGI Medi-Cal asset limit effective January 1, 2026 ($130,000 for an individual, $195,000 for a couple), per DHCS ACWDL 25-14.
+
+
+## [1.755.2] - 2026-07-02
+
+### Fixed
+
+- Improve federal Child and Dependent Care Credit conformance with IRC section 21: count a disabled spouse modeled as the tax unit head and treat a couple's two incapacitated spouses as one qualifying individual, apply the section 21(d)(2) deemed earned income for a student or incapacitated spouse (zero without a qualifying individual), disallow the credit for married taxpayers filing separately in the pre-cap credit so state credits computed from it conform, preserve it for a separated taxpayer maintaining a home for a qualifying individual under section 21(e)(4), and keep a child of separated parents as the custodial parent's qualifying individual under section 21(e)(5); exclude separate filers from Colorado's low-income child care credit while apportioning its expenses over children only, and extend the disabled-adult care expense base and the section 21 filing-status rules to the Massachusetts dependent care credit and California's 2021 replicated credit.
+
+
+## [1.755.1] - 2026-07-02
+
+### Fixed
+
+- Fixed the Oklahoma Child Care/Child Tax Credit to use the allowed federal child care credit (cdcc, after the federal tax-liability limit) instead of the pre-limit potential (cdcc_potential), which overstated the credit for filers whose federal CDCC is limited by federal tax.
+
+
+## [1.755.0] - 2026-07-01
+
+### Added
+
+- - Excluded children's earned income from Kansas TANF gross-income and countable income per KEESM 6410.
+  - Added a Kansas TANF earned income deduction for the care of an incapacitated person per K.A.R. 30-4-111(b)(3).
+
+
+## [1.754.0] - 2026-07-01
+
+### Added
+
+- Add ZIP code-level HUD Small Area FMR payment standards for the two mandatory-SAFMR Kansas metros (Kansas City, KS and Wichita, KS).
+- Add ZIP code-level Housing Choice Voucher payment standards for Texas, using TDHCA and Houston Housing Authority published standards plus HUD Small Area FMRs for the four mandatory-SAFMR metros.
+
+### Changed
+
+- Populate the previously stubbed small_area_fair_market_rent and safmr_used_for_hcv variables, activating the Harris Rent Relief Act contrib reform's SAFMR-based rent cap for the four mandatory-SAFMR Texas metros.
+
+
+## [1.753.5] - 2026-07-01
+
+### Fixed
+
+- Fixed the Utah fully refundable EITC contrib reform, which crashed at calculation time and paid no refundable credit to filers with no Utah tax liability.
+
+
+## [1.753.4] - 2026-07-01
+
+### Fixed
+
+- - Fixed CHIP FCEP eligibility so an undocumented pregnant parent is not denied the unborn-child CHIP option solely due to immigration status.
+
+
+## [1.753.3] - 2026-07-01
+
+### Changed
+
+- - Add FY2026 county-level HUD Fair Market Rents so simulations at period 2026 use FY2026 values, falling back to the nearest earlier bundled year for any county missing from the queried year.
+  - Align HUD annual income with 24 CFR 5.609 by counting additional sources, excluding children's and full-time-student dependents' earned income and foster members' income, and no longer counting capital gains or retirement-account distributions.
+
+
+## [1.753.2] - 2026-07-01
+
+### Fixed
+
+- Updated 2026 Medicare Part B and Part D IRMAA schedules and fixed the married-filing-separately Part B IRMAA bracket lookup.
+
+
+## [1.753.1] - 2026-07-01
+
+### Changed
+
+- Remove unused contrib parameters (maryland_child_alliance, second_earner_reform).
+
+
+## [1.753.0] - 2026-07-01
+
+### Added
+
+- Add discrete per-filing-status AGI-stepped schedule parameters to the Maryland and Ohio dependent exemption contrib reforms.
+
+
+## [1.752.3] - 2026-07-01
+
+### Fixed
+
+- Add care expenses for a disabled adult dependent or spouse to the Child and Dependent Care Credit base, via a new care_expenses input, so a disabled qualifying individual age 18 or older is no longer attributed $0 of care expenses; the federal credit and its state mirrors (e.g. Kansas) previously returned $0 in this case.
+
+
+## [1.752.2] - 2026-07-01
+
+### Fixed
+
+- Base the Washington Working Families Tax Credit phase-out on federal phase-out income (greater of earned income or AGI) rather than earned income alone.
+
+
+## [1.752.1] - 2026-07-01
+
+### Fixed
+
+- Base the Vermont Child Care Contribution on net self-employment earnings (Schedule SE Line 6) rather than gross self-employment income.
+
+
+## [1.752.0] - 2026-07-01
+
+### Added
+
+- - Modeled the SNAP student employment and training (7 CFR 273.5(b)(11)) and work incentive program (7 CFR 273.5(b)(4)) placement exemptions via the new `is_snap_employment_training_student` and `is_snap_work_incentive_student` inputs, combined as `is_snap_employment_training_or_work_incentive_student`.
+
+
+## [1.751.2] - 2026-07-01
+
+### Fixed
+
+- Apply the CHIP no-other-coverage rule to non-ESI health coverage.
+
+
+## [1.751.1] - 2026-06-30
+
+### Fixed
+
+- Correct child care program coverage metadata in programs.yaml (remove duplicate coverage key; mark Alabama, New Jersey, South Carolina, and Virginia child care programs as complete).
+
+
+## [1.751.0] - 2026-06-30
+
+### Added
+
+- Add Missouri Child Care Subsidy program.
+
+
+## [1.750.1] - 2026-06-30
+
+### Fixed
+
+- Confer SNAP categorical eligibility on households receiving cash TANF, bypassing the income and asset tests in non-BBCE states, and honor partner-reported SSI in the categorical eligibility SSI check.
+
+
+## [1.750.0] - 2026-06-30
+
+### Added
+
+- Add Michigan Child Development and Care (CDC) program.
+
+
+## [1.749.2] - 2026-06-30
+
+### Fixed
+
+- Use separate CHIP spending and enrollment to calculate per-capita CHIP values.
+
+
+## [1.749.1] - 2026-06-30
+
+### Changed
+
+- Replaced IL AABD-specific SSI override variables with the generic applicable_ssi variable and kept applicable SSI monthly for IL AABD income tests.
+
+
+## [1.749.0] - 2026-06-29
+
+### Added
+
+- Added Medicaid community engagement activity-hour pathways for community service, work programs, and mixed less-than-half-time education hours.
+- Added a seasonal-worker six-month average income pathway for Medicaid community engagement.
+- Added a Medicaid community engagement treatment-program exclusion input.
+
+### Fixed
+
+- Fixed the Medicaid community engagement income safe harbor to use Medicaid MAGI household income.
+
+
+## [1.748.0] - 2026-06-29
+
+### Added
+
+- Add Medicaid MAGI claimant tax unit links and missing-claimant fallback diagnostics.
+
+
+## [1.747.7] - 2026-06-29
+
+### Changed
+
+- Update New Jersey Stay NJ property tax relief baseline calculations.
+
+
+## [1.747.6] - 2026-06-29
+
+### Fixed
+
+- Fixed create-state EITC contrib reforms (ID, AZ, WV) that replaced each state's refundable-credits list with only the new EITC, deleting baseline refundable credits, and the NC reform that double-counted use tax in income tax.
+
+
+## [1.747.5] - 2026-06-29
+
+### Changed
+
+- Updated the Vermont renter credit for 2026 Act 169 (H.949): the fair market rent rate rises to 12.5% and the cap to $3,250 for claim year 2027, reverting to 10% and $2,500 for claim year 2028.
+
+
+## [1.747.4] - 2026-06-29
+
+### Fixed
+
+- Avoid calculating TANF when SNAP student ineligibility is evaluated for people who are not higher-education students.
+
+
+## [1.747.3] - 2026-06-29
+
+### Changed
+
+- Documented the certified PolicyEngine bundle install path for US users.
+
+
+## [1.747.2] - 2026-06-29
+
+### Fixed
+
+- Fixed an out-of-memory failure in the Rest CI runner by copying only the gov.contrib.states subtree (with its parent reference severed) in the dependent-exemption reform-activation test, instead of deep-copying the entire parameter tree.
+
+
+## [1.747.1] - 2026-06-29
+
+### Fixed
+
+- Avoid calculating the default county fallback when county FIPS inputs fully determine household counties.
+
+
+## [1.747.0] - 2026-06-29
+
+### Added
+
+- Added contributed reforms that separate the dependent portion of the personal exemption (or credit) for 11 states (AR, HI, IN, MD, MI, NE, OH, OK, VT, WI, WV), so the per-dependent amount can be adjusted or eliminated independently of the head/spouse exemption.
+
+
+## [1.746.0] - 2026-06-27
+
+### Added
+
+- Add FY2027 HHS State Median Income (SMI) values, effective October 1, 2026.
+
+
+## [1.745.0] - 2026-06-25
+
+### Added
+
+- Added a CBO source-aligned net business income variable for calibration target matching, and made ordinary dividend income the canonical variable while keeping dividend income as a legacy compatibility alias.
+
+
+## [1.744.0] - 2026-06-24
+
+### Added
+
+- Added shared-living and county-group payment standards to Kansas TANF, excluded SSI recipients from the assistance unit (its size and countable income, requiring at least one remaining member for eligibility), and excluded assigned child support from the benefit amount while still counting it for income eligibility.
+
+
+## [1.743.0] - 2026-06-24
+
+### Added
+
+- Added Arizona HB 4168 (2026) individual income tax changes: $125 under-17 dependent credit, capped full-amount charitable standard deduction add-on, $10,000 itemized SALT cap, and new dependent care and IRC 530A distribution subtractions (all effective 2026).
+
+
+## [1.742.0] - 2026-06-23
+
+### Added
+
+- Add use_reported_ssi toggle and applicable_ssi variable, letting API partners count reported SSI instead of calculated SSI in Texas CEAP income.
+
+
+## [1.741.2] - 2026-06-23
+
+### Fixed
+
+- Run reform YAML tests one file per subprocess in a dedicated CI job to fix out-of-memory failures.
+
+
+## [1.741.1] - 2026-06-23
+
+### Changed
+
+- Updated Hawaii TANF Standard of Assistance rate from 48% to 62% of the standard of need, effective March 1, 2025.
+
+
+## [1.741.0] - 2026-06-23
+
+### Added
+
+- Added a South Carolina fully refundable EITC contrib reform for the Child Poverty Impact Dashboard.
+
+
+## [1.740.0] - 2026-06-23
+
+### Added
+
+- Added a dedicated South Carolina dependent exemption parameter (Section 12-6-1140), with the young child deduction (Section 12-6-1160) set equal to it; no change to calculated values.
+
+
 ## [1.739.4] - 2026-06-21
 
 ### Fixed
