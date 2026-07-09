@@ -24,9 +24,14 @@ class mo_tanf_child_care_deduction(Variable):
             "is_incapable_of_self_care", period.this_year
         )
         age = person("age", period.this_year)
+        # Children use their age-based rate; the older-age zero-out reflects
+        # children aging out of care. An incapacitated adult instead receives
+        # the standard age-two-or-older rate ($175), so evaluate the schedule
+        # at the age-two boundary for them.
+        cap_age = where(incapacitated_adult, p.amount.thresholds[1], age)
         childcare_expenses = spm_unit("childcare_expenses", period)
         adult_care_expenses = add(spm_unit, period, ["care_expenses"])
         care_recipient = dependent | incapacitated_adult
-        max_deduction_per_person = p.amount.calc(age) * care_recipient
+        max_deduction_per_person = p.amount.calc(cap_age) * care_recipient
         total_max_deduction = spm_unit.sum(max_deduction_per_person)
         return min_(childcare_expenses + adult_care_expenses, total_max_deduction)

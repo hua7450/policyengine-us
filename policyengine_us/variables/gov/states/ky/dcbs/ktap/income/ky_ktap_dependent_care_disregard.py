@@ -21,8 +21,13 @@ class ky_ktap_dependent_care_disregard(Variable):
             "is_incapable_of_self_care", period.this_year
         )
         age = person("age", period.this_year)
+        # Children use their age-based rate; the older-age zero-out reflects
+        # children aging out of care. An incapacitated adult instead receives
+        # the standard age-two-or-older rate per 921 KAR 2:016 Section
+        # 5(3)(b)2, so evaluate the schedule at the age-two boundary for them.
+        cap_age = where(incapacitated_adult, p.dependent_care.thresholds[1], age)
         care_recipient = is_dependent | incapacitated_adult
-        max_per_person = p.dependent_care.calc(age) * care_recipient
+        max_per_person = p.dependent_care.calc(cap_age) * care_recipient
         total_max_disregard = spm_unit.sum(max_per_person)
         childcare_expenses = spm_unit("childcare_expenses", period)
         adult_care_expenses = add(spm_unit, period, ["care_expenses"])
