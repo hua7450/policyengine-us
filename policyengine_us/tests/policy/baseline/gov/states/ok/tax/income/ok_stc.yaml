@@ -49,7 +49,7 @@
     spm_units:
       spm_unit:
         members: [head, child]
-        is_tanf_enrolled: true
+        tanf: 1_200
     households:
       household:
         members: [head, child]
@@ -58,7 +58,7 @@
     # Actual TANF recipients excluded (TANF includes sales tax relief)
     ok_stc: 0
 
-- name: OK STC - 2025 - modeled-TANF-eligible family still gets credit
+- name: OK STC - 2025 - family not receiving TANF still gets credit
   period: 2025
   input:
     people:
@@ -78,14 +78,15 @@
     spm_units:
       spm_unit:
         members: [head, spouse, child1, child2, child3, child4]
+        # The family does not actually receive TANF; zero out the modeled
+        # amount, as an API user who knows actual receipt would.
+        tanf: 0
     households:
       household:
         members: [head, spouse, child1, child2, child3, child4]
         state_code: OK
   output:
-    # Family is not enrolled in TANF (is_tanf_enrolled defaults to false),
-    # so the credit applies even though the model would impute TANF
-    # eligibility. 6 exemptions * $40 = $240. See policyengine-taxsim#988.
+    # 6 exemptions * $40 = $240. See policyengine-taxsim#988.
     ok_stc: 240
 
 # 2025 Sales Tax Credit Tests
