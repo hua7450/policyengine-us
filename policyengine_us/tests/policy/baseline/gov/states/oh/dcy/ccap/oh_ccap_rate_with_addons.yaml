@@ -242,8 +242,8 @@
         state_code: OH
         county_str: STARK_COUNTY_OH
   output:
-    # 25% + 5% + 5% = 35%; 823.333 * 1.35 = 1,111.5
-    oh_ccap_rate_with_addons: [0, 1_111.5]
+    # (823.333 * 1.25) * 1.10 = 1,132.083.
+    oh_ccap_rate_with_addons: [0, 1_132.08]
 
 - name: Case 11, add-ons are capped at the provider's customary charge.
   period: 2026-01

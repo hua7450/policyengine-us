@@ -54,15 +54,6 @@ class oh_ccap_copay(Variable):
         # Convert the weekly copay to a monthly amount for the MONTH-period
         # benefit (WEEKS_IN_YEAR weeks per year, MONTHS_IN_YEAR months).
         monthly_copay = weekly_copay * WEEKS_IN_YEAR / MONTHS_IN_YEAR
-        # 5180:2-16-05(G): the copayment is waived for families receiving
-        # protective or homeless child care.
-        person = spm_unit.members
-        protective = (
-            spm_unit.sum(
-                person("receives_or_needs_protective_services", period.this_year)
-                | person("is_in_foster_care", period)
-            )
-            > 0
-        )
+        protective = spm_unit("oh_ccap_protective_care", period)
         is_homeless = spm_unit.household("is_homeless", period.this_year)
         return where(protective | is_homeless, 0, monthly_copay)

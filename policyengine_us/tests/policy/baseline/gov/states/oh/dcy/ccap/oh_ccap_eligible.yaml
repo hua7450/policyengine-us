@@ -94,13 +94,13 @@
       person1:
         age: 30
         employment_income: 24_000
+        bank_account_assets: 2_000_000
       person2:
         age: 3
         immigration_status: CITIZEN
     spm_units:
       spm_unit:
         members: [person1, person2]
-        spm_unit_assets: 2_000_000
     households:
       household:
         members: [person1, person2]
@@ -211,4 +211,45 @@
     # Size 6: monthly 100% FPG = 3,696.67; 145% intake limit = 5,360.17;
     # income 4,000/month is below the limit.
     oh_ccap_eligible_child: [false, false, true, true, false, false]
+    oh_ccap_eligible: true
+
+- name: Case 10, the supported Ohio CCAP rules do not apply before November 2025.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 24_000
+      person2:
+        age: 3
+        immigration_status: CITIZEN
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: OH
+  output:
+    oh_ccap_eligible: false
+
+- name: Case 11, protective care bypasses income, assets, and activity tests.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+        bank_account_assets: 2_000_000
+      person2:
+        age: 3
+        immigration_status: CITIZEN
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        oh_ccap_protective_care: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: OH
+  output:
     oh_ccap_eligible: true

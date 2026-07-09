@@ -11,18 +11,17 @@ class oh_ccap_countable_income(Variable):
     reference = "https://codes.ohio.gov/ohio-administrative-code/rule-5180:2-16-03"
 
     def formula(spm_unit, period, parameters):
-        # 5180:2-16-03: countable income is gross earned plus gross unearned
-        # income, minus the enumerated exclusions. The countable sources are
-        # listed in income/countable_income/sources.yaml.
         p = parameters(period).gov.states.oh.dcy.ccap.income
         sources = add(spm_unit, period, p.countable_income.sources)
-        # 5180:2-16-03(F)(8) & (I)(1): SSI is excluded, and so is any income
-        # earned by a person receiving SSI. SSI itself is already omitted from
-        # the sources list, but the earned-income exclusion cannot be expressed
-        # by a list omission, so we subtract the earned income of SSI
-        # recipients here.
         person = spm_unit.members
         receives_ssi = person("ssi", period) > 0
+        is_excluded_minor_student = (
+            (person("age", period.this_year) < p.countable_income.minor_age_limit)
+            & person("is_full_time_student", period.this_year)
+            & ~person("is_parent", period.this_year)
+        )
         person_earned_income = add(person, period, p.countable_income.earned_sources)
-        ssi_recipient_earned_income = spm_unit.sum(person_earned_income * receives_ssi)
-        return sources - ssi_recipient_earned_income
+        excluded_earned_income = spm_unit.sum(
+            person_earned_income * (receives_ssi | is_excluded_minor_student)
+        )
+        return sources - excluded_earned_income

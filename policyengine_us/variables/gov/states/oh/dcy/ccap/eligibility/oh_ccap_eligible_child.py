@@ -7,24 +7,23 @@ class oh_ccap_eligible_child(Variable):
     label = "Eligible child for Ohio CCAP"
     definition_period = MONTH
     defined_for = StateCode.OH
-    reference = ("https://codes.ohio.gov/ohio-administrative-code/rule-5180:2-16-01",)
+    reference = (
+        "https://codes.ohio.gov/ohio-administrative-code/rule-5180:2-16-01",
+        "https://codes.ohio.gov/ohio-administrative-code/rule-5180:6-1-02",
+    )
 
     def formula(person, period, parameters):
-        # 5180:2-16-01(V): publicly funded child care covers children under
-        # age 13. 5180:2-16-01(AA),(W): a special-needs child (chronic health
-        # condition or developmental delay) qualifies up to age 18. We use
-        # has_developmental_delay as the special-needs proxy.
         p = parameters(period).gov.states.oh.dcy.ccap.eligibility
         age = person("age", period.this_year)
-        has_developmental_delay = person("has_developmental_delay", period.this_year)
-        age_eligible = where(
-            has_developmental_delay,
+        special_needs = person("oh_ccap_special_needs", period)
+        age_eligible_now = where(
+            special_needs,
             age < p.special_needs_child_age_limit,
             age < p.child_age_limit,
         )
-        # 5180:2-16-01 Appendix B / 45 CFR 98.20: only the child in need of
-        # care must meet citizenship or qualified-noncitizen status; the
-        # parent's immigration status is not tested.
+        age_eligible = age_eligible_now | person(
+            "oh_ccap_eligibility_period_continues", period
+        )
         immigration_eligible = person(
             "is_ccdf_immigration_eligible_child", period.this_year
         )

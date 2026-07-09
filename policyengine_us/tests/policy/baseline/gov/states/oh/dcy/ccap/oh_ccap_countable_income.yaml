@@ -112,3 +112,45 @@
         state_code: OH
   output:
     oh_ccap_countable_income: -5_000
+
+- name: Case 6, non-parent minor full-time student earnings are excluded.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 35
+        employment_income: 24_000
+      person2:
+        age: 17
+        employment_income: 12_000
+        is_full_time_student: true
+      person3:
+        age: 3
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: OH
+  output:
+    oh_ccap_countable_income: 2_000
+
+- name: Case 7, Ohio Works First basic assistance is countable.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 35
+      person2:
+        age: 3
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        oh_ccap_owf_basic_assistance: 500
+    households:
+      household:
+        members: [person1, person2]
+        state_code: OH
+  output:
+    oh_ccap_countable_income: 500

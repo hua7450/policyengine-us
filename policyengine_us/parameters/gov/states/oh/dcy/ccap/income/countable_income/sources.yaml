@@ -24,15 +24,7 @@ values:
     # 5180:2-16-03(H)(3)(c): railroad disability, retirement, or survivor's
     # benefits are countable unearned income.
     - railroad_benefits
-    # Basic assistance payments from Ohio Works First (OWF) are countable per
-    # 5180:2-16-03(H)(3)(j) but are omitted here to avoid a circular
-    # dependency:
-    #   oh_ccap_countable_income -> tanf -> oh_owf
-    #     -> dependent care deduction -> childcare_expenses -> oh_ccap
-    #     -> oh_ccap_income_eligible -> oh_ccap_countable_income
-    # The is_tanf_enrolled bypass in oh_ccap_income_eligible already makes
-    # TANF-active families categorically income-eligible.
-    # - tanf  # would belong here
+    - oh_ccap_owf_basic_assistance
     #
     # Excluded sources (5180:2-16-03(F), (I)) — so simply not listed:
     # - ssi (excluded per (I)(1)); the earned income of SSI recipients is
@@ -44,10 +36,6 @@ values:
     #   home energy assistance (I)(12), non-recurring lump sums (I)(23) — none
     #   are in the PolicyEngine income-source list, so nothing to exclude.
     #
-    # Provisions we don't model at the moment:
-    # - (F)(1) minor full-time-student earnings exclusion (unless the minor is
-    #   a parent) — a list of sources cannot filter income by the earner's age.
-
 metadata:
   unit: list
   period: year

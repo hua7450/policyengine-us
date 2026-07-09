@@ -7,4 +7,4 @@ class oh_ccap_has_special_accommodations(Variable):
     definition_period = MONTH
     label = "Whether the Ohio CCAP child has approved special accommodations"
     defined_for = StateCode.OH
-    reference = "https://codes.ohio.gov/ohio-administrative-code/rule-5180:6-1-09"
+    reference = "https://codes.ohio.gov/ohio-administrative-code/rule-5180:2-16-09"

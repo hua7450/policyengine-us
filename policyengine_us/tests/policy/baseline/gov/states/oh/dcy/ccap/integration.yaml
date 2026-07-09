@@ -38,9 +38,7 @@
     # Income 2,000/month <= 145% of 1,803.33 = 2,614.83.
     oh_ccap_income_eligible: true
     oh_ccap_eligible: true
-    # The age-group formula runs for everyone; the 30-year-old parent maps to
-    # the School-Age band (oldest), and the child is a toddler.
-    oh_ccap_child_age_group: [SCHOOL_AGE, TODDLER]
+    oh_ccap_child_age_group: [PRESCHOOL, TODDLER]
     oh_ccap_county_rate_category: CATEGORY_3
     # Base = 292.15/week * 52 / 12 = 1,265.98; no add-ons; under the 2,500 cap.
     oh_ccap_base_rate: [0, 1_265.98]
@@ -82,8 +80,7 @@
   output:
     oh_ccap_income_eligible: true  # 3,000/month <= 145% of 2,276.67 = 3,301.17
     oh_ccap_eligible: true
-    # Both parents map to the School-Age band; the child is preschool.
-    oh_ccap_child_age_group: [SCHOOL_AGE, SCHOOL_AGE, PRESCHOOL]
+    oh_ccap_child_age_group: [PRESCHOOL, PRESCHOOL, PRESCHOOL]
     oh_ccap_county_rate_category: CATEGORY_2
     # Base = 190/week * 52 / 12 = 823.33; Gold +25% = 1,029.17.
     oh_ccap_rate_with_addons: [0, 0, 1_029.17]
@@ -127,9 +124,7 @@
   output:
     oh_ccap_eligible_child: [false, true, true]
     oh_ccap_eligible: true  # 2,000/month <= 145% of 2,276.67 = 3,301.17 (size 3)
-    # The parent maps to the School-Age band; the children are infant and
-    # school-age (school year in January).
-    oh_ccap_child_age_group: [SCHOOL_AGE, INFANT, SCHOOL_AGE]
+    oh_ccap_child_age_group: [PRESCHOOL, INFANT, SCHOOL_AGE]
     # Infant base = 325/week * 52 / 12 = 1,408.33;
     # School-age base = 165/week * 52 / 12 = 715.
     oh_ccap_rate_with_addons: [0, 1_408.33, 715]
@@ -388,3 +383,30 @@
     oh_ccap_copay: 160
     # 881.35 - 160 = 721.35.
     oh_ccap: 721.35
+
+- name: Case 11, positive copay cannot make an eligible hourly-care subsidy negative.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 24_000
+      person2:
+        age: 2
+        immigration_status: CITIZEN
+        oh_ccap_provider_type: CENTER
+        childcare_hours_per_week: 1
+        pre_subsidy_childcare_expenses: 30_000
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: OH
+        county_str: FRANKLIN_COUNTY_OH
+  output:
+    oh_ccap_rate_with_addons: [0, 56.33]
+    oh_ccap_copay: 160
+    oh_ccap: 0

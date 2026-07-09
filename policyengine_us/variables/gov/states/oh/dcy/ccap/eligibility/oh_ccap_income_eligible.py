@@ -10,6 +10,7 @@ class oh_ccap_income_eligible(Variable):
     reference = (
         "https://dam.assets.ohio.gov/image/upload/childrenandyouth.ohio.gov/For%20Partners/Rules%20and%20Resources/2025/PL_21.pdf#page=2",
         "https://codes.ohio.gov/ohio-administrative-code/rule-5180:2-16-03",
+        "https://codes.ohio.gov/ohio-administrative-code/rule-5180:6-1-02",
     )
 
     def formula(spm_unit, period, parameters):
@@ -22,13 +23,10 @@ class oh_ccap_income_eligible(Variable):
         # spm_unit_fpg is YEAR-defined; the bare period auto-divides to monthly.
         fpg = spm_unit("spm_unit_fpg", period)
         person = spm_unit.members
-        has_special_needs_child = (
-            spm_unit.sum(
-                person("oh_ccap_eligible_child", period)
-                & person("has_developmental_delay", period.this_year)
-            )
-            > 0
+        special_needs_child = person("oh_ccap_eligible_child", period) & person(
+            "oh_ccap_special_needs", period
         )
+        has_special_needs_child = spm_unit.sum(special_needs_child) > 0
         # A special-needs child raises the initial limit to 150% FPG.
         initial_limit = fpg * where(
             has_special_needs_child,
