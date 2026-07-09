@@ -25,8 +25,12 @@ class hi_dependent_care_benefits(Variable):
         # line 2:
         dcb_amount = add(tax_unit, period, ["dependent_care_employer_benefits"])
         # line 3, 4 are ignored, so line 5 = line 2
-        # line 6:
-        qualified_expense_amount = tax_unit("tax_unit_childcare_expenses", period)
+        # line 6: qualified expenses cover care for any qualifying
+        # individual under HRS 235-55.6(b)(1), including a dependent or
+        # spouse incapable of self-care, so adult care expenses count.
+        childcare_expenses = tax_unit("tax_unit_childcare_expenses", period)
+        adult_care_expenses = add(tax_unit, period, ["care_expenses"])
+        qualified_expense_amount = childcare_expenses + adult_care_expenses
         # line 7 = min(line 5, line 6) = min(line 2, line 6):
         capped_expenses = min_(dcb_amount, qualified_expense_amount)
         # line 8 & line 9:

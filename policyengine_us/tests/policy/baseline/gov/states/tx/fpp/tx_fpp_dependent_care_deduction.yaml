@@ -1,0 +1,84 @@
+- name: Case 1, child under two with childcare expenses above the cap.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 1
+        pre_subsidy_childcare_expenses: 3_000
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: TX
+  output:
+    # min(3,000, 200 x 12) = 2,400
+    tx_fpp_dependent_care_deduction: 2_400
+
+- name: Case 2, disabled adult dependent with care expenses above the cap.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 25
+        is_disabled: true
+        care_expenses: 3_000
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: TX
+  output:
+    # min(3,000, 175 x 12) = 2,100
+    tx_fpp_dependent_care_deduction: 2_100
+
+- name: Case 3, disabled adult dependent with care expenses below the cap.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 25
+        is_disabled: true
+        care_expenses: 1_200
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: TX
+  output:
+    # min(1,200, 175 x 12) = 1,200
+    tx_fpp_dependent_care_deduction: 1_200
+
+- name: Case 4, non-disabled adult with care expenses receives no deduction.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 25
+        care_expenses: 1_200
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: TX
+  output:
+    tx_fpp_dependent_care_deduction: 0

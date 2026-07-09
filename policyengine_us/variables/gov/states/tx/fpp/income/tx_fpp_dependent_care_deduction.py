@@ -16,11 +16,15 @@ class tx_fpp_dependent_care_deduction(Variable):
     def formula(spm_unit, period, parameters):
         p = parameters(period).gov.states.tx.fpp.income
         person = spm_unit.members
-        expenses = person("pre_subsidy_childcare_expenses", period)
-        age = person("age", period)
         # 1 TAC 382.109(2)(A) covers child dependents ($200 per month
-        # under age two, $175 per month otherwise); (2)(B) limits the
-        # adult deduction to dependent adults with a disability.
+        # under age two, $175 per month otherwise); (2)(B) allows up to
+        # $175 per month for each dependent adult with a disability.
+        # Childcare expenses fund the child deduction; adult care
+        # expenses fund the disabled-adult one.
+        childcare_expenses = person("pre_subsidy_childcare_expenses", period)
+        adult_care_expenses = person("care_expenses", period)
+        expenses = childcare_expenses + adult_care_expenses
+        age = person("age", period)
         is_child = age < p.child_age_threshold
         eligible_dependent = is_child | person("is_disabled", period)
         monthly_cap = p.dependent_care.calc(age)
