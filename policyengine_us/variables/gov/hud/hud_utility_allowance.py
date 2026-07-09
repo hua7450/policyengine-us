@@ -14,9 +14,10 @@ class hud_utility_allowance(Variable):
     documentation = (
         "Monthly utility allowance for HUD programs, annualized. Set per public "
         "housing agency by bedroom size; encoded for the counties PolicyEngine "
-        "models (LA County, the Texas TDHCA service area, and four Kansas PHAs). "
-        "Each schedule is summed over all tenant-paid utilities assuming a "
-        "Multi-Family, all-electric unit. SRO units use the published SRO row "
+        "models (LA County, the Texas TDHCA service area, six Texas metro PHAs, "
+        "and four Kansas PHAs). Each schedule is summed over all tenant-paid "
+        "utilities assuming a Multi-Family, all-electric unit. SRO units use the "
+        "published SRO row "
         "where one exists, otherwise 75% of the zero-bedroom value per 24 CFR "
         "982.604(b). Returns 0 for counties without an encoded schedule."
     )
@@ -31,6 +32,23 @@ class hud_utility_allowance(Variable):
         "https://www.lacda.org/docs/librariesprovider25/shared-content---documents/utility-allowance/lacda-utility-allowance-schedule-7-1-2025.pdf",
         # Texas (TDHCA service area), effective 2026-01-01.
         "https://www.tdhca.texas.gov/section-8-resources",
+        # Dallas Housing Authority, apartment/condo/townhouse schedule,
+        # effective 2026-01-01.
+        "https://dhantx.com/wp-content/uploads/2025/12/HCV-2026-Utility-Allowances-Apt-Townhouse.pdf",
+        # El Paso County Housing Authority, apartment schedule, effective 2026.
+        "https://epcha.org/hcv-utility-allowances",
+        # Tarrant County Housing Assistance Office, multi-family homes,
+        # effective 2026-01-01.
+        "https://www.tarrantcountytx.gov/content/dam/main/housing-assistance/Documents/TCHAO_Multi-Family%20Homes_Effec.%2001-01-2026.pdf",
+        # Housing Authority of the City of Austin, multi-family elevator
+        # schedule, effective 2025-06-01.
+        "https://www.hacanet.org/wp-content/uploads/2025/03/Utility-Allowance-Schedule-06-01-2025.pdf",
+        # Harris County Housing Authority, low-rise apartment schedule,
+        # effective 2025-04-01.
+        "https://hchatexas.org/wp-content/uploads/HCHA-2025-Utility-Allowance-Chart-Apartments-52667.pdf",
+        # Housing Authority of Bexar County, multi-family schedule, effective
+        # 2026-01-01.
+        "https://habctx.org/wp-content/uploads/2025/06/Multi-Family-UA-2026.pdf",
         # Wichita Housing Authority (Sedgwick County), effective 2025-07-01.
         "https://www.wichita.gov/DocumentCenter/View/31965/2025-Utility-Allowances",
         # Topeka Housing Authority (Shawnee County), effective 2025.
