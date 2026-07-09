@@ -4,11 +4,11 @@
     people:
       person_1: 
         age: 20
-        is_disabled: false
+        is_incapable_of_self_care: false
         is_tax_unit_dependent: true
       person_2:
         age: 17
-        is_disabled: false
+        is_incapable_of_self_care: false
         is_tax_unit_dependent: true
     households:
       household:
@@ -23,11 +23,11 @@
     people:
       person_1: 
         age: 14
-        is_disabled: false
+        is_incapable_of_self_care: false
         is_tax_unit_dependent: true
       person_2:
         age: 13
-        is_disabled: false
+        is_incapable_of_self_care: false
         is_tax_unit_dependent: true
     households:
       household:
@@ -42,11 +42,11 @@
     people:
       person_1: 
         age: 15
-        is_disabled: false
+        is_incapable_of_self_care: false
         is_tax_unit_dependent: true
       person_2:
         age: 15
-        is_disabled: false
+        is_incapable_of_self_care: false
         is_tax_unit_dependent: true
     households:
       household:
@@ -55,17 +55,17 @@
   output:
     mt_child_dependent_care_expense_deduction_eligible_child: 0
 
-- name: Noneligible children without disability
+- name: Noneligible children capable of self-care
   period: 2021
   input:
     people:
       person_1: 
         age: 20
-        is_disabled: false
+        is_incapable_of_self_care: false
         is_tax_unit_dependent: true
       person_2:
         age: 20
-        is_disabled: false
+        is_incapable_of_self_care: false
         is_tax_unit_dependent: true
     households:
       household:
@@ -74,17 +74,17 @@
   output:
     mt_child_dependent_care_expense_deduction_eligible_child: 0
 
-- name: Eligible children with disability
+- name: Eligible children incapable of self-care
   period: 2021
   input:
     people:
       person_1: 
         age: 16
-        is_disabled: true
+        is_incapable_of_self_care: true
         is_tax_unit_dependent: true
       person_2:
         age: 16
-        is_disabled: true
+        is_incapable_of_self_care: true
         is_tax_unit_dependent: true
     households:
       household:

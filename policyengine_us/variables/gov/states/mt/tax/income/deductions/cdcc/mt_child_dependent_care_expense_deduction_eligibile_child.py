@@ -15,4 +15,7 @@ class mt_child_dependent_care_expense_deduction_eligible_child(Variable):
         age = person("age", period)
         dependent = person("is_tax_unit_dependent", period)
         age_eligible = age < p.age_limit
-        return dependent & (age_eligible | person("is_disabled", period))
+        # MCA 15-30-2131(1)(c) waives the age limit for a dependent "unable
+        # to provide self-care because of physical or mental illness".
+        incapable_of_self_care = person("is_incapable_of_self_care", period)
+        return dependent & (age_eligible | incapable_of_self_care)

@@ -9,9 +9,9 @@ class hi_dependent_care_benefits(Variable):
     unit = USD
     definition_period = YEAR
     reference = (
-        "https://files.hawaii.gov/tax/legal/hrs/hrs_235.pdf#page=40"
-        "https://files.hawaii.gov/tax/forms/2022/schx_i.pdf#page=1"
-        "https://files.hawaii.gov/tax/forms/2022/n11ins.pdf#page=28"
+        "https://files.hawaii.gov/tax/legal/hrs/hrs_235.pdf#page=46",
+        "https://files.hawaii.gov/tax/forms/2022/schx_i.pdf#page=1",
+        "https://files.hawaii.gov/tax/forms/2022/n11ins.pdf#page=28",
     )
 
     def formula(tax_unit, period, parameters):
