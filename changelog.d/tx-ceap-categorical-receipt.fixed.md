@@ -1,0 +1,1 @@
+Key Texas Comprehensive Energy Assistance Program categorical eligibility on calculated TANF, SNAP, and SSI receipt per 42 USC 8624(b)(2)(A), replacing the enrollment-flag and eligibility-only checks.

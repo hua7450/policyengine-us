@@ -17,7 +17,6 @@
     employment_income: 60_000
     spm_unit_size: 4
     state_code: TX
-    is_snap_eligible: false
   output:
     tx_ceap_eligible: false
 
@@ -60,17 +59,45 @@
     employment_income: 50_000
     spm_unit_size: 4
     state_code: TX
-    is_snap_eligible: false
   output:
     tx_ceap_eligible: false
 
-- name: Case 7, SNAP-eligible household above income limit is categorically eligible.
+- name: Case 7, household receiving SNAP above the income limit is categorically eligible.
   absolute_error_margin: 0.1
   period: 2024
   input:
     employment_income: 80_000
     spm_unit_size: 1
     state_code: TX
-    is_snap_eligible: true
+    snap: 2_400
+  output:
+    tx_ceap_eligible: true
+
+- name: Case 8, household receiving TANF above the income limit is categorically eligible.
+  period: 2024
+  input:
+    employment_income: 80_000
+    spm_unit_size: 1
+    state_code: TX
+    tanf: 1_200
+  output:
+    tx_ceap_eligible: true
+
+- name: Case 9, household with a member receiving SSI above the income limit is categorically eligible.
+  period: 2024
+  input:
+    people:
+      person1:
+        employment_income: 80_000
+        ssi: 0
+      person2:
+        ssi: 9_000
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: TX
   output:
     tx_ceap_eligible: true
