@@ -1,0 +1,349 @@
+# Every provider type, rate area, age group, and billing tier is covered.
+
+- name: Case 1, Area A standard family infant hourly.
+  period: 2027-01
+  absolute_error_margin: 0.01
+  input:
+    or_erdc_eligible_child: true
+    or_erdc_provider_area: AREA_A
+    or_erdc_provider_type: STANDARD_FAMILY
+    or_erdc_age_group: INFANT
+    or_erdc_monthly_care_hours: 10
+    state_code: OR
+  output:
+    or_erdc_maximum_monthly_rate: 65
+
+- name: Case 2, Area A standard center toddler monthly.
+  period: 2027-01
+  absolute_error_margin: 0.01
+  input:
+    or_erdc_eligible_child: true
+    or_erdc_provider_area: AREA_A
+    or_erdc_provider_type: STANDARD_CENTER
+    or_erdc_age_group: TODDLER
+    or_erdc_monthly_care_hours: 200
+    state_code: OR
+  output:
+    or_erdc_maximum_monthly_rate: 1490
+
+- name: Case 3, Area A enhanced family preschool part-time.
+  period: 2027-01
+  absolute_error_margin: 0.01
+  input:
+    or_erdc_eligible_child: true
+    or_erdc_provider_area: AREA_A
+    or_erdc_provider_type: ENHANCED_FAMILY
+    or_erdc_age_group: PRESCHOOL
+    or_erdc_monthly_care_hours: 100
+    state_code: OR
+  output:
+    or_erdc_maximum_monthly_rate: 737
+
+- name: Case 4, Area A enhanced center school hourly.
+  period: 2027-01
+  absolute_error_margin: 0.01
+  input:
+    or_erdc_eligible_child: true
+    or_erdc_provider_area: AREA_A
+    or_erdc_provider_type: ENHANCED_CENTER
+    or_erdc_age_group: SCHOOL
+    or_erdc_monthly_care_hours: 10
+    state_code: OR
+  output:
+    or_erdc_maximum_monthly_rate: 90.7
+
+- name: Case 5, Area A registered family special needs monthly.
+  period: 2027-01
+  absolute_error_margin: 0.01
+  input:
+    or_erdc_eligible_child: true
+    or_erdc_provider_area: AREA_A
+    or_erdc_provider_type: REGISTERED_FAMILY
+    or_erdc_age_group: SPECIAL_NEEDS
+    or_erdc_monthly_care_hours: 200
+    state_code: OR
+  output:
+    or_erdc_maximum_monthly_rate: 1233.33
+
+- name: Case 6, Area A certified family infant part-time.
+  period: 2027-01
+  absolute_error_margin: 0.01
+  input:
+    or_erdc_eligible_child: true
+    or_erdc_provider_area: AREA_A
+    or_erdc_provider_type: CERTIFIED_FAMILY
+    or_erdc_age_group: INFANT
+    or_erdc_monthly_care_hours: 100
+    state_code: OR
+  output:
+    or_erdc_maximum_monthly_rate: 1373
+
+- name: Case 7, Area A certified center toddler hourly.
+  period: 2027-01
+  absolute_error_margin: 0.01
+  input:
+    or_erdc_eligible_child: true
+    or_erdc_provider_area: AREA_A
+    or_erdc_provider_type: CERTIFIED_CENTER
+    or_erdc_age_group: TODDLER
+    or_erdc_monthly_care_hours: 10
+    state_code: OR
+  output:
+    or_erdc_maximum_monthly_rate: 146.7
+
+- name: Case 8, Area B standard family preschool monthly.
+  period: 2027-01
+  absolute_error_margin: 0.01
+  input:
+    or_erdc_eligible_child: true
+    or_erdc_provider_area: AREA_B
+    or_erdc_provider_type: STANDARD_FAMILY
+    or_erdc_age_group: PRESCHOOL
+    or_erdc_monthly_care_hours: 200
+    state_code: OR
+  output:
+    or_erdc_maximum_monthly_rate: 750
+
+- name: Case 9, Area B standard center school hourly.
+  period: 2027-01
+  absolute_error_margin: 0.01
+  input:
+    or_erdc_eligible_child: true
+    or_erdc_provider_area: AREA_B
+    or_erdc_provider_type: STANDARD_CENTER
+    or_erdc_age_group: SCHOOL
+    or_erdc_monthly_care_hours: 10
+    state_code: OR
+  output:
+    or_erdc_maximum_monthly_rate: 43.1
+
+- name: Case 10, Area B enhanced family special needs part-time.
+  period: 2027-01
+  absolute_error_margin: 0.01
+  input:
+    or_erdc_eligible_child: true
+    or_erdc_provider_area: AREA_B
+    or_erdc_provider_type: ENHANCED_FAMILY
+    or_erdc_age_group: SPECIAL_NEEDS
+    or_erdc_monthly_care_hours: 100
+    state_code: OR
+  output:
+    or_erdc_maximum_monthly_rate: 677
+
+- name: Case 11, Area B enhanced center infant monthly.
+  period: 2027-01
+  absolute_error_margin: 0.01
+  input:
+    or_erdc_eligible_child: true
+    or_erdc_provider_area: AREA_B
+    or_erdc_provider_type: ENHANCED_CENTER
+    or_erdc_age_group: INFANT
+    or_erdc_monthly_care_hours: 200
+    state_code: OR
+  output:
+    or_erdc_maximum_monthly_rate: 1275
+
+- name: Case 12, Area B registered family toddler hourly.
+  period: 2027-01
+  absolute_error_margin: 0.01
+  input:
+    or_erdc_eligible_child: true
+    or_erdc_provider_area: AREA_B
+    or_erdc_provider_type: REGISTERED_FAMILY
+    or_erdc_age_group: TODDLER
+    or_erdc_monthly_care_hours: 10
+    state_code: OR
+  output:
+    or_erdc_maximum_monthly_rate: 52.5
+
+- name: Case 13, Area B certified family preschool part-time.
+  period: 2027-01
+  absolute_error_margin: 0.01
+  input:
+    or_erdc_eligible_child: true
+    or_erdc_provider_area: AREA_B
+    or_erdc_provider_type: CERTIFIED_FAMILY
+    or_erdc_age_group: PRESCHOOL
+    or_erdc_monthly_care_hours: 100
+    state_code: OR
+  output:
+    or_erdc_maximum_monthly_rate: 788
+
+- name: Case 14, Area B certified center school monthly.
+  period: 2027-01
+  absolute_error_margin: 0.01
+  input:
+    or_erdc_eligible_child: true
+    or_erdc_provider_area: AREA_B
+    or_erdc_provider_type: CERTIFIED_CENTER
+    or_erdc_age_group: SCHOOL
+    or_erdc_monthly_care_hours: 200
+    state_code: OR
+  output:
+    or_erdc_maximum_monthly_rate: 800
+
+- name: Case 15, Area C standard family special needs hourly.
+  period: 2027-01
+  absolute_error_margin: 0.01
+  input:
+    or_erdc_eligible_child: true
+    or_erdc_provider_area: AREA_C
+    or_erdc_provider_type: STANDARD_FAMILY
+    or_erdc_age_group: SPECIAL_NEEDS
+    or_erdc_monthly_care_hours: 10
+    state_code: OR
+  output:
+    or_erdc_maximum_monthly_rate: 49.5
+
+- name: Case 16, Area C standard center infant monthly.
+  period: 2027-01
+  absolute_error_margin: 0.01
+  input:
+    or_erdc_eligible_child: true
+    or_erdc_provider_area: AREA_C
+    or_erdc_provider_type: STANDARD_CENTER
+    or_erdc_age_group: INFANT
+    or_erdc_monthly_care_hours: 200
+    state_code: OR
+  output:
+    or_erdc_maximum_monthly_rate: 1125
+
+- name: Case 17, Area C enhanced family toddler part-time.
+  period: 2027-01
+  absolute_error_margin: 0.01
+  input:
+    or_erdc_eligible_child: true
+    or_erdc_provider_area: AREA_C
+    or_erdc_provider_type: ENHANCED_FAMILY
+    or_erdc_age_group: TODDLER
+    or_erdc_monthly_care_hours: 100
+    state_code: OR
+  output:
+    or_erdc_maximum_monthly_rate: 623
+
+- name: Case 18, Area C enhanced center preschool hourly.
+  period: 2027-01
+  absolute_error_margin: 0.01
+  input:
+    or_erdc_eligible_child: true
+    or_erdc_provider_area: AREA_C
+    or_erdc_provider_type: ENHANCED_CENTER
+    or_erdc_age_group: PRESCHOOL
+    or_erdc_monthly_care_hours: 10
+    state_code: OR
+  output:
+    or_erdc_maximum_monthly_rate: 80.8
+
+- name: Case 19, Area C registered family school monthly.
+  period: 2027-01
+  absolute_error_margin: 0.01
+  input:
+    or_erdc_eligible_child: true
+    or_erdc_provider_area: AREA_C
+    or_erdc_provider_type: REGISTERED_FAMILY
+    or_erdc_age_group: SCHOOL
+    or_erdc_monthly_care_hours: 200
+    state_code: OR
+  output:
+    or_erdc_maximum_monthly_rate: 800
+
+- name: Case 20, Area C certified family special needs part-time.
+  period: 2027-01
+  absolute_error_margin: 0.01
+  input:
+    or_erdc_eligible_child: true
+    or_erdc_provider_area: AREA_C
+    or_erdc_provider_type: CERTIFIED_FAMILY
+    or_erdc_age_group: SPECIAL_NEEDS
+    or_erdc_monthly_care_hours: 100
+    state_code: OR
+  output:
+    or_erdc_maximum_monthly_rate: 956
+
+- name: Case 21, Area C certified center infant hourly.
+  period: 2027-01
+  absolute_error_margin: 0.01
+  input:
+    or_erdc_eligible_child: true
+    or_erdc_provider_area: AREA_C
+    or_erdc_provider_type: CERTIFIED_CENTER
+    or_erdc_age_group: INFANT
+    or_erdc_monthly_care_hours: 10
+    state_code: OR
+  output:
+    or_erdc_maximum_monthly_rate: 77.5
+
+- name: Tier boundary, enhanced provider at 62 hours is hourly.
+  period: 2027-01
+  absolute_error_margin: 0.01
+  input:
+    or_erdc_eligible_child: true
+    or_erdc_provider_area: AREA_A
+    or_erdc_provider_type: ENHANCED_FAMILY
+    or_erdc_age_group: INFANT
+    or_erdc_monthly_care_hours: 62
+    state_code: OR
+  output:
+    or_erdc_maximum_monthly_rate: 425.32
+
+- name: Tier boundary, enhanced provider at 63 hours is part-time.
+  period: 2027-01
+  input:
+    or_erdc_eligible_child: true
+    or_erdc_provider_area: AREA_A
+    or_erdc_provider_type: ENHANCED_FAMILY
+    or_erdc_age_group: INFANT
+    or_erdc_monthly_care_hours: 63
+    state_code: OR
+  output:
+    or_erdc_maximum_monthly_rate: 879
+
+- name: Tier boundary, enhanced provider at 135 hours remains part-time.
+  period: 2027-01
+  input:
+    or_erdc_eligible_child: true
+    or_erdc_provider_area: AREA_A
+    or_erdc_provider_type: ENHANCED_FAMILY
+    or_erdc_age_group: INFANT
+    or_erdc_monthly_care_hours: 135
+    state_code: OR
+  output:
+    or_erdc_maximum_monthly_rate: 879
+
+- name: Tier boundary, enhanced provider at 136 hours is monthly.
+  period: 2027-01
+  input:
+    or_erdc_eligible_child: true
+    or_erdc_provider_area: AREA_A
+    or_erdc_provider_type: ENHANCED_FAMILY
+    or_erdc_age_group: INFANT
+    or_erdc_monthly_care_hours: 136
+    state_code: OR
+  output:
+    or_erdc_maximum_monthly_rate: 1_172
+
+- name: Tier boundary, standard provider at 157 hours is hourly.
+  period: 2027-01
+  absolute_error_margin: 0.01
+  input:
+    or_erdc_eligible_child: true
+    or_erdc_provider_area: AREA_A
+    or_erdc_provider_type: STANDARD_FAMILY
+    or_erdc_age_group: INFANT
+    or_erdc_monthly_care_hours: 157
+    state_code: OR
+  output:
+    or_erdc_maximum_monthly_rate: 1_020.5
+
+- name: Tier boundary, standard provider at 158 hours is monthly.
+  period: 2027-01
+  input:
+    or_erdc_eligible_child: true
+    or_erdc_provider_area: AREA_A
+    or_erdc_provider_type: STANDARD_FAMILY
+    or_erdc_age_group: INFANT
+    or_erdc_monthly_care_hours: 158
+    state_code: OR
+  output:
+    or_erdc_maximum_monthly_rate: 1_110
+

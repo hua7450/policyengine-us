@@ -1,0 +1,11 @@
+description: Oregon limits ongoing income to this share of state median income under the Employment Related Day Care program.
+values:
+  2026-03-01: 0.85
+
+metadata:
+  unit: /1
+  period: year
+  label: Oregon ERDC ongoing income SMI rate
+  reference:
+    - title: OAR 414-175-0050(1)(b)(B)
+      href: https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=7871

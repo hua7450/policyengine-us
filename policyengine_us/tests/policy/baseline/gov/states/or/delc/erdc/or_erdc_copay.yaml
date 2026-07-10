@@ -1,0 +1,18 @@
+- name: Household sizes above eight use the size-eight copay schedule.
+  period: 2027-01
+  input:
+    or_erdc_countable_income: 5_000
+    spm_unit_size: 9
+    state_code: OR
+  output:
+    or_erdc_copay: 5
+
+- name: Categorically eligible families have no copay.
+  period: 2027-01
+  input:
+    or_erdc_countable_income: 10_000
+    or_erdc_categorically_eligible: true
+    spm_unit_size: 2
+    state_code: OR
+  output:
+    or_erdc_copay: 0

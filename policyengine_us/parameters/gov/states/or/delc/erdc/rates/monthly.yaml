@@ -1,0 +1,247 @@
+description: Oregon provides these monthly maximum provider reimbursement rates under the Employment Related Day Care program.
+metadata:
+  period: month
+  unit: currency-USD
+  label: Oregon ERDC monthly maximum provider rates
+  breakdown:
+    - or_erdc_provider_area
+    - or_erdc_provider_type
+    - or_erdc_age_group
+  reference:
+    - title: Oregon DELC ERDC Child Care Maximum Rates, Group Areas A-C
+      href: https://www.oregon.gov/delc/providers/Documents/Provider%20Rate%20Increase%20For%20Jan%202026_Phase%202_ENG.pdf#page=2
+
+AREA_A:
+  STANDARD_FAMILY:
+    INFANT:
+      2026-03-01: 1_110
+    TODDLER:
+      2026-03-01: 1_020
+    PRESCHOOL:
+      2026-03-01: 930
+    SCHOOL:
+      2026-03-01: 840
+    SPECIAL_NEEDS:
+      2026-03-01: 1_110
+  STANDARD_CENTER:
+    INFANT:
+      2026-01-01: 1_562
+    TODDLER:
+      2026-01-01: 1_490
+    PRESCHOOL:
+      2026-01-01: 1_173
+    SCHOOL:
+      2026-01-01: 1_189
+    SPECIAL_NEEDS:
+      2026-01-01: 1_562
+  ENHANCED_FAMILY:
+    INFANT:
+      2026-03-01: 1_172
+    TODDLER:
+      2026-03-01: 1_077
+    PRESCHOOL:
+      2026-03-01: 982
+    SCHOOL:
+      2026-03-01: 887
+    SPECIAL_NEEDS:
+      2026-03-01: 1_172
+  ENHANCED_CENTER:
+    INFANT:
+      2026-01-01: 1_770
+    TODDLER:
+      2026-01-01: 1_689
+    PRESCHOOL:
+      2026-01-01: 1_329
+    SCHOOL:
+      2026-01-01: 1_347
+    SPECIAL_NEEDS:
+      2026-01-01: 1_770
+  REGISTERED_FAMILY:
+    INFANT:
+      2026-01-01: 1233.33
+    TODDLER:
+      2026-01-01: 1133.33
+    PRESCHOOL:
+      2026-01-01: 1033.33
+    SCHOOL:
+      2026-01-01: 933.33
+    SPECIAL_NEEDS:
+      2026-01-01: 1233.33
+  CERTIFIED_FAMILY:
+    INFANT:
+      2026-01-01: 1_831
+    TODDLER:
+      2026-01-01: 1_675
+    PRESCHOOL:
+      2026-01-01: 1477.33
+    SCHOOL:
+      2026-01-01: 1_150
+    SPECIAL_NEEDS:
+      2026-01-01: 1_831
+  CERTIFIED_CENTER:
+    INFANT:
+      2026-01-01: 2_083
+    TODDLER:
+      2026-01-01: 1_987
+    PRESCHOOL:
+      2026-01-01: 1_563
+    SCHOOL:
+      2026-01-01: 1_585
+    SPECIAL_NEEDS:
+      2026-01-01: 2_083
+AREA_B:
+  STANDARD_FAMILY:
+    INFANT:
+      2026-03-01: 855
+    TODDLER:
+      2026-03-01: 788
+    PRESCHOOL:
+      2026-03-01: 750
+    SCHOOL:
+      2026-03-01: 720
+    SPECIAL_NEEDS:
+      2026-03-01: 855
+  STANDARD_CENTER:
+    INFANT:
+      2026-01-01: 1_125
+    TODDLER:
+      2026-01-01: 994
+    PRESCHOOL:
+      2026-01-01: 782
+    SCHOOL:
+      2026-01-01: 600
+    SPECIAL_NEEDS:
+      2026-01-01: 1_125
+  ENHANCED_FAMILY:
+    INFANT:
+      2026-03-01: 903
+    TODDLER:
+      2026-03-01: 831
+    PRESCHOOL:
+      2026-03-01: 791
+    SCHOOL:
+      2026-03-01: 760
+    SPECIAL_NEEDS:
+      2026-03-01: 903
+  ENHANCED_CENTER:
+    INFANT:
+      2026-01-01: 1_275
+    TODDLER:
+      2026-01-01: 1_126
+    PRESCHOOL:
+      2026-01-01: 887
+    SCHOOL:
+      2026-01-01: 680
+    SPECIAL_NEEDS:
+      2026-01-01: 1_275
+  REGISTERED_FAMILY:
+    INFANT:
+      2026-01-01: 950
+    TODDLER:
+      2026-01-01: 875
+    PRESCHOOL:
+      2026-01-01: 833
+    SCHOOL:
+      2026-01-01: 800
+    SPECIAL_NEEDS:
+      2026-01-01: 950
+  CERTIFIED_FAMILY:
+    INFANT:
+      2026-01-01: 1_275
+    TODDLER:
+      2026-01-01: 1_110
+    PRESCHOOL:
+      2026-01-01: 1_050
+    SCHOOL:
+      2026-01-01: 900
+    SPECIAL_NEEDS:
+      2026-01-01: 1_275
+  CERTIFIED_CENTER:
+    INFANT:
+      2026-01-01: 1_500
+    TODDLER:
+      2026-01-01: 1_325
+    PRESCHOOL:
+      2026-01-01: 1_043
+    SCHOOL:
+      2026-01-01: 800
+    SPECIAL_NEEDS:
+      2026-01-01: 1_500
+AREA_C:
+  STANDARD_FAMILY:
+    INFANT:
+      2026-03-01: 855
+    TODDLER:
+      2026-03-01: 788
+    PRESCHOOL:
+      2026-03-01: 750
+    SCHOOL:
+      2026-03-01: 720
+    SPECIAL_NEEDS:
+      2026-03-01: 855
+  STANDARD_CENTER:
+    INFANT:
+      2026-01-01: 1_125
+    TODDLER:
+      2026-01-01: 994
+    PRESCHOOL:
+      2026-01-01: 782
+    SCHOOL:
+      2026-01-01: 600
+    SPECIAL_NEEDS:
+      2026-01-01: 1_125
+  ENHANCED_FAMILY:
+    INFANT:
+      2026-03-01: 903
+    TODDLER:
+      2026-03-01: 831
+    PRESCHOOL:
+      2026-03-01: 791
+    SCHOOL:
+      2026-03-01: 760
+    SPECIAL_NEEDS:
+      2026-03-01: 903
+  ENHANCED_CENTER:
+    INFANT:
+      2026-01-01: 1_275
+    TODDLER:
+      2026-01-01: 1_126
+    PRESCHOOL:
+      2026-01-01: 887
+    SCHOOL:
+      2026-01-01: 680
+    SPECIAL_NEEDS:
+      2026-01-01: 1_275
+  REGISTERED_FAMILY:
+    INFANT:
+      2026-01-01: 950
+    TODDLER:
+      2026-01-01: 875
+    PRESCHOOL:
+      2026-01-01: 833
+    SCHOOL:
+      2026-01-01: 800
+    SPECIAL_NEEDS:
+      2026-01-01: 950
+  CERTIFIED_FAMILY:
+    INFANT:
+      2026-01-01: 1_275
+    TODDLER:
+      2026-01-01: 1_110
+    PRESCHOOL:
+      2026-01-01: 1_050
+    SCHOOL:
+      2026-01-01: 900
+    SPECIAL_NEEDS:
+      2026-01-01: 1_275
+  CERTIFIED_CENTER:
+    INFANT:
+      2026-01-01: 1_500
+    TODDLER:
+      2026-01-01: 1_325
+    PRESCHOOL:
+      2026-01-01: 1_043
+    SCHOOL:
+      2026-01-01: 800
+    SPECIAL_NEEDS:
+      2026-01-01: 1_500

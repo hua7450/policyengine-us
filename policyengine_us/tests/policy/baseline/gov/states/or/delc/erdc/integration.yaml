@@ -1,0 +1,241 @@
+# End-to-end tests for Oregon Employment Related Day Care (ERDC).
+# Provider rate areas are supplied directly until a later PR maps ZIP codes.
+
+- name: Case 1, initial applicant with a preschooler in certified center care.
+  period: 2027-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      parent:
+        age: 30
+        employment_income: 36_000
+        weekly_hours_worked_before_lsr: 40
+      child:
+        age: 4
+        childcare_hours_per_week: 40
+        or_erdc_provider_area: AREA_A
+        or_erdc_provider_type: CERTIFIED_CENTER
+        pre_subsidy_childcare_expenses: 18_000
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+    households:
+      household:
+        members: [parent, child]
+        state_code: OR
+  output:
+    or_erdc_eligible_child: [false, true]
+    or_erdc_age_group: [SCHOOL, PRESCHOOL]
+    or_erdc_countable_income: 3_000
+    or_erdc_activity_eligible: true
+    or_erdc_income_eligible: true
+    or_erdc_copay: 10
+    or_erdc_maximum_monthly_rate: [0, 1_563]
+    or_erdc_allowable_child_care_cost: 1_500
+    or_erdc_eligible: true
+    or_erdc: 1_490
+
+- name: Case 2, initial applicant at the strict income limit is ineligible.
+  period: 2027-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      parent:
+        age: 30
+        weekly_hours_worked_before_lsr: 40
+      child:
+        age: 4
+        childcare_hours_per_week: 40
+        or_erdc_provider_area: AREA_A
+        or_erdc_provider_type: CERTIFIED_CENTER
+        pre_subsidy_childcare_expenses: 18_000
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+        or_erdc_countable_income: 3_692
+    households:
+      household:
+        members: [parent, child]
+        state_code: OR
+  output:
+    or_erdc_countable_income: 3_692
+    or_erdc_income_eligible: false
+    or_erdc_eligible: false
+    or_erdc: 0
+
+- name: Case 3, continuing family uses the ongoing income limit and part-time rate.
+  period: 2027-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      parent:
+        age: 32
+        employment_income: 80_000
+        weekly_hours_worked_before_lsr: 40
+        is_enrolled_in_ccdf: true
+      child:
+        age: 2
+        childcare_hours_per_week: 30
+        or_erdc_provider_area: AREA_B
+        or_erdc_provider_type: ENHANCED_FAMILY
+        pre_subsidy_childcare_expenses: 9_600
+      sibling:
+        age: 10
+    spm_units:
+      spm_unit:
+        members: [parent, child, sibling]
+    households:
+      household:
+        members: [parent, child, sibling]
+        state_code: OR
+  output:
+    or_erdc_countable_income: 6_666.67
+    or_erdc_income_eligible: true
+    or_erdc_billing_tier: [HOURLY, PART_TIME, HOURLY]
+    or_erdc_maximum_monthly_rate: [0, 623, 0]
+    or_erdc_copay: 110
+    or_erdc: 513
+
+- name: Case 4, Expanded Child Welfare bypasses income and activity tests.
+  period: 2027-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      parent:
+        age: 28
+        employment_income: 100_000
+        weekly_hours_worked_before_lsr: 0
+      child:
+        age: 0.5
+        childcare_hours_per_week: 20
+        or_erdc_provider_area: AREA_C
+        or_erdc_provider_type: STANDARD_FAMILY
+        pre_subsidy_childcare_expenses: 7_200
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+        or_erdc_expanded_child_welfare_eligible: true
+    households:
+      household:
+        members: [parent, child]
+        state_code: OR
+  output:
+    or_erdc_categorically_eligible: true
+    or_erdc_activity_eligible: true
+    or_erdc_income_eligible: true
+    or_erdc_copay: 0
+    or_erdc_maximum_monthly_rate: [0, 429]
+    or_erdc: 429
+
+- name: Case 5, assets above the CCDF limit make the family ineligible.
+  period: 2027-01
+  input:
+    people:
+      parent:
+        age: 30
+        employment_income: 30_000
+        weekly_hours_worked_before_lsr: 40
+      child:
+        age: 4
+        childcare_hours_per_week: 40
+        or_erdc_provider_area: AREA_A
+        or_erdc_provider_type: CERTIFIED_CENTER
+        pre_subsidy_childcare_expenses: 18_000
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+        spm_unit_assets: 1_000_001
+    households:
+      household:
+        members: [parent, child]
+        state_code: OR
+  output:
+    is_ccdf_asset_eligible: false
+    or_erdc_eligible: false
+    or_erdc: 0
+
+- name: Case 6, teenager with special circumstances receives the special-needs rate.
+  period: 2027-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      parent:
+        age: 40
+        employment_income: 30_000
+        weekly_hours_worked_before_lsr: 40
+      child:
+        age: 15
+        is_incapable_of_self_care: true
+        or_erdc_special_needs_rate_eligible: true
+        childcare_hours_per_week: 40
+        or_erdc_provider_area: AREA_A
+        or_erdc_provider_type: CERTIFIED_FAMILY
+        pre_subsidy_childcare_expenses: 24_000
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+    households:
+      household:
+        members: [parent, child]
+        state_code: OR
+  output:
+    or_erdc_eligible_child: [false, true]
+    or_erdc_age_group: [SCHOOL, SPECIAL_NEEDS]
+    or_erdc_maximum_monthly_rate: [0, 1_831]
+    or_erdc_copay: 5
+    or_erdc: 1_826
+
+- name: Case 7, negative self-employment income reduces countable income.
+  period: 2027-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      parent:
+        age: 30
+        employment_income: 24_000
+        self_employment_income: -12_000
+        weekly_hours_worked_before_lsr: 40
+      child:
+        age: 4
+        childcare_hours_per_week: 10
+        or_erdc_provider_area: AREA_B
+        or_erdc_provider_type: STANDARD_CENTER
+        pre_subsidy_childcare_expenses: 6_000
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+    households:
+      household:
+        members: [parent, child]
+        state_code: OR
+  output:
+    or_erdc_countable_income: 1_000
+    or_erdc_copay: 0
+    or_erdc_maximum_monthly_rate: [0, 308.97]
+    or_erdc: 308.97
+
+- name: Case 8, annual state and federal aggregators include ERDC.
+  period: 2027
+  absolute_error_margin: 0.1
+  input:
+    people:
+      parent:
+        age: 30
+        employment_income: 36_000
+        weekly_hours_worked_before_lsr: 40
+      child:
+        age: 4
+        childcare_hours_per_week: 40
+        or_erdc_provider_area: AREA_A
+        or_erdc_provider_type: CERTIFIED_CENTER
+        pre_subsidy_childcare_expenses: 18_000
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+    households:
+      household:
+        members: [parent, child]
+        state_code: OR
+  output:
+    or_child_care_subsidies: 17_880
+    child_care_subsidies: 17_880

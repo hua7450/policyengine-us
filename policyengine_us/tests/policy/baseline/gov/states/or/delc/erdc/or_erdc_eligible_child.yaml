@@ -1,0 +1,33 @@
+- name: Child younger than 13 is eligible.
+  period: 2027-01
+  input:
+    age: 12
+    state_code: OR
+  output:
+    or_erdc_eligible_child: true
+
+- name: Child age 13 without special circumstances is ineligible.
+  period: 2027-01
+  input:
+    age: 13
+    state_code: OR
+  output:
+    or_erdc_eligible_child: false
+
+- name: Child younger than 18 with special circumstances is eligible.
+  period: 2027-01
+  input:
+    age: 17
+    or_erdc_special_circumstances_child: true
+    state_code: OR
+  output:
+    or_erdc_eligible_child: true
+
+- name: Person age 18 is ineligible even with special circumstances.
+  period: 2027-01
+  input:
+    age: 18
+    or_erdc_special_circumstances_child: true
+    state_code: OR
+  output:
+    or_erdc_eligible_child: false

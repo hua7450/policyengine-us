@@ -1,0 +1,20 @@
+description: Oregon sets these billing tiers for standard providers under the Employment Related Day Care program.
+metadata:
+  type: single_amount
+  threshold_unit: hour
+  amount_unit: /1
+  period: month
+  label: Oregon ERDC standard provider billing tiers
+  reference:
+    - title: ERDC Provider Guide Insert, 2026 standard rate maximums
+      href: https://www.oregon.gov/delc/providers/Documents/Provider%20Rate%20Increase%20For%20Jan%202026_Phase%202_ENG.pdf#page=2
+
+brackets:
+  - threshold:
+      2026-01-01: 0
+    amount:
+      2026-01-01: 0
+  - threshold:
+      2026-01-01: 158
+    amount:
+      2026-01-01: 2

@@ -1,0 +1,11 @@
+description: Oregon limits the license-exempt infant rate category to children under this age under the Employment Related Day Care program.
+values:
+  2026-03-01: 12
+
+metadata:
+  unit: month
+  period: year
+  label: Oregon ERDC license-exempt infant maximum age
+  reference:
+    - title: ERDC Provider Guide Insert, child age categories
+      href: https://www.oregon.gov/delc/providers/Documents/Provider%20Rate%20Increase%20For%20Jan%202026_Phase%202_ENG.pdf#page=1
