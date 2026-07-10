@@ -28,9 +28,15 @@ class mt_child_dependent_care_expense_deduction(Variable):
         # the moment since the qualifying-person count only includes
         # dependents.
         childcare_expenses = tax_unit("tax_unit_childcare_expenses", period)
-        adult_care_expenses = add(tax_unit, period, ["care_expenses"])
+        person = tax_unit.members
+        care_expenses = person("care_expenses", period)
+        qualifying_person = person(
+            "mt_child_dependent_care_expense_deduction_eligible_child",
+            period,
+        )
+        qualifying_care_expenses = tax_unit.sum(care_expenses * qualifying_person)
         # Line 2
-        capped_expenses = min_(childcare_expenses + adult_care_expenses, cap)
+        capped_expenses = min_(childcare_expenses + qualifying_care_expenses, cap)
         # Line 3
         agi = person("mt_agi_indiv", period)
         # Line 6

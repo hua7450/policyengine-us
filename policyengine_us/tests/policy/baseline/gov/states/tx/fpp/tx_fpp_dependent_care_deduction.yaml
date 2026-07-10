@@ -29,6 +29,7 @@
       person2:
         age: 25
         is_disabled: true
+        is_tax_unit_dependent: true
         care_expenses: 3_000
     spm_units:
       spm_unit:
@@ -51,6 +52,7 @@
       person2:
         age: 25
         is_disabled: true
+        is_tax_unit_dependent: true
         care_expenses: 1_200
     spm_units:
       spm_unit:
@@ -79,6 +81,22 @@
     households:
       household:
         members: [person1, person2]
+        state_code: TX
+  output:
+    tx_fpp_dependent_care_deduction: 0
+
+- name: Case 5, disabled applicant with care expenses receives no deduction.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        is_disabled: true
+        care_expenses: 3_000
+    households:
+      household:
+        members: [person1]
         state_code: TX
   output:
     tx_fpp_dependent_care_deduction: 0

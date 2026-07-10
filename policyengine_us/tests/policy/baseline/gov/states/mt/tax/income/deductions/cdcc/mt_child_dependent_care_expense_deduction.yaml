@@ -231,3 +231,32 @@
     # Expenses = 2_000 childcare + 1_500 adult care = 3_500, capped at 2_400.
     # Head receives half: 2_400 * 0.5 = 1_200.
     mt_child_dependent_care_expense_deduction: [1_200, 0]
+
+- name: Case 18, capable disabled adult care expenses are excluded.
+  period: 2021
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        is_tax_unit_head_or_spouse: true
+        mt_agi_indiv: 18_000
+      person2:
+        age: 10
+        is_tax_unit_dependent: true
+      person3:
+        age: 30
+        is_disabled: true
+        is_tax_unit_dependent: true
+        care_expenses: 2_000
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+        tax_unit_childcare_expenses: 1_000
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: MT
+  output:
+    # Only the child qualifies, so 2_000 of adult care expenses are excluded.
+    # Head receives half of the 1_000 childcare expense deduction.
+    mt_child_dependent_care_expense_deduction: [500, 0, 0]

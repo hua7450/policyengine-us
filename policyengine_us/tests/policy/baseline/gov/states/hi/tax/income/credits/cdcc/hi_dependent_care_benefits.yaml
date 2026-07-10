@@ -207,6 +207,7 @@
         dependent_care_employer_benefits: 1
       adult_dependent:
         age: 25
+        is_tax_unit_dependent: true
         is_incapable_of_self_care: true
         care_expenses: 3_000
     tax_units:
@@ -226,3 +227,31 @@
     # one qualifying person (2023) = 10_000; net = 10_000 - 1 = 9_999.
     # Return min(9_999, 3_000) = 3_000.
     hi_dependent_care_benefits: 3_000
+
+- name: Case 12, capable disabled adult care expenses are excluded.
+  period: 2023
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        dependent_care_employer_benefits: 1
+      person2:
+        age: 10
+        is_tax_unit_dependent: true
+      person3:
+        age: 25
+        is_disabled: true
+        is_tax_unit_dependent: true
+        care_expenses: 3_000
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+        hi_cdcc_min_head_spouse_earned: 2_400
+        filing_status: SEPARATE
+        tax_unit_childcare_expenses: 0
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: HI
+  output:
+    hi_dependent_care_benefits: 0

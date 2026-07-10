@@ -23,10 +23,14 @@ class tx_fpp_dependent_care_deduction(Variable):
         # expenses fund the disabled-adult one.
         childcare_expenses = person("pre_subsidy_childcare_expenses", period)
         adult_care_expenses = person("care_expenses", period)
-        expenses = childcare_expenses + adult_care_expenses
         age = person("age", period)
         is_child = age < p.child_age_threshold
-        eligible_dependent = is_child | person("is_disabled", period)
+        is_disabled_dependent = person("is_disabled", period) & person(
+            "is_tax_unit_dependent", period
+        )
+        eligible_expenses = (
+            childcare_expenses * is_child + adult_care_expenses * is_disabled_dependent
+        )
         monthly_cap = p.dependent_care.calc(age)
-        capped_expenses = min_(expenses, monthly_cap * MONTHS_IN_YEAR)
-        return spm_unit.sum(capped_expenses * eligible_dependent)
+        capped_expenses = min_(eligible_expenses, monthly_cap * MONTHS_IN_YEAR)
+        return spm_unit.sum(capped_expenses)

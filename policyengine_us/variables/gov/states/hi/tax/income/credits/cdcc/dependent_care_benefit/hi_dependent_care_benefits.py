@@ -29,8 +29,11 @@ class hi_dependent_care_benefits(Variable):
         # individual under HRS 235-55.6(b)(1), including a dependent or
         # spouse incapable of self-care, so adult care expenses count.
         childcare_expenses = tax_unit("tax_unit_childcare_expenses", period)
-        adult_care_expenses = add(tax_unit, period, ["care_expenses"])
-        qualified_expense_amount = childcare_expenses + adult_care_expenses
+        person = tax_unit.members
+        care_expenses = person("care_expenses", period)
+        qualifying_person = person("is_cdcc_eligible", period)
+        qualifying_care_expenses = tax_unit.sum(care_expenses * qualifying_person)
+        qualified_expense_amount = childcare_expenses + qualifying_care_expenses
         # line 7 = min(line 5, line 6) = min(line 2, line 6):
         capped_expenses = min_(dcb_amount, qualified_expense_amount)
         # line 8 & line 9:
