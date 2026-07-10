@@ -1,0 +1,17 @@
+description: South Dakota uses this indicator to determine whether the weekly reimbursement rate schedule applies under the Child Care Assistance program.
+
+# The weekly region-based rate schedule takes effect August 3, 2026, replacing
+# the earlier hourly county-based schedule. Only the weekly era is modeled; this
+# indicator gates the benefit off for prior periods (the hourly era is a
+# separate follow-up implementation).
+values:
+  2024-07-01: false
+  2026-08-03: true
+
+metadata:
+  unit: bool
+  period: year
+  label: South Dakota CCA weekly rate schedule in effect
+  reference:
+    - title: South Dakota Child Care Assistance Rates, effective 8/3/2026
+      href: https://dss.sd.gov/docs/childcare/assistance/CCA_Weekly_Reimbursement_Rates.pdf

@@ -1,0 +1,170 @@
+# Tests for sd_cca_activity_eligible (SPMUnit, MONTH, bool).
+# The work/activity requirement (each caretaker employed 80+ hrs/month, or in
+# school/training; ARSD 67:47:01:03.01, Subsidy Manual Sections 5-6) is not
+# tracked at the hour level, so eligibility falls back to the federal CCDF
+# activity-test input meets_ccdf_activity_test (a YEAR variable read with
+# period.this_year).
+
+- name: Case 1, activity test met, activity eligible.
+  period: 2027-01
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        meets_ccdf_activity_test: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: SD
+  output:
+    sd_cca_activity_eligible: true
+
+- name: Case 2, activity test not met, not activity eligible.
+  period: 2027-01
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        meets_ccdf_activity_test: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: SD
+  output:
+    sd_cca_activity_eligible: false
+
+# The cases below exercise the modeled activity path
+# (sd_cca_parent_in_eligible_activity), which requires every caretaker to be in
+# an approved activity, with the CCDF fallback turned off.
+- name: Case 3, single employed parent, activity eligible via the modeled path.
+  period: 2027-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 24_000  # employed caretaker
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        meets_ccdf_activity_test: false  # not relying on the CCDF fallback
+    households:
+      household:
+        members: [person1, person2]
+        state_code: SD
+  output:
+    # The sole caretaker is employed, so every caretaker is in an approved
+    # activity even though the CCDF activity-test input is false.
+    sd_cca_activity_eligible: true
+
+- name: Case 4, single parent with a self-employment loss, activity eligible.
+  period: 2027-01
+  input:
+    people:
+      person1:
+        age: 30
+        self_employment_income: -12_000  # a business loss still evidences activity
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        meets_ccdf_activity_test: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: SD
+  output:
+    sd_cca_activity_eligible: true
+
+- name: Case 5, single full-time student parent, activity eligible.
+  period: 2027-01
+  input:
+    people:
+      person1:
+        age: 30
+        is_full_time_student: true  # school enrollment is an approved activity
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        meets_ccdf_activity_test: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: SD
+  output:
+    sd_cca_activity_eligible: true
+
+- name: Case 6, two married caretakers both employed, activity eligible.
+  period: 2027-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 24_000
+        is_tax_unit_head: true
+      person2:
+        age: 30
+        employment_income: 24_000
+        is_tax_unit_spouse: true
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        meets_ccdf_activity_test: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: SD
+  output:
+    sd_cca_activity_eligible: true
+
+- name: Case 7, two married caretakers with one not in an activity, ineligible.
+  period: 2027-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 24_000  # employed
+        is_tax_unit_head: true
+      person2:
+        age: 30
+        employment_income: 0  # available caretaker, not in any activity
+        is_full_time_student: false
+        is_tax_unit_spouse: true
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        meets_ccdf_activity_test: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: SD
+  output:
+    # Every caretaker must be in an approved activity; the available (non-active)
+    # spouse makes the unit ineligible under the modeled path.
+    sd_cca_activity_eligible: false
