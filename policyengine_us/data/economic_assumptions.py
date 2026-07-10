@@ -89,9 +89,11 @@ def extend_single_year_dataset(
 ) -> USMultiYearDataset:
     """Extend a single-year US dataset to multiple years via uprating.
 
-    Copies the base-year DataFrames for each year from the base year through
-    ``end_year``, then applies multiplicative uprating using growth factors
-    derived from the policyengine-us parameter tree.
+    Builds a frame set for each year from the base year through
+    ``end_year`` (shallow copies sharing base-year buffers under pandas
+    copy-on-write; deep copies on pandas 2.x), then applies
+    multiplicative uprating using growth factors derived from the
+    policyengine-us parameter tree.
 
     If ``end_year`` is not provided, it defaults to the latest year
     covered by the CPI-U parameter (gov.bls.cpi.cpi_u).
@@ -161,8 +163,9 @@ def _apply_single_year_uprating(current, previous, system):
     upraters live in ``MICRODATA_UPRATING_OVERRIDES`` instead.
 
     Variables without an uprating parameter (or whose uprating parameter
-    evaluates to 0 for the previous year) are left unchanged — they were
-    already copied forward by ``dataset.copy()``.
+    evaluates to 0 for the previous year) are left unchanged — they carry
+    the base-year values forward (sharing base-year buffers under pandas
+    copy-on-write; as independent deep copies on pandas 2.x).
     """
     current_year = int(current.time_period)
     previous_year = int(previous.time_period)

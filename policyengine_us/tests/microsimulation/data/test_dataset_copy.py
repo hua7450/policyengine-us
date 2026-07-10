@@ -17,13 +17,12 @@ from policyengine_us.data.dataset_schema import (
     USMultiYearDataset,
     USSingleYearDataset,
 )
+from policyengine_us.data.economic_assumptions import _PANDAS_COW
 from policyengine_us.tests.microsimulation.data.fixtures.test_extend_single_year_dataset import (  # noqa: E501
     BASE_YEAR,
     EMPLOYMENT_INCOME_BASE,
     build_single_year_dataset,
 )
-
-_PANDAS_COW = int(pd.__version__.split(".", 1)[0]) >= 3
 
 requires_cow = pytest.mark.skipif(
     not _PANDAS_COW,
