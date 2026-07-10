@@ -1,0 +1,70 @@
+# Michigan qualified tips and overtime deductions (PA 24 of 2025), TY2026-2028.
+# The Michigan deduction mirrors the federal IRC 224/225 deductions; the federal
+# deduction amounts are set directly here to isolate the Michigan gating.
+
+- name: 2026 Michigan tips deduction mirrors the federal tip deduction
+  period: 2026
+  input:
+    tip_income_deduction: 2_000
+    state_code: MI
+  output:
+    mi_qualified_tips_deduction: 2_000
+
+- name: 2026 Michigan overtime deduction mirrors the federal overtime deduction
+  period: 2026
+  input:
+    overtime_income_deduction: 3_000
+    state_code: MI
+  output:
+    mi_qualified_overtime_deduction: 3_000
+
+- name: 2028 deductions still apply (final eligible year)
+  period: 2028
+  input:
+    tip_income_deduction: 2_000
+    overtime_income_deduction: 3_000
+    state_code: MI
+  output:
+    mi_qualified_tips_deduction: 2_000
+    mi_qualified_overtime_deduction: 3_000
+
+- name: 2025 deductions are not available in Michigan
+  period: 2025
+  input:
+    tip_income_deduction: 2_000
+    overtime_income_deduction: 3_000
+    state_code: MI
+  output:
+    mi_qualified_tips_deduction: 0
+    mi_qualified_overtime_deduction: 0
+
+- name: 2029 deductions have sunset
+  period: 2029
+  input:
+    tip_income_deduction: 2_000
+    overtime_income_deduction: 3_000
+    state_code: MI
+  output:
+    mi_qualified_tips_deduction: 0
+    mi_qualified_overtime_deduction: 0
+
+- name: 2026 both deductions flow into Michigan subtractions
+  period: 2026
+  input:
+    people:
+      person1:
+        age: 40
+    tax_units:
+      tax_unit:
+        members: [person1]
+        tip_income_deduction: 2_000
+        overtime_income_deduction: 3_000
+    households:
+      household:
+        members: [person1]
+        state_code: MI
+  output:
+    # No other Michigan subtractions apply to this filer, so subtractions = $5,000.
+    mi_qualified_tips_deduction: 2_000
+    mi_qualified_overtime_deduction: 3_000
+    mi_subtractions: 5_000
