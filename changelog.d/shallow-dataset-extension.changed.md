@@ -1,0 +1,1 @@
+- Dataset extension no longer deep-copies the full dataset per projected year; under pandas copy-on-write, carried-forward columns share base-year buffers, cutting extension time ~11x (about 21s to 2s on the full Populace 2024 dataset) with bit-identical output.

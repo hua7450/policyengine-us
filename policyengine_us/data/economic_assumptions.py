@@ -1,11 +1,19 @@
 from typing import Optional
 
+import pandas as pd
 import yaml
 
 from policyengine_us.data.dataset_schema import (
     USSingleYearDataset,
     USMultiYearDataset,
 )
+
+# Under pandas copy-on-write (always on in pandas >= 3), year datasets can
+# be shallow copies of the base year: carried-forward columns share the
+# base-year buffers, and uprating's whole-column assignments materialize
+# only the columns they replace. On pandas 2.x (kept for Python 3.9/3.10),
+# shallow copies alias mutably, so fall back to deep copies there.
+_PANDAS_COW = int(pd.__version__.split(".", 1)[0]) >= 3
 
 # The default end year for dataset extension is derived at runtime from
 # the CPI-U parameter YAML (gov.bls.cpi.cpi_u).  When the CPI-U YAML
@@ -103,24 +111,35 @@ def extend_single_year_dataset(
         raise ValueError(
             f"end_year ({end_year}) must be >= dataset base year ({start_year})."
         )
-    datasets = [dataset]
+    # Copy the base year too, so the returned multi-year dataset never
+    # holds the caller's DataFrames directly.
+    datasets = [dataset.copy(deep=not _PANDAS_COW)]
     for year in range(start_year + 1, end_year + 1):
-        next_year = dataset.copy()
+        next_year = dataset.copy(deep=not _PANDAS_COW)
         next_year.time_period = str(year)
         datasets.append(next_year)
 
     multi_year_dataset = USMultiYearDataset(datasets=datasets)
-    return _apply_uprating(multi_year_dataset, system=system)
+    # Every year above is a private copy; no defensive copy needed.
+    return _apply_uprating(multi_year_dataset, system=system, copy=False)
 
 
-def _apply_uprating(dataset: USMultiYearDataset, system=None) -> USMultiYearDataset:
-    """Apply year-over-year uprating to all years in a multi-year dataset."""
+def _apply_uprating(
+    dataset: USMultiYearDataset, system=None, copy: bool = True
+) -> USMultiYearDataset:
+    """Apply year-over-year uprating to all years in a multi-year dataset.
+
+    With ``copy=False`` the input dataset is modified in place; callers
+    passing datasets they own privately (like ``extend_single_year_dataset``)
+    use this to skip a full defensive copy.
+    """
     if system is None:
         from policyengine_us.system import system as _system
 
         system = _system
 
-    dataset = dataset.copy()
+    if copy:
+        dataset = dataset.copy()
 
     years = sorted(dataset.datasets.keys())
     for year in years:
@@ -173,6 +192,11 @@ def _apply_single_year_uprating(current, previous, system):
                 continue
 
             factor = curr_val / prev_val
+            # Whole-column assignment is load-bearing: the year frames may
+            # be shallow copies sharing base-year buffers, and only
+            # assignment isolates under copy-on-write. In-place variants
+            # (``*=``, ``.loc``/``.iloc`` writes) would corrupt sibling
+            # years on pandas 2.x shallow copies.
             current_df[col] = prev_df[col] * factor
 
 
