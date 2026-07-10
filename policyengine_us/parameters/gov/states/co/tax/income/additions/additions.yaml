@@ -10,9 +10,9 @@ values:
     # - Partnership/Fiduciary
     # - Clubs that restrict membership
     # - Distributions from a medical savings account not made for an eligible expense
-  2022-01-01: 
+  2022-01-01:
     - co_state_addback
-    - co_qualified_business_income_deduction_addback 
+    - co_qualified_business_income_deduction_addback
     - co_federal_deduction_addback
     # - Non-qualifying Distribution addback
     # - Non-Colorado state and local bond interest
@@ -22,6 +22,11 @@ values:
     # - Partnership/Fiduciary
     # - Distributions from a medical savings account not made for an eligible expense
     # - Food and beverage expense deduction
+  2026-01-01:
+    - co_state_addback
+    - co_qualified_business_income_deduction_addback
+    - co_federal_deduction_addback
+    - co_overtime_income_addback  # Overtime deduction add-back (HB25-1296), TY2026+
 metadata:
   unit: list
   period: year

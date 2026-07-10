@@ -1,0 +1,36 @@
+# Colorado adds back the federal overtime deduction (HB25-1296) from TY2026;
+# tips are not added back, and Colorado conformed in 2025. The federal overtime
+# deduction is set directly here to isolate the Colorado add-back.
+
+- name: 2026 Colorado adds back the federal overtime deduction
+  period: 2026
+  input:
+    overtime_income_deduction: 3_000
+    state_code: CO
+  output:
+    co_overtime_income_addback: 3_000
+
+- name: 2025 Colorado conforms - no overtime add-back
+  period: 2025
+  input:
+    overtime_income_deduction: 3_000
+    state_code: CO
+  output:
+    co_overtime_income_addback: 0
+
+- name: 2026 overtime add-back computes in a full household
+  period: 2026
+  input:
+    people:
+      person1:
+        age: 40
+    tax_units:
+      tax_unit:
+        members: [person1]
+        overtime_income_deduction: 3_000
+    households:
+      household:
+        members: [person1]
+        state_code: CO
+  output:
+    co_overtime_income_addback: 3_000

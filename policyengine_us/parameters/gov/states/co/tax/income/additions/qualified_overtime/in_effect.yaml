@@ -1,0 +1,20 @@
+description: Colorado adds back the federal overtime compensation deduction in these years.
+values:
+  2025-01-01: false
+  2026-01-01: true
+
+metadata:
+  unit: bool
+  period: year
+  label: Colorado overtime deduction add-back in effect
+  reference:
+    - title: HB25-1296 (2025), Colorado Laws 2025 chapter 202, Section 6 - adds C.R.S. 39-22-104(3)(u) adding back overtime compensation excluded or deducted from federal gross income; Section 18 makes it effective January 1, 2026
+      href: https://content.leg.colorado.gov/sites/default/files/2025a_1296_signed.pdf
+    - title: Colorado Department of Revenue - January 2026 Tax Policy Updates
+      href: https://tax.colorado.gov/january-2026-tax-policy-updates
+# HB25-1296 decouples Colorado only from the federal overtime deduction (IRC 225),
+# effective for tax years beginning on or after January 1, 2026. Colorado continues
+# to conform to the federal tips deduction (IRC 224), so tips are not added back.
+# Colorado conformed for tax year 2025 (Section 6 was not yet effective). The
+# add-back is permanent from 2026 and naturally reaches zero after 2028 when the
+# federal overtime deduction sunsets.
