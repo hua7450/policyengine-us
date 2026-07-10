@@ -6,7 +6,16 @@ class snap_dependent_care_deduction(Variable):
     entity = SPMUnit
     label = "SNAP dependent care deduction"
     unit = USD
-    documentation = "Deduction from SNAP gross income for dependent care"
+    documentation = (
+        "Deduction from SNAP gross income for dependent care. "
+        "Non-modeled provision: 7 CFR 273.9(d)(4) allows these costs "
+        "only when necessary for a household member to search for, "
+        "accept, or continue employment, comply with SNAP E&T, or "
+        "attend training or education preparatory to employment; we "
+        "do not track that condition at the moment, so all reported "
+        "childcare and adult dependent care expenses flow into the "
+        "deduction."
+    )
     definition_period = MONTH
     reference = (
         "https://www.law.cornell.edu/uscode/text/7/2014#e_3",
