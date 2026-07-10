@@ -22,7 +22,11 @@ classifiers = [
 ]
 dependencies = [
     "microdf-python>=1.0.0",
-    "pandas>=2.0",
+    # pandas 3 (copy-on-write always on) enables the shallow-copy fast path
+    # in dataset extension. pandas 3 needs Python >= 3.11; older Pythons
+    # (kept for Census, PR #8035) stay on pandas 2.x with deep copies.
+    "pandas>=3.0; python_version >= '3.11'",
+    "pandas>=2.0; python_version < '3.11'",
     "policyengine-core>=3.26.0",
     "spm-calculator>=0.2.0",
     "tables>=3.9",

@@ -1,0 +1,1 @@
+- Require pandas >= 3.0 on Python >= 3.11 (pandas >= 2.0 retained for Python 3.9/3.10), enabling copy-on-write dataset extension.
