@@ -1,0 +1,15 @@
+description: North Dakota provides this maximum primary residence credit against property tax on an owner-occupied primary residence.
+values:
+  2024-01-01: 500
+  2025-01-01: 1_600
+metadata:
+  unit: currency-USD
+  period: year
+  label: North Dakota primary residence credit amount
+  reference:
+    - title: Primary Residence Credit | North Dakota Office of State Tax Commissioner
+      href: https://www.tax.nd.gov/prc
+    - title: HB 1176 (2025), 69th Legislative Assembly - increases the primary residence credit from $500 to $1,600
+      href: https://ndlegis.gov/assembly/69-2025/regular/bill-overview/bo1176.html?bill_year=2025-2026
+    - title: N.D.C.C. 57-02-08.9 - Primary residence credit
+      href: https://ndlegis.gov/cencode/t57c02.pdf

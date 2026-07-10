@@ -129,6 +129,7 @@ values:
     - mo_property_tax_credit
     - mt_elderly_homeowner_or_renter_credit
     - mt_property_tax_rebate
+    - nd_primary_residence_credit
     - nd_renters_refund
     - nj_property_tax_credit
     - nm_property_tax_rebate
@@ -153,6 +154,7 @@ values:
     - mo_property_tax_credit
     - mt_elderly_homeowner_or_renter_credit
     - mt_property_tax_rebate
+    - nd_primary_residence_credit
     - nd_renters_refund
     - nj_property_tax_credit
     - nm_property_tax_rebate
@@ -180,6 +182,8 @@ values:
     - mo_property_tax_credit
     - mt_elderly_homeowner_or_renter_credit
     - mt_property_tax_rebate
+    - nd_primary_residence_credit
+    - nd_renters_refund
     - nj_property_tax_credit
     - nm_property_tax_rebate
     - ny_real_property_tax_credit
