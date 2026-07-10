@@ -1,0 +1,37 @@
+description: Oklahoma counts these income sources as countable income under the Child Care Subsidy Program.
+values:
+  2023-01-01:
+    # Earned income (OAC 340:40-7-11(1)): wages, including armed forces pay,
+    # commissions, tips, piece-rate payments, longevity payments, and cash
+    # bonuses, and self-employment income.
+    - employment_income
+    - self_employment_income
+    # Unearned income (OAC 340:40-7-11(2)). Supplemental Security Income is
+    # explicitly countable unearned income and is a separate variable from
+    # social_security.
+    - ssi
+    # social_security already includes the disability, retirement, survivors,
+    # and dependents components.
+    - social_security
+    - unemployment_compensation
+    - workers_compensation
+    - child_support_received
+    - alimony_income
+    - dividend_income
+    - interest_income
+    # Temporary Assistance for Needy Families cash assistance is countable per
+    # OAC 340:40-7-11(2) but is omitted here: TANF recipients are
+    # predetermined eligible with no family share copayment (OAC 340:40-7-1),
+    # so counting the TANF dollars has no effect on their eligibility, and
+    # including them would create a circular dependency with the TANF
+    # dependent care deduction.
+    # Mineral and royalty payments are countable but we don't track them as a
+    # separate income source at the moment.
+
+metadata:
+  unit: list
+  period: year
+  label: Oklahoma Child Care Subsidy countable income sources
+  reference:
+    - title: OAC 340:40-7-11
+      href: http://okrules.elaws.us/oac/340:40-7-11

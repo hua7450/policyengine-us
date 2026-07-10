@@ -1,0 +1,60 @@
+# Income thresholds per OKDHS Appendix C-4 (10/1/2025): $4,525/month for a
+# household of two, $5,589 for a household of three.
+- name: Case 1, household of two below the threshold is eligible.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 54_000  # $4,500/month, below $4,525.
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: OK
+  output:
+    ok_ccs_income_eligible: true
+
+- name: Case 2, household of two above the threshold is not eligible.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 55_200  # $4,600/month, above $4,525.
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: OK
+  output:
+    ok_ccs_income_eligible: false
+
+- name: Case 3, household of three below the threshold is eligible.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 66_000  # $5,500/month, below $5,589.
+      person2:
+        age: 28
+      person3:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: OK
+  output:
+    ok_ccs_income_eligible: true
