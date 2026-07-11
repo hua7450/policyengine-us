@@ -103,7 +103,23 @@
     # 13-24 months, full-time.
     ok_ccs_daily_rate: 41.8
 
-- name: Case 7, a child aged 13 receives no rate.
+- name: Case 7, unset hours per day default to the full-time rate.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 3
+        ok_ccs_star_level: STAR_3
+    households:
+      household:
+        members: [person1]
+        state_code: OK
+  output:
+    # 25-48 months, full-time (zero hours means unset, not part-time).
+    ok_ccs_daily_rate: 31.5
+
+- name: Case 8, a child aged 13 receives no rate.
   period: 2026-01
   absolute_error_margin: 0.01
   input:

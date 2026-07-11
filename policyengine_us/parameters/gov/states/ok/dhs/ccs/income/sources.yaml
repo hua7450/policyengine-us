@@ -6,10 +6,7 @@ values:
     # bonuses, and self-employment income.
     - employment_income
     - self_employment_income
-    # Unearned income (OAC 340:40-7-11(2)). Supplemental Security Income is
-    # explicitly countable unearned income and is a separate variable from
-    # social_security.
-    - ssi
+    # Unearned income (OAC 340:40-7-11(2)).
     # social_security already includes the disability, retirement, survivors,
     # and dependents components.
     - social_security
@@ -42,7 +39,10 @@ values:
     # including them would create a circular dependency with the TANF
     # dependent care deduction. Oklahoma State Supplemental Payments and
     # Refugee Resettlement Program cash assistance are not tracked at the
-    # moment.
+    # moment. Supplemental Security Income is likewise countable unearned
+    # income (OAC 340:40-7-11(c)(2)) but omitted for the same reason: SSI
+    # recipients are predetermined eligible with no family share copayment,
+    # so the SSI dollars can never reach the income test or copayment lookup.
     # Mineral and royalty payments (OAC 340:40-7-11(c)(8)), cash contributions
     # over $30 per quarter (c)(7), and recurring lump sum or irregular income
     # (c)(9)-(10) have no corresponding tracked income source at the moment.

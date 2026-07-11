@@ -34,5 +34,6 @@ class ok_ccs_countable_income(Variable):
             gross_income - minor_earned_income - child_support_paid, 0
         )
         # The adjusted monthly income is rounded to the nearest dollar before
-        # the Appendix C-4 threshold and copayment lookups (Appendix C-4).
-        return np.round(adjusted_income)
+        # the Appendix C-4 threshold and copayment lookups, with half dollars
+        # rounding up; np.round would round them to the even dollar.
+        return np.floor(adjusted_income + 0.5)

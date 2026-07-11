@@ -20,10 +20,13 @@ class ok_ccs_time_category(Variable):
         p = parameters(period).gov.states.ok.dhs.ccs.time_category
         # The full-time daily unit type is approved when the child needs care
         # more than four hours per day; the part-time daily unit type when the
-        # child needs four or fewer hours per day (Appendix C-4-B).
+        # child needs four or fewer hours per day (Appendix C-4-B). Zero hours
+        # means the input is unset, so it falls back to full time per the
+        # declared default rather than being treated as part time.
         hours = person("childcare_hours_per_day", period.this_year)
+        is_part_time = (hours > 0) & (hours <= p.max_part_time_hours)
         return where(
-            hours > p.max_part_time_hours,
-            OKCCSTimeCategory.FULL_TIME,
+            is_part_time,
             OKCCSTimeCategory.PART_TIME,
+            OKCCSTimeCategory.FULL_TIME,
         )
