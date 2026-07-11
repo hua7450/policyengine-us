@@ -8,7 +8,9 @@ class or_erdc_copay(Variable):
     unit = USD
     label = "Oregon ERDC monthly copay"
     defined_for = StateCode.OR
-    reference = "https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=7871"
+    reference = (
+        "https://secure.sos.state.or.us/oard/view.action?ruleNumber=414-175-0050"
+    )
 
     def formula(spm_unit, period, parameters):
         p = parameters(period).gov.states["or"].delc.erdc
@@ -40,4 +42,9 @@ class or_erdc_copay(Variable):
             default=p.copay.size_8.calc(income),
         )
         categorical = spm_unit("or_erdc_categorically_eligible", period)
-        return where(categorical, 0, amount)
+        job_loss_waiver = spm_unit("or_erdc_permanent_job_loss", period.this_year)
+        medical_leave_waiver = spm_unit(
+            "or_erdc_medical_leave_at_application", period.this_year
+        )
+        copay_waived = categorical | job_loss_waiver | medical_leave_waiver
+        return where(copay_waived, 0, amount)

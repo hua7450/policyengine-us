@@ -31,3 +31,21 @@
     state_code: OR
   output:
     or_erdc_eligible_child: false
+
+- name: Child age 15 eligible for the high needs rate is an eligible child.
+  period: 2027-01
+  input:
+    age: 15
+    or_erdc_high_needs_rate_eligible: true
+    state_code: OR
+  output:
+    or_erdc_eligible_child: true
+
+- name: Child age 15 with only the special needs rate is not an eligible child.
+  period: 2027-01
+  input:
+    age: 15
+    or_erdc_special_needs_rate_eligible: true
+    state_code: OR
+  output:
+    or_erdc_eligible_child: false

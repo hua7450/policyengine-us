@@ -23,6 +23,11 @@ class or_erdc_age_group(Variable):
         p = parameters(period).gov.states["or"].delc.erdc.age_group
         provider_type = person("or_erdc_provider_type", period)
         types = provider_type.possible_values
+        # The Provider Guide Insert grants the infant window of 6 weeks through
+        # 23 months only to "Registered or Certified Family care" (RFM, CFM);
+        # it states no infant boundary for certified centers (CNT). We apply
+        # the same 24-month cutoff to CNT pending DELC confirmation (a ~$96/mo
+        # difference for children aged 12-23 months at certified centers).
         licensed = (
             (provider_type == types.REGISTERED_FAMILY)
             | (provider_type == types.CERTIFIED_FAMILY)

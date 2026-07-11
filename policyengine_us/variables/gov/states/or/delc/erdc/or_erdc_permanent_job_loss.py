@@ -1,11 +1,11 @@
 from policyengine_us.model_api import *
 
 
-class or_erdc_supervised_contact_required(Variable):
+class or_erdc_permanent_job_loss(Variable):
     value_type = bool
-    entity = Person
+    entity = SPMUnit
     definition_period = YEAR
-    label = "Oregon ERDC supervised contact required with a caretaker"
+    label = "Oregon ERDC caretaker with a permanent job loss from all employment"
     defined_for = StateCode.OR
     reference = (
         "https://secure.sos.state.or.us/oard/view.action?ruleNumber=414-175-0023"

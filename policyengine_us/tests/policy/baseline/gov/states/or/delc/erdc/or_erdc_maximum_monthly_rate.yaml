@@ -35,6 +35,7 @@
     or_erdc_provider_type: ENHANCED_FAMILY
     or_erdc_age_group: PRESCHOOL
     or_erdc_monthly_care_hours: 100
+    or_erdc_provider_bills_part_time: true
     state_code: OR
   output:
     or_erdc_maximum_monthly_rate: 737
@@ -74,6 +75,7 @@
     or_erdc_provider_type: CERTIFIED_FAMILY
     or_erdc_age_group: INFANT
     or_erdc_monthly_care_hours: 100
+    or_erdc_provider_bills_part_time: true
     state_code: OR
   output:
     or_erdc_maximum_monthly_rate: 1373
@@ -126,6 +128,7 @@
     or_erdc_provider_type: ENHANCED_FAMILY
     or_erdc_age_group: SPECIAL_NEEDS
     or_erdc_monthly_care_hours: 100
+    or_erdc_provider_bills_part_time: true
     state_code: OR
   output:
     or_erdc_maximum_monthly_rate: 677
@@ -165,6 +168,7 @@
     or_erdc_provider_type: CERTIFIED_FAMILY
     or_erdc_age_group: PRESCHOOL
     or_erdc_monthly_care_hours: 100
+    or_erdc_provider_bills_part_time: true
     state_code: OR
   output:
     or_erdc_maximum_monthly_rate: 788
@@ -217,6 +221,7 @@
     or_erdc_provider_type: ENHANCED_FAMILY
     or_erdc_age_group: TODDLER
     or_erdc_monthly_care_hours: 100
+    or_erdc_provider_bills_part_time: true
     state_code: OR
   output:
     or_erdc_maximum_monthly_rate: 623
@@ -256,6 +261,7 @@
     or_erdc_provider_type: CERTIFIED_FAMILY
     or_erdc_age_group: SPECIAL_NEEDS
     or_erdc_monthly_care_hours: 100
+    or_erdc_provider_bills_part_time: true
     state_code: OR
   output:
     or_erdc_maximum_monthly_rate: 956
@@ -294,6 +300,7 @@
     or_erdc_provider_type: ENHANCED_FAMILY
     or_erdc_age_group: INFANT
     or_erdc_monthly_care_hours: 63
+    or_erdc_provider_bills_part_time: true
     state_code: OR
   output:
     or_erdc_maximum_monthly_rate: 879
@@ -306,6 +313,7 @@
     or_erdc_provider_type: ENHANCED_FAMILY
     or_erdc_age_group: INFANT
     or_erdc_monthly_care_hours: 135
+    or_erdc_provider_bills_part_time: true
     state_code: OR
   output:
     or_erdc_maximum_monthly_rate: 879
@@ -347,3 +355,98 @@
   output:
     or_erdc_maximum_monthly_rate: 1_110
 
+- name: Enhanced provider part-time band bills hourly when it does not bill part-time.
+  period: 2027-01
+  absolute_error_margin: 0.01
+  input:
+    or_erdc_eligible_child: true
+    or_erdc_provider_area: AREA_A
+    or_erdc_provider_type: ENHANCED_FAMILY
+    or_erdc_age_group: PRESCHOOL
+    or_erdc_monthly_care_hours: 100
+    or_erdc_provider_bills_part_time: false
+    state_code: OR
+  output:
+    # 100 hours falls in the enhanced part-time band, but the provider does not
+    # bill part-time, so the tier collapses to hourly: min(5.7 * 100, 982) = 570.
+    or_erdc_maximum_monthly_rate: 570
+
+- name: High needs adds five dollars per factor per hour on hourly billing.
+  period: 2027-01
+  absolute_error_margin: 0.01
+  input:
+    or_erdc_eligible_child: true
+    or_erdc_provider_area: AREA_A
+    or_erdc_provider_type: CERTIFIED_CENTER
+    or_erdc_age_group: INFANT
+    or_erdc_monthly_care_hours: 10
+    or_erdc_high_needs_rate_eligible: true
+    or_erdc_high_needs_factors: 2
+    state_code: OR
+  output:
+    # min(12 * 10, 2083) + 2 factors * $5 * 10 hours = 120 + 100 = 220.
+    or_erdc_maximum_monthly_rate: 220
+
+- name: High needs adds eight hundred forty dollars per factor on monthly billing.
+  period: 2027-01
+  absolute_error_margin: 0.01
+  input:
+    or_erdc_eligible_child: true
+    or_erdc_provider_area: AREA_A
+    or_erdc_provider_type: CERTIFIED_CENTER
+    or_erdc_age_group: INFANT
+    or_erdc_monthly_care_hours: 200
+    or_erdc_high_needs_rate_eligible: true
+    or_erdc_high_needs_factors: 2
+    state_code: OR
+  output:
+    # Monthly rate 2083 + 2 factors * $840 = 2083 + 1680 = 3763.
+    or_erdc_maximum_monthly_rate: 3_763
+
+- name: High needs adds the monthly supplement on part-time billing.
+  period: 2027-01
+  absolute_error_margin: 0.01
+  input:
+    or_erdc_eligible_child: true
+    or_erdc_provider_area: AREA_A
+    or_erdc_provider_type: CERTIFIED_CENTER
+    or_erdc_age_group: INFANT
+    or_erdc_monthly_care_hours: 100
+    or_erdc_provider_bills_part_time: true
+    or_erdc_high_needs_rate_eligible: true
+    or_erdc_high_needs_factors: 1
+    state_code: OR
+  output:
+    # Part-time rate 1562 + 1 factor * $840 = 2402.
+    or_erdc_maximum_monthly_rate: 2_402
+
+- name: High needs supplement requires the high needs rate eligibility flag.
+  period: 2027-01
+  absolute_error_margin: 0.01
+  input:
+    or_erdc_eligible_child: true
+    or_erdc_provider_area: AREA_A
+    or_erdc_provider_type: CERTIFIED_CENTER
+    or_erdc_age_group: INFANT
+    or_erdc_monthly_care_hours: 10
+    or_erdc_high_needs_rate_eligible: false
+    or_erdc_high_needs_factors: 2
+    state_code: OR
+  output:
+    # Factors present but not high-needs eligible, so no supplement: 12 * 10 = 120.
+    or_erdc_maximum_monthly_rate: 120
+
+- name: Hourly billing is capped at the monthly rate near the monthly threshold.
+  period: 2027-01
+  absolute_error_margin: 0.01
+  input:
+    or_erdc_eligible_child: true
+    or_erdc_provider_area: AREA_B
+    or_erdc_provider_type: STANDARD_CENTER
+    or_erdc_age_group: PRESCHOOL
+    or_erdc_monthly_care_hours: 157
+    state_code: OR
+  output:
+    # 7.13 * 157 = 1119.41 exceeds the 782 monthly rate, so hourly billing is
+    # capped at 782, keeping reimbursement monotonic across the 158-hour tier.
+    or_erdc_maximum_monthly_rate: 782

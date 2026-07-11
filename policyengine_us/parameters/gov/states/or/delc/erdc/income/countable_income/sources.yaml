@@ -2,9 +2,9 @@ description: Oregon counts these income sources under the Employment Related Day
 values:
   2026-03-01:
     - employment_income
-    - self_employment_income
-    - sstb_self_employment_income
-    - farm_operations_income
+    # Self-employment sources are floored at zero per business so a loss cannot
+    # offset other countable income, per OAR 414-175-0035(81)(a) and (81)(e).
+    - or_erdc_countable_self_employment_income
     - military_basic_pay
     - disability_benefits
     - social_security

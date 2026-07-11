@@ -1,0 +1,28 @@
+from policyengine_us.model_api import *
+
+
+class or_erdc_caretaker_weekly_need_hours(Variable):
+    value_type = float
+    entity = SPMUnit
+    definition_period = MONTH
+    unit = "hour"
+    label = "Oregon ERDC caretaker weekly child care need hours"
+    defined_for = StateCode.OR
+    reference = (
+        "https://secure.sos.state.or.us/oard/view.action?ruleNumber=414-175-0023"
+    )
+
+    def formula(spm_unit, period, parameters):
+        person = spm_unit.members
+        is_caretaker = person("is_tax_unit_head_or_spouse", period.this_year)
+        # OAR 414-175-0023(5) sets hours from the caretaker's allowable child
+        # care need. We proxy that need with work hours before labor supply
+        # responses (avoiding a circular dependency); education, training, and
+        # study hours are not separately tracked. OAR 0023(5) is silent on
+        # multi-caretaker units, so we authorize on the lowest-need caretaker,
+        # the more conservative reading. Non-caretakers get infinity so they
+        # never lower the need.
+        weekly_hours = person("weekly_hours_worked_before_lsr", period.this_year)
+        has_caretaker = spm_unit.sum(is_caretaker) > 0
+        lowest_caretaker_hours = spm_unit.min(where(is_caretaker, weekly_hours, np.inf))
+        return where(has_caretaker, lowest_caretaker_hours, 0)

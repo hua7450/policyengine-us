@@ -15,7 +15,7 @@ class or_erdc_eligible_child(Variable):
         special_circumstances = (
             person("is_incapable_of_self_care", period.this_year)
             | person("is_in_foster_care", period.this_year)
-            | person("or_erdc_special_needs_rate_eligible", period.this_year)
+            | person("or_erdc_high_needs_rate_eligible", period.this_year)
             | person("or_erdc_special_circumstances_child", period.this_year)
         )
         return (age < p.child) | (

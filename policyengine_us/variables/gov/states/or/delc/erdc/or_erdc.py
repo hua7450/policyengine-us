@@ -8,7 +8,9 @@ class or_erdc(Variable):
     unit = USD
     label = "Oregon Employment Related Day Care benefit amount"
     defined_for = "or_erdc_eligible"
-    reference = "https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=7871"
+    reference = (
+        "https://secure.sos.state.or.us/oard/view.action?ruleNumber=414-175-0075"
+    )
 
     def formula(spm_unit, period, parameters):
         allowable_cost = spm_unit("or_erdc_allowable_child_care_cost", period)
