@@ -16,8 +16,13 @@ class sd_cca_countable_income(Variable):
         p = parameters(period).gov.states.sd.dss.cca.income
         gross_income = spm_unit("sd_cca_gross_income", period)
         person = spm_unit.members
+        # Self-employment income is floored at zero per person (Section 6), so
+        # the child exclusion and 4% disregard operate on the same figure that
+        # entered gross income.
         person_earned = add(
-            person, period, ["employment_income", "self_employment_income"]
+            person,
+            period,
+            ["employment_income", "sd_cca_self_employment_income"],
         )
         is_child = person("age", period.this_year) < p.child_earned_income_exclusion_age
         # The earned income of children is excluded entirely.

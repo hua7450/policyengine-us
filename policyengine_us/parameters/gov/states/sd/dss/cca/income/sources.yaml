@@ -4,7 +4,9 @@ values:
     # Earned income (wages, salary, commissions, tips, bonuses, fees, and
     # self-employment net of allowable business expenses).
     - employment_income
-    - self_employment_income
+    # Section 6: a self-employment loss is counted as $0 and may not offset
+    # other income, so we sum the per-person floored figure.
+    - sd_cca_self_employment_income
     # Unearned income (Subsidy Manual, Section 4).
     - rental_income            # "lease income"
     - social_security          # "Social Security (SSA)"; already excludes SSI
