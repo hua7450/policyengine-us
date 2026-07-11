@@ -211,3 +211,38 @@
   output:
     ok_ccs_eligible: false
     ok_ccs: 0
+
+- name: Case 9, the expense cap applies at the family level across two children.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 30_000  # $2,500/month.
+      person2:
+        age: 3
+        ok_ccs_star_level: STAR_1
+        childcare_hours_per_day: 8
+        childcare_attending_days_per_month: 20
+      person3:
+        age: 0
+        ok_ccs_star_level: STAR_5
+        childcare_hours_per_day: 8
+        childcare_attending_days_per_month: 20
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        spm_unit_pre_subsidy_childcare_expenses: 12_000  # $1,000/month.
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: OK
+  output:
+    # Household of three, $2,389-$2,626 band.
+    ok_ccs_copay: 176
+    # Rates: 17.20 * 20 = 344 (person2) + 50.60 * 20 = 1,012 (person3)
+    # = 1,356. The cap binds on the family's $1,000 total expenses, not on
+    # each child's even $500 share (which would give 344 + 500 = 844).
+    # min(1,356, 1,000) - 176 copay = 824.
+    ok_ccs: 824

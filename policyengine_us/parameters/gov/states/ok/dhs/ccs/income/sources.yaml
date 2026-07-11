@@ -19,14 +19,33 @@ values:
     - alimony_income
     - dividend_income
     - interest_income
+    # Annuities, pensions, retirement benefits, and disability benefits from
+    # government or private sources are unearned income (OAC
+    # 340:40-7-11(c)(2)). disability_benefits excludes Social Security
+    # disability (inside social_security) and workers' compensation, so the
+    # sources do not double-count.
+    - pension_income
+    - disability_benefits
+    # Veterans' compensation, pensions, and military allotments
+    # (OAC 340:40-7-11(c)(6)).
+    - veterans_benefits
+    # Rental property income is considered self-employment income
+    # (OAC 340:40-7-11(b)(3)).
+    - rental_income
+    # S corporation, limited partnership, and LLC profit shares are unearned
+    # income (OAC 340:40-7-11(c)(11)).
+    - partnership_s_corp_income
     # Temporary Assistance for Needy Families cash assistance is countable per
-    # OAC 340:40-7-11(2) but is omitted here: TANF recipients are
+    # OAC 340:40-7-11(c)(1) but is omitted here: TANF recipients are
     # predetermined eligible with no family share copayment (OAC 340:40-7-1),
     # so counting the TANF dollars has no effect on their eligibility, and
     # including them would create a circular dependency with the TANF
-    # dependent care deduction.
-    # Mineral and royalty payments are countable but we don't track them as a
-    # separate income source at the moment.
+    # dependent care deduction. Oklahoma State Supplemental Payments and
+    # Refugee Resettlement Program cash assistance are not tracked at the
+    # moment.
+    # Mineral and royalty payments (OAC 340:40-7-11(c)(8)), cash contributions
+    # over $30 per quarter (c)(7), and recurring lump sum or irregular income
+    # (c)(9)-(10) have no corresponding tracked income source at the moment.
 
 metadata:
   unit: list

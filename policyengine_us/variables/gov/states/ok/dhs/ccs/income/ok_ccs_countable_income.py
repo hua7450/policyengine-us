@@ -30,4 +30,9 @@ class ok_ccs_countable_income(Variable):
         # Verified, legally binding child support paid by a household member to
         # or for a non-household member is deducted (OAC 340:40-7-13).
         child_support_paid = add(spm_unit, period, ["child_support_expense"])
-        return max_(gross_income - minor_earned_income - child_support_paid, 0)
+        adjusted_income = max_(
+            gross_income - minor_earned_income - child_support_paid, 0
+        )
+        # The adjusted monthly income is rounded to the nearest dollar before
+        # the Appendix C-4 threshold and copayment lookups (Appendix C-4).
+        return np.round(adjusted_income)

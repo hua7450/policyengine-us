@@ -106,3 +106,24 @@
         state_code: OK
   output:
     ok_ccs_copay: 0
+
+- name: Case 6, income just below a band boundary rounds up into the higher band.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 17_431.2  # $1,452.60/month, rounds to $1,453.
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: OK
+  output:
+    # $1,453-$1,546 band for a household of two.
+    ok_ccs_copay: 90

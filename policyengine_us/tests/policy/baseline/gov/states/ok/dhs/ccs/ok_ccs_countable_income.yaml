@@ -81,3 +81,46 @@
         state_code: OK
   output:
     ok_ccs_countable_income: 1_000
+
+- name: Case 5, pension, veterans, and rental income count.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        pension_income: 6_000  # $500/month.
+        veterans_benefits: 3_600  # $300/month.
+        rental_income: 2_400  # $200/month.
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: OK
+  output:
+    # 500 + 300 + 200 = 1,000.
+    ok_ccs_countable_income: 1_000
+
+- name: Case 6, adjusted monthly income is rounded to the nearest dollar.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 17_431.2  # $1,452.60/month.
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: OK
+  output:
+    ok_ccs_countable_income: 1_453
