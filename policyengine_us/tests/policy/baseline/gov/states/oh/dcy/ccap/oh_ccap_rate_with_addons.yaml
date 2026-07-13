@@ -375,3 +375,56 @@
     # Special accommodations pay twice the 823.333 base, while accreditation
     # separately adds 10% of that base: 823.333 * 2.10 = 1,729.
     oh_ccap_rate_with_addons: [0, 1_729]
+
+- name: Case 16, special accommodations double the Gold-enhanced rate.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 4
+        immigration_status: CITIZEN
+        has_developmental_delay: true
+        oh_ccap_has_special_accommodations: true
+        oh_ccap_provider_type: CENTER
+        oh_ccap_quality_tier: GOLD
+        childcare_hours_per_week: 40
+        pre_subsidy_childcare_expenses: 60_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: OH
+        county_str: STARK_COUNTY_OH
+  output:
+    # (G)(2) doubles the (B)(1)-or-(C) rate, which for a Gold provider is the
+    # SUTQ-enhanced rate: 823.333 * 1.25 * 2 = 2,058.333.
+    oh_ccap_rate_with_addons: [0, 2_058.33]
+
+- name: Case 17, non-traditional hours stay additive inside the accommodations doubling.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 4
+        immigration_status: CITIZEN
+        has_developmental_delay: true
+        oh_ccap_has_special_accommodations: true
+        oh_ccap_provider_type: CENTER
+        oh_ccap_quality_tier: NONE
+        oh_ccap_non_traditional_hours: true
+        childcare_hours_per_week: 40
+        pre_subsidy_childcare_expenses: 60_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: OH
+        county_str: STARK_COUNTY_OH
+  output:
+    # (G)(2) doubles the 823.333 base while the (F) non-traditional share
+    # stays additive: 823.333 * (2 + 0.05) = 1,687.833.
+    oh_ccap_rate_with_addons: [0, 1_687.83]

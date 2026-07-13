@@ -91,10 +91,11 @@
   output:
     oh_ccap_countable_income: 0
 
-# This variable itself does not floor at zero; a self-employment loss flows
-# through as negative countable income. The zero floor is applied downstream
-# in oh_ccap_copay (max_(income, 0)) so the loss cannot create a negative copay.
-- name: Case 5, negative self-employment income produces negative countable income.
+# 5180:2-16-03(D)(1) counts self-employment as the total profit from a
+# business enterprise and (D)(4)(a) disallows net losses, so a loss is floored
+# at zero per person and per source instead of flowing through as negative
+# countable income.
+- name: Case 5, a self-employment loss floors at zero.
   period: 2026-01
   input:
     people:
@@ -111,7 +112,7 @@
         members: [person1, person2]
         state_code: OH
   output:
-    oh_ccap_countable_income: -5_000
+    oh_ccap_countable_income: 0
 
 - name: Case 6, non-parent minor full-time student earnings are excluded.
   period: 2026-01
@@ -154,3 +155,27 @@
         state_code: OH
   output:
     oh_ccap_countable_income: 500
+
+- name: Case 8, one parent's business loss cannot offset the other parent's wages.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 35
+        self_employment_income: -60_000  # -5,000/month loss, floored at zero
+      person2:
+        age: 33
+        employment_income: 72_000  # 6,000/month — counted in full
+      person3:
+        age: 3
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: OH
+  output:
+    # (D)(4)(a): person1's loss counts as zero, so countable income is
+    # person2's 6,000/month — not 6,000 - 5,000 = 1,000.
+    oh_ccap_countable_income: 6_000

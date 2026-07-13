@@ -21,4 +21,13 @@ class oh_ccap(Variable):
         # masking. The family copayment (5180:2-16-05) is then subtracted.
         total_reimbursement = add(spm_unit, period, ["oh_ccap_rate_with_addons"])
         copay = spm_unit("oh_ccap_copay", period)
-        return max_(total_reimbursement - copay, 0)
+        # 5180:2-16-05(H): the family pays the lesser of the copayment or the
+        # cost of care, so the subtracted copay is capped at the eligible
+        # children's total customary charge.
+        person = spm_unit.members
+        eligible_child = person("oh_ccap_eligible_child", period)
+        cost_of_care = spm_unit.sum(
+            eligible_child * person("pre_subsidy_childcare_expenses", period)
+        )
+        capped_copay = min_(copay, cost_of_care)
+        return max_(total_reimbursement - capped_copay, 0)

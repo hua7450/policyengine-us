@@ -20,8 +20,9 @@ class oh_ccap_copay(Variable):
         # oh_ccap_fpg is the October-vintage monthly FPG per PL 21.
         fpg_monthly = spm_unit("oh_ccap_fpg", period)
         countable_income = spm_unit("oh_ccap_countable_income", period)
-        # Floor income at zero so a self-employment loss cannot produce a
-        # negative copayment.
+        # Net losses are already floored per person in
+        # oh_ccap_countable_income; this floor defensively covers any other
+        # negative income so it cannot produce a negative copayment.
         monthly_income = max_(countable_income, 0)
         # (B)(1)-(2): annualize income and divide by the annual FPG to get the
         # family's percentage of the federal poverty level.

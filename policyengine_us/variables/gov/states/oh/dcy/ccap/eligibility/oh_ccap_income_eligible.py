@@ -49,9 +49,4 @@ class oh_ccap_income_eligible(Variable):
         # PL 21 publishes the monthly dollar standards rounded up to the next
         # whole dollar.
         income_limit = np.ceil(fpg * rate)
-        fpl_eligible = countable_income <= income_limit
-        # Families enrolled in Ohio Works First (TANF) are categorically
-        # income-eligible. Using is_tanf_enrolled (rather than computed TANF
-        # eligibility) breaks the CCAP-TANF circular dependency.
-        is_tanf = spm_unit("is_tanf_enrolled", period)
-        return is_tanf | fpl_eligible
+        return countable_income <= income_limit

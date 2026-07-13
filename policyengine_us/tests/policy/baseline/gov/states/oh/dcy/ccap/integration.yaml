@@ -264,8 +264,9 @@
     oh_ccap: 0
 
 # Edge cases.
-# Negative self-employment income floors at zero in the copay formula, so the
-# family is income-eligible, owes no copay, and receives the full reimbursement.
+# Negative self-employment income floors at zero per person in countable
+# income (5180:2-16-03(D)(4)(a)), so the family is income-eligible, owes no
+# copay, and receives the full reimbursement.
 - name: Case 8, self-employment loss yields full subsidy with no negative copay.
   period: 2026-01
   absolute_error_margin: 0.01
@@ -290,8 +291,8 @@
         state_code: OH
         county_str: FRANKLIN_COUNTY_OH  # category 3
   output:
-    # Countable income floors at 0 for the copay; family is below 100% FPG.
-    oh_ccap_countable_income: -5_000
+    # The loss counts as zero, leaving the family below 100% FPG.
+    oh_ccap_countable_income: 0
     oh_ccap_income_eligible: true
     oh_ccap_eligible: true
     oh_ccap_copay: 0
@@ -453,3 +454,40 @@
     oh_ccap_rate_with_addons: [0, 1_118]
     oh_ccap_copay: 0
     oh_ccap: 1_118
+
+# 5180:2-16-05(H): the family pays the lesser of the copayment or the cost of
+# care. The cap binds only when the copay exceeds the customary charge while a
+# quality bonus lifts the reimbursement above that charge.
+- name: Case 13, the copay is capped at the cost of care.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 24_000  # 2,000/month
+      person2:
+        age: 2  # toddler
+        immigration_status: CITIZEN
+        oh_ccap_provider_type: CENTER
+        oh_ccap_quality_tier: GOLD
+        childcare_hours_per_week: 40
+        pre_subsidy_childcare_expenses: 1_200  # 100/month customary charge
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: OH
+        county_str: FRANKLIN_COUNTY_OH  # category 3
+  output:
+    # (B)(1) base = min(1,265.98, 100) = 100; Gold +25% may exceed the
+    # charge: 100 * 1.25 = 125.
+    oh_ccap_rate_with_addons: [0, 125]
+    # Copay (size 2): same income as Case 1 -> 156/month, above the
+    # 100/month cost of care.
+    oh_ccap_copay: 156
+    # (H) caps the subtracted copay at the 100 cost of care:
+    # 125 - 100 = 25 (not max(125 - 156, 0) = 0).
+    oh_ccap: 25
