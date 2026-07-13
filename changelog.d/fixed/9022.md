@@ -1,0 +1,1 @@
+- Applied Washington's capital gains 9.9% tier only from 2025; ESSB 5813 (Ch. 421, Laws of 2025) imposes the additional 2.9% over $1,000,000 beginning January 1, 2025, and the rate was a flat 7% in 2022-2024.
