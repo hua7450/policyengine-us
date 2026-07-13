@@ -2,24 +2,27 @@
 # tips are not added back, and Colorado conformed in 2025. The federal overtime
 # deduction is set directly here to isolate the Colorado add-back.
 
-- name: 2026 Colorado adds back the federal overtime deduction
+- name: Case 1, 2026 Colorado adds back the federal overtime deduction.
   period: 2026
+  absolute_error_margin: 0.01
   input:
     overtime_income_deduction: 3_000
     state_code: CO
   output:
     co_overtime_income_addback: 3_000
 
-- name: 2025 Colorado conforms - no overtime add-back
+- name: Case 2, 2025 Colorado conforms so there is no overtime add-back.
   period: 2025
+  absolute_error_margin: 0.01
   input:
     overtime_income_deduction: 3_000
     state_code: CO
   output:
     co_overtime_income_addback: 0
 
-- name: 2026 overtime add-back computes in a full household
+- name: Case 3, 2026 overtime add-back computes in a full household.
   period: 2026
+  absolute_error_margin: 0.01
   input:
     people:
       person1:
@@ -34,3 +37,31 @@
         state_code: CO
   output:
     co_overtime_income_addback: 3_000
+
+- name: Case 4, 2026 overtime add-back flows into Colorado additions.
+  period: 2026
+  absolute_error_margin: 0.01
+  input:
+    overtime_income_deduction: 3_000
+    state_code: CO
+  output:
+    co_additions: 3_000
+
+- name: Case 5, 2025 overtime is not added into Colorado additions.
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    overtime_income_deduction: 3_000
+    state_code: CO
+  output:
+    co_additions: 0
+
+- name: Case 6, 2026 Colorado does not add back the federal tips deduction.
+  period: 2026
+  absolute_error_margin: 0.01
+  input:
+    tip_income_deduction: 5_000
+    state_code: CO
+  output:
+    co_overtime_income_addback: 0
+    co_additions: 0
