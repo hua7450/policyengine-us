@@ -27,8 +27,9 @@ class ok_ccs_activity_eligible(Variable):
             out=np.zeros_like(monthly_earned_income),
             where=monthly_hours > 0,
         )
+        min_wage = parameters(period).gov.dol.minimum_wage
         is_working = (weekly_hours >= p.minimum_weekly_work_hours) & (
-            effective_hourly_earnings >= parameters(period).gov.dol.minimum_wage
+            effective_hourly_earnings >= min_wage
         )
         is_student = person("is_full_time_student", period.this_year)
         is_in_k12_school = person("is_in_k12_school", period.this_year)

@@ -7,7 +7,10 @@ class ok_ccs_eligible_child(Variable):
     label = "Oklahoma Child Care Subsidy eligible child"
     definition_period = MONTH
     defined_for = StateCode.OK
-    reference = "https://okrules.elaws.us/oac/340:40-7-3"
+    reference = (
+        "https://okrules.elaws.us/oac/340:40-7-3",
+        "https://okrules.elaws.us/oac/340:40-7-5",
+    )
 
     def formula(person, period, parameters):
         p = parameters(period).gov.states.ok.dhs.ccs.eligibility
@@ -21,6 +24,8 @@ class ok_ccs_eligible_child(Variable):
         is_disabled = person("is_disabled", period.this_year)
         age_limit = where(is_disabled, p.disabled_child_age_limit, p.child_age_limit)
         age_eligible = age < age_limit
+        # Only the child for whom care is requested must meet citizenship
+        # and alienage requirements (OAC 340:40-7-5(c)).
         immigration_eligible = person(
             "is_ccdf_immigration_eligible_child", period.this_year
         )
