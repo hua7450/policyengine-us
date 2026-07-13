@@ -18,10 +18,11 @@ class oh_ccap_countable_income(Variable):
         # a business enterprise and (D)(4)(a) disallows net losses, so each
         # member's loss from a signed net-flow source is added back rather
         # than offsetting other income.
-        losses = sum(
+        loss_amounts = [
             min_(person(source, period), 0)
             for source in p.countable_income.net_loss_sources
-        )
+        ]
+        losses = sum(loss_amounts)
         receives_ssi = person("ssi", period) > 0
         is_excluded_minor_student = (
             (person("age", period.this_year) < p.countable_income.minor_age_limit)
@@ -30,13 +31,14 @@ class oh_ccap_countable_income(Variable):
         )
         # The excluded earned income matches the floored amounts counted
         # above, so a loss source contributes zero here as well.
-        person_earned_income = add(
-            person, period, p.countable_income.earned_sources
-        ) - sum(
+        earned_loss_amounts = [
             min_(person(source, period), 0)
             for source in p.countable_income.earned_sources
             if source in p.countable_income.net_loss_sources
-        )
+        ]
+        person_earned_income = add(
+            person, period, p.countable_income.earned_sources
+        ) - sum(earned_loss_amounts)
         excluded_earned_income = spm_unit.sum(
             person_earned_income * (receives_ssi | is_excluded_minor_student)
         )
