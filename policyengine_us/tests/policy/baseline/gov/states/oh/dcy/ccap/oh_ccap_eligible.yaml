@@ -1,10 +1,11 @@
 # Tests for oh_ccap_eligible (SPMUnit, MONTH).
-# Eligibility = has an eligible child AND income-eligible AND asset-eligible.
-# The qualifying-activity (need-for-care) requirement is intentionally NOT
-# modeled because its authorizing rule (former 5101:2-16-02) was rescinded with
-# no current replacement; this over-grants relative to real policy, which is
-# documented in the variable. Income parameters start 2025-10-01, so cases use
-# 2026.
+# Eligibility = has an eligible child AND (income-eligible AND asset-eligible
+# AND activity-eligible), OR protective care, OR homeless (each bypass still
+# requires an eligible child). The activity test (5180:6-1-02(B)(2)) requires
+# every caretaker to work or attend school full time; weekly_hours_worked
+# defaults to 40 via weekly_hours_worked_before_lsr, so cases that do not set
+# hours have working caretakers. Income parameters start 2025-10-01, so cases
+# use 2026.
 - name: Case 1, eligible child with low income and no excess assets.
   period: 2026-01
   input:
@@ -25,14 +26,16 @@
   output:
     oh_ccap_eligible: true
 
-- name: Case 2, income-eligible family with no working caretaker is still eligible.
-  # Documents the dropped activity requirement: a non-working but income- and
-  # child-eligible family qualifies because need-for-care is not modeled.
+- name: Case 2, income-eligible family whose caretaker has no qualifying activity is ineligible.
+  # Blocking direction of the activity gate: the caretaker has zero work hours
+  # and is not a student, so the family fails 5180:6-1-02(B)(2).
   period: 2026-01
   input:
     people:
       person1:
-        age: 30  # no earnings, not in any activity
+        age: 30  # no earnings, no work hours, not a student
+        weekly_hours_worked_before_lsr: 0
+        is_full_time_student: false
       person2:
         age: 3
         immigration_status: CITIZEN
@@ -44,7 +47,7 @@
         members: [person1, person2]
         state_code: OH
   output:
-    oh_ccap_eligible: true
+    oh_ccap_eligible: false
 
 - name: Case 3, no eligible child means the family is ineligible.
   period: 2026-01

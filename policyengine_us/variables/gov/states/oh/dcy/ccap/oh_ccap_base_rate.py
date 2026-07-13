@@ -22,7 +22,9 @@ class oh_ccap_base_rate(Variable):
         # per-hour dollar amounts; part-time and full-time cells are weekly
         # dollar amounts.
         p = parameters(period).gov.states.oh.dcy.ccap.rates
-        rate_category = person.household("oh_ccap_county_rate_category", period)
+        rate_category = person.household(
+            "oh_ccap_county_rate_category", period.this_year
+        )
         age_group = person("oh_ccap_child_age_group", period)
         time_category = person("oh_ccap_time_category", period)
         provider_type = person("oh_ccap_provider_type", period)

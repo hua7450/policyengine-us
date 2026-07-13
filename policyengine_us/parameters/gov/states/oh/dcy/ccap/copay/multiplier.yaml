@@ -8,7 +8,7 @@ metadata:
   label: Ohio PFCC copayment multiplier
   reference:
     - title: OAC 5180:2-16-05 Appendix A — Copayment Calculation Table
-      href: https://codes.ohio.gov/assets/laws/administrative-code/pdfs/5180/2/16/5180$2-16-05_PH_FF_A_APP5_20221201_0903.pdf#page=1
+      href: https://codes.ohio.gov/assets/laws/administrative-code/pdfs/5180/2/16/5180$2-16-05_PH_FF_A_APP5_20221201_0903.pdf
 
 # The formula rounds the family's percentage of the federal poverty guideline
 # up to the next five percent, then looks up the multiplier for that band. Each
@@ -16,7 +16,8 @@ metadata:
 # thresholds are shifted down by 1e-4 (1.05 -> 1.0499, ...) so that a rounded
 # ratio landing exactly on a band, which float32 stores as e.g. 1.0499999,
 # still lands in that band rather than the prior one. The 0.05 spacing must stay
-# in lockstep with the np.ceil(..., 0.05) rounding in oh_ccap_copay.py.
+# in lockstep with the copay/rounding_increment.yaml grid used in
+# oh_ccap_copay.py.
 brackets:
   - threshold:
       2022-12-01: 0

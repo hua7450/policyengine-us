@@ -113,3 +113,17 @@
         state_code: OH
   output:
     oh_ccap_child_age_group: SCHOOL_AGE
+
+- name: Case 9, school-age-range child not in K-12 school falls back to preschool.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 6
+        is_in_k12_school: false
+    households:
+      household:
+        members: [person1]
+        state_code: OH
+  output:
+    oh_ccap_child_age_group: PRESCHOOL

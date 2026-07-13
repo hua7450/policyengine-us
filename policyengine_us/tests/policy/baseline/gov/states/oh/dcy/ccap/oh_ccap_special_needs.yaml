@@ -1,0 +1,30 @@
+# Tests for oh_ccap_special_needs (Person, MONTH).
+# 5180:2-16-01(AA) special needs is proxied by has_developmental_delay; the
+# chronic-health-condition prong is not separately tracked in the model.
+- name: Case 1, child with a developmental delay has special needs.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 3
+        has_developmental_delay: true
+    households:
+      household:
+        members: [person1]
+        state_code: OH
+  output:
+    oh_ccap_special_needs: true
+
+- name: Case 2, child without a developmental delay does not have special needs.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 3
+        has_developmental_delay: false
+    households:
+      household:
+        members: [person1]
+        state_code: OH
+  output:
+    oh_ccap_special_needs: false
