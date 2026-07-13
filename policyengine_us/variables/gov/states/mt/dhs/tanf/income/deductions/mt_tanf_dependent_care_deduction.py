@@ -18,10 +18,15 @@ class mt_tanf_dependent_care_deduction(Variable):
 
         is_dependent = person("is_tax_unit_dependent", period.this_year)
         is_child = person("mt_tanf_eligible_child", period)
+        is_adult = person("is_adult", period.this_year)
         is_incapable_of_self_care = person(
             "is_incapable_of_self_care", period.this_year
         )
-        is_eligible_person = is_dependent & (is_child | is_incapable_of_self_care)
+        # Mont. Admin. r. 37.78.406(2)(c) imposes no dependency requirement
+        # on the incapacitated adult, so an incapacitated spouse qualifies.
+        is_eligible_person = (is_dependent & is_child) | (
+            is_adult & is_incapable_of_self_care
+        )
 
         # Per TANF manual 602-1, the disregard covers care for each minor
         # child or incapacitated adult, so adult care expenses count too.
