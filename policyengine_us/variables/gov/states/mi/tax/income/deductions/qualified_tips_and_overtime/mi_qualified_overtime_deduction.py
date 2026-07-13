@@ -9,6 +9,7 @@ class mi_qualified_overtime_deduction(Variable):
     definition_period = YEAR
     reference = (
         "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4961",
+        "http://legislature.mi.gov/doc.aspx?mcl-206-30",
         "https://www.michigan.gov/treasury/reference/taxpayer-notices/notice-regarding-new-deductions-for-qualified-overtime-compensation-and-qualified-tips",
     )
     defined_for = StateCode.MI
