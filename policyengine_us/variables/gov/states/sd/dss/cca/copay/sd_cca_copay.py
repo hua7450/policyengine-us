@@ -9,7 +9,7 @@ class sd_cca_copay(Variable):
     definition_period = MONTH
     defined_for = "sd_cca_eligible"
     reference = (
-        "https://dss.sd.gov/docs/childcare/assistance/Subsidy_Manual.pdf#page=21",
+        "https://dss.sd.gov/docs/childcare/assistance/BEES_CCA_Policy_Manual.pdf#page=42",
         "https://dss.sd.gov/docs/childcare/assistance/Sliding_Fee_Scale.pdf",
     )
 
@@ -29,18 +29,26 @@ class sd_cca_copay(Variable):
         copay = income_above_threshold * p.rate
         # The co-payment never exceeds 12% of countable income.
         copay = min_(copay, p.max_rate * countable_income)
-        # The co-payment is waived for families enrolled in the Temporary
-        # Assistance for Needy Families program and for foster or
-        # protective-services children (Sliding Fee Scale).
+        # BEES Section 9.2 rounds the monthly co-payment down to a whole dollar.
+        # The small tolerance prevents exact whole-dollar results represented
+        # infinitesimally below the integer from flooring to the prior dollar.
+        copay = np.floor(copay + 1e-4)
+        # TANF enrollment waives the family co-payment. Foster and protective-
+        # services waivers are child-specific: the family amount remains when
+        # any ordinary eligible child is covered, and is zero only when all
+        # eligible covered children qualify for a child-based waiver.
         is_tanf_enrolled = spm_unit("is_tanf_enrolled", period)
-        has_foster_child = add(spm_unit, period, ["is_in_foster_care"]) > 0
-        has_protective_services_child = (
-            add(
-                spm_unit,
-                period.this_year,
-                ["receives_or_needs_protective_services"],
-            )
-            > 0
+        person = spm_unit.members
+        is_eligible_child = person("sd_cca_eligible_child", period)
+        receives_child_based_waiver = person("is_in_foster_care", period) | person(
+            "receives_or_needs_protective_services", period.this_year
         )
-        waived = is_tanf_enrolled | has_foster_child | has_protective_services_child
+        has_waived_eligible_child = (
+            spm_unit.sum(is_eligible_child & receives_child_based_waiver) > 0
+        )
+        has_non_waived_eligible_child = (
+            spm_unit.sum(is_eligible_child & ~receives_child_based_waiver) > 0
+        )
+        child_based_waiver = has_waived_eligible_child & ~has_non_waived_eligible_child
+        waived = is_tanf_enrolled | child_based_waiver
         return where(waived, 0, copay)

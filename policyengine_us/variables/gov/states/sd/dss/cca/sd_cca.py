@@ -15,8 +15,8 @@ class sd_cca(Variable):
     def formula(spm_unit, period, parameters):
         p = parameters(period).gov.states.sd.dss.cca.rates
         # Only the weekly region-based rate schedule (effective 2026-08-03) is
-        # modeled; the earlier hourly county-based schedule is deferred to a
-        # follow-up implementation, so no benefit is paid before that date.
+        # modeled. The monthly model starts it in August 2026; the earlier
+        # hourly county-based schedule is deferred to a follow-up implementation.
         if not p.uses_weekly_rates:
             return 0
         # The benefit is the lesser of the summed per-child weekly maximum rates

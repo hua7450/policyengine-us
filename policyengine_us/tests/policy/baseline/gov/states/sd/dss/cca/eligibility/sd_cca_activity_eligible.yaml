@@ -3,13 +3,14 @@
 # BEES Manual Sections 7.1 and 8.3.1): employed at least 80 hours per month at a
 # salary equivalent to the federal minimum wage ($7.25/hr), or self-employed
 # with at least 80 reported monthly hours and monthly net earnings of at least
-# 80 x $7.25 = $580 (a loss counts as zero), or a full-time student, or
-# enrolled in TANF. Activities not modeled (job search, other training) fall
-# back to the federal CCDF activity-test input meets_ccdf_activity_test.
+# 80 x $7.25 = $580 (a loss counts as zero), or a full-time student. Activities
+# not modeled (positive TANF activity, job search, other training) fall back to
+# the federal CCDF activity-test input meets_ccdf_activity_test. TANF enrollment
+# alone does not satisfy the activity requirement.
 # Protective services is handled per child in sd_cca_reason_for_care_eligible,
 # not here.
-# weekly_hours_worked defaults to 40/week = 173.33/month, so the default
-# employed minimum-wage-equivalence bar is 173.33 x 7.25 = 1,256.67/month.
+# weekly_hours_worked defaults to 40/week = ceil(40 x 4.3) = 172/month, so the default
+# employed minimum-wage-equivalence bar is 172 x 7.25 = 1,247/month.
 
 - name: Case 1, activity test met, activity eligible.
   period: 2027-01
@@ -59,7 +60,7 @@
       person1:
         age: 30
         employment_income: 24_000  # 2,000/mo
-        weekly_hours_worked: 40  # 173.33 hrs/mo, above the 80-hour minimum
+        weekly_hours_worked: 40  # ceil(40 x 4.3) = 172 hrs/mo
       person2:
         age: 4
     spm_units:
@@ -71,7 +72,7 @@
         members: [person1, person2]
         state_code: SD
   output:
-    # 173.33 hrs/mo >= 80 and 2,000 >= 173.33 x 7.25 = 1,256.67, so the sole
+    # 172 hrs/mo >= 80 and 2,000 >= 172 x 7.25 = 1,247, so the sole
     # caretaker meets the employment requirement even though the CCDF
     # activity-test input is false.
     sd_cca_activity_eligible: true
@@ -199,7 +200,7 @@
         members: [person1, person2]
         state_code: SD
   output:
-    # 15 hrs/wk x 52/12 = 65 hrs/mo < 80, so the employment requirement fails
+    # ceil(15 hrs/wk x 4.3) = 65 hrs/mo < 80, so the employment requirement fails
     # even though the implied wage (1,000 / 65 = 15.38/hr) is above the
     # federal minimum.
     sd_cca_activity_eligible: false
@@ -211,7 +212,7 @@
       person1:
         age: 30
         employment_income: 6_000  # 500/mo
-        weekly_hours_worked: 40  # 173.33 hrs/mo
+        weekly_hours_worked: 40  # ceil(40 x 4.3) = 172 hrs/mo
       person2:
         age: 4
     spm_units:
@@ -223,8 +224,8 @@
         members: [person1, person2]
         state_code: SD
   output:
-    # 500/mo over 173.33 hrs/mo implies 2.88/hr, below the 7.25 federal
-    # minimum wage (500 < 173.33 x 7.25 = 1,256.67), so the employment
+    # 500/mo over 172 hrs/mo implies 2.91/hr, below the 7.25 federal minimum
+    # wage (500 < 172 x 7.25 = 1,247), so the employment
     # requirement fails (BEES Manual Section 7.1).
     sd_cca_activity_eligible: false
 
@@ -235,7 +236,7 @@
       person1:
         age: 30
         self_employment_income: 6_960  # 580/mo = 80 x 7.25
-        weekly_hours_worked: 20  # 86.67 hrs/mo, above the 80-hour minimum
+        weekly_hours_worked: 20  # ceil(20 x 4.3) = 86 hrs/mo
       person2:
         age: 4
     spm_units:
@@ -258,7 +259,7 @@
       person1:
         age: 30
         self_employment_income: 12_000  # earnings are high enough
-        weekly_hours_worked: 18  # 78 hrs/mo, below the 80-hour minimum
+        weekly_hours_worked: 18  # ceil(18 x 4.3) = 78 hrs/mo
       person2:
         age: 4
     spm_units:
@@ -279,7 +280,7 @@
       person1:
         age: 30
         self_employment_income: 6_948  # 579/mo, below the $580 floor
-        weekly_hours_worked: 20  # 86.67 hrs/mo, above the hours minimum
+        weekly_hours_worked: 20  # ceil(20 x 4.3) = 86 hrs/mo
       person2:
         age: 4
     spm_units:
@@ -314,4 +315,70 @@
   output:
     # This variable tests caretaker activity only; the protective-services
     # pathway is applied per child in sd_cca_reason_for_care_eligible.
+    sd_cca_activity_eligible: false
+
+- name: Case 14, TANF enrollment without TANF activity is ineligible.
+  period: 2027-01
+  input:
+    people:
+      person1:
+        age: 30
+        weekly_hours_worked: 0
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        is_tanf_enrolled: true
+        meets_ccdf_activity_test: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: SD
+  output:
+    # Enrollment alone does not establish positive TANF activity hours.
+    sd_cca_activity_eligible: false
+
+- name: Case 15, weekly work hours use the 4.3 factor and round up.
+  period: 2027-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 12_000
+        weekly_hours_worked: 18.4
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        meets_ccdf_activity_test: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: SD
+  output:
+    # ceil(18.4 x 4.3) = 80, and 1,000/month exceeds 80 x 7.25.
+    sd_cca_activity_eligible: true
+
+- name: Case 16, weekly work hours just below the rounded boundary are ineligible.
+  period: 2027-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 12_000
+        weekly_hours_worked: 18.3
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        meets_ccdf_activity_test: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: SD
+  output:
+    # ceil(18.3 x 4.3) = 79, below the 80-hour requirement.
     sd_cca_activity_eligible: false
