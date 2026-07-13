@@ -1,8 +1,10 @@
 # Tests for sd_cca_eligible (SPMUnit, MONTH, bool).
 # A unit is eligible when it has at least one eligible child AND is income
-# eligible AND asset eligible AND activity eligible (ARSD 67:47:01:03, :05;
-# Subsidy Manual Section 3). Each case below meets every condition except the
-# one under test.
+# eligible AND asset eligible (ARSD 67:47:01:03, :05; Subsidy Manual
+# Section 3). The activity requirement is embedded per child: an eligible
+# child must have a reason for care (caretaker activity or protective
+# services) via sd_cca_reason_for_care_eligible. Each case below meets every
+# condition except the one under test.
 
 - name: Case 1, all conditions met, eligible.
   period: 2027-01
@@ -104,6 +106,8 @@
         members: [person1, person2]
         state_code: SD
   output:
+    # With no caretaker activity and no protective services, the child has no
+    # reason for care, so the unit has no eligible child.
     sd_cca_eligible: false
 
 - name: Case 6, zero-income family with an eligible child, eligible.
@@ -169,3 +173,26 @@
     # No eligible child in the unit, so the family is ineligible regardless of
     # income and activity.
     sd_cca_eligible: false
+
+- name: Case 9, protective-services child with an inactive caretaker, eligible.
+  period: 2027-01
+  input:
+    people:
+      person1:
+        age: 30
+        weekly_hours_worked: 0  # not in any activity
+      person2:
+        age: 1
+        receives_or_needs_protective_services: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        meets_ccdf_activity_test: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: SD
+  output:
+    # Protective services gives the child a reason for care
+    # (ARSD 67:47:01:03), so the unit is eligible without caretaker activity.
+    sd_cca_eligible: true

@@ -1,0 +1,18 @@
+description: South Dakota requires each employed caretaker to work at least this many hours per month under the Child Care Assistance program.
+
+# The applicant must work at least 80 hours per month at a salary equivalent
+# to the federal minimum wage; in two-parent households each parent must meet
+# the requirement (Subsidy Manual, Section 3). Dated to the modeled program
+# start (weekly rate era, 2026-08-03).
+values:
+  2026-08-03: 80
+
+metadata:
+  unit: hour
+  period: month
+  label: South Dakota CCA employed caretaker monthly work hours requirement
+  reference:
+    - title: South Dakota Child Care Assistance Subsidy Manual, Section 3 Eligibility Criteria
+      href: https://dss.sd.gov/docs/childcare/assistance/Subsidy_Manual.pdf#page=8
+    - title: ARSD 67:47:01:03.01 Time requirements for work and education
+      href: https://sdlegislature.gov/Rules/Administrative/67:47:01:03.01

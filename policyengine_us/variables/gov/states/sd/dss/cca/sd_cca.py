@@ -27,10 +27,13 @@ class sd_cca(Variable):
         # input, so the per-child maximum rates are pooled across the unit.
         person = spm_unit.members
         is_eligible_child = person("sd_cca_eligible_child", period)
+        # The rate schedule's limited-time tier starts at one hour of care per
+        # week, so a child with no care hours generates no reimbursement.
+        in_care = person("childcare_hours_per_week", period.this_year) > 0
         weekly_rate = person("sd_cca_weekly_rate", period)
         weekly_to_monthly = WEEKS_IN_YEAR / MONTHS_IN_YEAR
         max_reimbursement = (
-            spm_unit.sum(weekly_rate * is_eligible_child) * weekly_to_monthly
+            spm_unit.sum(weekly_rate * is_eligible_child * in_care) * weekly_to_monthly
         )
         actual_expenses = spm_unit("spm_unit_pre_subsidy_childcare_expenses", period)
         capped_expenses = min_(actual_expenses, max_reimbursement)

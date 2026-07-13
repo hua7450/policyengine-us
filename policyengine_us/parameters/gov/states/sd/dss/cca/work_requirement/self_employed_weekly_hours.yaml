@@ -1,0 +1,17 @@
+description: South Dakota requires each self-employed caretaker to work at least this many hours per week under the Child Care Assistance program.
+
+# Self-employed persons must work at least 20 hours a week and receive weekly
+# earnings equal to the federal minimum wage multiplied by 20 hours (Subsidy
+# Manual, Section 6). This threshold appears only in the Subsidy Manual, not
+# in ARSD 67:47:01. Dated to the modeled program start (weekly rate era,
+# 2026-08-03).
+values:
+  2026-08-03: 20
+
+metadata:
+  unit: hour
+  period: week
+  label: South Dakota CCA self-employed caretaker weekly work hours requirement
+  reference:
+    - title: South Dakota Child Care Assistance Subsidy Manual, Section 6 Calculating Income from Self-employment
+      href: https://dss.sd.gov/docs/childcare/assistance/Subsidy_Manual.pdf#page=13

@@ -174,3 +174,28 @@
     # never binds: with a 5% marginal rate the copay share of income cannot
     # reach 12%.
     sd_cca_copay: 230
+
+- name: Case 8, protective-services child in the unit, co-payment waived.
+  period: 2027-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 47_500  # would otherwise owe a 20 co-payment
+      person2:
+        age: 1
+        receives_or_needs_protective_services: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_fpg: 24_000
+        meets_ccdf_activity_test: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: SD
+  output:
+    # The Sliding Fee Scale waives the co-payment for children determined to
+    # be in need of protective services.
+    sd_cca_copay: 0

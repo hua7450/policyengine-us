@@ -1,9 +1,15 @@
 # Tests for sd_cca_activity_eligible (SPMUnit, MONTH, bool).
-# The work/activity requirement (each caretaker employed 80+ hrs/month, or in
-# school/training; ARSD 67:47:01:03.01, Subsidy Manual Sections 5-6) is not
-# tracked at the hour level, so eligibility falls back to the federal CCDF
-# activity-test input meets_ccdf_activity_test (a YEAR variable read with
-# period.this_year).
+# Each caretaker must be in an approved activity (ARSD 67:47:01:03, :03.01;
+# Subsidy Manual Sections 3, 5-6): employed at least 80 hours per month at a
+# salary equivalent to the federal minimum wage ($7.25/hr), or self-employed
+# at least 20 hours per week with weekly earnings of at least
+# 20 x $7.25 = $145 (a loss counts as zero), or a full-time student, or
+# enrolled in TANF. Activities not modeled (job search, other training) fall
+# back to the federal CCDF activity-test input meets_ccdf_activity_test.
+# Protective services is handled per child in sd_cca_reason_for_care_eligible,
+# not here.
+# weekly_hours_worked defaults to 40/week = 173.33/month, so the default
+# minimum-wage-equivalence bar is 173.33 x 7.25 = 1,256.67/month.
 
 - name: Case 1, activity test met, activity eligible.
   period: 2027-01
@@ -52,7 +58,8 @@
     people:
       person1:
         age: 30
-        employment_income: 24_000  # employed caretaker
+        employment_income: 24_000  # 2,000/mo
+        weekly_hours_worked: 40  # 173.33 hrs/mo, above the 80-hour minimum
       person2:
         age: 4
     spm_units:
@@ -64,17 +71,18 @@
         members: [person1, person2]
         state_code: SD
   output:
-    # The sole caretaker is employed, so every caretaker is in an approved
-    # activity even though the CCDF activity-test input is false.
+    # 173.33 hrs/mo >= 80 and 2,000 >= 173.33 x 7.25 = 1,256.67, so the sole
+    # caretaker meets the employment requirement even though the CCDF
+    # activity-test input is false.
     sd_cca_activity_eligible: true
 
-- name: Case 4, single parent with a self-employment loss, activity eligible.
+- name: Case 4, single parent with a self-employment loss, ineligible.
   period: 2027-01
   input:
     people:
       person1:
         age: 30
-        self_employment_income: -12_000  # a business loss still evidences activity
+        self_employment_income: -12_000  # -1,000/mo
       person2:
         age: 4
     spm_units:
@@ -86,7 +94,10 @@
         members: [person1, person2]
         state_code: SD
   output:
-    sd_cca_activity_eligible: true
+    # A loss counts as zero self-employment earnings (Manual Section 6), which
+    # falls below the gainful-employment floor of 20 x 7.25 = 145/week, so
+    # the caretaker is not in an approved activity.
+    sd_cca_activity_eligible: false
 
 - name: Case 5, single full-time student parent, activity eligible.
   period: 2027-01
@@ -167,4 +178,98 @@
   output:
     # Every caretaker must be in an approved activity; the available (non-active)
     # spouse makes the unit ineligible under the modeled path.
+    sd_cca_activity_eligible: false
+
+- name: Case 8, employed parent below the 80-hour monthly minimum, ineligible.
+  period: 2027-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 12_000  # 1,000/mo
+        weekly_hours_worked: 15  # 65 hrs/mo, below the 80-hour minimum
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        meets_ccdf_activity_test: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: SD
+  output:
+    # 15 hrs/wk x 52/12 = 65 hrs/mo < 80, so the employment requirement fails
+    # even though the implied wage (1,000 / 65 = 15.38/hr) is above the
+    # federal minimum.
+    sd_cca_activity_eligible: false
+
+- name: Case 9, employed parent below the minimum-wage equivalence, ineligible.
+  period: 2027-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 6_000  # 500/mo
+        weekly_hours_worked: 40  # 173.33 hrs/mo
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        meets_ccdf_activity_test: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: SD
+  output:
+    # 500/mo over 173.33 hrs/mo implies 2.88/hr, below the 7.25 federal
+    # minimum wage (500 < 173.33 x 7.25 = 1,256.67), so the employment
+    # requirement fails (Manual Section 5, FLSA rule).
+    sd_cca_activity_eligible: false
+
+- name: Case 10, self-employed parent meeting both gainful-employment prongs, eligible.
+  period: 2027-01
+  input:
+    people:
+      person1:
+        age: 30
+        self_employment_income: 12_000  # 1,000/mo = 230.77/wk
+        weekly_hours_worked: 25  # above the 20-hour weekly minimum
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        meets_ccdf_activity_test: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: SD
+  output:
+    # 25 hrs/wk >= 20 and weekly earnings 230.77 >= 20 x 7.25 = 145, so the
+    # self-employment requirement is met.
+    sd_cca_activity_eligible: true
+
+- name: Case 11, protective-services child does not satisfy the caretaker activity test.
+  period: 2027-01
+  input:
+    people:
+      person1:
+        age: 30
+        weekly_hours_worked: 0  # not in any activity
+      person2:
+        age: 4
+        receives_or_needs_protective_services: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        meets_ccdf_activity_test: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: SD
+  output:
+    # This variable tests caretaker activity only; the protective-services
+    # pathway is applied per child in sd_cca_reason_for_care_eligible.
     sd_cca_activity_eligible: false

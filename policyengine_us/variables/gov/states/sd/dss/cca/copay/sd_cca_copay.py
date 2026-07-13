@@ -31,8 +31,16 @@ class sd_cca_copay(Variable):
         copay = min_(copay, p.max_rate * countable_income)
         # The co-payment is waived for families enrolled in the Temporary
         # Assistance for Needy Families program and for foster or
-        # protective-services children.
+        # protective-services children (Sliding Fee Scale).
         is_tanf_enrolled = spm_unit("is_tanf_enrolled", period)
         has_foster_child = add(spm_unit, period, ["is_in_foster_care"]) > 0
-        waived = is_tanf_enrolled | has_foster_child
+        has_protective_services_child = (
+            add(
+                spm_unit,
+                period.this_year,
+                ["receives_or_needs_protective_services"],
+            )
+            > 0
+        )
+        waived = is_tanf_enrolled | has_foster_child | has_protective_services_child
         return where(waived, 0, copay)

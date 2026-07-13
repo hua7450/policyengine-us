@@ -10,7 +10,10 @@ class sd_cca_eligible_child(Variable):
     label = "South Dakota CCA eligible child"
     definition_period = MONTH
     defined_for = StateCode.SD
-    reference = "https://dss.sd.gov/docs/childcare/assistance/Subsidy_Manual.pdf#page=9"
+    reference = (
+        "https://dss.sd.gov/docs/childcare/assistance/Subsidy_Manual.pdf#page=9",
+        "https://sdlegislature.gov/Rules/Administrative/67:47:01:03",
+    )
 
     def formula(person, period, parameters):
         p = parameters(period).gov.states.sd.dss.cca.eligibility
@@ -35,4 +38,8 @@ class sd_cca_eligible_child(Variable):
         immigration_eligible = (immigration_status == ImmigrationStatus.CITIZEN) | (
             immigration_status == ImmigrationStatus.LEGAL_PERMANENT_RESIDENT
         )
-        return age_eligible & immigration_eligible
+        # The child needs a reason for care: every caretaker in an approved
+        # activity, or the child receives protective services
+        # (ARSD 67:47:01:03).
+        reason_for_care_eligible = person("sd_cca_reason_for_care_eligible", period)
+        return age_eligible & immigration_eligible & reason_for_care_eligible
