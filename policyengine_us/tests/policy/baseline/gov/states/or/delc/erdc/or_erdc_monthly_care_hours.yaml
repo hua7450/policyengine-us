@@ -83,13 +83,13 @@
         weekly_hours_worked_before_lsr: 0
       child:
         age: 4
+        is_in_foster_care: true
     tax_units:
       tax_unit:
         members: [parent, child]
     spm_units:
       spm_unit:
         members: [parent, child]
-        or_erdc_expanded_child_welfare_eligible: true
     households:
       household:
         members: [parent, child]

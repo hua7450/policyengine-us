@@ -61,26 +61,13 @@
   output:
     or_erdc_age_group: SCHOOL
 
-- name: A special needs child uses the special needs group regardless of age.
+- name: A disabled child uses the special needs group regardless of age.
   period: 2027-01
   input:
     or_erdc_eligible_child: true
     age: 10
-    or_erdc_special_needs_rate_eligible: true
+    is_disabled: true
     or_erdc_provider_type: CERTIFIED_CENTER
     state_code: OR
   output:
-    or_erdc_age_group: SPECIAL_NEEDS
-
-- name: A high-needs child uses the special needs group without the rate flag.
-  period: 2027-01
-  input:
-    or_erdc_eligible_child: true
-    age: 10
-    or_erdc_high_needs_rate_eligible: true
-    or_erdc_provider_type: CERTIFIED_CENTER
-    state_code: OR
-  output:
-    # OAR 414-175-0076(1): high-needs children must qualify for the special
-    # needs rate, so the high-needs flag alone selects the special needs group.
     or_erdc_age_group: SPECIAL_NEEDS

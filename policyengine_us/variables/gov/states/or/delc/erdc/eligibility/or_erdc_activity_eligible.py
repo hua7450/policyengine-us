@@ -22,22 +22,23 @@ class or_erdc_activity_eligible(Variable):
         education_age_eligible = (
             person("age", period.this_year) <= p.age_threshold.education
         )
+        # OAR 414-175-0023(1)(a)(B) covers secondary school, GED, and
+        # equivalent training, which is_in_secondary_school includes; medical
+        # leave under (1)(a)(C) is not tracked at the moment.
         secondary_student = (
-            person("is_in_secondary_school", period.this_year)
-            | person("or_erdc_in_ged_program", period.this_year)
-        ) & education_age_eligible
-        medical_leave = person("or_erdc_on_medical_leave", period.this_year)
-        unable_to_care = person("or_erdc_unable_to_provide_care", period.this_year)
-        supervised_contact = person(
-            "or_erdc_supervised_contact_required", period.this_year
+            person("is_in_secondary_school", period.this_year) & education_age_eligible
         )
+        # OAR 414-175-0023(1)(b)(A) excuses a second caretaker who is
+        # physically or mentally unable to provide adequate care, proxied by
+        # disability status; the supervised-contact exception in (1)(b)(B)
+        # is not tracked at the moment.
+        unable_to_care = person("is_disabled", period.this_year)
         multiple_caretakers = spm_unit.project(caretaker_count > 1)
         caretaker_eligible = (
             working
             | postsecondary_student
             | secondary_student
-            | medical_leave
-            | (multiple_caretakers & (unable_to_care | supervised_contact))
+            | (multiple_caretakers & unable_to_care)
         )
         has_caretaker = caretaker_count > 0
         all_caretakers_eligible = spm_unit.sum(caretaker & ~caretaker_eligible) == 0

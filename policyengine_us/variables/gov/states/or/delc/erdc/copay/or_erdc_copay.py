@@ -41,10 +41,8 @@ class or_erdc_copay(Variable):
             ],
             default=p.copay.size_8.calc(income),
         )
+        # OAR 414-175-0023(3)(d)-(f) also waives the copay after a permanent
+        # job loss, a military transition, or medical leave at application;
+        # these circumstances are not tracked at the moment.
         categorical = spm_unit("or_erdc_categorically_eligible", period)
-        job_loss_waiver = spm_unit("or_erdc_permanent_job_loss", period.this_year)
-        medical_leave_waiver = spm_unit(
-            "or_erdc_medical_leave_at_application", period.this_year
-        )
-        copay_waived = categorical | job_loss_waiver | medical_leave_waiver
-        return where(copay_waived, 0, amount)
+        return where(categorical, 0, amount)

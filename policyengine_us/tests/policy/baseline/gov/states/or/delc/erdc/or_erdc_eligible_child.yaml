@@ -14,11 +14,11 @@
   output:
     or_erdc_eligible_child: false
 
-- name: Child younger than 18 with special circumstances is eligible.
+- name: Child younger than 18 incapable of self-care is eligible.
   period: 2027-01
   input:
     age: 17
-    or_erdc_special_circumstances_child: true
+    is_incapable_of_self_care: true
     state_code: OR
   output:
     or_erdc_eligible_child: true
@@ -27,25 +27,25 @@
   period: 2027-01
   input:
     age: 18
-    or_erdc_special_circumstances_child: true
+    is_incapable_of_self_care: true
     state_code: OR
   output:
     or_erdc_eligible_child: false
 
-- name: Child age 15 eligible for the high needs rate is an eligible child.
+- name: Child age 15 with a disability is an eligible child.
   period: 2027-01
   input:
     age: 15
-    or_erdc_high_needs_rate_eligible: true
+    is_disabled: true
     state_code: OR
   output:
     or_erdc_eligible_child: true
 
-- name: Child age 15 with only the special needs rate is not an eligible child.
+- name: Child age 15 receiving foster care is an eligible child.
   period: 2027-01
   input:
     age: 15
-    or_erdc_special_needs_rate_eligible: true
+    is_in_foster_care: true
     state_code: OR
   output:
-    or_erdc_eligible_child: false
+    or_erdc_eligible_child: true

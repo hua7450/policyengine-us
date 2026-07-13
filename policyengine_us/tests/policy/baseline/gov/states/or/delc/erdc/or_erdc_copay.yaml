@@ -86,25 +86,3 @@
     state_code: OR
   output:
     or_erdc_copay: 130
-
-- name: A permanent job loss waives the copay.
-  period: 2027-01
-  absolute_error_margin: 0.01
-  input:
-    or_erdc_countable_income: 5_000
-    or_erdc_permanent_job_loss: true
-    spm_unit_size: 2
-    state_code: OR
-  output:
-    or_erdc_copay: 0
-
-- name: Medical leave at application waives the copay.
-  period: 2027-01
-  absolute_error_margin: 0.01
-  input:
-    or_erdc_countable_income: 5_000
-    or_erdc_medical_leave_at_application: true
-    spm_unit_size: 2
-    state_code: OR
-  output:
-    or_erdc_copay: 0

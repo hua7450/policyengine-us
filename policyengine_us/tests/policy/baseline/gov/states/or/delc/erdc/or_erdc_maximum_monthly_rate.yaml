@@ -1,4 +1,5 @@
-# Every provider type, rate area, age group, and billing tier is covered.
+# Every provider type, rate area, and age group is covered across hourly and
+# monthly billing.
 
 - name: Case 1, Area A standard family infant hourly.
   period: 2027-01
@@ -26,7 +27,7 @@
   output:
     or_erdc_maximum_monthly_rate: 1490
 
-- name: Case 3, Area A enhanced family preschool part-time.
+- name: Case 3, Area A enhanced family preschool hourly.
   period: 2027-01
   absolute_error_margin: 0.01
   input:
@@ -35,10 +36,10 @@
     or_erdc_provider_type: ENHANCED_FAMILY
     or_erdc_age_group: PRESCHOOL
     or_erdc_monthly_care_hours: 100
-    or_erdc_provider_bills_part_time: true
     state_code: OR
   output:
-    or_erdc_maximum_monthly_rate: 737
+    # 5.7 * 100 = 570, below the 982 monthly rate.
+    or_erdc_maximum_monthly_rate: 570
 
 - name: Case 4, Area A enhanced center school hourly.
   period: 2027-01
@@ -66,7 +67,7 @@
   output:
     or_erdc_maximum_monthly_rate: 1233.33
 
-- name: Case 6, Area A certified family infant part-time.
+- name: Case 6, Area A certified family infant hourly.
   period: 2027-01
   absolute_error_margin: 0.01
   input:
@@ -75,10 +76,10 @@
     or_erdc_provider_type: CERTIFIED_FAMILY
     or_erdc_age_group: INFANT
     or_erdc_monthly_care_hours: 100
-    or_erdc_provider_bills_part_time: true
     state_code: OR
   output:
-    or_erdc_maximum_monthly_rate: 1373
+    # 9.33 * 100 = 933, below the 1,831 monthly rate.
+    or_erdc_maximum_monthly_rate: 933
 
 - name: Case 7, Area A certified center toddler hourly.
   period: 2027-01
@@ -119,7 +120,7 @@
   output:
     or_erdc_maximum_monthly_rate: 43.1
 
-- name: Case 10, Area B enhanced family special needs part-time.
+- name: Case 10, Area B enhanced family special needs hourly.
   period: 2027-01
   absolute_error_margin: 0.01
   input:
@@ -128,10 +129,10 @@
     or_erdc_provider_type: ENHANCED_FAMILY
     or_erdc_age_group: SPECIAL_NEEDS
     or_erdc_monthly_care_hours: 100
-    or_erdc_provider_bills_part_time: true
     state_code: OR
   output:
-    or_erdc_maximum_monthly_rate: 677
+    # 5.23 * 100 = 523, below the 903 monthly rate.
+    or_erdc_maximum_monthly_rate: 523
 
 - name: Case 11, Area B enhanced center infant monthly.
   period: 2027-01
@@ -159,7 +160,7 @@
   output:
     or_erdc_maximum_monthly_rate: 52.5
 
-- name: Case 13, Area B certified family preschool part-time.
+- name: Case 13, Area B certified family preschool hourly.
   period: 2027-01
   absolute_error_margin: 0.01
   input:
@@ -168,10 +169,10 @@
     or_erdc_provider_type: CERTIFIED_FAMILY
     or_erdc_age_group: PRESCHOOL
     or_erdc_monthly_care_hours: 100
-    or_erdc_provider_bills_part_time: true
     state_code: OR
   output:
-    or_erdc_maximum_monthly_rate: 788
+    # 6 * 100 = 600, below the 1,050 monthly rate.
+    or_erdc_maximum_monthly_rate: 600
 
 - name: Case 14, Area B certified center school monthly.
   period: 2027-01
@@ -212,7 +213,7 @@
   output:
     or_erdc_maximum_monthly_rate: 1125
 
-- name: Case 17, Area C enhanced family toddler part-time.
+- name: Case 17, Area C enhanced family toddler hourly.
   period: 2027-01
   absolute_error_margin: 0.01
   input:
@@ -221,10 +222,10 @@
     or_erdc_provider_type: ENHANCED_FAMILY
     or_erdc_age_group: TODDLER
     or_erdc_monthly_care_hours: 100
-    or_erdc_provider_bills_part_time: true
     state_code: OR
   output:
-    or_erdc_maximum_monthly_rate: 623
+    # 4.99 * 100 = 499, below the 831 monthly rate.
+    or_erdc_maximum_monthly_rate: 499
 
 - name: Case 18, Area C enhanced center preschool hourly.
   period: 2027-01
@@ -252,7 +253,7 @@
   output:
     or_erdc_maximum_monthly_rate: 800
 
-- name: Case 20, Area C certified family special needs part-time.
+- name: Case 20, Area C certified family special needs hourly.
   period: 2027-01
   absolute_error_margin: 0.01
   input:
@@ -261,10 +262,10 @@
     or_erdc_provider_type: CERTIFIED_FAMILY
     or_erdc_age_group: SPECIAL_NEEDS
     or_erdc_monthly_care_hours: 100
-    or_erdc_provider_bills_part_time: true
     state_code: OR
   output:
-    or_erdc_maximum_monthly_rate: 956
+    # 6 * 100 = 600, below the 1,275 monthly rate.
+    or_erdc_maximum_monthly_rate: 600
 
 - name: Case 21, Area C certified center infant hourly.
   period: 2027-01
@@ -279,7 +280,7 @@
   output:
     or_erdc_maximum_monthly_rate: 77.5
 
-- name: Tier boundary, enhanced provider at 62 hours is hourly.
+- name: Tier boundary, enhanced provider at 135 hours bills hourly.
   period: 2027-01
   absolute_error_margin: 0.01
   input:
@@ -287,36 +288,11 @@
     or_erdc_provider_area: AREA_A
     or_erdc_provider_type: ENHANCED_FAMILY
     or_erdc_age_group: INFANT
-    or_erdc_monthly_care_hours: 62
-    state_code: OR
-  output:
-    or_erdc_maximum_monthly_rate: 425.32
-
-- name: Tier boundary, enhanced provider at 63 hours is part-time.
-  period: 2027-01
-  input:
-    or_erdc_eligible_child: true
-    or_erdc_provider_area: AREA_A
-    or_erdc_provider_type: ENHANCED_FAMILY
-    or_erdc_age_group: INFANT
-    or_erdc_monthly_care_hours: 63
-    or_erdc_provider_bills_part_time: true
-    state_code: OR
-  output:
-    or_erdc_maximum_monthly_rate: 879
-
-- name: Tier boundary, enhanced provider at 135 hours remains part-time.
-  period: 2027-01
-  input:
-    or_erdc_eligible_child: true
-    or_erdc_provider_area: AREA_A
-    or_erdc_provider_type: ENHANCED_FAMILY
-    or_erdc_age_group: INFANT
     or_erdc_monthly_care_hours: 135
-    or_erdc_provider_bills_part_time: true
     state_code: OR
   output:
-    or_erdc_maximum_monthly_rate: 879
+    # 6.86 * 135 = 926.1, below the 1,172 monthly rate.
+    or_erdc_maximum_monthly_rate: 926.1
 
 - name: Tier boundary, enhanced provider at 136 hours is monthly.
   period: 2027-01
@@ -354,87 +330,6 @@
     state_code: OR
   output:
     or_erdc_maximum_monthly_rate: 1_110
-
-- name: Enhanced provider part-time band bills hourly when it does not bill part-time.
-  period: 2027-01
-  absolute_error_margin: 0.01
-  input:
-    or_erdc_eligible_child: true
-    or_erdc_provider_area: AREA_A
-    or_erdc_provider_type: ENHANCED_FAMILY
-    or_erdc_age_group: PRESCHOOL
-    or_erdc_monthly_care_hours: 100
-    or_erdc_provider_bills_part_time: false
-    state_code: OR
-  output:
-    # 100 hours falls in the enhanced part-time band, but the provider does not
-    # bill part-time, so the tier collapses to hourly: min(5.7 * 100, 982) = 570.
-    or_erdc_maximum_monthly_rate: 570
-
-- name: High needs adds five dollars per factor per hour on hourly billing.
-  period: 2027-01
-  absolute_error_margin: 0.01
-  input:
-    or_erdc_eligible_child: true
-    or_erdc_provider_area: AREA_A
-    or_erdc_provider_type: CERTIFIED_CENTER
-    or_erdc_age_group: INFANT
-    or_erdc_monthly_care_hours: 10
-    or_erdc_high_needs_rate_eligible: true
-    or_erdc_high_needs_factors: 2
-    state_code: OR
-  output:
-    # min(12 * 10, 2083) + 2 factors * $5 * 10 hours = 120 + 100 = 220.
-    or_erdc_maximum_monthly_rate: 220
-
-- name: High needs adds eight hundred forty dollars per factor on monthly billing.
-  period: 2027-01
-  absolute_error_margin: 0.01
-  input:
-    or_erdc_eligible_child: true
-    or_erdc_provider_area: AREA_A
-    or_erdc_provider_type: CERTIFIED_CENTER
-    or_erdc_age_group: INFANT
-    or_erdc_monthly_care_hours: 200
-    or_erdc_high_needs_rate_eligible: true
-    or_erdc_high_needs_factors: 2
-    state_code: OR
-  output:
-    # Monthly rate 2083 + 2 factors * $840 = 2083 + 1680 = 3763.
-    or_erdc_maximum_monthly_rate: 3_763
-
-- name: High needs adds the monthly supplement on part-time billing.
-  period: 2027-01
-  absolute_error_margin: 0.01
-  input:
-    or_erdc_eligible_child: true
-    or_erdc_provider_area: AREA_A
-    or_erdc_provider_type: CERTIFIED_CENTER
-    or_erdc_age_group: INFANT
-    or_erdc_monthly_care_hours: 100
-    or_erdc_provider_bills_part_time: true
-    or_erdc_high_needs_rate_eligible: true
-    or_erdc_high_needs_factors: 1
-    state_code: OR
-  output:
-    # Part-time rate 1562 + 1 factor * $840 = 2402.
-    or_erdc_maximum_monthly_rate: 2_402
-
-- name: High needs supplement requires the high needs rate eligibility flag.
-  period: 2027-01
-  absolute_error_margin: 0.01
-  input:
-    or_erdc_eligible_child: true
-    or_erdc_provider_area: AREA_A
-    or_erdc_provider_type: CERTIFIED_CENTER
-    or_erdc_age_group: INFANT
-    or_erdc_monthly_care_hours: 10
-    or_erdc_high_needs_rate_eligible: false
-    or_erdc_high_needs_factors: 2
-    state_code: OR
-  output:
-    # Factors present but not high-needs eligible, so no supplement: 12 * 10 = 120.
-    or_erdc_maximum_monthly_rate: 120
 
 - name: Hourly billing is capped at the monthly rate near the monthly threshold.
   period: 2027-01

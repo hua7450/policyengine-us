@@ -12,6 +12,6 @@ class or_erdc_categorically_eligible(Variable):
     def formula(spm_unit, period, parameters):
         tanf_enrolled = spm_unit("is_tanf_enrolled", period)
         expanded_child_welfare = spm_unit(
-            "or_erdc_expanded_child_welfare_eligible", period.this_year
+            "or_erdc_expanded_child_welfare_eligible", period
         )
         return tanf_enrolled | expanded_child_welfare
