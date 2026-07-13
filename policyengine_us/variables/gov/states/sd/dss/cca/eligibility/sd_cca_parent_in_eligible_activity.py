@@ -7,7 +7,10 @@ class sd_cca_parent_in_eligible_activity(Variable):
     label = "South Dakota CCA parent in an eligible activity"
     definition_period = MONTH
     defined_for = StateCode.SD
-    reference = "https://dss.sd.gov/docs/childcare/assistance/Subsidy_Manual.pdf#page=8"
+    reference = (
+        "https://dss.sd.gov/docs/childcare/assistance/BEES_CCA_Policy_Manual.pdf#page=35",
+        "https://dss.sd.gov/docs/childcare/assistance/BEES_CCA_Policy_Manual.pdf#page=37",
+    )
 
     def formula(person, period, parameters):
         p = parameters(period).gov.states.sd.dss.cca.work_requirement
@@ -16,22 +19,20 @@ class sd_cca_parent_in_eligible_activity(Variable):
         weeks_per_month = WEEKS_IN_YEAR / MONTHS_IN_YEAR
         monthly_hours = weekly_hours * weeks_per_month
         # An employed caretaker must work at least 80 hours per month at a
-        # salary equivalent to the federal minimum wage (Manual Sections 3
-        # and 5).
+        # salary equivalent to the federal minimum wage (BEES Manual Section
+        # 7.1).
         employment_income = person("employment_income", period)
         meets_employment_requirement = (monthly_hours >= p.monthly_hours) & (
             employment_income >= monthly_hours * min_wage
         )
-        # A self-employed caretaker must work at least 20 hours per week and
-        # receive weekly earnings of at least the federal minimum wage times
-        # that hour minimum; a business loss counts as zero earnings (Manual
-        # Section 6).
-        weekly_self_employment_income = (
-            person("self_employment_income", period) / weeks_per_month
+        # A self-employed caretaker must establish at least 80 hours per month
+        # through both reported work hours and net earnings at the federal
+        # minimum wage; a business loss counts as zero earnings (BEES Manual
+        # Sections 7.1 and 8.3.1).
+        self_employment_income = person("self_employment_income", period)
+        meets_self_employment_requirement = (monthly_hours >= p.monthly_hours) & (
+            self_employment_income >= p.monthly_hours * min_wage
         )
-        meets_self_employment_requirement = (
-            weekly_hours >= p.self_employed_weekly_hours
-        ) & (weekly_self_employment_income >= p.self_employed_weekly_hours * min_wage)
         # Full-time students meet the 12-semester-credit-hour minimum; the
         # combined 80-hour work-plus-school path is not separately modeled.
         is_student = person("is_full_time_student", period.this_year)

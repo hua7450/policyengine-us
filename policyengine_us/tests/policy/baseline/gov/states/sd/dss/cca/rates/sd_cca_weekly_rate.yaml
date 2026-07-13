@@ -3,9 +3,11 @@
 # is keyed on region x provider category x age band x level of service, with
 # informal/in-home/relative rates flat statewide (region and age moot). A child
 # with special needs receives the base rate plus an additional 75% (x 1.75).
-# Each case sets county_str (region), sd_cca_provider_type, age (age band), and
-# childcare_hours_per_week (level of service). Values are transcribed from the
-# CCA Weekly Reimbursement Rates schedule.
+# Each case establishes an approved activity and sets county_str (region),
+# sd_cca_provider_type, age (age band), and childcare_hours_per_week (level of
+# service). Values are transcribed from the CCA Weekly Reimbursement Rates
+# schedule. The final case keeps activity eligibility true to isolate the
+# child-age guard.
 
 # ---- Family day care ----
 - name: Case 1, urban family day care, full time infant.
@@ -17,6 +19,10 @@
         age: 0.5  # infant
         sd_cca_provider_type: FAMILY_DAY_CARE
         childcare_hours_per_week: 40  # full time
+    spm_units:
+      spm_unit:
+        members: [person1]
+        meets_ccdf_activity_test: true
     households:
       household:
         members: [person1]
@@ -34,6 +40,10 @@
         age: 1.5  # 18 months, toddler
         sd_cca_provider_type: FAMILY_DAY_CARE
         childcare_hours_per_week: 20  # part time
+    spm_units:
+      spm_unit:
+        members: [person1]
+        meets_ccdf_activity_test: true
     households:
       household:
         members: [person1]
@@ -51,6 +61,10 @@
         age: 4  # preschool (under 5, not in school)
         sd_cca_provider_type: FAMILY_DAY_CARE
         childcare_hours_per_week: 10  # limited time
+    spm_units:
+      spm_unit:
+        members: [person1]
+        meets_ccdf_activity_test: true
     households:
       household:
         members: [person1]
@@ -68,6 +82,10 @@
         age: 8  # school age (in K-12 by imputation)
         sd_cca_provider_type: FAMILY_DAY_CARE
         childcare_hours_per_week: 40
+    spm_units:
+      spm_unit:
+        members: [person1]
+        meets_ccdf_activity_test: true
     households:
       household:
         members: [person1]
@@ -85,6 +103,10 @@
         age: 0.5
         sd_cca_provider_type: FAMILY_DAY_CARE
         childcare_hours_per_week: 40
+    spm_units:
+      spm_unit:
+        members: [person1]
+        meets_ccdf_activity_test: true
     households:
       household:
         members: [person1]
@@ -102,6 +124,10 @@
         age: 1.5
         sd_cca_provider_type: FAMILY_DAY_CARE
         childcare_hours_per_week: 40
+    spm_units:
+      spm_unit:
+        members: [person1]
+        meets_ccdf_activity_test: true
     households:
       household:
         members: [person1]
@@ -120,6 +146,10 @@
         age: 0.5
         sd_cca_provider_type: LICENSED_CENTER
         childcare_hours_per_week: 40
+    spm_units:
+      spm_unit:
+        members: [person1]
+        meets_ccdf_activity_test: true
     households:
       household:
         members: [person1]
@@ -137,6 +167,10 @@
         age: 4
         sd_cca_provider_type: LICENSED_CENTER
         childcare_hours_per_week: 40
+    spm_units:
+      spm_unit:
+        members: [person1]
+        meets_ccdf_activity_test: true
     households:
       household:
         members: [person1]
@@ -154,6 +188,10 @@
         age: 8
         sd_cca_provider_type: LICENSED_CENTER
         childcare_hours_per_week: 40
+    spm_units:
+      spm_unit:
+        members: [person1]
+        meets_ccdf_activity_test: true
     households:
       household:
         members: [person1]
@@ -172,6 +210,10 @@
         age: 0.5
         sd_cca_provider_type: INFORMAL
         childcare_hours_per_week: 40
+    spm_units:
+      spm_unit:
+        members: [person1]
+        meets_ccdf_activity_test: true
     households:
       household:
         members: [person1]
@@ -189,6 +231,10 @@
         age: 0.5
         sd_cca_provider_type: INFORMAL
         childcare_hours_per_week: 20
+    spm_units:
+      spm_unit:
+        members: [person1]
+        meets_ccdf_activity_test: true
     households:
       household:
         members: [person1]
@@ -206,6 +252,10 @@
         age: 0.5
         sd_cca_provider_type: INFORMAL
         childcare_hours_per_week: 10
+    spm_units:
+      spm_unit:
+        members: [person1]
+        meets_ccdf_activity_test: true
     households:
       household:
         members: [person1]
@@ -225,6 +275,10 @@
         is_disabled: true
         sd_cca_provider_type: FAMILY_DAY_CARE
         childcare_hours_per_week: 40
+    spm_units:
+      spm_unit:
+        members: [person1]
+        meets_ccdf_activity_test: true
     households:
       household:
         members: [person1]
@@ -244,6 +298,10 @@
         is_disabled: true
         sd_cca_provider_type: LICENSED_CENTER
         childcare_hours_per_week: 40
+    spm_units:
+      spm_unit:
+        members: [person1]
+        meets_ccdf_activity_test: true
     households:
       household:
         members: [person1]
@@ -253,21 +311,27 @@
     # rural licensed center full-time school age 150 x 1.75 = 262.5
     sd_cca_weekly_rate: 262.5
 
-- name: Case 15, age-ineligible child (age 15, non-disabled), no rate.
+- name: Case 15, adult with an approved activity is age-ineligible and receives no rate.
   period: 2027-01
   absolute_error_margin: 0.1
   input:
     people:
       person1:
-        age: 15  # over the age-13 limit and not disabled, not an eligible child
+        age: 30
         sd_cca_provider_type: LICENSED_CENTER
         childcare_hours_per_week: 40
+    spm_units:
+      spm_unit:
+        members: [person1]
+        meets_ccdf_activity_test: true
     households:
       household:
         members: [person1]
         state_code: SD
         county_str: MINNEHAHA_COUNTY_SD
   output:
-    # sd_cca_weekly_rate is defined_for sd_cca_eligible_child, so an
-    # age-ineligible child receives no rate.
+    # The activity test is met, but sd_cca_weekly_rate is defined_for
+    # sd_cca_eligible_child, so an adult receives no rate.
+    sd_cca_reason_for_care_eligible: true
+    sd_cca_eligible_child: false
     sd_cca_weekly_rate: 0
