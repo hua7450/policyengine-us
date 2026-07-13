@@ -3,8 +3,9 @@
 # or $300, for taxes first due and payable in 2026 and after. No age or income
 # limit.
 
-- name: 2026 homeowner below the cap receives 10% of property tax
+- name: Case 1, 2026 homeowner below the cap receives 10% of property tax.
   period: 2026
+  absolute_error_margin: 0.01
   input:
     people:
       person1:
@@ -19,8 +20,9 @@
   output:
     in_supplemental_homestead_credit: 200
 
-- name: 2026 homeowner at the $3,000 liability boundary receives the $300 cap
+- name: Case 2, 2026 homeowner at the $3,000 liability boundary receives the $300 cap.
   period: 2026
+  absolute_error_margin: 0.01
   input:
     people:
       person1:
@@ -35,8 +37,9 @@
   output:
     in_supplemental_homestead_credit: 300
 
-- name: 2026 homeowner above the cap is limited to $300
+- name: Case 3, 2026 homeowner above the cap is limited to $300.
   period: 2026
+  absolute_error_margin: 0.01
   input:
     people:
       person1:
@@ -51,8 +54,9 @@
   output:
     in_supplemental_homestead_credit: 300
 
-- name: 2026 renter with no real estate taxes receives no credit
+- name: Case 4, 2026 renter with no real estate taxes receives no credit.
   period: 2026
+  absolute_error_margin: 0.01
   input:
     people:
       person1:
@@ -67,8 +71,9 @@
   output:
     in_supplemental_homestead_credit: 0
 
-- name: 2026 non-Indiana homeowner receives no credit
+- name: Case 5, 2026 non-Indiana homeowner receives no credit.
   period: 2026
+  absolute_error_margin: 0.01
   input:
     people:
       person1:

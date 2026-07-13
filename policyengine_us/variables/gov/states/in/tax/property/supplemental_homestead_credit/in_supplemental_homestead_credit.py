@@ -18,7 +18,10 @@ class in_supplemental_homestead_credit(Variable):
         # homestead credit equal to the lesser of 10% of the homestead property
         # tax liability or $300, for taxes first due and payable in 2026 and
         # after. No age or income limit; homeowners only, so renters (with no
-        # real estate taxes) receive zero.
+        # real estate taxes) receive zero. real_estate_taxes is used as a proxy
+        # for the homestead-only property tax liability, since PE has no
+        # homestead-specific real-estate-tax variable; the effect is bounded by
+        # the $300 cap.
         p = (
             parameters(period)
             .gov.states["in"]
