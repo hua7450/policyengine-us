@@ -25,7 +25,14 @@ class ok_ccs_countable_income(Variable):
         not_head_or_spouse = ~person("is_tax_unit_head_or_spouse", period.this_year)
         minor_earned_income = spm_unit.sum(
             (is_minor & not_head_or_spouse)
-            * add(person, period, ["employment_income", "self_employment_income"])
+            * add(
+                person,
+                period,
+                [
+                    "employment_income",
+                    "ok_ccs_countable_self_employment_income",
+                ],
+            )
         )
         # Verified, legally binding child support paid by a household member to
         # or for a non-household member is deducted (OAC 340:40-7-13).

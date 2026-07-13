@@ -3,13 +3,14 @@ values:
   2023-01-01:
     # Earned income (OAC 340:40-7-11(b)): wages, including armed forces pay,
     # commissions, tips, piece-rate payments, longevity payments, and cash
-    # bonuses, and self-employment income. The 50 percent business-expense
-    # standard deduction for self-employment income (OAC
-    # 340:40-7-11(b)(3)(B)) is not applied: self_employment_income is already
-    # net of actual expenses, and gross self-employment receipts are not
-    # tracked at the moment.
+    # bonuses, and self-employment income. Self-employment income is floored
+    # at zero per person because a business loss is not deducted from other
+    # household income (OAC 340:40-7-11(b)(3)(B)). The 50 percent
+    # business-expense standard deduction in the same subsection is not
+    # applied: self_employment_income is already net of actual expenses, and
+    # gross self-employment receipts are not tracked at the moment.
     - employment_income
-    - self_employment_income
+    - ok_ccs_countable_self_employment_income
     # Unearned income (OAC 340:40-7-11(c)).
     # social_security already includes the disability, retirement, survivors,
     # and dependents components.
