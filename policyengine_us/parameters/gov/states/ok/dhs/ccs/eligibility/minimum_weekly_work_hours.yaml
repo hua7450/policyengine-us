@@ -1,0 +1,11 @@
+description: Oklahoma sets this threshold as the minimum weekly work hours under the Child Care Subsidy Program.
+values:
+  2025-02-10: 20
+
+metadata:
+  unit: hour
+  period: week
+  label: Oklahoma CCS minimum weekly work hours
+  reference:
+    - title: OAC 340:40-7-8(a)(1) Employment
+      href: https://www.law.cornell.edu/regulations/oklahoma/OAC-340-40-7-8

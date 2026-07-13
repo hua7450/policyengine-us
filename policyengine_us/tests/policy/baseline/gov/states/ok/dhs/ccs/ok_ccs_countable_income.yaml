@@ -168,3 +168,91 @@
   output:
     # 2,000 + 0 = 2,000; the loss is not deducted per OAC 340:40-7-11(b)(3)(B).
     ok_ccs_countable_income: 2_000
+
+- name: Case 9, a rental loss does not reduce other household income.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 24_000  # $2,000/month.
+      person2:
+        age: 28
+        rental_income: -12_000  # -$1,000/month loss, floored to $0.
+      person3:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: OK
+  output:
+    ok_ccs_countable_income: 2_000
+
+- name: Case 10, a partnership loss does not reduce other household income.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 24_000  # $2,000/month.
+      person2:
+        age: 28
+        partnership_s_corp_income: -12_000  # -$1,000/month loss.
+      person3:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: OK
+  output:
+    ok_ccs_countable_income: 2_000
+
+- name: Case 11, SSTB and farm operations profits count as earned income.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        sstb_self_employment_income: 6_000  # $500/month.
+        farm_operations_income: 8_400  # $700/month.
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: OK
+  output:
+    ok_ccs_countable_income: 1_200
+
+- name: Case 12, one business loss does not offset another business profit.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        sstb_self_employment_income: -6_000  # -$500/month loss.
+        farm_operations_income: 8_400  # $700/month profit.
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: OK
+  output:
+    ok_ccs_countable_income: 700

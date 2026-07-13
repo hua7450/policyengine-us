@@ -7,28 +7,50 @@ class ok_ccs_activity_eligible(Variable):
     label = "Oklahoma Child Care Subsidy activity eligible"
     definition_period = MONTH
     defined_for = StateCode.OK
-    reference = "https://okrules.elaws.us/oac/340:40-7-8"
+    reference = (
+        "https://www.law.cornell.edu/regulations/oklahoma/OAC-340-40-7-7",
+        "https://www.law.cornell.edu/regulations/oklahoma/OAC-340-40-7-8",
+    )
 
     def formula(spm_unit, period, parameters):
-        # The need factor requires each parent or caretaker to be employed or
-        # attending an education or training program (OAC 340:40-7-8). A
-        # parent qualifies with positive wages, nonzero self-employment income
-        # (a business loss still evidences active self-employment), or
-        # full-time student status. The minimum wage requirement on employment
-        # is not modeled.
+        p = parameters(period).gov.states.ok.dhs.ccs.eligibility
         person = spm_unit.members
-        is_head_or_spouse = person("is_tax_unit_head_or_spouse", period.this_year)
-        has_earnings = (person("employment_income", period) > 0) | (
-            person("self_employment_income", period) != 0
+        is_parent_or_caretaker = person(
+            "is_tax_unit_head_or_spouse", period.this_year
+        ) | person("is_parent", period.this_year)
+        weekly_hours = person("weekly_hours_worked_before_lsr", period.this_year)
+        monthly_hours = weekly_hours * WEEKS_IN_YEAR / MONTHS_IN_YEAR
+        monthly_earned_income = person("ok_ccs_countable_earned_income", period)
+        effective_hourly_earnings = np.divide(
+            monthly_earned_income,
+            monthly_hours,
+            out=np.zeros_like(monthly_earned_income),
+            where=monthly_hours > 0,
+        )
+        is_working = (weekly_hours >= p.minimum_weekly_work_hours) & (
+            effective_hourly_earnings >= parameters(period).gov.dol.minimum_wage
         )
         is_student = person("is_full_time_student", period.this_year)
-        in_activity = has_earnings | is_student
-        has_head_or_spouse = spm_unit.sum(is_head_or_spouse) >= 1
-        all_covered = spm_unit.sum(is_head_or_spouse & ~in_activity) == 0
-        modeled_eligible = has_head_or_spouse & all_covered
-        # TANF Work activities under a TANF Work/Personal Responsibility
-        # Agreement establish the need factor for TANF recipients.
-        is_tanf_enrolled = spm_unit("is_tanf_enrolled", period)
+        is_in_k12_school = person("is_in_k12_school", period.this_year)
+
+        parent_or_caretaker_count = spm_unit.sum(is_parent_or_caretaker)
+        all_in_activity = (
+            spm_unit.sum(is_parent_or_caretaker & ~(is_working | is_student)) == 0
+        )
+        has_working_parent_or_caretaker = (
+            spm_unit.sum(is_parent_or_caretaker & is_working) > 0
+        )
+        has_k12_parent_or_caretaker = (
+            spm_unit.sum(is_parent_or_caretaker & is_in_k12_school) > 0
+        )
+        education_pair_allowed = (
+            (parent_or_caretaker_count == 1)
+            | has_working_parent_or_caretaker
+            | has_k12_parent_or_caretaker
+        )
+        modeled_eligible = (
+            (parent_or_caretaker_count > 0) & all_in_activity & education_pair_allowed
+        )
         # Protective or preventive child care covers families experiencing
         # homelessness, medical hardship, or natural disasters; the 30-day
         # initial approval limit is not tracked at the moment.
@@ -42,6 +64,7 @@ class ok_ccs_activity_eligible(Variable):
         )
         # Fall back to the CCDF activity-test input for approved activities not
         # individually modeled (SNAP E&T assigned activities and the
-        # enrichment pathway for children receiving SSI; OAC 340:40-7-8).
+        # enrichment pathway for children receiving SSI, approved TANF Work
+        # activities, and activity schedule overlap; OAC 340:40-7-7 and -7-8).
         meets_ccdf = spm_unit("meets_ccdf_activity_test", period.this_year)
-        return modeled_eligible | is_tanf_enrolled | protective | meets_ccdf
+        return modeled_eligible | protective | meets_ccdf

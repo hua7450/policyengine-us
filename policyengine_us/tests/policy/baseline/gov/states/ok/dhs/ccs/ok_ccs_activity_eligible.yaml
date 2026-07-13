@@ -67,7 +67,7 @@
   output:
     ok_ccs_activity_eligible: true
 
-- name: Case 4, a self-employment loss still evidences active self-employment.
+- name: Case 4, a self-employment loss does not establish employment.
   period: 2026-01
   input:
     people:
@@ -84,9 +84,9 @@
         members: [person1, person2]
         state_code: OK
   output:
-    ok_ccs_activity_eligible: true
+    ok_ccs_activity_eligible: false
 
-- name: Case 5, non-working TANF-enrolled household meets the need factor.
+- name: Case 5, TANF enrollment without an approved activity does not meet the need factor.
   period: 2026-01
   input:
     people:
@@ -103,7 +103,7 @@
         members: [person1, person2]
         state_code: OK
   output:
-    ok_ccs_activity_eligible: true
+    ok_ccs_activity_eligible: false
 
 - name: Case 6, non-working parent receiving protective services meets the need factor.
   period: 2026-01
@@ -160,3 +160,132 @@
         state_code: OK
   output:
     ok_ccs_activity_eligible: false
+
+- name: Case 9, employment at the hours and minimum-wage boundaries qualifies.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 7_540  # 20 hours/week * 52 weeks * $7.25/hour.
+        weekly_hours_worked_before_lsr: 20
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: OK
+  output:
+    ok_ccs_activity_eligible: true
+
+- name: Case 10, employment below 20 hours per week does not qualify.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 24_000
+        weekly_hours_worked_before_lsr: 19
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: OK
+  output:
+    ok_ccs_activity_eligible: false
+
+- name: Case 11, earnings below minimum wage do not establish employment.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 7_280  # 20 hours/week * 52 weeks * $7/hour.
+        weekly_hours_worked_before_lsr: 20
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: OK
+  output:
+    ok_ccs_activity_eligible: false
+
+- name: Case 12, two non-working college-student parents do not qualify.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head: true
+        is_full_time_college_student: true
+      person2:
+        age: 28
+        is_tax_unit_spouse: true
+        is_full_time_college_student: true
+      person3:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: OK
+  output:
+    ok_ccs_activity_eligible: false
+
+- name: Case 13, an inactive dependent minor parent must meet a need factor.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 45
+        is_tax_unit_head: true
+        employment_income: 24_000
+      person2:
+        age: 16
+        is_parent: true
+        is_in_k12_school: false
+        is_full_time_student: false
+      person3:
+        age: 1
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: OK
+  output:
+    ok_ccs_activity_eligible: false
+
+- name: Case 14, qualifying farm earnings establish employment.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+        farm_operations_income: 7_540
+        weekly_hours_worked_before_lsr: 20
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: OK
+  output:
+    ok_ccs_activity_eligible: true
