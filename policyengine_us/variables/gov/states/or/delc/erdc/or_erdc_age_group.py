@@ -41,9 +41,13 @@ class or_erdc_age_group(Variable):
         age = person("age", period.this_year)
         age_months = age * MONTHS_IN_YEAR
         special_needs = person("or_erdc_special_needs_rate_eligible", period.this_year)
+        # OAR 414-175-0076(1) grants the high needs supplement only to
+        # children eligible for the special needs rate, so high-needs
+        # eligibility implies the special-needs rate category.
+        high_needs = person("or_erdc_high_needs_rate_eligible", period.this_year)
         return select(
             [
-                special_needs,
+                special_needs | high_needs,
                 age_months < infant_max_months,
                 age_months < p.toddler_max_months,
                 age < p.preschool_max_years,

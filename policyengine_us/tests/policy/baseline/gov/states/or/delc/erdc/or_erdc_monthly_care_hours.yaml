@@ -1,5 +1,5 @@
 # Weekly need is banded (20 / 40 / 75), a 25% travel allowance is added, and the
-# result is converted to monthly hours (x4.3) and capped at 215.
+# result is converted to monthly hours (x4.3), rounded up, and capped at 215.
 
 - name: Twenty or fewer weekly work hours authorize the 20-hour band.
   period: 2027-01
@@ -22,8 +22,8 @@
         members: [parent, child]
         state_code: OR
   output:
-    # 20 weekly hours * 1.25 travel * 4.3 = 107.5 monthly hours.
-    or_erdc_monthly_care_hours: [0, 107.5]
+    # 20 weekly hours * 1.25 travel * 4.3 = 107.5, rounded up to 108.
+    or_erdc_monthly_care_hours: [0, 108]
 
 - name: Twenty to forty weekly work hours authorize the 40-hour band.
   period: 2027-01
@@ -96,5 +96,5 @@
         state_code: OR
   output:
     # No work hours, but the categorical 20-hour floor applies:
-    # 20 * 1.25 * 4.3 = 107.5 monthly hours.
-    or_erdc_monthly_care_hours: [0, 107.5]
+    # 20 * 1.25 * 4.3 = 107.5, rounded up to 108.
+    or_erdc_monthly_care_hours: [0, 108]

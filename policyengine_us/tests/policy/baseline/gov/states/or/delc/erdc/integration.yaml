@@ -129,10 +129,11 @@
     or_erdc_activity_eligible: true
     or_erdc_income_eligible: true
     or_erdc_copay: 0
-    # Categorical 20-hour floor: 20 weekly, +25% travel, x4.3 = 107.5 monthly.
-    # Standard family infant hourly: min(4.95 * 107.5, 855) = 532.13.
-    or_erdc_maximum_monthly_rate: [0, 532.13]
-    or_erdc: 532.13
+    # Categorical 20-hour floor: 20 weekly, +25% travel, x4.3 = 107.5,
+    # rounded up to 108 monthly hours.
+    # Standard family infant hourly: min(4.95 * 108, 855) = 534.6.
+    or_erdc_maximum_monthly_rate: [0, 534.6]
+    or_erdc: 534.6
 
 - name: Case 5, assets above the CCDF limit make the family ineligible.
   period: 2027-01
@@ -279,11 +280,11 @@
     or_erdc_activity_eligible: true
     or_erdc_income_eligible: true
     or_erdc_copay: 0
-    # Categorical 20-hour floor -> 107.5 monthly hours; certified center part-time
+    # Categorical 20-hour floor -> 108 monthly hours; certified center part-time
     # band collapses to hourly (provider does not bill part-time):
-    # min(11 * 107.5, 1563) = 1182.5.
-    or_erdc_maximum_monthly_rate: [0, 1_182.5]
-    or_erdc: 1_182.5
+    # min(11 * 108, 1563) = 1188.
+    or_erdc_maximum_monthly_rate: [0, 1_188]
+    or_erdc: 1_188
 
 - name: Case 10, two paying children sum their allowable costs.
   period: 2027-01

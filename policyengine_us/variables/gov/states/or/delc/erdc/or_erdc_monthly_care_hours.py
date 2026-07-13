@@ -9,7 +9,8 @@ class or_erdc_monthly_care_hours(Variable):
     label = "Oregon ERDC monthly child care hours"
     defined_for = "or_erdc_eligible_child"
     reference = (
-        "https://secure.sos.state.or.us/oard/view.action?ruleNumber=414-175-0023"
+        "https://secure.sos.state.or.us/oard/view.action?ruleNumber=414-175-0023",
+        "https://sharedsystems.dhsoha.state.or.us/DHSForms/Served/de2818.pdf#page=428",
     )
 
     def formula(person, period, parameters):
@@ -30,4 +31,7 @@ class or_erdc_monthly_care_hours(Variable):
         # weekly allowance to monthly hours, capped at the monthly maximum.
         weekly_with_travel = weekly_allowance * (1 + p.authorized.travel_allowance)
         monthly = weekly_with_travel * p.authorized.weekly_to_monthly
-        return min_(monthly, p.max_monthly)
+        # The OPEN worker guide (p. 428) publishes the 20-hour band as 108
+        # monthly hours (20 * 1.25 * 4.3 = 107.5), so fractional monthly
+        # hours round up before the cap.
+        return min_(np.ceil(monthly), p.max_monthly)
