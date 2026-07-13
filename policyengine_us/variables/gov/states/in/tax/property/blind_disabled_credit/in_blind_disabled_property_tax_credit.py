@@ -14,11 +14,8 @@ class in_blind_disabled_property_tax_credit(Variable):
     defined_for = StateCode.IN
 
     def formula(tax_unit, period, parameters):
-        # Senate Enrolled Act 1 (2025) adds IC 6-1.1-51.3-2, a $125 property tax
-        # credit for a blind or disabled owner of a principal residence, with no
-        # income limit, for taxes first due and payable in 2026 and after. The
-        # credit cannot exceed the property tax liability, so renters (with no
-        # real estate taxes) receive zero.
+        # SEA 1 (2025) IC 6-1.1-51.3-2: $125 credit for a blind or disabled
+        # owner of a principal residence, capped at the property tax liability.
         p = parameters(period).gov.states["in"].tax.property.blind_disabled_credit
         person = tax_unit.members
         head_or_spouse = person("is_tax_unit_head_or_spouse", period)
