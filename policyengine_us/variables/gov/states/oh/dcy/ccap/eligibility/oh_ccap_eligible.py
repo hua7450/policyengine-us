@@ -31,4 +31,10 @@ class oh_ccap_eligible(Variable):
         protective_care = spm_unit("oh_ccap_protective_care", period)
         is_homeless = spm_unit.household("is_homeless", period.this_year)
         standard_eligible = income_eligible & asset_eligible & activity_eligible
-        return has_eligible_child & (standard_eligible | protective_care | is_homeless)
+        # 5180:6-1-02(G)(1): protective care waives the income, asset, and
+        # activity tests; (H)(2): homeless families are exempt from the income
+        # and activity requirements but remain subject to the asset test.
+        homeless_eligible = is_homeless & asset_eligible
+        return has_eligible_child & (
+            standard_eligible | protective_care | homeless_eligible
+        )

@@ -410,3 +410,41 @@
     oh_ccap_rate_with_addons: [0, 56.33]
     oh_ccap_copay: 160
     oh_ccap: 0
+
+# Protective care (5180:6-1-02(G)(1)) bypasses the income, asset, and activity
+# tests and waives the copay (5180:2-16-05(G)), so an over-income family still
+# receives the full reimbursement. The person-level
+# receives_or_needs_protective_services flag drives oh_ccap_protective_care.
+- name: Case 12, over-income protective-care family receives a full subsidy.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 120_000  # 10,000/month, far above 145% FPG
+      person2:
+        age: 4  # preschool
+        immigration_status: CITIZEN
+        receives_or_needs_protective_services: true
+        oh_ccap_provider_type: CENTER
+        oh_ccap_quality_tier: NONE
+        childcare_hours_per_week: 40
+        pre_subsidy_childcare_expenses: 60_000
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: OH
+        county_str: FRANKLIN_COUNTY_OH  # category 3
+  output:
+    oh_ccap_protective_care: true
+    oh_ccap_income_eligible: false
+    oh_ccap_eligible: true
+    # Preschool category 3 center full-time = 258/week * 52 / 12 = 1,118;
+    # copay waived for protective care.
+    oh_ccap_rate_with_addons: [0, 1_118]
+    oh_ccap_copay: 0
+    oh_ccap: 1_118

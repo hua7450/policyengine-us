@@ -256,3 +256,52 @@
         state_code: OH
   output:
     oh_ccap_eligible: true
+
+- name: Case 12, homeless family is exempt from the income and activity tests.
+  # 5180:6-1-02(H)(2): homelessness waives the income and activity
+  # requirements — this caretaker is over-income with no qualifying activity.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 120_000  # 10,000/month, far above 145% FPG
+        weekly_hours_worked_before_lsr: 0
+        is_full_time_student: false
+      person2:
+        age: 3
+        immigration_status: CITIZEN
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: OH
+        is_homeless: true
+  output:
+    oh_ccap_eligible: true
+
+- name: Case 13, homeless family with excess assets still fails the asset test.
+  # 5180:6-1-02(H)(2) waives only the income and activity requirements for
+  # homeless families; unlike protective care (G)(1), the asset test applies.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 24_000
+        bank_account_assets: 2_000_000
+      person2:
+        age: 3
+        immigration_status: CITIZEN
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: OH
+        is_homeless: true
+  output:
+    oh_ccap_eligible: false

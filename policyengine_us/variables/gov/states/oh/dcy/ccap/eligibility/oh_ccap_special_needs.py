@@ -10,4 +10,10 @@ class oh_ccap_special_needs(Variable):
     reference = "https://codes.ohio.gov/ohio-administrative-code/rule-5180:2-16-01"
 
     def formula(person, period, parameters):
-        return person("has_developmental_delay", period.this_year)
+        # 5180:2-16-01(AA): a special needs child has a chronic health
+        # condition or is not meeting developmental expectations; is_disabled
+        # proxies the chronic-health-condition prong. Consumers apply the
+        # under-18 age bound from (AA).
+        return person("is_disabled", period.this_year) | person(
+            "has_developmental_delay", period.this_year
+        )
