@@ -20,23 +20,21 @@ class mt_child_dependent_care_expense_deduction(Variable):
         p = parameters(
             period
         ).gov.states.mt.tax.income.deductions.child_dependent_care_expense
-        cap = p.cap.calc(eligible_children)
-        # MCA 15-30-2131(1)(c)(i) covers care of a dependent under 15 or
-        # a dependent unable to provide self-care, so adult dependents
-        # incapable of self-care have their care expenses count alongside
-        # childcare. We don't track the incapacitated-spouse pathway at
-        # the moment since the qualifying-person count only includes
-        # dependents.
         childcare_expenses = tax_unit("tax_unit_childcare_expenses", period)
+        childcare_cap = p.cap.calc(eligible_children)
+        capped_childcare_expenses = min_(childcare_expenses, childcare_cap)
         person = tax_unit.members
+        age = person("age", period)
         care_expenses = person("care_expenses", period)
         qualifying_person = person(
             "mt_child_dependent_care_expense_deduction_eligible_child",
             period,
         )
-        qualifying_care_expenses = tax_unit.sum(care_expenses * qualifying_person)
+        qualifying_adult = qualifying_person & (age >= p.age_limit)
+        qualifying_adult_care_expenses = tax_unit.sum(care_expenses * qualifying_adult)
         # Line 2
-        capped_expenses = min_(childcare_expenses + qualifying_care_expenses, cap)
+        qualifying_expenses = capped_childcare_expenses + qualifying_adult_care_expenses
+        capped_expenses = min_(qualifying_expenses, p.overall_cap)
         # Line 3
         agi = person("mt_agi_indiv", period)
         # Line 6

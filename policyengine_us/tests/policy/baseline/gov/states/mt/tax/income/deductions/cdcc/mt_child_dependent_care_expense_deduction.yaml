@@ -205,7 +205,7 @@
   output:
     mt_child_dependent_care_expense_deduction: [2_000, 2_000, 0]
 
-- name: Adult dependent incapable of self-care has care expenses count toward the deduction
+- name: Case 17, adult dependent care uses the overall expense cap.
   period: 2021
   absolute_error_margin: 0.1
   input:
@@ -217,20 +217,18 @@
         age: 30
         is_tax_unit_dependent: true
         is_incapable_of_self_care: true
-        care_expenses: 1_500
+        care_expenses: 4_000
     tax_units:
       tax_unit:
         members: [person1, person2]
-        tax_unit_childcare_expenses: 2_000
     households:
       household:
         members: [person1, person2]
         state_code: MT
   output:
-    # Adult dependent incapable of self-care qualifies: 1 qualifying person, cap 2_400.
-    # Expenses = 2_000 childcare + 1_500 adult care = 3_500, capped at 2_400.
-    # Head receives half: 2_400 * 0.5 = 1_200.
-    mt_child_dependent_care_expense_deduction: [1_200, 0]
+    # Adult in-home care is subject to the 4_800 overall cap, not the child-only scale.
+    # Head receives half: 4_000 * 0.5 = 2_000.
+    mt_child_dependent_care_expense_deduction: [2_000, 0]
 
 - name: Case 18, capable disabled adult care expenses are excluded.
   period: 2021
@@ -260,3 +258,83 @@
     # Only the child qualifies, so 2_000 of adult care expenses are excluded.
     # Head receives half of the 1_000 childcare expense deduction.
     mt_child_dependent_care_expense_deduction: [500, 0, 0]
+
+- name: Case 19, child and adult expenses use separate caps.
+  period: 2021
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        is_tax_unit_head_or_spouse: true
+        mt_agi_indiv: 18_000
+      person2:
+        age: 10
+        is_tax_unit_dependent: true
+      person3:
+        age: 30
+        is_tax_unit_dependent: true
+        is_incapable_of_self_care: true
+        care_expenses: 1_000
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+        tax_unit_childcare_expenses: 3_000
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: MT
+  output:
+    # One child's outside-home care is capped at 2_400.
+    # Adding 1_000 of adult in-home care produces 3_400 of qualifying expenses.
+    # Head receives half: 3_400 * 0.5 = 1_700.
+    mt_child_dependent_care_expense_deduction: [1_700, 0, 0]
+
+- name: Case 20, adult care expenses cannot exceed the overall cap.
+  period: 2021
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        is_tax_unit_head_or_spouse: true
+        mt_agi_indiv: 18_000
+      person2:
+        age: 30
+        is_tax_unit_dependent: true
+        is_incapable_of_self_care: true
+        care_expenses: 5_000
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: MT
+  output:
+    # Adult in-home care is capped at 4_800.
+    # Head receives half: 4_800 * 0.5 = 2_400.
+    mt_child_dependent_care_expense_deduction: [2_400, 0]
+
+- name: Case 21, incapacitated spouse care expenses qualify.
+  period: 2021
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        is_tax_unit_head: true
+        mt_agi_indiv: 9_000
+      person2:
+        age: 30
+        is_tax_unit_spouse: true
+        is_incapable_of_self_care: true
+        care_expenses: 4_000
+        mt_agi_indiv: 9_000
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: MT
+  output:
+    # The 4_000 deduction is divided equally between spouses.
+    mt_child_dependent_care_expense_deduction: [2_000, 2_000]
