@@ -17,24 +17,38 @@ class oh_ccap_income_eligible(Variable):
         # DCY Procedure Letter 21: initial (intake) eligibility caps family
         # income at 145% of the federal poverty guideline; once enrolled, a
         # family remains eligible until income exceeds 300% FPG. A family with
-        # a special-needs child uses a 150% FPG initial limit.
+        # a special-needs child uses a 150% FPG initial limit, as does a
+        # family in the post-Ohio Works First transitional period
+        # (5180:6-1-02(F)).
         p = parameters(period).gov.states.oh.dcy.ccap.income.fpl_rate
         countable_income = spm_unit("oh_ccap_countable_income", period)
-        # spm_unit_fpg is YEAR-defined; the bare period auto-divides to monthly.
-        fpg = spm_unit("spm_unit_fpg", period)
+        # oh_ccap_fpg is the October-vintage monthly FPG per PL 21.
+        fpg = spm_unit("oh_ccap_fpg", period)
         person = spm_unit.members
         special_needs_child = person("oh_ccap_eligible_child", period) & person(
             "oh_ccap_special_needs", period
         )
         has_special_needs_child = spm_unit.sum(special_needs_child) > 0
         # A special-needs child raises the initial limit to 150% FPG.
-        initial_limit = fpg * where(
+        base_initial_rate = where(
             has_special_needs_child,
             p.special_needs_eligibility,
             p.initial_eligibility,
         )
+        # 5180:6-1-02(F)(1)(a): transitional child care requires employment;
+        # full-time study alone does not qualify the former OWF caretaker.
+        transitional_caretaker = person("oh_ccap_owf_transitional", period)
+        employed = person("weekly_hours_worked", period.this_year) > 0
+        transitional_qualifies = spm_unit.sum(transitional_caretaker & employed) > 0
+        initial_rate = max_(
+            base_initial_rate,
+            transitional_qualifies * p.transitional_eligibility,
+        )
         enrolled = spm_unit("oh_ccap_enrolled", period)
-        income_limit = where(enrolled, fpg * p.ongoing_eligibility, initial_limit)
+        rate = where(enrolled, p.ongoing_eligibility, initial_rate)
+        # PL 21 publishes the monthly dollar standards rounded up to the next
+        # whole dollar.
+        income_limit = np.ceil(fpg * rate)
         fpl_eligible = countable_income <= income_limit
         # Families enrolled in Ohio Works First (TANF) are categorically
         # income-eligible. Using is_tanf_enrolled (rather than computed TANF

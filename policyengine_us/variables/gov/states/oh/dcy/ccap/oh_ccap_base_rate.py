@@ -22,6 +22,9 @@ class oh_ccap_base_rate(Variable):
         # per-hour dollar amounts; part-time and full-time cells are weekly
         # dollar amounts.
         p = parameters(period).gov.states.oh.dcy.ccap.rates
+        # 5180:6-1-10(B)(1)(a) keys the rate to the provider's county of
+        # location; provider location is not tracked, so the household's
+        # county serves as a proxy.
         rate_category = person.household(
             "oh_ccap_county_rate_category", period.this_year
         )

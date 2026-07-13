@@ -211,8 +211,8 @@
         members: [person1, person2, person3, person4, person5, person6]
         state_code: OH
   output:
-    # Size 6: monthly 100% FPG = 3,696.67; 145% intake limit = 5,360.17;
-    # income 4,000/month is below the limit.
+    # Size 6 (Oct-2025 FPG vintage): monthly 100% FPG = 3,595.83; 145% intake
+    # standard = 5,214; income 4,000/month is below the limit.
     oh_ccap_eligible_child: [false, false, true, true, false, false]
     oh_ccap_eligible: true
 

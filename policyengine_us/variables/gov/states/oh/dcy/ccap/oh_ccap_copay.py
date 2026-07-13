@@ -17,9 +17,8 @@ class oh_ccap_copay(Variable):
         # 5180:2-16-05(B): the copayment is computed from the family's
         # poverty-band maximum income, not its actual income.
         p = parameters(period).gov.states.oh.dcy.ccap.copay
-        # spm_unit_fpg is the YEAR (annual) 100% FPG; the bare period
-        # auto-divides it to a monthly value.
-        fpg_monthly = spm_unit("spm_unit_fpg", period)
+        # oh_ccap_fpg is the October-vintage monthly FPG per PL 21.
+        fpg_monthly = spm_unit("oh_ccap_fpg", period)
         countable_income = spm_unit("oh_ccap_countable_income", period)
         # Floor income at zero so a self-employment loss cannot produce a
         # negative copayment.
@@ -36,6 +35,15 @@ class oh_ccap_copay(Variable):
         # (which float32 stores as e.g. 1.0499999) still lands in that band
         # rather than the prior one.
         rounded_ratio = np.ceil(fpl_ratio / p.rounding_increment) * p.rounding_increment
+        # PL 21's desk aid makes each band inclusive of its rounded-up dollar
+        # endpoint (a family at exactly a band's published maximum stays in
+        # that band), so step down one band when income also fits the
+        # previous band's ceiled dollar maximum.
+        previous_ratio = max_(rounded_ratio - p.rounding_increment, 0)
+        previous_band_max = np.ceil(previous_ratio * fpg_annual / MONTHS_IN_YEAR)
+        rounded_ratio = where(
+            monthly_income <= previous_band_max, previous_ratio, rounded_ratio
+        )
         # (B)(4): the band's maximum monthly income is the rounded percentage
         # times the annual FPG, divided by twelve, rounded up to the nearest
         # dollar.
@@ -49,8 +57,15 @@ class oh_ccap_copay(Variable):
             * MONTHS_IN_YEAR
             / p.weeks_in_fiscal_year
         )
-        # (A)(3)(a): families at or below 100% FPG have a zero copayment.
-        weekly_copay = where(fpl_ratio <= p.fpl_waiver_threshold, 0, weekly_copay)
+        # (A)(3)(a): families at or below 100% FPG have a zero copayment;
+        # per the PL 21 desk aid the 100% standard is the ceiled dollar
+        # amount.
+        waiver_income_limit = np.ceil(
+            p.fpl_waiver_threshold * fpg_annual / MONTHS_IN_YEAR
+        )
+        weekly_copay = where(monthly_income <= waiver_income_limit, 0, weekly_copay)
+        # The model assumes one family care arrangement and retains the
+        # pre-distribution family copay.
         # Convert the weekly copay to a monthly amount for the MONTH-period
         # benefit (WEEKS_IN_YEAR weeks per year, MONTHS_IN_YEAR months).
         monthly_copay = weekly_copay * WEEKS_IN_YEAR / MONTHS_IN_YEAR
