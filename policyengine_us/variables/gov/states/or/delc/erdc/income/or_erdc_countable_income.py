@@ -8,5 +8,7 @@ class or_erdc_countable_income(Variable):
     unit = USD
     label = "Oregon ERDC countable income"
     defined_for = StateCode.OR
-    reference = "https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=7871"
+    reference = (
+        "https://secure.sos.state.or.us/oard/view.action?ruleNumber=414-175-0035"
+    )
     adds = "gov.states.or.delc.erdc.income.countable_income.sources"

@@ -7,7 +7,9 @@ class or_erdc_eligible_child(Variable):
     definition_period = MONTH
     label = "Eligible child for Oregon ERDC"
     defined_for = StateCode.OR
-    reference = "https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=7871"
+    reference = (
+        "https://secure.sos.state.or.us/oard/view.action?ruleNumber=414-175-0022"
+    )
 
     def formula(person, period, parameters):
         p = parameters(period).gov.states["or"].delc.erdc.age_threshold
@@ -21,6 +23,10 @@ class or_erdc_eligible_child(Variable):
             | person("is_in_foster_care", period)
             | person("is_disabled", period.this_year)
         )
-        return (age < p.child) | (
+        age_eligible = (age < p.child) | (
             (age < p.special_circumstances_child) & special_circumstances
         )
+        immigration_eligible = person(
+            "is_ccdf_immigration_eligible_child", period.this_year
+        )
+        return age_eligible & immigration_eligible

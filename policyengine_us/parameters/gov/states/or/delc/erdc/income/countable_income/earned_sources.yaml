@@ -13,6 +13,6 @@ metadata:
   label: Oregon ERDC countable earned income sources
   reference:
     - title: OAR 414-175-0030(1), General Financial Eligibility Provisions
-      href: https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=7871
+      href: https://secure.sos.state.or.us/oard/view.action?ruleNumber=414-175-0030
     - title: OAR 414-175-0035, Specific Financial Requirements
-      href: https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=7871
+      href: https://secure.sos.state.or.us/oard/view.action?ruleNumber=414-175-0035

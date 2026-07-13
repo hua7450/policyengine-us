@@ -8,7 +8,9 @@ class or_erdc_allowable_child_care_cost(Variable):
     unit = USD
     label = "Oregon ERDC allowable child care cost"
     defined_for = StateCode.OR
-    reference = "https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=7871"
+    reference = (
+        "https://secure.sos.state.or.us/oard/view.action?ruleNumber=414-175-0075"
+    )
 
     def formula(spm_unit, period, parameters):
         person = spm_unit.members

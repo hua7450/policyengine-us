@@ -7,7 +7,7 @@ metadata:
   label: Oregon ERDC group size 8 or more monthly copay
   reference:
     - title: OAR 414-175-0050(3)(b), Need group size 8 or more
-      href: https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=7871
+      href: https://secure.sos.state.or.us/oard/view.action?ruleNumber=414-175-0050
 
 brackets:
   - threshold:

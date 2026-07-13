@@ -8,4 +8,6 @@ metadata:
   label: Oregon ERDC maximum standard monthly hours
   reference:
     - title: OAR 414-175-0075(6)-(8)
-      href: https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=7871
+      href: https://secure.sos.state.or.us/oard/view.action?ruleNumber=414-175-0075
+    - title: ERDC Provider Guide Insert, 2026 monthly billing range
+      href: https://www.oregon.gov/delc/providers/Documents/Provider%20Rate%20Increase%20For%20Jan%202026_Phase%202_ENG.pdf#page=2

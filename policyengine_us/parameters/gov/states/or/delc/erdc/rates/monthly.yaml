@@ -10,18 +10,25 @@ metadata:
   reference:
     - title: Oregon DELC ERDC Child Care Maximum Rates, Group Areas A-C
       href: https://www.oregon.gov/delc/providers/Documents/Provider%20Rate%20Increase%20For%20Jan%202026_Phase%202_ENG.pdf#page=2
+    - title: Oregon DELC ERDC Maximum Rates, Provider Guide Insert DELC 7492i (01/24), effective January 1, 2024
+      href: http://web.archive.org/web/20251012133829id_/https://www.oregon.gov/delc/programs/ERDC%20Fliers/Provider%20Guide%20Insert%20Final%20EN.pdf
 
 AREA_A:
   STANDARD_FAMILY:
     INFANT:
+      2024-01-01: 1_041
       2026-03-01: 1_110
     TODDLER:
+      2024-01-01: 945
       2026-03-01: 1_020
     PRESCHOOL:
+      2024-01-01: 870
       2026-03-01: 930
     SCHOOL:
+      2024-01-01: 780
       2026-03-01: 840
     SPECIAL_NEEDS:
+      2024-01-01: 1_041
       2026-03-01: 1_110
   STANDARD_CENTER:
     INFANT:
@@ -36,14 +43,19 @@ AREA_A:
       2026-01-01: 1_562
   ENHANCED_FAMILY:
     INFANT:
+      2024-01-01: 1_099
       2026-03-01: 1_172
     TODDLER:
+      2024-01-01: 998
       2026-03-01: 1_077
     PRESCHOOL:
+      2024-01-01: 919
       2026-03-01: 982
     SCHOOL:
+      2024-01-01: 824
       2026-03-01: 887
     SPECIAL_NEEDS:
+      2024-01-01: 1_099
       2026-03-01: 1_172
   ENHANCED_CENTER:
     INFANT:
@@ -92,14 +104,19 @@ AREA_A:
 AREA_B:
   STANDARD_FAMILY:
     INFANT:
+      2024-01-01: 750
       2026-03-01: 855
     TODDLER:
+      2024-01-01: 705
       2026-03-01: 788
     PRESCHOOL:
+      2024-01-01: 691
       2026-03-01: 750
     SCHOOL:
+      2024-01-01: 647
       2026-03-01: 720
     SPECIAL_NEEDS:
+      2024-01-01: 750
       2026-03-01: 855
   STANDARD_CENTER:
     INFANT:
@@ -114,14 +131,19 @@ AREA_B:
       2026-01-01: 1_125
   ENHANCED_FAMILY:
     INFANT:
+      2024-01-01: 791
       2026-03-01: 903
     TODDLER:
+      2024-01-01: 744
       2026-03-01: 831
     PRESCHOOL:
+      2024-01-01: 730
       2026-03-01: 791
     SCHOOL:
+      2024-01-01: 683
       2026-03-01: 760
     SPECIAL_NEEDS:
+      2024-01-01: 791
       2026-03-01: 903
   ENHANCED_CENTER:
     INFANT:
@@ -170,14 +192,19 @@ AREA_B:
 AREA_C:
   STANDARD_FAMILY:
     INFANT:
+      2024-01-01: 750
       2026-03-01: 855
     TODDLER:
+      2024-01-01: 705
       2026-03-01: 788
     PRESCHOOL:
+      2024-01-01: 691
       2026-03-01: 750
     SCHOOL:
+      2024-01-01: 647
       2026-03-01: 720
     SPECIAL_NEEDS:
+      2024-01-01: 750
       2026-03-01: 855
   STANDARD_CENTER:
     INFANT:
@@ -192,14 +219,19 @@ AREA_C:
       2026-01-01: 1_125
   ENHANCED_FAMILY:
     INFANT:
+      2024-01-01: 791
       2026-03-01: 903
     TODDLER:
+      2024-01-01: 744
       2026-03-01: 831
     PRESCHOOL:
+      2024-01-01: 730
       2026-03-01: 791
     SCHOOL:
+      2024-01-01: 683
       2026-03-01: 760
     SPECIAL_NEEDS:
+      2024-01-01: 791
       2026-03-01: 903
   ENHANCED_CENTER:
     INFANT:

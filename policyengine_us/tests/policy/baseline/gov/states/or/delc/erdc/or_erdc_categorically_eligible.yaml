@@ -1,0 +1,24 @@
+# OAR 414-175-0025 grants categorical eligibility only through TANF enrollment
+# or Expanded Child Welfare (foster care); a family with neither is not
+# categorically eligible.
+
+- name: Case 1, a family with no TANF enrollment and no foster care is not categorically eligible.
+  period: 2027-01
+  input:
+    people:
+      parent:
+        age: 30
+      child:
+        age: 4
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+    households:
+      household:
+        members: [parent, child]
+        state_code: OR
+  output:
+    or_erdc_categorically_eligible: false

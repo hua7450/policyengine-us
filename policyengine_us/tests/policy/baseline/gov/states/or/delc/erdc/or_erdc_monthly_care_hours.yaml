@@ -98,3 +98,86 @@
     # No work hours, but the categorical 20-hour floor applies:
     # 20 * 1.25 * 4.3 = 107.5, rounded up to 108.
     or_erdc_monthly_care_hours: [0, 108]
+
+- name: An excused disabled second caretaker does not collapse the need to zero.
+  period: 2027-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      parent1:
+        age: 30
+        is_disabled: true
+        weekly_hours_worked_before_lsr: 0
+      parent2:
+        age: 28
+        weekly_hours_worked_before_lsr: 40
+      child:
+        age: 4
+    tax_units:
+      tax_unit:
+        members: [parent1, parent2, child]
+    spm_units:
+      spm_unit:
+        members: [parent1, parent2, child]
+    households:
+      household:
+        members: [parent1, parent2, child]
+        state_code: OR
+  output:
+    # The disabled non-working second caretaker is excused and dropped from the
+    # overlap minimum, so the need follows the working caretaker's 40 hours:
+    # 40 * 1.25 * 4.3 = 215 monthly hours.
+    or_erdc_monthly_care_hours: [0, 0, 215]
+
+- name: Two working caretakers use the lower schedule for the overlap minimum.
+  period: 2027-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      parent1:
+        age: 30
+        weekly_hours_worked_before_lsr: 40
+      parent2:
+        age: 28
+        weekly_hours_worked_before_lsr: 20
+      child:
+        age: 4
+    tax_units:
+      tax_unit:
+        members: [parent1, parent2, child]
+    spm_units:
+      spm_unit:
+        members: [parent1, parent2, child]
+    households:
+      household:
+        members: [parent1, parent2, child]
+        state_code: OR
+  output:
+    # Lowest caretaker hours (20) set the need -> 20-hour band:
+    # 20 * 1.25 * 4.3 = 107.5, rounded up to 108.
+    or_erdc_monthly_care_hours: [0, 0, 108]
+
+- name: A single caretaker at exactly twenty weekly hours stays in the 20-hour band.
+  period: 2027-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      parent:
+        age: 30
+        weekly_hours_worked_before_lsr: 20
+      child:
+        age: 4
+    tax_units:
+      tax_unit:
+        members: [parent, child]
+    spm_units:
+      spm_unit:
+        members: [parent, child]
+    households:
+      household:
+        members: [parent, child]
+        state_code: OR
+  output:
+    # 20 need hours land in the 20-hour band (bracket threshold 20.0001):
+    # 20 * 1.25 * 4.3 = 107.5, rounded up to 108.
+    or_erdc_monthly_care_hours: [0, 108]

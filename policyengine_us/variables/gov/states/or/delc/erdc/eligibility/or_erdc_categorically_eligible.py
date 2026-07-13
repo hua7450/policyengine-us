@@ -7,7 +7,9 @@ class or_erdc_categorically_eligible(Variable):
     definition_period = MONTH
     label = "Categorically eligible for Oregon ERDC"
     defined_for = StateCode.OR
-    reference = "https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=7871"
+    reference = (
+        "https://secure.sos.state.or.us/oard/view.action?ruleNumber=414-175-0025"
+    )
 
     def formula(spm_unit, period, parameters):
         tanf_enrolled = spm_unit("is_tanf_enrolled", period)

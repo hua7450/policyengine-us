@@ -10,18 +10,25 @@ metadata:
   reference:
     - title: Oregon DELC ERDC Child Care Maximum Rates, Group Areas A-C
       href: https://www.oregon.gov/delc/providers/Documents/Provider%20Rate%20Increase%20For%20Jan%202026_Phase%202_ENG.pdf#page=2
+    - title: Oregon DELC ERDC Maximum Rates, Provider Guide Insert DELC 7492i (01/24), effective January 1, 2024
+      href: http://web.archive.org/web/20251012133829id_/https://www.oregon.gov/delc/programs/ERDC%20Fliers/Provider%20Guide%20Insert%20Final%20EN.pdf
 
 AREA_A:
   STANDARD_FAMILY:
     INFANT:
+      2024-01-01: 6.3
       2026-03-01: 6.5
     TODDLER:
+      2024-01-01: 5.7
       2026-03-01: 5.9
     PRESCHOOL:
+      2024-01-01: 5.4
       2026-03-01: 5.4
     SCHOOL:
+      2024-01-01: 5.1
       2026-03-01: 5.7
     SPECIAL_NEEDS:
+      2024-01-01: 6.3
       2026-03-01: 6.5
   STANDARD_CENTER:
     INFANT:
@@ -36,14 +43,19 @@ AREA_A:
       2026-01-01: 9
   ENHANCED_FAMILY:
     INFANT:
+      2024-01-01: 6.65
       2026-03-01: 6.86
     TODDLER:
+      2024-01-01: 6.01
       2026-03-01: 6.22
     PRESCHOOL:
+      2024-01-01: 5.7
       2026-03-01: 5.7
     SCHOOL:
+      2024-01-01: 5.39
       2026-03-01: 6.01
     SPECIAL_NEEDS:
+      2024-01-01: 6.65
       2026-03-01: 6.86
   ENHANCED_CENTER:
     INFANT:
@@ -92,14 +104,19 @@ AREA_A:
 AREA_B:
   STANDARD_FAMILY:
     INFANT:
+      2024-01-01: 4.2
       2026-03-01: 4.95
     TODDLER:
+      2024-01-01: 3.9
       2026-03-01: 4.73
     PRESCHOOL:
+      2024-01-01: 3.75
       2026-03-01: 4.5
     SCHOOL:
+      2024-01-01: 3.9
       2026-03-01: 5.4
     SPECIAL_NEEDS:
+      2024-01-01: 4.2
       2026-03-01: 4.95
   STANDARD_CENTER:
     INFANT:
@@ -114,14 +131,19 @@ AREA_B:
       2026-01-01: 6.56
   ENHANCED_FAMILY:
     INFANT:
+      2024-01-01: 4.44
       2026-03-01: 5.23
     TODDLER:
+      2024-01-01: 4.11
       2026-03-01: 4.99
     PRESCHOOL:
+      2024-01-01: 4.11
       2026-03-01: 4.75
     SCHOOL:
+      2024-01-01: 4.11
       2026-03-01: 5.7
     SPECIAL_NEEDS:
+      2024-01-01: 4.44
       2026-03-01: 5.23
   ENHANCED_CENTER:
     INFANT:
@@ -170,14 +192,19 @@ AREA_B:
 AREA_C:
   STANDARD_FAMILY:
     INFANT:
+      2024-01-01: 4.2
       2026-03-01: 4.95
     TODDLER:
+      2024-01-01: 3.9
       2026-03-01: 4.73
     PRESCHOOL:
+      2024-01-01: 3.75
       2026-03-01: 4.5
     SCHOOL:
+      2024-01-01: 3.9
       2026-03-01: 5.4
     SPECIAL_NEEDS:
+      2024-01-01: 4.2
       2026-03-01: 4.95
   STANDARD_CENTER:
     INFANT:
@@ -192,14 +219,19 @@ AREA_C:
       2026-01-01: 6.56
   ENHANCED_FAMILY:
     INFANT:
+      2024-01-01: 4.44
       2026-03-01: 5.23
     TODDLER:
+      2024-01-01: 4.11
       2026-03-01: 4.99
     PRESCHOOL:
+      2024-01-01: 4.11
       2026-03-01: 4.75
     SCHOOL:
+      2024-01-01: 4.11
       2026-03-01: 5.7
     SPECIAL_NEEDS:
+      2024-01-01: 4.44
       2026-03-01: 5.23
   ENHANCED_CENTER:
     INFANT:

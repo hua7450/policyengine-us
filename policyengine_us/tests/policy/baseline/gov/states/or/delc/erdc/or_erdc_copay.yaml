@@ -86,3 +86,15 @@
     state_code: OR
   output:
     or_erdc_copay: 130
+
+- name: Group size 2 non-categorical family below the first paid bracket has no copay.
+  period: 2027-01
+  absolute_error_margin: 0.01
+  input:
+    or_erdc_countable_income: 1_500
+    spm_unit_size: 2
+    state_code: OR
+  output:
+    # 1,500/month is below the first paid bracket threshold of 1,804, so the
+    # non-categorical family owes no copay.
+    or_erdc_copay: 0

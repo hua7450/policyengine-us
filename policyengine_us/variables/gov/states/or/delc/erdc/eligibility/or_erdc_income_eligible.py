@@ -16,7 +16,7 @@ class or_erdc_income_eligible(Variable):
     def formula(spm_unit, period, parameters):
         p = parameters(period).gov.states["or"].delc.erdc
         expanded_child_welfare = spm_unit(
-            "or_erdc_expanded_child_welfare_eligible", period.this_year
+            "or_erdc_expanded_child_welfare_eligible", period
         )
         countable_income = spm_unit("or_erdc_countable_income", period)
         size = spm_unit("spm_unit_size", period.this_year)

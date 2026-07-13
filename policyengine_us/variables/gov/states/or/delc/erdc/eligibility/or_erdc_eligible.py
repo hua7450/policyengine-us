@@ -7,7 +7,9 @@ class or_erdc_eligible(Variable):
     definition_period = MONTH
     label = "Eligible for Oregon ERDC"
     defined_for = StateCode.OR
-    reference = "https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=7871"
+    reference = (
+        "https://secure.sos.state.or.us/oard/view.action?ruleNumber=414-175-0015"
+    )
 
     def formula(spm_unit, period, parameters):
         has_eligible_child = add(spm_unit, period, ["or_erdc_eligible_child"]) > 0
