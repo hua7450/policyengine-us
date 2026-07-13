@@ -9,8 +9,8 @@ class ok_ccs_countable_income(Variable):
     definition_period = MONTH
     defined_for = StateCode.OK
     reference = (
-        "http://okrules.elaws.us/oac/340:40-7-12",
-        "http://okrules.elaws.us/oac/340:40-7-13",
+        "https://okrules.elaws.us/oac/340:40-7-12",
+        "https://okrules.elaws.us/oac/340:40-7-13",
     )
 
     def formula(spm_unit, period, parameters):

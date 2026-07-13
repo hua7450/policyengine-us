@@ -1,0 +1,162 @@
+# Need factor per OAC 340:40-7-8: each parent or caretaker must be employed
+# or attending an education or training program, with TANF, protective or
+# preventive child care, and CCDF activity-test pathways.
+- name: Case 1, single working parent meets the need factor.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 24_000  # $2,000/month.
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: OK
+  output:
+    ok_ccs_activity_eligible: true
+
+- name: Case 2, two-parent household where one parent is not in an activity.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head: true
+        employment_income: 24_000  # $2,000/month.
+      person2:
+        age: 28
+        is_tax_unit_spouse: true
+      person3:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: OK
+  output:
+    ok_ccs_activity_eligible: false
+
+- name: Case 3, working parent and full-time student spouse both meet the need factor.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+        is_tax_unit_head: true
+        employment_income: 24_000  # $2,000/month.
+      person2:
+        age: 28
+        is_tax_unit_spouse: true
+        is_full_time_student: true
+      person3:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: OK
+  output:
+    ok_ccs_activity_eligible: true
+
+- name: Case 4, a self-employment loss still evidences active self-employment.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+        self_employment_income: -6_000  # -$500/month.
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: OK
+  output:
+    ok_ccs_activity_eligible: true
+
+- name: Case 5, non-working TANF-enrolled household meets the need factor.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        is_tanf_enrolled: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: OK
+  output:
+    ok_ccs_activity_eligible: true
+
+- name: Case 6, non-working parent receiving protective services meets the need factor.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+        receives_or_needs_protective_services: true
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: OK
+  output:
+    ok_ccs_activity_eligible: true
+
+- name: Case 7, non-working household meeting the CCDF activity test meets the need factor.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        meets_ccdf_activity_test: true
+    households:
+      household:
+        members: [person1, person2]
+        state_code: OK
+  output:
+    ok_ccs_activity_eligible: true
+
+- name: Case 8, non-working single parent with no qualifying pathway.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: OK
+  output:
+    ok_ccs_activity_eligible: false

@@ -8,7 +8,7 @@ metadata:
   period: year
   label: Oklahoma Child Care Subsidy home age group
   reference:
-    - title: OKDHS Appendix C-4-B, Child Care Provider Rate Schedule, pp. 3-5
+    - title: OKDHS Appendix C-4-B, Child Care Provider Rate Schedule
       href: https://oklahoma.gov/content/dam/ok/en/okdhs/documents/searchcenter/okdhsformresults/c-4-b.pdf#page=3
 
 brackets:

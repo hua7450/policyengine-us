@@ -7,7 +7,7 @@ class ok_ccs_activity_eligible(Variable):
     label = "Oklahoma Child Care Subsidy activity eligible"
     definition_period = MONTH
     defined_for = StateCode.OK
-    reference = "http://okrules.elaws.us/oac/340:40-7-8"
+    reference = "https://okrules.elaws.us/oac/340:40-7-8"
 
     def formula(spm_unit, period, parameters):
         # The need factor requires each parent or caretaker to be employed or

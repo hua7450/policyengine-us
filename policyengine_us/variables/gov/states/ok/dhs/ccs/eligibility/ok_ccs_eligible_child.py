@@ -7,7 +7,7 @@ class ok_ccs_eligible_child(Variable):
     label = "Oklahoma Child Care Subsidy eligible child"
     definition_period = MONTH
     defined_for = StateCode.OK
-    reference = "http://okrules.elaws.us/oac/340:40-7-3"
+    reference = "https://okrules.elaws.us/oac/340:40-7-3"
 
     def formula(person, period, parameters):
         p = parameters(period).gov.states.ok.dhs.ccs.eligibility
