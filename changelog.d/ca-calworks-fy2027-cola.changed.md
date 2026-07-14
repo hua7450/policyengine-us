@@ -1,1 +1,1 @@
-Update CalWORKs vehicle value limit for July 2025 and July 2026 (CDSS ACLs 25-37 and 26-38) and MBSAC income limits for July 2026 (CDSS ACL 26-39).
+Update CalWORKs vehicle value limit for July 2025 and July 2026 (CDSS ACLs 25-37 and 26-38), MBSAC income limits for July 2026 (CDSS ACL 26-39), and maximum resource limits for January 2024 and January 2026 (CDSS ACLs 23-71 and 25-65).
