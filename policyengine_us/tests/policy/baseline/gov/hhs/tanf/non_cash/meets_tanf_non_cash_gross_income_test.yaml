@@ -98,6 +98,51 @@
   output:
     meets_tanf_non_cash_gross_income_test: true
 
+- name: NY with adult dependent care expenses computed from care_expenses is eligible through 200% FPL
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 25
+        is_incapable_of_self_care: true
+        care_expenses: 1_200
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        snap_gross_income_fpg_ratio: 1.9
+        snap_earned_income: 0
+        has_usda_elderly_disabled: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: NY
+  output:
+    meets_tanf_non_cash_gross_income_test: true
+
+- name: NY without care expenses through the computed deduction is capped at 130% FPL
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 25
+        is_incapable_of_self_care: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        snap_gross_income_fpg_ratio: 1.9
+        snap_earned_income: 0
+        has_usda_elderly_disabled: false
+    households:
+      household:
+        members: [person1, person2]
+        state_code: NY
+  output:
+    meets_tanf_non_cash_gross_income_test: false
+
 - name: NY elderly or disabled household is eligible through 200% FPL
   period: 2026-01
   input:

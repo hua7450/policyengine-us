@@ -1,0 +1,1 @@
+Include disabled adult care expenses in the SNAP dependent care deduction per 7 CFR 273.9(d)(4); this also extends New York's 200% FPL SNAP BBCE gross income limit to households with adult dependent care costs per NY OTDA 16-ADM-06.
