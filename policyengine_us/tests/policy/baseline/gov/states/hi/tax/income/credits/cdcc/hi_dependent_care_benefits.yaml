@@ -255,3 +255,33 @@
         state_code: HI
   output:
     hi_dependent_care_benefits: 0
+
+- name: Case 13, childcare and adult care expenses combine in qualified expenses.
+  period: 2023
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        dependent_care_employer_benefits: 1
+      person2:
+        age: 25
+        is_tax_unit_dependent: true
+        is_incapable_of_self_care: true
+        care_expenses: 3_000
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+        hi_cdcc_min_head_spouse_earned: 2_400
+        filing_status: SEPARATE
+        count_cdcc_eligible: 2
+        tax_unit_childcare_expenses: 2_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: HI
+  output:
+    # Line 6 qualified expenses = 2_000 childcare + 3_000 adult care = 5_000.
+    # Deductible benefit = min(1, 2_400, 2_500) = 1; expense floor for
+    # two qualifying persons (2023) = 20_000; net = 20_000 - 1 = 19_999.
+    # Return min(19_999, 5_000) = 5_000.
+    hi_dependent_care_benefits: 5_000
