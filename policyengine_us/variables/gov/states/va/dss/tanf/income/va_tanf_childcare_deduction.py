@@ -17,10 +17,13 @@ class va_tanf_childcare_deduction(Variable):
         person = spm_unit.members
         age = person("age", period.this_year)
         dependent = person("is_tax_unit_dependent", period)
-        disabled_adult = person("is_adult", period) & person(
-            "is_disabled", period.this_year
+        # The manual's operative condition is incapacity ("Incapacitated
+        # Adult/Child Care Disregard"), supported by a Medical Evaluation
+        # form or established by receipt of SSDI or SSI.
+        incapacitated_adult = person("is_adult", period) & person(
+            "is_incapable_of_self_care", period.this_year
         )
-        care_recipient = dependent | disabled_adult
+        care_recipient = dependent | incapacitated_adult
         childcare_expenses = spm_unit("childcare_expenses", period)
         adult_care_expenses = add(spm_unit, period, ["care_expenses"])
         max_deduction = spm_unit.sum(p.full_time.calc(age) * care_recipient)

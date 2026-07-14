@@ -121,6 +121,10 @@
         age: 30
       person2:
         age: 35
+        # Describe the legal scenario (Rule 2252.2(a) covers a disabled or
+        # seriously ill adult); the formula pools care_expenses without a
+        # disability filter and caps per participant, symmetric with the
+        # childcare side.
         is_disabled: true
         is_incapable_of_self_care: true
         care_expenses: 1_200

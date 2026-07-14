@@ -75,3 +75,26 @@
     # Per 1 TAC 372.409(a)(3): $175/month for an incapacitated adult.
     # Expenses = 1,200 / 12 = 100/month, below the cap.
     tx_tanf_dependent_care_deduction: 100
+
+- name: Case 5, adult care expenses without incapacity are not deducted.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 35
+        is_tax_unit_dependent: false
+        care_expenses: 1_200
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: TX
+  output:
+    # Person2 is neither a dependent nor incapacitated, so the cap is $0:
+    # min(100, 0) = 0.
+    tx_tanf_dependent_care_deduction: 0

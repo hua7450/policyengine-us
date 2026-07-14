@@ -88,6 +88,9 @@
         tanf_gross_earned_income: 1_000
       person2:
         age: 35
+        # Describes the legal scenario (IMM 4.5.2.A.2 covers incapacitated
+        # adult care); the formula pools care_expenses without an
+        # incapacity filter, symmetric with the childcare side.
         is_incapable_of_self_care: true
         care_expenses: 1_200
     spm_units:
