@@ -12,6 +12,6 @@ class snap_unit_size(Variable):
     )
 
     def formula(spm_unit, period, parameters):
-        unit_size = spm_unit("spm_unit_size", period)
+        unit_size = spm_unit("spm_unit_size", period.this_year)
         excluded_count = add(spm_unit, period, ["is_snap_excluded_member"])
         return max_(unit_size - excluded_count, 0)

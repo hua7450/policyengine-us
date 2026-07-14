@@ -18,7 +18,7 @@ class is_snap_excluded_member(Variable):
 
     def formula(person, period, parameters):
         return (
-            person("is_snap_ineligible_student", period)
+            person("is_snap_ineligible_student", period.this_year)
             | ~person("is_snap_immigration_status_eligible", period)
             | ~person("meets_snap_work_requirements_person", period)
         )

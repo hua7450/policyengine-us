@@ -28,7 +28,7 @@ class is_snap_prorated_income_member(Variable):
         discretion_alien = person("is_snap_state_discretion_ineligible_alien", period)
         counts_all = np.isin(state, p.count_all_income_states)
         full_count_alien = discretion_alien & counts_all
-        student = person("is_snap_ineligible_student", period)
+        student = person("is_snap_ineligible_student", period.this_year)
         prorated_alien = immigration_ineligible & ~student & ~full_count_alien
         # ABAWD time-limit ineligible members are prorated under
         # 273.11(c)(2); members sanctioned for noncompliance with the

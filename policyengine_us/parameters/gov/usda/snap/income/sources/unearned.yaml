@@ -12,6 +12,7 @@ values:
     - disability_benefits
     - workers_compensation
     - social_security
+    - survivor_benefits
     - retirement_distributions
     # Assume all rental income meets this criteria (rest is earned):
     # "gross income minus the cost of doing business derived from rental
@@ -21,13 +22,12 @@ values:
     # (iii)
     - child_support_received
     - alimony_income
-    - financial_assistance
-    - survivor_benefits
     # (iv) educational assistance is countable only after educational
     # exclusions. Keep it out until the excluded share is modeled.
     # (v)
     - dividend_income
     - interest_income
+    - financial_assistance
     - miscellaneous_income
 
 metadata:

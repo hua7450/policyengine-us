@@ -15,5 +15,5 @@ class is_snap_state_discretion_ineligible_alien(Variable):
         state_discretion_status = np.isin(status, p.pre_prwora_statuses)
         # Ineligible students are treated as nonhousehold members under
         # 273.11(d) rather than under the ineligible-alien rules.
-        student = person("is_snap_ineligible_student", period)
+        student = person("is_snap_ineligible_student", period.this_year)
         return ~student & immigration_ineligible & state_discretion_status

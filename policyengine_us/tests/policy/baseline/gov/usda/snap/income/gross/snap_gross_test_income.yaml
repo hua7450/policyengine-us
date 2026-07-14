@@ -139,7 +139,7 @@
         state_code: AR
   output:
     # The eligible member's non-farm loss is floored at zero
-    # (7 CFR 273.11(a)(2)(iii) offsets only farm losses), so the whole
+    # (7 CFR 273.11(a)(2)(ii) offsets only farm losses), so the whole
     # $2,000 monthly net amount is attributed to the alien: the
     # attribution ratio stays bounded with mixed-sign gross amounts.
     snap_earned_income: 1_333.33

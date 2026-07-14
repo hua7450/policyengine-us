@@ -20,7 +20,7 @@ class snap_excess_medical_expense_deduction(Variable):
         person = spm_unit.members
         elderly = person("is_usda_elderly", period)
         disabled = person("is_usda_disabled", period)
-        student = person("is_snap_ineligible_student", period)
+        student = person("is_snap_ineligible_student", period.this_year)
         prorated = person("is_snap_prorated_income_member", period)
         moop = person("snap_allowable_medical_expenses", period) * ~(student | prorated)
         elderly_disabled_moop = spm_unit.sum(moop * (elderly | disabled))

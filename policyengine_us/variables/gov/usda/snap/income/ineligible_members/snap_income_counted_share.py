@@ -13,7 +13,7 @@ class snap_income_counted_share(Variable):
     )
 
     def formula(person, period, parameters):
-        student = person("is_snap_ineligible_student", period)
+        student = person("is_snap_ineligible_student", period.this_year)
         prorated = person("is_snap_prorated_income_member", period)
         fraction = person.spm_unit("snap_prorated_income_fraction", period)
         return select([student, prorated], [0, fraction], default=1)

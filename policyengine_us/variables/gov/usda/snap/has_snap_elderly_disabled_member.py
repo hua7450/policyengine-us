@@ -8,14 +8,14 @@ class has_snap_elderly_disabled_member(Variable):
     label = "Has an elderly or disabled SNAP unit member"
     documentation = (
         "Whether the SNAP unit includes an elderly or disabled member. "
-        "Ineligible and nonhousehold members are excluded when comparing "
-        "the household's income with the income eligibility standards, so "
-        "they do not confer household-wide elderly or disabled status."
+        "7 CFR 271.2 defines an elderly or disabled member as a member of "
+        "a household; ineligible and nonhousehold members are excluded "
+        "from the household, so they do not confer household-wide elderly "
+        "or disabled status."
     )
     reference = (
         "https://www.law.cornell.edu/cfr/text/7/271.2",
-        "https://www.law.cornell.edu/cfr/text/7/273.11#c",
-        "https://www.law.cornell.edu/cfr/text/7/273.11#d",
+        "https://www.law.cornell.edu/cfr/text/7/273.1",
     )
 
     def formula(spm_unit, period, parameters):

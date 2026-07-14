@@ -23,7 +23,7 @@ class snap_expense_counted_share(Variable):
         # under 273.11(c)(1) continue to count in their entirety.
         person = spm_unit.members
         share = person("snap_income_counted_share", period)
-        size = spm_unit("spm_unit_size", period)
+        size = spm_unit("spm_unit_size", period.this_year)
         # Subtract the uncounted portion of each member's per capita
         # payment rather than summing counted shares directly, so a
         # spm_unit_size exceeding the modeled member count leaves the

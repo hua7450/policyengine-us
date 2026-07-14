@@ -17,8 +17,8 @@ class snap_prorated_income_fraction(Variable):
         # the shares of all ineligible members — including full-count
         # aliens and members sanctioned under 273.11(c)(1), whose own
         # income counts in full — are excluded from the counted fraction.
-        size = spm_unit("spm_unit_size", period)
-        students = add(spm_unit, period, ["is_snap_ineligible_student"])
+        size = spm_unit("spm_unit_size", period.this_year)
+        students = add(spm_unit, period.this_year, ["is_snap_ineligible_student"])
         household_members = size - students
         eligible_members = spm_unit("snap_unit_size", period)
         return where(
