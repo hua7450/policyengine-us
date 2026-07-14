@@ -31,3 +31,21 @@
     eitc: 0
   output:
     va_refundable_eitc_if_claimed: 0
+
+# HB 30 (2026) extends the 20% refundable rate through TY2029.
+- name: VA 2029 Refundable EITC still at 20%
+  period: 2029
+  input:
+    state_code: VA
+    eitc: 5_000
+  output:
+    va_refundable_eitc_if_claimed: 1_000
+
+# The refundable EITC expires for taxable years beginning on/after 2030.
+- name: VA 2030 Refundable EITC has expired
+  period: 2030
+  input:
+    state_code: VA
+    eitc: 5_000
+  output:
+    va_refundable_eitc_if_claimed: 0
