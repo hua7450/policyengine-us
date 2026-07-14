@@ -6,6 +6,15 @@ class is_snap_prorated_income_member(Variable):
     entity = Person
     label = "SNAP ineligible member with prorated income"
     definition_period = MONTH
+    documentation = (
+        "Whether this person's income is prorated under 7 CFR "
+        "273.11(c)(2): ineligible aliens without a state full-count "
+        "election and ABAWD time-limit ineligible members (273.24). "
+        "Members failing the general work requirements fall under "
+        "273.11(c)(1), which counts their income in full. The model "
+        "treats modeled noncompliance as a state-imposed disqualification, "
+        "consistent with these members' exclusion from the SNAP unit size."
+    )
     reference = (
         "https://www.law.cornell.edu/cfr/text/7/273.11#c_2_ii",
         "https://www.law.cornell.edu/cfr/text/7/273.11#c_3",

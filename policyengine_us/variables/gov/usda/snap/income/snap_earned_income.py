@@ -19,10 +19,12 @@ class snap_earned_income(Variable):
         share = person("snap_income_counted_share", period)
         # Self-employment income net of the expense deduction is computed
         # at the SPM unit level; attribute it to members in proportion to
-        # their signed gross self-employment income, so losses stay
-        # attached to the member who incurred them. Non-countable earners
-        # remain in the attribution base, so their shares are dropped
-        # rather than reattributed to countable earners.
+        # their gross self-employment income. Gross amounts are floored at
+        # zero per enterprise, so the attribution ratio is bounded to
+        # [0, 1]. Non-countable earners remain in the attribution base, so
+        # their shares are dropped rather than reattributed to countable
+        # earners. This mirrors the attribution in snap_gross_test_income,
+        # which substitutes the full-count share.
         countable = person("snap_countable_earner", period)
         gross_self_employment = person(
             "snap_gross_self_employment_income_person", period
@@ -32,9 +34,7 @@ class snap_earned_income(Variable):
             "snap_self_employment_income_after_expense_deduction", period
         )
         counted_weight = spm_unit.sum(gross_self_employment * countable * share)
-        counted_self_employment = where(
-            unit_gross > 0,
-            unit_net * counted_weight / where(unit_gross > 0, unit_gross, 1),
-            0,
+        counted_self_employment = (
+            unit_net * counted_weight / where(unit_gross > 0, unit_gross, 1)
         )
         return max_(spm_unit.sum(employment * share) + counted_self_employment, 0)

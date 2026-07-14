@@ -21,11 +21,11 @@
   output:
     meets_snap_gross_income_test: false
 
-- name: Households with elderly or disabled members are exempt.
+- name: Households with elderly or disabled unit members are exempt.
   period: 2022
   input:
     snap_gross_test_income: 15_720
     snap_fpg: 12_000
-    has_usda_elderly_disabled: true
+    has_snap_elderly_disabled_member: true
   output:
     meets_snap_gross_income_test: true
