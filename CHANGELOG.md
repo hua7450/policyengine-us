@@ -1,3 +1,10 @@
+## [1.771.2] - 2026-07-14
+
+### Changed
+
+- Count CalWORKs vehicle value above the vehicle limit toward the resource limit instead of denying eligibility outright, per CDSS ACLs 25-37 and 26-38.
+
+
 ## [1.771.1] - 2026-07-14
 
 ### Changed
