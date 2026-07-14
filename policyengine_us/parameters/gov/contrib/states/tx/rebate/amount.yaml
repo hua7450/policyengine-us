@@ -1,8 +1,9 @@
-description: Texas provides this rebate amount per household under the proposed Money in Your Pocket agenda.
+description: Texas provides this rebate per household under the proposed Money in Your Pocket agenda (the campaign's "families" modeled as households; eligibility unspecified in the proposal).
 
 values:
   0000-01-01: 0
   2027-01-01: 1_500
+  2028-01-01: 0
 
 metadata:
   unit: currency-USD

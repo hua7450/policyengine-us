@@ -1,3 +1,17 @@
+"""Texas "Money in Your Pocket" one-time rebate reform.
+
+Proposal: Gina Hinojosa's "Money in Your Pocket" economic agenda proposes a
+one-time $1,500 rebate check to Texas families, funded by an ~$17 billion draw
+on the state's Economic Stabilization Fund.
+Source: https://ginafortexas.com/2026/07/recap-gina-hinojosa-launches-money-in-your-pocket-economic-agenda-across-houston-san-antonio-and-laredo/
+
+Modeling assumptions: the proposal does not specify the eligibility unit or an
+income limit. PolicyEngine models one check per household with no income limit --
+the reading consistent with the campaign's stated ~$17 billion Economic
+Stabilization Fund draw. The campaign's "families" are therefore operationalized
+as households. The rebate is paid once (2027) and reverts to $0 from 2028.
+"""
+
 from policyengine_us.model_api import *
 from policyengine_core.periods import period as period_
 from policyengine_core.periods import instant
