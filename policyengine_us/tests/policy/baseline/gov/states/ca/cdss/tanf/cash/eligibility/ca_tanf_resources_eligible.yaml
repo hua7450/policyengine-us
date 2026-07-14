@@ -65,3 +65,44 @@
     ca_tanf_resources_limit: 12_137
   output:
     ca_tanf_resources_eligible: true
+
+- name: Case 6, vehicle moderately over the vehicle limit stays eligible because only the excess counts.
+  period: 2026
+  input:
+    people:
+      person1:
+        age: 30
+        is_disabled: false
+    spm_units:
+      spm_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: CA
+        household_vehicles_value: 34_000
+  output:
+    # Vehicle excess: 34,000 - 33,499 (Jul 2025 limit) = 501
+    # Resources: 501 is below the lower resource limit
+    ca_tanf_resources_eligible: true
+
+- name: Case 7, vehicle excess plus cash assets over the resource limit is ineligible.
+  period: 2026
+  input:
+    people:
+      person1:
+        age: 30
+        is_disabled: false
+    spm_units:
+      spm_unit:
+        members: [person1]
+        spm_unit_cash_assets: 13_000
+    households:
+      household:
+        members: [person1]
+        state_code: CA
+        household_vehicles_value: 34_000
+  output:
+    # Vehicle excess: 34,000 - 33,499 (Jul 2025 limit) = 501
+    # Resources: 13,000 + 501 = 13,501 exceeds the lower resource limit
+    ca_tanf_resources_eligible: false

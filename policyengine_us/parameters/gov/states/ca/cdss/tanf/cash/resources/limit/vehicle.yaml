@@ -1,4 +1,4 @@
-description: California limits CalWORKs to households with vehicle value below this amount.
+description: California excludes vehicle value up to this amount from countable resources under the California Work Opportunity and Responsibility to Kids program.
 
 values:
   2023-01-01: 32_045
