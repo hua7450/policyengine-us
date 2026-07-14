@@ -7,7 +7,7 @@ metadata:
   - filing_status
   reference:
   - title: Code of Virginia § 58.1-322.03.(1)(b)
-    href: https://law.lis.virginia.gov/vacodefull/title58.1/chapter3/article2/
+    href: https://law.lis.virginia.gov/vacode/title58.1/section58.1-322.03/
   - title: Virginia 2025 Form 760 Resident Individual Income Tax Instructions
     href: https://www.tax.virginia.gov/sites/default/files/vatax-pdf/2025-760-instructions.pdf#page=17
   - title: Virginia 2024 Form 760 Resident Individual Income Tax Instructions
@@ -22,10 +22,10 @@ metadata:
     href: https://www.tax.virginia.gov/sites/default/files/inline-files/2023-legislative-summary.pdf#page=10
   - title: House Bill 1600 (2025 Appropriations Act)
     href: https://legiscan.com/VA/text/HB1600/id/3262750/Virginia-2025-HB1600-Chaptered.pdf#page=780
-  - title: House Bill 30 (2026 Appropriation Act, Special Session I, Chapter 1), Item 4-14 #1c - $9,200/$18,400 for TY2027 and $9,300/$18,600 for TY2028-2029, sunset TY2030
+  - title: House Bill 30 (2026 Appropriation Act, Special Session I, Chapter 1), Item 4-14 #1c
     href: https://budget.lis.virginia.gov/amendment/2026/2/HB30/Introduced/CR/4-14/1c
   - title: Virginia Department of Taxation 2026 Legislative Summary - standard deduction
-    href: https://www.tax.virginia.gov/sites/default/files/inline-files/2026-legislative-summary.pdf
+    href: https://www.tax.virginia.gov/sites/default/files/inline-files/2026-legislative-summary.pdf#page=9
 
 JOINT:
   2021-01-01: 9_000
