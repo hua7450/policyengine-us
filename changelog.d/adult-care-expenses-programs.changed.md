@@ -1,1 +1,0 @@
-Include disabled adult care expenses in the Texas Family Planning Program dependent care deduction, the Hawaii child and dependent care credit, and the Montana child and dependent care expense deduction.
