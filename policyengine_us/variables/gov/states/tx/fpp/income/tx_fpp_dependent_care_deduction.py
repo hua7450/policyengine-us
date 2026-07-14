@@ -25,11 +25,15 @@ class tx_fpp_dependent_care_deduction(Variable):
         adult_care_expenses = person("care_expenses", period)
         age = person("age", period)
         is_child = age < p.child_age_threshold
-        is_disabled_dependent = person("is_disabled", period) & person(
-            "is_tax_unit_dependent", period
+        is_spouse = person("is_tax_unit_spouse", period) & (
+            person.marital_unit.nb_persons() == 2
+        )
+        is_disabled_dependent_or_spouse = person("is_disabled", period) & (
+            person("is_tax_unit_dependent", period) | is_spouse
         )
         eligible_expenses = (
-            childcare_expenses * is_child + adult_care_expenses * is_disabled_dependent
+            childcare_expenses * is_child
+            + adult_care_expenses * is_disabled_dependent_or_spouse
         )
         monthly_cap = p.dependent_care.calc(age)
         capped_expenses = min_(eligible_expenses, monthly_cap * MONTHS_IN_YEAR)

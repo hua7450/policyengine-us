@@ -338,3 +338,30 @@
   output:
     # The 4_000 deduction is divided equally between spouses.
     mt_child_dependent_care_expense_deduction: [2_000, 2_000]
+
+- name: Case 22, the deduction is repealed beginning in 2024.
+  period: 2024
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        is_tax_unit_head_or_spouse: true
+        mt_agi_indiv: 18_000
+      person2:
+        age: 10
+        is_tax_unit_dependent: true
+      person3:
+        age: 30
+        is_tax_unit_dependent: true
+        is_incapable_of_self_care: true
+        care_expenses: 1_000
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+        tax_unit_childcare_expenses: 3_000
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: MT
+  output:
+    mt_child_dependent_care_expense_deduction: [0, 0, 0]

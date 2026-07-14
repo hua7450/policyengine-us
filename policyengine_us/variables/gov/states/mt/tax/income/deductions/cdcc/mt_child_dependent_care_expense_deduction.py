@@ -20,11 +20,14 @@ class mt_child_dependent_care_expense_deduction(Variable):
         p = parameters(
             period
         ).gov.states.mt.tax.income.deductions.child_dependent_care_expense
+        if not p.in_effect:
+            return 0
         childcare_expenses = tax_unit("tax_unit_childcare_expenses", period)
         childcare_cap = p.cap.calc(eligible_children)
         capped_childcare_expenses = min_(childcare_expenses, childcare_cap)
         person = tax_unit.members
         age = person("age", period)
+        # `care_expenses` represents in-home services for this deduction.
         care_expenses = person("care_expenses", period)
         qualifying_person = person(
             "mt_child_dependent_care_expense_deduction_eligible_child",
