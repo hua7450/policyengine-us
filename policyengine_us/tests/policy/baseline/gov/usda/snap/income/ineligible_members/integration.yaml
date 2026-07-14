@@ -479,3 +479,151 @@
     # The $200 monthly TANF grant is paid to the unit as a whole and
     # cannot be attributed to the prorated member, so it counts in full.
     snap_unearned_income: 200
+
+- name: Case 18, excluded elderly member does not waive the shelter deduction cap.
+  period: 2026-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 35
+        employment_income: 24_000
+        employment_income_before_lsr: 24_000
+      person2:
+        age: 70
+        immigration_status: UNDOCUMENTED
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        housing_cost: 24_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: TX
+  output:
+    has_snap_elderly_disabled_member: false
+    # Counted shelter: 0.75 x $2,000 = $1,500; uncapped deduction
+    # $1,500 - 0.5 x $1,391 = $804.50 exceeds the $744 cap, which applies
+    # because the excluded elderly member does not waive it.
+    snap_excess_shelter_expense_deduction: 744
+
+- name: Case 19, California refugee is prorated once the OBBBA delay lapses.
+  period: 2027-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 35
+        employment_income: 24_000
+        employment_income_before_lsr: 24_000
+        immigration_status: REFUGEE
+      person2:
+        age: 33
+      person3:
+        age: 8
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: CA
+  output:
+    # California's ACL 25-92 delay ends 2026-04-01, so by 2027 the
+    # refugee is an excluded member with prorated income, matching the
+    # treatment in non-delaying states.
+    snap_unit_size: 2
+    snap_income_counted_share: [0.6667, 1, 1]
+    snap_earned_income: 1_333.33
+
+- name: Case 20, student, prorated alien, and sanctioned member in one household.
+  period: 2026-01
+  absolute_error_margin: 0.001
+  input:
+    people:
+      person1:
+        age: 20
+        is_snap_ineligible_student: true
+      person2:
+        age: 35
+        employment_income: 24_000
+        employment_income_before_lsr: 24_000
+        immigration_status: UNDOCUMENTED
+      person3:
+        age: 30
+        weekly_hours_worked_before_lsr: 0
+      person4:
+        age: 33
+      person5:
+        age: 8
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3, person4, person5]
+    households:
+      household:
+        members: [person1, person2, person3, person4, person5]
+        state_code: TX
+  output:
+    # Household members exclude the student: 4; unit members exclude the
+    # student, the prorated alien, and the sanctioned member: 2. The
+    # proration fraction is 2/4 and the sanctioned member's share is 1.
+    snap_unit_size: 2
+    snap_prorated_income_fraction: 0.5
+    snap_income_counted_share: [0, 0.5, 1, 1, 1]
+    # Expense share: 1 - (1 + 0.5) / 5 = 0.7.
+    snap_expense_counted_share: 0.7
+    snap_earned_income: 1_000
+
+- name: Case 21, all-ineligible multi-member household receives nothing.
+  period: 2026-01
+  absolute_error_margin: 0.001
+  input:
+    people:
+      person1:
+        age: 35
+        employment_income: 24_000
+        employment_income_before_lsr: 24_000
+        immigration_status: UNDOCUMENTED
+      person2:
+        age: 33
+        immigration_status: UNDOCUMENTED
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: TX
+  output:
+    snap_unit_size: 0
+    snap_prorated_income_fraction: 0
+    is_snap_eligible: false
+    snap: 0
+
+- name: Case 22, refugee earner counts fully before OBBBA.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 35
+        employment_income: 24_000
+        employment_income_before_lsr: 24_000
+        immigration_status: REFUGEE
+      person2:
+        age: 33
+      person3:
+        age: 8
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: TX
+  output:
+    # Refugees remain SNAP-eligible until OBBBA takes effect in November
+    # 2025, so the earner is a unit member with fully counted income.
+    snap_unit_size: 3
+    snap_income_counted_share: [1, 1, 1]
+    snap_earned_income: 2_000

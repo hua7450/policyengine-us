@@ -14,12 +14,13 @@ class snap_excess_medical_expense_deduction(Variable):
     ]
 
     def formula(spm_unit, period, parameters):
-        # Deduction applies to medical expenses incurred by elderly or disabled
-        # household members only; expenses of nonhousehold members and
-        # prorated ineligible members do not count.
+        # 7 CFR 273.9(d)(3) allows the deduction only for elderly or
+        # disabled household members (as defined in 271.2); nonhousehold
+        # members and prorated ineligible members are not household
+        # members, so their expenses do not count.
         person = spm_unit.members
-        elderly = person("is_usda_elderly", period)
-        disabled = person("is_usda_disabled", period)
+        elderly = person("is_usda_elderly", period.this_year)
+        disabled = person("is_usda_disabled", period.this_year)
         student = person("is_snap_ineligible_student", period.this_year)
         prorated = person("is_snap_prorated_income_member", period)
         moop = person("snap_allowable_medical_expenses", period) * ~(student | prorated)

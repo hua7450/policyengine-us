@@ -118,9 +118,9 @@
         members: [person1, person2]
         state_code: TX
   output:
-    # The prorated member's $500 monthly expenses do not count
-    # (7 CFR 273.11(c)(2)(iii)), and with zero excess the standard
-    # medical deduction is not claimable either.
+    # The prorated member is not a household member (7 CFR 273.9(d)(3),
+    # 271.2), so their $500 monthly expenses do not count, and with zero
+    # excess the standard medical deduction is not claimable either.
     snap_excess_medical_expense_deduction: 0
 
 - name: Eligible elderly member's medical expenses remain deductible.
