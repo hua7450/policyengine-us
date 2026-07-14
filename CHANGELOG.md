@@ -1,3 +1,10 @@
+## [1.771.1] - 2026-07-14
+
+### Changed
+
+- Include incapacitated or disabled adult care expenses in the dependent care deductions of 21 state TANF-family cash assistance programs (AK, AL, AZ, DC, DE, GA, HI, IL, KY, MA TAFDC/EAEDC, MD, ME, MN, MO, MT, NH, OK, RI, TX, VA, VT, WV).
+
+
 ## [1.771.0] - 2026-07-14
 
 ### Added
