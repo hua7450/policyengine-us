@@ -71,6 +71,11 @@
         meets_snap_work_requirements_person: false
       person2:
         age: 33
+        # Explicit inputs: providing these variables for person1 makes
+        # them input arrays, so unspecified members would get the false
+        # default instead of their computed values.
+        meets_snap_general_work_requirements: true
+        meets_snap_work_requirements_person: true
     spm_units:
       spm_unit:
         members: [person1, person2]
@@ -92,6 +97,8 @@
         meets_snap_work_requirements_person: false
       person2:
         age: 33
+        meets_snap_general_work_requirements: true
+        meets_snap_work_requirements_person: true
     spm_units:
       spm_unit:
         members: [person1, person2]
