@@ -1,3 +1,15 @@
+## [1.770.0] - 2026-07-14
+
+### Added
+
+- Add Virginia's eligible educator expense deduction (up to $500), reinstated for tax year 2026 and after by the 2026 Appropriation Act (HB 30).
+
+### Changed
+
+- Extend Virginia's 20% refundable EITC through tax year 2029 under the 2026 Appropriation Act (HB 30); it expires (0%) for tax years beginning on or after January 1, 2030.
+- Raise Virginia's standard deduction under the 2026 Appropriation Act (HB 30) to $9,200 single / $18,400 joint for tax year 2027 and $9,300 / $18,600 for tax years 2028-2029, with the sunset to $3,000 / $6,000 moved to tax year 2030.
+
+
 ## [1.769.0] - 2026-07-14
 
 ### Added

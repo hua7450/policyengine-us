@@ -1,1 +1,0 @@
-Raise Virginia's standard deduction under the 2026 Appropriation Act (HB 30) to $9,200 single / $18,400 joint for tax year 2027 and $9,300 / $18,600 for tax years 2028-2029, with the sunset to $3,000 / $6,000 moved to tax year 2030.
