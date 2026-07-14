@@ -1,1 +1,1 @@
-Add HUD utility allowance schedules for six Texas metro counties (Dallas, Harris, Tarrant, Bexar, Travis, El Paso) and four Kansas counties (Butler, Douglas, Harvey, Riley), plus a 2026 Wichita vintage.
+Add HUD utility allowance schedules for seven Texas metro counties (Dallas, Harris, Tarrant, Bexar, Travis, El Paso, McLennan) and four Kansas counties (Butler, Douglas, Harvey, Riley), plus a 2026 Wichita vintage.

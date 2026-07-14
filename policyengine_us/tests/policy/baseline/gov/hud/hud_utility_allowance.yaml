@@ -339,3 +339,14 @@
     tenant_pays_utilities: true
   output:
     hud_utility_allowance: 320 * 12
+
+- name: McLennan County, TX uses Waco HA's 2025 all-electric multi-family schedule
+  period: 2025
+  absolute_error_margin: 0.01
+  input:
+    county_fips: "48309"
+    is_sro: false
+    bedrooms: 2
+    tenant_pays_utilities: true
+  output:
+    hud_utility_allowance: 240 * 12

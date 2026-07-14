@@ -14,7 +14,7 @@ class hud_utility_allowance(Variable):
     documentation = (
         "Monthly utility allowance for HUD programs, annualized. Set per public "
         "housing agency by bedroom size; encoded for the counties PolicyEngine "
-        "models (LA County, the Texas TDHCA service area, six Texas metro PHAs, "
+        "models (LA County, the Texas TDHCA service area, seven Texas metro PHAs, "
         "and six Kansas PHA jurisdictions). Each schedule is summed over all tenant-paid "
         "utilities assuming a Multi-Family, all-electric unit. SRO units use the "
         "published SRO row "
@@ -49,6 +49,9 @@ class hud_utility_allowance(Variable):
         # Housing Authority of Bexar County, multi-family schedule, effective
         # 2026-01-01.
         "https://habctx.org/wp-content/uploads/2025/06/Multi-Family-UA-2026.pdf",
+        # Waco Housing Authority, McLennan County multi-family schedule
+        # (Schedule MC3), effective 2025-10-01.
+        "https://www.wacopha.org/page/open/2202/0/mclennan%20MF.pdf",
         # Wichita Housing Authority (Sedgwick County), effective 2025-07-01.
         "https://www.wichita.gov/DocumentCenter/View/31965/2025-Utility-Allowances",
         # Wichita Housing Authority (Sedgwick and Butler Counties; Harvey
