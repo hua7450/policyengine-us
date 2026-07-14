@@ -1,3 +1,71 @@
+## [1.768.5] - 2026-07-14
+
+### Changed
+
+- Include disabled adult care expenses in the SNAP dependent care deduction per 7 CFR 273.9(d)(4); this also extends New York's 200% FPL SNAP BBCE gross income limit to households with adult dependent care costs per NY OTDA 16-ADM-06.
+- Update CalWORKs vehicle value limit for July 2025 and July 2026 (CDSS ACLs 25-37 and 26-38), MBSAC income limits for July 2026 (CDSS ACL 26-39), and maximum resource limits for January 2024 and January 2026 (CDSS ACLs 23-71 and 25-65).
+
+
+## [1.768.4] - 2026-07-13
+
+### Changed
+
+- Increase the Oregon Earned Income Tax Credit match to 14% (17% for filers with a dependent under age 3) from tax year 2026 under SB 1507.
+
+
+## [1.768.3] - 2026-07-09
+
+### Fixed
+
+- Include paid Medicare Part A premiums and Part D IRMAA in SPM medical out-of-pocket expenses, and default Medicare quarters of coverage to 40 so enrollees with unobserved work history are premium-free for Part A.
+
+
+## [1.768.2] - 2026-07-09
+
+### Changed
+
+- Update New Jersey for the FY2027 budget: increase the child tax credit 25% for tax years 2026-2028, apply the Stay NJ $200,000 income limit and income-tiered benefit caps from tax year 2027, and remove the ANCHOR senior bonus for homeowners from tax year 2025.
+
+
+## [1.768.1] - 2026-07-08
+
+### Fixed
+
+- Removed Virginia's unenacted July 2023 TANF standards increase; the standard multiplier now stops at 1.155.
+
+
+## [1.768.0] - 2026-07-08
+
+### Added
+
+- Add enrollment-gated gross Medicare Part B premiums and an explicit lagged IRMAA MAGI input path.
+
+
+## [1.767.4] - 2026-07-08
+
+### Fixed
+
+- Retired `has_marketplace_health_coverage` from active input discovery by making it a compatibility alias, and canonicalized household health benefit accounting on annual health-value variables such as `assigned_aca_ptc`.
+
+
+## [1.767.3] - 2026-07-07
+
+### Changed
+
+- Nebraska Child Care Subsidy income eligibility and family fee now use gross countable income per 392 NAC 3-005.02, replacing federal adjusted gross income and SPM unit net income.
+
+### Fixed
+
+- Compute Texas Family Planning Program income eligibility from countable income under 1 TAC §382.109 (gross countable sources, exemptions, dependent care and child support deductions) instead of SPM unit net income.
+
+
+## [1.767.2] - 2026-07-07
+
+### Changed
+
+- Update HUD adjusted income for HOTMA (24 CFR 5.611): raise the elderly or disabled deduction to $525 in 2024 and $550 in 2026, the dependent deduction to $500 in 2026, and raise the medical expense threshold from 3% to 10% of annual income at the 2025-07-01 mandatory compliance deadline, treating all families as new admissions; count disabled adults and full-time students as dependents per 24 CFR 5.603; cap the childcare expense deduction at employment income per 24 CFR 5.611(a)(4); treat the oldest household member as the family head when no household head is designated; include attendant care expenses for disabled members in the medical expense deduction per 24 CFR 5.611(a)(3)(ii), capped at employment income.
+
+
 ## [1.767.1] - 2026-07-07
 
 ### Fixed
