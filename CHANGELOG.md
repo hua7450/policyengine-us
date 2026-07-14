@@ -1,3 +1,10 @@
+## [1.771.0] - 2026-07-14
+
+### Added
+
+- Texas $1,500 per-household rebate proposal as a contributed reform.
+
+
 ## [1.770.0] - 2026-07-14
 
 ### Added
