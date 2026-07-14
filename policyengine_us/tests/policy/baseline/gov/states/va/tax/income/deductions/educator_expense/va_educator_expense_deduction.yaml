@@ -111,3 +111,41 @@
   output:
     va_educator_expense_deduction: 400
     va_taxable_income: 49_600
+
+- name: 2024 educator deduction was available under prior law
+  period: 2024
+  input:
+    people:
+      person1:
+        va_educator_expenses: 800
+    tax_units:
+      tax_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: VA
+  output:
+    va_educator_expense_deduction: 500
+
+# Regression: the cap is defined before 2022 (0), so pre-2022 VA taxable-income
+# calculations do not error on a missing parameter value.
+- name: 2021 educator deduction is zero and taxable income still computes
+  period: 2021
+  input:
+    people:
+      person1:
+        va_educator_expenses: 400
+    tax_units:
+      tax_unit:
+        members: [person1]
+        va_agi: 50_000
+        va_deductions: 0
+        va_total_exemptions: 0
+    households:
+      household:
+        members: [person1]
+        state_code: VA
+  output:
+    va_educator_expense_deduction: 0
+    va_taxable_income: 50_000
