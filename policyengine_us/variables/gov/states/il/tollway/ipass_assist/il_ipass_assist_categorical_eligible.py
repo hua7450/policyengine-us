@@ -14,6 +14,10 @@ class il_ipass_assist_categorical_eligible(Variable):
 
     def formula(spm_unit, period, parameters):
         # IL Tollway: eligible if "currently participating in SNAP or TANF"
-        snap = spm_unit("snap", period) > 0
-        tanf = spm_unit("il_tanf", period) > 0
+        snap = (spm_unit("snap", period) > 0) | (
+            add(spm_unit, period, ["receives_snap"]) > 0
+        )
+        tanf = (spm_unit("il_tanf", period) > 0) | (
+            add(spm_unit, period, ["receives_tanf"]) > 0
+        )
         return snap | tanf
