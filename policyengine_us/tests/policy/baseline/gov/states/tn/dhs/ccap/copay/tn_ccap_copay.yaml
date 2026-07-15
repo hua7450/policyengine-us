@@ -1,6 +1,5 @@
 # tn_ccap_copay: SPMUnit, float (USD), MONTH
-# Per the adjudicated chart formula (scope REQ-025), the copay applies TWO
-# whole-dollar floors:
+# Per the adjudicated chart formula, the copay applies TWO whole-dollar floors:
 #   monthly 5% floored:  m = floor(monthly countable income * 0.05)
 #   weekly floored:      w = floor(m / 4.3)
 # The weekly amount is split equally among eligible children in care (part-time
@@ -364,3 +363,61 @@
     # 0.5 + 0.5 = 1.0; family weekly = 17 * 1.0 = 17; monthly = 17 * 4.3 = 73.10
     # (same as a single part-time child, Case 4)
     tn_ccap_copay: 73.10
+
+- name: Case 15, a second eligible child not in care is excluded from the copay divisor.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 36_000
+      person2:
+        age: 4
+        immigration_status: CITIZEN
+        childcare_hours_per_week: 35
+      person3:
+        age: 6
+        immigration_status: CITIZEN
+        childcare_hours_per_week: 0
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: TN
+  output:
+    # person3 is an eligible child but is in 0 hrs of care, so it is not a paying
+    # child: n_paying counts only children in care. weekly 34 / 1 paying child = 34;
+    # share 1 (FT) -> family weekly = 34; monthly = 34 * 4.3 = 146.20 (same as one
+    # child, Case 1). If the not-in-care child diluted the divisor it would be
+    # 34 / 2 = 17 -> 73.10, so this case guards the in-care-only divisor.
+    tn_ccap_copay: 146.20
+
+- name: Case 16, Head Start enrollment waives the copay.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 36_000
+      person2:
+        age: 4
+        immigration_status: CITIZEN
+        childcare_hours_per_week: 35
+        is_enrolled_in_head_start: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: TN
+  output:
+    # State Plan 3.3.1.v: families enrolled in Head Start / Early Head Start have
+    # the copay waived. Same $3,000/mo income as Case 1 (which pays 146.20), but
+    # the Head Start child waives the whole family copay. In this post-Oct-2025
+    # period the 150% FPL waiver is gone, so the Head Start waiver is load-bearing.
+    tn_ccap_copay: 0

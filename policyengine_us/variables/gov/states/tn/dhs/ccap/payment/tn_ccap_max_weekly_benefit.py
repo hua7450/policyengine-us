@@ -64,10 +64,18 @@ class tn_ccap_max_weekly_benefit(Variable):
             * (1 + disability_differential)
         )
 
-        # Part-time care pays half the full-time rate, rounded up.
+        # Part-time care pays half the full-time rate, rounded up, but chart
+        # footnote (a) restricts halving to Infant, Toddler, and Preschool;
+        # school-age children in before/after-school care keep the full
+        # School-In rate.
         is_part_time = person("tn_ccap_part_time", period)
+        age_allows_halving = (
+            (age_category == TNCCAPAgeCategory.INFANT)
+            | (age_category == TNCCAPAgeCategory.TODDLER)
+            | (age_category == TNCCAPAgeCategory.PRESCHOOL)
+        )
         part_time_rate = np.ceil(full_time_rate * p.part_time_share)
-        rate = where(is_part_time, part_time_rate, full_time_rate)
+        rate = where(is_part_time & age_allows_halving, part_time_rate, full_time_rate)
 
         # A child not in care draws no rate.
         hours = person("childcare_hours_per_week", period.this_year)

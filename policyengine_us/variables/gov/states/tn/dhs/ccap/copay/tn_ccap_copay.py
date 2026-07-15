@@ -59,5 +59,16 @@ class tn_ccap_copay(Variable):
             )
             > 0
         )
-        waived = below_waiver | tanf_enrolled | has_protective_child
+        # Families with a child enrolled in Head Start or Early Head Start are
+        # exempt from the copay (State Plan Section 3.3.1.v, #page=49).
+        has_head_start_child = (
+            spm_unit.sum(
+                is_eligible_child
+                * person("is_enrolled_in_head_start", period.this_year)
+            )
+            > 0
+        )
+        waived = (
+            below_waiver | tanf_enrolled | has_protective_child | has_head_start_child
+        )
         return where(waived, 0, monthly_copay)
