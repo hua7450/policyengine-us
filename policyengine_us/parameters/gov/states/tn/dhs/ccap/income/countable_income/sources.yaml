@@ -1,0 +1,33 @@
+description: Tennessee counts these income sources under the Child Care Certificate Program.
+# Countable monthly gross household income aligns with the Families First (TANF)
+# definition of income; unlike Families First, the child care copay and eligibility
+# tests use gross income without the earned income disregard or deductions.
+values:
+  2024-06-01:
+    - employment_income
+    - self_employment_income
+    - sstb_self_employment_income
+    - social_security_retirement
+    - social_security_disability
+    - social_security_survivors
+    - ssi
+    - dividend_income
+    - interest_income
+    - rental_income
+    - pension_income
+    - veterans_benefits
+    - military_retirement_pay
+    - unemployment_compensation
+    - workers_compensation
+    - alimony_income
+    - child_support_received
+
+metadata:
+  unit: list
+  period: year
+  label: Tennessee CCAP countable income sources
+  reference:
+    - title: TDHS Income Eligibility Limits and Parent Co-Pay Fees, countable monthly gross household income (effective October 1, 2025)
+      href: https://www.tn.gov/content/dam/tn/human-services/documents/Income%20Eligibility%20Limits%20and%20CoPay%20Chart%2010.1.25.pdf#page=1
+    - title: Tennessee CCDF State Plan FFY 2025-2027, Section 3.2.1
+      href: https://www.tn.gov/content/dam/tn/human-services/documents/CCDF%20State%20Plan%20FFY%202025-2027%20Tennessee.pdf#page=48

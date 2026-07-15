@@ -1,0 +1,94 @@
+# tn_ccap_countable_income: SPMUnit, float, MONTH
+# adds the sources in income/countable_income/sources.yaml. Annual (YEAR) source
+# inputs are auto-divided to a monthly total by the MONTH-period variable.
+
+- name: Case 1, single earner monthly countable income.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 24_000
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: TN
+  output:
+    # 24_000 / 12 = 2_000
+    tn_ccap_countable_income: 2_000
+
+- name: Case 2, earnings plus child support are both counted.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 24_000
+        child_support_received: 3_600
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: TN
+  output:
+    # (24_000 + 3_600) / 12 = 2_300
+    tn_ccap_countable_income: 2_300
+
+# ---- Edge cases ----
+
+- name: Case 3, self-employment loss exceeding wages yields negative countable income.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 12_000
+        self_employment_income: -24_000
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: TN
+  output:
+    # (12_000 - 24_000) / 12 = -1_000. This variable does not floor at zero;
+    # the copay and benefit formulas apply max(income, 0) downstream.
+    tn_ccap_countable_income: -1_000
+
+- name: Case 4, multiple unearned income sources are all counted.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 40
+        social_security_retirement: 12_000
+        interest_income: 2_400
+        pension_income: 3_600
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: TN
+  output:
+    # (12_000 + 2_400 + 3_600) / 12 = 1_500
+    tn_ccap_countable_income: 1_500
