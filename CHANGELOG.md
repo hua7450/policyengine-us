@@ -1,3 +1,11 @@
+## [1.773.0] - 2026-07-15
+
+### Added
+
+- Add the Indiana blind or disabled property tax credit (Senate Enrolled Act 1, 2025), a $125 credit for blind or disabled homeowners, from 2026.
+- Add the Indiana supplemental homestead credit (Senate Enrolled Act 1, 2025), the lesser of 10% of homestead property tax or $300, from 2026.
+
+
 ## [1.772.0] - 2026-07-15
 
 ### Added
