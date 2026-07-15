@@ -1,10 +1,10 @@
 # North Dakota primary residence credit (HB 1176, 2025): a flat credit against
 # property tax on an owner-occupied primary residence, with no age or income
-# limit. HB 1176 raised the maximum from $500 to $1,600 for taxable years
-# beginning after December 31, 2025 (tax year 2026); tax years 2024 and 2025
-# remained at $500.
+# limit. HB 1176 Section 10 raised the maximum from $500 to $1,600 effective for
+# taxable years beginning after December 31, 2024 (tax year 2025), per Section
+# 31(1) and the Section 32 emergency clause; tax year 2024 remained at $500.
 
-- name: 2025 homeowner above the $500 cap is limited to $500
+- name: 2025 homeowner above the cap receives the $1,600 maximum
   period: 2025
   input:
     people:
@@ -18,14 +18,14 @@
         members: [person1]
         state_code: ND
   output:
-    nd_primary_residence_credit: 500
+    nd_primary_residence_credit: 1_600
 
-- name: 2025 homeowner below the $500 cap receives the property tax
+- name: 2025 homeowner below the cap receives the property tax
   period: 2025
   input:
     people:
       person1:
-        real_estate_taxes: 300
+        real_estate_taxes: 900
     tax_units:
       tax_unit:
         members: [person1]
@@ -34,7 +34,23 @@
         members: [person1]
         state_code: ND
   output:
-    nd_primary_residence_credit: 300
+    nd_primary_residence_credit: 900
+
+- name: 2025 homeowner at the cap boundary receives the property tax
+  period: 2025
+  input:
+    people:
+      person1:
+        real_estate_taxes: 1_600
+    tax_units:
+      tax_unit:
+        members: [person1]
+    households:
+      household:
+        members: [person1]
+        state_code: ND
+  output:
+    nd_primary_residence_credit: 1_600
 
 - name: 2024 homeowner is limited to the prior $500 maximum
   period: 2024
@@ -84,7 +100,26 @@
   output:
     nd_primary_residence_credit: 0
 
-- name: 2026 homeowner above the cap receives the $1,600 maximum
+- name: 2025 multi-person tax unit is capped once per return
+  period: 2025
+  input:
+    people:
+      person1:
+        real_estate_taxes: 1_000
+      person2:
+        real_estate_taxes: 1_000
+    tax_units:
+      tax_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: ND
+  output:
+    # Combined $2,000 of property tax is capped at $1,600 for the tax unit.
+    nd_primary_residence_credit: 1_600
+
+- name: 2026 homeowner still receives the $1,600 maximum
   period: 2026
   input:
     people:
@@ -99,19 +134,3 @@
         state_code: ND
   output:
     nd_primary_residence_credit: 1_600
-
-- name: 2026 homeowner below the cap receives the property tax
-  period: 2026
-  input:
-    people:
-      person1:
-        real_estate_taxes: 1_000
-    tax_units:
-      tax_unit:
-        members: [person1]
-    households:
-      household:
-        members: [person1]
-        state_code: ND
-  output:
-    nd_primary_residence_credit: 1_000

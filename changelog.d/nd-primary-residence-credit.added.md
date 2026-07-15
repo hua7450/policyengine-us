@@ -1,1 +1,1 @@
-Add the North Dakota primary residence credit (HB 1176), raising the maximum credit to $1,600 from tax year 2026, and restore the North Dakota renter's refund to the 2026 state property tax credit aggregate.
+Add the North Dakota primary residence credit (HB 1176), raising the maximum credit to $1,600 from tax year 2025, and restore the North Dakota renter's refund to the 2026 state property tax credit aggregate.

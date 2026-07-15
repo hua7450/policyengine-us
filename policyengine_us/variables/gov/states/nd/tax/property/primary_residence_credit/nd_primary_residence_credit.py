@@ -19,6 +19,10 @@ class nd_primary_residence_credit(Variable):
         # owner-occupied primary residence, capped at a flat amount, with no
         # age or income limitation. Renters have no real estate taxes, so the
         # credit is zero for them.
+        # N.D.C.C. 57-02-08.9(1)(c)-(d) limits the credit to the property tax
+        # due AFTER other chapter 57 credits (e.g. the homestead credit and the
+        # disabled veteran credit). Those credits are not modeled, so this caps
+        # against gross real_estate_taxes; revisit this base if they are added.
         p = parameters(period).gov.states.nd.tax.property.primary_residence_credit
         property_tax = add(tax_unit, period, ["real_estate_taxes"])
         return min_(p.amount, property_tax)
