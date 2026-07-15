@@ -1,3 +1,14 @@
+## [1.772.0] - 2026-07-15
+
+### Added
+
+- Add Michigan qualified tips and overtime compensation deductions (Public Act 24 of 2025) for tax years 2026-2028.
+
+### Fixed
+
+- Restore the Pennsylvania property tax or rent rebate to the 2026 state property tax credit aggregate, from which it was accidentally dropped.
+
+
 ## [1.771.2] - 2026-07-14
 
 ### Changed
