@@ -1,9 +1,9 @@
 from policyengine_us.model_api import *
 
 
-class would_claim_wic(Variable):
+class takes_up_wic_if_eligible(Variable):
     value_type = bool
     entity = Person
-    label = "Would claim WIC"
+    label = "Whether an eligible person takes up WIC"
     definition_period = MONTH
     default_value = True

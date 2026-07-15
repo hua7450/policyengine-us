@@ -4,7 +4,7 @@
   input:
     wic_food_package_str: PREGNANT_SINGLETON
     is_wic_eligible: true
-    would_claim_wic: false
+    takes_up_wic_if_eligible: false
   output:
     wic_if_takes_up: 39.12
     wic: 0
@@ -15,7 +15,7 @@
   input:
     wic_food_package_str: PREGNANT_SINGLETON
     is_wic_eligible: true
-    would_claim_wic: true
+    takes_up_wic_if_eligible: true
   output:
     wic_if_takes_up: 39.12
     wic: 39.12
@@ -25,7 +25,7 @@
   input:
     wic_food_package_str: INFANT_AVERAGE
     is_wic_eligible: false
-    would_claim_wic: true
+    takes_up_wic_if_eligible: true
   output:
     wic_if_takes_up: 0
     wic: 0

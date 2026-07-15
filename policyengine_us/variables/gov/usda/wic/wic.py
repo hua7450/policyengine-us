@@ -15,5 +15,5 @@ class wic(Variable):
     )
     unit = USD
     exhaustive_parameter_dependencies = "gov.usda.wic"
-    defined_for = "would_claim_wic"
+    defined_for = "takes_up_wic_if_eligible"
     adds = ["wic_if_takes_up"]
