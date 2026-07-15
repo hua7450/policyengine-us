@@ -26,11 +26,14 @@
         members: [person1]
         state_code: IN
   output:
-    # Over-65: $150 (senior, 2024 AGI 30,000 under the limit, homeowner).
-    # Blind/disabled: $125. Umbrella = 275.
+    # A disabled senior homeowner qualifies for all three SEA 1 credits, which
+    # stack in the umbrella: over-65 $150 (senior, 2024 AGI 30,000 under the
+    # limit, homeowner) + blind/disabled $125 + supplemental homestead $200
+    # (10% of 2,000, capped at $300) = $475.
     in_over_65_property_tax_credit: 150
     in_blind_disabled_property_tax_credit: 125
-    taxsim_state_property_tax_credit: 275
+    in_supplemental_homestead_credit: 200
+    taxsim_state_property_tax_credit: 475
 
 - name: 2025 umbrella excludes the blind/disabled credit
   period: 2025
