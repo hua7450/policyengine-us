@@ -95,3 +95,11 @@
         is_tanf_non_cash_eligible: false
   output:
     meets_snap_categorical_eligibility: true
+
+- name: Reported TANF receipt creates eligibility without BBCE.
+  period: 2022-01
+  input:
+    is_tanf_non_cash_eligible: false
+    receives_tanf: true
+  output:
+    meets_snap_categorical_eligibility: true

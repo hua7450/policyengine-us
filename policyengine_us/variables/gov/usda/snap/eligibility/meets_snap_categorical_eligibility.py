@@ -17,4 +17,8 @@ class meets_snap_categorical_eligibility(Variable):
             "receives_ssi", period
         )
         all_members_receive_ssi = spm_unit.all(receives_ssi)
-        return all_members_receive_ssi | (add(spm_unit, period, spm_level_programs) > 0)
+        return (
+            all_members_receive_ssi
+            | (add(spm_unit, period, spm_level_programs) > 0)
+            | spm_unit("receives_tanf", period)
+        )
