@@ -68,3 +68,10 @@
     state_code: OK
   output:
     is_ssi_recipient_for_medicaid: true
+
+- name: Case 8, reported SSI receipt in California qualifies through Section 1634 when computed SSI is zero.
+  period: 2026
+  input:
+    receives_ssi: true
+  output:
+    is_ssi_recipient_for_medicaid: true

@@ -72,3 +72,26 @@
     ssi_reported: 1
   output:
     meets_snap_categorical_eligibility: true
+
+- name: Reported SSI receipt creates eligibility when computed SSI is zero.
+  period: 2022-01
+  input:
+    is_tanf_non_cash_eligible: false
+    receives_ssi: true
+  output:
+    meets_snap_categorical_eligibility: true
+
+- name: Mixed computed and reported SSI across members creates eligibility.
+  period: 2022-01
+  input:
+    people:
+      person1:
+        ssi: 1
+      person2:
+        receives_ssi: true
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        is_tanf_non_cash_eligible: false
+  output:
+    meets_snap_categorical_eligibility: true
