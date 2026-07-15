@@ -1,1 +1,1 @@
-Add X_if_takes_up counterfactual outputs and receives_X reported-receipt inputs for SSI and TANF, applying take-up consistently and counting reported receipt in SNAP categorical eligibility, WIC adjunctive eligibility, Head Start, and Medicaid SSI-recipient categories.
+Add X_if_takes_up counterfactual outputs and receives_X reported-receipt inputs for SSI, TANF, and SNAP, apply SNAP take-up through the household API, and count reported receipt in SNAP categorical eligibility, WIC adjunctive eligibility, Head Start, and Medicaid SSI-recipient categories.

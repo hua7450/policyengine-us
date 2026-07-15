@@ -1,0 +1,23 @@
+- name: Case 1, take-up false zeroes SNAP but preserves the allotment.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    spm_units:
+      spm_unit:
+        snap_normal_allotment: 300
+        takes_up_snap_if_eligible: false
+  output:
+    snap_if_takes_up: 300
+    snap: 0
+
+- name: Case 2, take-up true passes the allotment through.
+  period: 2025-01
+  absolute_error_margin: 0.01
+  input:
+    spm_units:
+      spm_unit:
+        snap_normal_allotment: 300
+        takes_up_snap_if_eligible: true
+  output:
+    snap_if_takes_up: 300
+    snap: 300
