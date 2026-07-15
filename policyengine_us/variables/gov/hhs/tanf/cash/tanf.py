@@ -11,7 +11,5 @@ class tanf(Variable):
         "summing all state-specific TANF programs."
     )
     unit = USD
-
-    def formula(spm_unit, period, parameters):
-        takes_up = spm_unit("takes_up_tanf_if_eligible", period)
-        return spm_unit("tanf_if_takes_up", period) * takes_up
+    defined_for = "takes_up_tanf_if_eligible"
+    adds = ["tanf_if_takes_up"]

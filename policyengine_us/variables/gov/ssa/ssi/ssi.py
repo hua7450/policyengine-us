@@ -9,7 +9,5 @@ class ssi(Variable):
     unit = USD
     definition_period = MONTH
     reference = "https://www.law.cornell.edu/uscode/text/42/1382"
-
-    def formula(person, period, parameters):
-        takes_up = person("takes_up_ssi_if_eligible", period.this_year)
-        return person("ssi_if_takes_up", period) * takes_up
+    defined_for = "takes_up_ssi_if_eligible"
+    adds = ["ssi_if_takes_up"]

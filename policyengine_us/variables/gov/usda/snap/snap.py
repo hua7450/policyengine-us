@@ -15,7 +15,5 @@ class snap(Variable):
         "gov.usda.snap",
         "gov.ssa",
     ]
-
-    def formula(spm_unit, period, parameters):
-        takes_up = spm_unit("takes_up_snap_if_eligible", period.this_year)
-        return spm_unit("snap_if_takes_up", period) * takes_up
+    defined_for = "takes_up_snap_if_eligible"
+    adds = ["snap_if_takes_up"]

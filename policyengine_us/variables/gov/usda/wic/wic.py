@@ -15,8 +15,5 @@ class wic(Variable):
     )
     unit = USD
     exhaustive_parameter_dependencies = "gov.usda.wic"
-    defined_for = "is_wic_eligible"
-
-    def formula(person, period, parameters):
-        would_takeup = person("would_claim_wic", period)
-        return person("wic_if_takes_up", period) * would_takeup
+    defined_for = "would_claim_wic"
+    adds = ["wic_if_takes_up"]
