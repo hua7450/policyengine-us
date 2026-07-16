@@ -1,1 +1,1 @@
-Add published June 2024 and June 2025 California CPI values to the CA uprating index, replacing federal-index projections with DIR actuals.
+Add published June 2024 and June 2025 California CPI values to the CA uprating index, and fix six CA breakdown parameters (standard deduction, AMT exemption and AMTI thresholds, itemized deduction limit, exemption phase-out start) whose uprating metadata was silently inert at the file level by moving it onto the filing-status values.
