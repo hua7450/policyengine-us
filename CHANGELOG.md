@@ -1,3 +1,10 @@
+## [1.774.5] - 2026-07-16
+
+### Fixed
+
+- Applied Kentucky personal tax credits per column under the combined-separate filing election, flooring each spouse's credit at their own column tax.
+
+
 ## [1.774.4] - 2026-07-16
 
 ### Fixed
