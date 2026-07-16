@@ -1,0 +1,1 @@
+Restored the Oklahoma retirement benefit subtraction for private employer (IRC section 401) pension income before tax year 2022, which qualifies as an Other Retirement Income source on Schedule 511-A line 6.
