@@ -1,3 +1,10 @@
+## [1.773.1] - 2026-07-15
+
+### Fixed
+
+- Fix the Indiana blind/disabled property tax credit aggregate test to account for the supplemental homestead credit (SEA 1) stacking in the umbrella.
+
+
 ## [1.773.0] - 2026-07-15
 
 ### Added
