@@ -9,8 +9,8 @@ class nd_primary_residence_credit(Variable):
     definition_period = YEAR
     reference = (
         "https://www.tax.nd.gov/prc",
-        "https://ndlegis.gov/assembly/69-2025/regular/bill-overview/bo1176.html?bill_year=2025-2026",
-        "https://ndlegis.gov/cencode/t57c02.pdf",
+        "https://ndlegis.gov/assembly/69-2025/regular/documents/25-1003-06000.pdf#page=11",
+        "https://ndlegis.gov/cencode/t57c02.pdf#page=21",
     )
     defined_for = StateCode.ND
 
