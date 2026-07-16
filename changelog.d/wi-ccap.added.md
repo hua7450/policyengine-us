@@ -1,1 +1,1 @@
-Wisconsin Shares Child Care Subsidy Program (CCAP).
+Wisconsin Shares child care subsidy program, including activity, asset, and income eligibility, countable income, county-level maximum rates by provider type and age group, and hourly family copayments.
