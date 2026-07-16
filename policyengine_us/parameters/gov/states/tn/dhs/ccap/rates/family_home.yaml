@@ -12,6 +12,9 @@ metadata:
     - title: TDHS Child Care Certificate Program Provider Weekly Reimbursement Rates, State Rate column, Family Homes (effective January 1, 2026)
       href: https://www.tn.gov/content/dam/tn/human-services/documents/Reimbursement_Rate_Chart_1.1.26.pdf
 
+# SCHOOL_OUT rates are transcribed for completeness but are currently
+# unreachable: the model has no school-calendar input, so
+# tn_ccap_age_category assigns school-age children SCHOOL_IN year-round.
 TOP_TIER:
   INFANT:
     2024-10-01: 200
