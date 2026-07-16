@@ -1,3 +1,10 @@
+## [1.774.6] - 2026-07-16
+
+### Fixed
+
+- - Raised the Vermont CSRS/military retirement exemption thresholds by $5,000 for 2025 per Act No. 51 (2025), Sec. 3 (32 V.S.A. § 5830e(b)), matching the Social Security thresholds updated in #8853.
+
+
 ## [1.774.5] - 2026-07-16
 
 ### Fixed
