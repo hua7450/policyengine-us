@@ -1,3 +1,17 @@
+## [1.774.1] - 2026-07-16
+
+### Fixed
+
+- - Corrected the Arkansas 2023 bracket-adjustment column: added the missing $89,901-$90,000 row, encoded the three intentionally $200-wide ranges, and removed duplicated 91,701/91,801 thresholds that doubled the reduction.
+
+
+## [1.774.0] - 2026-07-16
+
+### Added
+
+- Add the North Dakota primary residence credit (HB 1176), raising the maximum credit to $1,600 from tax year 2025, and restore the North Dakota renter's refund to the 2026 state property tax credit aggregate.
+
+
 ## [1.773.3] - 2026-07-16
 
 ### Fixed
