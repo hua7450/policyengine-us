@@ -1,0 +1,1 @@
+Keep each spouse's own Delaware personal credit in their own Filing Status 4 column per the PIT-RES line 27a example, allocating only dependent credits between columns, so the post-credit filing-status election no longer favors combined-separate filing through an impermissible credit shift.
