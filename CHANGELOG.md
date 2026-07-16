@@ -1,3 +1,11 @@
+## [1.774.2] - 2026-07-16
+
+### Fixed
+
+- - Kept the Arkansas MFJ two-or-more-dependents low-income tax table rows added for 2024-2025 out of earlier years; the published tables end at $32,200 (2021) through $34,100 (2023), so incomes above the cutoff use the regular tax table.
+- Keep each spouse's own Delaware personal credit in their own Filing Status 4 column per the PIT-RES line 27a example, allocating only dependent credits between columns, so the post-credit filing-status election no longer favors combined-separate filing through an impermissible credit shift.
+
+
 ## [1.774.1] - 2026-07-16
 
 ### Fixed
