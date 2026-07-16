@@ -1,0 +1,114 @@
+# Per Manual 92-26, each client may own at most one vehicle (one per person
+# in couples cases) with equity within the CalWORKs maximum vehicle value
+# under WIC Section 11155(c): $33,499 from July 2025.
+- name: Case 1, single adult with no vehicles.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        immigration_status: CITIZEN
+    households:
+      household:
+        members: [person1]
+        county_str: SAN_FRANCISCO_COUNTY_CA
+        household_vehicles_owned: 0
+        household_vehicles_value: 0
+    spm_units:
+      spm_unit:
+        members: [person1]
+  output:
+    ca_sf_caap_vehicle_eligible: true
+
+- name: Case 2, single adult with one vehicle exactly at the CalWORKs limit.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        immigration_status: CITIZEN
+    households:
+      household:
+        members: [person1]
+        county_str: SAN_FRANCISCO_COUNTY_CA
+        household_vehicles_owned: 1
+        household_vehicles_value: 33_499
+    spm_units:
+      spm_unit:
+        members: [person1]
+  output:
+    ca_sf_caap_vehicle_eligible: true
+
+- name: Case 3, single adult with one vehicle above the CalWORKs limit.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        immigration_status: CITIZEN
+    households:
+      household:
+        members: [person1]
+        county_str: SAN_FRANCISCO_COUNTY_CA
+        household_vehicles_owned: 1
+        household_vehicles_value: 33_500
+    spm_units:
+      spm_unit:
+        members: [person1]
+  output:
+    ca_sf_caap_vehicle_eligible: false
+
+- name: Case 4, single adult with two vehicles fails the one-vehicle rule.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        immigration_status: CITIZEN
+    households:
+      household:
+        members: [person1]
+        county_str: SAN_FRANCISCO_COUNTY_CA
+        household_vehicles_owned: 2
+        household_vehicles_value: 10_000
+    spm_units:
+      spm_unit:
+        members: [person1]
+  output:
+    ca_sf_caap_vehicle_eligible: false
+
+- name: Case 5, couple may own one vehicle each.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        immigration_status: CITIZEN
+      person2:
+        immigration_status: CITIZEN
+    households:
+      household:
+        members: [person1, person2]
+        county_str: SAN_FRANCISCO_COUNTY_CA
+        household_vehicles_owned: 2
+        household_vehicles_value: 20_000
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+  output:
+    ca_sf_caap_vehicle_eligible: true
+
+- name: Case 6, couple with three vehicles fails the one-per-person rule.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        immigration_status: CITIZEN
+      person2:
+        immigration_status: CITIZEN
+    households:
+      household:
+        members: [person1, person2]
+        county_str: SAN_FRANCISCO_COUNTY_CA
+        household_vehicles_owned: 3
+        household_vehicles_value: 15_000
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+  output:
+    ca_sf_caap_vehicle_eligible: false

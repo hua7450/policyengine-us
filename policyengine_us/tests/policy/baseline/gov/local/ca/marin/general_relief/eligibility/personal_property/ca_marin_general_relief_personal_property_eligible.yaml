@@ -89,3 +89,42 @@
         ca_marin_general_relief_personal_property_limit: 1_200
   output:
     ca_marin_general_relief_personal_property_eligible: false
+
+- name: One high-value transportation vehicle is exempt and eligible
+  period: 2026-01
+  input:
+    people:
+      person1:
+        personal_property: 0
+    households:
+      household:
+        members: [person1]
+        in_marin: true
+        household_vehicles_owned: 1
+        household_vehicles_value: 50_000
+    spm_units:
+      spm_unit:
+        members: [person1]
+        ca_marin_general_relief_personal_property_limit: 600
+  output:
+    ca_marin_general_relief_personal_property_eligible: true
+
+- name: Second vehicle counts toward the personal property limit
+  period: 2026-01
+  input:
+    people:
+      person1:
+        personal_property: 0
+    households:
+      household:
+        members: [person1]
+        in_marin: true
+        household_vehicles_owned: 2
+        household_vehicles_value: 8_000
+    spm_units:
+      spm_unit:
+        members: [person1]
+        ca_marin_general_relief_personal_property_limit: 600
+  output:
+    # Second vehicle counts at its 4,000 average value, above the 600 limit.
+    ca_marin_general_relief_personal_property_eligible: false
