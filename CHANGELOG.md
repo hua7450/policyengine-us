@@ -1,3 +1,10 @@
+## [1.773.3] - 2026-07-16
+
+### Fixed
+
+- Fix broken and mislabeled FTB reference links in California CalEITC and Foster Youth Tax Credit parameter files.
+
+
 ## [1.773.2] - 2026-07-16
 
 ### Fixed
