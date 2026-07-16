@@ -1,3 +1,10 @@
+## [1.774.3] - 2026-07-16
+
+### Fixed
+
+- Fixed the Connecticut pension and annuity subtraction so the 2024 phase-out brackets no longer leak into 2019-2023, where the subtraction is zero above the AGI cliff.
+
+
 ## [1.774.2] - 2026-07-16
 
 ### Fixed
