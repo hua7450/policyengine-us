@@ -1,4 +1,3 @@
-
 - name: DE FS4 does not shift a spouse's own personal credit across columns (taxsim #839)
   absolute_error_margin: 2
   period: 2025
