@@ -73,6 +73,7 @@
     people:
       person1:
         age: 30
+        is_full_time_student: true
       person2:
         age: 4
         immigration_status: CITIZEN
@@ -219,4 +220,30 @@
     tn_ccap_max_weekly_benefit: [0, 0]
     tn_ccap_copay: 0
     # benefit = min(1_000, 0) - 0 = 0
+    tn_ccap: 0
+
+- name: Case 8, benefit is zero before reimbursement rates take effect.
+  period: 2024-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 24_000
+      person2:
+        age: 4
+        immigration_status: CITIZEN
+        childcare_hours_per_week: 35
+        tn_ccap_provider_type: CHILD_CARE_CENTER
+        tn_ccap_qris_tier: STATE_RATE
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_pre_subsidy_childcare_expenses: 12_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: TN
+        county_str: DAVIDSON_COUNTY_TN
+  output:
     tn_ccap: 0

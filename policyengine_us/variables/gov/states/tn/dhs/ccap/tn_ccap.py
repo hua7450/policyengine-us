@@ -11,6 +11,10 @@ class tn_ccap(Variable):
     reference = "https://www.tn.gov/content/dam/tn/human-services/documents/Reimbursement_Rate_Chart_1.1.26.pdf"
 
     def formula(spm_unit, period, parameters):
+        p = parameters(period).gov.states.tn.dhs.ccap
+        if not p.in_effect:
+            return 0
+
         copay = spm_unit("tn_ccap_copay", period)
         max_weekly_benefit = add(spm_unit, period, ["tn_ccap_max_weekly_benefit"])
         max_monthly_benefit = max_weekly_benefit * (WEEKS_IN_YEAR / MONTHS_IN_YEAR)

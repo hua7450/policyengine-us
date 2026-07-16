@@ -56,10 +56,15 @@ class tn_ccap_max_weekly_benefit(Variable):
         is_disabled = person("is_disabled", period.this_year)
         disability_differential = is_disabled * p.disability_differential
 
-        qris_bonus = p.qris_bonus[qris_tier]
+        is_licensed_provider = provider_type != TNCCAPProviderType.AUTHORIZED
+        qris_rate = np.floor(base_rate * (1 + p.qris_bonus[qris_tier]) + 0.5)
+        quality_adjusted_rate = where(
+            is_licensed_provider,
+            qris_rate,
+            base_rate,
+        )
         full_time_rate = (
-            base_rate
-            * (1 + qris_bonus)
+            quality_adjusted_rate
             * (1 + age_differential)
             * (1 + disability_differential)
         )

@@ -1,5 +1,6 @@
 # tn_ccap_eligible_child: Person, bool, MONTH
 # Age eligible (under 13, or under 19 if disabled) AND immigration eligible.
+# The court-supervision extension is not modeled pending a general input.
 # Note: unlike some states, TN does NOT require is_tax_unit_dependent.
 # Boolean output, so no error margin.
 

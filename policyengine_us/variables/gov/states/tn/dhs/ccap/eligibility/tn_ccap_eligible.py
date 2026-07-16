@@ -14,12 +14,22 @@ class tn_ccap_eligible(Variable):
         income_eligible = spm_unit("tn_ccap_income_eligible", period)
         asset_eligible = spm_unit("is_ccdf_asset_eligible", period.this_year)
         activity_eligible = spm_unit("tn_ccap_activity_eligible", period)
-        # Families First (TANF) recipients are categorically eligible and
-        # bypass the income and activity tests.
         tanf_enrolled = spm_unit("is_tanf_enrolled", period)
+        person = spm_unit.members
+        has_protective_child = (
+            spm_unit.sum(
+                person("tn_ccap_eligible_child", period)
+                * person("receives_or_needs_protective_services", period.this_year)
+            )
+            > 0
+        )
+        protective_services_waiver = spm_unit(
+            "tn_ccap_protective_services_waiver", period
+        )
+        income_activity_waived = has_protective_child & protective_services_waiver
         income_activity_eligible = income_eligible & activity_eligible
         return (
             has_eligible_child
             & asset_eligible
-            & (income_activity_eligible | tanf_enrolled)
+            & (income_activity_eligible | tanf_enrolled | income_activity_waived)
         )

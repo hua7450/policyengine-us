@@ -1,6 +1,6 @@
 # tn_ccap_max_weekly_benefit: Person, float (USD), MONTH
-# Per-child weekly rate = base State Rate[provider][county_tier][age_category]
-#   * (1 + QRIS bonus) * (1 + infant/toddler differential) * (1 + disability differential),
+# Per-child weekly rate = charted whole-dollar licensed-provider QRIS rate
+#   * (1 + infant/toddler differential) * (1 + disability differential),
 # halved and rounded up for part-time care; $0 if not in care (hours == 0).
 # Only eligible children get a rate (defined_for tn_ccap_eligible_child), so the
 # parent's value is 0. Base State Rates are unchanged across both eras.
@@ -161,8 +161,8 @@
         state_code: TN
         county_str: DAVIDSON_COUNTY_TN
   output:
-    # 184 * (1 + 0.05 QRIS) = 193.20
-    tn_ccap_max_weekly_benefit: [0, 193.20]
+    # Charted Group Home Top Tier preschool QRIS 80-89 rate = 193
+    tn_ccap_max_weekly_benefit: [0, 193]
 
 - name: Case 7, family home Lower Tier school-age (school in session) full-time.
   period: 2026-01
@@ -369,8 +369,8 @@
         state_code: TN
         county_str: DAVIDSON_COUNTY_TN
   output:
-    # 184 * (1 + 0.15 QRIS) = 211.60
-    tn_ccap_max_weekly_benefit: [0, 211.60]
+    # Charted Group Home Top Tier preschool QRIS 80-89 rate = 212
+    tn_ccap_max_weekly_benefit: [0, 212]
 
 - name: Case 15, family home Top Tier preschool part-time in the prior era.
   period: 2025-01
@@ -506,3 +506,28 @@
     # "(a)" marker. A school-age (SCHOOL_IN) child therefore keeps the FULL
     # School-In rate. Family home Lower Tier School In = 79 (not ceil(79*0.5)=40).
     tn_ccap_max_weekly_benefit: [0, 79]
+
+- name: Case 20, authorized provider does not receive a QRIS bonus.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 4
+        immigration_status: CITIZEN
+        is_in_k12_school: false
+        childcare_hours_per_week: 35
+        tn_ccap_provider_type: AUTHORIZED
+        tn_ccap_qris_tier: QRIS_90_100
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: TN
+        county_str: DAVIDSON_COUNTY_TN
+  output:
+    tn_ccap_max_weekly_benefit: [0, 95]

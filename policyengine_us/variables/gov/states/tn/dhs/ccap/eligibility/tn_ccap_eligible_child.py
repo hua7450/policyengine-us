@@ -13,8 +13,7 @@ class tn_ccap_eligible_child(Variable):
         p = parameters(period).gov.states.tn.dhs.ccap.eligibility
         age = person("age", period.this_year)
         is_disabled = person("is_disabled", period.this_year)
-        # Children under 13 qualify; children incapable of self-care due to a
-        # disability are served through age 18 (under 19).
+        # NOTE: Court-supervision eligibility awaits a general input variable.
         age_eligible = where(
             is_disabled,
             age < p.special_needs_age_limit,

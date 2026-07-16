@@ -56,3 +56,30 @@
         county_str: DAVIDSON_COUNTY_TN
   output:
     tn_child_care_subsidies: 0
+
+- name: Case 3, Tennessee contributes nothing before modeled rates take effect.
+  period: 2023
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 24_000
+      person2:
+        age: 4
+        immigration_status: CITIZEN
+        childcare_hours_per_week: 35
+        tn_ccap_provider_type: CHILD_CARE_CENTER
+        tn_ccap_qris_tier: STATE_RATE
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_pre_subsidy_childcare_expenses: 12_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: TN
+        county_str: DAVIDSON_COUNTY_TN
+  output:
+    tn_child_care_subsidies: 0
+    child_care_subsidies: 0

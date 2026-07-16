@@ -1,6 +1,6 @@
 # tn_ccap_countable_income: SPMUnit, float, MONTH
-# adds the sources in income/countable_income/sources.yaml. Annual (YEAR) source
-# inputs are auto-divided to a monthly total by the MONTH-period variable.
+# counts gross wages or salary. Annual employment income is auto-divided to a
+# monthly total by the MONTH-period variable.
 
 - name: Case 1, single earner monthly countable income.
   period: 2026-01
@@ -23,7 +23,7 @@
     # 24_000 / 12 = 2_000
     tn_ccap_countable_income: 2_000
 
-- name: Case 2, earnings plus child support are both counted.
+- name: Case 2, child support is excluded from wage-only income.
   period: 2026-01
   absolute_error_margin: 0.01
   input:
@@ -42,12 +42,12 @@
         members: [person1, person2]
         state_code: TN
   output:
-    # (24_000 + 3_600) / 12 = 2_300
-    tn_ccap_countable_income: 2_300
+    # Only 24_000 of wages is counted: 24_000 / 12 = 2_000
+    tn_ccap_countable_income: 2_000
 
 # ---- Edge cases ----
 
-- name: Case 3, self-employment loss exceeding wages yields negative countable income.
+- name: Case 3, self-employment income is excluded from wage-only income.
   period: 2026-01
   absolute_error_margin: 0.01
   input:
@@ -66,11 +66,10 @@
         members: [person1, person2]
         state_code: TN
   output:
-    # (12_000 - 24_000) / 12 = -1_000. This variable does not floor at zero;
-    # the copay and benefit formulas apply max(income, 0) downstream.
-    tn_ccap_countable_income: -1_000
+    # Only 12_000 of wages is counted: 12_000 / 12 = 1_000
+    tn_ccap_countable_income: 1_000
 
-- name: Case 4, multiple unearned income sources are all counted.
+- name: Case 4, retirement and investment income are excluded.
   period: 2026-01
   absolute_error_margin: 0.01
   input:
@@ -90,5 +89,4 @@
         members: [person1, person2]
         state_code: TN
   output:
-    # (12_000 + 2_400 + 3_600) / 12 = 1_500
-    tn_ccap_countable_income: 1_500
+    tn_ccap_countable_income: 0
