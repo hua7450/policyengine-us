@@ -1,3 +1,10 @@
+## [1.773.2] - 2026-07-16
+
+### Fixed
+
+- Bump policyengine-core to 3.30.0 (>=3.26.5 floor), fixing filesystem-order-dependent uprating of chained indexes (California CPI) that caused CA test failures on new CI runner images.
+
+
 ## [1.773.1] - 2026-07-15
 
 ### Fixed
