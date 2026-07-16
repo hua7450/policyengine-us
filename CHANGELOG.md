@@ -1,3 +1,10 @@
+## [1.775.0] - 2026-07-16
+
+### Added
+
+- Hawaii Act 24 (S.B. 3125, SLH 2026) income tax rate schedules: 13% top bracket above $1,000,000 (joint and surviving spouse), $750,000 (head of household), and $500,000 (single and separate) with restructured 2027 and 2029 rates.
+
+
 ## [1.774.7] - 2026-07-16
 
 ### Fixed
