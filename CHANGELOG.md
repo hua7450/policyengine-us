@@ -1,3 +1,116 @@
+## [1.774.1] - 2026-07-16
+
+### Fixed
+
+- - Corrected the Arkansas 2023 bracket-adjustment column: added the missing $89,901-$90,000 row, encoded the three intentionally $200-wide ranges, and removed duplicated 91,701/91,801 thresholds that doubled the reduction.
+
+
+## [1.774.0] - 2026-07-16
+
+### Added
+
+- Add the North Dakota primary residence credit (HB 1176), raising the maximum credit to $1,600 from tax year 2025, and restore the North Dakota renter's refund to the 2026 state property tax credit aggregate.
+
+
+## [1.773.3] - 2026-07-16
+
+### Fixed
+
+- Fix broken and mislabeled FTB reference links in California CalEITC and Foster Youth Tax Credit parameter files.
+
+
+## [1.773.2] - 2026-07-16
+
+### Fixed
+
+- Bump policyengine-core to 3.30.0 (>=3.26.5 floor), fixing filesystem-order-dependent uprating of chained indexes (California CPI) that caused CA test failures on new CI runner images.
+
+
+## [1.773.1] - 2026-07-15
+
+### Fixed
+
+- Fix the Indiana blind/disabled property tax credit aggregate test to account for the supplemental homestead credit (SEA 1) stacking in the umbrella.
+
+
+## [1.773.0] - 2026-07-15
+
+### Added
+
+- Add the Indiana blind or disabled property tax credit (Senate Enrolled Act 1, 2025), a $125 credit for blind or disabled homeowners, from 2026.
+- Add the Indiana supplemental homestead credit (Senate Enrolled Act 1, 2025), the lesser of 10% of homestead property tax or $300, from 2026.
+
+
+## [1.772.0] - 2026-07-15
+
+### Added
+
+- Add Michigan qualified tips and overtime compensation deductions (Public Act 24 of 2025) for tax years 2026-2028.
+
+### Fixed
+
+- Restore the Pennsylvania property tax or rent rebate to the 2026 state property tax credit aggregate, from which it was accidentally dropped.
+
+
+## [1.771.2] - 2026-07-14
+
+### Changed
+
+- Count CalWORKs vehicle value above the vehicle limit toward the resource limit instead of denying eligibility outright, per CDSS ACLs 25-37 and 26-38.
+
+
+## [1.771.1] - 2026-07-14
+
+### Changed
+
+- Include incapacitated or disabled adult care expenses in the dependent care deductions of 21 state TANF-family cash assistance programs (AK, AL, AZ, DC, DE, GA, HI, IL, KY, MA TAFDC/EAEDC, MD, ME, MN, MO, MT, NH, OK, RI, TX, VA, VT, WV).
+
+
+## [1.771.0] - 2026-07-14
+
+### Added
+
+- Texas $1,500 per-household rebate proposal as a contributed reform.
+
+
+## [1.770.0] - 2026-07-14
+
+### Added
+
+- Add Virginia's eligible educator expense deduction (up to $500), reinstated for tax year 2026 and after by the 2026 Appropriation Act (HB 30).
+
+### Changed
+
+- Extend Virginia's 20% refundable EITC through tax year 2029 under the 2026 Appropriation Act (HB 30); it expires (0%) for tax years beginning on or after January 1, 2030.
+- Raise Virginia's standard deduction under the 2026 Appropriation Act (HB 30) to $9,200 single / $18,400 joint for tax year 2027 and $9,300 / $18,600 for tax years 2028-2029, with the sunset to $3,000 / $6,000 moved to tax year 2030.
+
+
+## [1.769.0] - 2026-07-14
+
+### Added
+
+- Prorate the income and deductible expenses of SNAP-ineligible household members per 7 CFR 273.11(c) and (d), including full income counting for members sanctioned under the general work requirements, state income counting options for ineligible immigrants, and full exclusion of ineligible students' income. Excluded members no longer confer household-wide elderly or disabled status for the gross income test, shelter deduction cap, and BBCE screens; standard utility allowances are no longer prorated; and non-farm self-employment losses no longer offset other members' income per 7 CFR 273.11(a)(2)(ii). snap_earned_income_person is now a person-level employment income variable and snap_work_requirement_income_proration_fraction is removed.
+
+### Changed
+
+- Include disabled adult care expenses in the Texas Family Planning Program dependent care deduction, the Hawaii child and dependent care credit, and the Montana child and dependent care expense deduction.
+
+
+## [1.768.5] - 2026-07-14
+
+### Changed
+
+- Include disabled adult care expenses in the SNAP dependent care deduction per 7 CFR 273.9(d)(4); this also extends New York's 200% FPL SNAP BBCE gross income limit to households with adult dependent care costs per NY OTDA 16-ADM-06.
+- Update CalWORKs vehicle value limit for July 2025 and July 2026 (CDSS ACLs 25-37 and 26-38), MBSAC income limits for July 2026 (CDSS ACL 26-39), and maximum resource limits for January 2024 and January 2026 (CDSS ACLs 23-71 and 25-65).
+
+
+## [1.768.4] - 2026-07-13
+
+### Changed
+
+- Increase the Oregon Earned Income Tax Credit match to 14% (17% for filers with a dependent under age 3) from tax year 2026 under SB 1507.
+
+
 ## [1.768.3] - 2026-07-09
 
 ### Fixed
