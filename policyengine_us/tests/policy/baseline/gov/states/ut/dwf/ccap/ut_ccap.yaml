@@ -1,0 +1,211 @@
+# Tests for ut_ccap (SPMUnit, MONTH, USD).
+# R986-700-713: the family subsidy is the lower of billed child care
+# expenses and the summed per-child Table 3 market rate caps, minus the
+# Table 4 copayment, floored at zero. When the copayment exceeds the cost
+# of care the family receives nothing (R986-700-707(3)).
+
+- name: Case 1, billed expenses below the market rate cap.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 36_000  # 3,000/mo
+      person2:
+        age: 3
+        ut_ccap_provider_type: LICENSED_CENTER
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_pre_subsidy_childcare_expenses: 9_600  # 800/mo
+    households:
+      household:
+        members: [person1, person2]
+        state_code: UT
+  output:
+    # Countable income: 3,000 - 100 - 100 = 2,800 -> size 2 group 5
+    # (2,722.01-3,041) -> copay 109. Cap: licensed center three year old
+    # = 900. min(800, 900) - 109 = 691.
+    ut_ccap: 691
+
+- name: Case 2, billed expenses above the market rate cap.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 36_000  # 3,000/mo
+      person2:
+        age: 3
+        ut_ccap_provider_type: LICENSED_CENTER
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_pre_subsidy_childcare_expenses: 14_400  # 1,200/mo
+    households:
+      household:
+        members: [person1, person2]
+        state_code: UT
+  output:
+    # Same income as Case 1 (copay 109), but expenses of 1,200 exceed the
+    # 900 cap: min(1,200, 900) - 109 = 791.
+    ut_ccap: 791
+
+- name: Case 3, copayment exceeding the cost of care yields no benefit.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 60_000  # 5,000/mo
+      person2:
+        age: 3
+        ut_ccap_provider_type: LICENSED_CENTER
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_pre_subsidy_childcare_expenses: 2_400  # 200/mo
+    households:
+      household:
+        members: [person1, person2]
+        state_code: UT
+  output:
+    # Countable income: 5,000 - 100 - 100 = 4,800 -> size 2 group 13
+    # (4,667.01-4,918) -> copay 280, which exceeds the 200 cost of care,
+    # so the family is ineligible and receives nothing (R986-700-707).
+    ut_ccap: 0
+
+- name: Case 4, no billed child care expenses yields no benefit.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 36_000
+      person2:
+        age: 3
+        ut_ccap_provider_type: LICENSED_CENTER
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_pre_subsidy_childcare_expenses: 0
+    households:
+      household:
+        members: [person1, person2]
+        state_code: UT
+  output:
+    # With no billed care, the positive copayment exceeds the cost of
+    # care, so the unit is ineligible and no subsidy is paid.
+    ut_ccap: 0
+
+- name: Case 5, income-ineligible family receives no benefit.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 240_000  # 20,000/mo, above the 85% SMI ceiling
+      person2:
+        age: 3
+        ut_ccap_provider_type: LICENSED_CENTER
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_pre_subsidy_childcare_expenses: 12_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: UT
+  output:
+    ut_ccap: 0
+
+- name: Case 6, two children pool their market rate caps.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 48_000  # 4,000/mo
+      person2:
+        age: 1
+        ut_ccap_provider_type: LICENSED_FAMILY_HOME
+      person3:
+        age: 4
+        ut_ccap_provider_type: LICENSED_FAMILY_HOME
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        spm_unit_pre_subsidy_childcare_expenses: 21_600  # 1,800/mo
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: UT
+  output:
+    # Countable income: 4,000 - 100 - 100 = 3,800 -> size 3 group 6
+    # (3,776.01-4,165) with two children -> copay 160. Pooled caps:
+    # licensed family home under two (850) + four year old (710) = 1,560.
+    # min(1,800, 1,560) - 160 = 1,400.
+    ut_ccap: 1_400
+
+- name: Case 7, copayment exactly equal to the cost of care leaves a zero benefit.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 60_000  # 5,000/mo
+      person2:
+        age: 3
+        ut_ccap_provider_type: LICENSED_CENTER
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_pre_subsidy_childcare_expenses: 3_360  # 280/mo
+    households:
+      household:
+        members: [person1, person2]
+        state_code: UT
+  output:
+    # Countable income: 5,000 - 100 - 100 = 4,800 -> size 2 group 13 ->
+    # copay 280, exactly the cost of care, so the family stays eligible
+    # (R986-700-707 only disqualifies a copayment exceeding the cost) but
+    # the subsidy floors at zero: min(280, 900) - 280 = 0.
+    ut_ccap_eligible: true
+    ut_ccap: 0
+
+- name: Case 8, children at different provider types pool their own caps.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 48_000  # 4,000/mo
+      person2:
+        age: 1
+        ut_ccap_provider_type: LICENSED_CENTER
+      person3:
+        age: 7
+        ut_ccap_provider_type: LICENSE_EXEMPT_HOME
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        spm_unit_pre_subsidy_childcare_expenses: 24_000  # 2,000/mo
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: UT
+  output:
+    # Countable income: 4,000 - 100 - 100 = 3,800 -> size 3 group 6
+    # (3,776.01-4,165) with two children -> copay 160. Each child keeps
+    # their own provider-type cap: licensed center under two (1,230)
+    # + license-exempt home school age (385) = 1,615.
+    # min(2,000, 1,615) - 160 = 1,455.
+    ut_ccap: 1_455

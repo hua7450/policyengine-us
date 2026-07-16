@@ -1,0 +1,43 @@
+# Tests for ut_child_care_subsidies (SPMUnit, YEAR, USD).
+# Annual aggregator over the monthly ut_ccap benefit; it feeds the federal
+# child_care_subsidies total and is limited to Utah households.
+
+- name: Case 1, annual total equals the sum of monthly benefits.
+  period: 2026
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 3
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ut_ccap: 6_000  # 500/mo across the year
+    households:
+      household:
+        members: [person1, person2]
+        state_code: UT
+  output:
+    ut_child_care_subsidies: 6_000
+
+- name: Case 2, out-of-state household receives nothing.
+  period: 2026
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+      person2:
+        age: 3
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        ut_ccap: 6_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: CA
+  output:
+    ut_child_care_subsidies: 0

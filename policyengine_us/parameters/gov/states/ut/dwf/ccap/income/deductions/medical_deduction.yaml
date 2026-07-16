@@ -1,0 +1,16 @@
+description: Utah deducts this monthly automatic medical deduction from countable income under the Child Care Assistance program.
+
+# R986-700-710(2)(d): "a $100 medical deduction. The medical deduction is
+# automatic and does not require proof of expenditure." The 2020 entry is
+# placed at PolicyEngine's backdating floor; the provision was in effect
+# well before this date.
+values:
+  2020-01-01: 100
+
+metadata:
+  unit: currency-USD
+  period: month
+  label: Utah CCAP medical deduction
+  reference:
+    - title: Utah Admin. Code R986-700-710(2)(d)
+      href: https://utrules.elaws.us/uac/r986-700-710
