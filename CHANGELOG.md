@@ -1,3 +1,10 @@
+## [1.774.1] - 2026-07-16
+
+### Fixed
+
+- - Corrected the Arkansas 2023 bracket-adjustment column: added the missing $89,901-$90,000 row, encoded the three intentionally $200-wide ranges, and removed duplicated 91,701/91,801 thresholds that doubled the reduction.
+
+
 ## [1.774.0] - 2026-07-16
 
 ### Added
