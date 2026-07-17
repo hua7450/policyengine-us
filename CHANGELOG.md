@@ -1,3 +1,10 @@
+## [1.775.3] - 2026-07-17
+
+### Fixed
+
+- The DC Child Tax Credit now applies only to DC households: `dc_ctc` was missing `defined_for = StateCode.DC`, so from 2026 (when it joined `gov.states.household.state_ctcs`) it computed for households in any state and leaked into `taxsim_state_ctc` and its deprecated `state_ctc` alias (see #9079).
+
+
 ## [1.775.2] - 2026-07-17
 
 ### Fixed
