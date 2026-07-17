@@ -9,8 +9,8 @@ class ut_ccap(Variable):
     definition_period = MONTH
     defined_for = "ut_ccap_eligible"
     reference = (
-        "https://utrules.elaws.us/uac/r986-700-713",
-        "https://utrules.elaws.us/uac/r986-700-707",
+        "https://www.law.cornell.edu/regulations/utah/Utah-Admin-Code-R986-700-713",
+        "https://www.law.cornell.edu/regulations/utah/Utah-Admin-Code-R986-700-707",
     )
 
     def formula(spm_unit, period, parameters):

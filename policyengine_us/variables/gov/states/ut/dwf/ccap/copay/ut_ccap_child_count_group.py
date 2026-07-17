@@ -17,7 +17,7 @@ class ut_ccap_child_count_group(Variable):
     defined_for = StateCode.UT
     reference = (
         "https://jobs.utah.gov/Infosource/eligibilitymanual/Tables,_Appendicies,_and_Charts/Tables,_Appendicies,_and_Charts/Table_4_-_Child_Care_Income_Eligibility_and_Co-Payment.htm",
-        "https://utrules.elaws.us/uac/r986-700-707",
+        "https://www.law.cornell.edu/regulations/utah/Utah-Admin-Code-R986-700-707",
     )
 
     def formula(spm_unit, period, parameters):

@@ -19,5 +19,5 @@ class ut_ccap_provider_type(Variable):
     defined_for = StateCode.UT
     reference = (
         "https://jobs.utah.gov/occ/provider/table30824.pdf",
-        "https://utrules.elaws.us/uac/r986-700-713",
+        "https://www.law.cornell.edu/regulations/utah/Utah-Admin-Code-R986-700-713",
     )

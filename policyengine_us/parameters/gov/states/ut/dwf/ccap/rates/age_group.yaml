@@ -5,7 +5,7 @@ description: Utah classifies children into these age groups for the maximum mont
 # 2020 entry is placed at PolicyEngine's backdating floor. Amounts are
 # indices into the UTCCAPAgeGroup enum. The table publishes no band above
 # age 12; special needs children ages 13 to 17 (eligible under
-# R986-700-702(4)(b)) fall in the school age band.
+# R986-700-702(5)(b)) fall in the school age band.
 metadata:
   type: single_amount
   threshold_unit: year

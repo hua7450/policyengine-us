@@ -1,11 +1,14 @@
 # Tests for ut_ccap_activity_eligible (SPMUnit, MONTH, bool).
 # R986-700-709: in a one-parent household the parent must be employed an
-# average of at least 15 hours per week; in a two-parent household one
-# parent must be employed at least 30 hours per week and the other at
-# least 15 hours per week. Hours use weekly_hours_worked_before_lsr
-# (default 40). meets_ccdf_activity_test covers approved activities the
-# model does not individually track (e.g., the education and training
-# pathway under R986-700-711).
+# average of at least 15 hours per week; in a two-parent household either
+# one parent must be employed at least 30 hours per week and the other at
+# least 15 (R986-700-709(2)(b)(i)(A)), or one parent is employed and the
+# other parent cannot provide care because of a physical, emotional, or
+# mental incapacity (R986-700-709(2)(b)(i)(B)), proxied by is_disabled.
+# Parents are identified with own_children_in_household (is_parent). Hours
+# use weekly_hours_worked_before_lsr (default 40). meets_ccdf_activity_test
+# covers approved activities the model does not individually track (e.g.,
+# the education and training pathway under R986-700-711).
 
 - name: Case 1, single parent working 15 hours meets the requirement.
   period: 2026-01
@@ -14,12 +17,9 @@
       person1:
         age: 30
         weekly_hours_worked_before_lsr: 15
+        own_children_in_household: 1
       person2:
         age: 5
-        is_tax_unit_dependent: true
-    tax_units:
-      tax_unit:
-        members: [person1, person2]
     spm_units:
       spm_unit:
         members: [person1, person2]
@@ -37,12 +37,9 @@
       person1:
         age: 30
         weekly_hours_worked_before_lsr: 14
+        own_children_in_household: 1
       person2:
         age: 5
-        is_tax_unit_dependent: true
-    tax_units:
-      tax_unit:
-        members: [person1, person2]
     spm_units:
       spm_unit:
         members: [person1, person2]
@@ -60,15 +57,13 @@
       person1:
         age: 30
         weekly_hours_worked_before_lsr: 30
+        own_children_in_household: 1
       person2:
         age: 28
         weekly_hours_worked_before_lsr: 15
+        own_children_in_household: 1
       person3:
         age: 5
-        is_tax_unit_dependent: true
-    tax_units:
-      tax_unit:
-        members: [person1, person2, person3]
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
@@ -86,15 +81,13 @@
       person1:
         age: 30
         weekly_hours_worked_before_lsr: 40
+        own_children_in_household: 1
       person2:
         age: 28
         weekly_hours_worked_before_lsr: 14
+        own_children_in_household: 1
       person3:
         age: 5
-        is_tax_unit_dependent: true
-    tax_units:
-      tax_unit:
-        members: [person1, person2, person3]
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
@@ -113,15 +106,13 @@
       person1:
         age: 30
         weekly_hours_worked_before_lsr: 29
+        own_children_in_household: 1
       person2:
         age: 28
         weekly_hours_worked_before_lsr: 29
+        own_children_in_household: 1
       person3:
         age: 5
-        is_tax_unit_dependent: true
-    tax_units:
-      tax_unit:
-        members: [person1, person2, person3]
     spm_units:
       spm_unit:
         members: [person1, person2, person3]
@@ -140,12 +131,9 @@
       person1:
         age: 30
         weekly_hours_worked_before_lsr: 0
+        own_children_in_household: 1
       person2:
         age: 5
-        is_tax_unit_dependent: true
-    tax_units:
-      tax_unit:
-        members: [person1, person2]
     spm_units:
       spm_unit:
         members: [person1, person2]
@@ -160,7 +148,7 @@
     # under R986-700-711).
     ut_ccap_activity_eligible: true
 
-- name: Case 7, standalone minor parent household fails the modeled hours test.
+- name: Case 7, a working minor parent meets the single-parent hours test.
   period: 2026-01
   input:
     people:
@@ -178,10 +166,152 @@
         members: [person1, person2]
         state_code: UT
   output:
-    # Known limitation: the formula identifies caretakers via tax-unit
-    # head/spouse status, which is never true for an under-18 person, so a
-    # household headed by a 17-year-old parent has no counted parent and
-    # fails the modeled hours test regardless of hours worked (the ND, RI,
-    # NH, and SC child care programs share this convention). Setting
-    # meets_ccdf_activity_test covers such a household.
+    # Parents are identified with is_parent (own children in the
+    # household) rather than tax-unit roles, so a household headed by a
+    # 17-year-old parent working 40 hours passes the single-parent 15-hour
+    # requirement (R986-700-709(2)(a)(i)).
+    ut_ccap_activity_eligible: true
+
+- name: Case 8, working parent with an incapacitated parent meets the requirement.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+        weekly_hours_worked_before_lsr: 20
+        own_children_in_household: 1
+      person2:
+        age: 28
+        weekly_hours_worked_before_lsr: 0
+        is_disabled: true
+        own_children_in_household: 1
+      person3:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: UT
+  output:
+    # One parent is employed 20 hours (above the 15-hour single-parent
+    # bar) and the other parent cannot provide care because of an
+    # incapacity (R986-700-709(2)(b)(i)(B)), so the household qualifies
+    # even though the disabled parent works no hours.
+    ut_ccap_activity_eligible: true
+
+- name: Case 9, incapacitated parent with a non-working able parent fails the requirement.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+        weekly_hours_worked_before_lsr: 0
+        own_children_in_household: 1
+      person2:
+        age: 28
+        weekly_hours_worked_before_lsr: 0
+        is_disabled: true
+        own_children_in_household: 1
+      person3:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: UT
+  output:
+    # The incapacitated-parent pathway is activity-linked: with neither
+    # parent employed, the able parent fails the 15-hour requirement and
+    # the household does not qualify.
     ut_ccap_activity_eligible: false
+
+- name: Case 10, only the incapacitated parent working fails the requirement.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+        weekly_hours_worked_before_lsr: 20
+        is_disabled: true
+        own_children_in_household: 1
+      person2:
+        age: 28
+        weekly_hours_worked_before_lsr: 0
+        own_children_in_household: 1
+      person3:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: UT
+  output:
+    # R986-700-709(2)(b)(i)(B) covers one parent employed while the OTHER
+    # cannot provide care; here the able parent works no hours, so the
+    # household does not qualify through the incapacity pathway.
+    ut_ccap_activity_eligible: false
+
+- name: Case 11, both parents disabled with one working 15 hours meets the requirement.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+        weekly_hours_worked_before_lsr: 20
+        is_disabled: true
+        own_children_in_household: 1
+      person2:
+        age: 28
+        weekly_hours_worked_before_lsr: 0
+        is_disabled: true
+        own_children_in_household: 1
+      person3:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: UT
+  output:
+    # R986-700-709(2)(b)(i)(B) requires employment to both parents' full
+    # capacities where one or both parents have a disability: with both
+    # parents disabled, the idle parent cannot provide care
+    # (R986-700-709(4)(a)(iii)) and the working parent clears the 15-hour
+    # bar, so the household qualifies.
+    ut_ccap_activity_eligible: true
+
+- name: Case 12, single parent with an idle non-parent adult relative meets the requirement.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+        weekly_hours_worked_before_lsr: 15
+        own_children_in_household: 1
+      person2:
+        age: 5
+      person3:
+        age: 45
+        weekly_hours_worked_before_lsr: 0
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: UT
+  output:
+    # R986-700-709 concerns the eligible child's parent(s) only: the idle
+    # co-resident adult relative is not a parent, so the unit stays on the
+    # single-parent 15-hour test rather than the two-parent test
+    # (regression pin — counting parents by tax-unit role wrongly failed
+    # this household).
+    ut_ccap_activity_eligible: true

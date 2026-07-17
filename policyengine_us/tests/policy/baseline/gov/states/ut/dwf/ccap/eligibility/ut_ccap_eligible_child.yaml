@@ -1,5 +1,5 @@
 # Tests for ut_ccap_eligible_child (Person, MONTH, bool).
-# R986-700-702(4): the child must be under age 13, or under age 18 if the
+# R986-700-702(5): the child must be under age 13, or under age 18 if the
 # child has special needs (is_disabled proxy). The child must be a U.S.
 # citizen or qualified noncitizen (R986-700-702; reuses the federal CCDF
 # immigration test, is_ccdf_immigration_eligible_child).

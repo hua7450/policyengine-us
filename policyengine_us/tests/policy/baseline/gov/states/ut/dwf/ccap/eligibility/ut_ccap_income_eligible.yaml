@@ -1,5 +1,5 @@
 # Tests for ut_ccap_income_eligible (SPMUnit, MONTH, bool).
-# R986-700-710(3): countable income, less applicable deductions, must be at
+# R986-700-710(6)(b): countable income, less applicable deductions, must be at
 # or below 85% of the state median income for the household size. The
 # ceiling is computed dynamically as smi_rate x hhs_smi (per the approved
 # scope decision), so these cases pin hhs_smi directly: 96,000/year is
@@ -63,7 +63,7 @@
         members: [person1, person2]
         state_code: UT
   output:
-    # R986-700-710(3) requires income "at or below" the limit, so income
+    # R986-700-710(6)(b) requires income "at or below" the limit, so income
     # exactly at the ceiling remains eligible.
     ut_ccap_income_eligible: true
 

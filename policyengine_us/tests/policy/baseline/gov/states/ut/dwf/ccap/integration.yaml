@@ -16,6 +16,7 @@
       person1:
         age: 30
         employment_income: 36_000  # 3,000/mo
+        own_children_in_household: 1
       person2:
         age: 3
         ut_ccap_provider_type: LICENSED_CENTER
@@ -51,10 +52,12 @@
         age: 32
         employment_income: 48_000  # 4,000/mo
         weekly_hours_worked_before_lsr: 40
+        own_children_in_household: 2
       person2:
         age: 30
         employment_income: 24_000  # 2,000/mo
         weekly_hours_worked_before_lsr: 30
+        own_children_in_household: 2
       person3:
         age: 1
         ut_ccap_provider_type: LICENSED_FAMILY_HOME
@@ -97,6 +100,7 @@
       person1:
         age: 25
         employment_income: 21_600  # 1,800/mo
+        own_children_in_household: 1
       person2:
         age: 0
         ut_ccap_provider_type: LICENSE_EXEMPT_HOME
@@ -127,6 +131,7 @@
       person1:
         age: 35
         employment_income: 60_000  # 5,000/mo
+        own_children_in_household: 1
       person2:
         age: 5
         ut_ccap_provider_type: LICENSED_CENTER
@@ -159,6 +164,7 @@
         age: 45
         employment_income: 36_000  # 3,000/mo
         child_support_received: 3_600  # 300/mo
+        own_children_in_household: 1
       person2:
         age: 14
         is_disabled: true  # special needs, eligible under age 18
@@ -175,7 +181,7 @@
   output:
     # Income: 3,000 + 300 (child support) - 50 (first 50 of child support)
     # - 100 (one earner) - 100 (medical) = 3,050; SSI is excluded
-    # (R986-700-710(1)(b)(iii)).
+    # (R986-700-710(4)(e)).
     ut_ccap_countable_income: 3_050
     ut_ccap_eligible: true
     # Size 2, group 6 (3,041.01-3,361), one child -> 122.
@@ -194,10 +200,12 @@
         age: 32
         employment_income: 36_000  # 3,000/mo
         weekly_hours_worked_before_lsr: 40
+        own_children_in_household: 1
       person2:
         age: 30
         employment_income: 6_000  # 500/mo
         weekly_hours_worked_before_lsr: 10
+        own_children_in_household: 1
       person3:
         age: 2
         ut_ccap_provider_type: LICENSED_CENTER
@@ -215,7 +223,9 @@
         state_code: UT
   output:
     # One parent works 40 hours but the other only 10 (< 15), failing the
-    # two-parent 30/15 requirement (R986-700-709(3)).
+    # two-parent 30/15 requirement (R986-700-709(2)(b)(i)(A)); neither
+    # parent is incapacitated, so the R986-700-709(2)(b)(i)(B) pathway
+    # does not apply.
     ut_ccap_activity_eligible: false
     ut_ccap_eligible: false
     ut_ccap: 0
@@ -228,6 +238,7 @@
       person1:
         age: 40
         employment_income: 240_000  # 20,000/mo
+        own_children_in_household: 1
       person2:
         age: 4
         ut_ccap_provider_type: LICENSED_CENTER
@@ -254,6 +265,7 @@
       person1:
         age: 30
         employment_income: 36_000
+        own_children_in_household: 1
       person2:
         age: 3
         ut_ccap_provider_type: LICENSED_CENTER
@@ -278,6 +290,7 @@
     people:
       person1:
         age: 25
+        own_children_in_household: 1
       person2:
         age: 2
         ut_ccap_provider_type: LICENSED_CENTER
@@ -311,6 +324,7 @@
       person1:
         age: 30
         self_employment_income: -60_000  # -5,000/mo
+        own_children_in_household: 1
       person2:
         age: 3
         ut_ccap_provider_type: LICENSED_CENTER
@@ -343,6 +357,7 @@
       person1:
         age: 30
         employment_income: 69_600  # 5,800/mo
+        own_children_in_household: 1
       person2:
         age: 3
         ut_ccap_provider_type: LICENSED_CENTER

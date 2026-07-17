@@ -7,12 +7,22 @@ class ut_ccap_activity_eligible(Variable):
     label = "Utah CCAP activity eligible"
     definition_period = MONTH
     defined_for = StateCode.UT
-    reference = "https://utrules.elaws.us/uac/r986-700-709"
+    reference = (
+        "https://www.law.cornell.edu/regulations/utah/Utah-Admin-Code-R986-700-709"
+    )
 
     def formula(spm_unit, period, parameters):
         p = parameters(period).gov.states.ut.dwf.ccap.eligibility
         person = spm_unit.members
-        is_parent = person("is_tax_unit_head_or_spouse", period.this_year)
+        # R986-700-709 concerns the eligible child's parent(s); is_parent
+        # (own children in the household) identifies them across tax-unit
+        # boundaries, keeps minor parents visible, and matches the
+        # countable income scope of R986-700-710(4)(a). A non-parent
+        # caretaker client (a specified relative caring for a child whose
+        # parents are absent) has is_parent == False and is only reachable
+        # through the meets_ccdf_activity_test input; this is a known
+        # limitation shared with the income formula.
+        is_parent = person("is_parent", period.this_year)
         # weekly_hours_worked_before_lsr avoids the labor-supply feedback loop
         # that weekly_hours_worked (before_lsr + behavioral response) creates
         # in reform runs.
@@ -21,15 +31,36 @@ class ut_ccap_activity_eligible(Variable):
         lowest_parent_hours = spm_unit.min(where(is_parent, hours, np.inf))
         highest_parent_hours = spm_unit.max(where(is_parent, hours, 0))
         # A single parent must be employed an average of at least 15 hours
-        # per week (R986-700-709(2)); in a two-parent household, one parent
-        # must average at least 30 hours per week and the other at least 15
-        # (R986-700-709(3)(a)). The requirement that earnings equal at least
-        # the minimum wage for the hours worked (R986-700-709) is not
-        # modeled.
+        # per week (R986-700-709(2)(a)(i)); in a two-parent household, one
+        # parent must average at least 30 hours per week and the other at
+        # least 15 (R986-700-709(2)(b)(i)(A)). The requirement that earnings
+        # equal at least the minimum wage for the hours worked
+        # (R986-700-709(2)) is not modeled.
         single_parent_eligible = highest_parent_hours >= p.single_parent_min_hours
-        two_parent_eligible = (
+        both_parents_working_eligible = (
             highest_parent_hours >= p.two_parent_second_min_hours
         ) & (lowest_parent_hours >= p.two_parent_first_min_hours)
+        # A two-parent household also qualifies when one parent is employed
+        # and the other parent cannot provide care for the child because of
+        # a physical, emotional, or mental incapacity (R986-700-709(2)(b)(i)(B)
+        # and (4)(a)(iii)); is_disabled proxies the Department-verified
+        # incapacity. The pathway is activity-linked: every non-disabled
+        # parent must meet the single-parent hours requirement and at least
+        # one parent must meet it, so a household of only non-working
+        # disabled parents does not qualify.
+        is_disabled = person("is_disabled", period.this_year)
+        has_disabled_parent = spm_unit.any(is_parent & is_disabled)
+        able_parent_below_hours = (
+            is_parent & ~is_disabled & (hours < p.single_parent_min_hours)
+        )
+        incapacitated_parent_eligible = (
+            has_disabled_parent
+            & (spm_unit.sum(able_parent_below_hours) == 0)
+            & single_parent_eligible
+        )
+        two_parent_eligible = (
+            both_parents_working_eligible | incapacitated_parent_eligible
+        )
         hours_eligible = select(
             [parent_count == 1, parent_count > 1],
             [single_parent_eligible, two_parent_eligible],

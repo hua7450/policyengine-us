@@ -7,14 +7,16 @@ class ut_ccap_eligible_child(Variable):
     label = "Utah CCAP eligible child"
     definition_period = MONTH
     defined_for = StateCode.UT
-    reference = "https://utrules.elaws.us/uac/r986-700-702"
+    reference = (
+        "https://www.law.cornell.edu/regulations/utah/Utah-Admin-Code-R986-700-702"
+    )
 
     def formula(person, period, parameters):
         p = parameters(period).gov.states.ut.dwf.ccap.eligibility
         age = person("age", period.this_year)
         # Children with special needs (R986-700-717) or under court
         # supervision remain eligible through the higher age limit
-        # (R986-700-702(4)(b)); is_disabled proxies special-needs status and
+        # (R986-700-702(5)(b)); is_disabled proxies special-needs status and
         # the court-supervision pathway is not tracked.
         is_disabled = person("is_disabled", period.this_year)
         age_limit = where(is_disabled, p.disabled_child_age_limit, p.child_age_limit)

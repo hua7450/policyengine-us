@@ -10,7 +10,7 @@ class ut_ccap_market_rate(Variable):
     defined_for = "ut_ccap_eligible_child"
     reference = (
         "https://jobs.utah.gov/occ/provider/table30824.pdf",
-        "https://utrules.elaws.us/uac/r986-700-713",
+        "https://www.law.cornell.edu/regulations/utah/Utah-Admin-Code-R986-700-713",
     )
 
     def formula(person, period, parameters):

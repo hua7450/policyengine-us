@@ -1,7 +1,7 @@
 # Tests for ut_ccap_age_group (Person, MONTH, Enum).
 # Table 3 (effective October 1, 2024) age bands: 0 to <24 months, 2 years
 # old, 3 years old, 4 years old, 5 years old, and 6 to <13 years old.
-# Special needs children ages 13 to 17 (eligible under R986-700-702(4)(b))
+# Special needs children ages 13 to 17 (eligible under R986-700-702(5)(b))
 # fall in the school age band since the table publishes no band above 12.
 
 - name: Case 1, newborn, under two.

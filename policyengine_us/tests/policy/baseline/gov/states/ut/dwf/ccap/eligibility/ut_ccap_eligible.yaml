@@ -1,10 +1,11 @@
 # Tests for ut_ccap_eligible (SPMUnit, MONTH, bool).
 # The unit must contain at least one eligible child (R986-700-702), have
 # countable income at or below 85% of the state median income
-# (R986-700-710(3)), pass the CCDF asset test (45 CFR 98.20), meet the
+# (R986-700-710(6)(b)), pass the CCDF asset test (45 CFR 98.20), meet the
 # work-hour requirements (R986-700-709), and have a copayment no larger
-# than the cost of care (R986-700-707). Hours default to 40 per week, so
-# an unstated single parent passes the activity test. Each case sets
+# than the cost of care (R986-700-707). Parents are identified with
+# own_children_in_household and hours default to 40 per week, so a marked
+# parent with unstated hours passes the activity test. Each case sets
 # billed child care expenses above the copayment so the targeted gate is
 # the one that fails.
 
@@ -15,6 +16,7 @@
       person1:
         age: 30
         employment_income: 36_000  # 3,000/mo
+        own_children_in_household: 1
       person2:
         age: 4
     spm_units:
@@ -38,6 +40,7 @@
       person1:
         age: 30
         employment_income: 36_000
+        own_children_in_household: 1
       person2:
         age: 14
         is_disabled: false  # over the age 13 limit, not special needs
@@ -59,6 +62,7 @@
       person1:
         age: 30
         employment_income: 240_000  # 20,000/mo
+        own_children_in_household: 1
       person2:
         age: 4
     spm_units:
@@ -81,6 +85,7 @@
       person1:
         age: 30
         employment_income: 36_000
+        own_children_in_household: 1
       person2:
         age: 4
     spm_units:
@@ -103,6 +108,7 @@
         age: 30
         employment_income: 36_000
         weekly_hours_worked_before_lsr: 10
+        own_children_in_household: 1
       person2:
         age: 4
     spm_units:
@@ -124,6 +130,7 @@
       person1:
         age: 30
         employment_income: 36_000
+        own_children_in_household: 1
       person2:
         age: 4
     spm_units:
@@ -144,6 +151,7 @@
       person1:
         age: 30
         employment_income: 60_000  # 5,000/mo
+        own_children_in_household: 1
       person2:
         age: 3
     spm_units:
@@ -168,6 +176,7 @@
       person1:
         age: 30
         employment_income: 60_000  # 5,000/mo
+        own_children_in_household: 1
       person2:
         age: 3
     spm_units:
