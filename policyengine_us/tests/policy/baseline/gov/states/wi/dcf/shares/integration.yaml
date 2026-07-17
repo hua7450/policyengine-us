@@ -49,9 +49,13 @@
     # person3 (age 5): 8.72 x 131 = 1,142.32 - 85.15 = 1,057.17.
     wi_shares_child_subsidy: [0, 1_188.17, 1_057.17]
     wi_shares: 2_245.34
-    # The YEAR aggregator reports the same monthly value, confirming
-    # wi_shares flows into the federal child_care_subsidies total.
+    # The YEAR aggregator reports the same monthly value.
     wi_child_care_subsidies: 2_245.34
+    # The federal total sums the state programs registered in
+    # gov/hhs/ccdf/child_care_subsidy_programs.yaml; for a Wisconsin
+    # household only wi_child_care_subsidies contributes, so the federal
+    # aggregator carries the full 2,245.34.
+    child_care_subsidies: 2_245.34
 
 - name: Case 2, two full-time children at 175% FPL (Appendix II Example 2, Monique).
   period: 2027-01

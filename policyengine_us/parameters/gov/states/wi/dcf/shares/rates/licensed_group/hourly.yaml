@@ -14,12 +14,12 @@ metadata:
     - county
     - wi_shares_age_group
   reference:
-    - title: 2025 Wisconsin Shares Child Care Subsidy County and Tribal Maximum Rates - Statewide, effective 10/1/2025 (pp. 26-40)
+    - title: 2025 Wisconsin Shares Child Care Subsidy County and Tribal Maximum Rates - Statewide, effective 10/1/2025
       href: https://dcf.wisconsin.gov/files/wishares/pdf/max-rates-statewide.pdf#page=26
     - title: Wisconsin Shares Handbook (July 2026), Section 18.5.1 Subsidy Maximum Rates
       href: https://dcf.wisconsin.gov/wisconsin-shares/wisconsin-shares-handbook-july-2026#page=156
     - title: Wis. Stat. § 49.155(6)
-      href: https://docs.legis.wisconsin.gov/statutes/statutes/49/III/155
+      href: https://docs.legis.wisconsin.gov/statutes/statutes/49/III/155/6
 
 ADAMS_COUNTY_WI:
   AGE_0_THROUGH_1:

@@ -187,14 +187,37 @@
       spm_unit:
         members: [person1, person2, person3, person4, person5, person6, person7]
         spm_unit_fpg: 24_000
+        spm_unit_pre_subsidy_childcare_expenses: 144_000  # 2,000/month per child.
     households:
       household:
         members: [person1, person2, person3, person4, person5, person6, person7]
         state_code: WI
+        county_str: MILWAUKEE_COUNTY_WI
   output:
+    # Each full-time child contributes 152 copayment hours.
+    wi_shares_copay_hours: [0, 152, 152, 152, 152, 152, 152]
     # Uncapped copay hours 6 x 152 = 912, capped at 760; five-or-more-children
     # rate at 150% FPL is 0.63/hour: 0.63 x 760 = 478.80.
     wi_shares_copay: 478.80
+    # The per-child copayment shares use the uncapped 912-hour pool as the
+    # denominator, so each child bears 478.80 x 152 / 912 = 79.80 and the six
+    # shares still sum to exactly the capped group copayment (6 x 79.80 =
+    # 478.80). Milwaukee licensed group full-time subsidies, min(hourly x 153,
+    # 2,000 provider price, full-time cell), each less the 79.80 share:
+    # person2 (age 1): min(11.15 x 153 = 1,705.95, 2,000, 1,695.77) = 1,695.77
+    #   - 79.80 = 1,615.97.
+    # person3 (age 2): min(9.72 x 153 = 1,487.16, 2,000, 1,478.37) = 1,478.37
+    #   - 79.80 = 1,398.57.
+    # person4 (age 3): same as person3 = 1,398.57.
+    # person5 (age 4): min(8.72 x 153 = 1,334.16, 2,000, 1,326.18) = 1,326.18
+    #   - 79.80 = 1,246.38.
+    # person6 (age 5): same as person5 = 1,246.38.
+    # person7 (age 6): min(7.86 x 153 = 1,202.58, 2,000, 1,195.74) = 1,195.74
+    #   - 79.80 = 1,115.94.
+    wi_shares_child_subsidy: [0, 1_615.97, 1_398.57, 1_398.57, 1_246.38, 1_246.38, 1_115.94]
+    # Total subsidies 8,500.61 less the full 478.80 copayment = 8,021.81,
+    # confirming the allocation distributes the entire group copayment.
+    wi_shares: 8_021.81
 
 - name: Case 8, a foster child is excluded from the copayment pool while the sibling still pays.
   period: 2027-01

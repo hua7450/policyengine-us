@@ -149,3 +149,30 @@
         state_code: WI
   output:
     wi_shares_activity_eligible: true
+
+- name: Case 8, a parent with only a self-employment loss passes the activity test and stays eligible.
+  period: 2027-01
+  input:
+    people:
+      person1:
+        age: 30
+        weekly_hours_worked_before_lsr: 0
+        self_employment_income: -12_000  # -1,000/month; an active business running a loss.
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        spm_unit_fpg: 24_000
+        hhs_smi: 96_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: WI
+  output:
+    # With zero work hours, no wages, and no fallback input, the
+    # self-employment-loss arm alone satisfies the activity test.
+    wi_shares_activity_eligible: true
+    # Downstream, the loss floors countable income at zero, so the
+    # assistance group passes the income test and remains eligible.
+    wi_shares_eligible: true

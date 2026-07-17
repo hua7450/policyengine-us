@@ -17,7 +17,7 @@ class wi_shares_monthly_max_rate(Variable):
     reference = (
         "https://dcf.wisconsin.gov/wisconsin-shares/wisconsin-shares-handbook-july-2026#page=156",
         "https://dcf.wisconsin.gov/files/wishares/pdf/max-rates-statewide.pdf#page=26",
-        "https://docs.legis.wisconsin.gov/statutes/statutes/49/III/155",
+        "https://docs.legis.wisconsin.gov/statutes/statutes/49/III/155/6",
     )
 
     def formula(person, period, parameters):

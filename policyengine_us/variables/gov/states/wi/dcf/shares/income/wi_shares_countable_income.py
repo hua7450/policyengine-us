@@ -25,7 +25,16 @@ class wi_shares_countable_income(Variable):
         is_minor_dependent = (age < p.minor_income_disregard_age) & is_dependent
         minor_earned_income = spm_unit.sum(
             is_minor_dependent
-            * add(person, period, ["employment_income", "self_employment_income"])
+            * add(
+                person,
+                period,
+                [
+                    "employment_income",
+                    "self_employment_income",
+                    "farm_operations_income",
+                    "partnership_s_corp_income",
+                ],
+            )
         )
         # SSI of adults in the assistance group is counted (Section 6.2); ssi
         # is not in the sources list so the minor-dependent disregard can be

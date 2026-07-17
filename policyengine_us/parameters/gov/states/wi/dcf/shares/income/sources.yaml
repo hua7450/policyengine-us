@@ -9,13 +9,22 @@ values:
     # capital equipment purchases, and loan principal payments) have no
     # PolicyEngine inputs (Sections 6.2 and 6.4.4).
     - self_employment_income
+    # Farm self-employment (Schedule F); self_employment_income is non-farm
+    # only.
+    - farm_operations_income
+    # Partnership and S corporation net earnings reported to the IRS.
+    - partnership_s_corp_income
     # Unearned income
     - dividend_income
     # interest_income is an umbrella that already adds taxable_interest_income
     # and tax_exempt_interest_income.
     - interest_income
-    # Net rental income and royalties.
+    # Net rental income and royalties; farm rental is tracked separately from
+    # rental_income.
     - rental_income
+    - farm_rent_income
+    # Income from estates or trusts.
+    - estate_income
     # social_security is an umbrella that already includes the old age,
     # survivorship, disability, and dependents components.
     - social_security
@@ -38,7 +47,6 @@ values:
     # - Earned income of minor dependents is disregarded (Section 6.3).
     #
     # No PolicyEngine variable exists for these counted sources:
-    # - Estate and trust income
     # - Student financial aid not used for tuition and books
     #
     # Disregarded by Section 6.3 (deliberately not listed):
@@ -59,7 +67,7 @@ metadata:
   period: year
   label: Wisconsin Shares countable income sources
   reference:
-    - title: Wisconsin Shares Handbook (July 2026), Section 6.2 Counted Income (pp. 58-59)
+    - title: Wisconsin Shares Handbook (July 2026), Section 6.2 Counted Income
       href: https://dcf.wisconsin.gov/wisconsin-shares/wisconsin-shares-handbook-july-2026#page=58
     - title: Wisconsin Shares Handbook (July 2026), Section 6.3 Disregarded Income
       href: https://dcf.wisconsin.gov/wisconsin-shares/wisconsin-shares-handbook-july-2026#page=59
