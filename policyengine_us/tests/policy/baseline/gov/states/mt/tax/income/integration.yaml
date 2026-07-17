@@ -511,3 +511,31 @@
     mt_regular_income_tax_joint: 1_918
     mt_capital_gains_tax_joint: 1_022.8
     mt_income_tax: 2_940.8
+
+- name: MT 2021 joint elderly couple taxable SS uses the schedule thresholds once, not per spouse (taxsim 1078)
+  period: 2021
+  absolute_error_margin: 5
+  input:
+    people:
+      head:
+        age: 70
+        employment_income: 22_432.51
+        taxable_interest_income: 18_181.87
+        taxable_private_pension_income: 4_484.76
+        social_security_retirement: 40_195.39
+      spouse:
+        age: 71
+        employment_income: 670.88
+        taxable_interest_income: 18_181.86
+        taxable_private_pension_income: 4_484.75
+        social_security_retirement: 40_195.38
+    tax_units:
+      tax_unit:
+        members: [head, spouse]
+    households:
+      household:
+        members: [head, spouse]
+        state_code: MT
+  output:
+    # TaxAct status 2a columns: 34,166 + 20,539
+    mt_taxable_social_security: [34_166, 20_539]
