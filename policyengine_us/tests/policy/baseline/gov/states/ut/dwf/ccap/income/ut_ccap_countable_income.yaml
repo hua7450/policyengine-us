@@ -71,7 +71,7 @@
         own_children_in_household: 1
       person2:
         age: 16
-        employment_income: 12_000  # 1,000/mo, excluded as a minor's earnings
+        employment_income: 12_000  # 1,000/mo, minor who is not a parent
     spm_units:
       spm_unit:
         members: [person1, person2]
@@ -80,8 +80,9 @@
         members: [person1, person2]
         state_code: UT
   output:
-    # 3,000 + 1,000 - 1,000 (minor earnings excluded) - 100 (one earner
-    # with countable earned income) - 100 (medical) = 2,800
+    # Earned income counts only for parents (R986-700-710(4)(a), (4)(f)),
+    # so the 16-year-old's wages never enter gross income and generate no
+    # earner deduction: 3,000 - 100 (one earner) - 100 (medical) = 2,800
     ut_ccap_countable_income: 2_800
 
 - name: Case 4, an 18-year-old non-parent's earned income is excluded.
