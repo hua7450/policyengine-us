@@ -1,1 +1,0 @@
-Fixed the Montana taxable Social Security schedule to apply the filing-status base amounts once per return rather than in full per spouse, using the half-of-joint amounts per column for married filers and the full joint amounts for the single-column joint computation.

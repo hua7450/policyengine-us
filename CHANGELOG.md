@@ -1,3 +1,10 @@
+## [1.775.4] - 2026-07-17
+
+### Fixed
+
+- Fixed the Montana taxable Social Security schedule to apply the filing-status base amounts once per return rather than in full per spouse, using the half-of-joint amounts per column for married filers and the full joint amounts for the single-column joint computation.
+
+
 ## [1.775.3] - 2026-07-17
 
 ### Fixed
