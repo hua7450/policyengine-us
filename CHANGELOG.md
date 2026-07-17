@@ -1,3 +1,10 @@
+## [1.775.1] - 2026-07-17
+
+### Fixed
+
+- Reforms starting at a future date no longer freeze uprating of the reformed parameter for the years before the reform starts: the reform set is now applied after the parameter processing pipeline (uprating included) instead of before it, so pre-start years keep their baseline uprated values. As a consequence, a reform on an uprating index series (e.g. gov.bls.cpi.c_cpi_u) now changes only that series and no longer regenerates gov.irs.uprating or dependent parameters' uprated values — an untested incidental behavior of the old ordering (see #9078).
+
+
 ## [1.775.0] - 2026-07-16
 
 ### Added
