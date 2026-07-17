@@ -1,3 +1,10 @@
+## [1.775.5] - 2026-07-17
+
+### Fixed
+
+- Fixed the Montana 2021 income tax rebate double-count by applying the per-return cap once, splitting it across each spouse's column rather than projecting the tax-unit rebate onto every member.
+
+
 ## [1.775.4] - 2026-07-17
 
 ### Fixed
