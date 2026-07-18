@@ -1,8 +1,10 @@
 # Tests for ut_ccap (SPMUnit, MONTH, USD).
-# R986-700-713: the family subsidy is the lower of billed child care
-# expenses and the summed per-child Table 3 market rate caps, minus the
-# Table 4 copayment, floored at zero. When the copayment exceeds the cost
-# of care the family receives nothing (R986-700-707(3)).
+# R986-700-713: each child's care is paid at the lower of the child's
+# billed child care expenses (the SPM unit total split evenly across
+# children) and that child's Table 3 market rate cap; the summed
+# per-child amounts are reduced by the Table 4 copayment, floored at
+# zero. When the copayment exceeds the cost of care the family receives
+# nothing (R986-700-707(3)).
 
 - name: Case 1, billed expenses below the market rate cap.
   period: 2026-01
@@ -129,7 +131,7 @@
   output:
     ut_ccap: 0
 
-- name: Case 6, two children pool their market rate caps.
+- name: Case 6, two children are each capped at their own market rate.
   period: 2026-01
   absolute_error_margin: 0.01
   input:
@@ -154,9 +156,10 @@
         state_code: UT
   output:
     # Countable income: 4,000 - 100 - 100 = 3,800 -> size 3 group 6
-    # (3,776.01-4,165) with two children -> copay 160. Pooled caps:
-    # licensed family home under two (850) + four year old (710) = 1,560.
-    # min(1,800, 1,560) - 160 = 1,400.
+    # (3,776.01-4,165) with two children -> copay 160. The 1,800 in
+    # expenses splits evenly at 900 per child, and both children exceed
+    # their licensed family home caps: min(900, 850) + min(900, 710)
+    # = 850 + 710 = 1,560. 1,560 - 160 = 1,400.
     ut_ccap: 1_400
 
 - name: Case 7, copayment exactly equal to the cost of care leaves a zero benefit.
@@ -187,7 +190,7 @@
     ut_ccap_eligible: true
     ut_ccap: 0
 
-- name: Case 8, children at different provider types pool their own caps.
+- name: Case 8, one child's cap overage is not absorbed by the other child's headroom.
   period: 2026-01
   absolute_error_margin: 0.01
   input:
@@ -212,11 +215,14 @@
         state_code: UT
   output:
     # Countable income: 4,000 - 100 - 100 = 3,800 -> size 3 group 6
-    # (3,776.01-4,165) with two children -> copay 160. Each child keeps
-    # their own provider-type cap: licensed center under two (1,230)
-    # + license-exempt home school age (385) = 1,615.
-    # min(2,000, 1,615) - 160 = 1,455.
-    ut_ccap: 1_455
+    # (3,776.01-4,165) with two children -> copay 160. The 2,000 in
+    # expenses splits evenly at 1,000 per child, and each child is capped
+    # at their own provider-type rate: min(1,000, 1,230 licensed center
+    # under two) + min(1,000, 385 license-exempt home school age)
+    # = 1,000 + 385 = 1,385. The infant's 230 of cap headroom does not
+    # absorb the school-age child's 615 overage (R986-700-713 pays the
+    # lower-of per child). 1,385 - 160 = 1,225.
+    ut_ccap: 1_225
 
 - name: Case 9, copayment between the capped rate and billed expenses leaves an eligible family with no benefit.
   period: 2026-01
@@ -253,3 +259,36 @@
     ut_ccap_copay: 435
     ut_ccap_eligible: true
     ut_ccap: 0
+
+- name: Case 10, per-child capping binds only the child whose expenses exceed their cap.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 48_000  # 4,000/mo
+        own_children_in_household: 2
+      person2:
+        age: 1
+        ut_ccap_provider_type: LICENSED_CENTER
+      person3:
+        age: 1
+        ut_ccap_provider_type: LICENSE_EXEMPT_HOME
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+        spm_unit_pre_subsidy_childcare_expenses: 14_400  # 1,200/mo
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: UT
+  output:
+    # Countable income: 4,000 - 100 - 100 = 3,800 -> size 3 group 6
+    # (3,776.01-4,165) with two children -> copay 160. The 1,200 in
+    # expenses splits evenly at 600 per child. The licensed center infant
+    # stays under their 1,230 cap while the license-exempt home infant is
+    # capped at 495: min(600, 1,230) + min(600, 495) = 600 + 495 = 1,095
+    # (pooling against the 1,725 summed caps would instead pay the full
+    # 1,200). 1,095 - 160 = 935.
+    ut_ccap: 935

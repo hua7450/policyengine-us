@@ -1,8 +1,8 @@
 # Integration tests for the Utah Child Care Assistance program (ut_ccap).
 # Full pipeline: countable income (R986-700-710) -> Table 4 income group
 # and copayment (R986-700-707) -> Table 3 market rate caps and the
-# lower-of rule (R986-700-713), with eligibility gates (R986-700-702/709,
-# 45 CFR 98.20). The income ceiling is dynamic: 85% of the HHS state
+# per-child lower-of rule (R986-700-713), with eligibility gates
+# (R986-700-702/709, 45 CFR 98.20). The income ceiling is dynamic: 85% of the HHS state
 # median income for the household size. At January 2026, Utah's SMI base
 # (FFY 2025-10-01 vintage) is 117,667, so the size 2 monthly ceiling is
 # 117,667 x 0.68 / 12 x 0.85 = 5,667.63, matching the published Table 4
@@ -88,8 +88,10 @@
     # Size 4, group 8 (5,426.01-5,883), two children -> 231.
     ut_ccap_income_group: 8
     ut_ccap_copay: 231
-    # Caps: licensed family home under two (850) + four year old (710)
-    # = 1,560. min(1,400, 1,560) - 231 = 1,169.
+    # The 1,400 in expenses splits evenly at 700 per child, and both
+    # children stay under their licensed family home caps:
+    # min(700, 850 under two) + min(700, 710 four year old)
+    # = 700 + 700 = 1,400. 1,400 - 231 = 1,169.
     ut_ccap: 1_169
 
 - name: Case 3, lowest income group pays no copayment.

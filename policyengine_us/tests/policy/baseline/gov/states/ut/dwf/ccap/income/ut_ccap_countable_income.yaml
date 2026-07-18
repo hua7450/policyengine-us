@@ -1,9 +1,10 @@
 # Tests for ut_ccap_countable_income (SPMUnit, MONTH, USD).
-# R986-700-710: only the income of the eligible child's parent(s) is
-# counted, regardless of who else lives in the household
-# (R986-700-710(4)(a)); parents are identified with
-# own_children_in_household (is_parent). The earned income of a child who
-# is not a parent is not counted (R986-700-710(4)(f)), a child's unearned
+# R986-700-710: only the income of the CC client is counted, regardless
+# of who else lives in the household (R986-700-710(4)(a)). Parent clients
+# are identified with own_children_in_household (is_parent); when no
+# parent lives in the household, the tax-unit head or spouse proxies the
+# nonparent caretaker client (R986-700-702(2)). The earned income of a
+# child who is not a parent is not counted (R986-700-710(4)(f)), a child's unearned
 # income stays countable (R986-700-710(4)(d)(i)), and SSI benefits are
 # excluded (R986-700-710(4)(e)). Monthly deductions (R986-700-710(5)):
 # the first $50 of child support received, court-ordered child support
@@ -415,3 +416,28 @@
     # (R986-200-235(2)(i)): 3,000 + 100 - 100 (one earner) - 100 (medical)
     # = 2,900.
     ut_ccap_countable_income: 2_900
+
+- name: Case 17, a nonparent caretaker's earnings are counted and draw the earner deduction.
+  period: 2026-01
+  absolute_error_margin: 0.01
+  input:
+    people:
+      person1:
+        age: 40
+        employment_income: 36_000  # 3,000/mo
+        own_children_in_household: 0
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: UT
+  output:
+    # With no parent in the household, the caretaker (tax-unit head) is
+    # the CC client (R986-700-702(2)), so their wages count and they
+    # generate the earner deduction: 3,000 - 100 (one earner)
+    # - 100 (medical) = 2,800.
+    ut_ccap_countable_income: 2_800

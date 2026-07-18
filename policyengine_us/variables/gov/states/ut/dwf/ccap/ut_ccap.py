@@ -14,15 +14,19 @@ class ut_ccap(Variable):
     )
 
     def formula(spm_unit, period, parameters):
-        # The subsidy is the lower of the provider's actual established rate
-        # (proxied by billed child care expenses) and the summed per-child
-        # local market rate caps, less the family co-payment, floored at zero
-        # (R986-700-713). The hourly-unit-cost payment path and the CCQS
-        # Enhanced Subsidy Grant (R986-700-742) are not modeled.
-        maximum_monthly_rate = add(spm_unit, period, ["ut_ccap_market_rate"])
-        pre_subsidy_childcare_expenses = spm_unit(
-            "spm_unit_pre_subsidy_childcare_expenses", period
+        # R986-700-713 pays each child's care at the lower of the provider's
+        # actual established rate (proxied by the child's share of billed
+        # child care expenses) and that child's Table 3 local market rate
+        # cap; the summed per-child payments are reduced by the family
+        # co-payment, floored at zero. The hourly-unit-cost payment path and
+        # the CCQS Enhanced Subsidy Grant (R986-700-742) are not modeled.
+        person = spm_unit.members
+        is_eligible_child = person("ut_ccap_eligible_child", period)
+        market_rate = person("ut_ccap_market_rate", period)
+        pre_subsidy_expense = person("pre_subsidy_childcare_expenses", period)
+        per_child_reimbursement = (
+            min_(pre_subsidy_expense, market_rate) * is_eligible_child
         )
-        capped_expenses = min_(pre_subsidy_childcare_expenses, maximum_monthly_rate)
+        total_reimbursement = spm_unit.sum(per_child_reimbursement)
         copay = spm_unit("ut_ccap_copay", period)
-        return max_(capped_expenses - copay, 0)
+        return max_(total_reimbursement - copay, 0)

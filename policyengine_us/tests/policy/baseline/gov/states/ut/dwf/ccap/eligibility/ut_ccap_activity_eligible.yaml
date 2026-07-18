@@ -5,7 +5,10 @@
 # least 15 (R986-700-709(2)(b)(i)(A)), or one parent is employed and the
 # other parent cannot provide care because of a physical, emotional, or
 # mental incapacity (R986-700-709(2)(b)(i)(B)), proxied by is_disabled.
-# Parents are identified with own_children_in_household (is_parent). Hours
+# Parents are identified with own_children_in_household (is_parent); when
+# no parent lives in the household, the tax-unit head or spouse proxies
+# the nonparent caretaker client (specified relative or court-appointed
+# guardian, R986-700-702(2)) and faces the same hour minimums. Hours
 # use weekly_hours_worked_before_lsr (default 40). meets_ccdf_activity_test
 # covers approved activities the model does not individually track (e.g.,
 # the education and training pathway under R986-700-711).
@@ -313,5 +316,52 @@
     # co-resident adult relative is not a parent, so the unit stays on the
     # single-parent 15-hour test rather than the two-parent test
     # (regression pin — counting parents by tax-unit role wrongly failed
-    # this household).
+    # this household; the caretaker fallback only applies when no parent
+    # lives in the household).
     ut_ccap_activity_eligible: true
+
+- name: Case 13, a working nonparent caretaker meets the single-client hours test.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 40
+        own_children_in_household: 0
+        weekly_hours_worked_before_lsr: 20
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: UT
+  output:
+    # CC is also available to specified relatives and court-appointed
+    # guardians (R986-700-702(2)). With no parent in the household, the
+    # caretaker (tax-unit head) is the client, and their 20 hours clear
+    # the 15-hour single-client bar (R986-700-709(2)(a)(i)).
+    ut_ccap_activity_eligible: true
+
+- name: Case 14, a nonparent caretaker below 15 hours fails the requirement.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 40
+        own_children_in_household: 0
+        weekly_hours_worked_before_lsr: 10
+      person2:
+        age: 5
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: UT
+  output:
+    # The caretaker client faces the same hour minimums as a parent
+    # (R986-700-709): 10 hours fall short of the 15-hour bar.
+    ut_ccap_activity_eligible: false
