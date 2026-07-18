@@ -26,8 +26,8 @@ class wi_shares_hourly_max_rate(Variable):
         # rate tables.
         in_wi = person.household("state_code_str", period) == "WI"
         safe_county = where(in_wi, county, "ADAMS_COUNTY_WI")
-        licensed_group_rate = p.licensed_group.hourly[safe_county][age_group]
-        licensed_family_rate = p.licensed_family.hourly[safe_county][age_group]
+        licensed_group_rate = p.licensed_group.hourly[age_group][safe_county]
+        licensed_family_rate = p.licensed_family.hourly[age_group][safe_county]
         # Certified hourly maximums are 90% of the licensed family hourly
         # maximum, rounded up to the cent (Section 18.5.1). The cents value
         # is rounded to two decimals first so float noise cannot flip the

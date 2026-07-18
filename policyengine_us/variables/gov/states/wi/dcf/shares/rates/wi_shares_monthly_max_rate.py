@@ -36,18 +36,18 @@ class wi_shares_monthly_max_rate(Variable):
         part_time_monthly_hours = np.ceil(
             p.hours.part_time_weekly_conversion * p.hours.weeks_per_month
         )
-        licensed_group_hourly = p.rates.licensed_group.hourly[safe_county][age_group]
-        licensed_family_hourly = p.rates.licensed_family.hourly[safe_county][age_group]
+        licensed_group_hourly = p.rates.licensed_group.hourly[age_group][safe_county]
+        licensed_family_hourly = p.rates.licensed_family.hourly[age_group][safe_county]
         time_category = person("wi_shares_time_category", period)
         full_time = time_category == WISharesTimeCategory.FULL_TIME
         licensed_group_monthly = where(
             full_time,
-            p.rates.licensed_group.full_time_monthly[safe_county][age_group],
+            p.rates.licensed_group.full_time_monthly[age_group][safe_county],
             licensed_group_hourly * part_time_monthly_hours,
         )
         licensed_family_monthly = where(
             full_time,
-            p.rates.licensed_family.full_time_monthly[safe_county][age_group],
+            p.rates.licensed_family.full_time_monthly[age_group][safe_county],
             licensed_family_hourly * part_time_monthly_hours,
         )
         # Certified providers have no monthly maximum of their own; their
