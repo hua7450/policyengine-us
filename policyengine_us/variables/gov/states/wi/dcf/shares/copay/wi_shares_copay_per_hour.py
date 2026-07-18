@@ -24,7 +24,12 @@ class wi_shares_copay_per_hour(Variable):
         # it with the bare monthly period auto-divides it to a monthly value.
         countable_income = spm_unit("wi_shares_countable_income", period)
         monthly_fpg = spm_unit("spm_unit_fpg", period)
-        fpg_ratio = countable_income / monthly_fpg
+        # Compute and round the ratio in float64 so float32 noise at an
+        # exact band edge (e.g., income at exactly 105% of the guideline
+        # storing as 1.04999995) cannot drop the group into the lower band;
+        # the exit-period copayment in wi_shares_copay uses unrounded
+        # income instead.
+        fpg_ratio = np.round(countable_income.astype(np.float64) / monthly_fpg, 5)
         # Only children subject to a regular copayment count toward the
         # column lookup; income above 200% of the poverty guideline keeps the
         # top rate, with the exit-period copayment added in wi_shares_copay.
