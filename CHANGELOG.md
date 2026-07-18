@@ -1,3 +1,10 @@
+## [1.775.8] - 2026-07-18
+
+### Fixed
+
+- Guard the bracket-schedule loops (income_tax_main_rates, the AMT regular-tax worksheet, and the additional_tax_bracket reform's copies) against non-monotone thresholds: an inverted bracket pair contributed rate x (top - bottom) < 0 to every filer of the affected status at any income, and a partially patched schedule manufactured phantom AMT for filers with preferential income (issue #9084).
+
+
 ## [1.775.7] - 2026-07-18
 
 ### Fixed
