@@ -1,3 +1,10 @@
+## [1.775.6] - 2026-07-18
+
+### Fixed
+
+- Delaware now excludes unemployment compensation received in 2020 and 2021 from Delaware AGI, per 30 Del. C. § 1106(b)(10).
+
+
 ## [1.775.5] - 2026-07-17
 
 ### Fixed
