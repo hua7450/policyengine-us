@@ -1,3 +1,45 @@
+## [1.775.7] - 2026-07-18
+
+### Fixed
+
+- Weight rent by an assumed landlord property tax factor (0.15, matching TAXSIM) instead of counting 100% of rent as property taxes paid in the Arizona property tax credit, per ARS 43-1072(B) and Form 140PTC line 13.
+
+
+## [1.775.6] - 2026-07-18
+
+### Fixed
+
+- Delaware now excludes unemployment compensation received in 2020 and 2021 from Delaware AGI, per 30 Del. C. § 1106(b)(10).
+
+
+## [1.775.5] - 2026-07-17
+
+### Fixed
+
+- Fixed the Montana 2021 income tax rebate double-count by applying the per-return cap once, splitting it across each spouse's column rather than projecting the tax-unit rebate onto every member.
+
+
+## [1.775.4] - 2026-07-17
+
+### Fixed
+
+- Fixed the Montana taxable Social Security schedule to apply the filing-status base amounts once per return rather than in full per spouse, using the half-of-joint amounts per column for married filers and the full joint amounts for the single-column joint computation.
+
+
+## [1.775.3] - 2026-07-17
+
+### Fixed
+
+- The DC Child Tax Credit now applies only to DC households: `dc_ctc` was missing `defined_for = StateCode.DC`, so from 2026 (when it joined `gov.states.household.state_ctcs`) it computed for households in any state and leaked into `taxsim_state_ctc` and its deprecated `state_ctc` alias (see #9079).
+
+
+## [1.775.2] - 2026-07-17
+
+### Fixed
+
+- Oregon Kids' Credit: encode the HB 3235 sunset (tax years beginning before January 1, 2029) as a `gov.states.or.tax.income.credits.ctc.in_effect` parameter gating the `or_ctc` formula, keep `or_ctc` in the refundable-credits list so a single switch models renewal scenarios, and project the credit amount and phase-out start with the exact ORS 315.273(5) cost-of-living formula (unchained CPI-U over the 2022 Q2 base, each increase from the statutory bases rounded down to the next lower multiple of $50), which pins the CPI-determined 2026 values at $1,050 and $27,250.
+
+
 ## [1.775.1] - 2026-07-17
 
 ### Fixed
