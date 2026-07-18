@@ -1,3 +1,145 @@
+## [1.775.7] - 2026-07-18
+
+### Fixed
+
+- Weight rent by an assumed landlord property tax factor (0.15, matching TAXSIM) instead of counting 100% of rent as property taxes paid in the Arizona property tax credit, per ARS 43-1072(B) and Form 140PTC line 13.
+
+
+## [1.775.6] - 2026-07-18
+
+### Fixed
+
+- Delaware now excludes unemployment compensation received in 2020 and 2021 from Delaware AGI, per 30 Del. C. § 1106(b)(10).
+
+
+## [1.775.5] - 2026-07-17
+
+### Fixed
+
+- Fixed the Montana 2021 income tax rebate double-count by applying the per-return cap once, splitting it across each spouse's column rather than projecting the tax-unit rebate onto every member.
+
+
+## [1.775.4] - 2026-07-17
+
+### Fixed
+
+- Fixed the Montana taxable Social Security schedule to apply the filing-status base amounts once per return rather than in full per spouse, using the half-of-joint amounts per column for married filers and the full joint amounts for the single-column joint computation.
+
+
+## [1.775.3] - 2026-07-17
+
+### Fixed
+
+- The DC Child Tax Credit now applies only to DC households: `dc_ctc` was missing `defined_for = StateCode.DC`, so from 2026 (when it joined `gov.states.household.state_ctcs`) it computed for households in any state and leaked into `taxsim_state_ctc` and its deprecated `state_ctc` alias (see #9079).
+
+
+## [1.775.2] - 2026-07-17
+
+### Fixed
+
+- Oregon Kids' Credit: encode the HB 3235 sunset (tax years beginning before January 1, 2029) as a `gov.states.or.tax.income.credits.ctc.in_effect` parameter gating the `or_ctc` formula, keep `or_ctc` in the refundable-credits list so a single switch models renewal scenarios, and project the credit amount and phase-out start with the exact ORS 315.273(5) cost-of-living formula (unchained CPI-U over the 2022 Q2 base, each increase from the statutory bases rounded down to the next lower multiple of $50), which pins the CPI-determined 2026 values at $1,050 and $27,250.
+
+
+## [1.775.1] - 2026-07-17
+
+### Fixed
+
+- Reforms starting at a future date no longer freeze uprating of the reformed parameter for the years before the reform starts: the reform set is now applied after the parameter processing pipeline (uprating included) instead of before it, so pre-start years keep their baseline uprated values. As a consequence, a reform on an uprating index series (e.g. gov.bls.cpi.c_cpi_u) now changes only that series and no longer regenerates gov.irs.uprating or dependent parameters' uprated values — an untested incidental behavior of the old ordering (see #9078).
+
+
+## [1.775.0] - 2026-07-16
+
+### Added
+
+- Hawaii Act 24 (S.B. 3125, SLH 2026) income tax rate schedules: 13% top bracket above $1,000,000 (joint and surviving spouse), $750,000 (head of household), and $500,000 (single and separate) with restructured 2027 and 2029 rates.
+
+
+## [1.774.7] - 2026-07-16
+
+### Fixed
+
+- - Applied Washington's capital gains 9.9% tier only from 2025; ESSB 5813 (Ch. 421, Laws of 2025) imposes the additional 2.9% over $1,000,000 beginning January 1, 2025, and the rate was a flat 7% in 2022-2024.
+
+
+## [1.774.6] - 2026-07-16
+
+### Fixed
+
+- - Raised the Vermont CSRS/military retirement exemption thresholds by $5,000 for 2025 per Act No. 51 (2025), Sec. 3 (32 V.S.A. § 5830e(b)), matching the Social Security thresholds updated in #8853.
+
+
+## [1.774.5] - 2026-07-16
+
+### Fixed
+
+- Applied Kentucky personal tax credits per column under the combined-separate filing election, flooring each spouse's credit at their own column tax.
+
+
+## [1.774.4] - 2026-07-16
+
+### Fixed
+
+- Restored the Oklahoma retirement benefit subtraction for private employer (IRC section 401) pension income before tax year 2022, which qualifies as an Other Retirement Income source on Schedule 511-A line 6.
+
+
+## [1.774.3] - 2026-07-16
+
+### Fixed
+
+- Fixed the Connecticut pension and annuity subtraction so the 2024 phase-out brackets no longer leak into 2019-2023, where the subtraction is zero above the AGI cliff.
+
+
+## [1.774.2] - 2026-07-16
+
+### Fixed
+
+- - Kept the Arkansas MFJ two-or-more-dependents low-income tax table rows added for 2024-2025 out of earlier years; the published tables end at $32,200 (2021) through $34,100 (2023), so incomes above the cutoff use the regular tax table.
+- Keep each spouse's own Delaware personal credit in their own Filing Status 4 column per the PIT-RES line 27a example, allocating only dependent credits between columns, so the post-credit filing-status election no longer favors combined-separate filing through an impermissible credit shift.
+
+
+## [1.774.1] - 2026-07-16
+
+### Fixed
+
+- - Corrected the Arkansas 2023 bracket-adjustment column: added the missing $89,901-$90,000 row, encoded the three intentionally $200-wide ranges, and removed duplicated 91,701/91,801 thresholds that doubled the reduction.
+
+
+## [1.774.0] - 2026-07-16
+
+### Added
+
+- Add the North Dakota primary residence credit (HB 1176), raising the maximum credit to $1,600 from tax year 2025, and restore the North Dakota renter's refund to the 2026 state property tax credit aggregate.
+
+
+## [1.773.3] - 2026-07-16
+
+### Fixed
+
+- Fix broken and mislabeled FTB reference links in California CalEITC and Foster Youth Tax Credit parameter files.
+
+
+## [1.773.2] - 2026-07-16
+
+### Fixed
+
+- Bump policyengine-core to 3.30.0 (>=3.26.5 floor), fixing filesystem-order-dependent uprating of chained indexes (California CPI) that caused CA test failures on new CI runner images.
+
+
+## [1.773.1] - 2026-07-15
+
+### Fixed
+
+- Fix the Indiana blind/disabled property tax credit aggregate test to account for the supplemental homestead credit (SEA 1) stacking in the umbrella.
+
+
+## [1.773.0] - 2026-07-15
+
+### Added
+
+- Add the Indiana blind or disabled property tax credit (Senate Enrolled Act 1, 2025), a $125 credit for blind or disabled homeowners, from 2026.
+- Add the Indiana supplemental homestead credit (Senate Enrolled Act 1, 2025), the lesser of 10% of homestead property tax or $300, from 2026.
+
+
 ## [1.772.0] - 2026-07-15
 
 ### Added
