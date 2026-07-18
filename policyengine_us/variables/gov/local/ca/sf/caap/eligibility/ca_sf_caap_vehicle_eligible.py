@@ -15,18 +15,18 @@ class ca_sf_caap_vehicle_eligible(Variable):
         # vehicle value under WIC Section 11155(c). We use the
         # household-average vehicle value as a proxy for each vehicle's
         # equity (encumbrances are not modeled).
-        p = parameters(period).gov.states.ca.cdss.tanf.cash.resources.limit
+        p = parameters(period).gov.local.ca.sf.caap.eligibility.vehicle
+        p_calworks = parameters(period).gov.states.ca.cdss.tanf.cash.resources.limit
         household = spm_unit.household
         vehicle_count = household("household_vehicles_owned", period.this_year)
         vehicle_value = household("household_vehicles_value", period.this_year)
         average_vehicle_value = where(
             vehicle_count > 0,
-            vehicle_value / vehicle_count,
+            vehicle_value / max_(vehicle_count, 1),
             0,
         )
         budget_unit_size = spm_unit("ca_sf_caap_budget_unit_size", period)
-        # One vehicle per person, capped at the two-person "couples" case.
-        allowed_vehicles = where(budget_unit_size >= 2, 2, 1)
+        allowed_vehicles = where(budget_unit_size >= 2, p.limit.couple, p.limit.single)
         return (vehicle_count <= allowed_vehicles) & (
-            average_vehicle_value <= p.vehicle
+            average_vehicle_value <= p_calworks.vehicle
         )

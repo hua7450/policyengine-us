@@ -22,8 +22,11 @@ class ca_scc_general_assistance_countable_vehicle_value(Variable):
         vehicle_value = household("household_vehicles_value", period)
         average_vehicle_value = where(
             vehicle_count > 0,
-            vehicle_value / vehicle_count,
+            vehicle_value / max_(vehicle_count, 1),
             0,
         )
+        # The handbook Motor Vehicle chapter exempts a vehicle valued "up to
+        # $4,650 or less" (inclusive); the GA-62 summary sheet says "worth
+        # less than $4,650". We follow the operational handbook chapter.
         one_vehicle_exempt = average_vehicle_value <= p.vehicle_value_limit
         return vehicle_value - one_vehicle_exempt * average_vehicle_value

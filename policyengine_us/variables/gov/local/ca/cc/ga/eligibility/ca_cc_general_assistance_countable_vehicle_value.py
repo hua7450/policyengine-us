@@ -22,7 +22,7 @@ class ca_cc_general_assistance_countable_vehicle_value(Variable):
         vehicle_value = household("household_vehicles_value", period)
         average_vehicle_value = where(
             vehicle_count > 0,
-            vehicle_value / vehicle_count,
+            vehicle_value / max_(vehicle_count, 1),
             0,
         )
         one_vehicle_exempt = average_vehicle_value <= p.vehicle_value_limit
