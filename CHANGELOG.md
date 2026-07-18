@@ -1,3 +1,24 @@
+## [1.775.7] - 2026-07-18
+
+### Fixed
+
+- Weight rent by an assumed landlord property tax factor (0.15, matching TAXSIM) instead of counting 100% of rent as property taxes paid in the Arizona property tax credit, per ARS 43-1072(B) and Form 140PTC line 13.
+
+
+## [1.775.6] - 2026-07-18
+
+### Fixed
+
+- Delaware now excludes unemployment compensation received in 2020 and 2021 from Delaware AGI, per 30 Del. C. § 1106(b)(10).
+
+
+## [1.775.5] - 2026-07-17
+
+### Fixed
+
+- Fixed the Montana 2021 income tax rebate double-count by applying the per-return cap once, splitting it across each spouse's column rather than projecting the tax-unit rebate onto every member.
+
+
 ## [1.775.4] - 2026-07-17
 
 ### Fixed
