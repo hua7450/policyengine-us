@@ -1,6 +1,7 @@
 description: Wisconsin caps the hourly subsidy rate for licensed family child care at these amounts by county and child age group under the Wisconsin Shares Child Care Subsidy Program.
 
-# Statewide table effective 10/1/2025. The published part-time monthly
+# Statewide table effective 10/1/2025 (table spans pp. 26-40; the reference
+# anchors its first page). The published part-time monthly
 # maximum equals the hourly maximum x 131 part-time monthly hours exactly
 # (verified for every county), so it is derived in the formula rather than
 # transcribed. Certified provider hourly maximums are 90% of these values,

@@ -10,7 +10,7 @@ class wi_shares_income_eligible(Variable):
     reference = (
         "https://dcf.wisconsin.gov/wisconsin-shares/wisconsin-shares-handbook-july-2026#page=57",
         "https://dcf.wisconsin.gov/wisconsin-shares/wisconsin-shares-handbook-july-2026#page=58",
-        "https://docs.legis.wisconsin.gov/statutes/statutes/49/III/155",
+        "https://docs.legis.wisconsin.gov/statutes/statutes/49/III/155/1m/c",
     )
 
     def formula(spm_unit, period, parameters):

@@ -9,7 +9,7 @@ class wi_shares_parent_in_approved_activity(Variable):
     defined_for = StateCode.WI
     reference = (
         "https://dcf.wisconsin.gov/wisconsin-shares/wisconsin-shares-handbook-july-2026#page=35",
-        "https://docs.legis.wisconsin.gov/statutes/statutes/49/III/155",
+        "https://docs.legis.wisconsin.gov/statutes/statutes/49/III/155/1m/a",
     )
 
     def formula(person, period, parameters):
@@ -24,6 +24,7 @@ class wi_shares_parent_in_approved_activity(Variable):
             (person("weekly_hours_worked_before_lsr", period.this_year) > 0)
             | (person("employment_income", period) > 0)
             | (person("self_employment_income", period) != 0)
+            | (person("sstb_self_employment_income", period) != 0)
         )
         is_student = person("is_full_time_student", period.this_year)
         is_tanf_enrolled = person.spm_unit("is_tanf_enrolled", period)

@@ -9,7 +9,7 @@ class wi_shares_eligible(Variable):
     defined_for = StateCode.WI
     reference = (
         "https://dcf.wisconsin.gov/wisconsin-shares/wisconsin-shares-handbook-july-2026#page=22",
-        "https://docs.legis.wisconsin.gov/statutes/statutes/49/III/155",
+        "https://docs.legis.wisconsin.gov/statutes/statutes/49/III/155/1m",
     )
 
     def formula(spm_unit, period, parameters):

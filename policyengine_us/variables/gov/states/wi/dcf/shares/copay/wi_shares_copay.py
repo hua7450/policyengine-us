@@ -34,9 +34,18 @@ class wi_shares_copay(Variable):
         monthly_fpg = spm_unit("spm_unit_fpg", period)
         initial_limit = monthly_fpg * p.income.limit.initial_fpg_rate
         excess_income = max_(countable_income - initial_limit, 0)
+        # Compute and round the product in float64 so float32 noise at an
+        # exact $5 multiple of excess income (e.g., 154.99998 instead of
+        # 155) cannot drop a dollar from the floor; wi_shares_copay_per_hour
+        # guards its band lookup the same way.
         exit_copay = where(
             enrolled,
-            np.floor(excess_income * p.copay.exit.phase_out_rate),
+            np.floor(
+                np.round(
+                    excess_income.astype(np.float64) * p.copay.exit.phase_out_rate,
+                    5,
+                )
+            ),
             0,
         )
         # Assistance groups with a parent open for W-2 have a $0 copayment

@@ -27,11 +27,16 @@ class wi_shares_copay_per_hour(Variable):
         # Compute and round the ratio in float64 so float32 noise at an
         # exact band edge (e.g., income at exactly 105% of the guideline
         # storing as 1.04999995) cannot drop the group into the lower band;
-        # the exit-period copayment in wi_shares_copay uses unrounded
-        # income instead.
+        # the exit-period copayment floor in wi_shares_copay uses the same
+        # guard. The schedule prints whole-dollar income rows; looking up the
+        # exact ratio instead can differ by one band within about $0.50 of a
+        # row boundary (intentional).
         fpg_ratio = np.round(countable_income.astype(np.float64) / monthly_fpg, 5)
         # Only children subject to a regular copayment count toward the
-        # column lookup; income above 200% of the poverty guideline keeps the
+        # column lookup; reduced-copay-type children (e.g., foster) are
+        # excluded because Section 18.2 calculates their copayments
+        # separately, and the handbook does not say which count a mixed
+        # group uses. Income above 200% of the poverty guideline keeps the
         # top rate, with the exit-period copayment added in wi_shares_copay.
         person = spm_unit.members
         counted_children = spm_unit.sum(person("wi_shares_copay_hours", period) > 0)

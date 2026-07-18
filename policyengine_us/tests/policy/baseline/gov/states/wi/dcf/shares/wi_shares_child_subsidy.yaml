@@ -121,10 +121,11 @@
   output:
     # Full-time subsidy: min(11.15 x 153 = 1,705.95, 3,000, 1,695.77 full-time
     # monthly cell) = 1,695.77.
-    # Add-on for hours above 50: (60 - 50) x 4.348125 x 11.15 = 484.82,
+    # Add-on for hours above 50: ceil((60 - 50) x 4.348125) =
+    # ceil(43.48) = 44 monthly hours x 11.15 = 490.60,
     # added after the capped comparison.
-    # 1,695.77 + 484.82 = 2,180.59.
-    wi_shares_child_subsidy: [0, 2_180.59]
+    # 1,695.77 + 490.60 = 2,186.37.
+    wi_shares_child_subsidy: [0, 2_186.37]
 
 - name: Case 5, the above-full-time add-on stops at 75 weekly hours.
   period: 2027-01
@@ -150,9 +151,9 @@
         county_str: MILWAUKEE_COUNTY_WI
   output:
     # Add-on hours capped at 75 - 50 = 25 weekly hours:
-    # 25 x 4.348125 x 11.15 = 1,212.04.
-    # 1,695.77 + 1,212.04 = 2,907.81.
-    wi_shares_child_subsidy: [0, 2_907.81]
+    # ceil(25 x 4.348125) = ceil(108.70) = 109 monthly hours x 11.15 = 1,215.35.
+    # 1,695.77 + 1,215.35 = 2,911.12.
+    wi_shares_child_subsidy: [0, 2_911.12]
 
 - name: Case 6, mixed part-time and full-time siblings split the copayment by their copay hours.
   period: 2027-01

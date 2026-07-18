@@ -31,6 +31,7 @@ class wi_shares_countable_income(Variable):
                 [
                     "employment_income",
                     "self_employment_income",
+                    "sstb_self_employment_income",
                     "farm_operations_income",
                     "partnership_s_corp_income",
                 ],

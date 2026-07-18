@@ -36,7 +36,11 @@ class wi_shares_child_subsidy(Variable):
             max_(weekly_hours - p.above_full_time_threshold, 0),
             p.above_full_time_cap - p.above_full_time_threshold,
         )
-        addon = addon_weekly_hours * p.weeks_per_month * hourly_max
+        # Monthly hours round up to the whole hour per the program-wide
+        # conversion convention (Section 16.1.1); the handbook has no worked
+        # add-on example, so the round-up here is inferred.
+        addon_monthly_hours = np.ceil(addon_weekly_hours * p.weeks_per_month)
+        addon = addon_monthly_hours * hourly_max
         # Each child's share of the assistance group copayment is
         # proportional to their copayment hours (Section 18.2). The
         # denominator is the unit's summed per-child capped hours, which

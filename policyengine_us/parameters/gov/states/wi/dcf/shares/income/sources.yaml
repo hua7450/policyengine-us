@@ -9,6 +9,9 @@ values:
     # capital equipment purchases, and loan principal payments) have no
     # PolicyEngine inputs (Sections 6.2 and 6.4.4).
     - self_employment_income
+    # Specified service trade or business earnings; self_employment_income
+    # is non-SSTB only.
+    - sstb_self_employment_income
     # Farm self-employment (Schedule F); self_employment_income is non-farm
     # only.
     - farm_operations_income
@@ -34,6 +37,9 @@ values:
     - workers_compensation
     # Alimony and other maintenance payments.
     - alimony_income
+    # Broader than the handbook's "veteran pensions" line: VA disability
+    # compensation also counts under the Section 6.2 catch-all since it is
+    # not in the Section 6.3 disregard list.
     - veterans_benefits
     # Capital gains income from selling securities and other property.
     - capital_gains

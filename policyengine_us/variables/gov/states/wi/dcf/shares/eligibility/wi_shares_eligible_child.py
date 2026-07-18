@@ -10,7 +10,7 @@ class wi_shares_eligible_child(Variable):
     reference = (
         "https://dcf.wisconsin.gov/wisconsin-shares/wisconsin-shares-handbook-july-2026#page=21",
         "https://dcf.wisconsin.gov/wisconsin-shares/wisconsin-shares-handbook-july-2026#page=22",
-        "https://docs.legis.wisconsin.gov/statutes/statutes/49/III/155",
+        "https://docs.legis.wisconsin.gov/statutes/statutes/49/III/155/1m/a",
     )
 
     def formula(person, period, parameters):
