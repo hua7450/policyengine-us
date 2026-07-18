@@ -7,7 +7,10 @@ class tn_ccap_eligible(Variable):
     label = "Eligible for Tennessee CCAP"
     definition_period = MONTH
     defined_for = StateCode.TN
-    reference = "https://www.tn.gov/content/dam/tn/human-services/documents/CCDF%20State%20Plan%20FFY%202025-2027%20Tennessee.pdf#page=36"
+    reference = (
+        "https://www.tn.gov/content/dam/tn/human-services/documents/CCDF%20State%20Plan%20FFY%202025-2027%20Tennessee.pdf#page=36",
+        "https://www.tn.gov/content/dam/tn/human-services/documents/CCDF%20State%20Plan%20FFY%202025-2027%20Tennessee.pdf#page=32",
+    )
 
     def formula(spm_unit, period, parameters):
         has_eligible_child = add(spm_unit, period, ["tn_ccap_eligible_child"]) > 0
@@ -26,10 +29,11 @@ class tn_ccap_eligible(Variable):
         protective_services_waiver = spm_unit(
             "tn_ccap_protective_services_waiver", period
         )
-        income_activity_waived = has_protective_child & protective_services_waiver
+        # Protective-services cases are not evaluated for income or assets
+        # (State Plan §2.2.6(b)) and have no activity requirement (§2.2.2.g/h).
+        income_activity_asset_waived = has_protective_child & protective_services_waiver
         income_activity_eligible = income_eligible & activity_eligible
-        return (
-            has_eligible_child
-            & asset_eligible
-            & (income_activity_eligible | tanf_enrolled | income_activity_waived)
+        return has_eligible_child & (
+            income_activity_asset_waived
+            | (asset_eligible & (income_activity_eligible | tanf_enrolled))
         )
