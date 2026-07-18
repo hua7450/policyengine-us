@@ -25,8 +25,12 @@ class ca_sf_caap_vehicle_eligible(Variable):
             vehicle_value / max_(vehicle_count, 1),
             0,
         )
-        budget_unit_size = spm_unit("ca_sf_caap_budget_unit_size", period)
-        allowed_vehicles = where(budget_unit_size >= 2, p.limit.couple, p.limit.single)
+        # The allowance counts the adults present, not just budget unit
+        # members: an SSI/CAPI-excluded spouse's vehicle still appears in
+        # household_vehicles_owned but may be owned by that spouse, whom
+        # Manual 92-26 also allows one vehicle.
+        adult_count = spm_unit("spm_unit_count_adults", period.this_year)
+        allowed_vehicles = where(adult_count >= 2, p.limit.couple, p.limit.single)
         return (vehicle_count <= allowed_vehicles) & (
             average_vehicle_value <= p_calworks.vehicle
         )

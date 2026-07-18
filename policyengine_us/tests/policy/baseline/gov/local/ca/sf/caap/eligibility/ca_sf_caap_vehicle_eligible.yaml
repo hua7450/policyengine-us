@@ -222,3 +222,32 @@
         members: [person1]
   output:
     ca_sf_caap_vehicle_eligible: false
+
+- name: Case 12, couple with one spouse on SSI keeps the two-vehicle allowance.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 30
+        immigration_status: CITIZEN
+      person2:
+        age: 68
+        immigration_status: CITIZEN
+        ssi: 900
+    households:
+      household:
+        members: [person1, person2]
+        county_str: SAN_FRANCISCO_COUNTY_CA
+        household_vehicles_owned: 2
+        household_vehicles_value: 20_000
+    marital_units:
+      marital_unit:
+        members: [person1, person2]
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+  output:
+    # person2 receives SSI, so the budget unit is one person, but both
+    # adults may each own one vehicle under Manual 92-26.
+    ca_sf_caap_budget_unit_size: 1
+    ca_sf_caap_vehicle_eligible: true
