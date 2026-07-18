@@ -23,7 +23,7 @@ class ut_ccap_age_group(Variable):
     def formula(person, period, parameters):
         p = parameters(period).gov.states.ut.dwf.ccap.rates
         # Table 3 publishes no band above age 12; special needs children ages
-        # 13 to 17 (eligible under R986-700-702(4)(b)) fall in the school age
+        # 13 to 17 (eligible under R986-700-702(5)(b)) fall in the school age
         # band.
         age = person("age", period.this_year)
         return p.age_group.calc(age)

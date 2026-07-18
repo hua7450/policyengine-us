@@ -8,8 +8,7 @@ class ut_ccap_activity_eligible(Variable):
     definition_period = MONTH
     defined_for = StateCode.UT
     reference = (
-        "https://www.law.cornell.edu/regulations/utah/Utah-Admin-Code-R986-700-709",
-        "https://utrules.elaws.us/uac/r986-700",
+        "https://www.law.cornell.edu/regulations/utah/Utah-Admin-Code-R986-700-709"
     )
 
     def formula(spm_unit, period, parameters):
@@ -23,10 +22,11 @@ class ut_ccap_activity_eligible(Variable):
         # the countable income scope of R986-700-710(4)(a); when no parent
         # lives in the household, the tax-unit head or spouse proxies the
         # nonparent caretaker client. Co-resident adults who are not the
-        # client stay excluded from the hours test, and DHS-paid foster
-        # parents - categorically ineligible under R986-700-702(11) -
-        # cannot be distinguished; this is a known limitation shared with
-        # the income formulas.
+        # client stay excluded from the hours test. Foster parents
+        # receiving DHHS foster care reimbursement are eligible clients
+        # (R986-700-702(2)(a)) subject to the same work requirements as
+        # any other client, so is_parent correctly includes them and no
+        # foster-parent carve-out applies.
         is_parent = person("is_parent", period.this_year)
         is_head_or_spouse = person("is_tax_unit_head_or_spouse", period.this_year)
         no_parent_present = spm_unit.sum(is_parent) == 0

@@ -9,8 +9,7 @@ class ut_ccap_countable_income(Variable):
     definition_period = MONTH
     defined_for = StateCode.UT
     reference = (
-        "https://www.law.cornell.edu/regulations/utah/Utah-Admin-Code-R986-700-710",
-        "https://utrules.elaws.us/uac/r986-700",
+        "https://www.law.cornell.edu/regulations/utah/Utah-Admin-Code-R986-700-710"
     )
 
     def formula(spm_unit, period, parameters):

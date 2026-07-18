@@ -9,8 +9,7 @@ class ut_ccap_gross_income(Variable):
     definition_period = MONTH
     defined_for = StateCode.UT
     reference = (
-        "https://www.law.cornell.edu/regulations/utah/Utah-Admin-Code-R986-700-710",
-        "https://utrules.elaws.us/uac/r986-700",
+        "https://www.law.cornell.edu/regulations/utah/Utah-Admin-Code-R986-700-710"
     )
 
     def formula(spm_unit, period, parameters):
@@ -26,9 +25,11 @@ class ut_ccap_gross_income(Variable):
         # earnings countable, and when no parent lives in the household the
         # tax-unit head or spouse proxies the nonparent caretaker client
         # (R986-700-710(4)(b)). Co-resident relatives who are not the
-        # client stay excluded, and DHS-paid foster parents - categorically
-        # ineligible under R986-700-702(11) - cannot be distinguished; this
-        # is a known limitation. The earned income of a child who is not a
+        # client stay excluded. Foster parents receiving DHHS foster care
+        # reimbursement are themselves eligible clients whose income is
+        # counted (R986-700-702(2)(a); R986-700-710(3)(g) and (4)(c)), so
+        # is_parent correctly includes them and no foster-parent
+        # carve-out applies. The earned income of a child who is not a
         # parent is not counted (R986-700-710(4)(f)), while a child's
         # unearned income, such as child support paid on the child's
         # behalf, remains countable (R986-700-710(4)(d)(i)); is_child
