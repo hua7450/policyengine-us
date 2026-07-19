@@ -499,3 +499,50 @@ def test_capital_gains_response_and_relative_mtr_change_use_shared_measurements(
 
     assert np.allclose(relative_change, np.array([np.log(2.0), np.log(0.5)]))
     assert np.allclose(response, np.array([-50.0, 200.0]))
+
+
+def test_substitution_channel_is_live_end_to_end():
+    """The measurement branches must record real baseline and reform MTRs.
+
+    Under policyengine-core < 3.30.1, ``Simulation.delete_arrays`` purged only
+    ``default``-keyed storage, so the ``mtr_for_adult_N`` sub-branches inside
+    the named measurement branches served the parent's cached
+    ``household_net_income`` back as the perturbed value. Both branches then
+    recorded MTR = 1.0 for every adult, ``relative_wage_change`` was exactly
+    zero, and the substitution channel of labor supply responses was inert.
+
+    Fixes #9086 (with the core-side fix in policyengine-core#521).
+    """
+    from policyengine_us import Simulation
+
+    year = "2026"
+    situation = {
+        "people": {"p": {"age": {year: 40}, "employment_income": {year: 50_000}}},
+        "tax_units": {"tu": {"members": ["p"]}},
+        "families": {"f": {"members": ["p"]}},
+        "spm_units": {"s": {"members": ["p"]}},
+        "households": {"h": {"members": ["p"], "state_name": {year: "TX"}}},
+    }
+    reform = {
+        "gov.irs.income.bracket.rates.2": {"2026-01-01.2026-12-31": 0.20},
+        "gov.simulation.labor_supply_responses.elasticities.substitution.all": {
+            "2026-01-01.2026-12-31": 0.25
+        },
+    }
+
+    simulation = Simulation(situation=situation, reform=reform)
+    response = simulation.calculate("labor_supply_behavioral_response", year)
+    measurements = simulation._behavioral_response_measurements[year]
+    baseline_mtr = np.asarray(measurements["baseline_mtr"])
+    reform_mtr = np.asarray(measurements["reform_mtr"])
+    relative_wage_change = np.asarray(
+        simulation.calculate("relative_wage_change", year)
+    )
+
+    assert not np.array_equal(baseline_mtr, reform_mtr)
+    # A rate increase must raise the measured MTR; a stale-purge regression
+    # records exactly 1.0 in both branches instead.
+    assert 0.0 < baseline_mtr[0] < 0.9
+    assert baseline_mtr[0] < reform_mtr[0] < 0.9
+    assert relative_wage_change[0] < -0.01
+    assert response[0] < 0
