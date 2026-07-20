@@ -265,6 +265,11 @@
     # credit reduce the balance to zero, plus the $50 refundable increased
     # excise tax credit. SB 1734 liability (after nonrefundable and
     # refundable credits) is below $1, so no rebate.
+    az_income_tax_before_refundable_credits: 0
+    az_increased_excise_tax_credit: 50
+    # The $50 refundable excise credit flows through to net AZ income tax,
+    # confirming the refundable-flow premise rather than leaving it in a comment.
+    az_income_tax: -50
     az_families_tax_rebate: 0
 
 - name: 2021 - After-credit liability of at least $1 keeps the rebate
@@ -291,3 +296,32 @@
   output:
     # Liability 51 - 50 = 1 >= $1: eligible for $250 (one dependent under 17).
     az_families_tax_rebate: 250
+
+- name: 2021 - Refundable excise credit drives after-credit liability below $1 - no rebate
+  period: 2021
+  input:
+    people:
+      filer:
+        age: 30
+        is_tax_unit_dependent: false
+      child:
+        age: 5
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        members: [filer, child]
+        filing_status: HEAD_OF_HOUSEHOLD
+        az_income_tax_before_refundable_credits: 50.99
+        az_increased_excise_tax_credit: 50
+        az_property_tax_credit: 0
+    households:
+      household:
+        members: [filer, child]
+        state_code: AZ
+  output:
+    # After-credit liability 50.99 - 50 = 0.99 < $1, so no rebate. This pins
+    # the PR's central logic: the $50 REFUNDABLE excise credit is what pushes
+    # liability under $1. Dropping the refundable subtraction leaves 50.99 >= $1
+    # and would wrongly pay $250, so this case fails without it. Also closes the
+    # sub-$1 boundary (0.99 vs the 1.00 kept-rebate case above).
+    az_families_tax_rebate: 0
