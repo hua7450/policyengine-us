@@ -1,0 +1,1 @@
+Cap the Georgia HB 162 surplus tax rebate at Form 500 Line 16 tax before credits per O.C.G.A. 48-7-20.2 and pay it out as a refundable amount, so other nonrefundable credits no longer reduce it; zero the amount outside tax year 2021.
