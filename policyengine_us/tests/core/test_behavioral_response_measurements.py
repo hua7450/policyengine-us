@@ -546,3 +546,50 @@ def test_substitution_channel_is_live_end_to_end():
     assert baseline_mtr[0] < reform_mtr[0] < 0.9
     assert relative_wage_change[0] < -0.01
     assert response[0] < 0
+
+
+def test_capital_gains_channel_is_live_end_to_end():
+    """The measurement branches must record real capital-gains MTRs.
+
+    Same regression class as the labor-supply test above: under
+    policyengine-core < 3.30.1 both capital-gains MTR slots recorded 1.0 for
+    every adult, so ``relative_capital_gains_mtr_change`` was zero and the
+    realization response inert.
+
+    Fixes #9086 (with the core-side fix in policyengine-core#521).
+    """
+    from policyengine_us import Simulation
+
+    year = "2026"
+    situation = {
+        "people": {
+            "p": {
+                "age": {year: 50},
+                "employment_income": {year: 60_000},
+                "long_term_capital_gains": {year: 200_000},
+            }
+        },
+        "tax_units": {"tu": {"members": ["p"]}},
+        "families": {"f": {"members": ["p"]}},
+        "spm_units": {"s": {"members": ["p"]}},
+        "households": {"h": {"members": ["p"], "state_name": {year: "TX"}}},
+    }
+    reform = {
+        "gov.irs.capital_gains.rates.2": {"2026-01-01.2026-12-31": 0.25},
+        "gov.simulation.capital_gains_responses.elasticity": {
+            "2026-01-01.2026-12-31": -0.7
+        },
+    }
+
+    simulation = Simulation(situation=situation, reform=reform)
+    response = simulation.calculate("capital_gains_behavioral_response", year)
+    measurements = simulation._behavioral_response_measurements[year]
+    baseline_mtr = np.asarray(measurements["baseline_capital_gains_mtr"])
+    reform_mtr = np.asarray(measurements["reform_capital_gains_mtr"])
+
+    assert not np.array_equal(baseline_mtr, reform_mtr)
+    assert 0.0 < baseline_mtr[0] < 0.9
+    assert baseline_mtr[0] < reform_mtr[0] < 0.9
+    # A 10pp statutory rate increase must show through the measured MTRs.
+    assert reform_mtr[0] - baseline_mtr[0] == pytest.approx(0.10, abs=0.02)
+    assert response[0] < -1_000
