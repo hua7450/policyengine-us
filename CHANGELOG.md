@@ -1,3 +1,10 @@
+## [1.776.0] - 2026-07-20
+
+### Added
+
+- Add Colorado's add-back of the federal overtime compensation deduction (HB25-1296) from tax year 2026.
+
+
 ## [1.775.12] - 2026-07-20
 
 ### Changed
