@@ -1,1 +1,0 @@
-Correct the Missouri head of household $1,400 additional exemption to start in 2022, when MO-1040 Line 15 first appeared (the 2018-2021 forms had no line for it), and stop netting the refundable CTC and 2021 refundable CDCC out of the federal income tax deduction base, per the MO-1040 Line 9 worksheet.

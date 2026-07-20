@@ -1,3 +1,11 @@
+## [1.776.1] - 2026-07-20
+
+### Fixed
+
+- Cap the Georgia HB 162 surplus tax rebate at Form 500 Line 16 tax before credits per O.C.G.A. 48-7-20.2 and pay it out as a refundable amount, so other nonrefundable credits no longer reduce it; zero the amount outside tax year 2021. Also correct the qualifying surviving spouse (Form 500 status D) rebate cap from $500 to $375 to match the head-of-household tier.
+- Correct the Missouri head of household $1,400 additional exemption to start in 2022, when MO-1040 Line 15 first appeared (the 2018-2021 forms had no line for it), and stop netting the refundable CTC and 2021 refundable CDCC out of the federal income tax deduction base, per the MO-1040 Line 9 worksheet.
+
+
 ## [1.776.0] - 2026-07-20
 
 ### Added
