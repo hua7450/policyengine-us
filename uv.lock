@@ -2932,7 +2932,7 @@ wheels = [
 
 [[package]]
 name = "policyengine-core"
-version = "3.30.0"
+version = "3.30.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "dpath" },
@@ -2958,14 +2958,14 @@ dependencies = [
     { name = "standard-imghdr" },
     { name = "wheel" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/c0/04/1934fe401c2f654b1e483c08cdbe4b9cd8007a57b4c89e6556cd2bec8cbf/policyengine_core-3.30.0.tar.gz", hash = "sha256:f922e096efa59e748210202b5023ba56d1a1326963e4dc7fed57030247308a35", size = 498324, upload-time = "2026-07-09T17:08:31.67Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/19/6b/f3e845e64401f329d2dd43ed4ea4f6663810b0e22879e13e3cec997caeab/policyengine_core-3.30.2.tar.gz", hash = "sha256:1272a08c432e3c26eb0cc6eabdabed1cf1bf16a837c006d006816ad8e665a33d", size = 501156, upload-time = "2026-07-20T12:20:58.184Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/1d/fa/47e01d9f6c62e6fcacc1c9aa62d181e157bcb14beff7a1a4fe39974f52ea/policyengine_core-3.30.0-py3-none-any.whl", hash = "sha256:5e896b469ca1af04d783e84e033c7479344ba4c51a65e8fd043bf44c6b6cd646", size = 244334, upload-time = "2026-07-09T17:08:30.223Z" },
+    { url = "https://files.pythonhosted.org/packages/85/6e/f8b6af58c701a05d4afd2956747364618bc4ffdf40f37b28d450b2223a27/policyengine_core-3.30.2-py3-none-any.whl", hash = "sha256:ba187b4cf459c337c4bfe02b1f6b2491d45240ea1bd41a1148a1ec9ca8c51fe9", size = 245046, upload-time = "2026-07-20T12:20:56.553Z" },
 ]
 
 [[package]]
 name = "policyengine-us"
-version = "1.775.9"
+version = "1.775.11"
 source = { editable = "." }
 dependencies = [
     { name = "microdf-python" },
@@ -3003,7 +3003,7 @@ requires-dist = [
     { name = "numpy", marker = "python_full_version < '3.10'", specifier = ">=1.26,<2" },
     { name = "pandas", marker = "python_full_version < '3.11'", specifier = ">=2.0" },
     { name = "pandas", marker = "python_full_version >= '3.11'", specifier = ">=3.0" },
-    { name = "policyengine-core", specifier = ">=3.26.5" },
+    { name = "policyengine-core", specifier = ">=3.30.1" },
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.9.0" },
     { name = "setuptools", marker = "extra == 'dev'", specifier = ">=80.9.0" },
     { name = "spm-calculator", specifier = ">=0.2.0" },

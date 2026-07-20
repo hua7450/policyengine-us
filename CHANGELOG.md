@@ -1,3 +1,17 @@
+## [1.775.11] - 2026-07-20
+
+### Fixed
+
+- - Require policyengine-core >= 3.30.1 so behavioral-response measurement branches record real baseline and reform marginal tax rates; the substitution and capital-gains channels were inert under earlier cores. Adds an end-to-end regression test.
+
+
+## [1.775.10] - 2026-07-20
+
+### Fixed
+
+- Washington Working Families Tax Credit no longer pays for tax years before 2022, the program's first year under RCW 82.08.0206 as funded by ch. 195, Laws of 2021.
+
+
 ## [1.775.9] - 2026-07-20
 
 ### Changed
