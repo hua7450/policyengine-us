@@ -1,0 +1,1 @@
+- Require policyengine-core >= 3.30.1 so behavioral-response measurement branches record real baseline and reform marginal tax rates; the substitution and capital-gains channels were inert under earlier cores. Adds an end-to-end regression test.
