@@ -17,11 +17,27 @@ class az_families_tax_rebate(Variable):
         # tax liability and having claimed dependents.
         p = parameters(period).gov.states.az.tax.income.rebate
 
-        # Check tax liability eligibility (at least $1)
-        tax_before_credits = tax_unit(
-            "az_income_tax_before_non_refundable_credits", period
+        # Check tax liability eligibility (at least $1). SB 1734 (Laws 2023,
+        # ch. 147, sec. 3.N.4) defines tax liability as tax "minus the sum of
+        # nonrefundable and refundable income tax credits claimed" under
+        # title 43, chapter 10, article 5 - i.e., after all credits. The
+        # rebate itself is a session-law payment, not an article 5 credit,
+        # so it is excluded here. (The statute's 2020/2019 fallback tests
+        # are not modelable from a single-year record; like TAXSIM, the
+        # 2021 liability proxies all three years.)
+        tax_after_non_refundable_credits = tax_unit(
+            "az_income_tax_before_refundable_credits", period
         )
-        has_tax_liability = tax_before_credits >= 1
+        refundable_credits = parameters(
+            period
+        ).gov.states.az.tax.income.credits.refundable
+        other_refundable_credits = add(
+            tax_unit,
+            period,
+            [c for c in refundable_credits if c != "az_families_tax_rebate"],
+        )
+        tax_liability = tax_after_non_refundable_credits - other_refundable_credits
+        has_tax_liability = tax_liability >= 1
 
         person = tax_unit.members
         dependent = person("is_tax_unit_dependent", period)
