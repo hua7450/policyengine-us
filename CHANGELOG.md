@@ -1,3 +1,10 @@
+## [1.775.9] - 2026-07-20
+
+### Changed
+
+- Update the SNAP uprating index with published CPI-U actuals for June 2024, 2025, and 2026, raising projected FY2027 COLAs to +3.5% year-over-year; later years remain CBO forecasts.
+
+
 ## [1.775.8] - 2026-07-18
 
 ### Fixed
