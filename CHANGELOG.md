@@ -1,3 +1,13 @@
+## [1.775.12] - 2026-07-20
+
+### Changed
+
+- - Dataset extension no longer deep-copies the full dataset per projected year; under pandas copy-on-write, carried-forward columns share base-year buffers, cutting extension time ~11x (about 21s to 2s on the full Populace 2024 dataset) with bit-identical output. `USSingleYearDataset.copy(deep=False)` falls back to a deep copy when copy-on-write is unavailable, so isolation is guaranteed on all pandas versions.
+  - Require pandas >= 3.0 on Python >= 3.11 (pandas >= 2.0 retained for Python 3.9/3.10). This floor is stricter than the code requires — the runtime fallback keeps pandas 2.x fully correct — and is a deliberate choice to guarantee the fast path and pandas-3 CI coverage; downstream environments on Python >= 3.11 will be upgraded to pandas 3.
+  - Note for downstream code: under pandas 3, arrays loaded from datasets into simulation holders are read-only views; in-place mutation of `holder.get_array(...)` results (e.g. `arr[mask] = x`) now raises `ValueError` where it previously worked. Copy the array first if mutation is needed.
+  - Cap numpy below 2.0 on Python 3.9, where PyTables 3.9.x wheels are built against numpy 1.x; without the cap, every `pd.HDFStore` call on Python 3.9 fails with a binary-incompatibility error (pre-existing breakage surfaced by the new compat-leg tests).
+
+
 ## [1.775.11] - 2026-07-20
 
 ### Fixed
