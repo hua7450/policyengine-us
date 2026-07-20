@@ -1,19 +1,11 @@
 from typing import Optional
 
-import pandas as pd
 import yaml
 
 from policyengine_us.data.dataset_schema import (
     USSingleYearDataset,
     USMultiYearDataset,
 )
-
-# Under pandas copy-on-write (always on in pandas >= 3), year datasets can
-# be shallow copies of the base year: carried-forward columns share the
-# base-year buffers, and uprating's whole-column assignments materialize
-# only the columns they replace. On pandas 2.x (kept for Python 3.9/3.10),
-# shallow copies alias mutably, so fall back to deep copies there.
-_PANDAS_COW = int(pd.__version__.split(".", 1)[0]) >= 3
 
 # The default end year for dataset extension is derived at runtime from
 # the CPI-U parameter YAML (gov.bls.cpi.cpi_u).  When the CPI-U YAML
@@ -114,10 +106,13 @@ def extend_single_year_dataset(
             f"end_year ({end_year}) must be >= dataset base year ({start_year})."
         )
     # Copy the base year too, so the returned multi-year dataset never
-    # holds the caller's DataFrames directly.
-    datasets = [dataset.copy(deep=not _PANDAS_COW)]
+    # holds the caller's DataFrames directly. ``deep=False`` shares
+    # base-year buffers under pandas copy-on-write and falls back to
+    # deep copies on pandas 2.x — uprating's whole-column assignments
+    # then materialize only the columns they replace.
+    datasets = [dataset.copy(deep=False)]
     for year in range(start_year + 1, end_year + 1):
-        next_year = dataset.copy(deep=not _PANDAS_COW)
+        next_year = dataset.copy(deep=False)
         next_year.time_period = str(year)
         datasets.append(next_year)
 
@@ -196,10 +191,9 @@ def _apply_single_year_uprating(current, previous, system):
 
             factor = curr_val / prev_val
             # Whole-column assignment is load-bearing: the year frames may
-            # be shallow copies sharing base-year buffers, and only
-            # assignment isolates under copy-on-write. In-place variants
-            # (``*=``, ``.loc``/``.iloc`` writes) would corrupt sibling
-            # years on pandas 2.x shallow copies.
+            # be shallow copies sharing base-year buffers (pandas
+            # copy-on-write), and assignment replaces just this column in
+            # just this year's frame, leaving the shared buffers intact.
             current_df[col] = prev_df[col] * factor
 
 

@@ -13,8 +13,8 @@ from policyengine_us.data.dataset_schema import (
     USSingleYearDataset,
     USMultiYearDataset,
 )
+from policyengine_us.data.dataset_schema import PANDAS_HAS_COW
 from policyengine_us.data.economic_assumptions import (
-    _PANDAS_COW,
     _apply_single_year_uprating,
     _apply_uprating,
     _resolve_parameter,
@@ -1178,7 +1178,7 @@ class TestShallowExtension:
             pd.testing.assert_frame_equal(df, snapshot, check_exact=True, obj=name)
 
     @pytest.mark.skipif(
-        not _PANDAS_COW,
+        not PANDAS_HAS_COW,
         reason="buffer sharing requires pandas copy-on-write (pandas >= 3)",
     )
     def test_carried_forward_columns_share_base_year_buffers(
@@ -1237,13 +1237,13 @@ class TestShallowExtension:
     def test_deep_fallback_path_produces_identical_output(
         self, mock_system, base_dataset, monkeypatch
     ):
-        """The pandas 2.x fallback (_PANDAS_COW=False, deep copies) must
-        produce output identical to the shallow fast path — this is the
-        only CI coverage of the fallback, which real pandas 2.x installs
-        (Python 3.9/3.10) rely on."""
-        import policyengine_us.data.economic_assumptions as economic_assumptions
+        """The non-CoW fallback (deep copies inside ``copy(deep=False)``)
+        must produce output identical to the shallow fast path. On
+        pandas 3 CI this is exercised by forcing the gate off; the
+        py3.9/3.10 compat CI legs run this suite on real pandas 2.x."""
+        import policyengine_us.data.dataset_schema as dataset_schema
 
-        monkeypatch.setattr(economic_assumptions, "_PANDAS_COW", False)
+        monkeypatch.setattr(dataset_schema, "PANDAS_HAS_COW", False)
         fallback = call_extend_with_mock_system(
             mock_system, base_dataset, end_year=END_YEAR_SHORT
         )
