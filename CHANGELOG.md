@@ -1,3 +1,10 @@
+## [1.775.10] - 2026-07-20
+
+### Fixed
+
+- Washington Working Families Tax Credit no longer pays for tax years before 2022, the program's first year under RCW 82.08.0206 as funded by ch. 195, Laws of 2021.
+
+
 ## [1.775.9] - 2026-07-20
 
 ### Changed
