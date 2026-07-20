@@ -32,7 +32,7 @@
     filing_status: SURVIVING_SPOUSE
     ga_income_tax_before_non_refundable_credits: 1_000
   output:
-    ga_surplus_tax_rebate: 500
+    ga_surplus_tax_rebate: 375
 
 - name: Separate filer
   period: 2021
@@ -78,3 +78,48 @@
   output:
     ga_surplus_tax_rebate: 0
     ga_refundable_credits: 0
+
+- name: No 2021 liability yields no rebate (min of cap and zero liability is zero)
+  period: 2021
+  input:
+    state_code: GA
+    filing_status: HEAD_OF_HOUSEHOLD
+    ga_income_tax_before_non_refundable_credits: 0
+  output:
+    ga_surplus_tax_rebate: 0
+    ga_refundable_credits: 0
+    ga_income_tax: 0
+
+- name: No rebate before 2021 (locks the 0000-01-01 zero guard against backward extrapolation)
+  period: 2020
+  input:
+    state_code: GA
+    filing_status: HEAD_OF_HOUSEHOLD
+    ga_income_tax_before_non_refundable_credits: 1_000
+  output:
+    ga_surplus_tax_rebate: 0
+    ga_refundable_credits: 0
+
+- name: Liability exactly at the filing-status cap yields the full cap
+  period: 2021
+  input:
+    state_code: GA
+    filing_status: HEAD_OF_HOUSEHOLD
+    ga_income_tax_before_non_refundable_credits: 375
+  output:
+    ga_surplus_tax_rebate: 375
+
+- name: Cap binds and refundable rebate drives liability to exactly zero
+  period: 2021
+  input:
+    state_code: GA
+    filing_status: HEAD_OF_HOUSEHOLD
+    ga_income_tax_before_non_refundable_credits: 200
+    # Zero out the low-income credit so the rebate alone drives liability to
+    # exactly zero (otherwise ga_low_income_credit reduces the pre-refundable
+    # base and the refundable rebate overshoots into a negative balance).
+    ga_low_income_credit: 0
+  output:
+    ga_surplus_tax_rebate: 200
+    ga_refundable_credits: 200
+    ga_income_tax: 0
