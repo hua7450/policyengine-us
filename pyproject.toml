@@ -1,6 +1,6 @@
 [project]
 name = "policyengine-us"
-version = "1.768.1"
+version = "1.775.9"
 description = "US federal and state tax-benefit microsimulation model."
 readme = "README.md"
 authors = [
@@ -27,7 +27,7 @@ dependencies = [
     # (kept for Census, PR #8035) stay on pandas 2.x with deep copies.
     "pandas>=3.0; python_version >= '3.11'",
     "pandas>=2.0; python_version < '3.11'",
-    "policyengine-core>=3.26.0",
+    "policyengine-core>=3.26.5",
     "spm-calculator>=0.2.0",
     "tables>=3.9",
     "tqdm>=4.67.1",
