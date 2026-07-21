@@ -34,7 +34,18 @@ class wy_ccap_activity_eligible(Variable):
         # are supplied through the childcare_hours_per_day input that
         # drives the part-day or full-day rate (wy_ccap_day_length).
         person = spm_unit.members
-        is_caretaker = person("is_tax_unit_head_or_spouse", period.this_year)
+        # Rules Ch. 1 §6(f) lets a minor parent apply on their own behalf,
+        # and §8(e)(i)(K) qualifies a minor parent living with their own
+        # caretakers when all of them participate in an approved activity.
+        # is_tax_unit_head_or_spouse is structurally False for anyone under
+        # 18, so the caretaker set also includes minor parents (a person
+        # under 18 with their own child in the household).
+        is_minor_parent = person("is_child", period.this_year) & person(
+            "is_parent", period.this_year
+        )
+        is_caretaker = (
+            person("is_tax_unit_head_or_spouse", period.this_year) | is_minor_parent
+        )
         hours = person("weekly_hours_worked_before_lsr", period.this_year)
         working = is_caretaker & (hours > 0)
         waived = is_caretaker & person("is_disabled", period.this_year)

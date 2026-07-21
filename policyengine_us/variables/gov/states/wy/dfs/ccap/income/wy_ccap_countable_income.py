@@ -35,17 +35,23 @@ class wy_ccap_countable_income(Variable):
                 "farm_operations_income",
             ],
         )
-        # Appendix B exempts the wages of dependent children under 18; a
-        # minor unit head or spouse (a minor parent) remains counted.
-        is_minor_dependent = person("is_child", period.this_year) & ~person(
-            "is_tax_unit_head_or_spouse", period.this_year
-        )
+        # Appendix B exempts the wages of a dependent child under 18, while
+        # Rules Ch. 1 §8(e)(iv)(E)(II) and Manual §905.A.6 count a minor
+        # parent's own income, so the exemption reaches only minors who are
+        # not themselves parents (own child in the household).
+        is_child = person("is_child", period.this_year)
+        is_minor_parent = is_child & person("is_parent", period.this_year)
         # Rules Ch. 1 §4(aa), §8(e)(iv)(D)(III)(5.): deduct $200 from the
-        # gross earned income of each working adult, capped at that adult's
+        # gross earned income of each employed adult, capped at that adult's
         # earnings; the per-person zero floor also keeps a self-employment
-        # loss from offsetting other income.
-        countable_earned = where(
-            is_minor_dependent, 0, max_(earned - p.earned_income_disregard, 0)
+        # loss from offsetting other income. A minor parent is not an adult
+        # (Manual §200 defines an adult as 18 or over, or emancipated —
+        # emancipation is not tracked), so a minor parent's earnings count
+        # in full with no disregard.
+        countable_earned = select(
+            [~is_child, is_minor_parent],
+            [max_(earned - p.earned_income_disregard, 0), max_(earned, 0)],
+            default=0,
         )
         unearned = spm_unit("wy_ccap_gross_income", period) - spm_unit.sum(earned)
         # Manual §907.B: deduct child support paid by a parent whose income

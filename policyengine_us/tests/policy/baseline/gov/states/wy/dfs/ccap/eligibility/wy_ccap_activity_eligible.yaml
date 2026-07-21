@@ -1,5 +1,6 @@
 # Unit tests for wy_ccap_activity_eligible (SPMUnit, MONTH, bool).
-# Rules Ch. 1 §8(e)(i)(C), (D): every caretaker (tax unit head or spouse)
+# Rules Ch. 1 §8(e)(i)(C), (D): every caretaker (a tax unit head or spouse,
+# or a minor parent with their own child in the unit — §8(e)(i)(K), §6(f))
 # must participate in an approved activity; Wyoming sets no minimum-hours
 # floor, so any positive work hours qualify. §8(e)(i)(E): a disabled
 # caretaker unable to care for the child is waived when the other caretaker
@@ -199,6 +200,74 @@
     households:
       household:
         members: [person1, person2]
+        state_code: WY
+  output:
+    wy_ccap_activity_eligible: true
+
+# Rules §8(e)(i)(K) makes minor parents eligible and §6(f) lets a minor
+# parent apply on their own behalf; their own child in the unit marks them
+# as the caretaker (no injected tax-role inputs — a 17-year-old can never
+# derive is_tax_unit_head), and their work activity gates the unit.
+- name: Case 10, a working minor parent qualifies their own unit.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 17
+        weekly_hours_worked_before_lsr: 25
+        own_children_in_household: 1
+      person2:
+        age: 1
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: WY
+  output:
+    wy_ccap_activity_eligible: true
+
+- name: Case 11, an idle minor parent fails the activity test.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 17
+        weekly_hours_worked_before_lsr: 0  # idle and not disabled
+        own_children_in_household: 1
+      person2:
+        age: 1
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: WY
+  output:
+    wy_ccap_activity_eligible: false
+
+# A dependent teen without their own child is not a caretaker, so their
+# idleness does not fail the working parent's unit.
+- name: Case 12, an idle dependent teen who is not a parent does not fail the test.
+  period: 2026-01
+  input:
+    people:
+      person1:
+        age: 35
+        weekly_hours_worked_before_lsr: 40
+      person2:
+        age: 16
+        weekly_hours_worked_before_lsr: 0  # not a caretaker
+      person3:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2, person3]
+    households:
+      household:
+        members: [person1, person2, person3]
         state_code: WY
   output:
     wy_ccap_activity_eligible: true
