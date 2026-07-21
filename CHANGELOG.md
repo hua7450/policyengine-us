@@ -1,3 +1,10 @@
+## [1.779.3] - 2026-07-21
+
+### Fixed
+
+- Update the June 2026 WIC CVB test to the takes_up_wic_if_eligible take-up flag, fixing the baseline suite on main after the would_claim_wic rename.
+
+
 ## [1.779.2] - 2026-07-21
 
 ### Changed
