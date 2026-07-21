@@ -488,3 +488,40 @@
   output:
     # WFC base only: min($10,000, $9,480) * 0.04 = $379.20, no older-child bonus.
     mn_child_and_working_families_credits: 379.2
+
+# Minnesota decouples from IRC 32(m) (Minn. Stat. 290.0661/290.0671), so an
+# ITIN child (ssn_card_type OTHER_NON_CITIZEN, no SSN valid for employment)
+# receives the same MN CTC as a citizen child. This mirrors the "2025 Joint
+# filers with one CTC-eligible child" case above (which yields $2,129.20) but
+# makes the child an ITIN child; the amount must be identical. This case FAILS
+# if the 32(m) SSN gate is restored to the eligible-child formula.
+- name: 2025 Joint filers with one ITIN CTC-eligible child receive the same MN CTC as a citizen child
+  # WFC: min($10,000, $9,480) * 0.04 = $379.20; CTC: 1 child * $1,750 = $1,750
+  # Total = $2,129.20, no phaseout (AGI $10,000 < $37,910 joint threshold).
+  period: 2025
+  input:
+    people:
+      person1:
+        age: 48
+        is_child_dependent: false
+      person2:
+        age: 40
+        is_child_dependent: false
+      person3:
+        age: 5
+        is_child_dependent: true
+        ssn_card_type: OTHER_NON_CITIZEN
+    tax_units:
+      tax_unit:
+        members: [person1, person2, person3]
+        ctc_qualifying_children: 1
+        mn_wfc_eligible: true
+        filer_adjusted_earnings: 10_000
+        adjusted_gross_income: 10_000
+        filing_status: JOINT
+    households:
+      household:
+        members: [person1, person2, person3]
+        state_code: MN
+  output:
+    mn_child_and_working_families_credits: 2_129.2
