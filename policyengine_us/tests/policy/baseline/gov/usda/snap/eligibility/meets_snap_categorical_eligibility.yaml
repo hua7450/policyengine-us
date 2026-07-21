@@ -64,14 +64,17 @@
   output:
     meets_snap_categorical_eligibility: true
 
-- name: Reported SSI creates eligibility when use_reported_ssi is true.
+# The deprecated use_reported_ssi/ssi_reported pair only affects the
+# applicable_ssi output, which programs no longer read; reported SSI is
+# expressed by sending the ssi input or setting receives_ssi.
+- name: Deprecated use_reported_ssi bridge no longer confers eligibility.
   period: 2022
   input:
     is_tanf_non_cash_eligible: false
     use_reported_ssi: true
     ssi_reported: 1
   output:
-    meets_snap_categorical_eligibility: true
+    meets_snap_categorical_eligibility: false
 
 - name: Reported SSI receipt creates eligibility when computed SSI is zero.
   period: 2022-01
