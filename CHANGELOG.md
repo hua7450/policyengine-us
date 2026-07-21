@@ -1,3 +1,112 @@
+## [1.776.2] - 2026-07-21
+
+### Changed
+
+- Add published June 2024 and June 2025 California CPI values to the CA uprating index, and fix six CA breakdown parameters (standard deduction, AMT exemption and AMTI thresholds, itemized deduction limit, exemption phase-out start) whose uprating metadata was silently inert at the file level by moving it onto the filing-status values.
+
+
+## [1.776.1] - 2026-07-20
+
+### Fixed
+
+- Cap the Georgia HB 162 surplus tax rebate at Form 500 Line 16 tax before credits per O.C.G.A. 48-7-20.2 and pay it out as a refundable amount, so other nonrefundable credits no longer reduce it; zero the amount outside tax year 2021. Also correct the qualifying surviving spouse (Form 500 status D) rebate cap from $500 to $375 to match the head-of-household tier.
+- Correct the Missouri head of household $1,400 additional exemption to start in 2022, when MO-1040 Line 15 first appeared (the 2018-2021 forms had no line for it), and stop netting the refundable CTC and 2021 refundable CDCC out of the federal income tax deduction base, per the MO-1040 Line 9 worksheet.
+
+
+## [1.776.0] - 2026-07-20
+
+### Added
+
+- Add Colorado's add-back of the federal overtime compensation deduction (HB25-1296) from tax year 2026.
+
+
+## [1.775.12] - 2026-07-20
+
+### Changed
+
+- - Dataset extension no longer deep-copies the full dataset per projected year; under pandas copy-on-write, carried-forward columns share base-year buffers, cutting extension time ~11x (about 21s to 2s on the full Populace 2024 dataset) with bit-identical output. `USSingleYearDataset.copy(deep=False)` falls back to a deep copy when copy-on-write is unavailable, so isolation is guaranteed on all pandas versions.
+  - Require pandas >= 3.0 on Python >= 3.11 (pandas >= 2.0 retained for Python 3.9/3.10). This floor is stricter than the code requires — the runtime fallback keeps pandas 2.x fully correct — and is a deliberate choice to guarantee the fast path and pandas-3 CI coverage; downstream environments on Python >= 3.11 will be upgraded to pandas 3.
+  - Note for downstream code: under pandas 3, arrays loaded from datasets into simulation holders are read-only views; in-place mutation of `holder.get_array(...)` results (e.g. `arr[mask] = x`) now raises `ValueError` where it previously worked. Copy the array first if mutation is needed.
+  - Cap numpy below 2.0 on Python 3.9, where PyTables 3.9.x wheels are built against numpy 1.x; without the cap, every `pd.HDFStore` call on Python 3.9 fails with a binary-incompatibility error (pre-existing breakage surfaced by the new compat-leg tests).
+
+
+## [1.775.11] - 2026-07-20
+
+### Fixed
+
+- - Require policyengine-core >= 3.30.1 so behavioral-response measurement branches record real baseline and reform marginal tax rates; the substitution and capital-gains channels were inert under earlier cores. Adds an end-to-end regression test.
+
+
+## [1.775.10] - 2026-07-20
+
+### Fixed
+
+- Washington Working Families Tax Credit no longer pays for tax years before 2022, the program's first year under RCW 82.08.0206 as funded by ch. 195, Laws of 2021.
+
+
+## [1.775.9] - 2026-07-20
+
+### Changed
+
+- Update the SNAP uprating index with published CPI-U actuals for June 2024, 2025, and 2026, raising projected FY2027 COLAs to +3.5% year-over-year; later years remain CBO forecasts.
+
+
+## [1.775.8] - 2026-07-18
+
+### Fixed
+
+- Guard the bracket-schedule loops (income_tax_main_rates, the AMT regular-tax worksheet, and the additional_tax_bracket reform's copies) against non-monotone thresholds: an inverted bracket pair contributed rate x (top - bottom) < 0 to every filer of the affected status at any income, and a partially patched schedule manufactured phantom AMT for filers with preferential income (issue #9084).
+
+
+## [1.775.7] - 2026-07-18
+
+### Fixed
+
+- Weight rent by an assumed landlord property tax factor (0.15, matching TAXSIM) instead of counting 100% of rent as property taxes paid in the Arizona property tax credit, per ARS 43-1072(B) and Form 140PTC line 13.
+
+
+## [1.775.6] - 2026-07-18
+
+### Fixed
+
+- Delaware now excludes unemployment compensation received in 2020 and 2021 from Delaware AGI, per 30 Del. C. § 1106(b)(10).
+
+
+## [1.775.5] - 2026-07-17
+
+### Fixed
+
+- Fixed the Montana 2021 income tax rebate double-count by applying the per-return cap once, splitting it across each spouse's column rather than projecting the tax-unit rebate onto every member.
+
+
+## [1.775.4] - 2026-07-17
+
+### Fixed
+
+- Fixed the Montana taxable Social Security schedule to apply the filing-status base amounts once per return rather than in full per spouse, using the half-of-joint amounts per column for married filers and the full joint amounts for the single-column joint computation.
+
+
+## [1.775.3] - 2026-07-17
+
+### Fixed
+
+- The DC Child Tax Credit now applies only to DC households: `dc_ctc` was missing `defined_for = StateCode.DC`, so from 2026 (when it joined `gov.states.household.state_ctcs`) it computed for households in any state and leaked into `taxsim_state_ctc` and its deprecated `state_ctc` alias (see #9079).
+
+
+## [1.775.2] - 2026-07-17
+
+### Fixed
+
+- Oregon Kids' Credit: encode the HB 3235 sunset (tax years beginning before January 1, 2029) as a `gov.states.or.tax.income.credits.ctc.in_effect` parameter gating the `or_ctc` formula, keep `or_ctc` in the refundable-credits list so a single switch models renewal scenarios, and project the credit amount and phase-out start with the exact ORS 315.273(5) cost-of-living formula (unchained CPI-U over the 2022 Q2 base, each increase from the statutory bases rounded down to the next lower multiple of $50), which pins the CPI-determined 2026 values at $1,050 and $27,250.
+
+
+## [1.775.1] - 2026-07-17
+
+### Fixed
+
+- Reforms starting at a future date no longer freeze uprating of the reformed parameter for the years before the reform starts: the reform set is now applied after the parameter processing pipeline (uprating included) instead of before it, so pre-start years keep their baseline uprated values. As a consequence, a reform on an uprating index series (e.g. gov.bls.cpi.c_cpi_u) now changes only that series and no longer regenerates gov.irs.uprating or dependent parameters' uprated values — an untested incidental behavior of the old ordering (see #9078).
+
+
 ## [1.775.0] - 2026-07-16
 
 ### Added
