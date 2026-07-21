@@ -1,3 +1,11 @@
+## [1.779.1] - 2026-07-21
+
+### Changed
+
+- Migrate programs from the deprecated applicable_ssi bridge to reading ssi directly (SNAP categorical eligibility, Kansas TANF assistance units — now also excluding reported SSI recipients — Texas CEAP, Nebraska Child Care Subsidy, and Illinois AABD), count computed ssi instead of ssi_reported in the Pennsylvania Property Tax/Rent Rebate income, and retain applicable_ssi, ssi_reported, and use_reported_ssi as deprecated no-op inputs for API partner compatibility.
+- Add published BLS monthly CPI values (CPI-U, Chained CPI-U, and CPI-W) from September 2025 through June 2026 — October 2025 was never published — replacing the CBO projection points those months cover, and update the HHS uprating index's 2025 entry to the published calendar-2025 CPI-U average.
+
+
 ## [1.779.0] - 2026-07-21
 
 ### Added
