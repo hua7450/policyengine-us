@@ -1,3 +1,10 @@
+## [1.778.0] - 2026-07-21
+
+### Added
+
+- Count reported receipt (receives_ssi, receives_tanf, receives_snap) in state and local receipt-proxy rules: state SSI supplements (KS, WA, GA, MI, IN, FL, MD, NE, ID, MN), TANF assistance-unit rules (TX, NC, MT, IL), the SNAP student exemption, Medicaid community engagement pass-through, California county General Assistance programs, and state tax credits and childcare programs keyed on benefit receipt.
+
+
 ## [1.777.0] - 2026-07-21
 
 ### Added
