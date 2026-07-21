@@ -1,0 +1,1 @@
+Derive is_tanf_enrolled from receives_tanf by default, consolidating the TANF enrollment signal with reported receipt; explicit is_tanf_enrolled inputs still override. Year-defined consumers (NH FANF, CO/NC TANF income, CalWORKs financial test, TX CEAP) now read enrollment at the year's first month instead of relying on input carry-over.
