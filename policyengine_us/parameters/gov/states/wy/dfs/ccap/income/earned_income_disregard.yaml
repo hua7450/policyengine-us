@@ -1,0 +1,15 @@
+description: Wyoming deducts this amount from the gross earned income of each working adult in the assistance unit under the Child Care, Purchase of Service program.
+values:
+  2024-04-01: 200
+
+metadata:
+  unit: currency-USD
+  period: month
+  label: Wyoming CCAP earned income disregard
+  reference:
+    - title: Wyo. Admin. Rules, DFS, Child Care - Purchase of Service, Ch. 1 §4(aa), eff. 05/07/2025 (PDF p. 5)
+      href: https://drive.google.com/file/d/1yatL28Yylj62R2cTipV2sGa10TxZplxr/view
+    - title: Wyo. Admin. Rules, DFS, Child Care - Purchase of Service, Ch. 1 §8(e)(iv)(D)(III)(5.), eff. 05/07/2025 (PDF p. 19)
+      href: https://drive.google.com/file/d/1yatL28Yylj62R2cTipV2sGa10TxZplxr/view
+    - title: Wyoming DFS Child Care Subsidy Policy Manual §907.A (PDF p. 9)
+      href: https://drive.google.com/file/d/1XWs2Q_duALLgJzG88OthnYJ87XApYZzS/view

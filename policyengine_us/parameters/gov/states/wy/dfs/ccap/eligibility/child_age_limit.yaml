@@ -1,0 +1,13 @@
+description: Wyoming limits eligibility to children under this age under the Child Care, Purchase of Service program.
+values:
+  2024-04-01: 13
+
+metadata:
+  unit: year
+  period: year
+  label: Wyoming CCAP child age limit
+  reference:
+    - title: Wyo. Admin. Rules, DFS, Child Care - Purchase of Service, Ch. 1 §8(e)(i)(A), eff. 05/07/2025 (PDF p. 16)
+      href: https://drive.google.com/file/d/1yatL28Yylj62R2cTipV2sGa10TxZplxr/view
+    - title: Wyoming DFS Child Care Subsidy Policy Manual §601 (PDF p. 1)
+      href: https://drive.google.com/file/d/1fQaSE7s66OY0c3M8-gMeB9WWm_CFpCQ5/view

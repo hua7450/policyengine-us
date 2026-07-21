@@ -1,0 +1,18 @@
+description: Wyoming limits countable income to this share of the federal poverty guideline at initial application under the Child Care, Purchase of Service program.
+# Rules §8(e)(i)(N) / Manual §1101.A: an initial application must be at
+# Sliding Fee Scale Step 4 or below. Steps are federal-poverty-guideline
+# multiples (Step 4 = 175%), so the limit self-uprates with the guideline.
+# Continuing recipients use the higher Step 6 share (see continued.yaml),
+# selected via the wy_ccap_enrolled input.
+values:
+  2024-04-01: 1.75
+
+metadata:
+  unit: /1
+  period: year
+  label: Wyoming CCAP initial income limit share of federal poverty guideline
+  reference:
+    - title: Wyo. Admin. Rules, DFS, Child Care - Purchase of Service, Ch. 1 §8(e)(i)(N) and Appendix A, eff. 05/07/2025 (PDF pp. 18, 37)
+      href: https://drive.google.com/file/d/1yatL28Yylj62R2cTipV2sGa10TxZplxr/view
+    - title: Wyoming DFS Child Care Subsidy Policy Manual §1101.A (PDF p. 1)
+      href: https://drive.google.com/file/d/1XlBkvgwQuX-rIL3eYjkPog1zZ-hi-gD7/view
