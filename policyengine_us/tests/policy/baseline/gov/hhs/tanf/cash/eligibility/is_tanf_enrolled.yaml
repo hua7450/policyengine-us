@@ -33,3 +33,17 @@
         receives_tanf: false
   output:
     is_tanf_enrolled: true
+
+- name: Case 4, explicit false enrollment input wins over reported receipt.
+  period: 2025-01
+  input:
+    people:
+      person1:
+        age: 30
+    spm_units:
+      spm_unit:
+        members: [person1]
+        is_tanf_enrolled: false
+        receives_tanf: true
+  output:
+    is_tanf_enrolled: false
