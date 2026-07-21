@@ -146,7 +146,7 @@
         income_tax_capped_non_refundable_credits: 2508.0
         income_tax_non_refundable_credits: 2508.0
         income_tax: -4130.43
-        ca_income_tax_before_credits: 505.0
+        ca_income_tax_before_credits: 499.83
         ca_income_tax_before_refundable_credits: 0.0
 - name: amplifi_2026_case_b (2026)
   period: 2026
@@ -296,7 +296,7 @@
         income_tax_capped_non_refundable_credits: 1225.0
         income_tax_non_refundable_credits: 1225.0
         income_tax: -7856.39
-        ca_income_tax_before_credits: 273.0
+        ca_income_tax_before_credits: 267.83
         ca_income_tax_before_refundable_credits: 0.0
 - name: amplifi_2026_case_c (2026)
   period: 2026
