@@ -1,0 +1,1 @@
+Vehicle value checks in the Santa Clara, Contra Costa, San Francisco (CAAP), and Marin county General Assistance/General Relief eligibility, and cash assets in the Santa Clara and Contra Costa personal property tests.
