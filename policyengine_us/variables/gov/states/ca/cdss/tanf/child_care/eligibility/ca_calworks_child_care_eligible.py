@@ -10,7 +10,13 @@ class ca_calworks_child_care_eligible(Variable):
     reference = "http://epolicy.dpss.lacounty.gov/epolicy/epolicy/server/general/projects_responsive/ePolicyMaster/index.htm?&area=general&type=responsivehelp&ctxid=&project=ePolicyMaster#t=mergedProjects%2FChild%20Care%2FChild_Care%2F1210_Overview%2F1210_Overview.htm%23Backgroundbc-3&rhtocid=_3_3_0_2"
 
     def formula(spm_unit, period, parameters):
-        receives_tanf = spm_unit("ca_tanf", period) > 0
+        # Read the take-up-gated federal aggregator rather than ca_tanf
+        # directly, so reported non-receipt (takes_up_tanf_if_eligible: false)
+        # and reported amounts sent as the tanf input both propagate; for a
+        # California household, tanf equals the CalWORKs benefit.
+        receives_calworks = (add(spm_unit, period, ["tanf"]) > 0) | (
+            add(spm_unit, period, ["receives_tanf"]) > 0
+        )
         age_eligible = spm_unit("ca_calworks_child_care_age_eligible", period)
         work_requirement = spm_unit(
             "ca_calworks_child_care_meets_work_requirement", period
@@ -22,4 +28,6 @@ class ca_calworks_child_care_eligible(Variable):
                 period,
             )
         )
-        return receives_tanf & age_eligible & work_requirement & immigration_eligible
+        return (
+            receives_calworks & age_eligible & work_requirement & immigration_eligible
+        )

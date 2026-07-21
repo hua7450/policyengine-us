@@ -17,7 +17,10 @@ class il_ipass_assist_categorical_eligible(Variable):
         snap = (spm_unit("snap", period) > 0) | (
             add(spm_unit, period, ["receives_snap"]) > 0
         )
-        tanf = (spm_unit("il_tanf", period) > 0) | (
+        # Read the take-up-gated federal aggregator rather than il_tanf
+        # directly, matching the snap arm; for an Illinois household, tanf
+        # equals the IL TANF benefit.
+        tanf = (spm_unit("tanf", period) > 0) | (
             add(spm_unit, period, ["receives_tanf"]) > 0
         )
         return snap | tanf

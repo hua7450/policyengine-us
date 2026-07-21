@@ -1,5 +1,5 @@
 # Illinois I-PASS Assist categorical eligibility tests
-# Formula: (snap > 0) | (il_tanf > 0)
+# Formula: (snap > 0) | receives_snap | (tanf > 0) | receives_tanf
 #
 # Source: https://agency.illinoistollway.com/assist
 
