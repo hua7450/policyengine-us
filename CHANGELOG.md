@@ -1,3 +1,24 @@
+## [1.778.1] - 2026-07-21
+
+### Changed
+
+- Derive is_tanf_enrolled from receives_tanf by default, consolidating the TANF enrollment signal with reported receipt; explicit is_tanf_enrolled inputs still override. Year-defined consumers (NH FANF, CO/NC TANF income, CalWORKs financial test, TX CEAP) now read enrollment at the year's first month instead of relying on input carry-over.
+
+
+## [1.778.0] - 2026-07-21
+
+### Added
+
+- Count reported receipt (receives_ssi, receives_tanf, receives_snap) in state and local receipt-proxy rules: state SSI supplements (KS, WA, GA, MI, IN, FL, MD, NE, ID, MN), TANF assistance-unit rules (TX, NC, MT, IL), the SNAP student exemption, Medicaid community engagement pass-through, California county General Assistance programs, and state tax credits and childcare programs keyed on benefit receipt.
+
+
+## [1.777.0] - 2026-07-21
+
+### Added
+
+- Add X_if_takes_up counterfactual outputs and receives_X reported-receipt inputs for SSI, TANF, SNAP, and WIC, apply SNAP take-up through the household API, rename would_claim_wic to takes_up_wic_if_eligible, and count reported receipt in SNAP categorical eligibility, WIC adjunctive eligibility, Head Start, and Medicaid SSI-recipient categories.
+
+
 ## [1.776.2] - 2026-07-21
 
 ### Changed
