@@ -1,3 +1,10 @@
+## [1.779.0] - 2026-07-21
+
+### Added
+
+- Vehicle value checks in the Santa Clara, Contra Costa, San Francisco (CAAP), and Marin county General Assistance/General Relief eligibility, and cash assets in the Santa Clara and Contra Costa personal property tests.
+
+
 ## [1.778.1] - 2026-07-21
 
 ### Changed
