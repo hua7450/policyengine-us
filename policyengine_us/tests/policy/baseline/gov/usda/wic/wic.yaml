@@ -78,6 +78,6 @@
   input:
     wic_food_package_str: CHILD_24_59_MONTHS
     is_wic_eligible: true
-    would_claim_wic: true
+    takes_up_wic_if_eligible: true
   output:
     wic: 60.42
