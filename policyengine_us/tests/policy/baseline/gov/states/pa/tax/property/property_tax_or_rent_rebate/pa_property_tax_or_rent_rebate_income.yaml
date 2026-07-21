@@ -38,7 +38,7 @@
     people:
       person1:
         age: 65
-        ssi_reported: 2_000
+        ssi: 2_000
         railroad_benefits: 10_000
     tax_units:
       tax_unit:

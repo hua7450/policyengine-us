@@ -13,9 +13,7 @@ class meets_snap_categorical_eligibility(Variable):
         programs = parameters(period).gov.usda.snap.categorical_eligibility
         spm_level_programs = [program for program in programs if program != "ssi"]
         person = spm_unit.members
-        receives_ssi = (person("applicable_ssi", period) > 0) | person(
-            "receives_ssi", period
-        )
+        receives_ssi = (person("ssi", period) > 0) | person("receives_ssi", period)
         all_members_receive_ssi = spm_unit.all(receives_ssi)
         return (
             all_members_receive_ssi
