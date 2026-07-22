@@ -1,3 +1,12 @@
+## [1.779.7] - 2026-07-22
+
+### Fixed
+
+- Fixed the Colorado sales tax refund to pay the single per-person amount when only one spouse of a joint return is eligible, instead of always doubling for joint returns.
+- Corrected the medicaid_rating_area lookup comment to match the code (county first, then three-digit zip code fallback, defaulting to 1).
+- Applied Rhode Island's pre-2015 partial (15%) refundability of the earned income tax credit amount exceeding the tax liability.
+
+
 ## [1.779.6] - 2026-07-22
 
 ### Fixed
