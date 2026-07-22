@@ -1,3 +1,10 @@
+## [1.779.5] - 2026-07-22
+
+### Fixed
+
+- Fixed a misspelled Westchester County, NY key in the CCDF copay percent parameter so the county's 27% copay is applied instead of defaulting to 100%.
+
+
 ## [1.779.4] - 2026-07-22
 
 ### Fixed
