@@ -1,3 +1,10 @@
+## [1.779.6] - 2026-07-22
+
+### Fixed
+
+- Applied the basic income disability supplement to blind people in household simulations by including is_blind alongside is_ssi_disabled.
+
+
 ## [1.779.5] - 2026-07-22
 
 ### Fixed
