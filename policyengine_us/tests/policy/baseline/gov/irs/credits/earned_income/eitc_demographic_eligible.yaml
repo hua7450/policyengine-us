@@ -26,6 +26,35 @@
   output:
     eitc_demographic_eligible: true
 
+- name: Childless 22-year-old with a 60-year-old dependent parent is not eligible - a dependent's age does not satisfy IRC 32(c)(1)(A)(ii)(II).
+  period: 2025
+  input:
+    people:
+      filer:
+        age: 22
+      parent:
+        age: 60
+        is_tax_unit_dependent: true
+    tax_units:
+      tax_unit:
+        members: [filer, parent]
+  output:
+    eitc_demographic_eligible: false
+
+- name: Childless 23-year-old filing jointly with a 30-year-old spouse is eligible - either spouse can satisfy the age test.
+  period: 2025
+  input:
+    people:
+      head:
+        age: 30
+      spouse:
+        age: 23
+    tax_units:
+      tax_unit:
+        members: [head, spouse]
+  output:
+    eitc_demographic_eligible: true
+
 - name: Non-student in 2021 eligible at age 19.
   period: 2021
   input:
