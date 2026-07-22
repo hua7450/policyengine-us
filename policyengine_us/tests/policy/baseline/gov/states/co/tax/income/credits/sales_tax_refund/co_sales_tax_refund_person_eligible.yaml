@@ -86,7 +86,7 @@
   input:
     people:
       head:
-        age: 40
+        age: 17
         is_tax_unit_head: true
         irs_employment_income: 0
     tax_units:
