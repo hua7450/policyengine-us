@@ -1,3 +1,10 @@
+## [1.779.4] - 2026-07-22
+
+### Fixed
+
+- Fixed the SNAP student parent exception so a single parent responsible for a child under six qualifies for Exception 5 without being a full-time student.
+
+
 ## [1.779.3] - 2026-07-21
 
 ### Fixed
