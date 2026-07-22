@@ -12,12 +12,15 @@ class co_sales_tax_refund(Variable):
 
     def formula(tax_unit, period, parameters):
         p = parameters(period).gov.states.co.tax.income.credits.sales_tax_refund.amount
-        filing_status = tax_unit("filing_status", period)
-        multiplier = p.multiplier[filing_status]
         if p.flat_amount_enabled:
             amount = p.amount
         else:
             agi = tax_unit("co_modified_agi", period)
-            multiplier = p.multiplier[filing_status]
             amount = p.scale.calc(agi)
-        return multiplier * amount
+        # The refund is claimed per qualifying individual (head and/or spouse),
+        # so multiply the per-person amount by the number of eligible filers
+        # rather than doubling for every joint return.
+        eligible_count = tax_unit.sum(
+            tax_unit.members("co_sales_tax_refund_person_eligible", period)
+        )
+        return eligible_count * amount

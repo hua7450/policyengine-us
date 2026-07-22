@@ -1,0 +1,79 @@
+- name: Head at or above age threshold, no earnings, unit tax 0 -> eligible
+  period: 2022
+  input:
+    people:
+      head:
+        age: 40
+        is_tax_unit_head: true
+        irs_employment_income: 0
+    tax_units:
+      tax_unit:
+        members: [head]
+        co_income_tax_before_non_refundable_credits: 0
+    households:
+      household:
+        members: [head]
+        state_code: CO
+  output:
+    co_sales_tax_refund_person_eligible: true
+
+- name: Dependent above age threshold (not head or spouse) -> ineligible
+  period: 2022
+  input:
+    people:
+      head:
+        age: 40
+        is_tax_unit_head: true
+      dependent:
+        age: 70
+        is_tax_unit_head: false
+        is_tax_unit_spouse: false
+        irs_employment_income: 0
+    tax_units:
+      tax_unit:
+        members: [head, dependent]
+        co_income_tax_before_non_refundable_credits: 0
+    households:
+      household:
+        members: [head, dependent]
+        state_code: CO
+  output:
+    co_sales_tax_refund_person_eligible: [true, false]
+
+- name: Head below age threshold, no earnings, unit tax 0 -> ineligible
+  period: 2022
+  input:
+    people:
+      head:
+        age: 10
+        is_tax_unit_head: true
+        irs_employment_income: 0
+    tax_units:
+      tax_unit:
+        members: [head]
+        co_income_tax_before_non_refundable_credits: 0
+    households:
+      household:
+        members: [head]
+        state_code: CO
+  output:
+    co_sales_tax_refund_person_eligible: false
+
+- name: Head below age threshold but with employment income -> eligible
+  period: 2022
+  input:
+    people:
+      head:
+        age: 10
+        is_tax_unit_head: true
+        irs_employment_income: 5_000
+    tax_units:
+      tax_unit:
+        members: [head]
+        co_income_tax_before_non_refundable_credits: 0
+    households:
+      household:
+        members: [head]
+        state_code: CO
+  output:
+    co_sales_tax_refund_person_eligible: true
