@@ -1,1 +1,0 @@
-Colorado child tax credit refundable child count no longer imposes the federal child-SSN gate for 2022-2023, including ITIN children, and now qualifies children under six years of age rather than under seventeen, per C.R.S. 39-22-129(2)(a) and (3.5)(a).

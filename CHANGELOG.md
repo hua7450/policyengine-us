@@ -1,3 +1,11 @@
+## [1.779.10] - 2026-07-23
+
+### Fixed
+
+- Colorado child tax credit refundable child count no longer imposes the federal child-SSN gate for 2022-2023, including ITIN children, and now qualifies children under six years of age rather than under seventeen, per C.R.S. 39-22-129(2)(a) and (3.5)(a).
+- Corrected the Minnesota Child Tax Credit and Working Family Credit to allow ITIN filers and qualifying children, per Minn. Stat. 290.0661 and 290.0671, which disapply IRC section 32(m).
+
+
 ## [1.779.9] - 2026-07-23
 
 ### Changed
