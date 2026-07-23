@@ -12,9 +12,9 @@ class wy_ccap_copay(Variable):
     definition_period = MONTH
     defined_for = "wy_ccap_eligible"
     reference = (
-        "https://drive.google.com/file/d/1T7NWbz6hOlRyAcqwROXExos5JB57NstB/view",  # Wyoming DFS Table I - Child Care Sliding Fee Scale, eff. 04/01/25-03/31/26 (single page)
+        "https://dfs.wyo.gov/services/family-services/child-care/",  # Wyoming DFS Table I - Child Care Sliding Fee Scale, eff. 04/01/25-03/31/26 (single page)
         "https://wyoleg.gov/statutes/compress/title42.pdf#page=13",  # W.S. 42-2-103(f)(i) (enabling authority for the sliding fee scale copayments)
-        "https://drive.google.com/file/d/10TJ3S8d_nwyNxdkkbyk2gzCfHTk7CTcA/view",  # Wyoming CCDF State Plan FFY 2025-2027 §§3.1.1, 3.3.1 (PDF pp. 34, 37)
+        "https://dfs.wyo.gov/services/family-services/child-care/",  # Wyoming CCDF State Plan FFY 2025-2027 §§3.1.1, 3.3.1 (PDF pp. 34, 37)
     )
 
     def formula(spm_unit, period, parameters):

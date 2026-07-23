@@ -8,5 +8,5 @@ class wy_child_care_subsidies(Variable):
     unit = USD
     definition_period = YEAR
     defined_for = StateCode.WY
-    reference = "https://drive.google.com/file/d/1yatL28Yylj62R2cTipV2sGa10TxZplxr/view"  # Wyo. Admin. Rules, DFS, Child Care - Purchase of Service, Ch. 1, eff. 05/07/2025
+    reference = "https://rules.wyo.gov/DownloadFile.aspx?source_id=24638&source_type_id=81&doc_type_id=110&include_meta_data=Y&file_type=pdf&filename=24638.pdf&token=189087205215053222164006221008072207044097222254"  # Wyo. Admin. Rules, DFS, Child Care - Purchase of Service, Ch. 1, eff. 05/07/2025
     adds = ["wy_ccap"]

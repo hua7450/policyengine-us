@@ -15,8 +15,8 @@ class wy_ccap_day_length(Variable):
     defined_for = StateCode.WY
     label = "Wyoming CCAP day length"
     reference = (
-        "https://drive.google.com/file/d/1T7NWbz6hOlRyAcqwROXExos5JB57NstB/view",  # Wyoming DFS Table I - Child Care Sliding Fee Scale, eff. 04/01/25-03/31/26 (single page)
-        "https://drive.google.com/file/d/1XlBkvgwQuX-rIL3eYjkPog1zZ-hi-gD7/view",  # Wyoming DFS Child Care Subsidy Policy Manual §1101.N.1 (PDF p. 2)
+        "https://dfs.wyo.gov/services/family-services/child-care/",  # Wyoming DFS Table I - Child Care Sliding Fee Scale, eff. 04/01/25-03/31/26 (single page)
+        "https://dfs.wyo.gov/about/policy-manuals/child-care-subsidy-policy-manual/",  # Wyoming DFS Child Care Subsidy Policy Manual §1101.N.1 (PDF p. 2)
     )
 
     def formula(person, period, parameters):
