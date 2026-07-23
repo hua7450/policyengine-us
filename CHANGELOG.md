@@ -1,3 +1,10 @@
+## [1.781.0] - 2026-07-23
+
+### Added
+
+- South Dakota Child Care Assistance (CCA) program.
+
+
 ## [1.780.1] - 2026-07-23
 
 ### Fixed
