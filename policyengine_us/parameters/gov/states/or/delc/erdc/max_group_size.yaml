@@ -1,4 +1,6 @@
 description: Oregon limits the group size used for income and copay calculations to this threshold under the Employment Related Day Care program.
+# Pre-2026-03 vintages of this limit are not encoded; the model applies this
+# value to earlier periods through parameter backdating.
 values:
   2026-03-01: 8
 

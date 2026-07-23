@@ -9,6 +9,10 @@ metadata:
     - title: OAR 414-175-0050(3)(b), Need group size 6
       href: https://secure.sos.state.or.us/oard/view.action?ruleNumber=414-175-0050
 
+# Earlier copayment schedules in the OAR 414-175-0050 rule history (the
+# 2023-07-01, 2024-03-01, and 2025-03-01 versions) are not encoded; the model
+# applies this 2026-03-01 schedule to earlier periods through parameter
+# backdating.
 brackets:
   - threshold:
       2026-03-01: -.inf

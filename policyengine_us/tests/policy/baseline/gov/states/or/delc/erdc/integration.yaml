@@ -278,9 +278,11 @@
     or_erdc_activity_eligible: true
     or_erdc_income_eligible: true
     or_erdc_copay: 0
-    # Categorical 20-hour floor -> 108 monthly hours; certified center part-time
-    # band collapses to hourly (provider does not bill part-time):
-    # min(11 * 108, 1563) = 1188.
+    # Categorical 20-hour floor -> 108 monthly hours. 108 hours falls in the
+    # insert's 63-135-hour part-time monthly tier (published maximum 1,172),
+    # which the model omits because OAR 414-175-0075(3)(c) limits it to
+    # providers who customarily bill part-time (see rates/monthly.yaml), so
+    # the band is priced hourly: min(11 * 108, 1563) = 1188.
     or_erdc_maximum_monthly_rate: [0, 1_188]
     or_erdc: 1_188
 

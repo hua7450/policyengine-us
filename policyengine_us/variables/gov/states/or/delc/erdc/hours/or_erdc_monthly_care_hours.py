@@ -33,5 +33,8 @@ class or_erdc_monthly_care_hours(Variable):
         monthly = weekly_with_travel * p.authorized.weekly_to_monthly
         # The OPEN worker guide (p. 428) publishes the 20-hour band as 108
         # monthly hours (20 * 1.25 * 4.3 = 107.5), so fractional monthly
-        # hours round up before the cap.
+        # hours round up before the cap. OAR 414-175-0075(9)-(10) allow
+        # payment beyond the cap (up to about 323 hours) with a
+        # Department-approved special-circumstances determination, which is
+        # not modeled (see hours/max_monthly.yaml).
         return min_(np.ceil(monthly), p.max_monthly)
