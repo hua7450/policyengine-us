@@ -1,3 +1,10 @@
+## [1.780.0] - 2026-07-23
+
+### Added
+
+- Added Ohio Child Care Assistance Program (Publicly Funded Child Care).
+
+
 ## [1.779.10] - 2026-07-23
 
 ### Fixed
