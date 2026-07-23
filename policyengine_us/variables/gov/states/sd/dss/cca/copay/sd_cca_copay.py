@@ -1,5 +1,10 @@
 from policyengine_us.model_api import *
 
+# Floating-point guard for the whole-dollar floor, not a policy value: it
+# prevents exact whole-dollar results represented infinitesimally below the
+# integer from flooring to the prior dollar.
+ROUNDING_GUARD = 1e-4
+
 
 class sd_cca_copay(Variable):
     value_type = float
@@ -30,9 +35,7 @@ class sd_cca_copay(Variable):
         # The co-payment never exceeds 12% of countable income.
         copay = min_(copay, p.max_rate * countable_income)
         # BEES Section 9.2 rounds the monthly co-payment down to a whole dollar.
-        # The small tolerance prevents exact whole-dollar results represented
-        # infinitesimally below the integer from flooring to the prior dollar.
-        copay = np.floor(copay + 1e-4)
+        copay = np.floor(copay + ROUNDING_GUARD)
         # TANF enrollment waives the family co-payment. Foster and protective-
         # services waivers are child-specific: the family amount remains when
         # any ordinary eligible child is covered, and is zero only when all

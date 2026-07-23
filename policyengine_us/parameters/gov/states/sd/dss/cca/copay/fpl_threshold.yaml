@@ -4,7 +4,7 @@ description: South Dakota sets the family co-payment income threshold at this mu
 # poverty level have no co-payment; above 170%, the co-payment is a share of
 # income in excess of this threshold (Subsidy Manual, Section 9).
 values:
-  2026-08-03: 1.7
+  2026-08-01: 1.7
 
 metadata:
   unit: /1

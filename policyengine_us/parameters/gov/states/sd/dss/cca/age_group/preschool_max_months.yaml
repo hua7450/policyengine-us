@@ -4,7 +4,7 @@ description: South Dakota classifies children below this age in months as presch
 # 72 months). Children 60 through 71 months who are enrolled in school are
 # instead classified as school age (see school_age_min_months.yaml).
 values:
-  2026-08-03: 72
+  2026-08-01: 72
 
 metadata:
   unit: month

@@ -2,10 +2,10 @@ description: South Dakota requires each employed or self-employed caretaker to e
 
 # The applicant must establish at least 80 work hours per month; employed and
 # self-employed applicants must also have earnings equivalent to the federal
-# minimum wage. Dated to the modeled program start (weekly rate era,
-# 2026-08-03).
+# minimum wage. Dated to the modeled program start month (2026-08-01; the
+# weekly rate era takes effect 8/3/2026).
 values:
-  2026-08-03: 80
+  2026-08-01: 80
 
 metadata:
   unit: hour

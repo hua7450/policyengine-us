@@ -270,3 +270,33 @@
     # Expenses 3,000 exceed the cap; the co-payment is waived for
     # protective-services children. Benefit = 780.
     sd_cca: 780
+
+- name: Case 10, pre-effective period, weekly rate era not yet in effect, no benefit.
+  period: 2025-01
+  absolute_error_margin: 0.1
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 24_000
+      person2:
+        age: 0.5
+        sd_cca_provider_type: FAMILY_DAY_CARE
+        childcare_hours_per_week: 40
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+        meets_ccdf_activity_test: true
+        spm_unit_pre_subsidy_childcare_expenses: 24_000
+    households:
+      household:
+        members: [person1, person2]
+        state_code: SD
+        county_str: MINNEHAHA_COUNTY_SD
+  output:
+    # Same household as Case 1, evaluated before the weekly rate schedule
+    # takes effect in August 2026: the uses_weekly_rates gate zeroes the
+    # benefit even though the family is otherwise eligible. Only the weekly
+    # rate era is modeled; the earlier hourly schedule is a follow-up.
+    sd_cca: 0
+    sd_child_care_subsidies: 0

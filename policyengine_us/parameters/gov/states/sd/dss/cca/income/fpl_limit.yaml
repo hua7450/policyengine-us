@@ -5,7 +5,7 @@ description: South Dakota limits countable income to this multiple of the federa
 # income ceiling; continuing recipients use the state median income ceiling in
 # smi_limit.yaml.
 values:
-  2026-08-03: 2.09
+  2026-08-01: 2.09
 
 metadata:
   unit: /1

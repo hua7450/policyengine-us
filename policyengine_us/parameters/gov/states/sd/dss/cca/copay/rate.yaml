@@ -4,7 +4,7 @@ description: South Dakota sets the family co-payment as this share of countable 
 # federal poverty level multiplied by 5% (a 95% reduction) (Subsidy Manual,
 # Section 9).
 values:
-  2026-08-03: 0.05
+  2026-08-01: 0.05
 
 metadata:
   unit: /1

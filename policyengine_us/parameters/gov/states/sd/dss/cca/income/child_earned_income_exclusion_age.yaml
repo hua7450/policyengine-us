@@ -4,7 +4,7 @@ description: South Dakota excludes the earned income of children below this age 
 # adult household member, so the earned income of children under 18 is excluded
 # (Subsidy Manual, Section 4 Income Types).
 values:
-  2026-08-03: 18
+  2026-08-01: 18
 
 metadata:
   unit: year

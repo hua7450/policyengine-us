@@ -4,7 +4,7 @@ description: South Dakota limits countable income to this share of the state med
 # but not 85% of the state median income may remain eligible under the phase-out
 # (Subsidy Manual, Section 3 Phase Out; Section 10 Continuous Eligibility).
 values:
-  2026-08-03: 0.85
+  2026-08-01: 0.85
 
 metadata:
   unit: /1

@@ -1,6 +1,6 @@
 description: South Dakota counts these income sources as countable income under the Child Care Assistance program.
 values:
-  2026-08-03:
+  2026-08-01:
     # Earned income (wages, salary, commissions, tips, bonuses, fees, and
     # self-employment net of allowable business expenses).
     - employment_income

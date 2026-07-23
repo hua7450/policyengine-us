@@ -4,7 +4,7 @@ description: South Dakota caps the family co-payment at this share of gross mont
 # co-payments above this ceiling are reduced to exactly 12% (Subsidy Manual,
 # Section 9).
 values:
-  2026-08-03: 0.12
+  2026-08-01: 0.12
 
 metadata:
   unit: /1

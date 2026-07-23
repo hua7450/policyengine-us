@@ -3,7 +3,10 @@ description: South Dakota uses this indicator to determine whether the weekly re
 # The weekly region-based rate schedule takes effect August 3, 2026, replacing
 # the earlier hourly county-based schedule. Because the benefit is modeled
 # monthly, August 1 is used as the monthly approximation of that effective
-# date. Only the weekly era is modeled; the hourly era is a separate follow-up.
+# date, and every CCA parameter is dated 2026-08-01 under the same convention.
+# Only the weekly era is modeled; the hourly era is a separate follow-up. The
+# 2024-07-01 date on the false-era entry is a modeling-start placeholder, not
+# a sourced effective date for the earlier hourly schedule.
 values:
   2024-07-01: false
   2026-08-01: true

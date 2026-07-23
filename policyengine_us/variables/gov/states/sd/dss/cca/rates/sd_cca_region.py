@@ -22,7 +22,7 @@ class sd_cca_region(Variable):
     reference = "https://dss.sd.gov/docs/childcare/assistance/Provider_Rate_Regions.pdf"
 
     def formula(household, period, parameters):
-        county = household("county_str", period)
+        county = household("county_str", period.this_year)
         p = parameters(period).gov.states.sd.dss.cca.rates
         return select(
             [

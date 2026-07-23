@@ -2,9 +2,9 @@ description: South Dakota limits eligibility to children below this age under th
 
 # A child is eligible if under age 13, or turned 13 during the current
 # eligibility period (Subsidy Manual, Section 3). Dated to the modeled program
-# start (weekly rate era, 2026-08-03).
+# start month (2026-08-01; the weekly rate era takes effect 8/3/2026).
 values:
-  2026-08-03: 13
+  2026-08-01: 13
 
 metadata:
   unit: year

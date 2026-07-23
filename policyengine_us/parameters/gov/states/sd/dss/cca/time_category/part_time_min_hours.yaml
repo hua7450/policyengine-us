@@ -3,7 +3,7 @@ description: South Dakota classifies child care of at least this many hours per 
 # Part-time level of service is 16 to 27 hours per week; limited-time care is 1
 # to 15 hours per week.
 values:
-  2026-08-03: 16
+  2026-08-01: 16
 
 metadata:
   unit: hour

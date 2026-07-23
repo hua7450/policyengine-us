@@ -4,7 +4,7 @@ description: South Dakota classifies school-enrolled children at or above this a
 # 60 through 71 months old is classified as school age only when enrolled in
 # school; otherwise the child remains a preschooler through 71 months.
 values:
-  2026-08-03: 60
+  2026-08-01: 60
 
 metadata:
   unit: month
@@ -13,3 +13,5 @@ metadata:
   reference:
     - title: South Dakota Child Care Assistance Rates, effective 8/3/2026
       href: https://dss.sd.gov/docs/childcare/assistance/CCA_Weekly_Reimbursement_Rates.pdf
+    - title: South Dakota BEES Child Care Assistance Policy Manual, Section 10.2.4 School Aged Children
+      href: https://dss.sd.gov/docs/childcare/assistance/BEES_CCA_Policy_Manual.pdf#page=45

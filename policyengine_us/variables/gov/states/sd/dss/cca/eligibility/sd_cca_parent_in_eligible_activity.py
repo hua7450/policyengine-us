@@ -29,7 +29,12 @@ class sd_cca_parent_in_eligible_activity(Variable):
         # A self-employed caretaker must establish at least 80 hours per month
         # through both reported work hours and net earnings at the federal
         # minimum wage; a business loss counts as zero earnings (BEES Manual
-        # Sections 7.1 and 8.3.1).
+        # Sections 7.1 and 8.3.1). BEES Section 10.1.1 instead derives
+        # self-employment hours from net income (monthly income divided by the
+        # federal minimum wage, converted with the 4.3 factor); as a
+        # simplification, reported work hours stand in for that derivation, so
+        # a caretaker whose reported hours fall short of the income-derived
+        # hours does not qualify through this path.
         self_employment_income = person("self_employment_income", period)
         meets_self_employment_requirement = (monthly_hours >= p.monthly_hours) & (
             self_employment_income >= p.monthly_hours * min_wage

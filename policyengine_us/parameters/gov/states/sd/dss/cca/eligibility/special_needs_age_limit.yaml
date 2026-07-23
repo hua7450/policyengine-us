@@ -4,7 +4,7 @@ description: South Dakota limits eligibility to special-needs children below thi
 # 18; the limit extends to the school-enrolled age limit when the child is
 # enrolled in school and expected to graduate (Subsidy Manual, Section 3).
 values:
-  2026-08-03: 18
+  2026-08-01: 18
 
 metadata:
   unit: year

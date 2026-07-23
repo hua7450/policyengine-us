@@ -2,7 +2,7 @@ description: South Dakota classifies child care of at least this many hours per 
 
 # Full-time level of service is 28 or more hours per week.
 values:
-  2026-08-03: 28
+  2026-08-01: 28
 
 metadata:
   unit: hour

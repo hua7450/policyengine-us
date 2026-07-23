@@ -3,7 +3,7 @@ description: South Dakota classifies children below this age in months as toddle
 # The rate-table "Toddler" column covers children 12 through 35 months (under 36
 # months).
 values:
-  2026-08-03: 36
+  2026-08-01: 36
 
 metadata:
   unit: month

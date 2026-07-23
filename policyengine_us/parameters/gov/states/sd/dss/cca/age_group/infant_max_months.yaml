@@ -2,7 +2,7 @@ description: South Dakota classifies children below this age in months as infant
 
 # The rate-table "Infant" column covers children under 12 months.
 values:
-  2026-08-03: 12
+  2026-08-01: 12
 
 metadata:
   unit: month

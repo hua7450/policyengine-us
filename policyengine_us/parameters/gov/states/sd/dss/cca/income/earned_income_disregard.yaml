@@ -3,7 +3,7 @@ description: South Dakota excludes this share of earned income from countable in
 # A 4% standard deduction is allowed from all earned and self-employment income
 # before determining gross monthly countable income (Subsidy Manual, Section 5).
 values:
-  2026-08-03: 0.04
+  2026-08-01: 0.04
 
 metadata:
   unit: /1
