@@ -2,7 +2,7 @@
 # 5180:6-1-10 Appendix A maps each of Ohio's 88 counties to one of three rate
 # categories. Counties not in any list (and non-Ohio counties) fall through to
 # Category 2. The variable reads county_str directly, which we set as an input.
-# Geography parameters start 2025-11-02, so cases use 2026. A person is required
+# Geography parameters start 2025-11-01, so cases use 2026. A person is required
 # for the simulation to run.
 - name: Case 1, Brown County is rate category 1.
   period: 2026

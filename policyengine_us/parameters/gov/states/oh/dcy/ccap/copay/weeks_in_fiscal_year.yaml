@@ -1,6 +1,6 @@
 description: Ohio divides the annualized copayment by this number of weeks in the state fiscal year to determine the weekly copayment under the Publicly Funded Child Care program.
 values:
-  2022-12-01: 52
+  2022-12-11: 52
 
 metadata:
   unit: week

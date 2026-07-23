@@ -9,7 +9,7 @@
 #
 # PL 21 uses the FPG in effect each October 1, so 2026-01 cases use the 2025
 # guidelines. Family of 3 (CONTIGUOUS_US): annual 100% FPG = 26,650; monthly
-# = 2,220.83. Copay parameters start 2022-12-01 but depend on FPG, so cases
+# = 2,220.83. Copay parameters start 2022-12-11 but depend on FPG, so cases
 # use 2026.
 - name: Case 1, income at or below 100% FPG has a zero copay.
   period: 2026-01

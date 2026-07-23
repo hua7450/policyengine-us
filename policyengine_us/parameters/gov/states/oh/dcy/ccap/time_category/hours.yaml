@@ -14,16 +14,16 @@ metadata:
 # 2 = Full-time.
 brackets:
   - threshold:
-      2025-11-02: 0
+      2025-11-01: 0
     amount:
-      2025-11-02: 0
+      2025-11-01: 0
   # Part-time is 10 to fewer than 33 hours per week.
   - threshold:
-      2025-11-02: 10
+      2025-11-01: 10
     amount:
-      2025-11-02: 1
+      2025-11-01: 1
   # Full-time is 33 or more hours per week.
   - threshold:
-      2025-11-02: 33
+      2025-11-01: 33
     amount:
-      2025-11-02: 2
+      2025-11-01: 2

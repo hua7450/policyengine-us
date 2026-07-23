@@ -10,10 +10,10 @@ metadata:
       href: https://codes.ohio.gov/ohio-administrative-code/rule-5180:6-1-10
 
 GOLD:
-  2025-11-02: 0.25
+  2025-11-01: 0.25
 SILVER:
-  2025-11-02: 0.15
+  2025-11-01: 0.15
 BRONZE:
-  2025-11-02: 0.1
+  2025-11-01: 0.1
 NONE:
-  2025-11-02: 0
+  2025-11-01: 0

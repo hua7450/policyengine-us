@@ -2,7 +2,7 @@
 # 5180:6-1-10(H): Hourly is under 10 hours/week, Part-time is 10 to under
 # 33 hours/week, Full-time is 33 or more hours/week. childcare_hours_per_week
 # is a YEAR variable read with period.this_year, so it is not divided by 12.
-# Rate parameters start 2025-11-02, so cases use period 2026.
+# Rate parameters start 2025-11-01, so cases use period 2026.
 - name: Case 1, hourly care below 10 hours per week.
   period: 2026-01
   input:

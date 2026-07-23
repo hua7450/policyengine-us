@@ -9,7 +9,7 @@
 # All cases use a Category 2 center, preschool, full-time child:
 #   base = 190/week * 52 / 12 = 823.333...; customary charge is set high so the
 # (B)(1) cap does not bind except in the dedicated cap cases. Rates start
-# 2025-11-02, so cases use period 2026.
+# 2025-11-01, so cases use period 2026.
 - name: Case 1, Gold quality adds 25 percent.
   period: 2026-01
   absolute_error_margin: 0.01
