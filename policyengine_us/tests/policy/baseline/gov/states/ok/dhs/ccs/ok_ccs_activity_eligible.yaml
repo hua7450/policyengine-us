@@ -289,3 +289,49 @@
         state_code: OK
   output:
     ok_ccs_activity_eligible: true
+
+- name: Case 15, employment below 20 hours per week qualifies once the permanent rule removes the floor.
+  # A non-January period cannot set YEAR-defined inputs in the YAML harness,
+  # so the post-sunset era is tested at 2027-01 (floor is zero from
+  # 2026-09-14).
+  period: 2027-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 24_000
+        weekly_hours_worked_before_lsr: 19
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: OK
+  output:
+    # The permanent OAC 340:40-7-8 effective 2026-09-14 drops the 20-hour
+    # floor; only the minimum-wage-per-hour test applies.
+    ok_ccs_activity_eligible: true
+
+- name: Case 16, employment below 20 hours per week qualifies before the 2025 emergency amendment.
+  period: 2024-01
+  input:
+    people:
+      person1:
+        age: 30
+        employment_income: 24_000
+        weekly_hours_worked_before_lsr: 19
+      person2:
+        age: 4
+    spm_units:
+      spm_unit:
+        members: [person1, person2]
+    households:
+      household:
+        members: [person1, person2]
+        state_code: OK
+  output:
+    # The pre-2025 rule (amended 2017-10-01) had no minimum-hours floor.
+    ok_ccs_activity_eligible: true

@@ -44,6 +44,11 @@ class ok_ccs_activity_eligible(Variable):
         has_k12_parent_or_caretaker = (
             spm_unit.sum(is_parent_or_caretaker & is_in_k12_school) > 0
         )
+        # OAC 340:40-7-8(c)(1) approves care for one or both caretakers to
+        # attend high school, while (c)(2) (high school equivalency) and
+        # (c)(4) (postsecondary) require the other parent or caretaker in a
+        # two-caretaker family to work during the same hours, so a
+        # two-college-student couple does not qualify.
         education_pair_allowed = (
             (parent_or_caretaker_count == 1)
             | has_working_parent_or_caretaker
