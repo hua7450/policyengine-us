@@ -1,3 +1,31 @@
+## [1.781.2] - 2026-07-23
+
+### Fixed
+
+- Gate the Arizona Families Tax Rebate on tax liability net of nonrefundable and refundable credits per SB 1734's definition, instead of tax before credits, with the $1 minimum-liability threshold now set as a parameter rather than a hard-coded literal.
+
+
+## [1.781.1] - 2026-07-23
+
+### Fixed
+
+- Fixed SNAP eligibility so the student and immigration-status filters must be satisfied by the same household member rather than by different members.
+
+
+## [1.781.0] - 2026-07-23
+
+### Added
+
+- South Dakota Child Care Assistance (CCA) program.
+
+
+## [1.780.1] - 2026-07-23
+
+### Fixed
+
+- Key the pre-2023 Iowa child and dependent care credit percentage on net income (IA 1040 line 26) rather than taxable income, and restore the pre-2021 45,000 dollar credit cutoff.
+
+
 ## [1.780.0] - 2026-07-23
 
 ### Added

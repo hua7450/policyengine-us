@@ -41,6 +41,7 @@ values:
     - wv_child_care_subsidies  # West Virginia Child Care Assistance Program
     - nd_child_care_subsidies  # North Dakota Child Care Assistance Program
     - ok_child_care_subsidies  # Oklahoma Child Care Subsidy Program
+    - sd_child_care_subsidies  # South Dakota Child Care Assistance (CCA)
 
 metadata:
   unit: list
