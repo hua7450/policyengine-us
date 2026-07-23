@@ -1,3 +1,26 @@
+## [1.779.7] - 2026-07-22
+
+### Fixed
+
+- Fixed the Colorado sales tax refund to pay the single per-person amount when only one spouse of a joint return is eligible, instead of always doubling for joint returns.
+- Corrected the medicaid_rating_area lookup comment to match the code (county first, then three-digit zip code fallback, defaulting to 1).
+- Applied Rhode Island's pre-2015 partial (15%) refundability of the earned income tax credit amount exceeding the tax liability.
+
+
+## [1.779.6] - 2026-07-22
+
+### Fixed
+
+- Applied the basic income disability supplement to blind people in household simulations by including is_blind alongside is_ssi_disabled.
+
+
+## [1.779.5] - 2026-07-22
+
+### Fixed
+
+- Fixed a misspelled Westchester County, NY key in the CCDF copay percent parameter so the county's 27% copay is applied instead of defaulting to 100%.
+
+
 ## [1.779.4] - 2026-07-22
 
 ### Fixed
