@@ -58,6 +58,48 @@
     ia_net_income: [97_059, 0]
     ia_cdcc: 0
 
+- name: IA cdcc 45k threshold gets 30 percent from 2021
+  # r. 701-304.15 2021+ column: "$45,000 or more but less than $90,000" is 30%.
+  period: 2021
+  input:
+    cdcc_potential: 1_000
+    ia_net_income: 45_000
+    state_code: IA
+  output:
+    ia_cdcc: 300
+
+- name: IA cdcc 45k-90k band mid-point 30 percent from 2021
+  period: 2021
+  input:
+    cdcc_potential: 1_000
+    ia_net_income: 60_000
+    state_code: IA
+  output:
+    ia_cdcc: 300
+
+- name: IA cdcc combines both spouses net income for the 90k cutoff
+  # 2021 Expanded Instructions p. 86: "If you are married, your net income
+  # and the net income of your spouse must be combined to determine if you
+  # qualify"; worksheet line 2 is line 26 columns A and B. Each spouse is
+  # under 90k but the combined 100k is over.
+  period: 2021
+  input:
+    people:
+      head:
+        ia_net_income: 50_000
+      spouse:
+        ia_net_income: 50_000
+    tax_units:
+      tax_unit:
+        members: [head, spouse]
+        cdcc_potential: 1_000
+    households:
+      household:
+        members: [head, spouse]
+        state_code: IA
+  output:
+    ia_cdcc: 0
+
 - name: IA cdcc 45k-90k band gives no credit before 2021
   # r. 701-304.15: "$45,000 or more but less than $90,000" is
   # "No Credit" for tax years before January 1, 2021 (the 30% band
