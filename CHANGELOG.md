@@ -1,3 +1,10 @@
+## [1.779.9] - 2026-07-23
+
+### Changed
+
+- Update CLAUDE.md skill-loading instructions to reference current policyengine-claude plugin skills instead of removed skill names.
+
+
 ## [1.779.8] - 2026-07-23
 
 ### Fixed
